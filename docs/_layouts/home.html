@@ -1,0 +1,98 @@
+---
+layout: default
+---
+<div>
+    <div class="banner-background">
+        <section class="page-header">
+            <div class="header-container">
+                <div class="image-container">
+                    <img style="max-width: fit-content" class="logo" alt="DDK Logo" src="/img/ddk-logo.svg"/>
+                </div>
+                <div class="title-container">
+                    <div class="header-title"><h1>{{ site.title }}</h1></div>
+                    <div class="header-desc"><h3>{{ site.description }}</h3></div>
+                    <div class="header-actions">
+                        <div class="btn-div">
+                            <a href="{{ site.github.repository_url }}" class="btn" style="width: 186px">
+                                <div class="button-container">
+                                    <div class="button-item">
+                                        <span class="iconify github-icon"
+                                              data-icon="akar-icons:github-fill"
+                                              data-inline="false"
+                                              data-width="30"></span>
+                                    </div>
+                                    <div class="button-item">
+                                        View on GitHub
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="release-links">
+                            <div>Current Version:</div>
+                            <div><a class="highlight-link" href="/release/{{ site.data.versions.last | map: 'root' }}"><b>{{ site.data.versions.last | map: 'name' }}</b></a></div>
+                            <div>・</div>
+                            <div><a class="highlight-link" href="/releases">All Releases</a></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="header-container">
+                </div>
+            </div>
+
+
+        </section>
+
+    </div>
+    <section class="main-content">
+        {{ content }}
+    </section>
+    <section class="main-content">
+        <div class="main-areas">
+            <div class="box">
+                <a class="box-link" href="/release/{{ site.data.versions.last | map: 'root' }}/how-to/spend-first-hour">
+                    <div class="box-top"></div>
+                    <div class="box-content">
+                        <span class="iconify icon" data-icon="eos-icons:system-ok-outlined" data-inline="false"></span>
+                        <h3>Introduction</h3>
+                        <h5>Your first hour with the AWS DDK</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="box">
+                <a class="box-link" href="/release/{{ site.data.versions.last | map: 'root' }}/how-to">
+                    <div class="box-top"></div>
+                    <div class="box-content">
+                        <span class="iconify icon" data-icon="eos-icons:pipeline-outlined" data-inline="false"></span>
+                        <h3>How To</h3>
+                        <h5>Use-case based tutorials</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="box">
+                <a class="box-link" href="/release/{{ site.data.versions.last | map: 'root' }}/api" target=”_blank” rel="noreferrer noopener">
+                    <div class="box-top"></div>
+                    <div class="box-content">
+                        <span class="iconify icon" data-icon="eos-icons:api-outlined" data-inline="false"></span>
+                        <h3>Documentation</h3>
+                        <h5>View the API guides</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-content">
+        <div class="btn-div">
+            {% if site.github.is_project_page %}
+            <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
+            {% endif %}
+            {% if site.show_downloads %}
+            <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
+            <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>
+            {% endif %}
+        </div>
+    </section>
+</div>
