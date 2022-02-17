@@ -31,4 +31,6 @@ jobs:
           poetry config virtualenvs.create false --local
           poetry install -vvv
       - name: Tests 🧪
-        run: pytest tests/unit
+        run: |
+          cd cli/
+          pytest tests/unit
