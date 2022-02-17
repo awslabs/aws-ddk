@@ -1,8 +1,2 @@
-- name: 0.0.1
-  root: 0.0.1
-
-- name: 0.0.2
-  root: 0.0.2
-
 - name: Beta
   root: beta

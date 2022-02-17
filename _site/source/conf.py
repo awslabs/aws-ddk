@@ -3,10 +3,11 @@
 import os
 import sys
 
-paths = ["../../cli", "../../core"]
-
+current_dir = os.path.dirname(__file__)
+paths = ["cli", "core"]
 for path in paths:
-    sys.path.insert(0, os.path.abspath(path))
+    target_dir = os.path.abspath(os.path.join(current_dir, f"../../{path}"))
+    sys.path.insert(0, target_dir)
 
 
 # -- Project information -----------------------------------------------------
@@ -18,11 +19,18 @@ release = "0.1.0"
 
 
 # -- General configuration ---------------------------------------------------
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.coverage", "sphinx.ext.napoleon"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.coverage",
+    "sphinx.ext.napoleon",
+    "sphinx_click",
+]
+autosummary_generate = True  # Turn on sphinx.ext.autosummary
 templates_path = ["_templates"]
 exclude_patterns = []
 html_theme = "furo"
-#html_static_path = ["_static"]
+# html_static_path = ["_static"]
 html_title = "Contents"
 
 html_theme_options = {

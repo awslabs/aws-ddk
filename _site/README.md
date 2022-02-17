@@ -22,10 +22,10 @@ category: Advanced
 - Set ${releaseVersion} to be the version of the next release
 
 ```shell
-cd ./source
+cd ./docs/source
 pip install -r requirements.txt
-sphinx-apidoc -o ./cli ${root}/cli/aws_ddk
-sphinx-apidoc -o ./core ${root}/core/aws_ddk_core
+sphinx-apidoc -f -o ./cli ${root}/cli/aws_ddk
+sphinx-apidoc -f -o ./core ${root}/core/aws_ddk_core
 sphinx-build -b html -D release=${releaseVersion} . ../release/next/api
 ```
 
@@ -43,4 +43,12 @@ cp -R ./release/next/ ./release/${releaseVersion}
 ```yaml
 - name: # the name of the release - should be the same as ${releaseVersion}
   root: ${releaseVersion}
+```
+
+## Testing Locally with Jekyll
+- jekyll install: https://jekyllrb.com/docs/installation/
+```
+cd docs
+bundle install 
+bundle exec jekyll serve
 ```

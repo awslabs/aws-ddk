@@ -24,4 +24,3 @@ Second, you can capture DataOps best practice.  By default, the library uses  ou
 Third, we've made it easy for you to share your version of DataOps with the rest of your organisation.  These days, almost every technical team needs to handle data, but won't necessarily have a deep understanding of DataOps or AWS Infrastructure.  The AWS DDK allows you to give these teams the tools they need to manage their data with the knowledge that when they deploy AWS infrastructure, it will follow your best practice.
 
 
-
