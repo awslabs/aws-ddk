@@ -3,13 +3,13 @@ name: Pytest CLI
 on:
   push:
     branches:
-      - main
+      - pytest
   pull_request:
     branches:
       - main
 
 jobs:
-  Pytest CLI:
+  tests:
     runs-on: ubuntu-latest
     env:
       AWS_DEFAULT_REGION: us-east-1

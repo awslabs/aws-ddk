@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  Pytest Core:
+  tests:
     runs-on: ubuntu-latest
     env:
       AWS_DEFAULT_REGION: us-east-1
