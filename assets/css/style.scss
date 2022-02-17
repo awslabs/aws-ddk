@@ -1,0 +1,323 @@
+---
+---
+
+// Breakpoints
+$large-breakpoint: 72rem !default;
+$medium-breakpoint: 42rem !default;
+$small-breakpoint: 30rem !default;
+
+// Color
+$color-berry: #c9208a !default;
+$color-aqua: #36c2b4 !default;
+$color-plum: #262262 !default;
+$color-plum-medium: #504bab !default;
+$color-stone: #d4dada !default;
+$color-paper: #f1f3f3 !default;
+$color-squidink: #232F3E !default;
+
+@import "{{ site.theme }}";
+
+$color-background: $color-plum-medium;
+$color-text: $color-paper;
+$color-hover-text: $color-stone;
+$color-secondary: $color-berry;
+
+// general
+.main-content h2 {
+  color: $color-secondary;
+}
+
+.main-content h1 {
+  color: $color-secondary;
+}
+
+body {
+  color: $color-squidink;
+}
+
+// default
+.menu-bar {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.menu-background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+
+.menu-background-berry {
+    background-color: $color-background;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+nav li {
+  color: $color-text;
+  display: block;
+  float: left;
+  padding: 0.7rem;
+  position: relative;
+  text-decoration: none;
+  transition-duration: 0.5s;
+}
+
+nav li a {
+  color: $color-text;
+}
+
+nav li:hover,
+nav li:focus-within {
+  color: $color-hover-text;
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+
+nav li:focus-within a {
+  outline: none;
+  color: $color-hover-text;
+  text-decoration: none;
+}
+
+nav li:hover a {
+  color: $color-hover-text;
+  transition-duration: 0.5s;
+  text-decoration: none;
+}
+
+nav ul li:hover ul li a {
+  color: $color-squidink;
+  transition-duration: 0.5s;
+  text-decoration: none;
+}
+
+nav ul li:hover ul li:hover a {
+  color: $color-hover-text;
+  transition-duration: 0.5s;
+  text-decoration: none;
+}
+
+nav ul li ul {
+  background: $color-plum;
+  visibility: hidden;
+  opacity: 0;
+  min-width: 5rem;
+  position: absolute;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+  left: 0;
+  display: none;
+}
+
+
+nav ul li:hover > ul,
+nav ul li:focus-within > ul,
+nav ul li ul:hover,
+nav ul li ul:focus {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  animation: fadeIn linear 0.25s;
+  -webkit-animation: fadeIn linear 0.25s;
+  -moz-animation: fadeIn linear 0.25s;
+  -o-animation: fadeIn linear 0.25s;
+  -ms-animation: fadeIn linear 0.25s;
+}
+
+.nav-title {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.nav-item {
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+nav ul li ul li {
+  clear: both;
+  width: 100%;
+}
+
+.default-content-margin-top {
+  margin-top: 48px;
+}
+
+// main
+
+.page-header {
+  padding-top: 5rem;
+  background-color: $color-background;
+  background-image: none;
+  color: $color-text;
+  text-align: start;
+}
+
+.page-header h1 {
+  margin-top: -12px;
+  margin-bottom: 0;
+}
+
+.page-header h3 {
+  margin-bottom: 0;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+}
+
+.image-container {
+  width: 10%;
+}
+
+.header-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.main-areas {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+a.box-link {
+  text-decoration: none;
+  color: $color-secondary;
+}
+
+.box {
+  border: solid 1px $color-secondary;
+  border-top-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+
+.box h3 {
+  margin-top: 0;
+  color: $color-secondary;
+}
+
+.box h5 {
+  margin-top: 1rem;
+  color: $color-secondary;
+}
+
+.box-content {
+  text-align: center;
+  padding: 1rem;
+}
+
+.box-top {
+  border: solid 1px $color-secondary;
+  width: 100%;
+  height: 4px;
+  background-color: $color-secondary;
+}
+
+.icon {
+  height: 90px;
+  width: 90px;
+}
+
+.btn-div {
+  margin-top: 1rem;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+.button-item {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.header-actions {
+  margin-top: 1rem;
+}
+
+.header-actions a {
+  text-decoration: none;
+   color: $color-text;
+}
+
+.release-links {
+  display: flex;
+  flex-direction: row;
+  font-weight: 200;
+}
+
+.release-links div:not(:first-child) {
+  margin-left: 1rem;
+}
+
+.btn:hover {
+    color: rgba($color-hover-text, 0.8);
+    text-decoration: none;
+    background-color: rgba($color-hover-text, 0.2);
+    border-color: rgba($color-hover-text, 0.3);
+}
+
+.highlight-link {
+  color: $color-text;
+}
+
+.highlight-link:hover {
+  color: $color-hover-text;
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+
