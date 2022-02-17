@@ -1,0 +1,466 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: DDK bootstrap template
+
+Parameters:
+  Prefix:
+    Description: Identifier used as a prefix to resource names
+    Default: ddk
+    Type: String
+    AllowedPattern: "[A-Za-z0-9_-]{1,5}"
+    ConstraintDescription: Prefix must be an alphanumeric identifier of at most 5 characters
+  Environment:
+    Description: Name of the environment
+    Default: dev
+    Type: String
+    AllowedPattern: "[A-Za-z0-9_-]{1,4}"
+    ConstraintDescription: Environment must be an alphanumeric identifier of at most 4 characters
+  Qualifier:
+    Description: Identifier to distinguish multiple bootstrap stacks in the same environment
+    Type: String
+    Default: hnb659fds
+    # (prefix)-(qualifier)-(name)-(account)-(region) needs to be <= 64 chars
+    # account = 12, region <= 14, 10 chars for qualifier and 28 for rest of role name
+    AllowedPattern: "[A-Za-z0-9_-]{1,10}"
+    ConstraintDescription: Qualifier must be an alphanumeric identifier of at most 10 characters
+  TrustedAccounts:
+    Description: List of AWS accounts that are trusted to publish assets and deploy stacks to this environment
+    Default: ""
+    Type: CommaDelimitedList
+  CloudFormationExecutionPolicies:
+    Description: List of the ManagedPolicy ARN(s) to attach to the CloudFormation deployment role
+    Default: ""
+    Type: CommaDelimitedList
+  CloudFormationExecutionPermissionsBoundaryPolicy:
+    Description: ManagedPolicy ARN of the permissions boundary to attach to the CloudFormation deployment role
+    Default: ""
+    Type: String
+
+Conditions:
+  HasTrustedAccounts:
+    Fn::Not:
+      - Fn::Equals:
+          - ""
+          - Fn::Join:
+              - ""
+              - Ref: TrustedAccounts
+  HasCloudFormationExecutionPolicies:
+    Fn::Not:
+      - Fn::Equals:
+          - ""
+          - Fn::Join:
+              - ""
+              - Ref: CloudFormationExecutionPolicies
+  HasCloudFormationExecutionPermissionsBoundaryPolicy:
+    Fn::Not:
+      - Fn::Equals:
+          - ""
+          - Ref: CloudFormationExecutionPermissionsBoundaryPolicy
+
+Resources:
+  AssetsEncryptionKey:
+    Type: AWS::KMS::Key
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: F76
+            reason: Condition on service is applied
+    Properties:
+      EnableKeyRotation: true
+      KeyPolicy:
+        Statement:
+          - Action:
+              - kms:CancelKeyDeletion
+              - kms:Create*
+              - kms:Delete*
+              - kms:Describe*
+              - kms:Disable*
+              - kms:Enable*
+              - kms:GenerateDataKey
+              - kms:Get*
+              - kms:List*
+              - kms:Put*
+              - kms:Revoke*
+              - kms:ScheduleKeyDeletion
+              - kms:Update*
+            Effect: Allow
+            Principal:
+              AWS:
+                Ref: AWS::AccountId
+            Resource: "*"
+          - Action:
+              - kms:Decrypt
+              - kms:DescribeKey
+              - kms:Encrypt
+              - kms:GenerateDataKey*
+              - kms:ReEncrypt*
+            Effect: Allow
+            Principal:
+              AWS: "*"
+            Resource: "*"
+            Condition:
+              StringEquals:
+                # See https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-caller-account
+                kms:CallerAccount:
+                  Ref: AWS::AccountId
+                kms:ViaService:
+                  - Fn::Sub: s3.${AWS::Region}.amazonaws.com
+          - Action:
+              - kms:Decrypt
+              - kms:DescribeKey
+              - kms:Encrypt
+              - kms:GenerateDataKey*
+              - kms:ReEncrypt*
+            Effect: Allow
+            Principal:
+              AWS:
+                Fn::Sub: ${FilePublishingRole.Arn}
+            Resource: "*"
+
+  AssetsEncryptionKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName:
+        Fn::Sub: alias/${Prefix}-${Environment}-${Qualifier}-assets-key
+      TargetKeyId:
+        Ref: AssetsEncryptionKey
+
+  StagingBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-assets-${AWS::AccountId}-${AWS::Region}
+      AccessControl: Private
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+              KMSMasterKeyID:
+                Fn::Sub: ${AssetsEncryptionKey.Arn}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+
+  StagingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: { Ref: StagingBucket }
+      PolicyDocument:
+        Id: AccessControl
+        Version: 2012-10-17
+        Statement:
+          - Sid: AllowSSLRequestsOnly
+            Action: s3:*
+            Effect: Deny
+            Resource:
+              - { "Fn::Sub": "${StagingBucket.Arn}" }
+              - { "Fn::Sub": "${StagingBucket.Arn}/*" }
+            Condition:
+              Bool: { "aws:SecureTransport": false }
+            Principal: "*"
+
+  FilePublishingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              AWS:
+                Ref: AWS::AccountId
+          - Fn::If:
+              - HasTrustedAccounts
+              - Action: sts:AssumeRole
+                Effect: Allow
+                Principal:
+                  AWS:
+                    Ref: TrustedAccounts
+              - Ref: AWS::NoValue
+      RoleName:
+        Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-file-publish-${AWS::AccountId}-${AWS::Region}
+      Tags:
+        - Key: aws-cdk:bootstrap-role
+          Value: file-publishing
+
+  FilePublishingRoleDefaultPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:Abort*
+              - s3:DeleteObject*
+              - s3:GetBucket*
+              - s3:GetObject*
+              - s3:List*
+              - s3:PutObject*
+            Resource:
+              - Fn::Sub: ${StagingBucket.Arn}
+              - Fn::Sub: ${StagingBucket.Arn}/*
+            Effect: Allow
+          - Action:
+              - kms:Decrypt
+              - kms:DescribeKey
+              - kms:Encrypt
+              - kms:GenerateDataKey*
+              - kms:ReEncrypt*
+            Effect: Allow
+            Resource:
+              Fn::Sub: ${AssetsEncryptionKey.Arn}
+        Version: 2012-10-17
+      Roles:
+        - Ref: FilePublishingRole
+      PolicyName:
+        Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-file-publish-${AWS::AccountId}-${AWS::Region}
+
+  LookupRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              AWS:
+                Ref: AWS::AccountId
+          - Fn::If:
+              - HasTrustedAccounts
+              - Action: sts:AssumeRole
+                Effect: Allow
+                Principal:
+                  AWS:
+                    Ref: TrustedAccounts
+              - Ref: AWS::NoValue
+      ManagedPolicyArns:
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/ReadOnlyAccess
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Sid: DontReadSecrets
+                Effect: Deny
+                Action:
+                  - kms:Decrypt
+                Resource: "*"
+            Version: "2012-10-17"
+          PolicyName:
+            Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-lookup-${AWS::AccountId}-${AWS::Region}
+      RoleName:
+        Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-lookup-${AWS::AccountId}-${AWS::Region}
+      Tags:
+        - Key: aws-cdk:bootstrap-role
+          Value: lookup
+
+  DeploymentActionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              AWS:
+                Ref: AWS::AccountId
+          - Fn::If:
+              - HasTrustedAccounts
+              - Action: sts:AssumeRole
+                Effect: Allow
+                Principal:
+                  AWS:
+                    Ref: TrustedAccounts
+              - Ref: AWS::NoValue
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudformation:DescribeStackEvents
+                  - cloudformation:GetTemplate
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - cloudformation:CreateChangeSet
+                  - cloudformation:DeleteChangeSet
+                  - cloudformation:DescribeChangeSet
+                  - cloudformation:DescribeStacks
+                  - cloudformation:ExecuteChangeSet
+                Resource:
+                  - Fn::Sub: arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
+                  - Fn::Sub: arn:${AWS::Partition}:cloudformation:${AWS::Region}:aws:transform/*
+              - Effect: Allow
+                Action:
+                  # Permissions needed by the CLI when doing `cdk deploy`.
+                  # Our CI/CD does not need DeleteStack,
+                  # but we also want to use this role from the CLI,
+                  # and there you can call `cdk destroy`
+                  - cloudformation:DeleteStack
+                  - cloudformation:DescribeStackEvents
+                  - cloudformation:GetTemplate
+                  - cloudformation:UpdateTerminationProtection
+                Resource:
+                  - Fn::Sub: arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
+              - Effect: Allow
+                Action:
+                  - s3:Abort*
+                  - s3:DeleteObject*
+                  - s3:GetBucket*
+                  - s3:GetObject*
+                  - s3:List*
+                  - s3:PutObject*
+                Resource:
+                  - Fn::Sub: ${StagingBucket.Arn}
+                  - Fn::Sub: ${StagingBucket.Arn}/*
+              - Effect: Allow
+                Action:
+                  # Use keys only for the purposes of reading encrypted files from S3.
+                  # https://aws.amazon.com/premiumsupport/knowledge-center/codepipeline-deploy-cloudformation/.
+                  - kms:Decrypt
+                  - kms:DescribeKey
+                  - kms:Encrypt
+                  - kms:GenerateDataKey*
+                  - kms:ReEncrypt*
+                Resource: "*"
+                Condition:
+                  StringEquals:
+                    kms:ViaService:
+                      Fn::Sub: s3.${AWS::Region}.amazonaws.com
+              - Effect: Allow
+                Action: iam:PassRole
+                Resource:
+                  Fn::Sub: ${CloudFormationExecutionRole.Arn}
+              - Effect: Allow
+                Action:
+                  - sts:GetCallerIdentity
+                Resource: "*"
+              - Sid: ReadSSM
+                Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                Resource:
+                  - Fn::Sub: arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter${CdkBootstrapVersion}
+                  - Fn::Sub: arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${Prefix}/*
+            Version: 2012-10-17
+          PolicyName:
+            Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-deploy-${AWS::AccountId}-${AWS::Region}
+      RoleName:
+        Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-deploy-${AWS::AccountId}-${AWS::Region}
+      Tags:
+        - Key: aws-cdk:bootstrap-role
+          Value: deploy
+
+  CloudFormationExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        Fn::If:
+          - HasCloudFormationExecutionPolicies
+          - Ref: CloudFormationExecutionPolicies
+          - - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess
+      RoleName:
+        Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-cfn-exec-${AWS::AccountId}-${AWS::Region}
+      PermissionsBoundary:
+        Fn::If:
+          - HasCloudFormationExecutionPermissionsBoundaryPolicy
+          - Ref: CloudFormationExecutionPermissionsBoundaryPolicy
+          - Ref: CloudFormationExecutionPermissionsBoundaryDefaultPolicy
+
+  # Permission boundary applied to each DDK IAM role in the account
+  # https://www.wellarchitectedlabs.com/security/300_labs/300_iam_permission_boundaries_delegating_role_creation/
+  CloudFormationExecutionPermissionsBoundaryDefaultPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: F5
+          - id: F40
+            reason: This is a permission boundary added as an additional layer of security
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          ##################################################################
+          # Deny dangerous actions that could escalate privilege or cause security incident
+          ##################################################################
+          # DenyChangeAccountPublicAccess
+          - Effect: Deny
+            Action:
+              - s3:PutAccountPublicAccessBlock
+            Resource: "*"
+            # DenyBoundaryPolicyEdit
+          - Effect: Deny
+            Action:
+              - iam:CreatePolicyVersion
+              - iam:DeletePolicy
+              - iam:DeletePolicyVersion
+              - iam:SetDefaultPolicyVersion
+            Resource:
+              - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${Prefix}-${Environment}-${Qualifier}-permissions-boundary-${AWS::AccountId}-${AWS::Region}
+            # DenyBoundaryDelete
+          - Effect: Deny
+            Action:
+              - iam:DeleteRolePermissionsBoundary
+            Resource:
+              - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*
+            Condition:
+              ForAnyValue:StringEquals:
+                iam:PermissionsBoundary:
+                  - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${Prefix}-${Environment}-${Qualifier}-permissions-boundary-${AWS::AccountId}-${AWS::Region}
+            # DenyBoundaryUpdateIfNotAddingBoundary
+          - Effect: Deny
+            Action:
+              - iam:PutRolePermissionsBoundary
+            Resource:
+              - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*
+            Condition:
+              ForAnyValue:StringNotEquals:
+                iam:PermissionsBoundary:
+                  - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${Prefix}-${Environment}-${Qualifier}-permissions-boundary-${AWS::AccountId}-${AWS::Region}
+            # This is NOT providing admin access. The aim of this permission boundary is simply to allow all actions except the ones denied above
+            # Users still need to define IAM roles following least privilege and attach this permission boundary to them as an additional security layer
+            # https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html#access_policies_boundaries-eval-logic
+          - Effect: Allow
+            Action: "*"
+            Resource: "*"
+      ManagedPolicyName:
+        Fn::Sub: ${Prefix}-${Environment}-${Qualifier}-permissions-boundary-${AWS::AccountId}-${AWS::Region}
+
+  ### SSM Parameters ###
+  CdkBootstrapVersion:
+    # The SSM parameter is used in pipeline-deployed templates to verify the version
+    # of the bootstrap resources.
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Name:
+        Fn::Sub: /${Prefix}/${Environment}/${Qualifier}/bootstrap-version
+      Value: "10"
+
+Outputs:
+  BucketName:
+    Description: The name of the S3 bucket owned by the CDK toolkit stack
+    Value:
+      Fn::Sub: ${StagingBucket}
+  BucketDomainName:
+    Description: The domain name of the S3 bucket owned by the CDK toolkit stack
+    Value:
+      Fn::Sub: ${StagingBucket.RegionalDomainName}
+  # The Output is used by the CLI to verify the version of the bootstrap resources.
+  BootstrapVersion:
+    Description:
+      The version of the bootstrap resources that are currently mastered
+      in this stack
+    Value:
+      Fn::GetAtt: [CdkBootstrapVersion, Value]
