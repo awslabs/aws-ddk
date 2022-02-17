@@ -3,7 +3,7 @@ name: Pytest Core
 on:
   push:
     branches:
-      - main
+      - pytest
   pull_request:
     branches:
       - main
