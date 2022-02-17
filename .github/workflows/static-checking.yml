@@ -34,15 +34,9 @@ jobs:
           mypy --install-types --non-interactive cli
       - name: Flake8 Lint
         run: flake8 .
-      - name: Pylint Lint
-        run: pylint -j 0 co
       - name: Black style
         run: black --check .
       - name: Imports order check (isort)
         run: isort --check .
-      - name: Documentation Lint
-        run: |
-          pydocstyle core/ --convention=numpy
-          pydocstyle cli/ --convention=numpy
       - name: Documentation check
         run: doc8 --ignore D005,D002 --max-line-length 120 docs/source
