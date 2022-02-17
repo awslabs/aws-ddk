@@ -3,7 +3,7 @@ name: Pytest CLI
 on:
   push:
     branches:
-      - pytest
+      - main
   pull_request:
     branches:
       - main
