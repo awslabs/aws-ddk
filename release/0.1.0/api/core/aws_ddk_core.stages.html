@@ -2,8 +2,7 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="aws_ddk package" href="../cli/aws_ddk.html" /><link rel="prev" title="aws_ddk_core.resources package" href="aws_ddk_core.resources.html" />
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="aws_ddk package" href="../cli/aws_ddk.html" /><link rel="prev" title="aws_ddk_core.resources package" href="aws_ddk_core.resources.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
         <title>aws_ddk_core.stages package - Contents</title>
@@ -202,24 +201,382 @@
           </label>
         </div>
         <article role="main">
-          <section id="aws-ddk-core-stages-package">
+          <div class="section" id="aws-ddk-core-stages-package">
 <h1>aws_ddk_core.stages package<a class="headerlink" href="#aws-ddk-core-stages-package" title="Permalink to this headline">¶</a></h1>
-<section id="submodules">
+<div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="aws-ddk-core-stages-glue-transform-module">
-<h2>aws_ddk_core.stages.glue_transform module<a class="headerlink" href="#aws-ddk-core-stages-glue-transform-module" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="aws-ddk-core-stages-s3-event-module">
-<h2>aws_ddk_core.stages.s3_event module<a class="headerlink" href="#aws-ddk-core-stages-s3-event-module" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="aws-ddk-core-stages-sqs-lambda-module">
-<h2>aws_ddk_core.stages.sqs_lambda module<a class="headerlink" href="#aws-ddk-core-stages-sqs-lambda-module" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-</section>
-</section>
+</div>
+<div class="section" id="module-aws_ddk_core.stages.glue_transform">
+<span id="aws-ddk-core-stages-glue-transform-module"></span><h2>aws_ddk_core.stages.glue_transform module<a class="headerlink" href="#module-aws_ddk_core.stages.glue_transform" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.glue_transform.GlueTransformStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.glue_transform.</span></span><span class="sig-name descname"><span class="pre">GlueTransformStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.glue_transform.GlueTransformStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.pipelines.stage.Stage</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.glue_transform.GlueTransformStage.get_event_pattern">
+<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.glue_transform.GlueTransformStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output event pattern of the stage.</p>
+<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
+event patterns to select events and route them to targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[EventPattern]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.glue_transform.GlueTransformStage.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.glue_transform.GlueTransformStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input targets of the stage.</p>
+<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.glue_transform.GlueTransformStage.state_machine">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_machine</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_stepfunctions.StateMachine</span></em><a class="headerlink" href="#aws_ddk_core.stages.glue_transform.GlueTransformStage.state_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>StateMachine
+The StateMachine</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="module-aws_ddk_core.stages.s3_event">
+<span id="aws-ddk-core-stages-s3-event-module"></span><h2>aws_ddk_core.stages.s3_event module<a class="headerlink" href="#module-aws_ddk_core.stages.s3_event" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.s3_event.S3EventStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.s3_event.</span></span><span class="sig-name descname"><span class="pre">S3EventStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.s3_event.S3EventStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.pipelines.stage.Stage</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.s3_event.S3EventStage.event_pattern">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">event_pattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_events.EventPattern</span></em><a class="headerlink" href="#aws_ddk_core.stages.s3_event.S3EventStage.event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>EventPattern
+The S3 event pattern</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.s3_event.S3EventStage.get_event_pattern">
+<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.s3_event.S3EventStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output event pattern of the stage.</p>
+<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
+event patterns to select events and route them to targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[EventPattern]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.s3_event.S3EventStage.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.s3_event.S3EventStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input targets of the stage.</p>
+<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.s3_event.S3EventStage.trail">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trail</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_cloudtrail.Trail</span></em><a class="headerlink" href="#aws_ddk_core.stages.s3_event.S3EventStage.trail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trail
+The CloudTrail Trail</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.s3_event.S3EventStage.trail_bucket">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trail_bucket</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_s3.IBucket</span></em><a class="headerlink" href="#aws_ddk_core.stages.s3_event.S3EventStage.trail_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>IBucket
+The CloudTrail Trail bucket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="module-aws_ddk_core.stages.sqs_lambda">
+<span id="aws-ddk-core-stages-sqs-lambda-module"></span><h2>aws_ddk_core.stages.sqs_lambda module<a class="headerlink" href="#module-aws_ddk_core.stages.sqs_lambda" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.sqs_lambda.</span></span><span class="sig-name descname"><span class="pre">SqsToLambdaStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.pipelines.stage.Stage</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.dlq">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dlq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sqs.DeadLetterQueue</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.dlq" title="Permalink to this definition">¶</a></dt>
+<dd><p>DeadLetterQueue
+The SQS dead letter queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.function">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_lambda.IFunction</span></em><a class="headerlink" href="#aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function
+The Lambda function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.get_event_pattern">
+<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output event pattern of the stage.</p>
+<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
+event patterns to select events and route them to targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[EventPattern]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input targets of the stage.</p>
+<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.queue">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">queue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_sqs.IQueue</span></em><a class="headerlink" href="#aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queue
+The SQS queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="module-aws_ddk_core.stages">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aws_ddk_core.stages" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.GlueTransformStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.</span></span><span class="sig-name descname"><span class="pre">GlueTransformStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.GlueTransformStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.pipelines.stage.Stage</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.GlueTransformStage.get_event_pattern">
+<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.GlueTransformStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output event pattern of the stage.</p>
+<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
+event patterns to select events and route them to targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[EventPattern]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.GlueTransformStage.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.GlueTransformStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input targets of the stage.</p>
+<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.GlueTransformStage.state_machine">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_machine</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_stepfunctions.StateMachine</span></em><a class="headerlink" href="#aws_ddk_core.stages.GlueTransformStage.state_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>StateMachine
+The StateMachine</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.</span></span><span class="sig-name descname"><span class="pre">S3EventStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.pipelines.stage.Stage</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.event_pattern">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">event_pattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_events.EventPattern</span></em><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>EventPattern
+The S3 event pattern</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.get_event_pattern">
+<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output event pattern of the stage.</p>
+<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
+event patterns to select events and route them to targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[EventPattern]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input targets of the stage.</p>
+<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.trail">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trail</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_cloudtrail.Trail</span></em><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.trail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trail
+The CloudTrail Trail</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.trail_bucket">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trail_bucket</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_s3.IBucket</span></em><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.trail_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>IBucket
+The CloudTrail Trail bucket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.</span></span><span class="sig-name descname"><span class="pre">SqsToLambdaStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.pipelines.stage.Stage</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.dlq">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dlq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sqs.DeadLetterQueue</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.dlq" title="Permalink to this definition">¶</a></dt>
+<dd><p>DeadLetterQueue
+The SQS dead letter queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.function">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_lambda.IFunction</span></em><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function
+The Lambda function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.get_event_pattern">
+<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output event pattern of the stage.</p>
+<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
+event patterns to select events and route them to targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[EventPattern]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input targets of the stage.</p>
+<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.queue">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">queue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_sqs.IQueue</span></em><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queue
+The SQS queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Return</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
 
         </article>
       </div>
@@ -272,10 +629,10 @@
             <ul>
 <li><a class="reference internal" href="#">aws_ddk_core.stages package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#aws-ddk-core-stages-glue-transform-module">aws_ddk_core.stages.glue_transform module</a></li>
-<li><a class="reference internal" href="#aws-ddk-core-stages-s3-event-module">aws_ddk_core.stages.s3_event module</a></li>
-<li><a class="reference internal" href="#aws-ddk-core-stages-sqs-lambda-module">aws_ddk_core.stages.sqs_lambda module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-aws_ddk_core.stages.glue_transform">aws_ddk_core.stages.glue_transform module</a></li>
+<li><a class="reference internal" href="#module-aws_ddk_core.stages.s3_event">aws_ddk_core.stages.s3_event module</a></li>
+<li><a class="reference internal" href="#module-aws_ddk_core.stages.sqs_lambda">aws_ddk_core.stages.sqs_lambda module</a></li>
+<li><a class="reference internal" href="#module-aws_ddk_core.stages">Module contents</a></li>
 </ul>
 </li>
 </ul>
