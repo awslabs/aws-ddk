@@ -69,7 +69,7 @@ body:
       required: true
   - type: input
     attributes:
-      label: AWS DataWrangler version
+      label: AWS DDK version
     validations:
       required: true
   - type: textarea
