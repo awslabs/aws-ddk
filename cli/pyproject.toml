@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "aws_ddk"
+name = "aws-ddk"
 version = "0.1.0"
 description = "AWS DataOps Delivery Kit - CLI"
 authors = [
