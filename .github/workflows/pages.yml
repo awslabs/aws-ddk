@@ -1,7 +1,9 @@
 name: Github Pages Update
 on:
   push:
-      branches: [main]
+    paths:
+    - "docs/**"
+    branches: [main]
 jobs:
   deploy-docs:
     concurrency: ci-${{ github.ref }}
