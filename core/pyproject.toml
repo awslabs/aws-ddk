@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "aws_ddk_core"
+version = "0.1.0"
+description = "AWS DataOps Delivery Kit - Core"
+authors = [
+    "AWS Professional Services <aws-proserve-opensource@amazon.com>"
+]
+license = "Apache-2.0"
+readme = "README.md"
+
+include = ["README.md", "LICENSE.txt", "NOTICE.txt", "THIRD_PARTY.txt"]
+
+exclude = ["*.so", "*.pyc", "*~", "#*", ".git*", ".coverage*", "DS_Store", "__pycache__"]
+
+keywords = ["aws", "ddk", "dataops", "core"]
+
+homepage = "TBD"
+repository = "https://github.com/awslabs/aws-ddk"
+documentation = "TBD"
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1, <3.11"
+aws-cdk-lib = "^2.8.0"
+marshmallow = "^3.14.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

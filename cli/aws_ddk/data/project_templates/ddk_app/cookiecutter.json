@@ -1,0 +1,9 @@
+{
+    "environment_id": "dev",
+    "directory_name": "ddk_app",
+    "package_name": "ddk_app",
+    "stack_file_name": "ddk_app_stack",
+    "stack_name": "DDKApplicationStack",
+    "ddk_version": "0.1.0",
+    "python_executable": "python3"
+}
