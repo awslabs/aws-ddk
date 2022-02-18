@@ -34,5 +34,7 @@ jobs:
       - name: Tests 🧪
         run: |
           aws configure set default.region $AWS_DEFAULT_REGION
+          aws configure set default.aws_access_key_id dummyvalue
+          aws configure set default.aws_secret_access_key dummyvalue
           cd cli/
           pytest tests/unit
