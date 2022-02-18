@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AWS_DEFAULT_REGION: us-east-1
+      AWS_PROFILE: default
     strategy:
       matrix:
         python-version: [3.7]
@@ -32,5 +33,6 @@ jobs:
           poetry install -vvv
       - name: Tests 🧪
         run: |
+          aws configure set default.region $AWS_DEFAULT_REGION
           cd cli/
           pytest tests/unit
