@@ -1,0 +1,40 @@
+name: Pytest Core
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "core/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "core/**"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      AWS_DEFAULT_REGION: us-east-1
+    strategy:
+      matrix:
+        python-version: [3.7]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }} 🐍
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Requirements 📒
+        run: |
+          cd core/
+          python -m pip install --upgrade pip
+          python -m pip install poetry
+          poetry config virtualenvs.create false --local
+          poetry install -vvv
+      - name: Tests 🧪
+        run: |
+          cd core/
+          pytest tests/unit
