@@ -3,7 +3,7 @@
     "directory_name": "ddk_app",
     "package_name": "ddk_app",
     "stack_file_name": "ddk_app_stack",
-    "stack_name": "DDKApplicationStack",
+    "stack_name": "DdkApplicationStack",
     "ddk_version": "0.1.0",
     "python_executable": "python3"
 }

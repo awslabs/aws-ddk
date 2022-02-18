@@ -56,7 +56,7 @@ def test_bootstrap() -> None:
         bootstrap,
         ["--prefix", prefix, "--environment", environment],
     )
-    stack_name = f"{prefix.title()}Bootstrap{environment.title()}"
+    stack_name = f"{prefix.title()}{environment.title()}Bootstrap"
     assert cloudformation.describe_stacks(StackName=stack_name)["Stacks"][0]["StackName"] == stack_name
 
 
