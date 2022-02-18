@@ -75,7 +75,7 @@ def bootstrap_account(
     echo(f"Bootstrapping environment {environment} - AWS account {get_account_id()} and region {get_region()}...")
     _logger.debug(f"parameters: {parameters}")
     cfn.deploy_template(
-        stack_name=f"{prefix.title()}Bootstrap{environment.title()}",
+        stack_name=f"{prefix.title()}{environment.title()}Bootstrap",
         file_name=os.path.join(get_package_root(), DEFAULT_BOOTSTRAP_TEMPLATE),
         parameters=parameters,
         tags=key_value_tags,
