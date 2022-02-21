@@ -208,219 +208,19 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="core/aws_ddk_core.html">aws_ddk_core package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="core/aws_ddk_core.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="core/aws_ddk_core.html#module-aws_ddk_core">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/aws_ddk_core.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cli/aws_ddk.html">aws_ddk package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#module-aws_ddk.exceptions">aws_ddk.exceptions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#module-aws_ddk.sh">aws_ddk.sh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#module-aws_ddk.utils">aws_ddk.utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#module-aws_ddk">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#aws-ddk-exceptions-module">aws_ddk.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#aws-ddk-sh-module">aws_ddk.sh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#aws-ddk-utils-module">aws_ddk.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/aws_ddk.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="ddk">
-<h2>ddk<a class="headerlink" href="#ddk" title="Permalink to this headline">¶</a></h2>
-<p>AWS DDK CLI.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ddk <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-version">
-<span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ddk-version" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show the version and exit.</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-debug">
-<span id="cmdoption-ddk-no-debug"></span><span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ddk-debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Turn debug logging on/off.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>False</p>
-</dd>
-</dl>
-</dd></dl>
-<div class="section" id="ddk-bootstrap">
-<h3>bootstrap<a class="headerlink" href="#ddk-bootstrap" title="Permalink to this headline">¶</a></h3>
-<p>Bootstrap the AWS account with DDK resources.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ddk bootstrap <span class="o">[</span>OPTIONS<span class="o">]</span>
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-e">
-<span id="cmdoption-ddk-bootstrap-environment"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--environment</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;environment&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-e" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Required</strong> The id of the environment.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>dev</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-p">
-<span id="cmdoption-ddk-bootstrap-profile"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--profile</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;profile&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-p" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use a specific profile from your AWS credentials file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>default</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-r">
-<span id="cmdoption-ddk-bootstrap-region"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--region</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;region&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-r" title="Permalink to this definition">¶</a></dt>
-<dd><p>AWS Region name (e.g. us-east-1). If None, it will be inferred.</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-prefix">
-<span class="sig-name descname"><span class="pre">--prefix</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;prefix&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-prefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>The prefix to resource names.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>ddk</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-qualifier">
-<span class="sig-name descname"><span class="pre">--qualifier</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;qualifier&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-qualifier" title="Permalink to this definition">¶</a></dt>
-<dd><p>The CDK bootstrap qualifier.</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-a">
-<span id="cmdoption-ddk-bootstrap-trusted-accounts"></span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--trusted-accounts</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;trusted_accounts&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-a" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of trusted AWS accounts to perform deployments (e.g. -a 111111111111 -a 222222222222).</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-i">
-<span id="cmdoption-ddk-bootstrap-iam-policies"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--iam-policies</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;iam_policies&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-i" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of IAM managed policy ARNs that should be attached to the role performing deployments.
-(e.g. -i arn1 -i arn2)</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-permissions-boundary">
-<span class="sig-name descname"><span class="pre">--permissions-boundary</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;permissions_boundary&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-permissions-boundary" title="Permalink to this definition">¶</a></dt>
-<dd><p>IAM managed permissions boundary policy ARN that should be attached to the role performing deployments.</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-bootstrap-t">
-<span id="cmdoption-ddk-bootstrap-tags"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--tags</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tags&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-bootstrap-t" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of tags to apply to the stack (e.g -t CostCenter 1984 -t Framework DDK).</p>
-</dd></dl>
-</div>
-<div class="section" id="ddk-create-repository">
-<h3>create-repository<a class="headerlink" href="#ddk-create-repository" title="Permalink to this headline">¶</a></h3>
-<p>Create a code repository from the source system provider.</p>
-<p>NAME is the name of the repository.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ddk create-repository <span class="o">[</span>OPTIONS<span class="o">]</span> NAME
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-create-repository-p">
-<span id="cmdoption-ddk-create-repository-profile"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--profile</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;profile&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-create-repository-p" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use a specific profile from your AWS credentials file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>default</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-create-repository-r">
-<span id="cmdoption-ddk-create-repository-region"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--region</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;region&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-create-repository-r" title="Permalink to this definition">¶</a></dt>
-<dd><p>AWS Region name (e.g. us-east-1). If None, it will be inferred.</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-create-repository-d">
-<span id="cmdoption-ddk-create-repository-description"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--description</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;description&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-create-repository-d" title="Permalink to this definition">¶</a></dt>
-<dd><p>The description of the repository.</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-create-repository-t">
-<span id="cmdoption-ddk-create-repository-tags"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--tags</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tags&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-create-repository-t" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of tags to apply to the repository (e.g -t CostCenter 1984 -t Framework DDK).</p>
-</dd></dl>
-<p class="rubric">Arguments</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-create-repository-arg-NAME">
-<span id="cmdoption-ddk-create-repository-arg-name"></span><span class="sig-name descname"><span class="pre">NAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ddk-create-repository-arg-NAME" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required argument</p>
-</dd></dl>
-</div>
-<div class="section" id="ddk-deploy">
-<h3>deploy<a class="headerlink" href="#ddk-deploy" title="Permalink to this headline">¶</a></h3>
-<p>Deploy DDK stacks to AWS account.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ddk deploy <span class="o">[</span>OPTIONS<span class="o">]</span>
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-deploy-p">
-<span id="cmdoption-ddk-deploy-profile"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--profile</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;profile&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-deploy-p" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use a specific profile from your AWS credentials file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>default</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-deploy-require-approval">
-<span class="sig-name descname"><span class="pre">--require-approval</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;require_approval&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-deploy-require-approval" title="Permalink to this definition">¶</a></dt>
-<dd><p>What security-sensitive changes need manual approval.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Options</dt>
-<dd class="field-odd"><p>never | any-change | broadening</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-deploy-f">
-<span id="cmdoption-ddk-deploy-force"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--force</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ddk-deploy-f" title="Permalink to this definition">¶</a></dt>
-<dd><p>Always deploy stack even if templates are identical.</p>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-deploy-o">
-<span id="cmdoption-ddk-deploy-output-dir"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-dir</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_dir&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-deploy-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directory where cloud assembly is synthesized.</p>
-</dd></dl>
-</div>
-<div class="section" id="ddk-init">
-<h3>init<a class="headerlink" href="#ddk-init" title="Permalink to this headline">¶</a></h3>
-<p>Create the local structure for a new AWS DDK Python project.</p>
-<p>NAME is the name of the project.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ddk init <span class="o">[</span>OPTIONS<span class="o">]</span> NAME
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-init-e">
-<span id="cmdoption-ddk-init-environment"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--environment</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;environment&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-init-e" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Required</strong> The id of the environment.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>dev</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-init-t">
-<span id="cmdoption-ddk-init-template"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--template</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;template&gt;</span></span><a class="headerlink" href="#cmdoption-ddk-init-t" title="Permalink to this definition">¶</a></dt>
-<dd><p>A directory containing a project template directory, or a URL to a git repository</p>
-</dd></dl>
-<p class="rubric">Arguments</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-ddk-init-arg-NAME">
-<span id="cmdoption-ddk-init-arg-name"></span><span class="sig-name descname"><span class="pre">NAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-ddk-init-arg-NAME" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required argument</p>
-</dd></dl>
-</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -469,16 +269,7 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">AWS DDK API Documentation</a><ul>
-<li><a class="reference internal" href="#ddk">ddk</a><ul>
-<li><a class="reference internal" href="#ddk-bootstrap">bootstrap</a></li>
-<li><a class="reference internal" href="#ddk-create-repository">create-repository</a></li>
-<li><a class="reference internal" href="#ddk-deploy">deploy</a></li>
-<li><a class="reference internal" href="#ddk-init">init</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">AWS DDK API Documentation</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
