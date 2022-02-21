@@ -3,13 +3,13 @@ name: CFN Nag
 on:
   workflow_dispatch:
   push:
-    # paths:
-    # - "cli/aws_ddk/data/cloudformation_templates/**"
+    paths:
+    - "cli/aws_ddk/data/cloudformation_templates/**"
     branches:
     - main
   pull_request:
-    paths:
-    - "cli/aws_ddk/data/cloudformation_templates/**"
+    # paths:
+    # - "cli/aws_ddk/data/cloudformation_templates/**"
     branches:
     - main
 
