@@ -20,5 +20,5 @@ Documentation: TBD
 
 __version__: str = "0.1.1"
 __title__: str = "aws_ddk"
-__description__: str = "AWS DataOps Delivery Kit - CLI"
+__description__: str = "AWS DataOps Development Kit - CLI"
 __license__: str = "Apache-2.0"

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "aws-ddk-core"
 version = "0.1.1"
-description = "AWS DataOps Delivery Kit - Core"
+description = "AWS DataOps Development Kit - Core"
 authors = [
     "AWS Professional Services <aws-proserve-opensource@amazon.com>"
 ]
