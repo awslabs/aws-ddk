@@ -33,7 +33,7 @@ jobs:
           mypy --install-types --non-interactive core
           mypy --install-types --non-interactive cli
       - name: Flake8 Lint
-        run: flake8 . --ignore W293
+        run: flake8 .
       - name: Black style
         run: black --check .
       - name: Imports order check (isort)

@@ -28,7 +28,7 @@ class Pipeline(Construct):
         Pipeline(self, id, description="My pipeline")
             .add_stage(my_lambda_stage)
             .add_stage(my_glue_stage)
-            
+
     """
 
     def __init__(

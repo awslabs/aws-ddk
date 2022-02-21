@@ -62,7 +62,7 @@ class CICDPipelineStack(BaseStack):
     The user should be able to reuse the pipeline in multiple DDK applications hoping to save LOC.
 
     Example:
-    
+
     .. code-block:: python
 
         pipeline = (
