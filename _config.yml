@@ -23,7 +23,7 @@ email: aws-proserve-opensource@amazon.com
 description: >- # this means to ignore newlines until "baseurl:"
   An open source development framework to help you build data workflows and modern data architecture on AWS.
 repository: 'awslabs/aws-ddk'
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/aws-ddk" # the subpath of your site, e.g. /blog
 url: "https://github.com/awslabs/aws-ddk" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
