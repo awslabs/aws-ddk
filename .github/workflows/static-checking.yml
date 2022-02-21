@@ -33,10 +33,10 @@ jobs:
           mypy --install-types --non-interactive core
           mypy --install-types --non-interactive cli
       - name: Flake8 Lint
-        run: flake8 .
+        run: flake8 . --ignore W293
       - name: Black style
         run: black --check .
       - name: Imports order check (isort)
         run: isort --check .
       - name: Documentation check
-        run: doc8 --ignore D005,D002,W293 --max-line-length 120 docs/source
+        run: doc8 --ignore D005,D002 --max-line-length 120 docs/source
