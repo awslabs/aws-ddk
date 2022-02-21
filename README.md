@@ -1,4 +1,4 @@
-# AWS DataOps Delivery Kit (DDK) Documentation
+# AWS DataOps Development Kit (DDK) Documentation
 
 ## Contributing a How-To Guide
 
