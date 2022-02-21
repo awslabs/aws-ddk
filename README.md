@@ -54,4 +54,4 @@ bundle exec jekyll serve
 ```
 
 ## Automated Release
-The documentation release process can be automated by using `./bin/build_docs.sh`
+The documentation release process can be automated by using `./bin/build_docs.sh`. This workflow is implemented as a Github Action in this repo.
