@@ -19,5 +19,5 @@ jobs:
     steps:
       - uses: stelligent/cfn_nag@master
         with:
-          input_path: cli/aws_ddk/data/cloudformation_templates/
+          input_path: cli/aws_ddk/data/cloudformation_templates
           extra_args: --ignore-fatal
