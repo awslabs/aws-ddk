@@ -14,7 +14,7 @@ You can use the **DDK CLI** to manage your DDK App.  You can use it to create a 
 
 ## Getting Started
 
-For a detailed walk-through, check out our [Workshop].
+For a detailed walk-through, check out our [Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US).
 
 ### At a glance
 
