@@ -39,4 +39,4 @@ jobs:
       - name: Imports order check (isort)
         run: isort --check .
       - name: Documentation check
-        run: doc8 --ignore D005,D002 --max-line-length 120 docs/source
+        run: doc8 --ignore D005,D002,W293 --max-line-length 120 docs/source
