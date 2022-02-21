@@ -206,14 +206,34 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="aws-ddk-services-cfn-module">
-<h2>aws_ddk.services.cfn module<a class="headerlink" href="#aws-ddk-services-cfn-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aws_ddk.services.cfn">
+<span id="aws-ddk-services-cfn-module"></span><h2>aws_ddk.services.cfn module<a class="headerlink" href="#module-aws_ddk.services.cfn" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk.services.cfn.deploy_template">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk.services.cfn.</span></span><span class="sig-name descname"><span class="pre">deploy_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk.services.cfn.deploy_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk.services.cfn.destroy_stack">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk.services.cfn.</span></span><span class="sig-name descname"><span class="pre">destroy_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk.services.cfn.destroy_stack" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk.services.cfn.does_stack_exist">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk.services.cfn.</span></span><span class="sig-name descname"><span class="pre">does_stack_exist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#aws_ddk.services.cfn.does_stack_exist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk.services.cfn.get_stack_status">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk.services.cfn.</span></span><span class="sig-name descname"><span class="pre">get_stack_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#aws_ddk.services.cfn.get_stack_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </div>
-<div class="section" id="aws-ddk-services-codecommit-module">
-<h2>aws_ddk.services.codecommit module<a class="headerlink" href="#aws-ddk-services-codecommit-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aws_ddk.services.codecommit">
+<span id="aws-ddk-services-codecommit-module"></span><h2>aws_ddk.services.codecommit module<a class="headerlink" href="#module-aws_ddk.services.codecommit" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk.services.codecommit.create_repository">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk.services.codecommit.</span></span><span class="sig-name descname"><span class="pre">create_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#aws_ddk.services.codecommit.create_repository" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aws_ddk.services">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aws_ddk.services" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -258,9 +278,9 @@
             <ul>
 <li><a class="reference internal" href="#">aws_ddk.services package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#aws-ddk-services-cfn-module">aws_ddk.services.cfn module</a></li>
-<li><a class="reference internal" href="#aws-ddk-services-codecommit-module">aws_ddk.services.codecommit module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-aws_ddk.services.cfn">aws_ddk.services.cfn module</a></li>
+<li><a class="reference internal" href="#module-aws_ddk.services.codecommit">aws_ddk.services.codecommit module</a></li>
+<li><a class="reference internal" href="#module-aws_ddk.services">Module contents</a></li>
 </ul>
 </li>
 </ul>

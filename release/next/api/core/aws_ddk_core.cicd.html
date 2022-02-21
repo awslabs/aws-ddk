@@ -206,14 +206,340 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="aws-ddk-core-cicd-actions-module">
-<h2>aws_ddk_core.cicd.actions module<a class="headerlink" href="#aws-ddk-core-cicd-actions-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aws_ddk_core.cicd.actions">
+<span id="aws-ddk-core-cicd-actions-module"></span><h2>aws_ddk_core.cicd.actions module<a class="headerlink" href="#module-aws_ddk_core.cicd.actions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.actions.get_code_commit_source_action">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.actions.</span></span><span class="sig-name descname"><span class="pre">get_code_commit_source_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">source_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.pipelines.CodePipelineSource</span></span></span><a class="headerlink" href="#aws_ddk_core.cicd.actions.get_code_commit_source_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get source action with CodeCommit as SCM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
+<li><p><strong>repository_name</strong> (<em>str</em>) – Name of the SCM repository</p></li>
+<li><p><strong>branch</strong> (<em>str</em>) – Branch name</p></li>
+<li><p><strong>source_props</strong> (<em>Any</em>) – Additional source action properties</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>action</strong> – CodeCommit source action</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>CodePipelineSource</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.actions.get_synth_action">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.actions.</span></span><span class="sig-name descname"><span class="pre">get_synth_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_pipeline_source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">aws_cdk.pipelines.CodePipelineSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cdk_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_policy_statements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.PolicyStatement</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_repository</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain_owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.pipelines.CodeBuildStep</span></span></span><a class="headerlink" href="#aws_ddk_core.cicd.actions.get_synth_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get synth action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code_pipeline_source</strong> (<em>CodePipelineSource</em>) – Code Pipeline source stage</p></li>
+<li><p><strong>cdk_version</strong> (<em>str</em>) – Version of CDK</p></li>
+<li><p><strong>role_policy_statements</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>PolicyStatement</em><em>]</em><em>]</em>) – Additional policies to add to the synth action role</p></li>
+<li><p><strong>codeartifact_repository</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact repository to pull artifacts from</p></li>
+<li><p><strong>codeartifact_domain</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact domain</p></li>
+<li><p><strong>codeartifact_domain_owner</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – CodeArtifact domain owner account</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>action</strong> – Synth action</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>CodeBuildStep</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
-<div class="section" id="aws-ddk-core-cicd-pipeline-module">
-<h2>aws_ddk_core.cicd.pipeline module<a class="headerlink" href="#aws-ddk-core-cicd-pipeline-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aws_ddk_core.cicd.pipeline">
+<span id="aws-ddk-core-cicd-pipeline-module"></span><h2>aws_ddk_core.cicd.pipeline module<a class="headerlink" href="#module-aws_ddk_core.cicd.pipeline" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.ArtifactorySchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.pipeline.</span></span><span class="sig-name descname"><span class="pre">ArtifactorySchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.ArtifactorySchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.schema.Schema</span></code></p>
+<p>DDK CICD Pipeline Artifactory schema.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.ArtifactorySchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.ArtifactorySchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.CICDPipelineSchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.pipeline.</span></span><span class="sig-name descname"><span class="pre">CICDPipelineSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">many</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.CICDPipelineSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.schema.Schema</span></code></p>
+<p>DDK CICD Pipeline schema.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.CICDPipelineSchema.opts">
+<span class="sig-name descname"><span class="pre">opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SchemaOpts</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;marshmallow.schema.SchemaOpts</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.CICDPipelineSchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.CICDPipelineStack">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.pipeline.</span></span><span class="sig-name descname"><span class="pre">CICDPipelineStack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.base.html#aws_ddk_core.base.stack.BaseStack" title="aws_ddk_core.base.stack.BaseStack"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.base.stack.BaseStack</span></code></a></p>
+<p>Create a stack that contains DDK Continuous Integration and Delivery (CI/CD) pipeline.</p>
+<p>The pipeline is based on [CDK self-mutating pipeline]
+(<a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html">https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html</a>) but includes
+several DDK-specific features, including:</p>
+<ul class="simple">
+<li><p>Ability to configure some properties via JSON config e.g. manual approvals for application stages</p></li>
+<li><p>Defaults for source/synth - CodeCommit &amp; cdk synth, with ability to override them</p></li>
+<li><p>Ability to connect to private artifactory to pull artifacts from at synth</p></li>
+<li><p>Security best practices - ensures pipeline buckets block non-SSL, and are KMS-encrypted with rotated keys</p></li>
+<li><p>Builder interface to avoid chunky constructor methods</p></li>
+</ul>
+<p>The user should be able to reuse the pipeline in multiple DDK applications hoping to save LOC.</p>
+<p>Example:
+<a href="#id1"><span class="problematic" id="id2">``</span></a>`
+pipeline = (</p>
+<blockquote>
+<div><dl class="simple">
+<dt>CICDPipelineStack(</dt><dd><p>app,
+id=”my-pipeline”,
+environment_id=”cicd”,
+pipeline_name=”MyPipeline”,</p>
+</dd>
+</dl>
+<p>)
+.add_source_action(repository_name=”my-repo”)
+.add_synth_action()
+.build()
+.add_stage(“dev”, DevStage(app, “dev”))</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.CICDPipelineStack.add_source_action">
+<span class="sig-name descname"><span class="pre">add_source_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.CodePipelineSource</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack.add_source_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add source action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the SCM repository</p></li>
+<li><p><strong>branch</strong> (<em>str</em>) – Branch of the SCM repository</p></li>
+<li><p><strong>source_action</strong> (<em>Optional</em><em>[</em><em>CodePipelineSource</em><em>]</em>) – Override source action</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.CICDPipelineStack.add_stage">
+<span class="sig-name descname"><span class="pre">add_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">aws_cdk.Stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_approvals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack.add_stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add application stage to the CICD pipeline. This stage deploys your application infrastructure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stage_id</strong> (<em>str</em>) – Identifier of the stage</p></li>
+<li><p><strong>stage</strong> (<a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><em>Stage</em></a>) – Application stage instance</p></li>
+<li><p><strong>manual_approvals</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Configure manual approvals. False by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.CICDPipelineStack.add_synth_action">
+<span class="sig-name descname"><span class="pre">add_synth_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codeartifact_repository</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain_owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_policy_statements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.PolicyStatement</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synth_action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.CodeBuildStep</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack.add_synth_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add synth action. During synth can connect and pull artifacts from a private artifactory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>codeartifact_repository</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact repository to pull artifacts from</p></li>
+<li><p><strong>codeartifact_domain</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact domain</p></li>
+<li><p><strong>codeartifact_domain_owner</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – CodeArtifact domain owner account</p></li>
+<li><p><strong>role_policy_statements</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>PolicyStatement</em><em>]</em><em>]</em>) – Additional policies to add to the synth action role</p></li>
+<li><p><strong>synth_action</strong> (<em>Optional</em><em>[</em><em>CodeBuildStep</em><em>]</em>) – Override synth action</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.pipeline.CICDPipelineStack.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the pipeline structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aws_ddk_core.cicd">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aws_ddk_core.cicd" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.</span></span><span class="sig-name descname"><span class="pre">CICDPipelineStack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aws_ddk_core.base.html#aws_ddk_core.base.stack.BaseStack" title="aws_ddk_core.base.stack.BaseStack"><code class="xref py py-class docutils literal notranslate"><span class="pre">aws_ddk_core.base.stack.BaseStack</span></code></a></p>
+<p>Create a stack that contains DDK Continuous Integration and Delivery (CI/CD) pipeline.</p>
+<p>The pipeline is based on [CDK self-mutating pipeline]
+(<a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html">https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html</a>) but includes
+several DDK-specific features, including:</p>
+<ul class="simple">
+<li><p>Ability to configure some properties via JSON config e.g. manual approvals for application stages</p></li>
+<li><p>Defaults for source/synth - CodeCommit &amp; cdk synth, with ability to override them</p></li>
+<li><p>Ability to connect to private artifactory to pull artifacts from at synth</p></li>
+<li><p>Security best practices - ensures pipeline buckets block non-SSL, and are KMS-encrypted with rotated keys</p></li>
+<li><p>Builder interface to avoid chunky constructor methods</p></li>
+</ul>
+<p>The user should be able to reuse the pipeline in multiple DDK applications hoping to save LOC.</p>
+<p>Example:
+<a href="#id3"><span class="problematic" id="id4">``</span></a>`
+pipeline = (</p>
+<blockquote>
+<div><dl class="simple">
+<dt>CICDPipelineStack(</dt><dd><p>app,
+id=”my-pipeline”,
+environment_id=”cicd”,
+pipeline_name=”MyPipeline”,</p>
+</dd>
+</dl>
+<p>)
+.add_source_action(repository_name=”my-repo”)
+.add_synth_action()
+.build()
+.add_stage(“dev”, DevStage(app, “dev”))</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_source_action">
+<span class="sig-name descname"><span class="pre">add_source_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.CodePipelineSource</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_source_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add source action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repository_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the SCM repository</p></li>
+<li><p><strong>branch</strong> (<em>str</em>) – Branch of the SCM repository</p></li>
+<li><p><strong>source_action</strong> (<em>Optional</em><em>[</em><em>CodePipelineSource</em><em>]</em>) – Override source action</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_stage">
+<span class="sig-name descname"><span class="pre">add_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">aws_cdk.Stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_approvals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add application stage to the CICD pipeline. This stage deploys your application infrastructure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stage_id</strong> (<em>str</em>) – Identifier of the stage</p></li>
+<li><p><strong>stage</strong> (<a class="reference internal" href="aws_ddk_core.pipelines.html#aws_ddk_core.pipelines.stage.Stage" title="aws_ddk_core.pipelines.stage.Stage"><em>Stage</em></a>) – Application stage instance</p></li>
+<li><p><strong>manual_approvals</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Configure manual approvals. False by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_synth_action">
+<span class="sig-name descname"><span class="pre">add_synth_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codeartifact_repository</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain_owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_policy_statements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.PolicyStatement</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synth_action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.CodeBuildStep</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_synth_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add synth action. During synth can connect and pull artifacts from a private artifactory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>codeartifact_repository</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact repository to pull artifacts from</p></li>
+<li><p><strong>codeartifact_domain</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact domain</p></li>
+<li><p><strong>codeartifact_domain_owner</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – CodeArtifact domain owner account</p></li>
+<li><p><strong>role_policy_statements</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>PolicyStatement</em><em>]</em><em>]</em>) – Additional policies to add to the synth action role</p></li>
+<li><p><strong>synth_action</strong> (<em>Optional</em><em>[</em><em>CodeBuildStep</em><em>]</em>) – Override synth action</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.pipeline.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the pipeline structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.get_code_commit_source_action">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.</span></span><span class="sig-name descname"><span class="pre">get_code_commit_source_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">source_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.pipelines.CodePipelineSource</span></span></span><a class="headerlink" href="#aws_ddk_core.cicd.get_code_commit_source_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get source action with CodeCommit as SCM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
+<li><p><strong>repository_name</strong> (<em>str</em>) – Name of the SCM repository</p></li>
+<li><p><strong>branch</strong> (<em>str</em>) – Branch name</p></li>
+<li><p><strong>source_props</strong> (<em>Any</em>) – Additional source action properties</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>action</strong> – CodeCommit source action</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>CodePipelineSource</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.get_synth_action">
+<span class="sig-prename descclassname"><span class="pre">aws_ddk_core.cicd.</span></span><span class="sig-name descname"><span class="pre">get_synth_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_pipeline_source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">aws_cdk.pipelines.CodePipelineSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cdk_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_policy_statements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.PolicyStatement</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_repository</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeartifact_domain_owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.pipelines.CodeBuildStep</span></span></span><a class="headerlink" href="#aws_ddk_core.cicd.get_synth_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get synth action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code_pipeline_source</strong> (<em>CodePipelineSource</em>) – Code Pipeline source stage</p></li>
+<li><p><strong>cdk_version</strong> (<em>str</em>) – Version of CDK</p></li>
+<li><p><strong>role_policy_statements</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>PolicyStatement</em><em>]</em><em>]</em>) – Additional policies to add to the synth action role</p></li>
+<li><p><strong>codeartifact_repository</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact repository to pull artifacts from</p></li>
+<li><p><strong>codeartifact_domain</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the CodeArtifact domain</p></li>
+<li><p><strong>codeartifact_domain_owner</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – CodeArtifact domain owner account</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>action</strong> – Synth action</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>CodeBuildStep</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 </div>
 
@@ -268,9 +594,9 @@
             <ul>
 <li><a class="reference internal" href="#">aws_ddk_core.cicd package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#aws-ddk-core-cicd-actions-module">aws_ddk_core.cicd.actions module</a></li>
-<li><a class="reference internal" href="#aws-ddk-core-cicd-pipeline-module">aws_ddk_core.cicd.pipeline module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-aws_ddk_core.cicd.actions">aws_ddk_core.cicd.actions module</a></li>
+<li><a class="reference internal" href="#module-aws_ddk_core.cicd.pipeline">aws_ddk_core.cicd.pipeline module</a></li>
+<li><a class="reference internal" href="#module-aws_ddk_core.cicd">Module contents</a></li>
 </ul>
 </li>
 </ul>
