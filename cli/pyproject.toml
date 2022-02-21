@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws-ddk"
-version = "0.1.0"
+version = "0.1.1"
 description = "AWS DataOps Delivery Kit - CLI"
 authors = [
     "AWS Professional Services <aws-proserve-opensource@amazon.com>"
@@ -14,9 +14,9 @@ exclude = ["*.so", "*.pyc", "*~", "#*", ".git*", ".coverage*", "DS_Store", "__py
 
 keywords = ["aws", "ddk", "dataops", "cli"]
 
-homepage = "TBD"
+homepage = "https://github.com/awslabs/aws-ddk"
 repository = "https://github.com/awslabs/aws-ddk"
-documentation = "TBD"
+documentation = "https://awslabs.github.io/aws-ddk/"
 
 classifiers = [
     "Development Status :: 4 - Beta",
