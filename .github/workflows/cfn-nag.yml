@@ -17,6 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: stelligent/cfn_nag@master
         with:
           input_path: cli/aws_ddk/data/cloudformation_templates
