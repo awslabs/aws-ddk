@@ -62,20 +62,22 @@ class CICDPipelineStack(BaseStack):
     The user should be able to reuse the pipeline in multiple DDK applications hoping to save LOC.
 
     Example:
-    ```
-    pipeline = (
-        CICDPipelineStack(
-            app,
-            id="my-pipeline",
-            environment_id="cicd",
-            pipeline_name="MyPipeline",
+    
+    .. code-block:: python
+
+        pipeline = (
+            CICDPipelineStack(
+                app,
+                id="my-pipeline",
+                environment_id="cicd",
+                pipeline_name="MyPipeline",
+            )
+            .add_source_action(repository_name="my-repo")
+            .add_synth_action()
+            .build()
+            .add_stage("dev", DevStage(app, "dev"))
         )
-        .add_source_action(repository_name="my-repo")
-        .add_synth_action()
-        .build()
-        .add_stage("dev", DevStage(app, "dev"))
-    )
-    ```
+
     """
 
     def __init__(
