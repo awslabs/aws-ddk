@@ -31,5 +31,5 @@ jobs:
           publish_dir: docs
           keep_files: true
           enable_jekyll: true
-          exclude_assets: '.github,_data/versions.yaml'
+          exclude_assets: '.github,docs/_data/versions.yaml'
       
