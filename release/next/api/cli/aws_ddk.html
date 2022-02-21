@@ -209,18 +209,18 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="aws_ddk.commands.html">aws_ddk.commands package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#module-aws_ddk.commands.bootstrap">aws_ddk.commands.bootstrap module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#module-aws_ddk.commands.create">aws_ddk.commands.create module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#module-aws_ddk.commands.deploy">aws_ddk.commands.deploy module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#module-aws_ddk.commands.init">aws_ddk.commands.init module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#module-aws_ddk.commands">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#aws-ddk-commands-bootstrap-module">aws_ddk.commands.bootstrap module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#aws-ddk-commands-create-module">aws_ddk.commands.create module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#aws-ddk-commands-deploy-module">aws_ddk.commands.deploy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#aws-ddk-commands-init-module">aws_ddk.commands.init module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.commands.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="aws_ddk.services.html">aws_ddk.services package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk.services.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.services.html#module-aws_ddk.services.cfn">aws_ddk.services.cfn module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.services.html#module-aws_ddk.services.codecommit">aws_ddk.services.codecommit module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk.services.html#module-aws_ddk.services">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.services.html#aws-ddk-services-cfn-module">aws_ddk.services.cfn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.services.html#aws-ddk-services-codecommit-module">aws_ddk.services.codecommit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk.services.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -229,51 +229,17 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-aws_ddk.exceptions">
-<span id="aws-ddk-exceptions-module"></span><h2>aws_ddk.exceptions module<a class="headerlink" href="#module-aws_ddk.exceptions" title="Permalink to this headline">¶</a></h2>
-<dl class="py exception">
-<dt class="sig sig-object py" id="aws_ddk.exceptions.FailedShellCommand">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk.exceptions.</span></span><span class="sig-name descname"><span class="pre">FailedShellCommand</span></span><a class="headerlink" href="#aws_ddk.exceptions.FailedShellCommand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Failed Shell Command.</p>
-</dd></dl>
+<div class="section" id="aws-ddk-exceptions-module">
+<h2>aws_ddk.exceptions module<a class="headerlink" href="#aws-ddk-exceptions-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-aws_ddk.sh">
-<span id="aws-ddk-sh-module"></span><h2>aws_ddk.sh module<a class="headerlink" href="#module-aws_ddk.sh" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="aws_ddk.sh.run">
-<span class="sig-prename descclassname"><span class="pre">aws_ddk.sh.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk.sh.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<div class="section" id="aws-ddk-sh-module">
+<h2>aws_ddk.sh module<a class="headerlink" href="#aws-ddk-sh-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-aws_ddk.utils">
-<span id="aws-ddk-utils-module"></span><h2>aws_ddk.utils module<a class="headerlink" href="#module-aws_ddk.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="aws_ddk.utils.boto3_client">
-<span class="sig-prename descclassname"><span class="pre">aws_ddk.utils.</span></span><span class="sig-name descname"><span class="pre">boto3_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">boto3.client</span></span></span><a class="headerlink" href="#aws_ddk.utils.boto3_client" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="aws_ddk.utils.boto3_resource">
-<span class="sig-prename descclassname"><span class="pre">aws_ddk.utils.</span></span><span class="sig-name descname"><span class="pre">boto3_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">boto3.client</span></span></span><a class="headerlink" href="#aws_ddk.utils.boto3_resource" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="aws_ddk.utils.get_account_id">
-<span class="sig-prename descclassname"><span class="pre">aws_ddk.utils.</span></span><span class="sig-name descname"><span class="pre">get_account_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#aws_ddk.utils.get_account_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="aws_ddk.utils.get_botocore_config">
-<span class="sig-prename descclassname"><span class="pre">aws_ddk.utils.</span></span><span class="sig-name descname"><span class="pre">get_botocore_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">botocore.config.Config</span></span></span><a class="headerlink" href="#aws_ddk.utils.get_botocore_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="aws_ddk.utils.get_package_root">
-<span class="sig-prename descclassname"><span class="pre">aws_ddk.utils.</span></span><span class="sig-name descname"><span class="pre">get_package_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#aws_ddk.utils.get_package_root" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="aws_ddk.utils.get_region">
-<span class="sig-prename descclassname"><span class="pre">aws_ddk.utils.</span></span><span class="sig-name descname"><span class="pre">get_region</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#aws_ddk.utils.get_region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<div class="section" id="aws-ddk-utils-module">
+<h2>aws_ddk.utils module<a class="headerlink" href="#aws-ddk-utils-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-aws_ddk">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aws_ddk" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -329,10 +295,10 @@
 <li><a class="reference internal" href="#">aws_ddk package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-aws_ddk.exceptions">aws_ddk.exceptions module</a></li>
-<li><a class="reference internal" href="#module-aws_ddk.sh">aws_ddk.sh module</a></li>
-<li><a class="reference internal" href="#module-aws_ddk.utils">aws_ddk.utils module</a></li>
-<li><a class="reference internal" href="#module-aws_ddk">Module contents</a></li>
+<li><a class="reference internal" href="#aws-ddk-exceptions-module">aws_ddk.exceptions module</a></li>
+<li><a class="reference internal" href="#aws-ddk-sh-module">aws_ddk.sh module</a></li>
+<li><a class="reference internal" href="#aws-ddk-utils-module">aws_ddk.utils module</a></li>
+<li><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
