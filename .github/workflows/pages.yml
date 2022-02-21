@@ -4,6 +4,7 @@ on:
     paths:
     - "docs/**"
     branches: [main]
+  workflow_dispatch:
 jobs:
   deploy-docs:
     concurrency: ci-${{ github.ref }}
