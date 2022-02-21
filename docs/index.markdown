@@ -9,7 +9,7 @@ homePage: true
 
 You can install or update the AWS DDK from PyPi.
 
-![pip install aws-ddk](/aws-ddk/img/pip-install.gif)
+![pip install aws-ddk](img/pip-install.gif)
 
 Create a new project:
 
