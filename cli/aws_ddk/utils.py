@@ -37,7 +37,7 @@ def boto3_resource(service_name: str) -> boto3.client:
 
 
 def get_region() -> str:
-    session = boto3.Session()
+    session = boto3._get_default_session()
     if session.region_name is None:
         raise ValueError("It is not possible to infer AWS REGION from your environment.")
     return str(session.region_name)
