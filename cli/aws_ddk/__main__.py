@@ -71,6 +71,7 @@ class RegexString(click.ParamType):
 
 
 @click.group()
+@click.version_option(__version__)
 @click.option(
     "--debug/--no-debug",
     default=False,
