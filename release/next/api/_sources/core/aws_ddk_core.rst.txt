@@ -1,35 +1,23 @@
 aws\_ddk\_core package
 ======================
 
-Constructs
+Subpackages
 -----------
 
-CICDPipelineStack
---------------------
-.. autoclass:: aws_ddk_core.cicd.pipeline.CICDPipelineStack  
-   :members:
-   :special-members:
+.. toctree::
+   :maxdepth: 4
 
-Pipeline
------------
-.. autoclass:: aws_ddk_core.pipelines.pipeline.Pipeline
-   :members:
-   :special-members:
+   aws_ddk_core.base
+   aws_ddk_core.cicd
+   aws_ddk_core.config
+   aws_ddk_core.pipelines
+   aws_ddk_core.resources
+   aws_ddk_core.stages
 
-GlueTransformStage
---------------------
-.. autoclass:: aws_ddk_core.stages.glue_transform.GlueTransformStage
-   :members:
-   :special-members:
+Module contents
+---------------
 
-S3EventStage
---------------
-.. autoclass:: aws_ddk_core.stages.s3_event.S3EventStage
+.. automodule:: aws_ddk_core
    :members:
-   :special-members:
-
-SqsToLambdaStage
-------------------
-.. autoclass:: aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage
-   :members:
-   :special-members:
+   :undoc-members:
+   :show-inheritance:
