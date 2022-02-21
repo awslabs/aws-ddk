@@ -17,7 +17,7 @@ These guides range from simple, task-based guides to more complex instructions
   {% assign pageVersion = p.dir | split: "/" %}
   {% if pageVersion[1] == "release" and pageVersion[2] == version[2] and p.tags contains "how-to" and  p.category == c.category %}
       <li>
-        <a href="{{ p.url }}">
+        <a href='{{ p.url | remove_first: '/' }}">
             {{ p.title }} 
         </a>
       </li>
