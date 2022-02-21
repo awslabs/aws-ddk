@@ -1,0 +1,23 @@
+name: CFN Nag
+
+on:
+  workflow_dispatch:
+  push:
+    # paths:
+    # - "cli/aws_ddk/data/cloudformation_templates/**"
+    branches:
+    - main
+  pull_request:
+    paths:
+    - "cli/aws_ddk/data/cloudformation_templates/**"
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: stelligent/cfn_nag@master
+        with:
+          input_path: cli/aws_ddk/data/cloudformation_templates/
+          extra_args: --ignore-fatal
