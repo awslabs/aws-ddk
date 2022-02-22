@@ -17,7 +17,7 @@ These guides range from simple, task-based guides to more complex instructions
   {% assign pageVersion = p.dir | split: "/" %}
   {% if pageVersion[1] == "release" and pageVersion[2] == version[2] and p.tags contains "how-to" and  p.category == c.category %}
       <li>
-        <a href='{{ p.url | remove_first: '/' }}">
+        <a href='{{ p.url | relative_url }}">
             {{ p.title }} 
         </a>
       </li>
@@ -31,5 +31,5 @@ These guides range from simple, task-based guides to more complex instructions
 ## API Documentation
 
 <ul>
-<li><a href="./api/index">{{ version[2] | capitalize}} Release API Documentation</a></li>
+<li><a href="./api/index" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">{{ version[2] | capitalize}} Release API Documentation</a></li>
 </ul>
