@@ -5,12 +5,8 @@ AWS DDK API Documentation
    :maxdepth: 2
    :caption: Packages:
 
+   cli/aws_ddk.rst
    core/aws_ddk_core.rst
-
-
-.. click:: aws_ddk.__main__:cli
-   :prog: ddk
-   :nested: full
 
 
 Indices and tables

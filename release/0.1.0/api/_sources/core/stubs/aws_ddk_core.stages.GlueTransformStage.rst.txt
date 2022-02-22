@@ -1,0 +1,34 @@
+﻿aws\_ddk\_core.stages.GlueTransformStage
+========================================
+
+.. currentmodule:: aws_ddk_core.stages
+
+.. autoclass:: GlueTransformStage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GlueTransformStage.__init__
+      ~GlueTransformStage.get_event_pattern
+      ~GlueTransformStage.get_targets
+      ~GlueTransformStage.is_construct
+      ~GlueTransformStage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GlueTransformStage.node
+      ~GlueTransformStage.state_machine
+   
+   
