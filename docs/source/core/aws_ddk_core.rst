@@ -1,35 +1,82 @@
 aws\_ddk\_core package
 ======================
 
-Constructs
+* `Base`_
+* `CICD`_
+* `Config`_
+* `Pipelines`_
+* `Resources`_
+* `Stages`_
+
+Base
+------
+
+.. currentmodule:: aws_ddk_core.base
+
+.. autosummary::
+   :toctree: stubs
+   :template: custom-class-template.rst
+
+   BaseStack
+
+CICD
+------
+
+.. currentmodule:: aws_ddk_core.cicd
+
+.. autosummary::
+   :toctree: stubs
+   :template: custom-class-template.rst
+
+   CICDPipelineStack
+
+Config
+------
+
+.. currentmodule:: aws_ddk_core.config
+
+.. autosummary::
+   :toctree: stubs
+   :template: custom-class-template.rst
+
+   Config
+   JSONConfigStrategy
+
+Pipelines
 -----------
 
-CICDPipelineStack
---------------------
-.. autoclass:: aws_ddk_core.cicd.pipeline.CICDPipelineStack  
-   :members:
-   :special-members:
+.. currentmodule:: aws_ddk_core.pipelines
 
-Pipeline
+.. autosummary::
+   :toctree: stubs
+   :template: custom-class-template.rst
+
+   Pipeline
+   Stage
+
+Resources
+------------
+
+.. currentmodule:: aws_ddk_core.resources
+
+.. autosummary::
+   :toctree: stubs
+   :template: custom-class-template.rst
+
+   KMSFactory
+   LambdaFactory
+   S3Factory
+   SQSFactory
+
+Stages
 -----------
-.. autoclass:: aws_ddk_core.pipelines.pipeline.Pipeline
-   :members:
-   :special-members:
 
-GlueTransformStage
---------------------
-.. autoclass:: aws_ddk_core.stages.glue_transform.GlueTransformStage
-   :members:
-   :special-members:
+.. currentmodule:: aws_ddk_core.stages
 
-S3EventStage
---------------
-.. autoclass:: aws_ddk_core.stages.s3_event.S3EventStage
-   :members:
-   :special-members:
+.. autosummary::
+   :toctree: stubs
+   :template: custom-class-template.rst
 
-SqsToLambdaStage
-------------------
-.. autoclass:: aws_ddk_core.stages.sqs_lambda.SqsToLambdaStage
-   :members:
-   :special-members:
+   GlueTransformStage
+   S3EventStage
+   SqsToLambdaStage

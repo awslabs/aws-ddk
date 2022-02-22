@@ -60,6 +60,10 @@ class FunctionSchema(BaseSchema):
 
 
 class LambdaFactory:
+    """
+    Class factory to create and configure Lambda DDK resources, including Functions.
+    """
+
     @staticmethod
     def function(
         scope: Construct,

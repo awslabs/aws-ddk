@@ -21,42 +21,43 @@ from constructs import Construct
 
 class Stage(Construct):
     """
-    Abstract class that represents a stage within a data pipeline.
+    Class that represents a stage within a data pipeline.
 
     To create a Stage, inherit from this class, add infrastructure required by the stage, and implement
     get_event_pattern and get_targets methods. For example:
 
-    ```
-    class MyStage(Stage):
-        def __init__(
-            self,
-            scope: Construct,
-            id: str,
-            environment_id: str,
-        ) -> None:
-            # Define stage infrastructure, for example a queue
-            self._queue = SQSFactory.queue(
+    .. code-block:: python
+
+        class MyStage(Stage):
+            def __init__(
                 self,
-                id,
-                environment_id,
-            )
+                scope: Construct,
+                id: str,
+                environment_id: str,
+            ) -> None:
+                # Define stage infrastructure, for example a queue
+                self._queue = SQSFactory.queue(
+                    self,
+                    id,
+                    environment_id,
+                )
 
-        @property
-        def queue(self) -> Queue:
-            '''
-            Return: Queue
-                The SQS queue
-            '''
-            return self._queue
+            @property
+            def queue(self) -> Queue:
+                '''
+                Return: Queue
+                    The SQS queue
+                '''
+                return self._queue
 
-        def get_event_pattern(self) -> Optional[EventPattern]:
-            return EventPattern(
-                detail_type=["my-detail-type"],
-            )
+            def get_event_pattern(self) -> Optional[EventPattern]:
+                return EventPattern(
+                    detail_type=["my-detail-type"],
+                )
 
-        def get_targets(self) -> Optional[List[IRuleTarget]]:
-            return [SqsQueue(self._queue)]
-    ```
+            def get_targets(self) -> Optional[List[IRuleTarget]]:
+                return [SqsQueue(self._queue)]
+
     """
 
     def __init__(

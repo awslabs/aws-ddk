@@ -39,6 +39,10 @@ class QueueSchema(BaseSchema):
 
 
 class SQSFactory:
+    """
+    Class factory create and configure Simple Queue Service DDK resources, including Queues.
+    """
+
     @staticmethod
     def queue(
         scope: Construct,

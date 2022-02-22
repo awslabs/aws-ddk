@@ -27,6 +27,10 @@ from constructs import Construct
 
 
 class SqsToLambdaStage(Stage):
+    """
+    Class that represents an SQS to Lambda Transform DDK Stage.
+    """
+
     def __init__(
         self,
         scope: Construct,

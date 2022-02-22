@@ -49,8 +49,8 @@ class CICDPipelineStack(BaseStack):
     """
     Create a stack that contains DDK Continuous Integration and Delivery (CI/CD) pipeline.
 
-    The pipeline is based on [CDK self-mutating pipeline]
-    (https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html) but includes
+    The pipeline is based on `CDK self-mutating pipeline
+    <https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html>`_ but includes
     several DDK-specific features, including:
 
     - Ability to configure some properties via JSON config e.g. manual approvals for application stages

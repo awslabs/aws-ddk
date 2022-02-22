@@ -32,6 +32,10 @@ from constructs import Construct
 
 
 class GlueTransformStage(Stage):
+    """
+    Class that represents a Glue Transform DDK Stage.
+    """
+
     def __init__(
         self,
         scope: Construct,
@@ -57,7 +61,7 @@ class GlueTransformStage(Stage):
         environment_id : str
             Identifier of the environment
         job_name : str
-             Name of the Glue job to run
+            Name of the Glue job to run
         crawler_name : str
             Name of the Glue crawler to run
         job_args : Optional[Dict[str, Any]]
