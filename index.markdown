@@ -46,10 +46,10 @@ Next, let us examine the code. If you look at app.py, it will look like this:
 
 ```python
 import aws_cdk as cdk
-from ddk_app.ddk_app_stack import DDKApplicationStack
+from ddk_app.ddk_app_stack import DdkApplicationStack
 
 app = cdk.App()
-DDKApplicationStack(app, "DDKApplicationStack", "dev")
+DdkApplicationStack(app, "DdkApplicationStack", "dev")
 
 app.synth()
 ```
