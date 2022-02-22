@@ -321,3 +321,15 @@ a.box-link {
   transition-duration: 0.5s;
 }
 
+.footer-content {
+  font-size: small;
+  color: #999999;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.how-to-header > li:not(:first-child) {
+  margin-top: 1rem;
+}
+

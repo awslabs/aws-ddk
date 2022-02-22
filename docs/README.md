@@ -9,10 +9,11 @@
 title: <Title to be displayed to customers>
 layout: default
 tags: how-to
+order: 1
 category: Advanced
 ```
 - The allowed values for `category` are held in `_data\how-to-categories.yaml`.  If you think your how-to guide doesn't fit into one of the existing categories, then add a new entry to this file.
-- In `_data\how-to-categories.yaml`, 'name' is displayed as the group header on the How-To indexes and `category` matches to the category in the how-to guide.
+- In `_data\how-to-categories.yaml`, 'name' is displayed as the group header on the How-To indexes and `category` matches to the category in the how-to guide.  The `order` variable determines the order of the how-to guide within the category.
 - After the front matter, add your how-to guide to the file
 
 # How to Release
