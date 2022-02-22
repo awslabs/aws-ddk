@@ -33,6 +33,10 @@ class KeyConfigSchema(BaseSchema):
 
 
 class KMSFactory:
+    """
+    Class factory to create and configure Key Management Service DDK resources, including Keys.
+    """
+
     @staticmethod
     def key(
         scope: Construct,

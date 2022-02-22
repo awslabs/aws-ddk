@@ -23,6 +23,10 @@ from constructs import Construct
 
 
 class S3EventStage(Stage):
+    """
+    Class that represents an S3 Event DDK Stage.
+    """
+
     def __init__(
         self,
         scope: Construct,

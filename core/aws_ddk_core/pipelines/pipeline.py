@@ -23,7 +23,7 @@ class Pipeline(Construct):
     """
     Class that represents a data pipeline. Used to wire stages via Event Rules. For example:
 
-    .. code-block:: text
+    .. code-block:: python
 
         Pipeline(self, id, description="My pipeline")
             .add_stage(my_lambda_stage)

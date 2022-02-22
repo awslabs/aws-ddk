@@ -44,6 +44,10 @@ class BucketSchema(BaseSchema):
 
 
 class S3Factory:
+    """
+    Class factory to create and configure Simple Storage Service DDK resources, including Buckets.
+    """
+
     @staticmethod
     def bucket(
         scope: Construct,
