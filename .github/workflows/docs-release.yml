@@ -28,12 +28,12 @@ jobs:
           cd docs/source && pip install -r requirements_core.txt -r requirements_cli.txt -r requirements.txt
           cd ../
           ./bin/build_docs.sh $RELEASE_VERSION
-      # - name: Deploy 🚀
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: docs
-      #     keep_files: true
-      #     enable_jekyll: true
-      #     exclude_assets: '.github,docs/_data/versions.yaml'
+      - name: Deploy 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs
+          keep_files: true
+          enable_jekyll: true
+          exclude_assets: '.github,docs/_data/versions.yaml'
       
