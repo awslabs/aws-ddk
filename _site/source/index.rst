@@ -3,10 +3,10 @@ AWS DDK API Documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Packages:
 
    core/aws_ddk_core.rst
-   cli/aws_ddk.rst
+
 
 .. click:: aws_ddk.__main__:cli
    :prog: ddk

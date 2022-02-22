@@ -1,7 +1,8 @@
 ---
 title: Understanding the AWS DataOps Development Kit (AWS DDK)
-layout: default
+layout: how-to
 tags: how-to
+order: 1
 category: Introduction
 ---
 

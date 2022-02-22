@@ -9,27 +9,10 @@ layout: default
 ## How-To Guides
 
 These guides range from simple, task-based guides to more complex instructions
-<ul>
-{% for c in site.data.how-to-categories %}
-    <li>{{c.name}}
-    <ul>
-{% for p in site.pages %}
-  {% assign pageVersion = p.dir | split: "/" %}
-  {% if pageVersion[1] == "release" and pageVersion[2] == version[2] and p.tags contains "how-to" and  p.category == c.category %}
-      <li>
-        <a href="{{ p.url | relative_url }}">
-            {{ p.title }} 
-        </a>
-      </li>
-   {% endif %}
-{% endfor %}
-</ul>
-</li>
-{% endfor %}
-</ul>
+{% include how-to-index.html %}
 
 ## API Documentation
 
 <ul>
-<li><a href="./api/index">{{ version[2] | capitalize}} Release API Documentation</a></li>
+<li><a href="./api/index" target="_blank" rel="noreferrer noopener" aria-haspopup="true">{{ version[2] | capitalize}} Release API Documentation</a></li>
 </ul>

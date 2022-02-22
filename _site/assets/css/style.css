@@ -421,3 +421,7 @@ a.box-link { text-decoration: none; color: #c9208a; }
 .highlight-link { color: #f1f3f3; }
 
 .highlight-link:hover { color: #d4dada; cursor: pointer; transition-duration: 0.5s; }
+
+.footer-content { font-size: small; color: #999999; display: flex; justify-content: space-between; flex-direction: row; }
+
+.how-to-header > li:not(:first-child) { margin-top: 1rem; }
