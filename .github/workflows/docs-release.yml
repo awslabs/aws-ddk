@@ -21,15 +21,17 @@ jobs:
           if [ -z ${{ github.event.inputs.version }} ]; then echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV; else echo "RELEASE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV; fi
       - name: Release 🌱
         run: |
-          cd docs/source && pip install -r requirements.txt
+          pushd core; poetry export -f requirements.txt --output ../docs/source/requirements_core.txt --without-hashes; popd
+          pushd cli; poetry export -f requirements.txt --output ../docs/source/requirements_cli.txt --without-hashes; pushd
+          cd docs/source && pip install -r requirements_core.txt -r requirements_cli.txt -r requirements.txt
           cd ../
           ./bin/build_docs.sh $RELEASE_VERSION
-      - name: Deploy 🚀
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs
-          keep_files: true
-          enable_jekyll: true
-          exclude_assets: '.github,docs/_data/versions.yaml'
+      # - name: Deploy 🚀
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: docs
+      #     keep_files: true
+      #     enable_jekyll: true
+      #     exclude_assets: '.github,docs/_data/versions.yaml'
       
