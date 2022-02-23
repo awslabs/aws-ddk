@@ -16,15 +16,11 @@ import logging
 from typing import Any, Dict, List, Optional
 
 from aws_cdk import Environment, Stage
-from aws_cdk.aws_codepipeline import Pipeline
 from aws_cdk.aws_iam import PolicyStatement
-from aws_cdk.aws_kms import Key
-from aws_cdk.aws_s3 import BucketEncryption
 from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, ManualApprovalStep
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import get_code_commit_source_action, get_synth_action
 from aws_ddk_core.config import Config
-from aws_ddk_core.resources import S3Factory
 from constructs import Construct
 from marshmallow import Schema, fields
 
