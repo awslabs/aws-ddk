@@ -6,7 +6,7 @@ with open("README.md") as fp:
 
 setuptools.setup(
     name="{{cookiecutter.directory_name}}",
-    version="0.1.1",
+    version="{{cookiecutter.ddk_version}}",
     description="An empty DDK Python app",
     long_description=long_description,
     long_description_content_type="text/markdown",
