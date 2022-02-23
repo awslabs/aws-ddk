@@ -76,6 +76,7 @@ class CICDPipelineStack(BaseStack):
             .add_synth_action()
             .build()
             .add_stage("dev", DevStage(app, "dev"))
+            .synth()
         )
 
     """
@@ -214,24 +215,7 @@ class CICDPipelineStack(BaseStack):
         self._pipeline = CodePipeline(
             self,
             id="code-pipeline",
-            # Override underlying CodePipeline replacing default S3 bucket & KMS key
-            code_pipeline=Pipeline(
-                self,
-                id="pipeline",
-                artifact_bucket=S3Factory.bucket(
-                    self,
-                    environment_id=self.environment_id,
-                    id="pipeline-bucket",
-                    encryption=BucketEncryption.KMS,
-                    encryption_key=Key(
-                        self,
-                        id="pipeline-key",
-                        enable_key_rotation=True,
-                    ),
-                ),
-                enable_key_rotation=True,
-                pipeline_name=self.pipeline_name,
-            ),
+            cross_account_keys=True,
             synth=self._synth_action,
             cli_version=self._config.get_cdk_version(),
         )
@@ -265,4 +249,20 @@ class CICDPipelineStack(BaseStack):
         self._pipeline.add_stage(
             stage, pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None
         )
+        return self
+
+    def synth(self) -> "CICDPipelineStack":
+        """
+        Synthesize the pipeline.
+
+        It is not possible to modify the pipeline after calling this method.
+
+        Returns
+        -------
+        pipeline : CICDPipelineStack
+            CICDPipelineStack
+        """
+        self._pipeline.build_pipeline()
+        self._pipeline_key = self._pipeline.pipeline.artifact_bucket.encryption_key.node.default_child
+        self._pipeline_key.enable_key_rotation = True
         return self

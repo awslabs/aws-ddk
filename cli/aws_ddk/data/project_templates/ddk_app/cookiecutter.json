@@ -5,6 +5,5 @@
     "stack_file_name": "ddk_app_stack",
     "stack_name": "DdkApplicationStack",
     "ddk_version": "0.1.2",
-    "ddk_core_version": "0.1.0",
     "python_executable": "python3"
 }
