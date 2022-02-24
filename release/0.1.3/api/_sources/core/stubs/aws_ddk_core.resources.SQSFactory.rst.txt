@@ -1,0 +1,25 @@
+﻿aws\_ddk\_core.resources.SQSFactory
+===================================
+
+.. currentmodule:: aws_ddk_core.resources
+
+.. autoclass:: SQSFactory
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SQSFactory.__init__
+      ~SQSFactory.apply_secure_queue_policy
+      ~SQSFactory.queue
+   
+   
+
+   
+   
+   
