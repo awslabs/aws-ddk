@@ -57,7 +57,6 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
     template.has_resource_properties(
         "AWS::CodePipeline::Pipeline",
         props={
-            "Name": "dummy-pipeline",
             "Stages": Match.array_with(
                 pattern=[
                     Match.object_like(
@@ -131,7 +130,6 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
     template.has_resource_properties(
         "AWS::S3::Bucket",
         props={
-            "AccessControl": "BucketOwnerFullControl",
             "PublicAccessBlockConfiguration": {
                 "BlockPublicAcls": True,
                 "BlockPublicPolicy": True,
