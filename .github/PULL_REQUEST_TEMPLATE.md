@@ -1,5 +1,3 @@
-Subject: <short purpose of this pull request>
-
 ### Feature or Bugfix
 <!-- please choose -->
 - Feature
@@ -13,4 +11,4 @@ Subject: <short purpose of this pull request>
 ### Relates
 - <URL or Ticket>
 
-- By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.
+By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.

@@ -279,31 +279,14 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - cloudformation:DescribeStackEvents
-                  - cloudformation:GetTemplate
-                Resource: "*"
-              - Effect: Allow
-                Action:
                   - cloudformation:CreateChangeSet
+                  - cloudformation:CreateStack
                   - cloudformation:DeleteChangeSet
                   - cloudformation:DescribeChangeSet
                   - cloudformation:DescribeStacks
                   - cloudformation:ExecuteChangeSet
-                Resource:
-                  - Fn::Sub: arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
-                  - Fn::Sub: arn:${AWS::Partition}:cloudformation:${AWS::Region}:aws:transform/*
-              - Effect: Allow
-                Action:
-                  # Permissions needed by the CLI when doing `cdk deploy`.
-                  # Our CI/CD does not need DeleteStack,
-                  # but we also want to use this role from the CLI,
-                  # and there you can call `cdk destroy`
-                  - cloudformation:DeleteStack
-                  - cloudformation:DescribeStackEvents
-                  - cloudformation:GetTemplate
-                  - cloudformation:UpdateTerminationProtection
-                Resource:
-                  - Fn::Sub: arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
+                  - cloudformation:UpdateStack
+                Resource: "*"
               - Effect: Allow
                 Action:
                   - s3:Abort*
@@ -312,9 +295,11 @@ Resources:
                   - s3:GetObject*
                   - s3:List*
                   - s3:PutObject*
-                Resource:
-                  - Fn::Sub: ${StagingBucket.Arn}
-                  - Fn::Sub: ${StagingBucket.Arn}/*
+                Resource: "*"
+                Condition:
+                  StringNotEquals:
+                    s3:ResourceAccount:
+                      Ref: AWS::AccountId
               - Effect: Allow
                 Action:
                   # Use keys only for the purposes of reading encrypted files from S3.
@@ -335,8 +320,25 @@ Resources:
                   Fn::Sub: ${CloudFormationExecutionRole.Arn}
               - Effect: Allow
                 Action:
+                  # Permissions needed by the CLI when doing `cdk deploy`.
+                  # Our CI/CD does not need DeleteStack,
+                  # but we also want to use this role from the CLI,
+                  # and there you can call `cdk destroy`
+                  - cloudformation:DeleteStack
+                  - cloudformation:DescribeStackEvents
+                  - cloudformation:GetTemplate
+                  - cloudformation:UpdateTerminationProtection
                   - sts:GetCallerIdentity
-                Resource: "*"
+                Resource:
+                  - "*"
+              - Effect: Allow
+                Action:
+                  - s3:GetBucket*
+                  - s3:GetObject*
+                  - s3:List*
+                Resource:
+                  - Fn::Sub: ${StagingBucket.Arn}
+                  - Fn::Sub: ${StagingBucket.Arn}/*
               - Sid: ReadSSM
                 Effect: Allow
                 Action:

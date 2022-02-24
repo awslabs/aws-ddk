@@ -50,13 +50,13 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
         .add_synth_action()
         .build()
         .add_stage("dev", DevStage(cdk_app, "dev"))
+        .synth()
     )
     template = Template.from_stack(pipeline_stack)
     # Check if synthesized pipeline contains source, synth, self-update, and app stage
     template.has_resource_properties(
         "AWS::CodePipeline::Pipeline",
         props={
-            "Name": "dummy-pipeline",
             "Stages": Match.array_with(
                 pattern=[
                     Match.object_like(
@@ -130,7 +130,6 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
     template.has_resource_properties(
         "AWS::S3::Bucket",
         props={
-            "AccessControl": "BucketOwnerFullControl",
             "PublicAccessBlockConfiguration": {
                 "BlockPublicAcls": True,
                 "BlockPublicPolicy": True,
