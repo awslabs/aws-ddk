@@ -12,6 +12,15 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
+      - name: Release 🌱
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install poetry
+          pushd core; poetry export -f requirements.txt --output ../docs/source/requirements_core.txt --without-hashes; popd
+          pushd cli; poetry export -f requirements.txt --output ../docs/source/requirements_cli.txt --without-hashes; popd
+          cd docs/source && pip install -r requirements_core.txt -r requirements_cli.txt -r requirements.txt
+          cd ../
+          ./bin/build_docs.sh latest
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v3
         with:
