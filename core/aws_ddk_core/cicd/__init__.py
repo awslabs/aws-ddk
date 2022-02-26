@@ -12,11 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from aws_ddk_core.cicd.actions import get_code_commit_source_action, get_synth_action
+from aws_ddk_core.cicd.actions import (
+    get_bandit_action,
+    get_cfn_nag_action,
+    get_code_commit_source_action,
+    get_synth_action,
+)
 from aws_ddk_core.cicd.pipeline import CICDPipelineStack
 
 __all__ = [
     "CICDPipelineStack",
     "get_code_commit_source_action",
     "get_synth_action",
+    "get_cfn_nag_action",
+    "get_bandit_action",
 ]

@@ -13,13 +13,13 @@
 # limitations under the License.
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_iam import PolicyStatement
-from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, ManualApprovalStep
+from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, ManualApprovalStep, ShellStep
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.cicd import get_code_commit_source_action, get_synth_action
+from aws_ddk_core.cicd import get_bandit_action, get_cfn_nag_action, get_code_commit_source_action, get_synth_action
 from aws_ddk_core.config import Config
 from constructs import Construct
 from marshmallow import Schema, fields
@@ -222,6 +222,7 @@ class CICDPipelineStack(BaseStack):
         stage_id: str,
         stage: Stage,
         manual_approvals: Optional[bool] = False,
+        security_lint: Optional[bool] = False,
     ) -> "CICDPipelineStack":
         """
         Add application stage to the CICD pipeline. This stage deploys your application infrastructure.
@@ -234,17 +235,29 @@ class CICDPipelineStack(BaseStack):
             Application stage instance
         manual_approvals: Optional[bool]
             Configure manual approvals. False by default
+        security_lint: Optional[bool]
+            Configure security linting. False by default
 
         Returns
         -------
         pipeline : CICDPipelineStack
             CICDPipelineStack
         """
-        manual_approvals = manual_approvals or self._config.get_env_config(stage_id).get("manual_approvals")
+        pre_stage_actions: List[Union[ShellStep, ManualApprovalStep]] = []
 
-        self._pipeline.add_stage(
-            stage, pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None
-        )
+        manual_approvals = manual_approvals or self._config.get_env_config(stage_id).get("manual_approvals")
+        if manual_approvals:
+            pre_stage_actions.append(ManualApprovalStep(f"PromoteTo{stage_id.title()}"))
+
+        if security_lint:
+            pre_stage_actions.append(
+                [
+                    get_cfn_nag_action(code_pipeline_source=self._source_action),
+                    get_bandit_action(code_pipeline_source=self._source_action),
+                ]
+            )
+
+        self._pipeline.add_stage(stage, pre=pre_stage_actions)
         return self
 
     def synth(self) -> "CICDPipelineStack":
