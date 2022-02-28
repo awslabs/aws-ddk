@@ -10,5 +10,8 @@ sphinx-build -b html -D release=${release_version} . ../release/next/api
 
 # setup new release
 cp -R ../release/next/ ../release/${release_version}
-echo -e "\n- name: ${release_version}\n  root: ${release_version}" >> ../_data/versions.yaml
+if [ "$name" != "latest" ]
+then
+    echo -e "\n- name: ${release_version}\n  root: ${release_version}" >> ../_data/versions.yaml
+fi
 popd
