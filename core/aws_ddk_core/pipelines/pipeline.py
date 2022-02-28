@@ -15,17 +15,17 @@
 from typing import List, Optional
 
 from aws_cdk.aws_events import EventPattern, IRuleTarget, Rule
-from aws_ddk_core.pipelines.stage import Stage
+from aws_ddk_core.pipelines.stage import DataStage
 from constructs import Construct
 
 
-class Pipeline(Construct):
+class DataPipeline(Construct):
     """
     Class that represents a data pipeline. Used to wire stages via Event Rules. For example:
 
     .. code-block:: python
 
-        Pipeline(self, id, description="My pipeline")
+        DataPipeline(self, id, description="My pipeline")
             .add_stage(my_lambda_stage)
             .add_stage(my_glue_stage)
 
@@ -57,10 +57,10 @@ class Pipeline(Construct):
         self.id: str = id
         self.name: Optional[str] = name
         self.description: Optional[str] = description
-        self._prev_stage: Optional[Stage] = None
+        self._prev_stage: Optional[DataStage] = None
         self._rules: List[Rule] = []
 
-    def add_stage(self, stage: Stage, skip_rule: bool = False, override_rule: Optional[Rule] = None) -> "Pipeline":
+    def add_stage(self, stage: DataStage, skip_rule: bool = False, override_rule: Optional[Rule] = None) -> "DataPipeline":
         """
         Add a stage to the data pipeline.
 
@@ -69,7 +69,7 @@ class Pipeline(Construct):
 
         Parameters
         ----------
-        stage : Stage
+        stage : DataStage
             Stage instance
         skip_rule : bool
             Skip creation of the default rule
@@ -78,8 +78,8 @@ class Pipeline(Construct):
 
         Returns
         -------
-        pipeline : Pipeline
-            Pipeline
+        pipeline : DataPipeline
+            DataPipeline
         """
         if override_rule:
             self.add_rule(override_rule=override_rule)
@@ -98,7 +98,7 @@ class Pipeline(Construct):
         event_pattern: Optional[EventPattern] = None,
         event_targets: Optional[List[IRuleTarget]] = None,
         override_rule: Optional[Rule] = None,
-    ) -> "Pipeline":
+    ) -> "DataPipeline":
         """
         Create a rule that matches specificed event pattern with the specified target.
 
@@ -115,8 +115,8 @@ class Pipeline(Construct):
 
         Returns
         -------
-        pipeline : Pipeline
-            Pipeline
+        pipeline : DataPipeline
+            DataPipeline
         """
         self._rules.append(
             override_rule
