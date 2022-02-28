@@ -6,3 +6,6 @@
 
 - name: latest
   root: latest
+
+- name: latest
+  root: latest
