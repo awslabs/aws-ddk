@@ -60,7 +60,9 @@ class DataPipeline(Construct):
         self._prev_stage: Optional[DataStage] = None
         self._rules: List[Rule] = []
 
-    def add_stage(self, stage: DataStage, skip_rule: bool = False, override_rule: Optional[Rule] = None) -> "DataPipeline":
+    def add_stage(
+        self, stage: DataStage, skip_rule: bool = False, override_rule: Optional[Rule] = None
+    ) -> "DataPipeline":
         """
         Add a stage to the data pipeline.
 
