@@ -18,11 +18,15 @@ from typing import Any, Dict, List, Optional
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, ManualApprovalStep
+from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import get_code_commit_source_action, get_synth_action
+from aws_cdk.aws_sns import Topic
 from aws_ddk_core.config import Config
 from constructs import Construct
 from marshmallow import Schema, fields
+
+import aws_cdk.aws_codebuild as codebuild
 
 _logger: logging.Logger = logging.getLogger(__name__)
 
@@ -72,6 +76,7 @@ class CICDPipelineStack(BaseStack):
             .add_synth_action()
             .build()
             .add_stage("dev", DevStage(app, "dev"))
+            .add_notifications()
             .synth()
         )
 
@@ -246,6 +251,48 @@ class CICDPipelineStack(BaseStack):
             stage, pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None
         )
         return self
+
+    
+    def add_notifications(
+        self,
+        notification_rule: Optional[NotificationRule] = None,
+    ) -> "CICDPipelineStack":
+        """
+        Add pipeline notifications. Create notification rule that sends events to the specified SNS topic.
+
+        Parameters
+        ----------
+        notification_rule: Optional[NotificationRule]
+            Override notification rule
+
+        Returns
+        -------
+        pipeline : CICDPipeline
+            CICD pipeline
+        """
+
+        self._notification_rule = notification_rule or NotificationRule(
+            self,
+            "notification",
+            detail_type=DetailType.BASIC,
+            events=["codepipeline-pipeline-pipeline-execution-failed"],
+            source=self._pipeline,
+            #source=codebuild.PipelineProject(self, "MyProject"),
+            targets=[
+                # Topic.from_topic_arn(
+                #     self,
+                #     "topic",
+                #     topic_arn=self._config.get_env_config("cicd").get("notifications_topic_arn")
+                # ) or 
+                Topic(
+                    self,
+                    f"{self.pipeline_name}-cicd-notifications",
+                    topic_name=f"{self.pipeline_name}-cicd-notifications",
+                )
+            ],
+        )
+        return self
+
 
     def synth(self) -> "CICDPipelineStack":
         """
