@@ -17,6 +17,7 @@ from aws_ddk_core.cicd.actions import (
     get_cfn_nag_action,
     get_code_commit_source_action,
     get_synth_action,
+    get_tests_action,
 )
 from aws_ddk_core.cicd.pipeline import CICDPipelineStack
 
@@ -26,4 +27,5 @@ __all__ = [
     "get_synth_action",
     "get_cfn_nag_action",
     "get_bandit_action",
+    "get_tests_action",
 ]
