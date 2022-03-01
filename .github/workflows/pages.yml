@@ -12,8 +12,14 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
+      - name: Checkout gh pages 🛎️
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages
       - name: Release 🌱
         run: |
+          cp gh-pages/_data/versions.yaml docs/_data/versions.yaml
           python -m pip install --upgrade pip
           python -m pip install poetry
           pushd core; poetry export -f requirements.txt --output ../docs/source/requirements_core.txt --without-hashes; popd
