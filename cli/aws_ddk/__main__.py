@@ -109,7 +109,15 @@ def cli(
     type=str,
     help="A directory containing a project template directory, or a URL to a git repository",
 )
-def init(name: str, environment: str, template: Optional[str] = None) -> None:
+@click.option(
+    "--generate-only",
+    is_flag=True,
+    type=bool,
+    help="If true, only generates project files, without setting up a git repo or a virtual environment",
+    default=False,
+    show_default=True,
+)
+def init(name: str, environment: str, template: Optional[str] = None, generate_only: Optional[bool] = None) -> None:
     """
     Create the local structure for a new AWS DDK Python project.
 
@@ -118,7 +126,7 @@ def init(name: str, environment: str, template: Optional[str] = None) -> None:
     # Use default Cookiecutter project template
     if not template:
         template = os.path.join(get_package_root(), DEFAULT_PROJECT_TEMPLATE)
-    return init_project(name=name, environment=environment, template=template)
+    return init_project(name=name, environment=environment, template=template, generate_only=generate_only)
 
 
 @cli.command(name="bootstrap")
