@@ -339,7 +339,7 @@ class CICDPipelineStack(BaseStack):
     def add_custom_stage(
         self,
         stage_name: str,
-        steps: List[Dict[str, List[str], Optional[IFileSetProducer], Optional[List[str]]]],
+        steps: List[Dict]
     ) -> "CICDPipelineStack":
         """
         Add custom stage to the pipeline.
@@ -368,8 +368,8 @@ class CICDPipelineStack(BaseStack):
             post=[
                 ShellStep(
                     step["name"],
-                    install_commands=step["install_commands"],
-                    input=step["input_file_set"] if step["input_file_set"] else self._source_action,
+                    install_commands=step["install_commands"] if "install_commands" in step else None,
+                    input=step["input_file_set"] if "input_file_set" in step else self._source_action,
                     commands=step["commands"],
                 ) for step in steps
             ],
