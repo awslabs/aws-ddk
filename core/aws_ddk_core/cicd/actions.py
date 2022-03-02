@@ -190,7 +190,7 @@ def get_tests_action(
         Test action
     """
     install_commands: List[str] = []
-    commands = ["./test.sh || echo 'no test script'"] if commands is None else commands
+    commands = ["./test.sh"] if commands is None else commands
     install_commands.extend(
         [
             "pip install -r requirements-dev.txt",  # Note that requirements-dev.txt can be an empty file
