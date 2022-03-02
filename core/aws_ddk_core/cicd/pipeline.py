@@ -15,7 +15,6 @@
 import logging
 from typing import Any, Dict, List, Optional
 
-import aws_cdk.aws_codebuild as codebuild
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
 from aws_cdk.aws_iam import PolicyStatement, ServicePrincipal
