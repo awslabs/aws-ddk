@@ -17,7 +17,14 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_iam import PolicyStatement
-from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep, ShellStep
+from aws_cdk.pipelines import (
+    CodeBuildStep,
+    CodePipeline,
+    CodePipelineSource,
+    IFileSetProducer,
+    ManualApprovalStep,
+    ShellStep,
+)
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
     get_bandit_action,
@@ -334,13 +341,8 @@ class CICDPipelineStack(BaseStack):
         if self._config.get_env_config("cicd").get("execute_tests"):
             self.add_test_stage()
         return self
-    
 
-    def add_custom_stage(
-        self,
-        stage_name: str,
-        steps: List[Dict]
-    ) -> "CICDPipelineStack":
+    def add_custom_stage(self, stage_name: str, steps: List[Dict]) -> "CICDPipelineStack":
         """
         Add custom stage to the pipeline.
 
@@ -371,11 +373,11 @@ class CICDPipelineStack(BaseStack):
                     install_commands=step["install_commands"] if "install_commands" in step else None,
                     input=step["input_file_set"] if "input_file_set" in step else self._source_action,
                     commands=step["commands"],
-                ) for step in steps
+                )
+                for step in steps
             ],
         )
         return self
-
 
     def synth(self) -> "CICDPipelineStack":
         """

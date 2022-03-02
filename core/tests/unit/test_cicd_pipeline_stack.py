@@ -235,16 +235,9 @@ def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
         .add_custom_stage(
             "CustomStage",
             [
-                {
-                    "name": "foo",
-                    "commands": ["ls -al", "echo 'dummy'"] 
-                },
-                {
-                    "name": "bar",
-                    "commands": ["flake8 ."],
-                    "install_commands": ["pip install flake8"]
-                }
-            ]
+                {"name": "foo", "commands": ["ls -al", "echo 'dummy'"]},
+                {"name": "bar", "commands": ["flake8 ."], "install_commands": ["pip install flake8"]},
+            ],
         )
         .add_stage("dev", DevStage(cdk_app, "dev"))
         .synth()
