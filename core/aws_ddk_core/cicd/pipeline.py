@@ -15,12 +15,14 @@
 import logging
 from typing import Any, Dict, List, Optional
 
+import aws_cdk.aws_codebuild as codebuild
 from aws_cdk import Environment, Stage
-from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
-from aws_ddk_core.base import BaseStack
+from aws_cdk.aws_iam import PolicyStatement, ServicePrincipal
+from aws_cdk.aws_kms import Key
 from aws_cdk.aws_sns import Topic
 from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep
+from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
     get_bandit_action,
     get_cfn_nag_action,
@@ -31,8 +33,6 @@ from aws_ddk_core.cicd import (
 from aws_ddk_core.config import Config
 from constructs import Construct
 from marshmallow import Schema, fields
-
-import aws_cdk.aws_codebuild as codebuild
 
 _logger: logging.Logger = logging.getLogger(__name__)
 
@@ -325,7 +325,6 @@ class CICDPipelineStack(BaseStack):
         )
         return self
 
-    
     def add_notifications(
         self,
         notification_rule: Optional[NotificationRule] = None,
@@ -349,23 +348,37 @@ class CICDPipelineStack(BaseStack):
             "notification",
             detail_type=DetailType.BASIC,
             events=["codepipeline-pipeline-pipeline-execution-failed"],
-            source=self._pipeline,
-            #source=codebuild.PipelineProject(self, "MyProject"),
+            source=self._pipeline.pipeline,
             targets=[
-                # Topic.from_topic_arn(
-                #     self,
-                #     "topic",
-                #     topic_arn=self._config.get_env_config("cicd").get("notifications_topic_arn")
-                # ) or 
-                Topic(
+                Topic.from_topic_arn(
+                    self, "topic", topic_arn=self._config.get_env_config("cicd").get("notifications_topic_arn")
+                )
+                if self._config.get_env_config("cicd").get("notifications_topic_arn")
+                else Topic(
                     self,
                     f"{self.pipeline_name}-cicd-notifications",
                     topic_name=f"{self.pipeline_name}-cicd-notifications",
+                    master_key=Key.from_lookup(
+                        self, f"{self.pipeline_name}-cicd-notifications-key", alias_name="alias/aws/sns"
+                    ),
                 )
+                # ).add_to_resource_policy(
+                #     PolicyStatement(
+                #         principals=[
+                #             ServicePrincipal("codestar-notifications.amazonaws.com")
+                #         ],
+                #         actions=["SNS:Publish"],
+                #         resources=["*"],
+                #         conditions= {
+                #             "StringEquals": {
+                #                 "aws:SourceAccount": self.account
+                #             }
+                #         }
+                #     )
+                # )
             ],
         )
         return self
-
 
     def add_checks(self) -> "CICDPipelineStack":
         """

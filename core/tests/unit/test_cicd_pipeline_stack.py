@@ -50,7 +50,6 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
         .add_synth_action()
         .build()
         .add_stage("dev", DevStage(cdk_app, "dev"))
-        .add_notifications()
         .synth()
     )
     template = Template.from_stack(pipeline_stack)
@@ -237,9 +236,10 @@ def test_cicd_pipeline_full(cdk_app: App) -> None:
         .add_test_stage()
         .add_stage("dev", DevStage(cdk_app, "dev"))
         .synth()
+        .add_notifications()
     )
     template = Template.from_stack(pipeline_stack)
-    # Check if synthesized pipeline contains source, synth, self-update, and app stage
+    # Check if synthesized pipeline contains source, synth, self-update, security-lint and app stages
     template.has_resource_properties(
         "AWS::CodePipeline::Pipeline",
         props={
@@ -418,6 +418,14 @@ def test_cicd_pipeline_full(cdk_app: App) -> None:
                     ],
                 }
             ),
+        },
+    )
+    # Check if SNS Topic for notifications exists
+    template.has_resource_properties(
+        "AWS::SNS::Topic",
+        props={
+            "TopicName": Match.exact(pattern="dummy-pipeline-cicd-notifications"),
+            "KmsMasterKeyId": Match.any_value(),
         },
     )
     template.has_resource_properties(
