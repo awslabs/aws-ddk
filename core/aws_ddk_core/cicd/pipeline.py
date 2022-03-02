@@ -17,15 +17,10 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_iam import PolicyStatement
-<<<<<<< HEAD
-from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, ManualApprovalStep
 from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.cicd import get_code_commit_source_action, get_synth_action
 from aws_cdk.aws_sns import Topic
-=======
 from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep
-from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
     get_bandit_action,
     get_cfn_nag_action,
@@ -33,7 +28,6 @@ from aws_ddk_core.cicd import (
     get_synth_action,
     get_tests_action,
 )
->>>>>>> d34bd1d98f5a170026a1b65f9629e909ca839930
 from aws_ddk_core.config import Config
 from constructs import Construct
 from marshmallow import Schema, fields
