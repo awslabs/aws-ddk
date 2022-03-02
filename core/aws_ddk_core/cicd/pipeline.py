@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_iam import PolicyStatement
-from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep
+from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep, ShellStep
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
     get_bandit_action,
@@ -334,6 +334,48 @@ class CICDPipelineStack(BaseStack):
         if self._config.get_env_config("cicd").get("execute_tests"):
             self.add_test_stage()
         return self
+    
+
+    def add_custom_stage(
+        self,
+        stage_name: str,
+        steps: List[Dict[str, List[str], Optional[IFileSetProducer], Optional[List[str]]]],
+    ) -> "CICDPipelineStack":
+        """
+        Add custom stage to the pipeline.
+
+        Parameters
+        ----------
+        stage_name: str
+            Name of the stage
+        steps: List[Dict[str, List[str], Optional[IFileSetProducer], Optional[List[str]]]]
+            Steps to add to this stage. Should be a dictionary with the follwing keys set.
+            - name: str
+            - commands: List[str]
+            - input: Optional[IFileSetProducer]
+            - install_commands: Optional[List[str]]
+            See `Documentation on aws_cdk.pipelines.ShellStep`
+            <https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html>`_ for more detail.
+
+        Returns
+        -------
+        pipeline : CICDPipeline
+            CICD pipeline
+        """
+
+        self._pipeline.add_wave(
+            stage_name,
+            post=[
+                ShellStep(
+                    step["name"],
+                    install_commands=step["install_commands"],
+                    input=step["input_file_set"] if step["input_file_set"] else self._source_action,
+                    commands=step["commands"],
+                ) for step in steps
+            ],
+        )
+        return self
+
 
     def synth(self) -> "CICDPipelineStack":
         """
