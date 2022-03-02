@@ -342,7 +342,7 @@ class CICDPipelineStack(BaseStack):
             self.add_test_stage()
         return self
 
-    def add_custom_stage(self, stage_name: str, steps: List[Dict]) -> "CICDPipelineStack":
+    def add_custom_stage(self, stage_name: str, steps: List[Dict[str, Any]]) -> "CICDPipelineStack":
         """
         Add custom stage to the pipeline.
 
