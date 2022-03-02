@@ -17,9 +17,15 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_iam import PolicyStatement
-from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, ManualApprovalStep
+from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.cicd import get_code_commit_source_action, get_synth_action
+from aws_ddk_core.cicd import (
+    get_bandit_action,
+    get_cfn_nag_action,
+    get_code_commit_source_action,
+    get_synth_action,
+    get_tests_action,
+)
 from aws_ddk_core.config import Config
 from constructs import Construct
 from marshmallow import Schema, fields
@@ -225,7 +231,6 @@ class CICDPipelineStack(BaseStack):
     ) -> "CICDPipelineStack":
         """
         Add application stage to the CICD pipeline. This stage deploys your application infrastructure.
-
         Parameters
         ----------
         stage_id: str
@@ -234,7 +239,6 @@ class CICDPipelineStack(BaseStack):
             Application stage instance
         manual_approvals: Optional[bool]
             Configure manual approvals. False by default
-
         Returns
         -------
         pipeline : CICDPipelineStack
@@ -243,8 +247,92 @@ class CICDPipelineStack(BaseStack):
         manual_approvals = manual_approvals or self._config.get_env_config(stage_id).get("manual_approvals")
 
         self._pipeline.add_stage(
-            stage, pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None
+            stage,
+            pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None,
         )
+        return self
+
+    def add_security_lint_stage(
+        self,
+        stage_name: Optional[str] = None,
+        cloud_assembly_file_set: Optional[IFileSetProducer] = None,
+    ) -> "CICDPipelineStack":
+        """
+        Add linting - cfn-nag, and bandit.
+
+        Parameters
+        ----------
+        stage_name: Optional[str]
+            Name of the stage
+        cloud_assembly_file_set: Optional[IFileSetProducer]
+            Cloud assembly file set producer
+
+        Returns
+        -------
+        pipeline : CICDPipeline
+            CICD pipeline
+        """
+        self._pipeline.add_wave(
+            stage_name or "SecurityLint",
+            post=[
+                get_cfn_nag_action(
+                    file_set_producer=cloud_assembly_file_set
+                    if cloud_assembly_file_set
+                    else self._pipeline.cloud_assembly_file_set
+                ),
+                get_bandit_action(code_pipeline_source=self._source_action),
+            ],
+        )
+        return self
+
+    def add_test_stage(
+        self,
+        stage_name: Optional[str] = None,
+        cloud_assembly_file_set: Optional[IFileSetProducer] = None,
+        commands: Optional[List[str]] = None,
+    ) -> "CICDPipelineStack":
+        """
+        Add test - e.g. pytest.
+
+        Parameters
+        ----------
+        stage_name: Optional[str]
+            Name of the stage
+        cloud_assembly_file_set: Optional[IFileSetProducer]
+            Cloud assembly file set
+        commands: Optional[List[str]]
+            Additional commands to run in the test. Defaults to "./test.sh" otherwise
+
+        Returns
+        -------
+        pipeline : CICDPipelineStack
+            CICD pipeline
+        """
+
+        self._pipeline.add_wave(
+            stage_name or "Tests",
+            post=[
+                get_tests_action(
+                    file_set_producer=cloud_assembly_file_set if cloud_assembly_file_set else self._source_action,
+                    commands=commands,
+                ),
+            ],
+        )
+        return self
+
+    def add_checks(self) -> "CICDPipelineStack":
+        """
+        Add checks to the pipeline (e.g. linting, security, tests...).
+
+        Returns
+        -------
+        pipeline : CICDPipelineStack
+            CICD pipeline
+        """
+        if self._config.get_env_config("cicd").get("execute_security_lint"):
+            self.add_security_lint_stage()
+        if self._config.get_env_config("cicd").get("execute_tests"):
+            self.add_test_stage()
         return self
 
     def synth(self) -> "CICDPipelineStack":
