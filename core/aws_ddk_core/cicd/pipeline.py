@@ -17,9 +17,9 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
-from aws_cdk.aws_iam import PolicyStatement, ServicePrincipal
+from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_kms import Key
-from aws_cdk.aws_sns import ITopic, Topic
+from aws_cdk.aws_sns import Topic
 from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
