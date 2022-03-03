@@ -428,6 +428,25 @@ def test_cicd_pipeline_full(cdk_app: App) -> None:
             "KmsMasterKeyId": Match.any_value(),
         },
     )
+    # Check if SNS Topic policy is in place
+    template.has_resource_properties(
+        "AWS::SNS::TopicPolicy",
+        props={
+            "PolicyDocument": Match.object_like(
+                pattern={
+                    "Statement": [
+                        {
+                            "Action": "sns:Publish",
+                            "Effect": "Allow",
+                            "Principal": {"Service": "codestar-notifications.amazonaws.com"},
+                            "Resource": {"Ref": "dummypipelinecicdnotifications4ADAB795"},
+                            "Sid": "0",
+                        },
+                    ],
+                }
+            )
+        },
+    )
     template.has_resource_properties(
         "AWS::IAM::Role",
         props={
