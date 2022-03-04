@@ -44,6 +44,8 @@ docker = "^5.0.0"
 moto = "^2.2.12"
 pytest = "^6.2.5"
 PyYAML = "^5.4.1"
+typing-extensions = "^4.1.1"
+boto3-stubs-lite = {version = "*", extras = ["codecommit", "cloudformation", "sts"]}
 
 [tool.poetry.scripts]
 ddk = "aws_ddk.__main__:main"

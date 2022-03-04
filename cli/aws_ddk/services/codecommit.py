@@ -24,17 +24,14 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 def create_repository(name: str, description: Optional[str], tags: Optional[Dict[str, str]]) -> str:
     client = boto3_client("codecommit")
-    args: Dict[str, Union[str, Dict[str, str]]] = {
-        "repositoryName": name,
-    }
-    if description:
-        args.update({"repositoryDescription": description})
-    if tags:
-        args.update({"tags": tags})
     try:
-        resp: Dict[str, Dict[str, str]] = client.create_repository(**args)
+        resp = client.create_repository(
+            repositoryName=name,
+            repositoryDescription=description or "",
+            tags=tags or {},
+        )
     except botocore.exceptions.ClientError as ex:
-        error: Dict[str, Any] = ex.response["Error"]
+        error = ex.response["Error"]
         if error["Code"] == "RepositoryNameExistsException":
             echo(f"Repository {name} already exists in the AWS account.")
             resp = client.get_repository(repositoryName=name)

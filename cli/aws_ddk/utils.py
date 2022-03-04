@@ -17,6 +17,18 @@ import os
 import boto3
 import botocore.exceptions
 from aws_ddk.__metadata__ import __version__
+from typing import TYPE_CHECKING, overload
+
+if TYPE_CHECKING:
+    from typing_extensions import Literal
+    from mypy_boto3_codecommit.literals import ServiceName
+    from mypy_boto3_codecommit.client import CodeCommitClient
+    from mypy_boto3_cloudformation.client import CloudFormationClient
+    from boto3.resources.base import ServiceResource
+    from mypy_boto3_sts.client import STSClient
+    from botocore.client import BaseClient
+
+
 
 
 def get_botocore_config() -> botocore.config.Config:
@@ -27,12 +39,19 @@ def get_botocore_config() -> botocore.config.Config:
         user_agent_extra=f"awsddk/{__version__}",
     )
 
+@overload
+def boto3_client(service_name: 'Literal["sts"]') -> "STSClient": ...
+@overload
+def boto3_client(service_name: 'Literal["cloudformation"]') -> "CloudFormationClient": ...
+@overload
+def boto3_client(service_name: 'Literal["codecommit"]') -> "CodeCommitClient": ...
 
-def boto3_client(service_name: str) -> boto3.client:
+
+def boto3_client(service_name: "ServiceName") -> "BaseClient":
     return boto3.client(service_name=service_name, use_ssl=True, config=get_botocore_config())
 
 
-def boto3_resource(service_name: str) -> boto3.client:
+def boto3_resource(service_name: "ServiceName") -> "ServiceResource":
     return boto3.resource(service_name=service_name, use_ssl=True, config=get_botocore_config())
 
 
