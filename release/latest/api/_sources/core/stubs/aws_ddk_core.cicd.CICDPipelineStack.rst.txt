@@ -15,10 +15,13 @@
    .. autosummary::
    
       ~CICDPipelineStack.__init__
+      ~CICDPipelineStack.add_checks
       ~CICDPipelineStack.add_dependency
+      ~CICDPipelineStack.add_security_lint_stage
       ~CICDPipelineStack.add_source_action
       ~CICDPipelineStack.add_stage
       ~CICDPipelineStack.add_synth_action
+      ~CICDPipelineStack.add_test_stage
       ~CICDPipelineStack.add_transform
       ~CICDPipelineStack.build
       ~CICDPipelineStack.export_value
