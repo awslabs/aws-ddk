@@ -15,14 +15,12 @@
 import logging
 import os
 import time
-from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING, Union
+from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING
 
 import botocore.exceptions
 from aws_ddk.utils import boto3_client
 
 if TYPE_CHECKING:
-    from mypy_boto3_cloudformation.waiter import StackCreateCompleteWaiter
-    from mypy_boto3_cloudformation.waiter import StackUpdateCompleteWaiter
     from mypy_boto3_cloudformation.type_defs import WaiterConfigTypeDef
 
 CHANGESET_PREFIX = "aws-ddk-cli-deploy-"
@@ -106,18 +104,22 @@ def _execute_changeset(changeset_id: str, stack_name: str) -> None:
 
 
 def _wait_for_execute(stack_name: str, changeset_type: str) -> None:
-    waiter: "Union[StackCreateCompleteWaiter, StackUpdateCompleteWaiter]"
-    if changeset_type == "CREATE":
-        waiter = boto3_client("cloudformation").get_waiter("stack_create_complete")
-    elif changeset_type == "UPDATE":
-        waiter = boto3_client("cloudformation").get_waiter("stack_update_complete")
-    else:
-        raise RuntimeError(f"Invalid changeset type {changeset_type}")
     waiter_config: "WaiterConfigTypeDef" = {
         "Delay": 5,
         "MaxAttempts": 480,
     }
-    waiter.wait(StackName=stack_name, WaiterConfig=waiter_config)
+
+    if changeset_type == "CREATE":
+        create_waiter = boto3_client("cloudformation").get_waiter("stack_create_complete")
+        create_waiter.wait(StackName=stack_name, WaiterConfig=waiter_config)
+        return
+
+    if changeset_type == "UPDATE":
+        update_waiter = boto3_client("cloudformation").get_waiter("stack_update_complete")
+        update_waiter.wait(StackName=stack_name, WaiterConfig=waiter_config)
+        return
+
+    raise RuntimeError(f"Invalid changeset type {changeset_type}")
 
 
 def deploy_template(
