@@ -13,11 +13,12 @@
 # limitations under the License.
 
 import os
+from typing import TYPE_CHECKING, overload
 
 import boto3
-import botocore.exceptions
+from botocore.config import Config
+
 from aws_ddk.__metadata__ import __version__
-from typing import TYPE_CHECKING, overload
 
 if TYPE_CHECKING:
     from typing_extensions import Literal
@@ -31,8 +32,8 @@ if TYPE_CHECKING:
 
 
 
-def get_botocore_config() -> botocore.config.Config:
-    return botocore.config.Config(
+def get_botocore_config() -> Config:
+    return Config(
         retries={"max_attempts": 5},
         connect_timeout=10,
         max_pool_connections=10,
