@@ -16,20 +16,17 @@ import os
 from typing import TYPE_CHECKING, overload
 
 import boto3
+from aws_ddk.__metadata__ import __version__
 from botocore.config import Config
 
-from aws_ddk.__metadata__ import __version__
-
 if TYPE_CHECKING:
-    from typing_extensions import Literal
-    from mypy_boto3_codecommit.literals import ServiceName
-    from mypy_boto3_codecommit.client import CodeCommitClient
-    from mypy_boto3_cloudformation.client import CloudFormationClient
     from boto3.resources.base import ServiceResource
-    from mypy_boto3_sts.client import STSClient
     from botocore.client import BaseClient
-
-
+    from mypy_boto3_cloudformation.client import CloudFormationClient
+    from mypy_boto3_codecommit.client import CodeCommitClient
+    from mypy_boto3_codecommit.literals import ServiceName
+    from mypy_boto3_sts.client import STSClient
+    from typing_extensions import Literal
 
 
 def get_botocore_config() -> Config:
@@ -40,12 +37,20 @@ def get_botocore_config() -> Config:
         user_agent_extra=f"awsddk/{__version__}",
     )
 
+
 @overload
-def boto3_client(service_name: 'Literal["sts"]') -> "STSClient": ...
+def boto3_client(service_name: 'Literal["sts"]') -> "STSClient":
+    ...
+
+
 @overload
-def boto3_client(service_name: 'Literal["cloudformation"]') -> "CloudFormationClient": ...
+def boto3_client(service_name: 'Literal["cloudformation"]') -> "CloudFormationClient":
+    ...
+
+
 @overload
-def boto3_client(service_name: 'Literal["codecommit"]') -> "CodeCommitClient": ...
+def boto3_client(service_name: 'Literal["codecommit"]') -> "CodeCommitClient":
+    ...
 
 
 def boto3_client(service_name: "ServiceName") -> "BaseClient":

@@ -15,7 +15,7 @@
 import logging
 import os
 import time
-from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
 
 import botocore.exceptions
 from aws_ddk.utils import boto3_client
@@ -28,7 +28,7 @@ CHANGESET_PREFIX = "aws-ddk-cli-deploy-"
 _logger: logging.Logger = logging.getLogger(__name__)
 
 
-def get_stack_status(stack_name: str) -> str:
+def get_stack_status(stack_name: str) -> Any:
     client = boto3_client("cloudformation")
     try:
         resp = client.describe_stacks(StackName=stack_name)

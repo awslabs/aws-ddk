@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import logging
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 import botocore.exceptions
 from aws_ddk.utils import boto3_client
@@ -22,7 +22,7 @@ from click import echo
 _logger: logging.Logger = logging.getLogger(__name__)
 
 
-def create_repository(name: str, description: Optional[str], tags: Optional[Dict[str, str]]) -> str:
+def create_repository(name: str, description: Optional[str], tags: Optional[Dict[str, str]]) -> Any:
     client = boto3_client("codecommit")
     try:
         resp = client.create_repository(
