@@ -16,6 +16,7 @@ from typing import Any
 
 from aws_cdk import App, Stage
 from aws_cdk.assertions import Match, Template
+from aws_cdk.pipelines import ShellStep
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import CICDPipelineStack
 from constructs import Construct
@@ -235,8 +236,11 @@ def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
         .add_custom_stage(
             "CustomStage",
             [
-                {"name": "foo", "commands": ["ls -al", "echo 'dummy'"]},
-                {"name": "bar", "commands": ["flake8 ."], "install_commands": ["pip install flake8"]},
+                ShellStep(
+                    "foo",
+                    commands=["ls -al", "echo 'dummy'"],
+                ),
+                ShellStep("bar", commands=["flake8 ."], install_commands=["pip install flake8"]),
             ],
         )
         .add_stage("dev", DevStage(cdk_app, "dev"))
