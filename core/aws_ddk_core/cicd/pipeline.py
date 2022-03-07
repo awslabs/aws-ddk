@@ -350,7 +350,9 @@ class CICDPipelineStack(BaseStack):
             source=self._pipeline.pipeline,
             targets=[
                 Topic.from_topic_arn(
-                    self, "topic", topic_arn=self._config.get_env_config(self.environment_id).get("notifications_topic_arn")
+                    self,
+                    "topic",
+                    topic_arn=self._config.get_env_config(self.environment_id).get("notifications_topic_arn"),
                 )
                 if self._config.get_env_config(self.environment_id).get("notifications_topic_arn")
                 else Topic(
