@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from aws_ddk_core.pipelines.pipeline import Pipeline
-from aws_ddk_core.pipelines.stage import Stage
+from aws_ddk_core.pipelines.pipeline import DataPipeline
+from aws_ddk_core.pipelines.stage import DataStage
 
 __all__ = [
-    "Pipeline",
-    "Stage",
+    "DataPipeline",
+    "DataStage",
 ]

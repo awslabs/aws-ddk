@@ -27,13 +27,13 @@ from aws_cdk.aws_stepfunctions import (
     TaskInput,
 )
 from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
-from aws_ddk_core.pipelines.stage import Stage
+from aws_ddk_core.pipelines.stage import DataStage
 from constructs import Construct
 
 
-class GlueTransformStage(Stage):
+class GlueTransformStage(DataStage):
     """
-    Class that represents a Glue Transform DDK Stage.
+    Class that represents a Glue Transform DDK DataStage.
     """
 
     def __init__(

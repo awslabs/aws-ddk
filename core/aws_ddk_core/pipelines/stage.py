@@ -19,16 +19,16 @@ from aws_cdk.aws_events import EventPattern, IRuleTarget
 from constructs import Construct
 
 
-class Stage(Construct):
+class DataStage(Construct):
     """
     Class that represents a stage within a data pipeline.
 
-    To create a Stage, inherit from this class, add infrastructure required by the stage, and implement
+    To create a DataStage, inherit from this class, add infrastructure required by the stage, and implement
     get_event_pattern and get_targets methods. For example:
 
     .. code-block:: python
 
-        class MyStage(Stage):
+        class MyStage(DataStage):
             def __init__(
                 self,
                 scope: Construct,
