@@ -28,7 +28,7 @@ CHANGESET_PREFIX = "aws-ddk-cli-deploy-"
 _logger: logging.Logger = logging.getLogger(__name__)
 
 
-def get_stack_status(stack_name: str) -> Any:
+def get_stack_status(stack_name: str) -> str:
     client = boto3_client("cloudformation")
     try:
         resp = client.describe_stacks(StackName=stack_name)

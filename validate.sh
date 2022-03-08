@@ -17,10 +17,13 @@ set -ex
 
 isort --check .
 black --check .
+
+pip install 'boto3-stubs[codecommit,cloudformation,sts]'
 for DIR in "cli" "core"
 do
   mypy --install-types --non-interactive ${DIR}
 done
+
 flake8 .
 doc8 --ignore D002,D005 --max-line-length 120 docs/source
 cfn-lint -t cli/aws_ddk/data/cloudformation_templates/*

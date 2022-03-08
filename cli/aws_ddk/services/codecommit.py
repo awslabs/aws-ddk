@@ -22,7 +22,7 @@ from click import echo
 _logger: logging.Logger = logging.getLogger(__name__)
 
 
-def create_repository(name: str, description: Optional[str], tags: Optional[Dict[str, str]]) -> Any:
+def create_repository(name: str, description: Optional[str], tags: Optional[Dict[str, str]]) -> str:
     client = boto3_client("codecommit")
     try:
         resp = client.create_repository(
