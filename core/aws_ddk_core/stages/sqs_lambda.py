@@ -21,12 +21,12 @@ from aws_cdk.aws_iam import IRole
 from aws_cdk.aws_lambda import Code, IFunction, Runtime
 from aws_cdk.aws_lambda_event_sources import SqsEventSource
 from aws_cdk.aws_sqs import DeadLetterQueue, IQueue
-from aws_ddk_core.pipelines.stage import Stage
+from aws_ddk_core.pipelines.stage import DataStage
 from aws_ddk_core.resources import LambdaFactory, SQSFactory
 from constructs import Construct
 
 
-class SqsToLambdaStage(Stage):
+class SqsToLambdaStage(DataStage):
     """
     Class that represents an SQS to Lambda Transform DDK Stage.
     """

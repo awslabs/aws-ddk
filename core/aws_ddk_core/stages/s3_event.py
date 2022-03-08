@@ -17,12 +17,12 @@ from typing import Any, Dict, List, Optional
 from aws_cdk.aws_cloudtrail import S3EventSelector, Trail
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_s3 import Bucket, IBucket
-from aws_ddk_core.pipelines import Stage
+from aws_ddk_core.pipelines import DataStage
 from aws_ddk_core.resources import S3Factory
 from constructs import Construct
 
 
-class S3EventStage(Stage):
+class S3EventStage(DataStage):
     """
     Class that represents an S3 Event DDK Stage.
     """

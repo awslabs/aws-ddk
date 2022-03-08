@@ -17,7 +17,7 @@ from pathlib import Path
 from aws_cdk.assertions import Template
 from aws_cdk.aws_lambda import Code
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.pipelines import Pipeline
+from aws_ddk_core.pipelines import DataPipeline
 from aws_ddk_core.resources import S3Factory
 from aws_ddk_core.stages import S3EventStage, SqsToLambdaStage
 
@@ -45,7 +45,7 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
     )
     bucket.grant_read_write(sqs_lambda_stage.function)
 
-    Pipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage)
+    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage)
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(
