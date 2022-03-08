@@ -221,7 +221,7 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
     )
 
 
-def test_cicd_pipeline_full(cdk_app: App) -> None:
+def test_cicd_pipeline_security_checks(cdk_app: App) -> None:
     pipeline_stack = (
         CICDPipelineStack(
             cdk_app,
@@ -353,99 +353,6 @@ def test_cicd_pipeline_full(cdk_app: App) -> None:
                         },
                     ),
                 ],
-            ),
-        },
-    )
-    # Check if pipeline bucket is KMS-encrypted and blocks public access
-    template.has_resource_properties(
-        "AWS::S3::Bucket",
-        props={
-            "PublicAccessBlockConfiguration": {
-                "BlockPublicAcls": True,
-                "BlockPublicPolicy": True,
-                "IgnorePublicAcls": True,
-                "RestrictPublicBuckets": True,
-            },
-            "BucketEncryption": {
-                "ServerSideEncryptionConfiguration": Match.array_with(
-                    pattern=[
-                        Match.object_like(
-                            pattern={
-                                "ServerSideEncryptionByDefault": {
-                                    "SSEAlgorithm": "aws:kms",
-                                },
-                            },
-                        ),
-                    ],
-                ),
-            },
-        },
-    )
-    # Check if KMS keys are rotated
-    template.has_resource_properties(
-        "AWS::KMS::Key",
-        props={
-            "EnableKeyRotation": True,
-        },
-    )
-    # Check if all IAM roles have permissions boundary attached
-    template.has_resource_properties(
-        "AWS::IAM::Role",
-        props={
-            "AssumeRolePolicyDocument": Match.object_like(
-                pattern={
-                    "Statement": [
-                        {
-                            "Action": "sts:AssumeRole",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Service": "codepipeline.amazonaws.com",
-                            },
-                        },
-                    ],
-                },
-            ),
-            "PermissionsBoundary": Match.object_like(
-                pattern={
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:",
-                            {"Ref": "AWS::Partition"},
-                            ":iam::111111111111:policy/ddk-dev-hnb659fds-permissions-boundary-111111111111-us-east-1",  # noqa
-                        ],
-                    ],
-                }
-            ),
-        },
-    )
-    template.has_resource_properties(
-        "AWS::IAM::Role",
-        props={
-            "AssumeRolePolicyDocument": Match.object_like(
-                pattern={
-                    "Statement": [
-                        {
-                            "Action": "sts:AssumeRole",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Service": "codebuild.amazonaws.com",
-                            },
-                        },
-                    ],
-                },
-            ),
-            "PermissionsBoundary": Match.object_like(
-                pattern={
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:",
-                            {"Ref": "AWS::Partition"},
-                            ":iam::111111111111:policy/ddk-dev-hnb659fds-permissions-boundary-111111111111-us-east-1",  # noqa
-                        ],
-                    ],
-                }
             ),
         },
     )

@@ -231,6 +231,7 @@ class CICDPipelineStack(BaseStack):
     ) -> "CICDPipelineStack":
         """
         Add application stage to the CICD pipeline. This stage deploys your application infrastructure.
+
         Parameters
         ----------
         stage_id: str
@@ -239,6 +240,7 @@ class CICDPipelineStack(BaseStack):
             Application stage instance
         manual_approvals: Optional[bool]
             Configure manual approvals. False by default
+
         Returns
         -------
         pipeline : CICDPipelineStack
@@ -329,9 +331,9 @@ class CICDPipelineStack(BaseStack):
         pipeline : CICDPipelineStack
             CICD pipeline
         """
-        if self._config.get_env_config("cicd").get("execute_security_lint"):
+        if self._config.get_env_config(self.environment_id).get("execute_security_lint"):
             self.add_security_lint_stage()
-        if self._config.get_env_config("cicd").get("execute_tests"):
+        if self._config.get_env_config(self.environment_id).get("execute_tests"):
             self.add_test_stage()
         return self
 
