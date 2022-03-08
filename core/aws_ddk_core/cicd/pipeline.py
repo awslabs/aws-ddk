@@ -357,10 +357,12 @@ class CICDPipelineStack(BaseStack):
                 if self._config.get_env_config(self.environment_id).get("notifications_topic_arn")
                 else Topic(
                     self,
-                    f"{self.pipeline_name}-cicd-notifications",
-                    topic_name=f"{self.pipeline_name}-cicd-notifications",
+                    f"{self.pipeline_name}-{self.environment_id}-notifications",
+                    topic_name=f"{self.pipeline_name}-{self.environment_id}-notifications",
                     master_key=Key.from_lookup(
-                        self, f"{self.pipeline_name}-cicd-notifications-key", alias_name="alias/aws/sns"
+                        self,
+                        f"{self.pipeline_name}-{self.environment_id}-notifications-key",
+                        alias_name="alias/aws/sns",
                     ),
                 )
             ],
