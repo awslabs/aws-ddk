@@ -222,6 +222,80 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
     )
 
 
+def test_cicd_pipeline_security_checks(cdk_app: App) -> None:
+    pipeline_stack = (
+        CICDPipelineStack(
+            cdk_app,
+            id="dummy-pipeline",
+            environment_id="dev",
+            pipeline_name="dummy-pipeline",
+        )
+        .add_source_action(repository_name="dummy-repository")
+        .add_synth_action()
+        .build()
+        .add_security_lint_stage()
+        .add_test_stage()
+        .add_stage("dev", DevStage(cdk_app, "dev"))
+        .synth()
+    )
+    template = Template.from_stack(pipeline_stack)
+    # Check if synthesized pipeline contains source, synth, self-update, and app stage
+    template.has_resource_properties(
+        "AWS::CodePipeline::Pipeline",
+        props={
+            "Stages": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "SecurityLint",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "Bandit",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "CFNNag",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
+                        },
+                    ),
+                    Match.object_like(
+                        pattern={
+                            "Name": "Tests",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "Tests",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
+                        },
+                    ),
+                ],
+            ),
+        },
+    )
+
+
 def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
     pipeline_stack = (
         CICDPipelineStack(
@@ -255,64 +329,6 @@ def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
                 pattern=[
                     Match.object_like(
                         pattern={
-                            "Name": "Source",
-                            "Actions": Match.array_with(
-                                pattern=[
-                                    Match.object_like(
-                                        pattern={
-                                            "Name": "dummy-repository",
-                                            "ActionTypeId": {
-                                                "Category": "Source",
-                                                "Provider": "CodeCommit",
-                                            },
-                                            "Configuration": {
-                                                "RepositoryName": "dummy-repository",
-                                                "BranchName": "main",
-                                            },
-                                        },
-                                    ),
-                                ],
-                            ),
-                        },
-                    ),
-                    Match.object_like(
-                        pattern={
-                            "Name": "Build",
-                            "Actions": Match.array_with(
-                                pattern=[
-                                    Match.object_like(
-                                        pattern={
-                                            "Name": "Synth",
-                                            "ActionTypeId": {
-                                                "Category": "Build",
-                                                "Provider": "CodeBuild",
-                                            },
-                                        },
-                                    ),
-                                ],
-                            ),
-                        },
-                    ),
-                    Match.object_like(
-                        pattern={
-                            "Name": "UpdatePipeline",
-                            "Actions": Match.array_with(
-                                pattern=[
-                                    Match.object_like(
-                                        pattern={
-                                            "Name": "SelfMutate",
-                                            "ActionTypeId": {
-                                                "Category": "Build",
-                                                "Provider": "CodeBuild",
-                                            },
-                                        },
-                                    ),
-                                ],
-                            ),
-                        },
-                    ),
-                    Match.object_like(
-                        pattern={
                             "Name": "CustomStage",
                             "Actions": Match.array_with(
                                 pattern=[
@@ -338,12 +354,53 @@ def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
                             ),
                         },
                     ),
-                    Match.object_like(
-                        pattern={
-                            "Name": "dev",
-                        },
-                    ),
                 ],
             ),
+        },
+    )
+
+
+def test_cicd_pipeline_notifications(cdk_app: App) -> None:
+    pipeline_stack = (
+        CICDPipelineStack(
+            cdk_app,
+            id="dummy-pipeline",
+            environment_id="dev",
+            pipeline_name="dummy-pipeline",
+        )
+        .add_source_action(repository_name="dummy-repository")
+        .add_synth_action()
+        .build()
+        .add_stage("dev", DevStage(cdk_app, "dev"))
+        .synth()
+        .add_notifications()
+    )
+    template = Template.from_stack(pipeline_stack)
+
+    # Check if SNS Topic for notifications exists
+    template.has_resource_properties(
+        "AWS::SNS::Topic",
+        props={
+            "TopicName": Match.exact(pattern="dummy-pipeline-dev-notifications"),
+            "KmsMasterKeyId": Match.any_value(),
+        },
+    )
+    # Check if SNS Topic policy is in place
+    template.has_resource_properties(
+        "AWS::SNS::TopicPolicy",
+        props={
+            "PolicyDocument": Match.object_like(
+                pattern={
+                    "Statement": [
+                        {
+                            "Action": "sns:Publish",
+                            "Effect": "Allow",
+                            "Principal": {"Service": "codestar-notifications.amazonaws.com"},
+                            "Resource": {"Ref": "dummypipelinedevnotificationsE4CDC252"},
+                            "Sid": "0",
+                        },
+                    ],
+                }
+            )
         },
     )

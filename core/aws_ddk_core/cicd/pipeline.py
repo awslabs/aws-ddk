@@ -16,7 +16,10 @@ import logging
 from typing import Any, Dict, List, Optional
 
 from aws_cdk import Environment, Stage
+from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
 from aws_cdk.aws_iam import PolicyStatement
+from aws_cdk.aws_kms import Key
+from aws_cdk.aws_sns import Topic
 from aws_cdk.pipelines import (
     CodeBuildStep,
     CodePipeline,
@@ -85,6 +88,7 @@ class CICDPipelineStack(BaseStack):
             .add_synth_action()
             .build()
             .add_stage("dev", DevStage(app, "dev"))
+            .add_notifications()
             .synth()
         )
 
@@ -238,6 +242,7 @@ class CICDPipelineStack(BaseStack):
     ) -> "CICDPipelineStack":
         """
         Add application stage to the CICD pipeline. This stage deploys your application infrastructure.
+
         Parameters
         ----------
         stage_id: str
@@ -246,6 +251,7 @@ class CICDPipelineStack(BaseStack):
             Application stage instance
         manual_approvals: Optional[bool]
             Configure manual approvals. False by default
+
         Returns
         -------
         pipeline : CICDPipelineStack
@@ -327,6 +333,51 @@ class CICDPipelineStack(BaseStack):
         )
         return self
 
+    def add_notifications(
+        self,
+        notification_rule: Optional[NotificationRule] = None,
+    ) -> "CICDPipelineStack":
+        """
+        Add pipeline notifications. Create notification rule that sends events to the specified SNS topic.
+
+        Parameters
+        ----------
+        notification_rule: Optional[NotificationRule]
+            Override notification rule
+
+        Returns
+        -------
+        pipeline : CICDPipeline
+            CICD pipeline
+        """
+
+        self._notification_rule = notification_rule or NotificationRule(
+            self,
+            "notification",
+            detail_type=DetailType.BASIC,
+            events=["codepipeline-pipeline-pipeline-execution-failed"],
+            source=self._pipeline.pipeline,
+            targets=[
+                Topic.from_topic_arn(
+                    self,
+                    "topic",
+                    topic_arn=self._config.get_env_config(self.environment_id).get("notifications_topic_arn"),
+                )
+                if self._config.get_env_config(self.environment_id).get("notifications_topic_arn")
+                else Topic(
+                    self,
+                    f"{self.pipeline_name}-{self.environment_id}-notifications",
+                    topic_name=f"{self.pipeline_name}-{self.environment_id}-notifications",
+                    master_key=Key.from_lookup(
+                        self,
+                        f"{self.pipeline_name}-{self.environment_id}-notifications-key",
+                        alias_name="alias/aws/sns",
+                    ),
+                )
+            ],
+        )
+        return self
+
     def add_checks(self) -> "CICDPipelineStack":
         """
         Add checks to the pipeline (e.g. linting, security, tests...).
@@ -336,9 +387,9 @@ class CICDPipelineStack(BaseStack):
         pipeline : CICDPipelineStack
             CICD pipeline
         """
-        if self._config.get_env_config("cicd").get("execute_security_lint"):
+        if self._config.get_env_config(self.environment_id).get("execute_security_lint"):
             self.add_security_lint_stage()
-        if self._config.get_env_config("cicd").get("execute_tests"):
+        if self._config.get_env_config(self.environment_id).get("execute_tests"):
             self.add_test_stage()
         return self
 
