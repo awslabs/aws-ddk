@@ -51,8 +51,8 @@ Pipelines
    :toctree: stubs
    :template: custom-class-template.rst
 
-   Pipeline
-   Stage
+   DataPipeline
+   DataStage
 
 Resources
 ------------
