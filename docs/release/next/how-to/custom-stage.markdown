@@ -8,7 +8,7 @@ category: Advanced Topics
 
 ## The DataStage Class
 
-The AWS DDK provides a construct: `DataStage()` that can be inherited to build your own custom stages. [Link to Class Docs Needs to be added](https://awslabs.github.io/aws-ddk/release/latest/api/core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage)
+The AWS DDK provides a construct: `DataStage()` that can be inherited to build your own custom stages. [DataStage()](https://awslabs.github.io/aws-ddk/release/latest/api/core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage)
 
 ## Building Your Own Data Stage
 Let's say we need to create a stage that publishes S3 events to an SNS Topic.
