@@ -28,15 +28,14 @@ jobs:
           python -m pip install poetry
           poetry config virtualenvs.create false --local
           poetry install -vvv
-      - name: mypy check
-        run: |
-          mypy --install-types --non-interactive core
-          mypy --install-types --non-interactive cli
-      - name: Flake8 Lint
-        run: flake8 .
-      - name: Black style
-        run: black --check .
       - name: Imports order check (isort)
         run: isort --check .
+      - name: Black style
+        run: black --check .
+      - name: mypy check
+        run: |
+          mypy --install-types --non-interactive cli core
+      - name: Flake8 Lint
+        run: flake8 .
       - name: Documentation check
         run: doc8 --ignore D005,D002 --max-line-length 120 docs/source

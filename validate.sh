@@ -18,7 +18,6 @@ set -ex
 isort --check .
 black --check .
 
-pip install 'boto3-stubs[codecommit,cloudformation,sts]'
 for DIR in "cli" "core"
 do
   mypy --install-types --non-interactive ${DIR}

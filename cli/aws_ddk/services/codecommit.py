@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import logging
-from typing import Any, Dict, Optional
+from typing import Dict, Optional
 
 import botocore.exceptions
 from aws_ddk.utils import boto3_client
