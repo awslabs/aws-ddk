@@ -16,6 +16,7 @@ from typing import Any
 
 from aws_cdk import App, Stage
 from aws_cdk.assertions import Match, Template
+from aws_cdk.pipelines import ShellStep
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import CICDPipelineStack
 from constructs import Construct
@@ -279,6 +280,70 @@ def test_cicd_pipeline_security_checks(cdk_app: App) -> None:
                                     Match.object_like(
                                         pattern={
                                             "Name": "Tests",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
+                        },
+                    ),
+                ],
+            ),
+        },
+    )
+
+
+def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
+    pipeline_stack = (
+        CICDPipelineStack(
+            cdk_app,
+            id="dummy-pipeline",
+            environment_id="dev",
+            pipeline_name="dummy-pipeline",
+        )
+        .add_source_action(repository_name="dummy-repository")
+        .add_synth_action()
+        .build()
+        .add_custom_stage(
+            "CustomStage",
+            [
+                ShellStep(
+                    "foo",
+                    commands=["ls -al", "echo 'dummy'"],
+                ),
+                ShellStep("bar", commands=["flake8 ."], install_commands=["pip install flake8"]),
+            ],
+        )
+        .add_stage("dev", DevStage(cdk_app, "dev"))
+        .synth()
+    )
+    template = Template.from_stack(pipeline_stack)
+    # Check if synthesized pipeline contains source, synth, self-update, and app stage
+    template.has_resource_properties(
+        "AWS::CodePipeline::Pipeline",
+        props={
+            "Stages": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "CustomStage",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "bar",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "foo",
                                             "ActionTypeId": {
                                                 "Category": "Build",
                                                 "Provider": "CodeBuild",

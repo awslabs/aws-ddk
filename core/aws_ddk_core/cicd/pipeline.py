@@ -20,7 +20,14 @@ from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
 from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_kms import Key
 from aws_cdk.aws_sns import Topic
-from aws_cdk.pipelines import CodeBuildStep, CodePipeline, CodePipelineSource, IFileSetProducer, ManualApprovalStep
+from aws_cdk.pipelines import (
+    CodeBuildStep,
+    CodePipeline,
+    CodePipelineSource,
+    IFileSetProducer,
+    ManualApprovalStep,
+    ShellStep,
+)
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
     get_bandit_action,
@@ -384,6 +391,31 @@ class CICDPipelineStack(BaseStack):
             self.add_security_lint_stage()
         if self._config.get_env_config(self.environment_id).get("execute_tests"):
             self.add_test_stage()
+        return self
+
+    def add_custom_stage(self, stage_name: str, steps: List[ShellStep]) -> "CICDPipelineStack":
+        """
+        Add custom stage to the pipeline.
+
+        Parameters
+        ----------
+        stage_name: str
+            Name of the stage
+        steps: List[ShellStep]
+            Steps to add to this stage. List of ShellStep().
+            See `Documentation on aws_cdk.pipelines.ShellStep`
+            <https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html>`_ for more detail.
+
+        Returns
+        -------
+        pipeline : CICDPipeline
+            CICD pipeline
+        """
+
+        self._pipeline.add_wave(
+            stage_name,
+            post=steps,
+        )
         return self
 
     def synth(self) -> "CICDPipelineStack":
