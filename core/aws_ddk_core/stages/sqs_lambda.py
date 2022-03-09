@@ -66,7 +66,8 @@ class SqsToLambdaStage(DataStage):
             The source code of the Lambda function
             Must be set if `lambda_function` is not.
         handler : str
-            The name of the method within the code that Lambda calls to execute the function. `index.lambda_handler` by default.
+            The name of the method within the code that Lambda calls to execute the function.
+            `index.lambda_handler` by default.
         runtime : Runtime
             The runtime environment for the Lambda function. `PYTHON_3_9` by default
         role : Optional[IRole]
