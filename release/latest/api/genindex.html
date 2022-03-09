@@ -166,6 +166,8 @@
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html">aws_ddk_core.cicd.CICDPipelineStack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.config.Config.html">aws_ddk_core.config.Config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.resources.LambdaFactory.html">aws_ddk_core.resources.LambdaFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
@@ -241,6 +243,13 @@
 </li>
         </ul></li>
         <li>
+    --generate-only
+
+        <ul>
+          <li><a href="cli/aws_ddk.html#cmdoption-ddk-init-generate-only">ddk-init command line option</a>
+</li>
+        </ul></li>
+        <li>
     --iam-policies
 
         <ul>
@@ -309,6 +318,8 @@
           <li><a href="cli/aws_ddk.html#cmdoption-ddk-deploy-require-approval">ddk-deploy command line option</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     --tags
 
@@ -318,8 +329,6 @@
           <li><a href="cli/aws_ddk.html#cmdoption-ddk-create-repository-t">ddk-create-repository command line option</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     --template
 
@@ -433,6 +442,10 @@
 </li>
           <li><a href="core/stubs/aws_ddk_core.config.JSONConfigStrategy.html#aws_ddk_core.config.JSONConfigStrategy.__init__">(aws_ddk_core.config.JSONConfigStrategy method)</a>
 </li>
+          <li><a href="core/stubs/aws_ddk_core.pipelines.DataPipeline.html#aws_ddk_core.pipelines.DataPipeline.__init__">(aws_ddk_core.pipelines.DataPipeline method)</a>
+</li>
+          <li><a href="core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage.__init__">(aws_ddk_core.pipelines.DataStage method)</a>
+</li>
           <li><a href="core/stubs/aws_ddk_core.resources.KMSFactory.html#aws_ddk_core.resources.KMSFactory.__init__">(aws_ddk_core.resources.KMSFactory method)</a>
 </li>
           <li><a href="core/stubs/aws_ddk_core.resources.LambdaFactory.html#aws_ddk_core.resources.LambdaFactory.__init__">(aws_ddk_core.resources.LambdaFactory method)</a>
@@ -458,14 +471,24 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_checks">add_checks() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
 </li>
-        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_security_lint_stage">add_security_lint_stage() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
+        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage">add_custom_stage() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
 </li>
-        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_source_action">add_source_action() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
+        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_notifications">add_notifications() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
+</li>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.DataPipeline.html#aws_ddk_core.pipelines.DataPipeline.add_rule">add_rule() (aws_ddk_core.pipelines.DataPipeline method)</a>
+</li>
+        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_security_lint_stage">add_security_lint_stage() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_stage">add_stage() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
+        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_source_action">add_source_action() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
 </li>
+        <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_stage">add_stage() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
+
+        <ul>
+          <li><a href="core/stubs/aws_ddk_core.pipelines.DataPipeline.html#aws_ddk_core.pipelines.DataPipeline.add_stage">(aws_ddk_core.pipelines.DataPipeline method)</a>
+</li>
+        </ul></li>
         <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_synth_action">add_synth_action() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
 </li>
         <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.add_test_stage">add_test_stage() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
@@ -508,6 +531,10 @@
   <h2>D</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.DataPipeline.html#aws_ddk_core.pipelines.DataPipeline">DataPipeline (class in aws_ddk_core.pipelines)</a>
+</li>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage">DataStage (class in aws_ddk_core.pipelines)</a>
+</li>
         <li>
     ddk command line option
 
@@ -604,6 +631,8 @@
         <ul>
           <li><a href="cli/aws_ddk.html#cmdoption-ddk-init-e">--environment</a>
 </li>
+          <li><a href="cli/aws_ddk.html#cmdoption-ddk-init-generate-only">--generate-only</a>
+</li>
           <li><a href="cli/aws_ddk.html#cmdoption-ddk-init-t">--template</a>
 </li>
           <li><a href="cli/aws_ddk.html#cmdoption-ddk-init-e">-e</a>
@@ -655,9 +684,11 @@
 </li>
         <li><a href="core/stubs/aws_ddk_core.config.Config.html#aws_ddk_core.config.Config.get_env_config">get_env_config() (aws_ddk_core.config.Config method)</a>
 </li>
-        <li><a href="core/stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage.get_event_pattern">get_event_pattern() (aws_ddk_core.stages.GlueTransformStage method)</a>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage.get_event_pattern">get_event_pattern() (aws_ddk_core.pipelines.DataStage method)</a>
 
         <ul>
+          <li><a href="core/stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage.get_event_pattern">(aws_ddk_core.stages.GlueTransformStage method)</a>
+</li>
           <li><a href="core/stubs/aws_ddk_core.stages.S3EventStage.html#aws_ddk_core.stages.S3EventStage.get_event_pattern">(aws_ddk_core.stages.S3EventStage method)</a>
 </li>
           <li><a href="core/stubs/aws_ddk_core.stages.SqsToLambdaStage.html#aws_ddk_core.stages.SqsToLambdaStage.get_event_pattern">(aws_ddk_core.stages.SqsToLambdaStage method)</a>
@@ -669,9 +700,11 @@
 </li>
         <li><a href="core/stubs/aws_ddk_core.config.Config.html#aws_ddk_core.config.Config.get_tags">get_tags() (aws_ddk_core.config.Config method)</a>
 </li>
-        <li><a href="core/stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage.get_targets">get_targets() (aws_ddk_core.stages.GlueTransformStage method)</a>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage.get_targets">get_targets() (aws_ddk_core.pipelines.DataStage method)</a>
 
         <ul>
+          <li><a href="core/stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage.get_targets">(aws_ddk_core.stages.GlueTransformStage method)</a>
+</li>
           <li><a href="core/stubs/aws_ddk_core.stages.S3EventStage.html#aws_ddk_core.stages.S3EventStage.get_targets">(aws_ddk_core.stages.S3EventStage method)</a>
 </li>
           <li><a href="core/stubs/aws_ddk_core.stages.SqsToLambdaStage.html#aws_ddk_core.stages.SqsToLambdaStage.get_targets">(aws_ddk_core.stages.SqsToLambdaStage method)</a>

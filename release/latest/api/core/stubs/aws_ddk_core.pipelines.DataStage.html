@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="prev" title="aws_ddk_core.stages.S3EventStage" href="aws_ddk_core.stages.S3EventStage.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.KMSFactory" href="aws_ddk_core.resources.KMSFactory.html" /><link rel="prev" title="aws_ddk_core.pipelines.DataPipeline" href="aws_ddk_core.pipelines.DataPipeline.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>aws_ddk_core.stages.SqsToLambdaStage - Contents</title>
+        <title>aws_ddk_core.pipelines.DataStage - Contents</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -169,14 +169,14 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.Config.html">aws_ddk_core.config.Config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.LambdaFactory.html">aws_ddk_core.resources.LambdaFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.SQSFactory.html">aws_ddk_core.resources.SQSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.GlueTransformStage.html">aws_ddk_core.stages.GlueTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.S3EventStage.html">aws_ddk_core.stages.S3EventStage</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.stages.SqsToLambdaStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.SqsToLambdaStage.html">aws_ddk_core.stages.SqsToLambdaStage</a></li>
 </ul>
 </li>
 </ul>
@@ -205,36 +205,56 @@
           </label>
         </div>
         <article role="main">
-          <section id="aws-ddk-core-stages-sqstolambdastage">
-<h1>aws_ddk_core.stages.SqsToLambdaStage<a class="headerlink" href="#aws-ddk-core-stages-sqstolambdastage" title="Permalink to this headline">¶</a></h1>
+          <section id="aws-ddk-core-pipelines-datastage">
+<h1>aws_ddk_core.pipelines.DataStage<a class="headerlink" href="#aws-ddk-core-pipelines-datastage" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.</span></span><span class="sig-name descname"><span class="pre">SqsToLambdaStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class that represents an SQS to Lambda Transform DDK Stage.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.pipelines.</span></span><span class="sig-name descname"><span class="pre">DataStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.pipelines.DataStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that represents a stage within a data pipeline.</p>
+<p>To create a DataStage, inherit from this class, add infrastructure required by the stage, and implement
+get_event_pattern and get_targets methods. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyStage</span><span class="p">(</span><span class="n">DataStage</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">scope</span><span class="p">:</span> <span class="n">Construct</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">environment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Define stage infrastructure, for example a queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">SQSFactory</span><span class="o">.</span><span class="n">queue</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="nb">id</span><span class="p">,</span>
+            <span class="n">environment_id</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Queue</span><span class="p">:</span>
+        <span class="sd">'''</span>
+<span class="sd">        Return: Queue</span>
+<span class="sd">            The SQS queue</span>
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span>
+
+    <span class="k">def</span> <span class="nf">get_event_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EventPattern</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">EventPattern</span><span class="p">(</span>
+            <span class="n">detail_type</span><span class="o">=</span><span class="p">[</span><span class="s2">"my-detail-type"</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">IRuleTarget</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">SqsQueue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="p">)]</span>
+</pre></div>
+</div>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope:</span> <span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code:</span> <span class="pre">aws_cdk.aws_lambda.Code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runtime:</span> <span class="pre">aws_cdk.aws_lambda.Runtime</span> <span class="pre">=</span> <span class="pre">&lt;aws_cdk.aws_lambda.Runtime</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role:</span> <span class="pre">typing.Optional[aws_cdk.aws_iam.IRole]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_size:</span> <span class="pre">typing.Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout:</span> <span class="pre">typing.Optional[aws_cdk.Duration]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visibility_timeout:</span> <span class="pre">typing.Optional[aws_cdk.Duration]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_letter_queue_enabled:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_receive_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size:</span> <span class="pre">typing.Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>DDK SQS to Lambda stage.</p>
-<p>It implements an Amazon SQS queue connected to an AWS Lambda function, with an optional DLQ.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataStage.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.DataStage.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a stage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
 <li><p><strong>id</strong> (<em>str</em>) – Identifier of the stage</p></li>
-<li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
-<li><p><strong>code</strong> (<em>Code</em>) – The source code of the Lambda function</p></li>
-<li><p><strong>handler</strong> (<em>str</em>) – The name of the method within the code that Lambda calls to execute the function</p></li>
-<li><p><strong>runtime</strong> (<em>Runtime</em>) – The runtime environment for the Lambda function. <cite>PYTHON_3_9</cite> by default</p></li>
-<li><p><strong>role</strong> (<em>Optional</em><em>[</em><em>IRole</em><em>]</em>) – Lambda execution role</p></li>
-<li><p><strong>memory_size</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The amount of memory, in MB, that is allocated to the Lambda function. <cite>256</cite> by default</p></li>
-<li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>Duration</em><em>]</em>) – The function execution time (in seconds) after which Lambda terminates the function.
-<cite>aws_cdk.Duration.seconds(120)</cite> by default</p></li>
-<li><p><strong>visibility_timeout</strong> (<em>Optional</em><em>[</em><em>Duration</em><em>]</em>) – Timeout of processing a single message in the queue. Default: Duration.seconds(120).</p></li>
-<li><p><strong>dead_letter_queue_enabled</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Determines if DLQ is enabled. <cite>False</cite> by default</p></li>
-<li><p><strong>max_receive_count</strong> (<em>int</em>) – he number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue.
-<cite>1</cite> by default</p></li>
-<li><p><strong>batch_size</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The maximum number of records retrieved from the event source at the function invocation time.
-<cite>10</cite> by default</p></li>
+<li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the stage</p></li>
+<li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Description of the stage</p></li>
 </ul>
 </dd>
 </dl>
@@ -246,13 +266,13 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.SqsToLambdaStage.__init__" title="aws_ddk_core.stages.SqsToLambdaStage.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id, environment_id, code, ...)</p></td>
-<td><p>DDK SQS to Lambda stage.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataStage.__init__" title="aws_ddk_core.pipelines.DataStage.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id[, name, description])</p></td>
+<td><p>Create a stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.SqsToLambdaStage.get_event_pattern" title="aws_ddk_core.stages.SqsToLambdaStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataStage.get_event_pattern" title="aws_ddk_core.pipelines.DataStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
 <td><p>Get output event pattern of the stage.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.SqsToLambdaStage.get_targets" title="aws_ddk_core.stages.SqsToLambdaStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataStage.get_targets" title="aws_ddk_core.pipelines.DataStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
 <td><p>Get input targets of the stage.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
@@ -270,45 +290,14 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.SqsToLambdaStage.dlq" title="aws_ddk_core.stages.SqsToLambdaStage.dlq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dlq</span></code></a></p></td>
-<td><p>DeadLetterQueue The SQS dead letter queue</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.SqsToLambdaStage.function" title="aws_ddk_core.stages.SqsToLambdaStage.function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code></a></p></td>
-<td><p>Function The Lambda function</p></td>
-</tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
 <td><p>The tree node.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.SqsToLambdaStage.queue" title="aws_ddk_core.stages.SqsToLambdaStage.queue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">queue</span></code></a></p></td>
-<td><p>Queue The SQS queue</p></td>
-</tr>
 </tbody>
 </table></div>
-<dl class="py property">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.dlq">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dlq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sqs.DeadLetterQueue</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.dlq" title="Permalink to this definition">¶</a></dt>
-<dd><p>DeadLetterQueue
-The SQS dead letter queue</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Return</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.function">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_lambda.IFunction</span></em><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.function" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function
-The Lambda function</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Return</p>
-</dd>
-</dl>
-</dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.get_event_pattern">
-<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataStage.get_event_pattern">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.DataStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get output event pattern of the stage.</p>
 <p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
 event patterns to select events and route them to targets.</p>
@@ -322,8 +311,8 @@ event patterns to select events and route them to targets.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.get_targets">
-<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataStage.get_targets">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.DataStage.get_targets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get input targets of the stage.</p>
 <p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
 <dl class="field-list simple">
@@ -335,17 +324,6 @@ event patterns to select events and route them to targets.</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.SqsToLambdaStage.queue">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">queue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_sqs.IQueue</span></em><a class="headerlink" href="#aws_ddk_core.stages.SqsToLambdaStage.queue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Queue
-The SQS queue</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Return</p>
-</dd>
-</dl>
-</dd></dl>
 </dd></dl>
 </section>
 
@@ -354,8 +332,18 @@ The SQS queue</p>
       <footer>
         
 <div class="related-pages">
-    
-    <a class="prev-page" href="aws_ddk_core.stages.S3EventStage.html">
+    <a class="next-page" href="aws_ddk_core.resources.KMSFactory.html">
+        <div class="page-info">
+            <div class="context">
+                <span>Next</span>
+            </div>
+            <div class="title">aws_ddk_core.resources.KMSFactory</div>
+        </div>
+        <svg>
+            <use href="#svg-arrow-right"></use>
+        </svg>
+    </a>
+    <a class="prev-page" href="aws_ddk_core.pipelines.DataPipeline.html">
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
@@ -364,7 +352,7 @@ The SQS queue</p>
                 <span>Previous</span>
             </div>
             
-            <div class="title">aws_ddk_core.stages.S3EventStage</div>
+            <div class="title">aws_ddk_core.pipelines.DataPipeline</div>
             
         </div>
     </a>

@@ -168,6 +168,8 @@
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.cicd.CICDPipelineStack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.Config.html">aws_ddk_core.config.Config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.LambdaFactory.html">aws_ddk_core.resources.LambdaFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
@@ -231,6 +233,7 @@ several DDK-specific features, including:</p>
     <span class="o">.</span><span class="n">add_synth_action</span><span class="p">()</span>
     <span class="o">.</span><span class="n">build</span><span class="p">()</span>
     <span class="o">.</span><span class="n">add_stage</span><span class="p">(</span><span class="s2">"dev"</span><span class="p">,</span> <span class="n">DevStage</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">"dev"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">add_notifications</span><span class="p">()</span>
     <span class="o">.</span><span class="n">synth</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
@@ -265,8 +268,14 @@ several DDK-specific features, including:</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.add_checks" title="aws_ddk_core.cicd.CICDPipelineStack.add_checks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_checks</span></code></a>()</p></td>
 <td><p>Add checks to the pipeline (e.g.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_dependency</span></code>(target[, reason])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage" title="aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_custom_stage</span></code></a>(stage_name, steps)</p></td>
+<td><p>Add custom stage to the pipeline.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_dependency</span></code>(target[, reason])</p></td>
 <td><p>Add a dependency between this stack and another stack.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.add_notifications" title="aws_ddk_core.cicd.CICDPipelineStack.add_notifications"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_notifications</span></code></a>([notification_rule])</p></td>
+<td><p>Add pipeline notifications.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.add_security_lint_stage" title="aws_ddk_core.cicd.CICDPipelineStack.add_security_lint_stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_security_lint_stage</span></code></a>([stage_name, ...])</p></td>
 <td><p>Add linting - cfn-nag, and bandit.</p></td>
@@ -416,6 +425,43 @@ several DDK-specific features, including:</p>
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage">
+<span class="sig-name descname"><span class="pre">add_custom_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.ShellStep</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add custom stage to the pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stage_name</strong> (<em>str</em>) – Name of the stage</p></li>
+<li><p><strong>steps</strong> (<em>List</em><em>[</em><em>ShellStep</em><em>]</em>) – Steps to add to this stage. List of ShellStep().
+See <cite>Documentation on aws_cdk.pipelines.ShellStep</cite>
+&lt;<a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html">https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html</a>&gt;`_ for more detail.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICD pipeline</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>CICDPipeline</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_notifications">
+<span class="sig-name descname"><span class="pre">add_notifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notification_rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_codestarnotifications.NotificationRule</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add pipeline notifications. Create notification rule that sends events to the specified SNS topic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>notification_rule</strong> (<em>Optional</em><em>[</em><em>NotificationRule</em><em>]</em>) – Override notification rule</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICD pipeline</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>CICDPipeline</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_security_lint_stage">
 <span class="sig-name descname"><span class="pre">add_security_lint_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloud_assembly_file_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.IFileSetProducer</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_security_lint_stage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add linting - cfn-nag, and bandit.</p>
@@ -457,19 +503,20 @@ several DDK-specific features, including:</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_stage">
 <span class="sig-name descname"><span class="pre">add_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">aws_cdk.Stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_approvals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_stage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add application stage to the CICD pipeline. This stage deploys your application infrastructure.
-:param stage_id: Identifier of the stage
-:type stage_id: str
-:param stage: Application stage instance
-:type stage: Stage
-:param manual_approvals: Configure manual approvals. False by default
-:type manual_approvals: Optional[bool]</p>
+<dd><p>Add application stage to the CICD pipeline. This stage deploys your application infrastructure.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stage_id</strong> (<em>str</em>) – Identifier of the stage</p></li>
+<li><p><strong>stage</strong> (<em>Stage</em>) – Application stage instance</p></li>
+<li><p><strong>manual_approvals</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Configure manual approvals. False by default</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
 </dd>
 </dl>
 </dd></dl>
