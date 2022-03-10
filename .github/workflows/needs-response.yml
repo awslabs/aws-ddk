@@ -29,5 +29,5 @@ jobs:
         stale-pr-label: 'closing-soon'
         stale-pr-message: |
           PR requires assignment.
-        debug-only: false
+        debug-only: true
         exempt-all-milestones: true
