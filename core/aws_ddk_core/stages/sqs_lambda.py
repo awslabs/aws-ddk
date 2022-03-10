@@ -100,16 +100,16 @@ class SqsToLambdaStage(DataStage):
             self._function = lambda_function
         elif code and handler:
             self._function = LambdaFactory.function(
-            self,
-            id=f"{id}-function",
-            environment_id=environment_id,
-            code=code,
-            handler=handler,
-            runtime=runtime,
-            role=role,
-            memory_size=memory_size,
-            timeout=timeout,
-        )
+                self,
+                id=f"{id}-function",
+                environment_id=environment_id,
+                code=code,
+                handler=handler,
+                runtime=runtime,
+                role=role,
+                memory_size=memory_size,
+                timeout=timeout,
+            )
         else:
             raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instanstiate this stage")
 
