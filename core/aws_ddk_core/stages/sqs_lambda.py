@@ -37,7 +37,7 @@ class SqsToLambdaStage(DataStage):
         id: str,
         environment_id: str,
         code: Optional[Code] = None,
-        handler: str = "index.lambda_handler",
+        handler: Optional[str] = None,
         runtime: Runtime = Runtime.PYTHON_3_9,
         role: Optional[IRole] = None,
         memory_size: Optional[int] = None,
@@ -65,9 +65,9 @@ class SqsToLambdaStage(DataStage):
         code : Optional[Code]
             The source code of the Lambda function
             Must be set if `lambda_function` is not.
-        handler : str
+        handler : Optional[str]
             The name of the method within the code that Lambda calls to execute the function.
-            `index.lambda_handler` by default.
+            Must be set if `lambda_function` is not.
         runtime : Runtime
             The runtime environment for the Lambda function. `PYTHON_3_9` by default
         role : Optional[IRole]
@@ -96,7 +96,10 @@ class SqsToLambdaStage(DataStage):
 
         self._event_detail_type: str = f"{id}-event-type"
 
-        self._function = lambda_function or LambdaFactory.function(
+        if lambda_function:
+            self._function = lambda_function
+        elif code and handler:
+            self._function = LambdaFactory.function(
             self,
             id=f"{id}-function",
             environment_id=environment_id,
@@ -107,6 +110,8 @@ class SqsToLambdaStage(DataStage):
             memory_size=memory_size,
             timeout=timeout,
         )
+        else:
+            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instanstiate this stage")
 
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
