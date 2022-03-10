@@ -26,7 +26,7 @@ jobs:
         enable-statistics: true
         stale-issue-message: |
           This issue requires triage and should be assigned. 
-        stale-pr-label: 'closing-soon'
+        stale-pr-label: 'needs-triage'
         stale-pr-message: |
           PR requires assignment.
         debug-only: false
