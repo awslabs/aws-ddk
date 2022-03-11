@@ -14,12 +14,12 @@
 
 from pathlib import Path
 
-from aws_cdk.assertions import Template
+from aws_cdk.assertions import Match, Template
 from aws_cdk.aws_lambda import Code
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.pipelines import DataPipeline
 from aws_ddk_core.resources import S3Factory
-from aws_ddk_core.stages import S3EventStage, SqsToLambdaStage
+from aws_ddk_core.stages import GlueTransformStage, S3EventStage, SqsToLambdaStage
 
 
 def test_basic_pipeline(test_stack: BaseStack) -> None:
@@ -44,8 +44,17 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         handler="commons.handlers.lambda_handler",
     )
     bucket.grant_read_write(sqs_lambda_stage.function)
+    glue_stage = GlueTransformStage(
+        scope=test_stack,
+        id="dummy-glue",
+        environment_id="dev",
+        job_name="dummy-glue-job",
+        crawler_name="dummy-glue-crawler",
+    )
 
-    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage)
+    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage).add_stage(
+        glue_stage
+    )
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(
@@ -58,5 +67,22 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         "AWS::CloudTrail::Trail",
         props={
             "S3BucketName": {"Ref": "dummys3eventdummys3eventtrailbucket09B92664"},
+        },
+    )
+    template.has_resource_properties(
+        "AWS::StepFunctions::StateMachine",
+        props={
+            "DefinitionString": {
+                "Fn::Join": [
+                    "",
+                    Match.array_with(
+                        pattern=[
+                            Match.string_like_regexp(pattern="start-job-run"),
+                            Match.string_like_regexp(pattern="crawl-object"),
+                            Match.string_like_regexp(pattern="putEvents"),
+                        ]
+                    ),
+                ]
+            }
         },
     )

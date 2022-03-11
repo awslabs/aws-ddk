@@ -44,6 +44,9 @@ config = {
                     "timeout": 300,
                     "tracing": "ACTIVE",
                 },
+                "dummy-lambda-fn": {
+                    "memory_size": 512,
+                },
                 "dummy-lambda-vpc": {
                     "timeout": 300,
                     "vpc_id": "ddk-dev-vpc",
@@ -77,6 +80,11 @@ config = {
                 },
                 "dummy-sqs-lambda-event-dlq": {
                     "delivery_delay": 15,
+                },
+                "dummy-sfn-2": {
+                    "tracing_enabled": True,
+                    "timeout": 28800,
+                    "state_machine_type": "express",
                 },
             },
         },

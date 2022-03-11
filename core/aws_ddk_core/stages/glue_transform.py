@@ -14,24 +14,16 @@
 
 from typing import Any, Dict, List, Optional
 
-from aws_cdk.aws_events import EventPattern, IRuleTarget, RuleTargetInput
+from aws_cdk.aws_events import IRuleTarget, RuleTargetInput
 from aws_cdk.aws_events_targets import SfnStateMachine
 from aws_cdk.aws_iam import Effect, PolicyStatement
-from aws_cdk.aws_stepfunctions import (
-    CustomState,
-    IntegrationPattern,
-    JsonPath,
-    StateMachine,
-    StateMachineType,
-    Succeed,
-    TaskInput,
-)
-from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
-from aws_ddk_core.pipelines.stage import DataStage
+from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, StateMachineType, TaskInput
+from aws_cdk.aws_stepfunctions_tasks import EventBridgePutEventsEntry, GlueStartJobRun
+from aws_ddk_core.pipelines import StateMachineStage
 from constructs import Construct
 
 
-class GlueTransformStage(DataStage):
+class GlueTransformStage(StateMachineStage):
     """
     Class that represents a Glue Transform DDK DataStage.
     """
@@ -72,6 +64,8 @@ class GlueTransformStage(DataStage):
         super().__init__(scope, id)
 
         self._state_machine_input: Optional[Dict[str, Any]] = state_machine_input
+        self._event_detail_type: str = f"{id}-event-type"
+
         # Create GlueStartJobRun step function task
         start_job_run: GlueStartJobRun = GlueStartJobRun(
             self,
@@ -93,18 +87,17 @@ class GlueTransformStage(DataStage):
                 "Type": "Task",
                 "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
                 "Parameters": {"Name": crawler_name},
-                "Catch": [{"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}],
             },
         )
         # Build state machine
-        self._state_machine: StateMachine = StateMachine(
-            self,
-            "state-machine",
-            definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
-            state_machine_type=StateMachineType.EXPRESS,
+        self.create_state_machine(
+            f"{id}-state-machine",
+            environment_id=environment_id,
+            definition=(start_job_run.next(crawl_object)),
+            state_machine_type=StateMachineType.STANDARD,
         )
         # Allow state machine to start crawler
-        self._state_machine.add_to_role_policy(
+        self.state_machine.add_to_role_policy(
             PolicyStatement(
                 effect=Effect.ALLOW,
                 actions=[
@@ -114,16 +107,32 @@ class GlueTransformStage(DataStage):
             )
         )
 
-    @property
-    def state_machine(self) -> StateMachine:
+    def get_output_event(self) -> EventBridgePutEventsEntry:
         """
-        Return: StateMachine
-            The StateMachine
-        """
-        return self._state_machine
+        Get event entry that should be published at the end of the state machine.
 
-    def get_event_pattern(self) -> Optional[EventPattern]:
-        return None
+        Returns
+        -------
+        event : EventBridgePutEventsEntry
+            Event
+        """
+        return EventBridgePutEventsEntry(
+            detail=TaskInput.from_object(
+                obj={"message": f"{self.id} stage has finished."},
+            ),
+            detail_type=self._event_detail_type,
+            source=self.id,
+        )
 
     def get_targets(self) -> Optional[List[IRuleTarget]]:
+        """
+        Get input targets of the stage.
+
+        Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
+
+        Returns
+        -------
+        targets : Optional[List[IRuleTarget]]
+            List of targets
+        """
         return [SfnStateMachine(self._state_machine, input=RuleTargetInput.from_object(self._state_machine_input))]

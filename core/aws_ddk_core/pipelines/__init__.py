@@ -14,8 +14,10 @@
 
 from aws_ddk_core.pipelines.pipeline import DataPipeline
 from aws_ddk_core.pipelines.stage import DataStage
+from aws_ddk_core.pipelines.state_machine_stage import StateMachineStage
 
 __all__ = [
     "DataPipeline",
     "DataStage",
+    "StateMachineStage",
 ]
