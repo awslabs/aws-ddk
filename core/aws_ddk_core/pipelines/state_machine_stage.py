@@ -15,8 +15,10 @@
 from abc import abstractmethod
 from typing import List, Optional
 
-from aws_cdk.aws_events import EventPattern, IRuleTarget
-from aws_cdk.aws_events_targets import SfnStateMachine
+from aws_cdk.aws_events import EventPattern, IRuleTarget, Rule
+from aws_cdk.aws_events_targets import SfnStateMachine, SnsTopic
+from aws_cdk.aws_kms import Key
+from aws_cdk.aws_sns import ITopic, Topic
 from aws_cdk.aws_stepfunctions import IChainable, StateMachine, StateMachineType
 from aws_cdk.aws_stepfunctions_tasks import EventBridgePutEvents, EventBridgePutEventsEntry
 from aws_ddk_core.pipelines.stage import DataStage
@@ -60,7 +62,7 @@ class StateMachineStage(DataStage):
         state_machine_type: StateMachineType = StateMachineType.EXPRESS,
         state_machine: Optional[StateMachine] = None,
         add_output_event_task: bool = True,
-    ) -> None:
+    ) -> "StateMachineStage":
         """
         Create state machine. Automatically adds a task at the end that publishes an event to EventBridge.
 
@@ -89,6 +91,56 @@ class StateMachineStage(DataStage):
             definition=definition,
             state_machine_type=state_machine_type,
         )
+
+        return self
+
+    def create_notification(
+        self,
+        id: str,
+        environment_id: str,
+        notification_topic: Optional[ITopic] = None,
+    ) -> "StateMachineStage":
+        """
+        Add failure notification.
+        Create notification rule that sends failure events to the specified SNS topic.
+
+        Parameters
+        ----------
+        id : str
+            Identifier of the notification rule & topic
+        environment_id : str
+            Identifier of the environment
+        notification_topic: Optional[ITopic]
+            Override default SNS topic
+        """
+
+        self._notification_rule = Rule(
+            self,
+            "sfn-failure",
+            event_pattern=EventPattern(
+                source=["aws.states"],
+                detail_type=["Step Functions Execution Status Change"],
+                detail={"status": ["FAILED", "TIMED_OUT"], "stateMachineArn": [self._state_machine.state_machine_arn]},
+            ),
+        )
+
+        self._notification_rule.add_target(
+            SnsTopic(
+                notification_topic
+                or Topic(
+                    self,
+                    f"{id}-{environment_id}-notifications",
+                    topic_name=f"{id}-{environment_id}-notifications",
+                    master_key=Key.from_lookup(
+                        self,
+                        f"{id}-{environment_id}-notifications-key",
+                        alias_name="alias/aws/sns",
+                    ),
+                )
+            )
+        )
+
+        return self
 
     @abstractmethod
     def get_output_event(self) -> EventBridgePutEventsEntry:
