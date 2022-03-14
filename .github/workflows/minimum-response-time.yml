@@ -13,7 +13,7 @@ jobs:
         uses: malachi-constant/issue-minimum-response@latest
         with:
           exempt_user_list: "github-actions[bot]"
-          exempt_authors: "malachi-constant,jaidisido,kukushking,cfait"
+          exempt_authors: "malachi-constant,jaidisido,kukushking,cnfait"
           exempt_labels: "help wanted"
           token: ${{secrets.GITHUB_TOKEN}}
           label: needs-triage
