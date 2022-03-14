@@ -170,10 +170,12 @@
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.LambdaFactory.html">aws_ddk_core.resources.LambdaFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.SQSFactory.html">aws_ddk_core.resources.SQSFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.GlueTransformStage.html">aws_ddk_core.stages.GlueTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.S3EventStage.html">aws_ddk_core.stages.S3EventStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.SqsToLambdaStage.html">aws_ddk_core.stages.SqsToLambdaStage</a></li>
@@ -274,6 +276,9 @@
 <tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage" title="aws_ddk_core.pipelines.DataStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataStage</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Class that represents a stage within a data pipeline.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage" title="aws_ddk_core.pipelines.StateMachineStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StateMachineStage</span></code></a>(*args, **kwargs)</p></td>
+<td><p>DataStage, but contains helper methods for creating state machines and events.</p></td>
+</tr>
 </tbody>
 </table></div>
 </section>
@@ -296,6 +301,9 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.SQSFactory.html#aws_ddk_core.resources.SQSFactory" title="aws_ddk_core.resources.SQSFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SQSFactory</span></code></a>()</p></td>
 <td><p>Class factory create and configure Simple Queue Service DDK resources, including Queues.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.StepFunctionsFactory.html#aws_ddk_core.resources.StepFunctionsFactory" title="aws_ddk_core.resources.StepFunctionsFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StepFunctionsFactory</span></code></a>()</p></td>
+<td><p>Class factory create and configure AWS Step Functions Service DDK resources, including State Machines.</p></td>
 </tr>
 </tbody>
 </table></div>

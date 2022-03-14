@@ -53,6 +53,7 @@ Data Pipelines
 
    DataPipeline
    DataStage
+   StateMachineStage
 
 Resources
 ------------
@@ -67,6 +68,7 @@ Resources
    LambdaFactory
    S3Factory
    SQSFactory
+   StepFunctionsFactory
 
 Data Stages
 ------------

@@ -1,0 +1,37 @@
+﻿aws\_ddk\_core.pipelines.StateMachineStage
+==========================================
+
+.. currentmodule:: aws_ddk_core.pipelines
+
+.. autoclass:: StateMachineStage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~StateMachineStage.__init__
+      ~StateMachineStage.create_state_machine
+      ~StateMachineStage.get_event_pattern
+      ~StateMachineStage.get_event_task
+      ~StateMachineStage.get_output_event
+      ~StateMachineStage.get_targets
+      ~StateMachineStage.is_construct
+      ~StateMachineStage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~StateMachineStage.node
+      ~StateMachineStage.state_machine
+   
+   

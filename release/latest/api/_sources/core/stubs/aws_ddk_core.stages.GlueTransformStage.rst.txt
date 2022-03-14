@@ -15,7 +15,10 @@
    .. autosummary::
    
       ~GlueTransformStage.__init__
+      ~GlueTransformStage.create_state_machine
       ~GlueTransformStage.get_event_pattern
+      ~GlueTransformStage.get_event_task
+      ~GlueTransformStage.get_output_event
       ~GlueTransformStage.get_targets
       ~GlueTransformStage.is_construct
       ~GlueTransformStage.to_string
