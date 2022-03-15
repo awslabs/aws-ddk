@@ -3,7 +3,7 @@ title: Create Your Own Data Pipeline Stage
 layout: how-to
 tags: how-to
 order: 1
-category: Advanced Topics
+category: Advanced
 ---
 
 ## The DataStage Class
