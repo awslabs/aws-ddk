@@ -68,7 +68,7 @@ def init_project(name: str, environment: str, template: Optional[str], generate_
 
         # Create virtual environment (.venv)
         echo(f"Creating virtual environment in `{path}`...")
-        cmd: str = f"{python_exec} -m venv '{path}/.venv'"
+        cmd = f"{python_exec} -m venv '{path}/.venv'"
         try:
             run(cmd)
         except Exception:

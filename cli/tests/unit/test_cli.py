@@ -14,6 +14,7 @@
 
 import os.path
 import shutil
+from tempfile import TemporaryDirectory
 
 import boto3
 from aws_ddk import bootstrap, create_repository, deploy, init
@@ -72,11 +73,15 @@ def test_create_repository() -> None:
     repository_name = "dummy"
     repository_description = "a pytest repo"
 
-    # create repo
-    result = runner.invoke(
-        create_repository,
-        ["--description", repository_description, repository_name],
-    )
+    with TemporaryDirectory() as _:
+        path = ".git"
+        shutil.rmtree(path)
+        os.mkdir(path)
+        # create repo
+        result = runner.invoke(
+            create_repository,
+            ["--description", repository_description, repository_name],
+        )
 
     # Assert exit code
     assert result.exit_code == 0

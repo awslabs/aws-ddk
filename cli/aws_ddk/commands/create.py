@@ -52,7 +52,7 @@ def create_code_repository(
         cmds = [
             f'git config --local credential.helper "!aws codecommit --profile {profile} credential-helper $@"',
             "git config --local credential.UseHttpPath true",
-            f"git remote add origin {url}"
+            f"git remote add origin {url}",
         ]
         try:
             for cmd in cmds:
