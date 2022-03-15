@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from aws_cdk import Duration
+from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_events_targets import SqsQueue
 from aws_cdk.aws_iam import IRole
@@ -48,6 +49,9 @@ class SqsToLambdaStage(DataStage):
         batch_size: Optional[int] = None,
         lambda_function: Optional[IFunction] = None,
         sqs_queue: Optional[IQueue] = None,
+        create_alarm: Optional[bool] = False,
+        alarm_threshold: Optional[int] = 5,
+        alarm_evaluation_periods: Optional[int] = 1
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -91,6 +95,12 @@ class SqsToLambdaStage(DataStage):
             Preexisting Lambda Function to use in stage. `None` by default
         sqs_queue: Optional[IQueue]
             Preexisting SQS Queue  to use in stage. `None` by default
+        create_alarm: Optional[bool]
+            Create an alarm for Lambda Function errors. `False` by default. 
+        alarm_threshold: Optional[int]
+            The value against which the specified alarm statistic is compared
+        alarm_evaulation_periods: Optional[int]
+            The number of periods over which data is compared to the specified threshold
         """
         super().__init__(scope, id)
 
@@ -113,6 +123,14 @@ class SqsToLambdaStage(DataStage):
         else:
             raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instanstiate this stage")
 
+        if create_alarm: 
+            Alarm(self, "{id}-function-errors",
+                comparison_operator=ComparisonOperator.GREATER_THAN_THRESHOLD,
+                threshold=alarm_threshold,
+                evaluation_periods=alarm_evaluation_periods,
+                metric=self._function.metric_errors()
+            )
+        
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
             self._dlq = DeadLetterQueue(
