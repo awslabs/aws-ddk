@@ -141,7 +141,8 @@ class DataPipeline(Construct):
 
         Parameters
         ----------
-
+        notifications_topic : Optional[ITopic]
+            Existing SNS Topic to consume notifications with.
 
         Returns
         -------
