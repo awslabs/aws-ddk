@@ -35,11 +35,7 @@ class DataPipeline(Construct):
     """
 
     def __init__(
-        self,
-        scope: Construct,
-        id: str,
-        name: Optional[str] = None,
-        description: Optional[str] = None
+        self, scope: Construct, id: str, name: Optional[str] = None, description: Optional[str] = None
     ) -> None:
         """
         Create a data pipeline.
@@ -95,7 +91,7 @@ class DataPipeline(Construct):
                 event_pattern=self._prev_stage.get_event_pattern(),
                 event_targets=stage.get_targets(),
             )
-        if self._notifications_topic and hasattr(stage, 'cloudwatch_alarms'):
+        if self._notifications_topic and hasattr(stage, "cloudwatch_alarms"):
             for alarm in stage.cloudwatch_alarms:
                 alarm.add_alarm_action(SnsAction(self._notifications_topic))
         self._prev_stage = stage
@@ -138,17 +134,14 @@ class DataPipeline(Construct):
             )
         )
         return self
-    
-    def add_notifications(
-        self,
-        notifications_topic: Optional[ITopic] = None
-    ) -> "DataPipeline":
+
+    def add_notifications(self, notifications_topic: Optional[ITopic] = None) -> "DataPipeline":
         """
         Create a rule that matches specificed event pattern with the specified target.
 
         Parameters
         ----------
-        
+
 
         Returns
         -------

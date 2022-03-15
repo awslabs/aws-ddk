@@ -126,6 +126,7 @@ def test_sqs_lambda_with_existing_function(test_stack: BaseStack) -> None:
         },
     )
 
+
 def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
     SqsToLambdaStage(
         scope=test_stack,
@@ -134,7 +135,7 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
         code=Code.from_asset(f"{Path(__file__).parents[2]}"),
         handler="commons.handlers.lambda_handler",
         create_alarm=True,
-        alarm_threshold=10
+        alarm_threshold=10,
     )
 
     template = Template.from_stack(test_stack)
@@ -153,13 +154,11 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
                     Match.object_like(
                         pattern={
                             "Name": "FunctionName",
-                            "Value": {
-                                "Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"
-                            }
+                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
                         }
                     )
                 ]
             ),
-            "Threshold": 10
+            "Threshold": 10,
         },
     )

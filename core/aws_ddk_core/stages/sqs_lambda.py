@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, List, Optional
+from typing import List, Optional
 
 from aws_cdk import Duration
 from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator, IAlarm
@@ -51,7 +51,7 @@ class SqsToLambdaStage(DataStage):
         sqs_queue: Optional[IQueue] = None,
         create_alarm: Optional[bool] = False,
         alarm_threshold: Optional[int] = 5,
-        alarm_evaluation_periods: Optional[int] = 1
+        alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -96,7 +96,7 @@ class SqsToLambdaStage(DataStage):
         sqs_queue: Optional[IQueue]
             Preexisting SQS Queue  to use in stage. `None` by default
         create_alarm: Optional[bool]
-            Create an alarm for Lambda Function errors. `False` by default. 
+            Create an alarm for Lambda Function errors. `False` by default.
         alarm_threshold: Optional[int]
             The value against which the specified alarm statistic is compared
         alarm_evaulation_periods: Optional[int]
@@ -125,14 +125,16 @@ class SqsToLambdaStage(DataStage):
 
         if create_alarm:
             self._cloudwatch_alarms = [
-                    Alarm(self, "{id}-function-errors",
+                Alarm(
+                    self,
+                    "{id}-function-errors",
                     comparison_operator=ComparisonOperator.GREATER_THAN_THRESHOLD,
                     threshold=alarm_threshold,
                     evaluation_periods=alarm_evaluation_periods,
-                    metric=self._function.metric_errors()
+                    metric=self._function.metric_errors(),
                 )
             ]
-        
+
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
             self._dlq = DeadLetterQueue(
@@ -177,7 +179,7 @@ class SqsToLambdaStage(DataStage):
             The SQS dead letter queue
         """
         return self._dlq
-    
+
     @property
     def cloudwatch_alarms(self) -> Optional[List[IAlarm]]:
         """
