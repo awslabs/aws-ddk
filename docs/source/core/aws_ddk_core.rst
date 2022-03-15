@@ -4,9 +4,9 @@ aws\_ddk\_core package
 * `Base`_
 * `CICD`_
 * `Config`_
-* `Pipelines`_
+* `Data Pipelines`_
 * `Resources`_
-* `Stages`_
+* `Data Stages`_
 
 Base
 ------
@@ -42,8 +42,8 @@ Config
    Config
    JSONConfigStrategy
 
-Pipelines
------------
+Data Pipelines
+---------------
 
 .. currentmodule:: aws_ddk_core.pipelines
 
@@ -53,6 +53,7 @@ Pipelines
 
    DataPipeline
    DataStage
+   StateMachineStage
 
 Resources
 ------------
@@ -67,9 +68,10 @@ Resources
    LambdaFactory
    S3Factory
    SQSFactory
+   StepFunctionsFactory
 
-Stages
------------
+Data Stages
+------------
 
 .. currentmodule:: aws_ddk_core.stages
 

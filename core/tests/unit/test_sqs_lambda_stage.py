@@ -15,7 +15,8 @@
 from pathlib import Path
 
 from aws_cdk.assertions import Template
-from aws_cdk.aws_lambda import Code
+from aws_cdk.aws_lambda import Code, Function, Runtime
+from aws_cdk.aws_sqs import Queue
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.stages.sqs_lambda import SqsToLambdaStage
 
@@ -67,5 +68,60 @@ def test_sqs_lambda_event_source(test_stack: BaseStack) -> None:
         "AWS::SQS::Queue",
         props={
             "DelaySeconds": 15,
+        },
+    )
+
+
+def test_sqs_lambda_with_existing_queue(test_stack: BaseStack) -> None:
+    SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+        sqs_queue=Queue(test_stack, "custom-queue", queue_name="custom-queue"),
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Lambda::Function",
+        props={
+            "Runtime": "python3.9",
+            "MemorySize": 512,
+        },
+    )
+    template.has_resource_properties(
+        "AWS::SQS::Queue",
+        props={
+            "QueueName": "custom-queue",
+        },
+    )
+
+
+def test_sqs_lambda_with_existing_function(test_stack: BaseStack) -> None:
+    SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        lambda_function=Function(
+            test_stack,
+            "custom-function",
+            runtime=Runtime.PYTHON_3_8,
+            handler="commons.handlers.lambda_handler",
+            code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        ),
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Lambda::Function",
+        props={
+            "Runtime": "python3.8",
+        },
+    )
+    template.has_resource_properties(
+        "AWS::SQS::Queue",
+        props={
+            "VisibilityTimeout": 120,
         },
     )

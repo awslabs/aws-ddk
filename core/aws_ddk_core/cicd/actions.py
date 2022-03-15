@@ -182,7 +182,7 @@ def get_tests_action(
     commands: Optional[List[str]]
         Additional commands to run in the test. Defaults to "./test.sh" otherwise
     stage_name: Optional[str]
-        Name for stage. Default is "Bandit"
+        Name for stage. Default is "Tests"
 
     Returns
     -------

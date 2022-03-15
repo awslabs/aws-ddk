@@ -36,8 +36,8 @@ class SqsToLambdaStage(DataStage):
         scope: Construct,
         id: str,
         environment_id: str,
-        code: Code,
-        handler: str,
+        code: Optional[Code] = None,
+        handler: Optional[str] = None,
         runtime: Runtime = Runtime.PYTHON_3_9,
         role: Optional[IRole] = None,
         memory_size: Optional[int] = None,
@@ -46,6 +46,8 @@ class SqsToLambdaStage(DataStage):
         dead_letter_queue_enabled: bool = False,
         max_receive_count: int = 1,
         batch_size: Optional[int] = None,
+        lambda_function: Optional[IFunction] = None,
+        sqs_queue: Optional[IQueue] = None,
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -60,10 +62,12 @@ class SqsToLambdaStage(DataStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
-        code : Code
+        code : Optional[Code]
             The source code of the Lambda function
-        handler : str
-            The name of the method within the code that Lambda calls to execute the function
+            Must be set if `lambda_function` is not.
+        handler : Optional[str]
+            The name of the method within the code that Lambda calls to execute the function.
+            Must be set if `lambda_function` is not.
         runtime : Runtime
             The runtime environment for the Lambda function. `PYTHON_3_9` by default
         role : Optional[IRole]
@@ -83,22 +87,31 @@ class SqsToLambdaStage(DataStage):
         batch_size : Optional[int]
             The maximum number of records retrieved from the event source at the function invocation time.
             `10` by default
+        lambda_function: Optional[IFunction]
+            Preexisting Lambda Function to use in stage. `None` by default
+        sqs_queue: Optional[IQueue]
+            Preexisting SQS Queue  to use in stage. `None` by default
         """
         super().__init__(scope, id)
 
         self._event_detail_type: str = f"{id}-event-type"
 
-        self._function = LambdaFactory.function(
-            self,
-            id=f"{id}-function",
-            environment_id=environment_id,
-            code=code,
-            handler=handler,
-            runtime=runtime,
-            role=role,
-            memory_size=memory_size,
-            timeout=timeout,
-        )
+        if lambda_function:
+            self._function = lambda_function
+        elif code and handler:
+            self._function = LambdaFactory.function(
+                self,
+                id=f"{id}-function",
+                environment_id=environment_id,
+                code=code,
+                handler=handler,
+                runtime=runtime,
+                role=role,
+                memory_size=memory_size,
+                timeout=timeout,
+            )
+        else:
+            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instanstiate this stage")
 
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
@@ -111,7 +124,7 @@ class SqsToLambdaStage(DataStage):
                 ),
             )
 
-        self._queue = SQSFactory.queue(
+        self._queue = sqs_queue or SQSFactory.queue(
             self,
             id=f"{id}-queue",
             environment_id=environment_id,

@@ -13,14 +13,24 @@
 # limitations under the License.
 
 import os
+from typing import TYPE_CHECKING, overload
 
 import boto3
-import botocore.exceptions
 from aws_ddk.__metadata__ import __version__
+from botocore.config import Config
+
+if TYPE_CHECKING:
+    from boto3.resources.base import ServiceResource
+    from botocore.client import BaseClient
+    from mypy_boto3_cloudformation.client import CloudFormationClient
+    from mypy_boto3_codecommit.client import CodeCommitClient
+    from mypy_boto3_codecommit.literals import ServiceName
+    from mypy_boto3_sts.client import STSClient
+    from typing_extensions import Literal
 
 
-def get_botocore_config() -> botocore.config.Config:
-    return botocore.config.Config(
+def get_botocore_config() -> Config:
+    return Config(
         retries={"max_attempts": 5},
         connect_timeout=10,
         max_pool_connections=10,
@@ -28,11 +38,26 @@ def get_botocore_config() -> botocore.config.Config:
     )
 
 
-def boto3_client(service_name: str) -> boto3.client:
+@overload
+def boto3_client(service_name: 'Literal["sts"]') -> "STSClient":
+    ...
+
+
+@overload
+def boto3_client(service_name: 'Literal["cloudformation"]') -> "CloudFormationClient":
+    ...
+
+
+@overload
+def boto3_client(service_name: 'Literal["codecommit"]') -> "CodeCommitClient":
+    ...
+
+
+def boto3_client(service_name: "ServiceName") -> "BaseClient":
     return boto3.client(service_name=service_name, use_ssl=True, config=get_botocore_config())
 
 
-def boto3_resource(service_name: str) -> boto3.client:
+def boto3_resource(service_name: "ServiceName") -> "ServiceResource":
     return boto3.resource(service_name=service_name, use_ssl=True, config=get_botocore_config())
 
 

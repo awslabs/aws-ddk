@@ -16,6 +16,7 @@ from typing import Any
 
 from aws_cdk import App, Stage
 from aws_cdk.assertions import Match, Template
+from aws_cdk.pipelines import ShellStep
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import CICDPipelineStack
 from constructs import Construct
@@ -221,7 +222,7 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
     )
 
 
-def test_cicd_pipeline_full(cdk_app: App) -> None:
+def test_cicd_pipeline_security_checks(cdk_app: App) -> None:
     pipeline_stack = (
         CICDPipelineStack(
             cdk_app,
@@ -244,64 +245,6 @@ def test_cicd_pipeline_full(cdk_app: App) -> None:
         props={
             "Stages": Match.array_with(
                 pattern=[
-                    Match.object_like(
-                        pattern={
-                            "Name": "Source",
-                            "Actions": Match.array_with(
-                                pattern=[
-                                    Match.object_like(
-                                        pattern={
-                                            "Name": "dummy-repository",
-                                            "ActionTypeId": {
-                                                "Category": "Source",
-                                                "Provider": "CodeCommit",
-                                            },
-                                            "Configuration": {
-                                                "RepositoryName": "dummy-repository",
-                                                "BranchName": "main",
-                                            },
-                                        },
-                                    ),
-                                ],
-                            ),
-                        },
-                    ),
-                    Match.object_like(
-                        pattern={
-                            "Name": "Build",
-                            "Actions": Match.array_with(
-                                pattern=[
-                                    Match.object_like(
-                                        pattern={
-                                            "Name": "Synth",
-                                            "ActionTypeId": {
-                                                "Category": "Build",
-                                                "Provider": "CodeBuild",
-                                            },
-                                        },
-                                    ),
-                                ],
-                            ),
-                        },
-                    ),
-                    Match.object_like(
-                        pattern={
-                            "Name": "UpdatePipeline",
-                            "Actions": Match.array_with(
-                                pattern=[
-                                    Match.object_like(
-                                        pattern={
-                                            "Name": "SelfMutate",
-                                            "ActionTypeId": {
-                                                "Category": "Build",
-                                                "Provider": "CodeBuild",
-                                            },
-                                        },
-                                    ),
-                                ],
-                            ),
-                        },
-                    ),
                     Match.object_like(
                         pattern={
                             "Name": "SecurityLint",
@@ -347,105 +290,117 @@ def test_cicd_pipeline_full(cdk_app: App) -> None:
                             ),
                         },
                     ),
+                ],
+            ),
+        },
+    )
+
+
+def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
+    pipeline_stack = (
+        CICDPipelineStack(
+            cdk_app,
+            id="dummy-pipeline",
+            environment_id="dev",
+            pipeline_name="dummy-pipeline",
+        )
+        .add_source_action(repository_name="dummy-repository")
+        .add_synth_action()
+        .build()
+        .add_custom_stage(
+            "CustomStage",
+            [
+                ShellStep(
+                    "foo",
+                    commands=["ls -al", "echo 'dummy'"],
+                ),
+                ShellStep("bar", commands=["flake8 ."], install_commands=["pip install flake8"]),
+            ],
+        )
+        .add_stage("dev", DevStage(cdk_app, "dev"))
+        .synth()
+    )
+    template = Template.from_stack(pipeline_stack)
+    # Check if synthesized pipeline contains source, synth, self-update, and app stage
+    template.has_resource_properties(
+        "AWS::CodePipeline::Pipeline",
+        props={
+            "Stages": Match.array_with(
+                pattern=[
                     Match.object_like(
                         pattern={
-                            "Name": "dev",
+                            "Name": "CustomStage",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "bar",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "foo",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
                         },
                     ),
                 ],
             ),
         },
     )
-    # Check if pipeline bucket is KMS-encrypted and blocks public access
+
+
+def test_cicd_pipeline_notifications(cdk_app: App) -> None:
+    pipeline_stack = (
+        CICDPipelineStack(
+            cdk_app,
+            id="dummy-pipeline",
+            environment_id="dev",
+            pipeline_name="dummy-pipeline",
+        )
+        .add_source_action(repository_name="dummy-repository")
+        .add_synth_action()
+        .build()
+        .add_stage("dev", DevStage(cdk_app, "dev"))
+        .synth()
+        .add_notifications()
+    )
+    template = Template.from_stack(pipeline_stack)
+
+    # Check if SNS Topic for notifications exists
     template.has_resource_properties(
-        "AWS::S3::Bucket",
+        "AWS::SNS::Topic",
         props={
-            "PublicAccessBlockConfiguration": {
-                "BlockPublicAcls": True,
-                "BlockPublicPolicy": True,
-                "IgnorePublicAcls": True,
-                "RestrictPublicBuckets": True,
-            },
-            "BucketEncryption": {
-                "ServerSideEncryptionConfiguration": Match.array_with(
-                    pattern=[
-                        Match.object_like(
-                            pattern={
-                                "ServerSideEncryptionByDefault": {
-                                    "SSEAlgorithm": "aws:kms",
-                                },
-                            },
-                        ),
-                    ],
-                ),
-            },
+            "TopicName": Match.exact(pattern="dummy-pipeline-dev-notifications"),
+            "KmsMasterKeyId": Match.any_value(),
         },
     )
-    # Check if KMS keys are rotated
+    # Check if SNS Topic policy is in place
     template.has_resource_properties(
-        "AWS::KMS::Key",
+        "AWS::SNS::TopicPolicy",
         props={
-            "EnableKeyRotation": True,
-        },
-    )
-    # Check if all IAM roles have permissions boundary attached
-    template.has_resource_properties(
-        "AWS::IAM::Role",
-        props={
-            "AssumeRolePolicyDocument": Match.object_like(
+            "PolicyDocument": Match.object_like(
                 pattern={
                     "Statement": [
                         {
-                            "Action": "sts:AssumeRole",
+                            "Action": "sns:Publish",
                             "Effect": "Allow",
-                            "Principal": {
-                                "Service": "codepipeline.amazonaws.com",
-                            },
+                            "Principal": {"Service": "codestar-notifications.amazonaws.com"},
+                            "Resource": {"Ref": "dummypipelinedevnotificationsE4CDC252"},
+                            "Sid": "0",
                         },
                     ],
-                },
-            ),
-            "PermissionsBoundary": Match.object_like(
-                pattern={
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:",
-                            {"Ref": "AWS::Partition"},
-                            ":iam::111111111111:policy/ddk-dev-hnb659fds-permissions-boundary-111111111111-us-east-1",  # noqa
-                        ],
-                    ],
                 }
-            ),
-        },
-    )
-    template.has_resource_properties(
-        "AWS::IAM::Role",
-        props={
-            "AssumeRolePolicyDocument": Match.object_like(
-                pattern={
-                    "Statement": [
-                        {
-                            "Action": "sts:AssumeRole",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Service": "codebuild.amazonaws.com",
-                            },
-                        },
-                    ],
-                },
-            ),
-            "PermissionsBoundary": Match.object_like(
-                pattern={
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:",
-                            {"Ref": "AWS::Partition"},
-                            ":iam::111111111111:policy/ddk-dev-hnb659fds-permissions-boundary-111111111111-us-east-1",  # noqa
-                        ],
-                    ],
-                }
-            ),
+            )
         },
     )

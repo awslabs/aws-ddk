@@ -27,7 +27,8 @@ from aws_cdk.aws_stepfunctions import (
     TaskInput,
 )
 from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
-from aws_ddk_core.pipelines.stage import DataStage
+from aws_ddk_core.pipelines import DataStage
+from aws_ddk_core.resources import StepFunctionsFactory
 from constructs import Construct
 
 
@@ -72,6 +73,8 @@ class GlueTransformStage(DataStage):
         super().__init__(scope, id)
 
         self._state_machine_input: Optional[Dict[str, Any]] = state_machine_input
+        self._event_detail_type: str = f"{id}-event-type"
+
         # Create GlueStartJobRun step function task
         start_job_run: GlueStartJobRun = GlueStartJobRun(
             self,
@@ -97,12 +100,14 @@ class GlueTransformStage(DataStage):
             },
         )
         # Build state machine
-        self._state_machine: StateMachine = StateMachine(
+        self._state_machine: StateMachine = StepFunctionsFactory.state_machine(
             self,
-            "state-machine",
+            id=f"{id}-state-machine",
+            environment_id=environment_id,
             definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
-            state_machine_type=StateMachineType.EXPRESS,
+            state_machine_type=StateMachineType.STANDARD,
         )
+
         # Allow state machine to start crawler
         self._state_machine.add_to_role_policy(
             PolicyStatement(
@@ -114,16 +119,22 @@ class GlueTransformStage(DataStage):
             )
         )
 
-    @property
-    def state_machine(self) -> StateMachine:
-        """
-        Return: StateMachine
-            The StateMachine
-        """
-        return self._state_machine
-
     def get_event_pattern(self) -> Optional[EventPattern]:
-        return None
+        return EventPattern(
+            source=["aws.states"],
+            detail_type=["Step Functions Execution Status Change"],
+            detail={"status": ["SUCCEEDED"], "stateMachineArn": [self._state_machine.state_machine_arn]},
+        )
 
     def get_targets(self) -> Optional[List[IRuleTarget]]:
+        """
+        Get input targets of the stage.
+
+        Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
+
+        Returns
+        -------
+        targets : Optional[List[IRuleTarget]]
+            List of targets
+        """
         return [SfnStateMachine(self._state_machine, input=RuleTargetInput.from_object(self._state_machine_input))]

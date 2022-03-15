@@ -1,4 +1,9 @@
 # AWS DataOps Development Kit (DDK)
+![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/bandit.yml/badge.svg)
+![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/cfn-nag.yml/badge.svg)
+![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/cli-tests.yml/badge.svg)
+![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/core-tests.yml/badge.svg)
+
 
 The AWS DataOps Development Kit is an open source development framework for customers that build data workflows and modern data architecture on AWS.
 
