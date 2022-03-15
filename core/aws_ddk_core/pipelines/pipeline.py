@@ -14,6 +14,7 @@
 
 from typing import List, Optional
 
+from aws_cdk.aws_cloudwatch_actions import SnsAction
 from aws_cdk.aws_events import EventPattern, IRuleTarget, Rule
 from aws_cdk.aws_kms import Key
 from aws_cdk.aws_sns import ITopic, Topic
@@ -94,6 +95,9 @@ class DataPipeline(Construct):
                 event_pattern=self._prev_stage.get_event_pattern(),
                 event_targets=stage.get_targets(),
             )
+        if self._notifications_topic and hasattr(stage, 'cloudwatch_alarms'):
+            for alarm in stage.cloudwatch_alarms:
+                alarm.add_alarm_action(SnsAction(self._notifications_topic))
         self._prev_stage = stage
         return self
 

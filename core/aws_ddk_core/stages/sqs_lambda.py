@@ -15,7 +15,7 @@
 from typing import Any, List, Optional
 
 from aws_cdk import Duration
-from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator
+from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator, IAlarm
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_events_targets import SqsQueue
 from aws_cdk.aws_iam import IRole
@@ -123,13 +123,15 @@ class SqsToLambdaStage(DataStage):
         else:
             raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instanstiate this stage")
 
-        if create_alarm: 
-            Alarm(self, "{id}-function-errors",
-                comparison_operator=ComparisonOperator.GREATER_THAN_THRESHOLD,
-                threshold=alarm_threshold,
-                evaluation_periods=alarm_evaluation_periods,
-                metric=self._function.metric_errors()
-            )
+        if create_alarm:
+            self._cloudwatch_alarms = [
+                    Alarm(self, "{id}-function-errors",
+                    comparison_operator=ComparisonOperator.GREATER_THAN_THRESHOLD,
+                    threshold=alarm_threshold,
+                    evaluation_periods=alarm_evaluation_periods,
+                    metric=self._function.metric_errors()
+                )
+            ]
         
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
@@ -175,6 +177,14 @@ class SqsToLambdaStage(DataStage):
             The SQS dead letter queue
         """
         return self._dlq
+    
+    @property
+    def cloudwatch_alarms(self) -> Optional[List[IAlarm]]:
+        """
+        Return: Alarm
+            List of any alarms created by the stage
+        """
+        return self._cloudwatch_alarms
 
     def get_event_pattern(self) -> Optional[EventPattern]:
         return EventPattern(
