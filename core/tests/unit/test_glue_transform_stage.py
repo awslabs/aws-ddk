@@ -37,7 +37,6 @@ def test_glue_transform_stage_simple(test_stack: BaseStack) -> None:
                         pattern=[
                             Match.string_like_regexp(pattern="start-job-run"),
                             Match.string_like_regexp(pattern="crawl-object"),
-                            Match.string_like_regexp(pattern="putEvents"),
                         ]
                     ),
                 ]

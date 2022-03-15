@@ -14,16 +14,25 @@
 
 from typing import Any, Dict, List, Optional
 
-from aws_cdk.aws_events import IRuleTarget, RuleTargetInput
+from aws_cdk.aws_events import EventPattern, IRuleTarget, RuleTargetInput
 from aws_cdk.aws_events_targets import SfnStateMachine
 from aws_cdk.aws_iam import Effect, PolicyStatement
-from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, StateMachineType, TaskInput
-from aws_cdk.aws_stepfunctions_tasks import EventBridgePutEventsEntry, GlueStartJobRun
-from aws_ddk_core.pipelines import StateMachineStage
+from aws_cdk.aws_stepfunctions import (
+    CustomState,
+    IntegrationPattern,
+    JsonPath,
+    StateMachine,
+    StateMachineType,
+    Succeed,
+    TaskInput,
+)
+from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
+from aws_ddk_core.pipelines import DataStage
+from aws_ddk_core.resources import StepFunctionsFactory
 from constructs import Construct
 
 
-class GlueTransformStage(StateMachineStage):
+class GlueTransformStage(DataStage):
     """
     Class that represents a Glue Transform DDK DataStage.
     """
@@ -87,17 +96,20 @@ class GlueTransformStage(StateMachineStage):
                 "Type": "Task",
                 "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
                 "Parameters": {"Name": crawler_name},
+                "Catch": [{"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}],
             },
         )
         # Build state machine
-        self.create_state_machine(
-            f"{id}-state-machine",
+        self._state_machine: StateMachine = StepFunctionsFactory.state_machine(
+            self,
+            id=f"{id}-state-machine",
             environment_id=environment_id,
-            definition=(start_job_run.next(crawl_object)),
+            definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
             state_machine_type=StateMachineType.STANDARD,
         )
+
         # Allow state machine to start crawler
-        self.state_machine.add_to_role_policy(
+        self._state_machine.add_to_role_policy(
             PolicyStatement(
                 effect=Effect.ALLOW,
                 actions=[
@@ -107,21 +119,11 @@ class GlueTransformStage(StateMachineStage):
             )
         )
 
-    def get_output_event(self) -> EventBridgePutEventsEntry:
-        """
-        Get event entry that should be published at the end of the state machine.
-
-        Returns
-        -------
-        event : EventBridgePutEventsEntry
-            Event
-        """
-        return EventBridgePutEventsEntry(
-            detail=TaskInput.from_object(
-                obj={"message": f"{self.id} stage has finished."},
-            ),
-            detail_type=self._event_detail_type,
-            source=self.id,
+    def get_event_pattern(self) -> Optional[EventPattern]:
+        return EventPattern(
+            source=["aws.states"],
+            detail_type=["Step Functions Execution Status Change"],
+            detail={"status": ["SUCCEEDED"], "stateMachineArn": [self._state_machine.state_machine_arn]},
         )
 
     def get_targets(self) -> Optional[List[IRuleTarget]]:
