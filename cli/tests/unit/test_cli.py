@@ -75,7 +75,7 @@ def test_create_repository() -> None:
 
     with TemporaryDirectory() as _:
         path = ".git"
-        shutil.rmtree(path)
+        shutil.rmtree(path, ignore_errors=True)
         os.mkdir(path)
         # create repo
         result = runner.invoke(
