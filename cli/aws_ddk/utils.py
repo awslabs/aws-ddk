@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+from pathlib import Path
 from typing import TYPE_CHECKING, overload
 
 import boto3
@@ -74,3 +75,7 @@ def get_account_id() -> str:
 
 def get_package_root() -> str:
     return os.path.dirname(os.path.relpath(__file__))
+
+
+def is_in_git_repository(path: str) -> bool:
+    return Path(path, ".git").is_dir()

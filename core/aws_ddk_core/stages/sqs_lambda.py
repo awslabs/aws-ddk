@@ -111,7 +111,7 @@ class SqsToLambdaStage(DataStage):
                 timeout=timeout,
             )
         else:
-            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instanstiate this stage")
+            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instansiate this stage")
 
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
