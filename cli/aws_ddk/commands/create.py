@@ -17,6 +17,7 @@ from typing import Dict, Optional, Tuple
 
 from aws_ddk.services import codecommit
 from aws_ddk.sh import run
+from aws_ddk.utils import is_in_git_repository
 from click import echo, secho
 
 _logger: logging.Logger = logging.getLogger(__name__)
@@ -30,6 +31,7 @@ def tuples_to_dict(tuples: Tuple[Tuple[str, str]]) -> Dict[str, str]:
 
 
 def create_code_repository(
+    profile: str,
     name: str,
     description: Optional[str] = None,
     tags: Optional[Tuple[Tuple[str, str]]] = None,
@@ -44,11 +46,19 @@ def create_code_repository(
         tags=dict_tags,
     )
 
-    # Add repository url to local remote
-    cmd = f"git remote add origin {url}"
-    echo("Adding repository url to local remote...")
-    try:
-        run(cmd)
-    except Exception:
-        secho(f"WARNING - Failed to run `{cmd}`", blink=True, bold=True)
+    echo("Running git commands...")
+    path = "."
+    if is_in_git_repository(path):
+        cmds = [
+            f'git config --local credential.helper "!aws codecommit --profile {profile} credential-helper $@"',
+            "git config --local credential.UseHttpPath true",
+            f"git remote add origin {url}",
+        ]
+        try:
+            for cmd in cmds:
+                run(cmd, path)
+        except Exception:
+            secho(f"Failed to run `{cmd}`", blink=True, bold=True, fg="red")
+    else:
+        raise SystemExit("The current working directory does not contain a .git directory.")
     echo("Done.")
