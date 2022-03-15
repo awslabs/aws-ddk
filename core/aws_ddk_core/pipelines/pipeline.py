@@ -15,6 +15,8 @@
 from typing import List, Optional
 
 from aws_cdk.aws_events import EventPattern, IRuleTarget, Rule
+from aws_cdk.aws_kms import Key
+from aws_cdk.aws_sns import ITopic, Topic
 from aws_ddk_core.pipelines.stage import DataStage
 from constructs import Construct
 
@@ -36,7 +38,7 @@ class DataPipeline(Construct):
         scope: Construct,
         id: str,
         name: Optional[str] = None,
-        description: Optional[str] = None,
+        description: Optional[str] = None
     ) -> None:
         """
         Create a data pipeline.
@@ -59,6 +61,7 @@ class DataPipeline(Construct):
         self.description: Optional[str] = description
         self._prev_stage: Optional[DataStage] = None
         self._rules: List[Rule] = []
+        self._notifications_topic: Optional[ITopic] = None
 
     def add_stage(
         self, stage: DataStage, skip_rule: bool = False, override_rule: Optional[Rule] = None
@@ -129,5 +132,33 @@ class DataPipeline(Construct):
                 event_pattern=event_pattern,
                 targets=event_targets,
             )
+        )
+        return self
+    
+    def add_notifications(
+        self,
+        notifications_topic: Optional[ITopic] = None
+    ) -> "DataPipeline":
+        """
+        Create a rule that matches specificed event pattern with the specified target.
+
+        Parameters
+        ----------
+        
+
+        Returns
+        -------
+        pipeline : DataPipeline
+            DataPipeline
+        """
+        self._notifications_topic = notifications_topic or Topic(
+            self,
+            f"{self.id}-notifications",
+            topic_name=f"{self.id}-notifications",
+            master_key=Key.from_lookup(
+                self,
+                f"{self.id}-notifications-key",
+                alias_name="alias/aws/sns",
+            ),
         )
         return self

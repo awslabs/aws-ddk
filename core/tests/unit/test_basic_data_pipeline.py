@@ -54,7 +54,7 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
 
     DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage).add_stage(
         glue_stage
-    )
+    ).add_notifications()
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(
@@ -67,6 +67,12 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         "AWS::CloudTrail::Trail",
         props={
             "S3BucketName": {"Ref": "dummys3eventdummys3eventtrailbucket09B92664"},
+        },
+    )
+    template.has_resource_properties(
+        "AWS::SNS::Topic",
+        props={
+            "TopicName": Match.string_like_regexp(pattern="dummy-pipeline-notifications"),
         },
     )
     template.has_resource_properties(
