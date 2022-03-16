@@ -14,10 +14,10 @@
 
 import logging
 import sys
-from pathlib import Path
 from typing import Optional
 
 from aws_ddk.sh import run
+from aws_ddk.utils import is_in_git_repository
 from click import echo, secho
 from cookiecutter.main import cookiecutter
 
@@ -27,12 +27,7 @@ _logger: logging.Logger = logging.getLogger(__name__)
 def python_executable() -> str:
     if sys.platform == "win32":
         return "python"
-    else:
-        return "python3"
-
-
-def is_in_git_repository(path: str) -> bool:
-    return Path(path, ".git").is_dir()
+    return "python3"
 
 
 def init_project(name: str, environment: str, template: Optional[str], generate_only: Optional[bool]) -> None:
@@ -59,23 +54,24 @@ def init_project(name: str, environment: str, template: Optional[str], generate_
         # Create git repository
         if not is_in_git_repository(path):
             echo("Initializing a new git repository...")
+            cmds = [
+                "git init",
+                "git checkout -b main",
+                "git add .",
+                "git commit --message='Initial commit' --no-gpg-sign",
+            ]
             try:
-                run("git init", path)
-                run("git add .", path)
-                run("git commit --message='Initial commit' --no-gpg-sign", path)
+                for cmd in cmds:
+                    run(cmd, path)
             except Exception:
-                secho(
-                    "Unable to initialize git repository for your project.",
-                    blink=True,
-                    bold=True,
-                )
+                secho(f"Failed to run `{cmd}`", blink=True, bold=True, fg="red")
 
         # Create virtual environment (.venv)
         echo(f"Creating virtual environment in `{path}`...")
-        cmd: str = f"{python_exec} -m venv '{path}/.venv'"
+        cmd = f"{python_exec} -m venv '{path}/.venv'"
         try:
             run(cmd)
         except Exception:
-            secho(f"Failed to run `{cmd}`", blink=True, bold=True)
+            secho(f"Failed to run `{cmd}`", blink=True, bold=True, fg="red")
 
     echo("Done.")

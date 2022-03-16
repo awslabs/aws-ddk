@@ -279,6 +279,7 @@ def create_repository(
     """
     setup_boto_session(profile, region)
     create_code_repository(
+        profile=profile,
         name=name,
         description=description,
         tags=tags,
