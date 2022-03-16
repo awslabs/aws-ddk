@@ -17,7 +17,7 @@ from typing import List, Optional
 from aws_cdk import Duration
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_events_targets import SqsQueue
-from aws_cdk.aws_iam import IRole
+from aws_cdk.aws_iam import Effect, IRole, PolicyStatement
 from aws_cdk.aws_lambda import Code, IFunction, Runtime
 from aws_cdk.aws_lambda_event_sources import SqsEventSource
 from aws_cdk.aws_sqs import DeadLetterQueue, IQueue
@@ -94,6 +94,7 @@ class SqsToLambdaStage(DataStage):
         """
         super().__init__(scope, id)
 
+        self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"
 
         if lambda_function:
@@ -109,9 +110,24 @@ class SqsToLambdaStage(DataStage):
                 role=role,
                 memory_size=memory_size,
                 timeout=timeout,
+                environment={
+                    "EVENT_SOURCE": self._event_source,
+                    "EVENT_DETAIL_TYPE": self._event_detail_type,
+                },
             )
         else:
-            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instansiate this stage")
+            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instantiate this stage")
+
+        # Enable the function to publish events to the default EventBus
+        self._function.add_to_role_policy(
+            PolicyStatement(
+                effect=Effect.ALLOW,
+                actions=[
+                    "events:PutEvents",
+                ],
+                resources=["*"],
+            )
+        )
 
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
@@ -160,6 +176,7 @@ class SqsToLambdaStage(DataStage):
 
     def get_event_pattern(self) -> Optional[EventPattern]:
         return EventPattern(
+            source=[self._event_source],
             detail_type=[self._event_detail_type],
         )
 
