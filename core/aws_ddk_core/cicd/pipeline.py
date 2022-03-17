@@ -26,7 +26,7 @@ from aws_cdk.pipelines import (
     CodePipelineSource,
     IFileSetProducer,
     ManualApprovalStep,
-    ShellStep,
+    Step,
 )
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
@@ -393,7 +393,7 @@ class CICDPipelineStack(BaseStack):
             self.add_test_stage()
         return self
 
-    def add_custom_stage(self, stage_name: str, steps: List[ShellStep]) -> "CICDPipelineStack":
+    def add_custom_stage(self, stage_name: str, steps: List[Step]) -> "CICDPipelineStack":
         """
         Add custom stage to the pipeline.
 
@@ -401,10 +401,10 @@ class CICDPipelineStack(BaseStack):
         ----------
         stage_name: str
             Name of the stage
-        steps: List[ShellStep]
-            Steps to add to this stage. List of ShellStep().
-            See `Documentation on aws_cdk.pipelines.ShellStep`
-            <https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html>`_ for more detail.
+        steps: List[Step]
+            Steps to add to this stage. List of Step().
+            See `Documentation on aws_cdk.pipelines.Step`
+            <https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/Step.html>`_ for more detail.
 
         Returns
         -------
