@@ -6,3 +6,6 @@
 
 - name: latest
   root: latest
+
+- name: 0.2.0
+  root: 0.2.0
