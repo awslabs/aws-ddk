@@ -427,15 +427,15 @@ several DDK-specific features, including:</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage">
-<span class="sig-name descname"><span class="pre">add_custom_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.ShellStep</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_custom_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.pipelines.Step</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_custom_stage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add custom stage to the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>stage_name</strong> (<em>str</em>) – Name of the stage</p></li>
-<li><p><strong>steps</strong> (<em>List</em><em>[</em><em>ShellStep</em><em>]</em>) – Steps to add to this stage. List of ShellStep().
-See <cite>Documentation on aws_cdk.pipelines.ShellStep</cite>
-&lt;<a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html">https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html</a>&gt;`_ for more detail.</p></li>
+<li><p><strong>steps</strong> (<em>List</em><em>[</em><em>Step</em><em>]</em>) – Steps to add to this stage. List of Step().
+See <cite>Documentation on aws_cdk.pipelines.Step</cite>
+&lt;<a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/Step.html">https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/Step.html</a>&gt;`_ for more detail.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
