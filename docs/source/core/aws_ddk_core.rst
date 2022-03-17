@@ -53,7 +53,6 @@ Data Pipelines
 
    DataPipeline
    DataStage
-   StateMachineStage
 
 Resources
 ------------
