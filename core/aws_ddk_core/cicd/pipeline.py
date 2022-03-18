@@ -18,7 +18,6 @@ from typing import Any, Dict, List, Optional
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
 from aws_cdk.aws_iam import PolicyStatement
-from aws_cdk.aws_kms import Key
 from aws_cdk.aws_sns import Topic
 from aws_cdk.pipelines import (
     CodeBuildStep,
@@ -369,11 +368,6 @@ class CICDPipelineStack(BaseStack):
                     self,
                     f"{self.pipeline_name}-{self.environment_id}-notifications",
                     topic_name=f"{self.pipeline_name}-{self.environment_id}-notifications",
-                    master_key=Key.from_lookup(
-                        self,
-                        f"{self.pipeline_name}-{self.environment_id}-notifications-key",
-                        alias_name="alias/aws/sns",
-                    ),
                 )
             ],
         )
