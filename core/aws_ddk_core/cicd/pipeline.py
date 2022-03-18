@@ -87,9 +87,10 @@ class CICDPipelineStack(BaseStack):
             .add_source_action(repository_name="my-repo")
             .add_synth_action()
             .build()
+            .add_checks()
             .add_stage("dev", DevStage(app, "dev"))
-            .add_notifications()
             .synth()
+            .add_notifications()
         )
 
     """
