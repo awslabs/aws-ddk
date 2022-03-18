@@ -1,0 +1,7 @@
+{
+    "environment_id": "dev",
+    "directory_name": "ddk_lib",
+    "package_name": "ddk_lib",
+    "ddk_version": "0.2.0",
+    "python_executable": "python3"
+}
