@@ -107,8 +107,7 @@ def cli(
 @click.option(
     "--project-type",
     "-p",
-    type=click.Choice,
-    choices=[project_templates.keys()],
+    type=click.Choice(choices=[project_templates.keys()]),
     help="Project type",
 )
 @click.option(
