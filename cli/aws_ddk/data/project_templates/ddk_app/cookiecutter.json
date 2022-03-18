@@ -4,6 +4,6 @@
     "package_name": "ddk_app",
     "stack_file_name": "ddk_app_stack",
     "stack_name": "DdkApplicationStack",
-    "ddk_version": "0.2.0",
+    "ddk_version": "0.2.1",
     "python_executable": "python3"
 }
