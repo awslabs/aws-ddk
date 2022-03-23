@@ -45,9 +45,10 @@ def enable_debug(format: str) -> None:
     logging.getLogger("sh").setLevel(logging.ERROR)
 
 
-def setup_boto_session(profile: str, region: Optional[str] = None) -> None:
+def setup_boto_session(profile: Optional[str], region: Optional[str] = None) -> None:
     # Setup profile and region globally in boto3 sessions
-    setup_default_session(profile_name=profile, region_name=region)
+    if profile:
+        setup_default_session(profile_name=profile, region_name=region)
     session: Session = _get_default_session()
     _logger.debug(f"profile: {session.profile_name}")
     _logger.debug(f"region: {session.region_name}")
@@ -143,9 +144,7 @@ def init(name: str, environment: str, template: Optional[str] = None, generate_o
     "--profile",
     "-p",
     type=str,
-    default="default",
     help="Use a specific profile from your AWS credentials file.",
-    show_default=True,
     required=False,
 )
 @click.option(
@@ -204,7 +203,7 @@ def init(name: str, environment: str, template: Optional[str] = None, generate_o
 )
 def bootstrap(
     environment: str,
-    profile: str,
+    profile: Optional[str] = None,
     region: Optional[str] = None,
     prefix: Optional[str] = None,
     qualifier: Optional[str] = None,
@@ -236,9 +235,7 @@ def bootstrap(
     "--profile",
     "-p",
     type=str,
-    default="default",
     help="Use a specific profile from your AWS credentials file.",
-    show_default=True,
     required=False,
 )
 @click.option(
@@ -267,7 +264,7 @@ def bootstrap(
 )
 def create_repository(
     name: str,
-    profile: str,
+    profile: Optional[str] = None,
     region: Optional[str] = None,
     description: Optional[str] = None,
     tags: Optional[Tuple[Tuple[str, str]]] = None,
@@ -291,9 +288,7 @@ def create_repository(
     "--profile",
     "-p",
     type=str,
-    default="default",
     help="Use a specific profile from your AWS credentials file.",
-    show_default=True,
     required=False,
 )
 @click.option(
@@ -319,7 +314,7 @@ def create_repository(
     required=False,
 )
 def deploy(
-    profile: str,
+    profile: Optional[str] = None,
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
     output_dir: Optional[str] = None,

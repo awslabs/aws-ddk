@@ -31,8 +31,8 @@ def tuples_to_dict(tuples: Tuple[Tuple[str, str]]) -> Dict[str, str]:
 
 
 def create_code_repository(
-    profile: str,
     name: str,
+    profile: Optional[str] = None,
     description: Optional[str] = None,
     tags: Optional[Tuple[Tuple[str, str]]] = None,
 ) -> None:

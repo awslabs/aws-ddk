@@ -23,7 +23,7 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 
 def cdk_deploy(
-    profile: str,
+    profile: Optional[str] = None,
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
     output_dir: Optional[str] = None,
@@ -34,11 +34,12 @@ def cdk_deploy(
     # generate command
     cmd = (
         "cdk deploy "
-        f"--profile {profile} "
         f"{'--require-approval ' + require_approval + ' ' if require_approval else ''}"
         f"{'-f ' if force else ''}"
         f"--output {output_dir if output_dir else '.ddk.out'}"
     )
+    if profile:
+        cmd += f" --profile {profile}"
 
     try:
         run(cmd)
