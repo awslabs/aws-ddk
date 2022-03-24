@@ -141,7 +141,7 @@ class DataStage(Construct):
         """
         self._cloudwatch_alarm = Alarm(
             self,
-            "{self.id}-alarm",
+            f"{self.id}-alarm",
             comparison_operator=alarm_comparison_operator,
             threshold=alarm_threshold,
             evaluation_periods=alarm_evaluation_periods,
