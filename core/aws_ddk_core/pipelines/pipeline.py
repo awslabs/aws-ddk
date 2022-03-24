@@ -16,7 +16,6 @@ from typing import List, Optional
 
 from aws_cdk.aws_cloudwatch_actions import SnsAction
 from aws_cdk.aws_events import EventPattern, IRuleTarget, Rule
-from aws_cdk.aws_kms import Key
 from aws_cdk.aws_sns import ITopic, Topic
 from aws_ddk_core.pipelines.stage import DataStage
 from constructs import Construct
@@ -152,10 +151,5 @@ class DataPipeline(Construct):
             self,
             f"{self.id}-notifications",
             topic_name=f"{self.id}-notifications",
-            master_key=Key.from_lookup(
-                self,
-                f"{self.id}-notifications-key",
-                alias_name="alias/aws/sns",
-            ),
         )
         return self
