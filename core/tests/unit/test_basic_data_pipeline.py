@@ -42,7 +42,6 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         environment_id="dev",
         code=Code.from_asset(f"{Path(__file__).parents[2]}"),
         handler="commons.handlers.lambda_handler",
-        create_alarm=True,
     )
     bucket.grant_read_write(sqs_lambda_stage.function)
     glue_stage = GlueTransformStage(

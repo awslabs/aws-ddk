@@ -15,6 +15,7 @@
 from abc import abstractmethod
 from typing import List, Optional
 
+from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator, IAlarm, IMetric
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from constructs import Construct
 
@@ -115,3 +116,42 @@ class DataStage(Construct):
             Event pattern
         """
         pass
+
+    def set_alarm(
+        self,
+        alarm_metric: IMetric,
+        alarm_comparison_operator: Optional[ComparisonOperator] = ComparisonOperator.GREATER_THAN_THRESHOLD,
+        alarm_evaluation_periods: Optional[int] = 1,
+        alarm_threshold: Optional[int] = 5,
+    ) -> "DataStage":
+        """
+        Creates a CloudWatch alarm for the Data Stage
+
+        Parameters
+        ----------
+        alarm_metric: IMetric
+            Metric to use for creating the Stage's CloudWatch Alarm.
+        alarm_comparison_operator: Optional[ComparisonOperator]
+            Comparison operator to use for alarm. `GREATER_THAN_THRESHOLD` by default.
+        alarm_threshold: Optional[int]
+            The value against which the specified alarm statistic is compared. `5` by default.
+        alarm_evaluation_periods: Optional[int]
+            The number of periods over which data is compared to the specified threshold. `1` by default.
+        """
+        self._cloudwatch_alarm = Alarm(
+            self,
+            "{self.id}-alarm",
+            comparison_operator=alarm_comparison_operator,
+            threshold=alarm_threshold,
+            evaluation_periods=alarm_evaluation_periods,
+            metric=alarm_metric,
+        )
+        return self
+
+    @property
+    def cloudwatch_alarm(self) -> Optional[IAlarm]:
+        """
+        Return: Alarm
+            CloudWatch Alarm created by the stage
+        """
+        return self._cloudwatch_alarm

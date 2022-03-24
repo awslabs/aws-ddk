@@ -134,8 +134,6 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
         environment_id="dev",
         code=Code.from_asset(f"{Path(__file__).parents[2]}"),
         handler="commons.handlers.lambda_handler",
-        create_alarm=True,
-        alarm_threshold=10,
     )
 
     template = Template.from_stack(test_stack)
@@ -159,6 +157,6 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
                     )
                 ]
             ),
-            "Threshold": 10,
+            "Threshold": 5,
         },
     )

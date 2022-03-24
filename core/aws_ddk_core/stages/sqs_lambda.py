@@ -15,7 +15,6 @@
 from typing import List, Optional
 
 from aws_cdk import Duration
-from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator, IAlarm
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_events_targets import SqsQueue
 from aws_cdk.aws_iam import Effect, IRole, PolicyStatement
@@ -49,9 +48,6 @@ class SqsToLambdaStage(DataStage):
         batch_size: Optional[int] = None,
         lambda_function: Optional[IFunction] = None,
         sqs_queue: Optional[IQueue] = None,
-        create_alarm: Optional[bool] = False,
-        alarm_threshold: Optional[int] = 5,
-        alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -95,12 +91,6 @@ class SqsToLambdaStage(DataStage):
             Preexisting Lambda Function to use in stage. `None` by default
         sqs_queue: Optional[IQueue]
             Preexisting SQS Queue  to use in stage. `None` by default
-        create_alarm: Optional[bool]
-            Create an alarm for Lambda Function errors. `False` by default.
-        alarm_threshold: Optional[int]
-            The value against which the specified alarm statistic is compared
-        alarm_evaluation_periods: Optional[int]
-            The number of periods over which data is compared to the specified threshold
         """
         super().__init__(scope, id)
 
@@ -139,16 +129,6 @@ class SqsToLambdaStage(DataStage):
             )
         )
 
-        if create_alarm:
-            self._cloudwatch_alarm = Alarm(
-                    self,
-                    "{id}-function-errors",
-                    comparison_operator=ComparisonOperator.GREATER_THAN_THRESHOLD,
-                    threshold=alarm_threshold,
-                    evaluation_periods=alarm_evaluation_periods,
-                    metric=self._function.metric_errors(),
-                )
-
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
             self._dlq = DeadLetterQueue(
@@ -169,6 +149,8 @@ class SqsToLambdaStage(DataStage):
         )
 
         self._function.add_event_source(SqsEventSource(queue=self._queue, batch_size=batch_size))
+
+        self.set_alarm(self._function.metric_errors())
 
     @property
     def function(self) -> IFunction:
@@ -193,14 +175,6 @@ class SqsToLambdaStage(DataStage):
             The SQS dead letter queue
         """
         return self._dlq
-
-    @property
-    def cloudwatch_alarm(self) -> Optional[List[IAlarm]]:
-        """
-        Return: Alarm
-            List of any alarms created by the stage
-        """
-        return self._cloudwatch_alarm
 
     def get_event_pattern(self) -> Optional[EventPattern]:
         return EventPattern(
