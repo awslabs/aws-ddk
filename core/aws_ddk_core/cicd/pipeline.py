@@ -18,7 +18,6 @@ from typing import Any, Dict, List, Optional
 from aws_cdk import Environment, Stage
 from aws_cdk.aws_codestarnotifications import DetailType, NotificationRule
 from aws_cdk.aws_iam import PolicyStatement
-from aws_cdk.aws_kms import Key
 from aws_cdk.aws_sns import Topic
 from aws_cdk.pipelines import (
     CodeBuildStep,
@@ -26,7 +25,7 @@ from aws_cdk.pipelines import (
     CodePipelineSource,
     IFileSetProducer,
     ManualApprovalStep,
-    ShellStep,
+    Step,
 )
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.cicd import (
@@ -87,9 +86,10 @@ class CICDPipelineStack(BaseStack):
             .add_source_action(repository_name="my-repo")
             .add_synth_action()
             .build()
+            .add_checks()
             .add_stage("dev", DevStage(app, "dev"))
-            .add_notifications()
             .synth()
+            .add_notifications()
         )
 
     """
@@ -368,11 +368,6 @@ class CICDPipelineStack(BaseStack):
                     self,
                     f"{self.pipeline_name}-{self.environment_id}-notifications",
                     topic_name=f"{self.pipeline_name}-{self.environment_id}-notifications",
-                    master_key=Key.from_lookup(
-                        self,
-                        f"{self.pipeline_name}-{self.environment_id}-notifications-key",
-                        alias_name="alias/aws/sns",
-                    ),
                 )
             ],
         )
@@ -393,7 +388,7 @@ class CICDPipelineStack(BaseStack):
             self.add_test_stage()
         return self
 
-    def add_custom_stage(self, stage_name: str, steps: List[ShellStep]) -> "CICDPipelineStack":
+    def add_custom_stage(self, stage_name: str, steps: List[Step]) -> "CICDPipelineStack":
         """
         Add custom stage to the pipeline.
 
@@ -401,10 +396,10 @@ class CICDPipelineStack(BaseStack):
         ----------
         stage_name: str
             Name of the stage
-        steps: List[ShellStep]
-            Steps to add to this stage. List of ShellStep().
-            See `Documentation on aws_cdk.pipelines.ShellStep`
-            <https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html>`_ for more detail.
+        steps: List[Step]
+            Steps to add to this stage. List of Step().
+            See `Documentation on aws_cdk.pipelines.Step`
+            <https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/Step.html>`_ for more detail.
 
         Returns
         -------

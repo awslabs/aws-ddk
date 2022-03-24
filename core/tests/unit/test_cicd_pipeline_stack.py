@@ -382,7 +382,6 @@ def test_cicd_pipeline_notifications(cdk_app: App) -> None:
         "AWS::SNS::Topic",
         props={
             "TopicName": Match.exact(pattern="dummy-pipeline-dev-notifications"),
-            "KmsMasterKeyId": Match.any_value(),
         },
     )
     # Check if SNS Topic policy is in place
