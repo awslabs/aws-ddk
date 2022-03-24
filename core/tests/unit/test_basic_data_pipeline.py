@@ -52,9 +52,9 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         crawler_name="dummy-glue-crawler",
     )
 
-    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage).add_stage(
-        glue_stage
-    )
+    DataPipeline(scope=test_stack, id="dummy-pipeline").add_notifications().add_stage(s3_event_stage).add_stage(
+        sqs_lambda_stage
+    ).add_stage(glue_stage)
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(
@@ -67,6 +67,31 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         "AWS::CloudTrail::Trail",
         props={
             "S3BucketName": {"Ref": "dummys3eventdummys3eventtrailbucket09B92664"},
+        },
+    )
+    template.has_resource_properties(
+        "AWS::SNS::Topic",
+        props={
+            "TopicName": Match.string_like_regexp(pattern="dummy-pipeline-notifications"),
+        },
+    )
+    template.has_resource_properties(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "Dimensions": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "FunctionName",
+                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
+                        }
+                    )
+                ]
+            ),
+            "AlarmActions": Match.array_with(
+                pattern=[Match.object_like(pattern={"Ref": "dummypipelinepipelinedummypipelinenotifications161779A9"})]
+            ),
+            "Threshold": 5,
         },
     )
     template.has_resource_properties(

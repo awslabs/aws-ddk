@@ -14,7 +14,7 @@
 
 from pathlib import Path
 
-from aws_cdk.assertions import Template
+from aws_cdk.assertions import Match, Template
 from aws_cdk.aws_lambda import Code, Function, Runtime
 from aws_cdk.aws_sqs import Queue
 from aws_ddk_core.base import BaseStack
@@ -123,5 +123,41 @@ def test_sqs_lambda_with_existing_function(test_stack: BaseStack) -> None:
         "AWS::SQS::Queue",
         props={
             "VisibilityTimeout": 120,
+        },
+    )
+
+
+def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
+    SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+        lambda_function_errors_alarm_threshold=10,
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Lambda::Function",
+        props={
+            "Runtime": "python3.9",
+            "MemorySize": 512,
+        },
+    )
+    template.has_resource_properties(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "Dimensions": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "FunctionName",
+                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
+                        }
+                    )
+                ]
+            ),
+            "Threshold": 10,
         },
     )

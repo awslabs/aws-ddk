@@ -48,6 +48,8 @@ class SqsToLambdaStage(DataStage):
         batch_size: Optional[int] = None,
         lambda_function: Optional[IFunction] = None,
         sqs_queue: Optional[IQueue] = None,
+        lambda_function_errors_alarm_threshold: Optional[int] = 5,
+        lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -91,6 +93,10 @@ class SqsToLambdaStage(DataStage):
             Preexisting Lambda Function to use in stage. `None` by default
         sqs_queue: Optional[IQueue]
             Preexisting SQS Queue  to use in stage. `None` by default
+        lambda_function_errors_alarm_threshold: Optional[int]
+            Amount of errored function invocations before triggering CW alarm. Defaults to `5`
+        lambda_function_errors_alarm_evaluation_periods: Optional[int]
+            The number of periods over which data is compared to the specified threshold. Defaults to `1`
         """
         super().__init__(scope, id)
 
@@ -149,6 +155,12 @@ class SqsToLambdaStage(DataStage):
         )
 
         self._function.add_event_source(SqsEventSource(queue=self._queue, batch_size=batch_size))
+
+        self.set_alarm(
+            self._function.metric_errors(),
+            alarm_threshold=lambda_function_errors_alarm_threshold,
+            alarm_evaluation_periods=lambda_function_errors_alarm_evaluation_periods,
+        )
 
     @property
     def function(self) -> IFunction:
