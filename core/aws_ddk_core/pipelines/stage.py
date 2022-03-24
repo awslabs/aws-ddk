@@ -87,6 +87,7 @@ class DataStage(Construct):
         self.id: str = id
         self.name: Optional[str] = name
         self.description: Optional[str] = description
+        self._cloudwatch_alarm = None
 
     @abstractmethod
     def get_targets(self) -> Optional[List[IRuleTarget]]:
