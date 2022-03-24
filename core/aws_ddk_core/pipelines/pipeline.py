@@ -91,9 +91,8 @@ class DataPipeline(Construct):
                 event_pattern=self._prev_stage.get_event_pattern(),
                 event_targets=stage.get_targets(),
             )
-        if self._notifications_topic and hasattr(stage, "cloudwatch_alarms"):
-            for alarm in stage.cloudwatch_alarms:
-                alarm.add_alarm_action(SnsAction(self._notifications_topic))
+        if self._notifications_topic and hasattr(stage, "cloudwatch_alarm"):
+            stage.cloudwatch_alarm.add_alarm_action(SnsAction(self._notifications_topic))
         self._prev_stage = stage
         return self
 

@@ -140,8 +140,7 @@ class SqsToLambdaStage(DataStage):
         )
 
         if create_alarm:
-            self._cloudwatch_alarms = [
-                Alarm(
+            self._cloudwatch_alarm = Alarm(
                     self,
                     "{id}-function-errors",
                     comparison_operator=ComparisonOperator.GREATER_THAN_THRESHOLD,
@@ -149,7 +148,6 @@ class SqsToLambdaStage(DataStage):
                     evaluation_periods=alarm_evaluation_periods,
                     metric=self._function.metric_errors(),
                 )
-            ]
 
         self._dlq: Optional[DeadLetterQueue] = None
         if dead_letter_queue_enabled:
@@ -197,12 +195,12 @@ class SqsToLambdaStage(DataStage):
         return self._dlq
 
     @property
-    def cloudwatch_alarms(self) -> Optional[List[IAlarm]]:
+    def cloudwatch_alarm(self) -> Optional[List[IAlarm]]:
         """
         Return: Alarm
             List of any alarms created by the stage
         """
-        return self._cloudwatch_alarms
+        return self._cloudwatch_alarm
 
     def get_event_pattern(self) -> Optional[EventPattern]:
         return EventPattern(
