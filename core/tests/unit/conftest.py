@@ -86,6 +86,11 @@ config = {
                     "timeout": 28800,
                     "state_machine_type": "express",
                 },
+                "dummy-glue-transform-create-job": {
+                    "enable_profiling_metrics": True,
+                    "max_concurrent_runs": 2,
+                    "worker_count": 3,
+                },
             },
         },
     },

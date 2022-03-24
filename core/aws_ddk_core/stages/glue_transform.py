@@ -16,7 +16,9 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk.aws_events import EventPattern, IRuleTarget, RuleTargetInput
 from aws_cdk.aws_events_targets import SfnStateMachine
-from aws_cdk.aws_iam import Effect, PolicyStatement
+from aws_cdk.aws_glue import CfnCrawler
+from aws_cdk.aws_glue_alpha import IJob, JobExecutable
+from aws_cdk.aws_iam import Effect, IRole, PolicyStatement
 from aws_cdk.aws_stepfunctions import (
     CustomState,
     IntegrationPattern,
@@ -28,7 +30,7 @@ from aws_cdk.aws_stepfunctions import (
 )
 from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
 from aws_ddk_core.pipelines import DataStage
-from aws_ddk_core.resources import StepFunctionsFactory
+from aws_ddk_core.resources import GlueFactory, StepFunctionsFactory
 from constructs import Construct
 
 
@@ -42,8 +44,13 @@ class GlueTransformStage(DataStage):
         scope: Construct,
         id: str,
         environment_id: str,
-        job_name: str,
-        crawler_name: str,
+        executable: Optional[JobExecutable] = None,
+        job_role: Optional[IRole] = None,
+        job_name: Optional[str] = None,
+        database_name: Optional[str] = None,
+        crawler_role: Optional[IRole] = None,
+        targets: Optional[CfnCrawler.TargetsProperty] = None,
+        crawler_name: Optional[str] = None,
         job_args: Optional[Dict[str, Any]] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
     ) -> None:
@@ -51,7 +58,7 @@ class GlueTransformStage(DataStage):
         DDK Glue Transform stage.
 
         Stage that contains a step function that runs Glue job, and a Glue crawler afterwards.
-        Both the Glue job and the crawler must be pre-created.
+        If the Glue job or crawler names are not supplied, then they are created.
 
         Parameters
         ----------
@@ -61,19 +68,53 @@ class GlueTransformStage(DataStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
-        job_name : str
-            Name of the Glue job to run
-        crawler_name : str
-            Name of the Glue crawler to run
+        executable : Optional[JobExecutable]
+            The job executable properties
+        job_role : Optional[IRole]
+            The job execution role
+        job_name : Optional[str]
+            The name of the Glue job to run
+        database_name : Optional[str]
+            The name of the database in which the crawler's output is stored
+        crawler_role : Optional[IRole]
+            The crawler execution role
+        targets : Optional[TargetsProperty]
+            A collection of targets to crawl
+        crawler_name : Optional[str]
+            The name of the Glue crawler to run
         job_args : Optional[Dict[str, Any]]
-            Glue job arguments
+            The input arguments to the Glue job
         state_machine_input : Optional[Dict[str, Any]]
-            Input of the state machine
+            The input dict to the state machine
         """
         super().__init__(scope, id)
 
         self._state_machine_input: Optional[Dict[str, Any]] = state_machine_input
         self._event_detail_type: str = f"{id}-event-type"
+
+        # If Glue job name is not supplied, create one
+        self._job: Optional[IJob] = None
+        if not job_name:
+            self._job = GlueFactory.job(
+                self,
+                id=f"{id}-job",
+                environment_id=environment_id,
+                executable=executable,
+                role=job_role,
+            )
+            job_name = self._job.job_name
+
+        # If Glue crawler name is not supplied, create one
+        self._crawler: Optional[CfnCrawler] = None
+        if not crawler_name:
+            self._crawler = CfnCrawler(
+                self,
+                f"{id}-crawler",
+                database_name=database_name,
+                targets=targets,
+                role=crawler_role.role_arn,  # type: ignore
+            )
+            crawler_name = self._crawler.name
 
         # Create GlueStartJobRun step function task
         start_job_run: GlueStartJobRun = GlueStartJobRun(
@@ -118,6 +159,22 @@ class GlueTransformStage(DataStage):
                 resources=["*"],
             )
         )
+
+    @property
+    def job(self) -> Optional[IJob]:
+        """
+        Return: Optional[IJob]
+            The Glue job
+        """
+        return self._job
+
+    @property
+    def crawler(self) -> Optional[CfnCrawler]:
+        """
+        Return: Optional[CfnCrawler]
+            The Glue crawler
+        """
+        return self._crawler
 
     def get_event_pattern(self) -> Optional[EventPattern]:
         return EventPattern(
