@@ -99,7 +99,7 @@ class SqsToLambdaStage(DataStage):
             Create an alarm for Lambda Function errors. `False` by default.
         alarm_threshold: Optional[int]
             The value against which the specified alarm statistic is compared
-        alarm_evaulation_periods: Optional[int]
+        alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold
         """
         super().__init__(scope, id)
