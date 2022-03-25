@@ -43,7 +43,7 @@ The `dev` & `test` environments are bootstrapped with `a 111111111111` to setup 
             "account": "222222222222",
             "region": "us-west-2",
             "resources": {
-                "ddk-bucket": {"versioned": true, "removal_policy": "destroy"}
+                "ddk-bucket": {"versioned": true, "removal_policy": "retain"}
             }
         },
         "cicd": {
