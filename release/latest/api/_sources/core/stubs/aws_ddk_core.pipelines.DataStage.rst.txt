@@ -18,6 +18,7 @@
       ~DataStage.get_event_pattern
       ~DataStage.get_targets
       ~DataStage.is_construct
+      ~DataStage.set_alarm
       ~DataStage.to_string
    
    
@@ -28,6 +29,7 @@
 
    .. autosummary::
    
+      ~DataStage.cloudwatch_alarm
       ~DataStage.node
    
    

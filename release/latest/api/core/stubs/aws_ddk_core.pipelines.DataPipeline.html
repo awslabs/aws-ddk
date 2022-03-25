@@ -242,16 +242,19 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline.__init__" title="aws_ddk_core.pipelines.DataPipeline.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id[, name, description])</p></td>
 <td><p>Create a data pipeline.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline.add_rule" title="aws_ddk_core.pipelines.DataPipeline.add_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_rule</span></code></a>([id, event_pattern, event_targets, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline.add_notifications" title="aws_ddk_core.pipelines.DataPipeline.add_notifications"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_notifications</span></code></a>([notifications_topic])</p></td>
 <td><p>Create a rule that matches specificed event pattern with the specified target.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline.add_stage" title="aws_ddk_core.pipelines.DataPipeline.add_stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stage</span></code></a>(stage[, skip_rule, override_rule])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline.add_rule" title="aws_ddk_core.pipelines.DataPipeline.add_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_rule</span></code></a>([id, event_pattern, event_targets, ...])</p></td>
+<td><p>Create a rule that matches specificed event pattern with the specified target.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline.add_stage" title="aws_ddk_core.pipelines.DataPipeline.add_stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stage</span></code></a>(stage[, skip_rule, override_rule])</p></td>
 <td><p>Add a stage to the data pipeline.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
 <td><p>(deprecated) Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a construct.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
 <td><p>Returns a string representation of this construct.</p></td>
 </tr>
 </tbody>
@@ -268,6 +271,22 @@
 </tr>
 </tbody>
 </table></div>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataPipeline.add_notifications">
+<span class="sig-name descname"><span class="pre">add_notifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notifications_topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sns.ITopic</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline" title="aws_ddk_core.pipelines.pipeline.DataPipeline"><span class="pre">aws_ddk_core.pipelines.pipeline.DataPipeline</span></a></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.DataPipeline.add_notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a rule that matches specificed event pattern with the specified target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>notifications_topic</strong> (<em>Optional</em><em>[</em><em>ITopic</em><em>]</em>) – Existing SNS Topic to consume notifications with.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – DataPipeline</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline" title="aws_ddk_core.pipelines.DataPipeline">DataPipeline</a></p>
+</dd>
+</dl>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataPipeline.add_rule">
 <span class="sig-name descname"><span class="pre">add_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">override_rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.Rule</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.pipelines.DataPipeline" title="aws_ddk_core.pipelines.pipeline.DataPipeline"><span class="pre">aws_ddk_core.pipelines.pipeline.DataPipeline</span></a></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.DataPipeline.add_rule" title="Permalink to this definition">¶</a></dt>

@@ -18,6 +18,7 @@
       ~GlueTransformStage.get_event_pattern
       ~GlueTransformStage.get_targets
       ~GlueTransformStage.is_construct
+      ~GlueTransformStage.set_alarm
       ~GlueTransformStage.to_string
    
    
@@ -28,6 +29,7 @@
 
    .. autosummary::
    
+      ~GlueTransformStage.cloudwatch_alarm
       ~GlueTransformStage.node
    
    

@@ -15,6 +15,7 @@
    .. autosummary::
    
       ~DataPipeline.__init__
+      ~DataPipeline.add_notifications
       ~DataPipeline.add_rule
       ~DataPipeline.add_stage
       ~DataPipeline.is_construct

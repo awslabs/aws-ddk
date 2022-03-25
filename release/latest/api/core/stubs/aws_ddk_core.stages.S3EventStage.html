@@ -214,7 +214,7 @@
 <dd><p>Class that represents an S3 Event DDK Stage.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloudtrail_trail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_cloudtrail.Trail</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>DDK S3 Event stage.</p>
 <p>It implements an S3 event pattern based on event names, a bucket name and optional key prefix.
 A CloudTrail Trail and associated bucket are created to enable S3 object level tracking.</p>
@@ -228,6 +228,7 @@ A CloudTrail Trail and associated bucket are created to enable S3 object level t
 The list of events to capture</p></li>
 <li><p><strong>bucket_name</strong> (<em>str</em>) – The name of the S3 bucket</p></li>
 <li><p><strong>key_prefix</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The S3 prefix. Capture root level prefix (“/”) by default</p></li>
+<li><p><strong>cloudtrail_trail</strong> (<em>Optional</em><em>[</em><em>Trail</em><em>]</em>) – Preexisting CloudTrail Trail to use in stage</p></li>
 </ul>
 </dd>
 </dl>
@@ -251,7 +252,10 @@ The list of events to capture</p></li>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
 <td><p>(deprecated) Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a construct.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_alarm</span></code>(alarm_metric[, ...])</p></td>
+<td><p>Creates a CloudWatch alarm for the Data Stage</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
 <td><p>Returns a string representation of this construct.</p></td>
 </tr>
 </tbody>
@@ -263,17 +267,20 @@ The list of events to capture</p></li>
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.event_pattern" title="aws_ddk_core.stages.S3EventStage.event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">event_pattern</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cloudwatch_alarm</span></code></p></td>
+<td><p>Alarm CloudWatch Alarm created by the stage</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.event_pattern" title="aws_ddk_core.stages.S3EventStage.event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">event_pattern</span></code></a></p></td>
 <td><p>EventPattern The S3 event pattern</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
 <td><p>The tree node.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.trail" title="aws_ddk_core.stages.S3EventStage.trail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trail</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.trail" title="aws_ddk_core.stages.S3EventStage.trail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trail</span></code></a></p></td>
 <td><p>Trail The CloudTrail Trail</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.trail_bucket" title="aws_ddk_core.stages.S3EventStage.trail_bucket"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trail_bucket</span></code></a></p></td>
-<td><p>IBucket The CloudTrail Trail bucket</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.trail_bucket" title="aws_ddk_core.stages.S3EventStage.trail_bucket"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trail_bucket</span></code></a></p></td>
+<td><p>Optional[IBucket] The CloudTrail Trail bucket</p></td>
 </tr>
 </tbody>
 </table></div>
@@ -330,8 +337,8 @@ The CloudTrail Trail</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.trail_bucket">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trail_bucket</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_s3.IBucket</span></em><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.trail_bucket" title="Permalink to this definition">¶</a></dt>
-<dd><p>IBucket
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trail_bucket</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_s3.IBucket</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.trail_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional[IBucket]
 The CloudTrail Trail bucket</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
