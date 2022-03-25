@@ -1,5 +1,5 @@
 ---
-title: Deploy Multi-Account DDK Data Pipelines 
+title: Deploy Multi-Account DDK Apps
 layout: how-to
 tags: how-to
 order: 2
@@ -7,15 +7,15 @@ category: Advanced
 ---
 
 ## Purpose
-In some cases Data Pipelines will need to be created in mulitple accounts to support environment or logical separation. The following guide demonstrates how you can deploy a DDK Data Pipeline to multiple environments in their own AWS accounts.
+In some cases resources will need to be created in mulitple accounts to support environment or logical separation. The following guide demonstrates how you can deploy a DDK application to multiple environments in their own AWS accounts.
 
 ## Enabling Accounts for Cross-Account Access
 `ddk bootstrap` allows us to setup cross-account access for a DDK account.
 
 Let's say we have three AWS accounts.
 - 111111111111: A centralized account for CI/CD pipelines.
-- 222222222222: An account to host `dev` environment data pipelines.
-- 333333333333: An account to host `test` environment data pipelines.
+- 222222222222: An account to host `dev` environment resources.
+- 333333333333: An account to host `test` environment resources.
 
 ### Bootstrap Accounts
 We'll need to bootstrap each environment. 
@@ -54,7 +54,7 @@ The `dev` & `test` environments are bootstrapped with `a 111111111111` to setup 
 }
 ```
 
-`app.py` for example can now build a CI/CD pipeline to instantiate your data pipeline in both environments.
+`app.py` for example can now build a CI/CD pipeline to instantiate your application in both environments.
 
 ```python
 #!/usr/bin/env python3
