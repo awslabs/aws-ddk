@@ -13,16 +13,16 @@ In some cases resources will need to be created in mulitple accounts to support 
 `ddk bootstrap` allows us to setup cross-account access for a DDK account.
 
 Let's say we have three AWS accounts.
-- 111111111111: A centralized account for CI/CD pipelines.
-- 222222222222: An account to host `dev` environment resources.
-- 333333333333: An account to host `test` environment resources.
+- **111111111111**: A centralized account for CI/CD pipelines.
+- **222222222222**: An account to host `dev` environment resources.
+- **333333333333**: An account to host `test` environment resources.
 
 ### Bootstrap Accounts
 We'll need to bootstrap each environment. 
 
-**cicd**: `ddk bootstrap -e cicd -p ${CICD_AWS_PROFILE}`
-**dev**: `ddk bootstrap -e dev -p ${DEV_AWS_PROFILE} -a 111111111111`
-**test**: `ddk bootstrap -e test -p ${TEST_AWS_PROFILE} -a 111111111111`
+- **[cicd]**: `ddk bootstrap -e cicd -p ${CICD_AWS_PROFILE}`
+- **[dev]**: `ddk bootstrap -e dev -p ${DEV_AWS_PROFILE} -a 111111111111`
+- **[test]**: `ddk bootstrap -e test -p ${TEST_AWS_PROFILE} -a 111111111111`
 
 The `dev` & `test` environments are bootstrapped with `a 111111111111` to setup the required cross account access for the `cicd` account to manage resources within them.
 
