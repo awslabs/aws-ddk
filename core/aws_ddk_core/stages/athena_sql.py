@@ -16,18 +16,9 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk.aws_events import EventPattern, IRuleTarget, RuleTargetInput
 from aws_cdk.aws_events_targets import SfnStateMachine
-from aws_cdk.aws_iam import Effect, PolicyStatement
 from aws_cdk.aws_kms import Key
 from aws_cdk.aws_s3 import Location
-from aws_cdk.aws_stepfunctions import (
-    CustomState,
-    IntegrationPattern,
-    JsonPath,
-    StateMachine,
-    StateMachineType,
-    Succeed,
-    TaskInput,
-)
+from aws_cdk.aws_stepfunctions import IntegrationPattern, StateMachine, StateMachineType, Succeed
 from aws_cdk.aws_stepfunctions_tasks import (
     AthenaStartQueryExecution,
     EncryptionConfiguration,
