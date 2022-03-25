@@ -35,6 +35,7 @@ class S3EventStage(DataStage):
         event_names: List[str],
         bucket_name: str,
         key_prefix: Optional[str] = None,
+        cloudtrail_trail: Optional[Trail] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -58,6 +59,8 @@ class S3EventStage(DataStage):
             The name of the S3 bucket
         key_prefix : Optional[str]
             The S3 prefix. Capture root level prefix ("/") by default
+        cloudtrail_trail: Optional[Trail]
+            Preexisting CloudTrail Trail to use in stage
         """
         super().__init__(scope, id, **kwargs)
         self._bucket = Bucket.from_bucket_name(self, id=f"{id}-bucket", bucket_name=bucket_name)
@@ -74,18 +77,27 @@ class S3EventStage(DataStage):
             },
         )
 
-        self._trail_bucket = S3Factory.bucket(
-            self,
-            id=f"{id}-trail-bucket",
-            environment_id=environment_id,
+        self._trail_bucket: Optional[IBucket] = (
+            S3Factory.bucket(
+                self,
+                id=f"{id}-trail-bucket",
+                environment_id=environment_id,
+            )
+            if not cloudtrail_trail
+            else None
         )
-        self._trail = Trail(
-            self,
-            id=f"{id}-trail",
-            bucket=self._trail_bucket,
-            is_multi_region_trail=False,
-            include_global_service_events=False,
-        ).add_s3_event_selector(
+        self._trail: Trail = (
+            Trail(
+                self,
+                id=f"{id}-trail",
+                bucket=self._trail_bucket,
+                is_multi_region_trail=False,
+                include_global_service_events=False,
+            )
+            if not cloudtrail_trail
+            else cloudtrail_trail
+        )
+        self._trail.add_s3_event_selector(
             s3_selector=[S3EventSelector(bucket=self._bucket, object_prefix=key_prefix)],
             include_management_events=False,
         )
@@ -107,9 +119,9 @@ class S3EventStage(DataStage):
         return self._trail
 
     @property
-    def trail_bucket(self) -> IBucket:
+    def trail_bucket(self) -> Optional[IBucket]:
         """
-        Return: IBucket
+        Return: Optional[IBucket]
             The CloudTrail Trail bucket
         """
         return self._trail_bucket

@@ -81,10 +81,10 @@ class SqsToLambdaStage(DataStage):
             `aws_cdk.Duration.seconds(120)` by default
         visibility_timeout : Optional[Duration]
             Timeout of processing a single message in the queue. Default: Duration.seconds(120).
-        dead_letter_queue_enabled : Optional[bool]
+        dead_letter_queue_enabled : bool
             Determines if DLQ is enabled. `False` by default
         max_receive_count : int
-            he number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue.
+            The number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue.
             `1` by default
         batch_size : Optional[int]
             The maximum number of records retrieved from the event source at the function invocation time.
