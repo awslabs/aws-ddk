@@ -54,7 +54,7 @@ DdkApplicationStack(app, "DdkApplicationStack", "dev")
 app.synth()
 ```
 
-If your AWS account hasn't been used to run a DDK before, then you will need to bootstrap your environment:
+If your AWS account hasn't been used to run the DDK before, then you will need to bootstrap your environment:
 
 ```console
 ddk bootstrap
