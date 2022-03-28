@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from aws_ddk_core.stages.appflow import AppFlowStage
 from aws_ddk_core.stages.athena_sql import AthenaSQLStage
 from aws_ddk_core.stages.glue_transform import GlueTransformStage
 from aws_ddk_core.stages.s3_event import S3EventStage
 from aws_ddk_core.stages.sqs_lambda import SqsToLambdaStage
 
 __all__ = [
+    "AppFlowStage",
     "AthenaSQLStage",
     "GlueTransformStage",
     "S3EventStage",
