@@ -95,10 +95,10 @@ class AthenaSQLStage(DataStage):
             query_string=query_string,
             integration_pattern=IntegrationPattern.RUN_JOB,
             query_execution_context=QueryExecutionContext(
-                catalog_name=catalog_name,
-                database_name=database_name,
+                catalog_name=catalog_name if catalog_name else None,
+                database_name=database_name if database_name else None,
             )
-            if catalog_name and database_name
+            if catalog_name or database_name
             else None,
             result_configuration=ResultConfiguration(
                 encryption_configuration=EncryptionConfiguration(
@@ -114,9 +114,8 @@ class AthenaSQLStage(DataStage):
                 if output_bucket_name and ouput_object_key
                 else None,
             )
-            if not workgroup
-            else None,
-            work_group=workgroup,
+            if encryption_option or (output_bucket_name and ouput_object_key) else None,
+            work_group=workgroup if workgroup else None,
         )
         # Build state machine
         self._state_machine: StateMachine = StepFunctionsFactory.state_machine(
