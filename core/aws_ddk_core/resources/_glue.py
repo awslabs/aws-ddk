@@ -62,8 +62,8 @@ class GlueFactory:
 
         This construct allows to configure parameters of the job using ddk.json configuration file
         depending on the `environment_id` in which the job is used. Supported parameters are:
-        `default_argument`,`enable_profiling_metrics`, `max_concurrent_runs`, `max_retries`,
-        `timeout`, `worker_count`, `worker_type`.
+        `default_arguments`,`enable_profiling_metrics`, `max_concurrent_runs`, `max_retries`,
+        `timeout`, `worker_count`.
 
         The parameters are respected in the following order:
         1 - Explicit arguments are always preferred
