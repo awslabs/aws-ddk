@@ -32,14 +32,11 @@ def test_firehose_default(test_stack: BaseStack) -> None:
         environment_id="dev",
         delivery_stream_name="dummy-stream",
         s3_destination_bucket=bucket,
-        s3_destination_buffering_interval=90,
+        s3_destination_data_output_prefix="test",
     )
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(
         "AWS::KinesisFirehose::DeliveryStream",
-        props={
-            "DeliveryStreamName": "dummy-stream",
-            # "ExtendedS3DestinationConfiguration": "foo"
-        },
+        props={"DeliveryStreamName": "dummy-stream", "ExtendedS3DestinationConfiguration": {"Prefix": "test"}},
     )

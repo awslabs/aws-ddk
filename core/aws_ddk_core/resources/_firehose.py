@@ -52,8 +52,9 @@ class FirehoseFactory:
         encryption_key: Optional[IKey] = None,
         role: Optional[IRole] = None,
         s3_destination_bucket: Optional[IBucket] = None,
-        s3_destination_buffering_interval: Optional[int] = None,
+        s3_destination_buffering_interval: Optional[Duration] = None,
         s3_destination_buffering_size: Optional[int] = None,
+        s3_destination_data_output_prefix: Optional[str] = None,
         source_stream: Optional[IStream] = None,
         **firehose_props: Any,
     ) -> firehose.IDeliveryStream:
@@ -94,6 +95,7 @@ class FirehoseFactory:
             "source_stream": source_stream,
             "s3_destination_buffering_interval": s3_destination_buffering_interval,
             "s3_destination_buffering_size": s3_destination_buffering_size,
+            "s3_destination_data_output_prefix": s3_destination_data_output_prefix,
             **firehose_props,
         }
         # Explicit ("hardcoded") props should always take precedence over config
@@ -105,6 +107,7 @@ class FirehoseFactory:
         destination_properties = {
             "s3_destination_buffering_interval": "buffering_interval",
             "s3_destination_buffering_size": "buffering_size",
+            "s3_destination_data_output_prefix": "data_output_prefix",
         }
 
         if not firehose_props["destinations"] and s3_destination_bucket:
@@ -114,6 +117,7 @@ class FirehoseFactory:
                 for prop in firehose_config_props
                 if prop in destination_properties.keys()
             }
+            print(destination_config)
 
             # Create Destination
             firehose_config_props["destinations"] = [
