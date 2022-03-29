@@ -42,6 +42,7 @@
       ~BaseStack.account
       ~BaseStack.artifact_id
       ~BaseStack.availability_zones
+      ~BaseStack.bundling_required
       ~BaseStack.dependencies
       ~BaseStack.environment
       ~BaseStack.nested

@@ -63,6 +63,7 @@ Resources
    :toctree: stubs
    :template: custom-class-template.rst
 
+   GlueFactory
    KMSFactory
    LambdaFactory
    S3Factory

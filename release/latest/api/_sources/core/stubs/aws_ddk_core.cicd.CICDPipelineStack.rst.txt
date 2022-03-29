@@ -52,6 +52,7 @@
       ~CICDPipelineStack.account
       ~CICDPipelineStack.artifact_id
       ~CICDPipelineStack.availability_zones
+      ~CICDPipelineStack.bundling_required
       ~CICDPipelineStack.dependencies
       ~CICDPipelineStack.environment
       ~CICDPipelineStack.nested

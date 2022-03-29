@@ -30,6 +30,8 @@
    .. autosummary::
    
       ~GlueTransformStage.cloudwatch_alarm
+      ~GlueTransformStage.crawler
+      ~GlueTransformStage.job
       ~GlueTransformStage.node
    
    

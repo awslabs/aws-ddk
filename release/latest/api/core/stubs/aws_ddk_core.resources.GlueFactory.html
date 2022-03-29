@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.StepFunctionsFactory" href="aws_ddk_core.resources.StepFunctionsFactory.html" /><link rel="prev" title="aws_ddk_core.resources.S3Factory" href="aws_ddk_core.resources.S3Factory.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.KMSFactory" href="aws_ddk_core.resources.KMSFactory.html" /><link rel="prev" title="aws_ddk_core.pipelines.DataStage" href="aws_ddk_core.pipelines.DataStage.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>aws_ddk_core.resources.SQSFactory - Contents</title>
+        <title>aws_ddk_core.resources.GlueFactory - Contents</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -170,11 +170,11 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.LambdaFactory.html">aws_ddk_core.resources.LambdaFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.resources.SQSFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.SQSFactory.html">aws_ddk_core.resources.SQSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.GlueTransformStage.html">aws_ddk_core.stages.GlueTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.S3EventStage.html">aws_ddk_core.stages.S3EventStage</a></li>
@@ -207,15 +207,15 @@
           </label>
         </div>
         <article role="main">
-          <section id="aws-ddk-core-resources-sqsfactory">
-<h1>aws_ddk_core.resources.SQSFactory<a class="headerlink" href="#aws-ddk-core-resources-sqsfactory" title="Permalink to this headline">¶</a></h1>
+          <section id="aws-ddk-core-resources-gluefactory">
+<h1>aws_ddk_core.resources.GlueFactory<a class="headerlink" href="#aws-ddk-core-resources-gluefactory" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.SQSFactory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.resources.</span></span><span class="sig-name descname"><span class="pre">SQSFactory</span></span><a class="headerlink" href="#aws_ddk_core.resources.SQSFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class factory create and configure Simple Queue Service DDK resources, including Queues.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.GlueFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.resources.</span></span><span class="sig-name descname"><span class="pre">GlueFactory</span></span><a class="headerlink" href="#aws_ddk_core.resources.GlueFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class factory to create and configure Glue DDK resources, including Jobs.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.SQSFactory.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.resources.SQSFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.GlueFactory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.resources.GlueFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <p class="rubric">Methods</p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
@@ -224,46 +224,49 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.SQSFactory.__init__" title="aws_ddk_core.resources.SQSFactory.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.GlueFactory.__init__" title="aws_ddk_core.resources.GlueFactory.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_secure_queue_policy</span></code>(queue)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.SQSFactory.queue" title="aws_ddk_core.resources.SQSFactory.queue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">queue</span></code></a>(scope, environment_id, id[, ...])</p></td>
-<td><p>Create and configure SQS queue.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.resources.GlueFactory.job" title="aws_ddk_core.resources.GlueFactory.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>(scope, id, environment_id, executable[, ...])</p></td>
+<td><p>Create and configure Glue job.</p></td>
 </tr>
 </tbody>
 </table></div>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.SQSFactory.queue">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sqs.QueueEncryption</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removal_policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.RemovalPolicy</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_letter_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sqs.DeadLetterQueue</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">queue_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.aws_sqs.IQueue</span></span></span><a class="headerlink" href="#aws_ddk_core.resources.SQSFactory.queue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and configure SQS queue.</p>
-<p>This construct allows to configure parameters of the queue using ddk.json configuration file
-depending on the <cite>environment_id</cite> in which the function is used. Supported parameters are:
-<cite>content_based_deduplication</cite>,`data_key_reuse`, <cite>delivery_delay</cite>, <cite>max_message_size_bytes</cite>,
-<cite>retention_period</cite>, <cite>visibility_timeout</cite>, <cite>receive_message_wait_time</cite>, and <cite>removal_policy</cite>.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.GlueFactory.job">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">aws_cdk.aws_glue_alpha.JobExecutable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.IRole</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.Duration</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_glue_alpha.WorkerType</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.aws_glue_alpha.IJob</span></span></span><a class="headerlink" href="#aws_ddk_core.resources.GlueFactory.job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and configure Glue job.</p>
+<p>This construct allows to configure parameters of the job using ddk.json configuration file
+depending on the <cite>environment_id</cite> in which the job is used. Supported parameters are:
+<cite>default_arguments</cite>,`enable_profiling_metrics`, <cite>max_concurrent_runs</cite>, <cite>max_retries</cite>,
+<cite>timeout</cite>, <cite>worker_count</cite>.</p>
+<p>The parameters are respected in the following order:
+1 - Explicit arguments are always preferred
+2 - Values from configuration file
+3 - Defaults are used otherwise</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
-<li><p><strong>id</strong> (<em>str</em>) – Identifier of the queue</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – Identifier of the Glue job</p></li>
 <li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
-<li><p><strong>queue_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the queue</p></li>
-<li><p><strong>encryption</strong> (<em>Optional</em><em>[</em><em>QueueEncryption</em><em>]</em>) – Whether the contents of the queue are encrypted, and by what type of key.
-<cite>aws_cdk.aws_sqs.QueueEncryption.KMS_MANAGED</cite> by default.</p></li>
-<li><p><strong>removal_policy</strong> (<em>Optional</em><em>[</em><em>RemovalPolicy</em><em>]</em>) – Policy to apply when the bucket is removed from this stack
-<cite>aws_cdk.RemovalPolicy.RETAIN</cite> by default.</p></li>
-<li><p><strong>dead_letter_queue</strong> (<em>Optional</em><em>[</em><em>DeadLetterQueue</em><em>]</em>) – Send messages to this queue if they were unsuccessfully dequeued a number of times.</p></li>
-<li><p><strong>queue_props</strong> (<em>Any</em>) – Additional queue properties. For complete list of properties refer to CDK Documentation -
-SQS Queue: <a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_sqs/Queue.html">https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_sqs/Queue.html</a></p></li>
+<li><p><strong>executable</strong> (<em>JobExecutable</em>) – The job executable properties</p></li>
+<li><p><strong>job_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the Glue job</p></li>
+<li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The description of the Glue job</p></li>
+<li><p><strong>role</strong> (<em>Optional</em><em>[</em><em>IRole</em><em>]</em>) – Glue job execution role</p></li>
+<li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>Duration</em><em>]</em>) – The job execution time (in seconds) after which Glue terminates the job.
+<cite>aws_cdk.Duration.seconds(3600)</cite> by default.</p></li>
+<li><p><strong>worker_count</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of workers of a defined WorkerType that are allocated when a job runs</p></li>
+<li><p><strong>worker_type</strong> (<em>Optional</em><em>[</em><em>WorkerType</em><em>]</em>) – The type of predefined worker that is allocated when a job runs</p></li>
+<li><p><strong>job_props</strong> (<em>Any</em>) – Additional job properties. For complete list of properties refer to CDK Documentation -
+Glue Job: <a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue_alpha/Job.html">https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue_alpha/Job.html</a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>queue</strong> – SQS queue</p>
+<dd class="field-even"><p><strong>job</strong> – Glue job</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>aws_cdk.aws_sqs.Queue</p>
+<dd class="field-odd"><p>aws_cdk.aws_glue_alpha.Job</p>
 </dd>
 </dl>
 </dd></dl>
@@ -275,18 +278,18 @@ SQS Queue: <a class="reference external" href="https://docs.aws.amazon.com/cdk/a
       <footer>
         
 <div class="related-pages">
-    <a class="next-page" href="aws_ddk_core.resources.StepFunctionsFactory.html">
+    <a class="next-page" href="aws_ddk_core.resources.KMSFactory.html">
         <div class="page-info">
             <div class="context">
                 <span>Next</span>
             </div>
-            <div class="title">aws_ddk_core.resources.StepFunctionsFactory</div>
+            <div class="title">aws_ddk_core.resources.KMSFactory</div>
         </div>
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
     </a>
-    <a class="prev-page" href="aws_ddk_core.resources.S3Factory.html">
+    <a class="prev-page" href="aws_ddk_core.pipelines.DataStage.html">
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
@@ -295,7 +298,7 @@ SQS Queue: <a class="reference external" href="https://docs.aws.amazon.com/cdk/a
                 <span>Previous</span>
             </div>
             
-            <div class="title">aws_ddk_core.resources.S3Factory</div>
+            <div class="title">aws_ddk_core.pipelines.DataStage</div>
             
         </div>
     </a>
