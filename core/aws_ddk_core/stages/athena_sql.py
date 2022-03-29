@@ -114,7 +114,8 @@ class AthenaSQLStage(DataStage):
                 if output_bucket_name and ouput_object_key
                 else None,
             )
-            if encryption_option or (output_bucket_name and ouput_object_key) else None,
+            if encryption_option or (output_bucket_name and ouput_object_key)
+            else None,
             work_group=workgroup if workgroup else None,
         )
         # Build state machine
