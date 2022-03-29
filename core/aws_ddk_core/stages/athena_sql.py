@@ -66,6 +66,20 @@ class AthenaSQLStage(DataStage):
             Identifier of the environment
         query_string : str
             SQL query that will be started
+        workgroup : Optional[str]
+            Workgroup name
+        catalog_name : Optional[str]
+            Catalog name
+        database_name : Optional[str]
+            Database name
+        output_bucket_name : Optional[str]
+            Output S3 bucket name
+        ouput_object_key : Optional[str]
+            Output S3 key
+        encryption_option : Optional[EncryptionOption]
+            Encryption configuration
+        encryption_key : Optional[Key]
+            Encryption KMS key
         state_machine_input : Optional[Dict[str, Any]]
             Input of the state machine
         """
