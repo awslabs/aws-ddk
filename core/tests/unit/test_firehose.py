@@ -17,7 +17,7 @@ from aws_ddk_core.base import BaseStack
 from aws_ddk_core.resources import FirehoseFactory, S3Factory
 
 
-def test_get_queue_default(test_stack: BaseStack) -> None:
+def test_firehose_default(test_stack: BaseStack) -> None:
 
     bucket = S3Factory.bucket(
         scope=test_stack,
@@ -32,6 +32,7 @@ def test_get_queue_default(test_stack: BaseStack) -> None:
         environment_id="dev",
         delivery_stream_name="dummy-stream",
         s3_destination_bucket=bucket,
+        s3_destination_buffering_interval=90,
     )
 
     template = Template.from_stack(test_stack)
@@ -39,5 +40,6 @@ def test_get_queue_default(test_stack: BaseStack) -> None:
         "AWS::KinesisFirehose::DeliveryStream",
         props={
             "DeliveryStreamName": "dummy-stream",
+            # "ExtendedS3DestinationConfiguration": "foo"
         },
     )
