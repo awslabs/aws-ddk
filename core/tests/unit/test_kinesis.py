@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from aws_cdk.assertions import Template
+import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
+from aws_cdk.assertions import Match, Template
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.resources import FirehoseFactory, S3Factory
+from aws_ddk_core.resources import KinesisFactory, S3Factory
 
 
-def test_firehose_default(test_stack: BaseStack) -> None:
+def test_firehose(test_stack: BaseStack) -> None:
 
     bucket = S3Factory.bucket(
         scope=test_stack,
@@ -26,17 +27,25 @@ def test_firehose_default(test_stack: BaseStack) -> None:
         bucket_name="my-dummy-bucket",
     )
 
-    FirehoseFactory.firehose(
+    KinesisFactory.firehose(
         scope=test_stack,
         id="dummy-stream-1",
         environment_id="dev",
         delivery_stream_name="dummy-stream",
-        s3_destination_bucket=bucket,
-        s3_destination_data_output_prefix="test",
+        destinations=[destinations.S3Bucket(bucket)],
     )
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(
         "AWS::KinesisFirehose::DeliveryStream",
-        props={"DeliveryStreamName": "dummy-stream", "ExtendedS3DestinationConfiguration": {"Prefix": "test"}},
+        props={
+            "DeliveryStreamName": "dummy-stream",
+            "ExtendedS3DestinationConfiguration": Match.object_like(
+                pattern={
+                    "BucketARN": Match.object_like(
+                        pattern={"Fn::GetAtt": Match.array_with(pattern=["dummybucket12E106EF4", "Arn"])}
+                    )
+                }
+            ),
+        },
     )
