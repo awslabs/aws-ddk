@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from aws_ddk_core.stages.athena_sql import AthenaSQLStage
+from aws_ddk_core.stages.firehose_s3 import FirehoseS3Stage
 from aws_ddk_core.stages.glue_transform import GlueTransformStage
 from aws_ddk_core.stages.s3_event import S3EventStage
 from aws_ddk_core.stages.sqs_lambda import SqsToLambdaStage
@@ -22,4 +23,5 @@ __all__ = [
     "GlueTransformStage",
     "S3EventStage",
     "SqsToLambdaStage",
+    "FirehoseS3Stage",
 ]
