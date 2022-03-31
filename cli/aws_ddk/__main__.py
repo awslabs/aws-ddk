@@ -17,7 +17,7 @@ import logging
 import os
 import re
 import sys
-from typing import Dict, Optional, Tuple
+from typing import Optional, Tuple
 
 import click
 from aws_ddk.__metadata__ import __version__
@@ -30,8 +30,7 @@ from boto3 import Session, _get_default_session, setup_default_session
 
 DEBUG_LOGGING_FORMAT = "[%(asctime)s][%(filename)-13s:%(lineno)3d] %(message)s"
 DEBUG_LOGGING_FORMAT_REMOTE = "[%(filename)-13s:%(lineno)3d] %(message)s"
-DEFAULT_APP_PROJECT_TEMPLATE = "data/project_templates/ddk_app/"
-project_templates: Dict[str, str] = {"app": DEFAULT_APP_PROJECT_TEMPLATE, "lib": "data/project_templates/ddk_lib/"}
+DEFAULT_PROJECT_TEMPLATE = "data/project_templates/ddk_app/"
 
 _logger: logging.Logger = logging.getLogger(__name__)
 
@@ -105,12 +104,6 @@ def cli(
     show_default=True,
 )
 @click.option(
-    "--project-type",
-    "-p",
-    type=click.Choice(choices=[project_templates.keys()]),
-    help="Project type",
-)
-@click.option(
     "--template",
     "-t",
     type=str,
@@ -124,25 +117,15 @@ def cli(
     default=False,
     show_default=True,
 )
-def init(
-    name: str,
-    environment: str,
-    project_type: Optional[str],
-    template: Optional[str] = None,
-    generate_only: Optional[bool] = None,
-) -> None:
+def init(name: str, environment: str, template: Optional[str] = None, generate_only: Optional[bool] = None) -> None:
     """
     Create the local structure for a new AWS DDK Python project.
 
     NAME is the name of the project.
     """
-    # Use specified or default Cookiecutter project template
+    # Use default Cookiecutter project template
     if not template:
-        template = (
-            project_templates[project_type]
-            if project_type and not template
-            else os.path.join(get_package_root(), DEFAULT_APP_PROJECT_TEMPLATE)
-        )
+        template = os.path.join(get_package_root(), DEFAULT_PROJECT_TEMPLATE)
     return init_project(name=name, environment=environment, template=template, generate_only=generate_only)
 
 
