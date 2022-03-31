@@ -22,7 +22,7 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 
 [[package]]
 name = "aws-cdk-lib"
-version = "2.17.0"
+version = "2.18.0"
 description = "Version 2 of the AWS Cloud Development Kit library"
 category = "main"
 optional = false
@@ -30,21 +30,21 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.54.0,<2.0.0"
+jsii = ">=1.55.1,<2.0.0"
 publication = ">=0.0.3"
 
 [[package]]
 name = "aws-cdk.aws-glue-alpha"
-version = "2.17.0a0"
+version = "2.18.0a0"
 description = "The CDK Construct Library for AWS::Glue"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-aws-cdk-lib = ">=2.17.0,<3.0.0"
+aws-cdk-lib = ">=2.18.0,<3.0.0"
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.54.0,<2.0.0"
+jsii = ">=1.55.1,<2.0.0"
 publication = ">=0.0.3"
 
 [[package]]
@@ -69,7 +69,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "constructs"
-version = "10.0.94"
+version = "10.0.101"
 description = "A programming model for software-defined state"
 category = "main"
 optional = false
@@ -260,7 +260,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1, <3.11"
-content-hash = "9378e44e640c518f69a9ae491cc4d7c3b0f979d332cd39fc85d33ad385e9fd74"
+content-hash = "307abeadb4e6957bbcba3a762451c5aae6eb737c95b8762649a83d362f7a1bbf"
 
 [metadata.files]
 atomicwrites = [
@@ -272,12 +272,12 @@ attrs = [
     {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
 ]
 aws-cdk-lib = [
-    {file = "aws-cdk-lib-2.17.0.tar.gz", hash = "sha256:8b74e93090aa11b3dd3d2ae650a6f2a592260e9d3d6ad3e77175abe7c2e6db95"},
-    {file = "aws_cdk_lib-2.17.0-py3-none-any.whl", hash = "sha256:874d748be2926565cc6f8eaeac67cfa29d1d162c07a71429720f0fe88cc9e443"},
+    {file = "aws-cdk-lib-2.18.0.tar.gz", hash = "sha256:60f1c68685e397a855d1f752d4d8006eddf24e0f26761953e3e9bf3edc63d747"},
+    {file = "aws_cdk_lib-2.18.0-py3-none-any.whl", hash = "sha256:6d5d147d226280773c1ae234a762c865d0d096a73650c9e0190274cfac245312"},
 ]
 "aws-cdk.aws-glue-alpha" = [
-    {file = "aws-cdk.aws-glue-alpha-2.17.0a0.tar.gz", hash = "sha256:a2a458864a8fd432ba9bcbe9fa29b3b1dec706ed4c644161e8ddc88f26d2bd1d"},
-    {file = "aws_cdk.aws_glue_alpha-2.17.0a0-py3-none-any.whl", hash = "sha256:8af3c1bc65b971e8870d936efbfd3d81e2151e6bc87f4bdc80a2e1755d2042a3"},
+    {file = "aws-cdk.aws-glue-alpha-2.18.0a0.tar.gz", hash = "sha256:3a548846f1de7d372a10ae122a8bdf8083e2a1953c4dfc75fec0f664b68e1b07"},
+    {file = "aws_cdk.aws_glue_alpha-2.18.0a0-py3-none-any.whl", hash = "sha256:7af618659471034582e135282c118ca1c4bd35ddc74fe7f03829e0d4fe836f5d"},
 ]
 cattrs = [
     {file = "cattrs-1.10.0-py3-none-any.whl", hash = "sha256:35dd9063244263e63bd0bd24ea61e3015b00272cead084b2c40d788b0f857c46"},
@@ -288,8 +288,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 constructs = [
-    {file = "constructs-10.0.94-py3-none-any.whl", hash = "sha256:2e8c27a2775c93648f3ebdcb042a879cb2964eca0fb6d8b0858a5ba9fabdf186"},
-    {file = "constructs-10.0.94.tar.gz", hash = "sha256:8ebe15e0bb7e0c704a804ee303443e609f9caa3176e878ac278223f438875047"},
+    {file = "constructs-10.0.101-py3-none-any.whl", hash = "sha256:8dcdcb38198ecfa40ff3521af785baff9dd199f222f5544d928dddc4db8fee71"},
+    {file = "constructs-10.0.101.tar.gz", hash = "sha256:420420c18758f1de95e10b2f8b3a38016d099a9a838c82a14d2e8d51e21bc0e8"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.11.3-py3-none-any.whl", hash = "sha256:1208431ca90a8cca1a6b8af391bb53c1a2db74e5d1cef6ddced95d4b2062edc6"},

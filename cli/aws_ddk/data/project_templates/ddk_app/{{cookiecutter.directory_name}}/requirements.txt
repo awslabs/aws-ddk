@@ -1,1 +1,3 @@
 aws_ddk_core=={{cookiecutter.ddk_version}}
+aws-cdk-lib=={{cookiecutter.cdk_lib_version}}
+constructs{{cookiecutter.constructs_version_constraint}}
