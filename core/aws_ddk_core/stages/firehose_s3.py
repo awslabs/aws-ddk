@@ -18,10 +18,12 @@ import aws_cdk.aws_kinesisfirehose_alpha as firehose
 import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
 from aws_cdk import Size
 from aws_cdk.aws_events import EventPattern, IRuleTarget
+from aws_cdk.aws_kms import IKey
+from aws_cdk.aws_logs import ILogGroup
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
 from aws_ddk_core.resources import KinesisFactory, S3Factory
-from aws_ddk_core.resources.commons import Compression, Duration
+from aws_ddk_core.resources.commons import Duration
 from constructs import Construct
 
 
@@ -41,8 +43,12 @@ class FirehoseS3Stage(DataStage):
         bucket: Optional[IBucket] = None,
         buffering_interval: Optional[Duration] = None,
         buffering_size: Optional[Size] = None,
-        compression: Optional[Compression] = None,
+        compression: Optional[destinations.Compression] = None,
         data_output_prefix: Optional[str] = None,
+        encryption_key: Optional[IKey] = None,
+        error_output_prefix: Optional[str] = None,
+        logging: Optional[bool] = True,
+        log_group: Optional[ILogGroup] = None,
     ) -> None:
         """
         DDK Firehose to S3 stage.
@@ -69,17 +75,32 @@ class FirehoseS3Stage(DataStage):
             Maximum: Duration.seconds(900)
             Default: Duration.seconds(300)
         buffering_size: Optional[Size] = None
-            The size of the buffer that Kinesis Data Firehose uses for incoming data before delivering it to the S3 bucket.
+            The size of the buffer that Kinesis Data Firehose uses for incoming
+            data before delivering it to the S3 bucket.
             Minimum: Size.mebibytes(1)
             Maximum: Size.mebibytes(128)
             Default: Size.mebibytes(5)
         compression: Optional[Compression] = None
-            The type of compression that Kinesis Data Firehose uses to compress the data that it delivers to the Amazon S3 bucket.
+            The type of compression that Kinesis Data Firehose uses to compress
+            the data that it delivers to the Amazon S3 bucket.
             Default: - UNCOMPRESSED
         data_output_prefix: Optional[str] = None
             A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
             This prefix appears immediately following the bucket name.
             Default: “YYYY/MM/DD/HH”
+        encryption_key: Optional[IKey] = None
+            The AWS KMS key used to encrypt the data delivered to your Amazon S3 bucket
+        error_output_prefix: Optional[str] = None
+            prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3.
+            This prefix appears immediately following the bucket name.
+            Default: “YYYY/MM/DD/HH”
+        logging: Optional[bool] = True
+            If true, log errors when data transformation or data delivery fails.
+            If `log_group` is provided, this will be implicitly set to true.
+            Default: true - errors are logged.
+        log_group: Optional[ILogGroup] = None
+            The CloudWatch log group where log streams will be created to hold error logs.
+            Default: - if logging is set to true, a log group will be created for you.
 
         """
         super().__init__(scope, id)
@@ -111,6 +132,10 @@ class FirehoseS3Stage(DataStage):
                         buffering_size=buffering_size,
                         compression=compression,
                         data_output_prefix=data_output_prefix,
+                        encryption_key=encryption_key,
+                        error_output_prefix=error_output_prefix,
+                        logging=logging,
+                        log_group=log_group,
                     )
                 ],
             )
