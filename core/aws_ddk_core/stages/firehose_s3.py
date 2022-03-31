@@ -12,14 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 import aws_cdk.aws_kinesisfirehose_alpha as firehose
 import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
+from aws_cdk import Size
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
 from aws_ddk_core.resources import KinesisFactory, S3Factory
+from aws_ddk_core.resources.commons import Compression, Duration
 from constructs import Construct
 
 
@@ -37,6 +39,10 @@ class FirehoseS3Stage(DataStage):
         delivery_stream_name: Optional[str] = None,
         delivery_stream: Optional[firehose.IDeliveryStream] = None,
         bucket: Optional[IBucket] = None,
+        buffering_interval: Optional[Duration] = None,
+        buffering_size: Optional[Size] = None,
+        compression: Optional[Compression] = None,
+        data_output_prefix: Optional[str] = None,
     ) -> None:
         """
         DDK Firehose to S3 stage.
@@ -57,6 +63,24 @@ class FirehoseS3Stage(DataStage):
             Existing Delivery Stream to use in this stage
         bucket: Optional[IBucket] = None
             Existing S3 Bucket to use as a destination for the Firehose Stream
+        buffering_interval: Optional[Duration] = None
+            The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
+            Minimum: Duration.seconds(60)
+            Maximum: Duration.seconds(900)
+            Default: Duration.seconds(300)
+        buffering_size: Optional[Size] = None
+            The size of the buffer that Kinesis Data Firehose uses for incoming data before delivering it to the S3 bucket.
+            Minimum: Size.mebibytes(1)
+            Maximum: Size.mebibytes(128)
+            Default: Size.mebibytes(5)
+        compression: Optional[Compression] = None
+            The type of compression that Kinesis Data Firehose uses to compress the data that it delivers to the Amazon S3 bucket.
+            Default: - UNCOMPRESSED
+        data_output_prefix: Optional[str] = None
+            A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
+            This prefix appears immediately following the bucket name.
+            Default: “YYYY/MM/DD/HH”
+
         """
         super().__init__(scope, id)
 
@@ -80,10 +104,31 @@ class FirehoseS3Stage(DataStage):
                 id=f"{id}-firehose-stream",
                 environment_id=environment_id,
                 delivery_stream_name=delivery_stream_name,
-                destinations=[destinations.S3Bucket(self._bucket)],
+                destinations=[
+                    destinations.S3Bucket(
+                        self._bucket,
+                        buffering_interval=buffering_interval,
+                        buffering_size=buffering_size,
+                        compression=compression,
+                        data_output_prefix=data_output_prefix,
+                    )
+                ],
             )
             if not delivery_stream
             else delivery_stream
+        )
+
+        request_parameters: Dict[str, Any] = {"bucketName": [self._bucket.bucket_name]}
+        if data_output_prefix:
+            request_parameters["key"] = [{"prefix": data_output_prefix}]
+
+        self._event_pattern = EventPattern(
+            source=["aws.s3"],
+            detail={
+                "eventSource": ["s3.amazonaws.com"],
+                "eventName": ["PutObject"],
+                "requestParameters": request_parameters,
+            },
         )
 
     @property
@@ -94,11 +139,16 @@ class FirehoseS3Stage(DataStage):
         """
         return self._delivery_stream
 
+    @property
+    def event_pattern(self) -> EventPattern:
+        """
+        Return: EventPattern
+            The S3 event pattern
+        """
+        return self._event_pattern
+
     def get_event_pattern(self) -> Optional[EventPattern]:
-        return EventPattern(
-            source=[self._event_source],
-            detail_type=[self._event_detail_type],
-        )
+        return self._event_pattern
 
     def get_targets(self) -> Optional[List[IRuleTarget]]:
         return None
