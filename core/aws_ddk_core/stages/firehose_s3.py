@@ -14,8 +14,10 @@
 
 from typing import List, Optional
 
+import aws_cdk.aws_kinesisfirehose_alpha as firehose
 import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
 from aws_cdk.aws_events import EventPattern, IRuleTarget
+from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
 from aws_ddk_core.resources import KinesisFactory, S3Factory
 from constructs import Construct
@@ -31,8 +33,10 @@ class FirehoseS3Stage(DataStage):
         scope: Construct,
         id: str,
         environment_id: str,
-        bucket_name: str,
-        delivery_stream_name: str,
+        bucket_name: Optional[str] = None,
+        delivery_stream_name: Optional[str] = None,
+        delivery_stream: Optional[firehose.IDeliveryStream] = None,
+        bucket: Optional[IBucket] = None,
     ) -> None:
         """
         DDK Firehose to S3 stage.
@@ -45,27 +49,50 @@ class FirehoseS3Stage(DataStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
-        bucket_name : str
+        bucket_name: Optional[str] = None
+            Name of S3 Bucket to be created as a delivery destination
+        delivery_stream_name: Optional[str] = None
+            Name of the Firehose Delivery Stream
+        delivery_stream: Optional[firehose.IDeliveryStream] = None
+            Existing Delivery Stream to use in this stage
+        bucket: Optional[IBucket] = None
+            Existing S3 Bucket to use as a destination for the Firehose Stream
         """
         super().__init__(scope, id)
 
         self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"
 
-        bucket = S3Factory.bucket(
-            self,
-            id=f"{id}-bucket",
-            environment_id=environment_id,
-            bucket_name=bucket_name,
+        self._bucket = (
+            S3Factory.bucket(
+                self,
+                id=f"{id}-bucket",
+                environment_id=environment_id,
+                bucket_name=bucket_name,
+            )
+            if not bucket
+            else bucket
         )
 
-        KinesisFactory.firehose(
-            self,
-            id=f"{id}-firehose-stream",
-            environment_id=environment_id,
-            delivery_stream_name=delivery_stream_name,
-            destinations=[destinations.S3Bucket(bucket)],
+        self._delivery_stream = (
+            KinesisFactory.firehose(
+                self,
+                id=f"{id}-firehose-stream",
+                environment_id=environment_id,
+                delivery_stream_name=delivery_stream_name,
+                destinations=[destinations.S3Bucket(self._bucket)],
+            )
+            if not delivery_stream
+            else delivery_stream
         )
+
+    @property
+    def delivery_stream(self) -> firehose.IDeliveryStream:
+        """
+        Return: Delivery Stream
+            The Kinesis Firehose Delivery Stream
+        """
+        return self._delivery_stream
 
     def get_event_pattern(self) -> Optional[EventPattern]:
         return EventPattern(

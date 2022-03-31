@@ -34,7 +34,7 @@ class KinesisFactory:
         scope: Construct,
         environment_id: str,
         id: str,
-        destinations: Optional[Sequence[firehose.IDestination]] = None,
+        destinations: Sequence[firehose.IDestination],
         delivery_stream_name: Optional[str] = None,
         encryption: Optional[firehose.StreamEncryption] = None,
         encryption_key: Optional[IKey] = None,
@@ -57,6 +57,26 @@ class KinesisFactory:
             Identifier of the queue
         environment_id : str
             Identifier of the environment
+        destinations: Sequence[firehose.IDestination]
+            The destinations that this delivery stream will deliver data to
+        delivery_stream_name: Optional[str] = None
+            A name for the delivery stream
+        encryption: Optional[firehose.StreamEncryption] = None
+            Indicates the type of customer master key (CMK) to use for server-side encryption, if any.
+            Default: StreamEncryption.UNENCRYPTED
+        encryption_key: Optional[IKey] = None
+            Customer managed key to server-side encrypt data in the stream.
+            Default: - no KMS key will be used
+        role: Optional[IRole] = None
+            The IAM role associated with this delivery stream.
+            Assumed by Kinesis Data Firehose to read from sources and encrypt data server-side.
+            Default: - a role will be created with default permissions.
+        source_stream: Optional[IStream] = None
+            The Kinesis data stream to use as a source for this delivery stream
+        **firehose_props: Any
+            Additional properties. For complete list of properties refer to CDK Documentation -
+            Firehose Delivery Stream:
+            https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_kinesisfirehose/DeliveryStream.html
 
         Returns
         -------
