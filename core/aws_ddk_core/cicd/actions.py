@@ -14,10 +14,14 @@
 
 from typing import Any, List, Optional
 
+from aws_cdk.aws_codebuild import BuildEnvironment, BuildEnvironmentVariable
 from aws_cdk.aws_codecommit import Repository
 from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.pipelines import CodeBuildStep, CodePipelineSource, IFileSetProducer, ShellStep
-from aws_ddk_core.cicd._utils import _get_codeartifact_policy_statements
+from aws_ddk_core.cicd._utils import (
+    _get_codeartifact_publish_policy_statements,
+    _get_codeartifact_read_policy_statements,
+)
 from constructs import Construct
 
 
@@ -71,8 +75,14 @@ def get_synth_action(
     ----------
     code_pipeline_source: CodePipelineSource
         Code Pipeline source stage
-    cdk_version: str
+    cdk_version: Optional[str]
         Version of CDK
+    partition: Optional[str]
+        AWS partition
+    region: Optional[str]
+        AWS region name
+    account: Optional[str]
+        AWS account
     role_policy_statements: Optional[List[PolicyStatement]]
         Additional policies to add to the synth action role
     codeartifact_repository: Optional[str]
@@ -93,7 +103,7 @@ def get_synth_action(
     if all([codeartifact_repository, codeartifact_domain, codeartifact_domain_owner]):
         # Add minimal CodeArtifact permissions
         if not role_policy_statements:
-            role_policy_statements = _get_codeartifact_policy_statements(
+            role_policy_statements = _get_codeartifact_read_policy_statements(
                 partition, region, account, codeartifact_domain, codeartifact_repository  # type: ignore
             )
         install_commands.append(
@@ -202,4 +212,71 @@ def get_tests_action(
         input=file_set_producer,
         install_commands=install_commands,
         commands=commands,
+    )
+
+
+def get_codeartifact_publish_action(
+    partition: str,
+    region: str,
+    account: str,
+    codeartifact_repository: str,
+    codeartifact_domain: str,
+    codeartifact_domain_owner: str,
+    code_pipeline_source: Optional[CodePipelineSource] = None,
+    role_policy_statements: Optional[List[PolicyStatement]] = None,
+) -> CodeBuildStep:
+    """
+    Get CodeArtifact upload action. This action builds Python wheel, and uploads it to CodeArtifact repository.
+
+    Parameters
+    ----------
+    partition: str
+        AWS partition
+    region: str
+        AWS region name
+    account: str
+        AWS account
+    codeartifact_repository: str
+        Name of the CodeArtifact repository to upload to
+    codeartifact_domain: str
+        Name of the CodeArtifact domain
+    codeartifact_domain_owner: str
+        CodeArtifact domain owner account
+    code_pipeline_source: Optional[CodePipelineSource]
+        Code Pipeline source stage
+    role_policy_statements: Optional[List[PolicyStatement]]
+        Additional policies to add to the upload action role
+
+    Returns
+    -------
+    action : CodeBuildStep
+        Upload action
+    """
+    # Add minimal CodeArtifact permissions
+    if not role_policy_statements:
+        role_policy_statements = _get_codeartifact_publish_policy_statements(
+            partition, region, account, codeartifact_domain, codeartifact_repository
+        )
+    return CodeBuildStep(
+        "BuildAndUploadArtifact",
+        input=code_pipeline_source,
+        build_environment=BuildEnvironment(
+            environment_variables={
+                "DOMAIN": BuildEnvironmentVariable(value=codeartifact_domain),
+                "OWNER": BuildEnvironmentVariable(value=codeartifact_domain_owner),
+                "REPOSITORY": BuildEnvironmentVariable(value=codeartifact_repository),
+            },
+        ),
+        install_commands=[
+            "pip install wheel twine",
+            "pip install -U -r requirements.txt",
+            "python setup.py bdist_wheel",
+            "export VERSION=$(python setup.py --version)",
+            "export PACKAGE=$(python setup.py --name)",
+            "aws codeartifact login --tool twine --domain ${DOMAIN} --domain-owner ${OWNER} --repository ${REPOSITORY}",
+        ],
+        commands=[
+            "twine upload --repository codeartifact dist/${PACKAGE}-${VERSION}-py3-none-any.whl",
+        ],
+        role_policy_statements=role_policy_statements,
     )

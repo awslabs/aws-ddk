@@ -8,7 +8,7 @@ from typing import List
 from aws_cdk.aws_iam import Effect, PolicyStatement
 
 
-def _get_codeartifact_policy_statements(
+def _get_codeartifact_read_policy_statements(
     partition: str,
     region: str,
     account: str,
@@ -42,5 +42,56 @@ def _get_codeartifact_policy_statements(
             actions=["sts:GetServiceBearerToken"],
             resources=["*"],
             conditions={"StringEquals": {"sts:AWSServiceName": "codeartifact.amazonaws.com"}},
+        ),
+    ]
+
+
+def _get_codeartifact_publish_policy_statements(
+    partition: str,
+    region: str,
+    account: str,
+    domain: str,
+    repository: str,
+) -> List[PolicyStatement]:
+    return [
+        PolicyStatement(
+            actions=[
+                "codeartifact:DescribeDomain",
+                "codeartifact:GetAuthorizationToken",
+                "codeartifact:ListRepositoriesInDomain",
+            ],
+            effect=Effect.ALLOW,
+            resources=[
+                f"arn:{partition}:codeartifact:{region}:{account}:domain/{domain}",
+            ],
+        ),
+        PolicyStatement(
+            actions=[
+                "codeartifact:GetRepositoryEndpoint",
+                "codeartifact:ReadFromRepository",
+            ],
+            effect=Effect.ALLOW,
+            resources=[
+                f"arn:{partition}:codeartifact:{region}:{account}:repository/{domain}/{repository}",
+            ],
+        ),
+        PolicyStatement(
+            actions=[
+                "codeartifact:PublishPackageVersion",
+            ],
+            effect=Effect.ALLOW,
+            resources=["*"],
+        ),
+        PolicyStatement(
+            actions=[
+                "sts:GetServiceBearerToken",
+            ],
+            effect=Effect.ALLOW,
+            resources=["*"],
+            conditions={
+                "StringEquals": {
+                    "sts:AWSServiceName": "codeartifact.amazonaws.com",
+                },
+            },
         ),
     ]
