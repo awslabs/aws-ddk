@@ -52,6 +52,24 @@ def test_firehose_s3(test_stack: BaseStack) -> None:
             ),
         },
     )
+    template.has_resource_properties(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "MetricName": "DeliveryToS3.DataFreshness",
+            "Dimensions": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "DeliveryStreamName",
+                            "Value": Match.object_like(
+                                pattern={"Ref": "dummyfirehoses3dummyfirehoses3firehosestream5F036D68"}
+                            ),
+                        }
+                    )
+                ]
+            ),
+        },
+    )
 
 
 def test_firehose_s3_with_data_stream(test_stack: BaseStack) -> None:

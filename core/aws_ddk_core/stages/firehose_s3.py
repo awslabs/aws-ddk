@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional
 
 import aws_cdk.aws_kinesisfirehose_alpha as firehose
 import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
-from aws_cdk import Size
+from aws_cdk import Duration, Size
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_kinesis import Stream
 from aws_cdk.aws_kms import IKey
@@ -24,7 +24,6 @@ from aws_cdk.aws_logs import ILogGroup
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
 from aws_ddk_core.resources import KinesisFactory, KinesisFirehoseFactory, S3Factory
-from aws_ddk_core.resources.commons import Duration
 from constructs import Construct
 
 
@@ -52,6 +51,8 @@ class FirehoseS3Stage(DataStage):
         error_output_prefix: Optional[str] = None,
         logging: Optional[bool] = True,
         log_group: Optional[ILogGroup] = None,
+        alarm_threshold: Optional[int] = 900,
+        alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
         DDK Firehose to S3 stage.
@@ -88,13 +89,20 @@ class FirehoseS3Stage(DataStage):
             The type of compression that Kinesis Data Firehose uses to compress
             the data that it delivers to the Amazon S3 bucket.
             Default: - UNCOMPRESSED
+        data_stream: Optional[Stream] = None
+            Existing Kinesis Data Stream to use in stage before Delivery Stream.
+            Setting this parameter will override any creation of Kinesis Data Streams
+            in this stage. `enable_data_stream` will have no effect.
+        enable_data_stream: Optional[bool] = False,
+            Enable Kinesis Data Stream to fron the Firehose delivery stream.
+            Default: false
         data_output_prefix: Optional[str] = None
             A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
             This prefix appears immediately following the bucket name.
             Default: “YYYY/MM/DD/HH”
         enable_data_stream: Optional[bool] = False
             Add Kinesis Data Stream to front Firehose Delivery.
-            Default: False
+            Default: false
         encryption_key: Optional[IKey] = None
             The AWS KMS key used to encrypt the data delivered to your Amazon S3 bucket
         error_output_prefix: Optional[str] = None
@@ -108,6 +116,12 @@ class FirehoseS3Stage(DataStage):
         log_group: Optional[ILogGroup] = None
             The CloudWatch log group where log streams will be created to hold error logs.
             Default: - if logging is set to true, a log group will be created for you.
+        alarm_threshold: Optional[int] = 900
+            Threshold for Cloudwatch Alarm created for this stage.
+            Default: 900
+        alarm_evaluation_periods: Optional[int] = 1
+            Evaluation period value for Cloudwatch alarm created for this stage.
+            Default: 1
 
         """
         super().__init__(scope, id)
@@ -126,7 +140,7 @@ class FirehoseS3Stage(DataStage):
             else bucket
         )
 
-        if enable_data_stream:
+        if enable_data_stream and not data_stream:
             self._data_stream: Any = KinesisFactory.data_stream(
                 self, id=f"{id}-data-stream", environment_id=environment_id
             )
@@ -171,6 +185,17 @@ class FirehoseS3Stage(DataStage):
                 "eventName": ["PutObject"],
                 "requestParameters": request_parameters,
             },
+        )
+
+        # Cloudwatch Alarms
+        self.set_alarm(
+            self._delivery_stream.metric(
+                "DeliveryToS3.DataFreshness",
+                period=buffering_interval if buffering_interval else Duration.seconds(300),
+                statistic="Maximum",
+            ),
+            alarm_threshold=alarm_threshold,
+            alarm_evaluation_periods=alarm_evaluation_periods,
         )
 
     @property

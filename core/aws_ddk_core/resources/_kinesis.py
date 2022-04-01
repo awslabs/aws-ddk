@@ -65,6 +65,28 @@ class KinesisFactory:
             Identifier of the queue
         environment_id : str
             Identifier of the environment
+        encryption: Optional[StreamEncryption] = None
+            The kind of server-side encryption to apply to this stream.
+            If you choose KMS, you can specify a KMS key via encryptionKey.
+            If encryption key is not specified, a key will automatically be created.
+            Default: - StreamEncryption.KMS if encrypted Streams are supported
+            in the region or StreamEncryption.UNENCRYPTED otherwise.
+            StreamEncryption.KMS if an encryption key is supplied through the encryptionKey property
+        encryption_key: Optional[IKey] = None
+            External KMS key to use for stream encryption. The 'encryption' property must be set to “Kms”.
+            Default: - Kinesis Data Streams master key ('/alias/aws/kinesis')
+        retention_period: Optional[Duration] = None
+            The number of hours for the data records that are stored in shards to remain accessible.
+            Default: Duration.hours(24)
+        shard_count: Optional[int] = None
+            The number of shards for the stream. Can only be provided if streamMode is Provisioned.
+            Default: 1
+        stream_mode: Optional[StreamMode] = None
+            The capacity mode of this stream.
+            Default: StreamMode.PROVISIONED
+        stream_name: Optional[str] = None
+            Enforces a particular physical stream name.
+            Default: A CloudFormation generated name
         **kinesis_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             Firehose Data Stream:
