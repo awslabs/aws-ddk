@@ -31,7 +31,7 @@ _logger: logging.Logger = logging.getLogger(__name__)
 class FirehoseDestinationSchema(BaseSchema):
     """DDK Firehose destination Marshmallow schema."""
 
-    # Glue job CDK construct fields
+    # Firehose Destination CDK construct fields
     buffer_interval = Duration()
     buffer_size = Size()
 
