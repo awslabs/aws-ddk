@@ -1,5 +1,5 @@
 {
-    "cdk_version": "{{cookiecutter.cdk_version}}",
+    "cdk_version": "{{cookiecutter.cdk_version_constraint}}",
     "environments": {
         "{{cookiecutter.environment_id}}": {
             "account": "222222222222",

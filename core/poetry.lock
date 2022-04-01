@@ -69,7 +69,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "constructs"
-version = "10.0.101"
+version = "10.0.102"
 description = "A programming model for software-defined state"
 category = "main"
 optional = false
@@ -260,7 +260,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1, <3.11"
-content-hash = "307abeadb4e6957bbcba3a762451c5aae6eb737c95b8762649a83d362f7a1bbf"
+content-hash = "7d597f0da0123e79d240eb12fb05fa6b7a0d619c0b176fda75c0ac25f8a922d0"
 
 [metadata.files]
 atomicwrites = [
@@ -288,8 +288,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 constructs = [
-    {file = "constructs-10.0.101-py3-none-any.whl", hash = "sha256:8dcdcb38198ecfa40ff3521af785baff9dd199f222f5544d928dddc4db8fee71"},
-    {file = "constructs-10.0.101.tar.gz", hash = "sha256:420420c18758f1de95e10b2f8b3a38016d099a9a838c82a14d2e8d51e21bc0e8"},
+    {file = "constructs-10.0.102-py3-none-any.whl", hash = "sha256:88f2c161ad8750f3ef9c00b9f95594d961835de66d585ace4c8ac60a54e77e28"},
+    {file = "constructs-10.0.102.tar.gz", hash = "sha256:4d0c51c3aea88f0d216b984fb96917f8b8657fe5566f22106e143f2991a33269"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.11.3-py3-none-any.whl", hash = "sha256:1208431ca90a8cca1a6b8af391bb53c1a2db74e5d1cef6ddced95d4b2062edc6"},
