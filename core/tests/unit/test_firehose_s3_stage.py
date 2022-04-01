@@ -14,7 +14,7 @@
 
 from aws_cdk.assertions import Match, Template
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.resources import S3Factory
+from aws_ddk_core.resources import KinesisFactory, S3Factory
 from aws_ddk_core.stages.firehose_s3 import FirehoseS3Stage
 
 
@@ -50,6 +50,92 @@ def test_firehose_s3(test_stack: BaseStack) -> None:
                     )
                 }
             ),
+        },
+    )
+
+
+def test_firehose_s3_with_data_stream(test_stack: BaseStack) -> None:
+
+    FirehoseS3Stage(
+        scope=test_stack,
+        id="dummy-firehose-s3",
+        environment_id="dev",
+        bucket_name="dummy-bucket",
+        delivery_stream_name="dummy-firehose-stream",
+        enable_data_stream=True,
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::S3::Bucket",
+        props={
+            "BucketName": "dummy-bucket",
+        },
+    )
+    template.has_resource_properties(
+        "AWS::KinesisFirehose::DeliveryStream",
+        props={
+            "DeliveryStreamName": "dummy-firehose-stream",
+            "ExtendedS3DestinationConfiguration": Match.object_like(
+                pattern={
+                    "BucketARN": Match.object_like(
+                        pattern={
+                            "Fn::GetAtt": Match.array_with(
+                                pattern=["dummyfirehoses3dummyfirehoses3bucketE9003BFA", "Arn"]
+                            )
+                        }
+                    )
+                }
+            ),
+        },
+    )
+    template.has_resource_properties(
+        "AWS::Kinesis::Stream",
+        props={},
+    )
+
+
+def test_firehose_s3_existing_data_stream(test_stack: BaseStack) -> None:
+
+    FirehoseS3Stage(
+        scope=test_stack,
+        id="dummy-firehose-s3",
+        environment_id="dev",
+        bucket_name="dummy-bucket",
+        data_stream=KinesisFactory.data_stream(
+            scope=test_stack, id="dummy-stream-1", environment_id="dev", stream_name="dummy-stream"
+        ),
+        delivery_stream_name="dummy-firehose-stream",
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::S3::Bucket",
+        props={
+            "BucketName": "dummy-bucket",
+        },
+    )
+    template.has_resource_properties(
+        "AWS::KinesisFirehose::DeliveryStream",
+        props={
+            "DeliveryStreamName": "dummy-firehose-stream",
+            "ExtendedS3DestinationConfiguration": Match.object_like(
+                pattern={
+                    "BucketARN": Match.object_like(
+                        pattern={
+                            "Fn::GetAtt": Match.array_with(
+                                pattern=["dummyfirehoses3dummyfirehoses3bucketE9003BFA", "Arn"]
+                            )
+                        }
+                    )
+                }
+            ),
+        },
+    )
+    template.has_resource_properties(
+        "AWS::Kinesis::Stream",
+        props={
+            "Name": "dummy-stream",
         },
     )
 

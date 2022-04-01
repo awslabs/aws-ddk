@@ -18,11 +18,12 @@ import aws_cdk.aws_kinesisfirehose_alpha as firehose
 import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
 from aws_cdk import Size
 from aws_cdk.aws_events import EventPattern, IRuleTarget
+from aws_cdk.aws_kinesis import Stream
 from aws_cdk.aws_kms import IKey
 from aws_cdk.aws_logs import ILogGroup
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
-from aws_ddk_core.resources import KinesisFirehoseFactory, S3Factory
+from aws_ddk_core.resources import KinesisFactory, KinesisFirehoseFactory, S3Factory
 from aws_ddk_core.resources.commons import Duration
 from constructs import Construct
 
@@ -45,6 +46,8 @@ class FirehoseS3Stage(DataStage):
         buffering_size: Optional[Size] = None,
         compression: Optional[destinations.Compression] = None,
         data_output_prefix: Optional[str] = None,
+        data_stream: Optional[Stream] = None,
+        enable_data_stream: Optional[bool] = False,
         encryption_key: Optional[IKey] = None,
         error_output_prefix: Optional[str] = None,
         logging: Optional[bool] = True,
@@ -89,6 +92,9 @@ class FirehoseS3Stage(DataStage):
             A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
             This prefix appears immediately following the bucket name.
             Default: “YYYY/MM/DD/HH”
+        enable_data_stream: Optional[bool] = False
+            Add Kinesis Data Stream to front Firehose Delivery.
+            Default: False
         encryption_key: Optional[IKey] = None
             The AWS KMS key used to encrypt the data delivered to your Amazon S3 bucket
         error_output_prefix: Optional[str] = None
@@ -109,7 +115,7 @@ class FirehoseS3Stage(DataStage):
         self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"
 
-        self._bucket = (
+        self._bucket: IBucket = (
             S3Factory.bucket(
                 self,
                 id=f"{id}-bucket",
@@ -120,12 +126,22 @@ class FirehoseS3Stage(DataStage):
             else bucket
         )
 
+        if enable_data_stream:
+            self._data_stream: Any = KinesisFactory.data_stream(
+                self, id=f"{id}-data-stream", environment_id=environment_id
+            )
+        elif data_stream:
+            self._data_stream = data_stream
+        else:
+            self._data_stream = None
+
         self._delivery_stream = (
             KinesisFirehoseFactory.delivery_stream(
                 self,
                 id=f"{id}-firehose-stream",
                 environment_id=environment_id,
                 delivery_stream_name=delivery_stream_name,
+                source_stream=self._data_stream,
                 destinations=[
                     destinations.S3Bucket(
                         self._bucket,
