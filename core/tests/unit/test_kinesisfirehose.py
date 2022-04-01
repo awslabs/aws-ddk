@@ -15,10 +15,10 @@
 import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
 from aws_cdk.assertions import Match, Template
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.resources import KinesisFactory, S3Factory
+from aws_ddk_core.resources import KinesisFirehoseFactory, S3Factory
 
 
-def test_firehose(test_stack: BaseStack) -> None:
+def test_delivery_stream(test_stack: BaseStack) -> None:
 
     bucket = S3Factory.bucket(
         scope=test_stack,
@@ -27,7 +27,7 @@ def test_firehose(test_stack: BaseStack) -> None:
         bucket_name="my-dummy-bucket",
     )
 
-    KinesisFactory.firehose(
+    KinesisFirehoseFactory.delivery_stream(
         scope=test_stack,
         id="dummy-stream-1",
         environment_id="dev",
@@ -48,4 +48,20 @@ def test_firehose(test_stack: BaseStack) -> None:
                 }
             ),
         },
+    )
+
+
+def test_s3_destination(test_stack: BaseStack) -> None:
+
+    bucket = S3Factory.bucket(
+        scope=test_stack,
+        id="dummy-bucket-1",
+        environment_id="dev",
+        bucket_name="my-dummy-bucket",
+    )
+
+    KinesisFirehoseFactory.s3_destination(
+        id="dummy-destination-1",
+        environment_id="dev",
+        bucket=bucket,
     )

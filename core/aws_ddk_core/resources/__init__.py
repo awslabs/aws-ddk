@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from aws_ddk_core.resources._glue import GlueFactory
-from aws_ddk_core.resources._kinesis import KinesisFirehoseFactory
+from aws_ddk_core.resources._kinesisfirehose import KinesisFirehoseFactory
 from aws_ddk_core.resources._kms import KMSFactory
 from aws_ddk_core.resources._lambda import LambdaFactory
 from aws_ddk_core.resources._s3 import S3Factory

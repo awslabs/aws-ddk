@@ -68,7 +68,7 @@ class FirehoseS3Stage(DataStage):
         bucket_name: Optional[str] = None
             Name of S3 Bucket to be created as a delivery destination
         bucket: Optional[IBucket] = None
-            Existing S3 Bucket to use as a destination for the Firehose Stream. 
+            Existing S3 Bucket to use as a destination for the Firehose Stream.
             If no bucket is provided, a new one is created
         buffering_interval: Optional[Duration] = None
             The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.

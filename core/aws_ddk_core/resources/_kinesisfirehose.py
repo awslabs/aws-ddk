@@ -13,15 +13,27 @@
 # limitations under the License.
 
 import logging
-from typing import Any, Optional, Sequence
+from typing import Any, Dict, Optional, Sequence
 
 import aws_cdk.aws_kinesisfirehose_alpha as firehose
+import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
 from aws_cdk.aws_iam import IRole
 from aws_cdk.aws_kinesis import IStream
 from aws_cdk.aws_kms import IKey
+from aws_cdk.aws_s3 import IBucket
+from aws_ddk_core.config import Config
+from aws_ddk_core.resources.commons import BaseSchema, Duration, Size
 from constructs import Construct
 
 _logger: logging.Logger = logging.getLogger(__name__)
+
+
+class FirehoseDestinationSchema(BaseSchema):
+    """DDK Firehose destination Marshmallow schema."""
+
+    # Glue job CDK construct fields
+    buffer_interval = Duration()
+    buffer_size = Size()
 
 
 class KinesisFirehoseFactory:
@@ -99,3 +111,62 @@ class KinesisFirehoseFactory:
         firehose_stream: firehose.IDeliveryStream = firehose.DeliveryStream(scope, id, **firehose_props)
 
         return firehose_stream
+
+    @staticmethod
+    def s3_destination(
+        environment_id: str,
+        id: str,
+        bucket: IBucket,
+        buffer_interval: Optional[Duration] = None,
+        buffer_size: Optional[Size] = None,
+        **destination_props: Any,
+    ) -> firehose.IDeliveryStream:
+        """
+        Create and configure Firehose delivery S3 destination.
+
+        This construct allows to configure parameters of the firehose destination using ddk.json
+        configuration file depending on the `environment_id` in which the function is used.
+        Supported parameters are:
+
+        Parameters
+        ----------
+        id : str
+            Identifier of the queue
+        environment_id : str
+            Identifier of the environment
+        **destination_props: Any
+            Additional properties. For complete list of properties refer to CDK Documentation -
+            Firehose S3 Destinations:
+            https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_kinesisfirehose_destinations/S3Bucket.html
+
+        Returns
+        -------
+        destination: destinations.S3Bucket
+            A Kinesis Firehose S3 Delivery Destination
+        """
+        # Load and validate the config
+        destination_config_props: Dict[str, Any] = FirehoseDestinationSchema().load(
+            Config().get_resource_config(
+                environment_id=environment_id,
+                id=id,
+            ),
+            partial=["removal_policy"],
+        )
+
+        # Collect args
+        destination_props = {
+            "buffer_interval": buffer_interval,
+            "buffer_size": buffer_size,
+            **destination_props,
+        }
+
+        # Explicit ("hardcoded") props should always take precedence over config
+        for key, value in destination_props.items():
+            if value is not None:
+                destination_config_props[key] = value
+
+        # create s3 destination
+        _logger.debug(f"firehose destination properties: {destination_props}")
+        destination: destinations.S3Bucket = destinations.S3Bucket(bucket, **destination_config_props)
+
+        return destination
