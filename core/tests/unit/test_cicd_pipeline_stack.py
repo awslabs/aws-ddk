@@ -18,7 +18,7 @@ from aws_cdk import App, Stage
 from aws_cdk.assertions import Match, Template
 from aws_cdk.pipelines import ShellStep
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.cicd import CICDPipelineStack
+from aws_ddk_core.cicd import CICDPipelineStack, get_codeartifact_publish_action
 from constructs import Construct
 
 
@@ -401,5 +401,62 @@ def test_cicd_pipeline_notifications(cdk_app: App) -> None:
                     ],
                 }
             )
+        },
+    )
+
+
+def test_cicd_pipeline_codeartifact_upload(cdk_app: App) -> None:
+    pipeline_stack = (
+        CICDPipelineStack(
+            cdk_app,
+            id="dummy-pipeline",
+            environment_id="dev",
+            pipeline_name="dummy-pipeline",
+        )
+        .add_source_action(repository_name="dummy-repository")
+        .add_synth_action()
+        .build()
+        .add_custom_stage(
+            stage_name="PublishToCodeArtifact",
+            steps=[
+                get_codeartifact_publish_action(
+                    partition="aws",
+                    region=cdk_app.region,
+                    account=cdk_app.account,
+                    codeartifact_repository="dummy",
+                    codeartifact_domain="dummy",
+                    codeartifact_domain_owner="dummy",
+                ),
+            ],
+        )
+        .synth()
+    )
+    template = Template.from_stack(pipeline_stack)
+    # Check if synthesized pipeline contains stage with CodeArtifact upload action
+    template.has_resource_properties(
+        "AWS::CodePipeline::Pipeline",
+        props={
+            "Stages": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "PublishToCodeArtifact",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "BuildAndUploadArtifact",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
+                        },
+                    ),
+                ],
+            ),
         },
     )
