@@ -48,35 +48,6 @@ jsii = ">=1.55.1,<2.0.0"
 publication = ">=0.0.3"
 
 [[package]]
-name = "aws-cdk.aws-kinesisfirehose-alpha"
-version = "2.18.0a0"
-description = "The CDK Construct Library for AWS::KinesisFirehose"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-aws-cdk-lib = ">=2.18.0,<3.0.0"
-constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.55.1,<2.0.0"
-publication = ">=0.0.3"
-
-[[package]]
-name = "aws-cdk.aws-kinesisfirehose-destinations-alpha"
-version = "2.18.0a0"
-description = "CDK Destinations Constructs for AWS Kinesis Firehose"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-aws-cdk-lib = ">=2.18.0,<3.0.0"
-"aws-cdk.aws-kinesisfirehose-alpha" = "2.18.0.a0"
-constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.55.1,<2.0.0"
-publication = ">=0.0.3"
-
-[[package]]
 name = "cattrs"
 version = "1.10.0"
 description = "Composable complex class support for attrs and dataclasses."
@@ -98,7 +69,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "constructs"
-version = "10.0.99"
+version = "10.0.102"
 description = "A programming model for software-defined state"
 category = "main"
 optional = false
@@ -289,7 +260,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1, <3.11"
-content-hash = "44078af0675db1c981f28b845074142e4f18d882066489da3fdea935baf01652"
+content-hash = "7d597f0da0123e79d240eb12fb05fa6b7a0d619c0b176fda75c0ac25f8a922d0"
 
 [metadata.files]
 atomicwrites = [
@@ -308,14 +279,6 @@ aws-cdk-lib = [
     {file = "aws-cdk.aws-glue-alpha-2.18.0a0.tar.gz", hash = "sha256:3a548846f1de7d372a10ae122a8bdf8083e2a1953c4dfc75fec0f664b68e1b07"},
     {file = "aws_cdk.aws_glue_alpha-2.18.0a0-py3-none-any.whl", hash = "sha256:7af618659471034582e135282c118ca1c4bd35ddc74fe7f03829e0d4fe836f5d"},
 ]
-"aws-cdk.aws-kinesisfirehose-alpha" = [
-    {file = "aws-cdk.aws-kinesisfirehose-alpha-2.18.0a0.tar.gz", hash = "sha256:82efb1b48ec9bb8fc18e82df23c38ab1ff26413f969de10a0dee6c5a1dfa6c48"},
-    {file = "aws_cdk.aws_kinesisfirehose_alpha-2.18.0a0-py3-none-any.whl", hash = "sha256:7d23c0ab2e65ff9fd032147376e6aee83d435a1efc12ee08b8a85bfab2530c53"},
-]
-"aws-cdk.aws-kinesisfirehose-destinations-alpha" = [
-    {file = "aws-cdk.aws-kinesisfirehose-destinations-alpha-2.18.0a0.tar.gz", hash = "sha256:5300e72ba36ae35c26bc4c301be3aa020fc3bdf6d769259077fa25209220c4cb"},
-    {file = "aws_cdk.aws_kinesisfirehose_destinations_alpha-2.18.0a0-py3-none-any.whl", hash = "sha256:c63de9d9340de6022972342ecb3a323fffb72be2729b27402630942a5e82ca42"},
-]
 cattrs = [
     {file = "cattrs-1.10.0-py3-none-any.whl", hash = "sha256:35dd9063244263e63bd0bd24ea61e3015b00272cead084b2c40d788b0f857c46"},
     {file = "cattrs-1.10.0.tar.gz", hash = "sha256:211800f725cdecedcbcf4c753bbd22d248312b37d130f06045434acb7d9b34e1"},
@@ -325,8 +288,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 constructs = [
-    {file = "constructs-10.0.99-py3-none-any.whl", hash = "sha256:9cfd408fa1eee53d16bcd7a56c592730027036cbb2bea37695bb9367d303104c"},
-    {file = "constructs-10.0.99.tar.gz", hash = "sha256:06d6f2d8dfac7a2d415baa58a8960edb25a3905547e66663729044e0376d56a7"},
+    {file = "constructs-10.0.102-py3-none-any.whl", hash = "sha256:88f2c161ad8750f3ef9c00b9f95594d961835de66d585ace4c8ac60a54e77e28"},
+    {file = "constructs-10.0.102.tar.gz", hash = "sha256:4d0c51c3aea88f0d216b984fb96917f8b8657fe5566f22106e143f2991a33269"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.11.3-py3-none-any.whl", hash = "sha256:1208431ca90a8cca1a6b8af391bb53c1a2db74e5d1cef6ddced95d4b2062edc6"},
