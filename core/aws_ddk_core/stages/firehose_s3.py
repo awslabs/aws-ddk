@@ -37,9 +37,9 @@ class FirehoseS3Stage(DataStage):
         scope: Construct,
         id: str,
         environment_id: str,
-        bucket_name: Optional[str] = None,
         delivery_stream_name: Optional[str] = None,
         delivery_stream: Optional[firehose.IDeliveryStream] = None,
+        bucket_name: Optional[str] = None,
         bucket: Optional[IBucket] = None,
         buffering_interval: Optional[Duration] = None,
         buffering_size: Optional[Size] = None,
@@ -61,14 +61,15 @@ class FirehoseS3Stage(DataStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
-        bucket_name: Optional[str] = None
-            Name of S3 Bucket to be created as a delivery destination
         delivery_stream_name: Optional[str] = None
             Name of the Firehose Delivery Stream
         delivery_stream: Optional[firehose.IDeliveryStream] = None
             Existing Delivery Stream to use in this stage
+        bucket_name: Optional[str] = None
+            Name of S3 Bucket to be created as a delivery destination
         bucket: Optional[IBucket] = None
-            Existing S3 Bucket to use as a destination for the Firehose Stream
+            Existing S3 Bucket to use as a destination for the Firehose Stream. 
+            If no bucket is provided, a new one is created
         buffering_interval: Optional[Duration] = None
             The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
             Minimum: Duration.seconds(60)
