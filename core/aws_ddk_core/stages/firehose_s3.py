@@ -22,7 +22,7 @@ from aws_cdk.aws_kms import IKey
 from aws_cdk.aws_logs import ILogGroup
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
-from aws_ddk_core.resources import KinesisFactory, S3Factory
+from aws_ddk_core.resources import KinesisFirehoseFactory, S3Factory
 from aws_ddk_core.resources.commons import Duration
 from constructs import Construct
 
@@ -121,7 +121,7 @@ class FirehoseS3Stage(DataStage):
         )
 
         self._delivery_stream = (
-            KinesisFactory.firehose(
+            KinesisFirehoseFactory.delivery_stream(
                 self,
                 id=f"{id}-firehose-stream",
                 environment_id=environment_id,

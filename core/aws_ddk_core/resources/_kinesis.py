@@ -24,13 +24,13 @@ from constructs import Construct
 _logger: logging.Logger = logging.getLogger(__name__)
 
 
-class KinesisFactory:
+class KinesisFirehoseFactory:
     """
     Class factory create and configure Kinesis DDK resources, including Delivery Streams.
     """
 
     @staticmethod
-    def firehose(
+    def delivery_stream(
         scope: Construct,
         environment_id: str,
         id: str,
@@ -80,6 +80,8 @@ class KinesisFactory:
 
         Returns
         -------
+        delivery_stream: firehose.IDeliveryStream
+            A Kinesis Firehose Delivery Stream
         """
         # Collect args
         firehose_props = {
