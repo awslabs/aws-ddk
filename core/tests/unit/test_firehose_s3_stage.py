@@ -47,7 +47,8 @@ def test_firehose_s3(test_stack: BaseStack) -> None:
                                 pattern=["dummyfirehoses3dummyfirehoses3bucketE9003BFA", "Arn"]
                             )
                         }
-                    )
+                    ),
+                    "CompressionFormat": "GZIP",
                 }
             ),
         },

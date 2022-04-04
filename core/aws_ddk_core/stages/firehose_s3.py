@@ -40,19 +40,19 @@ class FirehoseToS3Stage(DataStage):
         delivery_stream_name: Optional[str] = None,
         delivery_stream: Optional[firehose.IDeliveryStream] = None,
         bucket_name: Optional[str] = None,
-        bucket: Optional[IBucket] = None,
         buffering_interval: Optional[Duration] = None,
         buffering_size: Optional[Size] = None,
-        compression: Optional[destinations.Compression] = None,
+        compression: Optional[destinations.Compression] = destinations.Compression.GZIP,
         data_output_prefix: Optional[str] = None,
-        data_stream: Optional[Stream] = None,
         data_stream_enabled: Optional[bool] = False,
         encryption_key: Optional[IKey] = None,
         error_output_prefix: Optional[str] = None,
         logging: Optional[bool] = True,
         log_group: Optional[ILogGroup] = None,
-        alarm_threshold: Optional[int] = 900,
-        alarm_evaluation_periods: Optional[int] = 1,
+        kinesis_delivery_stream_alarm_threshold: Optional[int] = 900,
+        kinesis_delivery_stream_alarm_evaluation_periods: Optional[int] = 1,
+        bucket: Optional[IBucket] = None,
+        data_stream: Optional[Stream] = None,
     ) -> None:
         """
         DDK Kinesis Firehose Delivery stream to S3 stage, with an optional Kinesis Data Stream.
@@ -71,9 +71,6 @@ class FirehoseToS3Stage(DataStage):
             Existing Delivery Stream to use in this stage
         bucket_name: Optional[str] = None
             Name of S3 Bucket to be created as a delivery destination
-        bucket: Optional[IBucket] = None
-            Existing S3 Bucket to use as a destination for the Firehose Stream.
-            If no bucket is provided, a new one is created
         buffering_interval: Optional[Duration] = None
             The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
             Minimum: Duration.seconds(60)
@@ -89,13 +86,6 @@ class FirehoseToS3Stage(DataStage):
             The type of compression that Kinesis Data Firehose uses to compress
             the data that it delivers to the Amazon S3 bucket.
             Default: - UNCOMPRESSED
-        data_stream: Optional[Stream] = None
-            Existing Kinesis Data Stream to use in stage before Delivery Stream.
-            Setting this parameter will override any creation of Kinesis Data Streams
-            in this stage. `data_stream_enabled` will have no effect.
-        data_stream_enabled: Optional[bool] = False,
-            Enable Kinesis Data Stream to fron the Firehose delivery stream.
-            Default: false
         data_output_prefix: Optional[str] = None
             A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
             This prefix appears immediately following the bucket name.
@@ -116,13 +106,19 @@ class FirehoseToS3Stage(DataStage):
         log_group: Optional[ILogGroup] = None
             The CloudWatch log group where log streams will be created to hold error logs.
             Default: - if logging is set to true, a log group will be created for you.
-        alarm_threshold: Optional[int] = 900
+        kinesis_delivery_stream_alarm_threshold: Optional[int] = 900
             Threshold for Cloudwatch Alarm created for this stage.
             Default: 900
-        alarm_evaluation_periods: Optional[int] = 1
+        kinesis_delivery_stream_alarm_evaluation_periods: Optional[int] = 1
             Evaluation period value for Cloudwatch alarm created for this stage.
             Default: 1
-
+        bucket: Optional[IBucket] = None
+            Existing S3 Bucket to use as a destination for the Firehose Stream.
+            If no bucket is provided, a new one is created
+        data_stream: Optional[Stream] = None
+            Existing Kinesis Data Stream to use in stage before Delivery Stream.
+            Setting this parameter will override any creation of Kinesis Data Streams
+            in this stage. `data_stream_enabled` will have no effect.
         """
         super().__init__(scope, id)
 
@@ -155,8 +151,10 @@ class FirehoseToS3Stage(DataStage):
                 delivery_stream_name=delivery_stream_name,
                 source_stream=self._data_stream,
                 destinations=[
-                    destinations.S3Bucket(
-                        self._bucket,
+                    KinesisFirehoseFactory.s3_destination(
+                        id=f"{id}-firehose-s3-destination",
+                        environment_id=environment_id,
+                        bucket=self._bucket,
                         buffering_interval=buffering_interval,
                         buffering_size=buffering_size,
                         compression=compression,
@@ -192,8 +190,8 @@ class FirehoseToS3Stage(DataStage):
                 period=buffering_interval if buffering_interval else Duration.seconds(300),
                 statistic="Maximum",
             ),
-            alarm_threshold=alarm_threshold,
-            alarm_evaluation_periods=alarm_evaluation_periods,
+            alarm_threshold=kinesis_delivery_stream_alarm_threshold,
+            alarm_evaluation_periods=kinesis_delivery_stream_alarm_evaluation_periods,
         )
 
     @property

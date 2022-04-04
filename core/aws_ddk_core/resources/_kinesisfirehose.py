@@ -20,6 +20,7 @@ import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
 from aws_cdk.aws_iam import IRole
 from aws_cdk.aws_kinesis import IStream
 from aws_cdk.aws_kms import IKey
+from aws_cdk.aws_logs import ILogGroup
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.config import Config
 from aws_ddk_core.resources.commons import BaseSchema, Duration, Size
@@ -32,8 +33,8 @@ class FirehoseDestinationSchema(BaseSchema):
     """DDK Firehose destination Marshmallow schema."""
 
     # Firehose Destination CDK construct fields
-    buffer_interval = Duration()
-    buffer_size = Size()
+    buffering_interval = Duration()
+    buffering_size = Size()
 
 
 class KinesisFirehoseFactory:
@@ -113,8 +114,14 @@ class KinesisFirehoseFactory:
         id: str,
         environment_id: str,
         bucket: IBucket,
-        buffer_interval: Optional[Duration] = None,
-        buffer_size: Optional[Size] = None,
+        buffering_interval: Optional[Duration] = None,
+        buffering_size: Optional[Size] = None,
+        compression: Optional[destinations.Compression] = destinations.Compression.GZIP,
+        data_output_prefix: Optional[str] = None,
+        encryption_key: Optional[IKey] = None,
+        error_output_prefix: Optional[str] = None,
+        logging: Optional[bool] = True,
+        log_group: Optional[ILogGroup] = None,
         **destination_props: Any,
     ) -> destinations.S3Bucket:
         """
@@ -122,7 +129,7 @@ class KinesisFirehoseFactory:
 
         This construct allows to configure parameters of the firehose destination using ddk.json
         configuration file depending on the `environment_id` in which the function is used.
-        Supported parameters are: `buffer_interval` and `buffer_size`
+        Supported parameters are: `buffering_interval` and `buffering_size`
 
         Parameters
         ----------
@@ -132,17 +139,35 @@ class KinesisFirehoseFactory:
             Identifier of the environment
         bucket: IBucket
             S3 Bucket to use for the destination.
-        buffer_interval: Optional[Duration] = None
+        buffering_interval: Optional[Duration] = None
             The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
             Minimum: Duration.seconds(60)
             Maximum: Duration.seconds(900)
             Default: Duration.seconds(300)
-        buffer_size: Optional[Size] = None
+        buffering_size: Optional[Size] = None
             The size of the buffer that Kinesis Data Firehose uses for incoming data
             before delivering it to the S3 bucket.
             Minimum: Size.mebibytes(1)
             Maximum: Size.mebibytes(128)
             Default: Size.mebibytes(5)
+        compression: Optional[Compression] = None
+            The type of compression that Kinesis Data Firehose uses to compress the data that it delivers
+            to the Amazon S3 bucket.
+            Default: Compression.GZIP
+        data_output_prefix: Optional[str] = None
+            A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3
+        encryption_key: Optional[IKey] = None
+            The AWS KMS key used to encrypt the data that it delivers to your Amazon S3 bucket.
+        error_output_prefix: Optional[str] = None
+            A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3.
+            This prefix appears immediately following the bucket name
+        logging: Optional[bool] = True
+            If true, log errors when data transformation or data delivery fails.
+            If logGroup is provided, this will be implicitly set to true.
+            Default: true - errors are logged.
+        log_group: Optional[ILogGroup] = None
+            The CloudWatch log group where log streams will be created to hold error logs.
+            Default: - if logging is set to true, a log group will be created for you.
         **destination_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             Firehose S3 Destinations:
@@ -164,8 +189,14 @@ class KinesisFirehoseFactory:
 
         # Collect args
         destination_props = {
-            "buffer_interval": buffer_interval,
-            "buffer_size": buffer_size,
+            "buffering_interval": buffering_interval,
+            "buffering_size": buffering_size,
+            "compression": compression,
+            "data_output_prefix": data_output_prefix,
+            "encryption_key": encryption_key,
+            "error_output_prefix": error_output_prefix,
+            "logging": logging,
+            "log_group": log_group,
             **destination_props,
         }
 
