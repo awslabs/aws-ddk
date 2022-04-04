@@ -52,6 +52,7 @@ class GlueFactory:
         job_name: Optional[str] = None,
         description: Optional[str] = None,
         role: Optional[IRole] = None,
+        security_configuration: Optional[glue.ISecurityConfiguration] = None,
         timeout: Optional[cdk.Duration] = None,
         worker_count: Optional[int] = None,
         worker_type: Optional[glue.WorkerType] = None,
@@ -85,7 +86,9 @@ class GlueFactory:
         description : Optional[str]
             The description of the Glue job
         role : Optional[IRole]
-            Glue job execution role
+            The execution role of the Glue job
+        security_configuration : Optional[ISecurityConfiguration]
+            The security configuration of the Glue job. If None, a default configuration is used
         timeout : Optional[Duration]
             The job execution time (in seconds) after which Glue terminates the job.
             `aws_cdk.Duration.seconds(3600)` by default.
@@ -116,6 +119,7 @@ class GlueFactory:
             "job_name": job_name,
             "description": description,
             "role": role,
+            "security_configuration": security_configuration,
             "timeout": timeout,
             "worker_count": worker_count,
             "worker_type": worker_type,
@@ -125,6 +129,18 @@ class GlueFactory:
         for key, value in job_props.items():
             if value is not None:
                 job_config_props[key] = value
+        # Otherwise use defaults
+        job_config_props.setdefault("security_configuration", GlueFactory._get_security_config(scope, id))
 
         _logger.debug(f"job_config_props: {job_config_props}")
         return glue.Job(scope, id, **job_config_props)
+
+    @staticmethod
+    def _get_security_config(scope: Construct, id: str) -> glue.SecurityConfiguration:
+        return glue.SecurityConfiguration(
+            scope,
+            f"{id}-security-config",
+            security_configuration_name=f"{id}-security-config",
+            cloud_watch_encryption=glue.CloudWatchEncryption(mode=glue.CloudWatchEncryptionMode.KMS),
+            s3_encryption=glue.S3Encryption(mode=glue.S3EncryptionMode.S3_MANAGED),
+        )
