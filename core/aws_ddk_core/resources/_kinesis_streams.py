@@ -25,14 +25,14 @@ from marshmallow import fields
 _logger: logging.Logger = logging.getLogger(__name__)
 
 
-class KinesisSchema(BaseSchema):
+class KinesisStreamsSchema(BaseSchema):
     """DDK Kinesis data stream Marshmallow schema."""
 
     retention_period = Duration()
     shard_count = fields.Int()
 
 
-class KinesisFactory:
+class KinesisStreamsFactory:
     """
     Class factory create and configure Kinesis DDK resources, including Data Streams.
     """
@@ -98,7 +98,7 @@ class KinesisFactory:
             A Kinesis Data Stream
         """
         # Load and validate the config
-        kinesis_config_props: Dict[str, Any] = KinesisSchema().load(
+        kinesis_config_props: Dict[str, Any] = KinesisStreamsSchema().load(
             Config().get_resource_config(
                 environment_id=environment_id,
                 id=id,

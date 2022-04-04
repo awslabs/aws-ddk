@@ -64,8 +64,8 @@ Resources
    :template: custom-class-template.rst
 
    GlueFactory
-   KinesisFactory
    KinesisFirehoseFactory
+   KinesisStreamsFactory
    KMSFactory
    LambdaFactory
    S3Factory

@@ -14,12 +14,14 @@
 
 from aws_cdk.assertions import Template
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.resources import KinesisFactory
+from aws_ddk_core.resources import KinesisStreamsFactory
 
 
 def test_data_stream(test_stack: BaseStack) -> None:
 
-    KinesisFactory.data_stream(scope=test_stack, id="dummy-stream-1", environment_id="dev", stream_name="dummy-stream")
+    KinesisStreamsFactory.data_stream(
+        scope=test_stack, id="dummy-stream-1", environment_id="dev", stream_name="dummy-stream"
+    )
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(

@@ -23,7 +23,7 @@ from aws_cdk.aws_kms import IKey
 from aws_cdk.aws_logs import ILogGroup
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
-from aws_ddk_core.resources import KinesisFactory, KinesisFirehoseFactory, S3Factory
+from aws_ddk_core.resources import KinesisFirehoseFactory, KinesisStreamsFactory, S3Factory
 from constructs import Construct
 
 
@@ -137,7 +137,7 @@ class KinesisToS3Stage(DataStage):
         )
 
         if data_stream_enabled and not data_stream:
-            self._data_stream: Any = KinesisFactory.data_stream(
+            self._data_stream: Any = KinesisStreamsFactory.data_stream(
                 self, id=f"{id}-data-stream", environment_id=environment_id
             )
         else:

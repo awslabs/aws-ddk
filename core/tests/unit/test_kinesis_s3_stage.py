@@ -14,8 +14,8 @@
 
 from aws_cdk.assertions import Match, Template
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.resources import KinesisFactory, S3Factory
-from aws_ddk_core.stages.firehose_s3 import KinesisToS3Stage
+from aws_ddk_core.resources import KinesisStreamsFactory, S3Factory
+from aws_ddk_core.stages.kinesis_s3 import KinesisToS3Stage
 
 
 def test_firehose_s3(test_stack: BaseStack) -> None:
@@ -121,7 +121,7 @@ def test_firehose_s3_existing_data_stream(test_stack: BaseStack) -> None:
         id="dummy-firehose-s3",
         environment_id="dev",
         bucket_name="dummy-bucket",
-        data_stream=KinesisFactory.data_stream(
+        data_stream=KinesisStreamsFactory.data_stream(
             scope=test_stack, id="dummy-stream-1", environment_id="dev", stream_name="dummy-stream"
         ),
         delivery_stream_name="dummy-firehose-stream",
