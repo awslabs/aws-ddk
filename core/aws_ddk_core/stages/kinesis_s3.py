@@ -38,7 +38,6 @@ class KinesisToS3Stage(DataStage):
         id: str,
         environment_id: str,
         delivery_stream_name: Optional[str] = None,
-        delivery_stream: Optional[firehose.IDeliveryStream] = None,
         bucket_name: Optional[str] = None,
         buffering_interval: Optional[Duration] = None,
         buffering_size: Optional[Size] = None,
@@ -51,6 +50,7 @@ class KinesisToS3Stage(DataStage):
         log_group: Optional[ILogGroup] = None,
         kinesis_delivery_stream_alarm_threshold: Optional[int] = 900,
         kinesis_delivery_stream_alarm_evaluation_periods: Optional[int] = 1,
+        delivery_stream: Optional[firehose.IDeliveryStream] = None,
         bucket: Optional[IBucket] = None,
         data_stream: Optional[Stream] = None,
     ) -> None:
@@ -67,8 +67,6 @@ class KinesisToS3Stage(DataStage):
             Identifier of the environment
         delivery_stream_name: Optional[str] = None
             Name of the Firehose Delivery Stream
-        delivery_stream: Optional[firehose.IDeliveryStream] = None
-            Existing Delivery Stream to use in this stage
         bucket_name: Optional[str] = None
             Name of S3 Bucket to be created as a delivery destination
         buffering_interval: Optional[Duration] = None
@@ -85,7 +83,7 @@ class KinesisToS3Stage(DataStage):
         compression: Optional[Compression] = None
             The type of compression that Kinesis Data Firehose uses to compress
             the data that it delivers to the Amazon S3 bucket.
-            Default: - UNCOMPRESSED
+            Default: - GZIP
         data_output_prefix: Optional[str] = None
             A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
             This prefix appears immediately following the bucket name.
@@ -112,11 +110,13 @@ class KinesisToS3Stage(DataStage):
         kinesis_delivery_stream_alarm_evaluation_periods: Optional[int] = 1
             Evaluation period value for Cloudwatch alarm created for this stage.
             Default: 1
+        delivery_stream: Optional[firehose.IDeliveryStream] = None
+            Preexisting Delivery Stream to use in this stage
         bucket: Optional[IBucket] = None
-            Existing S3 Bucket to use as a destination for the Firehose Stream.
+            Preexisting S3 Bucket to use as a destination for the Firehose Stream.
             If no bucket is provided, a new one is created
         data_stream: Optional[Stream] = None
-            Existing Kinesis Data Stream to use in stage before Delivery Stream.
+            Preexisting Kinesis Data Stream to use in stage before Delivery Stream.
             Setting this parameter will override any creation of Kinesis Data Streams
             in this stage. `data_stream_enabled` will have no effect.
         """

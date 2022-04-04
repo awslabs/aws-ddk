@@ -46,7 +46,7 @@ class AthenaSQLStage(DataStage):
         catalog_name: Optional[str] = None,
         database_name: Optional[str] = None,
         output_bucket_name: Optional[str] = None,
-        ouput_object_key: Optional[str] = None,
+        output_object_key: Optional[str] = None,
         encryption_option: Optional[EncryptionOption] = None,
         encryption_key: Optional[Key] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
@@ -54,7 +54,7 @@ class AthenaSQLStage(DataStage):
         """
         DDK Athena SQL stage.
 
-        Stage that contains a step function that executre Athena SQL query.
+        Stage that contains a step function that execute Athena SQL query.
 
         Parameters
         ----------
@@ -74,7 +74,7 @@ class AthenaSQLStage(DataStage):
             Database name
         output_bucket_name : Optional[str]
             Output S3 bucket name
-        ouput_object_key : Optional[str]
+        output_object_key : Optional[str]
             Output S3 key
         encryption_option : Optional[EncryptionOption]
             Encryption configuration
@@ -109,12 +109,12 @@ class AthenaSQLStage(DataStage):
                 else None,
                 output_location=Location(
                     bucket_name=output_bucket_name,
-                    object_key=ouput_object_key,
+                    object_key=output_object_key,
                 )
-                if output_bucket_name and ouput_object_key
+                if output_bucket_name and output_object_key
                 else None,
             )
-            if encryption_option or (output_bucket_name and ouput_object_key)
+            if encryption_option or (output_bucket_name and output_object_key)
             else None,
             work_group=workgroup if workgroup else None,
         )

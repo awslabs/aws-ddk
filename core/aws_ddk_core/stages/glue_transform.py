@@ -44,13 +44,13 @@ class GlueTransformStage(DataStage):
         scope: Construct,
         id: str,
         environment_id: str,
+        job_name: Optional[str] = None,
         executable: Optional[JobExecutable] = None,
         job_role: Optional[IRole] = None,
-        job_name: Optional[str] = None,
+        crawler_name: Optional[str] = None,
         database_name: Optional[str] = None,
         crawler_role: Optional[IRole] = None,
         targets: Optional[CfnCrawler.TargetsProperty] = None,
-        crawler_name: Optional[str] = None,
         job_args: Optional[Dict[str, Any]] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
     ) -> None:
@@ -68,20 +68,20 @@ class GlueTransformStage(DataStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
+        job_name : Optional[str]
+            The name of a preexisting Glue job to run. If None, a Glue job is created
         executable : Optional[JobExecutable]
             The job executable properties
         job_role : Optional[IRole]
             The job execution role
-        job_name : Optional[str]
-            The name of the Glue job to run
+        crawler_name : Optional[str]
+            The name of a preexisting Glue crawler to run. If None, a Glue crawler is created
         database_name : Optional[str]
             The name of the database in which the crawler's output is stored
         crawler_role : Optional[IRole]
             The crawler execution role
         targets : Optional[TargetsProperty]
             A collection of targets to crawl
-        crawler_name : Optional[str]
-            The name of the Glue crawler to run
         job_args : Optional[Dict[str, Any]]
             The input arguments to the Glue job
         state_machine_input : Optional[Dict[str, Any]]
