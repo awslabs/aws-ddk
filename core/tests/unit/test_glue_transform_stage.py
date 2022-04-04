@@ -86,6 +86,11 @@ def test_glue_transform_stage_create(test_stack: BaseStack) -> None:
     )
 
     template.has_resource_properties(
+        "AWS::Glue::SecurityConfiguration",
+        props={"Name": "dummy-glue-transform-create-job-security-config"},
+    )
+
+    template.has_resource_properties(
         "AWS::Glue::Crawler",
         props={
             "DatabaseName": "dummy-glue-database",
