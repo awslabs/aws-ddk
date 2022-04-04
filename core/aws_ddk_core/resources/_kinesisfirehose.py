@@ -44,8 +44,8 @@ class KinesisFirehoseFactory:
     @staticmethod
     def delivery_stream(
         scope: Construct,
-        environment_id: str,
         id: str,
+        environment_id: str,
         destinations: Sequence[firehose.IDestination],
         delivery_stream_name: Optional[str] = None,
         encryption: Optional[firehose.StreamEncryption] = None,
@@ -57,16 +57,12 @@ class KinesisFirehoseFactory:
         """
         Create and configure Firehose delivery stream.
 
-        This construct allows to configure parameters of the firehose delivery stream using ddk.json
-        configuration file depending on the `environment_id` in which the function is used.
-        Supported parameters are:
-
         Parameters
         ----------
         scope : Construct
             Scope within which this construct is defined
         id : str
-            Identifier of the queue
+            Identifier of the delivery stream
         environment_id : str
             Identifier of the environment
         destinations: Sequence[firehose.IDestination]
@@ -114,26 +110,39 @@ class KinesisFirehoseFactory:
 
     @staticmethod
     def s3_destination(
-        environment_id: str,
         id: str,
+        environment_id: str,
         bucket: IBucket,
         buffer_interval: Optional[Duration] = None,
         buffer_size: Optional[Size] = None,
         **destination_props: Any,
-    ) -> firehose.IDeliveryStream:
+    ) -> destinations.S3Bucket:
         """
         Create and configure Firehose delivery S3 destination.
 
         This construct allows to configure parameters of the firehose destination using ddk.json
         configuration file depending on the `environment_id` in which the function is used.
-        Supported parameters are:
+        Supported parameters are: `buffer_interval` and `buffer_size`
 
         Parameters
         ----------
         id : str
-            Identifier of the queue
+            Identifier of the destination
         environment_id : str
             Identifier of the environment
+        bucket: IBucket
+            S3 Bucket to use for the destination.
+        buffer_interval: Optional[Duration] = None
+            The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
+            Minimum: Duration.seconds(60)
+            Maximum: Duration.seconds(900)
+            Default: Duration.seconds(300)
+        buffer_size: Optional[Size] = None
+            The size of the buffer that Kinesis Data Firehose uses for incoming data
+            before delivering it to the S3 bucket.
+            Minimum: Size.mebibytes(1)
+            Maximum: Size.mebibytes(128)
+            Default: Size.mebibytes(5)
         **destination_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             Firehose S3 Destinations:

@@ -15,12 +15,12 @@
 from aws_cdk.assertions import Match, Template
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.resources import KinesisFactory, S3Factory
-from aws_ddk_core.stages.firehose_s3 import FirehoseS3Stage
+from aws_ddk_core.stages.firehose_s3 import FirehoseToS3Stage
 
 
 def test_firehose_s3(test_stack: BaseStack) -> None:
 
-    FirehoseS3Stage(
+    FirehoseToS3Stage(
         scope=test_stack,
         id="dummy-firehose-s3",
         environment_id="dev",
@@ -74,13 +74,13 @@ def test_firehose_s3(test_stack: BaseStack) -> None:
 
 def test_firehose_s3_with_data_stream(test_stack: BaseStack) -> None:
 
-    FirehoseS3Stage(
+    FirehoseToS3Stage(
         scope=test_stack,
         id="dummy-firehose-s3",
         environment_id="dev",
         bucket_name="dummy-bucket",
         delivery_stream_name="dummy-firehose-stream",
-        enable_data_stream=True,
+        data_stream_enabled=True,
     )
 
     template = Template.from_stack(test_stack)
@@ -115,7 +115,7 @@ def test_firehose_s3_with_data_stream(test_stack: BaseStack) -> None:
 
 def test_firehose_s3_existing_data_stream(test_stack: BaseStack) -> None:
 
-    FirehoseS3Stage(
+    FirehoseToS3Stage(
         scope=test_stack,
         id="dummy-firehose-s3",
         environment_id="dev",
@@ -166,7 +166,7 @@ def test_firehose_s3_existing_bucket(test_stack: BaseStack) -> None:
         bucket_name="my-dummy-bucket",
     )
 
-    FirehoseS3Stage(
+    FirehoseToS3Stage(
         scope=test_stack,
         id="dummy-firehose-s3",
         environment_id="dev",

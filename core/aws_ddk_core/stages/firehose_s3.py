@@ -27,7 +27,7 @@ from aws_ddk_core.resources import KinesisFactory, KinesisFirehoseFactory, S3Fac
 from constructs import Construct
 
 
-class FirehoseS3Stage(DataStage):
+class FirehoseToS3Stage(DataStage):
     """
     Class that represents a Firehose to S3 Ingestion DDK Stage.
     """
@@ -46,7 +46,7 @@ class FirehoseS3Stage(DataStage):
         compression: Optional[destinations.Compression] = None,
         data_output_prefix: Optional[str] = None,
         data_stream: Optional[Stream] = None,
-        enable_data_stream: Optional[bool] = False,
+        data_stream_enabled: Optional[bool] = False,
         encryption_key: Optional[IKey] = None,
         error_output_prefix: Optional[str] = None,
         logging: Optional[bool] = True,
@@ -55,7 +55,7 @@ class FirehoseS3Stage(DataStage):
         alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
-        DDK Firehose to S3 stage.
+        DDK Kinesis Firehose Delivery stream to S3 stage, with an optional Kinesis Data Stream.
 
         Parameters
         ----------
@@ -92,15 +92,15 @@ class FirehoseS3Stage(DataStage):
         data_stream: Optional[Stream] = None
             Existing Kinesis Data Stream to use in stage before Delivery Stream.
             Setting this parameter will override any creation of Kinesis Data Streams
-            in this stage. `enable_data_stream` will have no effect.
-        enable_data_stream: Optional[bool] = False,
+            in this stage. `data_stream_enabled` will have no effect.
+        data_stream_enabled: Optional[bool] = False,
             Enable Kinesis Data Stream to fron the Firehose delivery stream.
             Default: false
         data_output_prefix: Optional[str] = None
             A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
             This prefix appears immediately following the bucket name.
             Default: “YYYY/MM/DD/HH”
-        enable_data_stream: Optional[bool] = False
+        data_stream_enabled: Optional[bool] = False
             Add Kinesis Data Stream to front Firehose Delivery.
             Default: false
         encryption_key: Optional[IKey] = None
@@ -140,14 +140,12 @@ class FirehoseS3Stage(DataStage):
             else bucket
         )
 
-        if enable_data_stream and not data_stream:
+        if data_stream_enabled and not data_stream:
             self._data_stream: Any = KinesisFactory.data_stream(
                 self, id=f"{id}-data-stream", environment_id=environment_id
             )
-        elif data_stream:
-            self._data_stream = data_stream
         else:
-            self._data_stream = None
+            self._data_stream = data_stream
 
         self._delivery_stream = (
             KinesisFirehoseFactory.delivery_stream(
@@ -197,6 +195,22 @@ class FirehoseS3Stage(DataStage):
             alarm_threshold=alarm_threshold,
             alarm_evaluation_periods=alarm_evaluation_periods,
         )
+
+    @property
+    def bucket(self) -> IBucket:
+        """
+        Return: S3 Bucket
+            The S3 Destination Bucket
+        """
+        return self._bucket
+
+    @property
+    def data_stream(self) -> Stream:
+        """
+        Return: Data Stream
+            The Kinesis Data Stream
+        """
+        return self._data_stream
 
     @property
     def delivery_stream(self) -> firehose.IDeliveryStream:

@@ -40,8 +40,8 @@ class KinesisFactory:
     @staticmethod
     def data_stream(
         scope: Construct,
-        environment_id: str,
         id: str,
+        environment_id: str,
         encryption: Optional[StreamEncryption] = None,
         encryption_key: Optional[IKey] = None,
         retention_period: Optional[Duration] = None,
@@ -55,14 +55,14 @@ class KinesisFactory:
 
         This construct allows to configure parameters of the Kinesis data stream using ddk.json
         configuration file depending on the `environment_id` in which the function is used.
-        Supported parameters are:
+        Supported parameters are: `retention_period` and `shard_count`.
 
         Parameters
         ----------
         scope : Construct
             Scope within which this construct is defined
         id : str
-            Identifier of the queue
+            Identifier of the data stream
         environment_id : str
             Identifier of the environment
         encryption: Optional[StreamEncryption] = None
@@ -77,7 +77,7 @@ class KinesisFactory:
             Default: - Kinesis Data Streams master key ('/alias/aws/kinesis')
         retention_period: Optional[Duration] = None
             The number of hours for the data records that are stored in shards to remain accessible.
-            Default: Duration.hours(24)
+            Default: Duration.seconds(3600)
         shard_count: Optional[int] = None
             The number of shards for the stream. Can only be provided if streamMode is Provisioned.
             Default: 1
