@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.StepFunctionsFactory" href="aws_ddk_core.resources.StepFunctionsFactory.html" /><link rel="prev" title="aws_ddk_core.resources.S3Factory" href="aws_ddk_core.resources.S3Factory.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.KMSFactory" href="aws_ddk_core.resources.KMSFactory.html" /><link rel="prev" title="aws_ddk_core.resources.KinesisFirehoseFactory" href="aws_ddk_core.resources.KinesisFirehoseFactory.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>aws_ddk_core.resources.SQSFactory - Contents</title>
+        <title>aws_ddk_core.resources.KinesisStreamsFactory - Contents</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -172,11 +172,11 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.LambdaFactory.html">aws_ddk_core.resources.LambdaFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.resources.SQSFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.SQSFactory.html">aws_ddk_core.resources.SQSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AppFlowStage.html">aws_ddk_core.stages.AppFlowStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AthenaSQLStage.html">aws_ddk_core.stages.AthenaSQLStage</a></li>
@@ -212,15 +212,15 @@
           </label>
         </div>
         <article role="main">
-          <section id="aws-ddk-core-resources-sqsfactory">
-<h1>aws_ddk_core.resources.SQSFactory<a class="headerlink" href="#aws-ddk-core-resources-sqsfactory" title="Permalink to this headline">¶</a></h1>
+          <section id="aws-ddk-core-resources-kinesisstreamsfactory">
+<h1>aws_ddk_core.resources.KinesisStreamsFactory<a class="headerlink" href="#aws-ddk-core-resources-kinesisstreamsfactory" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.SQSFactory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.resources.</span></span><span class="sig-name descname"><span class="pre">SQSFactory</span></span><a class="headerlink" href="#aws_ddk_core.resources.SQSFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class factory create and configure Simple Queue Service DDK resources, including Queues.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.KinesisStreamsFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.resources.</span></span><span class="sig-name descname"><span class="pre">KinesisStreamsFactory</span></span><a class="headerlink" href="#aws_ddk_core.resources.KinesisStreamsFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class factory create and configure Kinesis DDK resources, including Data Streams.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.SQSFactory.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.resources.SQSFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.KinesisStreamsFactory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.resources.KinesisStreamsFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <p class="rubric">Methods</p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
@@ -229,46 +229,53 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.SQSFactory.__init__" title="aws_ddk_core.resources.SQSFactory.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.KinesisStreamsFactory.__init__" title="aws_ddk_core.resources.KinesisStreamsFactory.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_secure_queue_policy</span></code>(queue)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.SQSFactory.queue" title="aws_ddk_core.resources.SQSFactory.queue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">queue</span></code></a>(scope, environment_id, id[, ...])</p></td>
-<td><p>Create and configure SQS queue.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.resources.KinesisStreamsFactory.data_stream" title="aws_ddk_core.resources.KinesisStreamsFactory.data_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_stream</span></code></a>(scope, id, environment_id[, ...])</p></td>
+<td><p>Create and configure Kinesis data stream.</p></td>
 </tr>
 </tbody>
 </table></div>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.SQSFactory.queue">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sqs.QueueEncryption</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removal_policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.RemovalPolicy</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_letter_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_sqs.DeadLetterQueue</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">queue_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.aws_sqs.IQueue</span></span></span><a class="headerlink" href="#aws_ddk_core.resources.SQSFactory.queue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and configure SQS queue.</p>
-<p>This construct allows to configure parameters of the queue using ddk.json configuration file
-depending on the <cite>environment_id</cite> in which the function is used. Supported parameters are:
-<cite>content_based_deduplication</cite>,`data_key_reuse`, <cite>delivery_delay</cite>, <cite>max_message_size_bytes</cite>,
-<cite>retention_period</cite>, <cite>visibility_timeout</cite>, <cite>receive_message_wait_time</cite>, and <cite>removal_policy</cite>.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.KinesisStreamsFactory.data_stream">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_kinesis.StreamEncryption</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_kms.IKey</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retention_period</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_ddk_core.resources.commons.Duration</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shard_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_kinesis.StreamMode</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kinesis_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.aws_kinesis.IStream</span></span></span><a class="headerlink" href="#aws_ddk_core.resources.KinesisStreamsFactory.data_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and configure Kinesis data stream.</p>
+<p>This construct allows to configure parameters of the Kinesis data stream using ddk.json
+configuration file depending on the <cite>environment_id</cite> in which the function is used.
+Supported parameters are: <cite>retention_period</cite> and <cite>shard_count</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
-<li><p><strong>id</strong> (<em>str</em>) – Identifier of the queue</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – Identifier of the data stream</p></li>
 <li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
-<li><p><strong>queue_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the queue</p></li>
-<li><p><strong>encryption</strong> (<em>Optional</em><em>[</em><em>QueueEncryption</em><em>]</em>) – Whether the contents of the queue are encrypted, and by what type of key.
-<cite>aws_cdk.aws_sqs.QueueEncryption.KMS_MANAGED</cite> by default.</p></li>
-<li><p><strong>removal_policy</strong> (<em>Optional</em><em>[</em><em>RemovalPolicy</em><em>]</em>) – Policy to apply when the bucket is removed from this stack
-<cite>aws_cdk.RemovalPolicy.RETAIN</cite> by default.</p></li>
-<li><p><strong>dead_letter_queue</strong> (<em>Optional</em><em>[</em><em>DeadLetterQueue</em><em>]</em>) – Send messages to this queue if they were unsuccessfully dequeued a number of times.</p></li>
-<li><p><strong>queue_props</strong> (<em>Any</em>) – Additional queue properties. For complete list of properties refer to CDK Documentation -
-SQS Queue: <a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_sqs/Queue.html">https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_sqs/Queue.html</a></p></li>
+<li><p><strong>encryption</strong> (<em>Optional</em><em>[</em><em>StreamEncryption</em><em>] </em><em>= None</em>) – The kind of server-side encryption to apply to this stream.
+If you choose KMS, you can specify a KMS key via encryptionKey.
+If encryption key is not specified, a key will automatically be created.
+Default: - StreamEncryption.KMS if encrypted Streams are supported
+in the region or StreamEncryption.UNENCRYPTED otherwise.
+StreamEncryption.KMS if an encryption key is supplied through the encryptionKey property</p></li>
+<li><p><strong>encryption_key</strong> (<em>Optional</em><em>[</em><em>IKey</em><em>] </em><em>= None</em>) – External KMS key to use for stream encryption. The ‘encryption’ property must be set to “Kms”.
+Default: - Kinesis Data Streams master key (‘/alias/aws/kinesis’)</p></li>
+<li><p><strong>retention_period</strong> (<em>Optional</em><em>[</em><em>Duration</em><em>] </em><em>= None</em>) – The number of hours for the data records that are stored in shards to remain accessible.
+Default: Duration.seconds(3600)</p></li>
+<li><p><strong>shard_count</strong> (<em>Optional</em><em>[</em><em>int</em><em>] </em><em>= None</em>) – The number of shards for the stream. Can only be provided if streamMode is Provisioned.
+Default: 1</p></li>
+<li><p><strong>stream_mode</strong> (<em>Optional</em><em>[</em><em>StreamMode</em><em>] </em><em>= None</em>) – The capacity mode of this stream.
+Default: StreamMode.PROVISIONED</p></li>
+<li><p><strong>stream_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>] </em><em>= None</em>) – Enforces a particular physical stream name.
+Default: A CloudFormation generated name</p></li>
+<li><p><strong>**kinesis_props</strong> (<em>Any</em>) – Additional properties. For complete list of properties refer to CDK Documentation -
+Firehose Data Stream:
+<a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_kinesis/Stream.html">https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_kinesis/Stream.html</a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>queue</strong> – SQS queue</p>
+<dd class="field-even"><p><strong>data_stream</strong> – A Kinesis Data Stream</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>aws_cdk.aws_sqs.Queue</p>
+<dd class="field-odd"><p>Stream</p>
 </dd>
 </dl>
 </dd></dl>
@@ -280,18 +287,18 @@ SQS Queue: <a class="reference external" href="https://docs.aws.amazon.com/cdk/a
       <footer>
         
 <div class="related-pages">
-    <a class="next-page" href="aws_ddk_core.resources.StepFunctionsFactory.html">
+    <a class="next-page" href="aws_ddk_core.resources.KMSFactory.html">
         <div class="page-info">
             <div class="context">
                 <span>Next</span>
             </div>
-            <div class="title">aws_ddk_core.resources.StepFunctionsFactory</div>
+            <div class="title">aws_ddk_core.resources.KMSFactory</div>
         </div>
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
     </a>
-    <a class="prev-page" href="aws_ddk_core.resources.S3Factory.html">
+    <a class="prev-page" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
@@ -300,7 +307,7 @@ SQS Queue: <a class="reference external" href="https://docs.aws.amazon.com/cdk/a
                 <span>Previous</span>
             </div>
             
-            <div class="title">aws_ddk_core.resources.S3Factory</div>
+            <div class="title">aws_ddk_core.resources.KinesisFirehoseFactory</div>
             
         </div>
     </a>
