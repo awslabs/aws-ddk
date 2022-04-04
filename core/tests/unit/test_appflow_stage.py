@@ -14,11 +14,11 @@
 
 from aws_cdk.assertions import Match, Template
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.stages import AppFlowStage
+from aws_ddk_core.stages import AppFlowIngestionStage
 
 
 def test_appflow_stage_simple(test_stack: BaseStack) -> None:
-    AppFlowStage(
+    AppFlowIngestionStage(
         scope=test_stack,
         id="dummy-appflow",
         environment_id="dev",

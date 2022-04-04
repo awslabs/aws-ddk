@@ -53,6 +53,8 @@ class GlueTransformStage(DataStage):
         targets: Optional[CfnCrawler.TargetsProperty] = None,
         job_args: Optional[Dict[str, Any]] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
+        state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
+        state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
         DDK Glue Transform stage.
@@ -86,6 +88,10 @@ class GlueTransformStage(DataStage):
             The input arguments to the Glue job
         state_machine_input : Optional[Dict[str, Any]]
             The input dict to the state machine
+        state_machine_failed_executions_alarm_threshold: Optional[int]
+            The number of failed state machine executions before triggering CW alarm. Defaults to `1`
+        state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
+            The number of periods over which data is compared to the specified threshold. Defaults to `1`
         """
         super().__init__(scope, id)
 
@@ -158,6 +164,12 @@ class GlueTransformStage(DataStage):
                 ],
                 resources=["*"],
             )
+        )
+
+        self.set_alarm(
+            alarm_metric=self._state_machine.metric_failed(),
+            alarm_threshold=state_machine_failed_executions_alarm_threshold,
+            alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
         )
 
     @property
