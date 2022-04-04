@@ -19,7 +19,13 @@ from aws_cdk.aws_lambda import Code
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.pipelines import DataPipeline
 from aws_ddk_core.resources import S3Factory
-from aws_ddk_core.stages import AppFlowStage, AthenaSQLStage, GlueTransformStage, S3EventStage, SqsToLambdaStage
+from aws_ddk_core.stages import (
+    AppFlowIngestionStage,
+    AthenaSQLStage,
+    GlueTransformStage,
+    S3EventStage,
+    SqsToLambdaStage,
+)
 
 
 def test_basic_pipeline(test_stack: BaseStack) -> None:
@@ -51,7 +57,7 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         job_name="dummy-glue-job",
         crawler_name="dummy-glue-crawler",
     )
-    appflow_stage = AppFlowStage(
+    appflow_stage = AppFlowIngestionStage(
         scope=test_stack,
         id="dummy-appflow",
         environment_id="dev",

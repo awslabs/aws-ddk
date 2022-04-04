@@ -50,6 +50,8 @@ class AthenaSQLStage(DataStage):
         encryption_option: Optional[EncryptionOption] = None,
         encryption_key: Optional[Key] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
+        state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
+        state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
         DDK Athena SQL stage.
@@ -82,6 +84,10 @@ class AthenaSQLStage(DataStage):
             Encryption KMS key
         state_machine_input : Optional[Dict[str, Any]]
             Input of the state machine
+        state_machine_failed_executions_alarm_threshold: Optional[int]
+            The number of failed state machine executions before triggering CW alarm. Defaults to `1`
+        state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
+            The number of periods over which data is compared to the specified threshold. Defaults to `1`
         """
         super().__init__(scope, id)
 
@@ -125,6 +131,12 @@ class AthenaSQLStage(DataStage):
             environment_id=environment_id,
             definition=(start_query_exec.next(Succeed(self, "success"))),
             state_machine_type=StateMachineType.STANDARD,
+        )
+
+        self.set_alarm(
+            alarm_metric=self._state_machine.metric_failed(),
+            alarm_threshold=state_machine_failed_executions_alarm_threshold,
+            alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
         )
 
     def get_event_pattern(self) -> Optional[EventPattern]:

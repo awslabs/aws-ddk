@@ -81,7 +81,7 @@ Data Stages
    :toctree: stubs
    :template: custom-class-template.rst
 
-   AppFlowStage
+   AppFlowIngestionStage
    AthenaSQLStage
    GlueTransformStage
    KinesisToS3Stage
