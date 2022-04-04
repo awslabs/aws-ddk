@@ -12,18 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from aws_ddk_core.stages.appflow import AppFlowStage
-from aws_ddk_core.stages.athena_sql import AthenaSQLStage
-from aws_ddk_core.stages.glue import GlueTransformStage
-from aws_ddk_core.stages.kinesis_s3 import KinesisToS3Stage
-from aws_ddk_core.stages.s3_event import S3EventStage
-from aws_ddk_core.stages.sqs_lambda import SqsToLambdaStage
+from aws_cdk.assertions import Template
+from aws_ddk_core.base import BaseStack
+from aws_ddk_core.resources import KinesisStreamsFactory
 
-__all__ = [
-    "AppFlowStage",
-    "AthenaSQLStage",
-    "GlueTransformStage",
-    "KinesisToS3Stage",
-    "S3EventStage",
-    "SqsToLambdaStage",
-]
+
+def test_data_stream(test_stack: BaseStack) -> None:
+
+    KinesisStreamsFactory.data_stream(
+        scope=test_stack, id="dummy-stream-1", environment_id="dev", stream_name="dummy-stream"
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Kinesis::Stream",
+        props={
+            "Name": "dummy-stream",
+        },
+    )

@@ -22,7 +22,7 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 
 [[package]]
 name = "aws-cdk-lib"
-version = "2.18.0"
+version = "2.19.0"
 description = "Version 2 of the AWS Cloud Development Kit library"
 category = "main"
 optional = false
@@ -35,14 +35,43 @@ publication = ">=0.0.3"
 
 [[package]]
 name = "aws-cdk.aws-glue-alpha"
-version = "2.18.0a0"
+version = "2.19.0a0"
 description = "The CDK Construct Library for AWS::Glue"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-aws-cdk-lib = ">=2.18.0,<3.0.0"
+aws-cdk-lib = ">=2.19.0,<3.0.0"
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.55.1,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "aws-cdk.aws-kinesisfirehose-alpha"
+version = "2.19.0a0"
+description = "The CDK Construct Library for AWS::KinesisFirehose"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+aws-cdk-lib = ">=2.19.0,<3.0.0"
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.55.1,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "aws-cdk.aws-kinesisfirehose-destinations-alpha"
+version = "2.19.0a0"
+description = "CDK Destinations Constructs for AWS Kinesis Firehose"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+aws-cdk-lib = ">=2.19.0,<3.0.0"
+"aws-cdk.aws-kinesisfirehose-alpha" = "2.19.0.a0"
 constructs = ">=10.0.0,<11.0.0"
 jsii = ">=1.55.1,<2.0.0"
 publication = ">=0.0.3"
@@ -69,7 +98,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "constructs"
-version = "10.0.102"
+version = "10.0.105"
 description = "A programming model for software-defined state"
 category = "main"
 optional = false
@@ -247,20 +276,20 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "zipp"
-version = "3.7.0"
+version = "3.8.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
+docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1, <3.11"
-content-hash = "7d597f0da0123e79d240eb12fb05fa6b7a0d619c0b176fda75c0ac25f8a922d0"
+content-hash = "1bf5f5dcb8732c3ce13bb0d5e7bf9eb1f8c75ca8c03d5597337f3840bf0ce0db"
 
 [metadata.files]
 atomicwrites = [
@@ -272,12 +301,20 @@ attrs = [
     {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
 ]
 aws-cdk-lib = [
-    {file = "aws-cdk-lib-2.18.0.tar.gz", hash = "sha256:60f1c68685e397a855d1f752d4d8006eddf24e0f26761953e3e9bf3edc63d747"},
-    {file = "aws_cdk_lib-2.18.0-py3-none-any.whl", hash = "sha256:6d5d147d226280773c1ae234a762c865d0d096a73650c9e0190274cfac245312"},
+    {file = "aws-cdk-lib-2.19.0.tar.gz", hash = "sha256:94b3164023d215ce54cf04019da957eca6e6c83f6cab21ffee71ff63ce40100f"},
+    {file = "aws_cdk_lib-2.19.0-py3-none-any.whl", hash = "sha256:30039bca505561fb43f8ad5df086e661678751660f819c92463132ca7098effa"},
 ]
 "aws-cdk.aws-glue-alpha" = [
-    {file = "aws-cdk.aws-glue-alpha-2.18.0a0.tar.gz", hash = "sha256:3a548846f1de7d372a10ae122a8bdf8083e2a1953c4dfc75fec0f664b68e1b07"},
-    {file = "aws_cdk.aws_glue_alpha-2.18.0a0-py3-none-any.whl", hash = "sha256:7af618659471034582e135282c118ca1c4bd35ddc74fe7f03829e0d4fe836f5d"},
+    {file = "aws-cdk.aws-glue-alpha-2.19.0a0.tar.gz", hash = "sha256:e4f12c08ba2ba31880f1f2f2caec5cc10fc97ae925aae6145dbddb2ec1eac9d3"},
+    {file = "aws_cdk.aws_glue_alpha-2.19.0a0-py3-none-any.whl", hash = "sha256:db232a01b02de803694a7b2aaa6c4032e9d0aea291f63e930be64e8c5fa3c1ad"},
+]
+"aws-cdk.aws-kinesisfirehose-alpha" = [
+    {file = "aws-cdk.aws-kinesisfirehose-alpha-2.19.0a0.tar.gz", hash = "sha256:62fd5744a519c768f27f8b68f6d912d12d49894f74c268ba03ad0c8130617020"},
+    {file = "aws_cdk.aws_kinesisfirehose_alpha-2.19.0a0-py3-none-any.whl", hash = "sha256:53d229ab43906185b5ad77c69df0999c4aca46f8931af3a2d265671b4c66e446"},
+]
+"aws-cdk.aws-kinesisfirehose-destinations-alpha" = [
+    {file = "aws-cdk.aws-kinesisfirehose-destinations-alpha-2.19.0a0.tar.gz", hash = "sha256:514d8a5d500843d87d7fd121d493c374e180063e38108c21354b02922cdf5387"},
+    {file = "aws_cdk.aws_kinesisfirehose_destinations_alpha-2.19.0a0-py3-none-any.whl", hash = "sha256:a7145459aaf78089d83292345b66bae4bf29057969c141bb670dd97c048188d3"},
 ]
 cattrs = [
     {file = "cattrs-1.10.0-py3-none-any.whl", hash = "sha256:35dd9063244263e63bd0bd24ea61e3015b00272cead084b2c40d788b0f857c46"},
@@ -288,8 +325,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 constructs = [
-    {file = "constructs-10.0.102-py3-none-any.whl", hash = "sha256:88f2c161ad8750f3ef9c00b9f95594d961835de66d585ace4c8ac60a54e77e28"},
-    {file = "constructs-10.0.102.tar.gz", hash = "sha256:4d0c51c3aea88f0d216b984fb96917f8b8657fe5566f22106e143f2991a33269"},
+    {file = "constructs-10.0.105-py3-none-any.whl", hash = "sha256:2c0c98f64a3aa27e4fbe7143307a338a2ee5776eda33ac0cdbfd5e04b31616b1"},
+    {file = "constructs-10.0.105.tar.gz", hash = "sha256:e8f59bccfbd9ae05a94b3f6060c59726cef77956e27e0bcbc14652005016025d"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.11.3-py3-none-any.whl", hash = "sha256:1208431ca90a8cca1a6b8af391bb53c1a2db74e5d1cef6ddced95d4b2062edc6"},
@@ -348,6 +385,6 @@ typing-extensions = [
     {file = "typing_extensions-4.1.1.tar.gz", hash = "sha256:1a9462dcc3347a79b1f1c0271fbe79e844580bb598bafa1ed208b94da3cdcd42"},
 ]
 zipp = [
-    {file = "zipp-3.7.0-py3-none-any.whl", hash = "sha256:b47250dd24f92b7dd6a0a8fc5244da14608f3ca90a5efcd37a3b1642fac9a375"},
-    {file = "zipp-3.7.0.tar.gz", hash = "sha256:9f50f446828eb9d45b267433fd3e9da8d801f614129124863f9c51ebceafb87d"},
+    {file = "zipp-3.8.0-py3-none-any.whl", hash = "sha256:c4f6e5bbf48e74f7a38e7cc5b0480ff42b0ae5178957d564d18932525d5cf099"},
+    {file = "zipp-3.8.0.tar.gz", hash = "sha256:56bf8aadb83c24db6c4b577e13de374ccfb67da2078beba1d037c17980bf43ad"},
 ]

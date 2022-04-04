@@ -49,6 +49,16 @@ class Duration(fields.Field):
             raise ValidationError(f"`{attr}` must be an integer representing duration in seconds.") from error
 
 
+class Size(fields.Field):
+    """Field that deserializes a string to a CDK Size in mebibytes(MiB)."""
+
+    def _deserialize(self, value: int, attr: Optional[str], data: Any, **kwargs: Any) -> cdk.Size:
+        try:
+            return cdk.Size.mebibytes(value)
+        except TypeError as error:
+            raise ValidationError(f"`{attr}` must be an integer representing size in mebibytes.") from error
+
+
 class SubnetType(fields.Field):
     """Field that deserializes a string to a CDK EC2 SubnetType."""
 
