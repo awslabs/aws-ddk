@@ -122,6 +122,9 @@ class KinesisFirehoseFactory:
         error_output_prefix: Optional[str] = None,
         logging: Optional[bool] = True,
         log_group: Optional[ILogGroup] = None,
+        processor: Optional[firehose.IDataProcessor] = None,
+        role: Optional[IRole] = None,
+        s3_backup: Optional[destinations.DestinationS3BackupProps] = None,
         **destination_props: Any,
     ) -> destinations.S3Bucket:
         """
@@ -168,6 +171,13 @@ class KinesisFirehoseFactory:
         log_group: Optional[ILogGroup] = None
             The CloudWatch log group where log streams will be created to hold error logs.
             Default: - if logging is set to true, a log group will be created for you.
+        processor: Optional[IDataProcessor] = None
+            The data transformation that should be performed on the data before writing to the destination.
+        role: Optional[IRole] = None
+            The IAM role associated with this destination.
+            Assumed by Kinesis Data Firehose to invoke processors and write to destinations
+        s3_backup: Optional[DestinationS3BackupProps] = None
+            The configuration for backing up source records to S3.
         **destination_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             Firehose S3 Destinations:
@@ -197,6 +207,9 @@ class KinesisFirehoseFactory:
             "error_output_prefix": error_output_prefix,
             "logging": logging,
             "log_group": log_group,
+            "processor": processor,
+            "role": role,
+            "s3_backup": s3_backup,
             **destination_props,
         }
 
