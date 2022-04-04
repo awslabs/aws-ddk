@@ -27,7 +27,7 @@ from aws_ddk_core.resources import KinesisFactory, KinesisFirehoseFactory, S3Fac
 from constructs import Construct
 
 
-class FirehoseToS3Stage(DataStage):
+class KinesisToS3Stage(DataStage):
     """
     Class that represents a Firehose to S3 Ingestion DDK Stage.
     """

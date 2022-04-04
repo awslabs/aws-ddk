@@ -64,6 +64,8 @@ Resources
    :template: custom-class-template.rst
 
    GlueFactory
+   KinesisFactory
+   KinesisFirehoseFactory
    KMSFactory
    LambdaFactory
    S3Factory
@@ -82,5 +84,6 @@ Data Stages
    AppFlowStage
    AthenaSQLStage
    GlueTransformStage
+   KinesisToS3Stage
    S3EventStage
    SqsToLambdaStage
