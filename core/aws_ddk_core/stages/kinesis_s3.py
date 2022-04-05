@@ -184,8 +184,9 @@ class KinesisToS3Stage(DataStage):
         )
 
         # Cloudwatch Alarms
-        self.set_alarm(
-            self._delivery_stream.metric(
+        self.add_alarm(
+            alarm_id=f"{id}-data-freshness",
+            alarm_metric=self._delivery_stream.metric(
                 "DeliveryToS3.DataFreshness",
                 period=buffering_interval if buffering_interval else Duration.seconds(300),
                 statistic="Maximum",

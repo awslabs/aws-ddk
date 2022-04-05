@@ -160,8 +160,9 @@ class SqsToLambdaStage(DataStage):
 
         self._function.add_event_source(SqsEventSource(queue=self._queue, batch_size=batch_size))
 
-        self.set_alarm(
-            self._function.metric_errors(),
+        self.add_alarm(
+            alarm_id=f"{id}-function-errors",
+            alarm_metric=self._function.metric_errors(),
             alarm_threshold=lambda_function_errors_alarm_threshold,
             alarm_evaluation_periods=lambda_function_errors_alarm_evaluation_periods,
         )
