@@ -18,7 +18,7 @@ from aws_cdk import Duration
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_events_targets import SqsQueue
 from aws_cdk.aws_iam import Effect, IRole, PolicyStatement
-from aws_cdk.aws_lambda import Code, IFunction, Runtime
+from aws_cdk.aws_lambda import Code, IFunction, ILayerVersion, Runtime
 from aws_cdk.aws_lambda_event_sources import SqsEventSource
 from aws_cdk.aws_sqs import DeadLetterQueue, IQueue
 from aws_ddk_core.pipelines.stage import DataStage
@@ -46,6 +46,7 @@ class SqsToLambdaStage(DataStage):
         dead_letter_queue_enabled: bool = False,
         max_receive_count: int = 1,
         batch_size: Optional[int] = None,
+        layers: Optional[List[ILayerVersion]] = None,
         lambda_function: Optional[IFunction] = None,
         sqs_queue: Optional[IQueue] = None,
         lambda_function_errors_alarm_threshold: Optional[int] = 5,
@@ -89,6 +90,8 @@ class SqsToLambdaStage(DataStage):
         batch_size : Optional[int]
             The maximum number of records retrieved from the event source at the function invocation time.
             `10` by default
+        layers : Optional[List[ILayerVersion]]
+            A list of layers to add to the lambda function's execution environment.
         lambda_function: Optional[IFunction]
             Preexisting Lambda Function to use in stage. `None` by default
         sqs_queue: Optional[IQueue]
@@ -120,6 +123,7 @@ class SqsToLambdaStage(DataStage):
                     "EVENT_SOURCE": self._event_source,
                     "EVENT_DETAIL_TYPE": self._event_detail_type,
                 },
+                layers=layers,
             )
         else:
             raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instantiate this stage")
