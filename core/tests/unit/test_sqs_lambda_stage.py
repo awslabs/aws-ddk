@@ -15,7 +15,7 @@
 from pathlib import Path
 
 from aws_cdk.assertions import Match, Template
-from aws_cdk.aws_lambda import Code, Function, Runtime
+from aws_cdk.aws_lambda import Code, Function, LayerVersion, Runtime
 from aws_cdk.aws_sqs import Queue
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.stages.sqs_lambda import SqsToLambdaStage
@@ -28,6 +28,11 @@ def test_sqs_lambda(test_stack: BaseStack) -> None:
         environment_id="dev",
         code=Code.from_asset(f"{Path(__file__).parents[2]}"),
         handler="commons.handlers.lambda_handler",
+        layers=[
+            LayerVersion.from_layer_version_arn(
+                test_stack, "layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"
+            )
+        ],
     )
 
     template = Template.from_stack(test_stack)
@@ -36,6 +41,11 @@ def test_sqs_lambda(test_stack: BaseStack) -> None:
         props={
             "Runtime": "python3.9",
             "MemorySize": 512,
+            "Layers": Match.array_with(
+                pattern=[
+                    "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+                ],
+            ),
         },
     )
     template.has_resource_properties(

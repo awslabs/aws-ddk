@@ -50,6 +50,9 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         handler="commons.handlers.lambda_handler",
     )
     bucket.grant_read_write(sqs_lambda_stage.function)
+    sqs_lambda_stage.add_alarm(
+        alarm_id="dummy-sqs-lambda-throttles", alarm_metric=sqs_lambda_stage.function.metric_throttles()
+    )
     glue_stage = GlueTransformStage(
         scope=test_stack,
         id="dummy-glue",
@@ -62,6 +65,11 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         id="dummy-appflow",
         environment_id="dev",
         flow_name="dummy-appflow-flow",
+    )
+    appflow_stage.add_alarm(
+        alarm_id="dummy-appflow-timedout",
+        alarm_metric=appflow_stage._state_machine.metric_timed_out(),
+        alarm_threshold=1,
     )
     athena_stage = AthenaSQLStage(
         scope=test_stack,
@@ -121,6 +129,22 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
                 pattern=[Match.object_like(pattern={"Ref": "dummypipelinepipelinedummypipelinenotifications161779A9"})]
             ),
             "Threshold": 5,
+        },
+    )
+    template.has_resource_properties(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "Dimensions": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "StateMachineArn",
+                            "Value": {"Ref": "dummyappflowdummyappflowstatemachine490B3250"},
+                        }
+                    )
+                ]
+            ),
+            "Threshold": 1,
         },
     )
     template.has_resource_properties(

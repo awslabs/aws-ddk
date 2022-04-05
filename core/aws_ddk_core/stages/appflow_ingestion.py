@@ -162,7 +162,8 @@ class AppFlowIngestionStage(DataStage):
             )
         )
 
-        self.set_alarm(
+        self.add_alarm(
+            alarm_id=f"{id}-sm-failed-exec",
             alarm_metric=self._state_machine.metric_failed(),
             alarm_threshold=state_machine_failed_executions_alarm_threshold,
             alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
