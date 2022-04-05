@@ -15,10 +15,10 @@
    .. autosummary::
    
       ~AthenaSQLStage.__init__
+      ~AthenaSQLStage.add_alarm
       ~AthenaSQLStage.get_event_pattern
       ~AthenaSQLStage.get_targets
       ~AthenaSQLStage.is_construct
-      ~AthenaSQLStage.set_alarm
       ~AthenaSQLStage.to_string
    
    
@@ -29,7 +29,7 @@
 
    .. autosummary::
    
-      ~AthenaSQLStage.cloudwatch_alarm
+      ~AthenaSQLStage.cloudwatch_alarms
       ~AthenaSQLStage.node
    
    

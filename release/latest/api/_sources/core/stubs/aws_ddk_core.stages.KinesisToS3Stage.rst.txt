@@ -15,10 +15,10 @@
    .. autosummary::
    
       ~KinesisToS3Stage.__init__
+      ~KinesisToS3Stage.add_alarm
       ~KinesisToS3Stage.get_event_pattern
       ~KinesisToS3Stage.get_targets
       ~KinesisToS3Stage.is_construct
-      ~KinesisToS3Stage.set_alarm
       ~KinesisToS3Stage.to_string
    
    
@@ -30,7 +30,7 @@
    .. autosummary::
    
       ~KinesisToS3Stage.bucket
-      ~KinesisToS3Stage.cloudwatch_alarm
+      ~KinesisToS3Stage.cloudwatch_alarms
       ~KinesisToS3Stage.data_stream
       ~KinesisToS3Stage.delivery_stream
       ~KinesisToS3Stage.event_pattern

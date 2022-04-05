@@ -178,7 +178,7 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.SQSFactory.html">aws_ddk_core.resources.SQSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AppFlowStage.html">aws_ddk_core.stages.AppFlowStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AppFlowIngestionStage.html">aws_ddk_core.stages.AppFlowIngestionStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AthenaSQLStage.html">aws_ddk_core.stages.AthenaSQLStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.GlueTransformStage.html">aws_ddk_core.stages.GlueTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.KinesisToS3Stage.html">aws_ddk_core.stages.KinesisToS3Stage</a></li>
@@ -249,17 +249,17 @@ The list of events to capture</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.__init__" title="aws_ddk_core.stages.S3EventStage.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id, environment_id, ...[, ...])</p></td>
 <td><p>DDK S3 Event stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.get_event_pattern" title="aws_ddk_core.stages.S3EventStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_alarm</span></code>(alarm_id, alarm_metric[, ...])</p></td>
+<td><p>Add a CloudWatch alarm for the Data Stage</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.get_event_pattern" title="aws_ddk_core.stages.S3EventStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
 <td><p>Get output event pattern of the stage.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.get_targets" title="aws_ddk_core.stages.S3EventStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.get_targets" title="aws_ddk_core.stages.S3EventStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
 <td><p>Get input targets of the stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
 <td><p>Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a construct.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_alarm</span></code>(alarm_metric[, ...])</p></td>
-<td><p>Creates a CloudWatch alarm for the Data Stage</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
 <td><p>Returns a string representation of this construct.</p></td>
@@ -273,8 +273,8 @@ The list of events to capture</p></li>
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cloudwatch_alarm</span></code></p></td>
-<td><p>Alarm CloudWatch Alarm created by the stage</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cloudwatch_alarms</span></code></p></td>
+<td><p>List[Alarm] List of CloudWatch Alarms linked to the stage</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.event_pattern" title="aws_ddk_core.stages.S3EventStage.event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">event_pattern</span></code></a></p></td>
 <td><p>EventPattern The S3 event pattern</p></td>

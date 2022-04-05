@@ -15,10 +15,10 @@
    .. autosummary::
    
       ~S3EventStage.__init__
+      ~S3EventStage.add_alarm
       ~S3EventStage.get_event_pattern
       ~S3EventStage.get_targets
       ~S3EventStage.is_construct
-      ~S3EventStage.set_alarm
       ~S3EventStage.to_string
    
    
@@ -29,7 +29,7 @@
 
    .. autosummary::
    
-      ~S3EventStage.cloudwatch_alarm
+      ~S3EventStage.cloudwatch_alarms
       ~S3EventStage.event_pattern
       ~S3EventStage.node
       ~S3EventStage.trail

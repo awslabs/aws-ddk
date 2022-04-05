@@ -15,10 +15,10 @@
    .. autosummary::
    
       ~GlueTransformStage.__init__
+      ~GlueTransformStage.add_alarm
       ~GlueTransformStage.get_event_pattern
       ~GlueTransformStage.get_targets
       ~GlueTransformStage.is_construct
-      ~GlueTransformStage.set_alarm
       ~GlueTransformStage.to_string
    
    
@@ -29,7 +29,7 @@
 
    .. autosummary::
    
-      ~GlueTransformStage.cloudwatch_alarm
+      ~GlueTransformStage.cloudwatch_alarms
       ~GlueTransformStage.crawler
       ~GlueTransformStage.job
       ~GlueTransformStage.node

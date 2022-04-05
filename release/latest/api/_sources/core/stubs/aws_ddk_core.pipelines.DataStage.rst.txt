@@ -15,10 +15,10 @@
    .. autosummary::
    
       ~DataStage.__init__
+      ~DataStage.add_alarm
       ~DataStage.get_event_pattern
       ~DataStage.get_targets
       ~DataStage.is_construct
-      ~DataStage.set_alarm
       ~DataStage.to_string
    
    
@@ -29,7 +29,7 @@
 
    .. autosummary::
    
-      ~DataStage.cloudwatch_alarm
+      ~DataStage.cloudwatch_alarms
       ~DataStage.node
    
    

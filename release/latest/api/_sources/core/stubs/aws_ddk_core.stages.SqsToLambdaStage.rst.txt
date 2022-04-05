@@ -15,10 +15,10 @@
    .. autosummary::
    
       ~SqsToLambdaStage.__init__
+      ~SqsToLambdaStage.add_alarm
       ~SqsToLambdaStage.get_event_pattern
       ~SqsToLambdaStage.get_targets
       ~SqsToLambdaStage.is_construct
-      ~SqsToLambdaStage.set_alarm
       ~SqsToLambdaStage.to_string
    
    
@@ -29,7 +29,7 @@
 
    .. autosummary::
    
-      ~SqsToLambdaStage.cloudwatch_alarm
+      ~SqsToLambdaStage.cloudwatch_alarms
       ~SqsToLambdaStage.dlq
       ~SqsToLambdaStage.function
       ~SqsToLambdaStage.node
