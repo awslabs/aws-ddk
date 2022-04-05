@@ -169,6 +169,14 @@ class AppFlowIngestionStage(DataStage):
             alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
         )
 
+    @property
+    def state_machine(self) -> StateMachine:
+        """
+        Return: StateMachine
+            The state machine
+        """
+        return self._state_machine
+
     def get_event_pattern(self) -> Optional[EventPattern]:
         return EventPattern(
             source=["aws.states"],
