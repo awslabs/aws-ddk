@@ -87,7 +87,7 @@ class DataStage(Construct):
         self.id: str = id
         self.name: Optional[str] = name
         self.description: Optional[str] = description
-        self._cloudwatch_alarm = None
+        self._cloudwatch_alarms: List[Optional[IAlarm]] = []
 
     @abstractmethod
     def get_targets(self) -> Optional[List[IRuleTarget]]:
@@ -118,18 +118,21 @@ class DataStage(Construct):
         """
         pass
 
-    def set_alarm(
+    def add_alarm(
         self,
+        alarm_id: str,
         alarm_metric: IMetric,
         alarm_comparison_operator: Optional[ComparisonOperator] = ComparisonOperator.GREATER_THAN_THRESHOLD,
         alarm_evaluation_periods: Optional[int] = 1,
         alarm_threshold: Optional[int] = 5,
     ) -> "DataStage":
         """
-        Creates a CloudWatch alarm for the Data Stage
+        Add a CloudWatch alarm for the Data Stage
 
         Parameters
         ----------
+        alarm_id: str
+            Identifier of the CloudWatch Alarm.
         alarm_metric: IMetric
             Metric to use for creating the Stage's CloudWatch Alarm.
         alarm_comparison_operator: Optional[ComparisonOperator]
@@ -139,20 +142,22 @@ class DataStage(Construct):
         alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. `1` by default.
         """
-        self._cloudwatch_alarm = Alarm(
-            self,
-            f"{self.id}-alarm",
-            comparison_operator=alarm_comparison_operator,
-            threshold=alarm_threshold,
-            evaluation_periods=alarm_evaluation_periods,
-            metric=alarm_metric,
+        self._cloudwatch_alarms.append(
+            Alarm(
+                scope=self,
+                id=alarm_id,
+                comparison_operator=alarm_comparison_operator,
+                threshold=alarm_threshold,
+                evaluation_periods=alarm_evaluation_periods,
+                metric=alarm_metric,
+            )
         )
         return self
 
     @property
-    def cloudwatch_alarm(self) -> Optional[IAlarm]:
+    def cloudwatch_alarms(self) -> List[Optional[IAlarm]]:
         """
-        Return: Alarm
-            CloudWatch Alarm created by the stage
+        Return: List[Alarm]
+            List of CloudWatch Alarms linked to the stage
         """
-        return self._cloudwatch_alarm
+        return self._cloudwatch_alarms
