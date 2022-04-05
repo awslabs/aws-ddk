@@ -87,7 +87,7 @@ class DataStage(Construct):
         self.id: str = id
         self.name: Optional[str] = name
         self.description: Optional[str] = description
-        self._cloudwatch_alarms: Optional[List[IAlarm]] = None
+        self._cloudwatch_alarms: List[Optional[IAlarm]] = []
 
     @abstractmethod
     def get_targets(self) -> Optional[List[IRuleTarget]]:
@@ -142,22 +142,20 @@ class DataStage(Construct):
         alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. `1` by default.
         """
-        alarm = Alarm(
-            scope=self,
-            id=alarm_id,
-            comparison_operator=alarm_comparison_operator,
-            threshold=alarm_threshold,
-            evaluation_periods=alarm_evaluation_periods,
-            metric=alarm_metric,
+        self._cloudwatch_alarms.append(
+            Alarm(
+                scope=self,
+                id=alarm_id,
+                comparison_operator=alarm_comparison_operator,
+                threshold=alarm_threshold,
+                evaluation_periods=alarm_evaluation_periods,
+                metric=alarm_metric,
+            )
         )
-        if self._cloudwatch_alarms:
-            self._cloudwatch_alarms.append(alarm)
-        else:
-            self._cloudwatch_alarms = [alarm]
         return self
 
     @property
-    def cloudwatch_alarms(self) -> Optional[List[IAlarm]]:
+    def cloudwatch_alarms(self) -> List[Optional[IAlarm]]:
         """
         Return: List[Alarm]
             List of CloudWatch Alarms linked to the stage
