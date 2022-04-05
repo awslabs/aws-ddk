@@ -38,7 +38,7 @@ from aws_ddk_core.resources import LambdaFactory, StepFunctionsFactory
 from constructs import Construct
 
 
-class AppFlowStage(DataStage):
+class AppFlowIngestionStage(DataStage):
     """
     Class that represents an AppFlow DDK DataStage.
     """
@@ -54,11 +54,13 @@ class AppFlowStage(DataStage):
         source_flow_config: Optional[CfnFlow.SourceFlowConfigProperty] = None,
         tasks: Optional[List[CfnFlow.TaskProperty]] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
+        state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
+        state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
         """
-        DDK AppFlow stage.
+        DDK AppFlow Ingestion stage.
 
-        Stage that contains a step function that runs an AppFlow flow.
+        Stage that contains a step function that runs an AppFlow flow ingestion.
         If the AppFlow flow name is not supplied, then it is created.
 
         Parameters
@@ -82,6 +84,10 @@ class AppFlowStage(DataStage):
             The flow tasks properties
         state_machine_input : Optional[Dict[str, Any]]
             Input of the state machine
+        state_machine_failed_executions_alarm_threshold: Optional[int]
+            The number of failed state machine executions before triggering CW alarm. Defaults to `1`
+        state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
+            The number of periods over which data is compared to the specified threshold. Defaults to `1`
         """
         super().__init__(scope, id)
 
@@ -154,6 +160,13 @@ class AppFlowStage(DataStage):
                 ],
                 resources=["*"],
             )
+        )
+
+        self.add_alarm(
+            alarm_id=f"{id}-sm-failed-exec",
+            alarm_metric=self._state_machine.metric_failed(),
+            alarm_threshold=state_machine_failed_executions_alarm_threshold,
+            alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
         )
 
     def get_event_pattern(self) -> Optional[EventPattern]:
