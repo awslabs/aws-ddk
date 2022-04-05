@@ -170,6 +170,14 @@ class AppFlowIngestionStage(DataStage):
         )
 
     @property
+    def flow(self) -> CfnFlow:
+        """
+        Return: CfnFlow
+            The AppFlow flow
+        """
+        return self._flow
+
+    @property
     def state_machine(self) -> StateMachine:
         """
         Return: StateMachine
