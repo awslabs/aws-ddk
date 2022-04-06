@@ -68,7 +68,7 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
     )
     appflow_stage.add_alarm(
         alarm_id="dummy-appflow-timedout",
-        alarm_metric=appflow_stage._state_machine.metric_timed_out(),
+        alarm_metric=appflow_stage.state_machine.metric_timed_out(),
         alarm_threshold=1,
     )
     athena_stage = AthenaSQLStage(
