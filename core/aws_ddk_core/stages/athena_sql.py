@@ -16,6 +16,7 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk.aws_events import EventPattern, IRuleTarget, RuleTargetInput
 from aws_cdk.aws_events_targets import SfnStateMachine
+from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_kms import Key
 from aws_cdk.aws_s3 import Location
 from aws_cdk.aws_stepfunctions import IntegrationPattern, StateMachine, StateMachineType, Succeed
@@ -50,6 +51,7 @@ class AthenaSQLStage(DataStage):
         encryption_option: Optional[EncryptionOption] = None,
         encryption_key: Optional[Key] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
+        additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
@@ -84,6 +86,8 @@ class AthenaSQLStage(DataStage):
             Encryption KMS key
         state_machine_input : Optional[Dict[str, Any]]
             Input of the state machine
+        additional_role_policy_statements : Optional[List[PolicyStatement]]
+            Additional IAM policy statements to add to the state machine role
         state_machine_failed_executions_alarm_threshold: Optional[int]
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
@@ -132,7 +136,10 @@ class AthenaSQLStage(DataStage):
             definition=(start_query_exec.next(Succeed(self, "success"))),
             state_machine_type=StateMachineType.STANDARD,
         )
-
+        # Additional role policy statements
+        if additional_role_policy_statements:
+            for statement in additional_role_policy_statements:
+                self._state_machine.add_to_role_policy(statement)
         self.add_alarm(
             alarm_id=f"{id}-sm-failed-exec",
             alarm_metric=self._state_machine.metric_failed(),

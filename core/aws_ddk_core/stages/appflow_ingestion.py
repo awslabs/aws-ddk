@@ -54,6 +54,7 @@ class AppFlowIngestionStage(DataStage):
         source_flow_config: Optional[CfnFlow.SourceFlowConfigProperty] = None,
         tasks: Optional[List[CfnFlow.TaskProperty]] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
+        additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
@@ -84,6 +85,8 @@ class AppFlowIngestionStage(DataStage):
             The flow tasks properties
         state_machine_input : Optional[Dict[str, Any]]
             Input of the state machine
+        additional_role_policy_statements : Optional[List[PolicyStatement]]
+            Additional IAM policy statements to add to the state machine role
         state_machine_failed_executions_alarm_threshold: Optional[int]
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
@@ -161,7 +164,10 @@ class AppFlowIngestionStage(DataStage):
                 resources=["*"],
             )
         )
-
+        # Additional role policy statements
+        if additional_role_policy_statements:
+            for statement in additional_role_policy_statements:
+                self._state_machine.add_to_role_policy(statement)
         self.add_alarm(
             alarm_id=f"{id}-sm-failed-exec",
             alarm_metric=self._state_machine.metric_failed(),
