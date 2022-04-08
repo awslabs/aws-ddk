@@ -39,8 +39,7 @@ class S3EventStage(DataStage):
         DDK S3 Event stage.
 
         It implements an S3 event pattern based on event names, a bucket name and optional key prefix.
-        Amazon EventBridge notifications or AWS CloudTrail data events must be enabled on the bucket in order
-        to use this construct.
+        Amazon EventBridge notifications must be enabled on the bucket in order to use this construct.
 
         Parameters
         ----------
@@ -51,10 +50,10 @@ class S3EventStage(DataStage):
         environment_id : str
             Identifier of the environment
         event_names : Optional[List[str]]
-            https://docs.aws.amazon.com/AmazonS3/latest/userguide/cloudtrail-logging-s3-info.html#cloudtrail-object-level-tracking
-            The list of events to capture
+            The list of events to capture, for example: ["Object Created"].
+            https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html
         bucket_name : str
-            The name of the S3 bucket. Amazon EventBridge notifications or AWS CloudTrail data events must be enabled
+            The name of the S3 bucket. Amazon EventBridge notifications must be enabled
             on the bucket in order to use this construct.
         key_prefix : Optional[str]
             The S3 prefix. Capture root level prefix ("/") by default
@@ -63,17 +62,19 @@ class S3EventStage(DataStage):
         """
         super().__init__(scope, id, **kwargs)
         self._bucket = Bucket.from_bucket_name(self, id=f"{id}-bucket", bucket_name=bucket_name)
-        request_parameters: Dict[str, Any] = {"bucketName": [bucket_name]}
+        detail: Dict[str, Any] = {
+            "bucket": {
+                "name": [bucket_name],
+            },
+        }
         if key_prefix:
-            request_parameters["key"] = [{"prefix": key_prefix}]
-
+            detail["object"] = {
+                "key": [{"prefix": key_prefix}],
+            }
         self._event_pattern = EventPattern(
             source=["aws.s3"],
-            detail={
-                "eventSource": ["s3.amazonaws.com"],
-                "eventName": event_names,
-                "requestParameters": request_parameters,
-            },
+            detail=detail,
+            detail_type=["Object Created"],
         )
 
     @property
