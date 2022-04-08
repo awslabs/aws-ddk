@@ -31,6 +31,7 @@ class BucketSchema(BaseSchema):
     versioned = fields.Bool(load_default=True)
     auto_delete_objects = fields.Bool()
     enforce_ssl = fields.Bool(load_default=True)
+    event_bridge_enabled = fields.Bool(load_default=True)
     access_control = fields.Method(
         deserialize="load_access_control", load_default=s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL
     )
@@ -60,6 +61,7 @@ class S3Factory:
         removal_policy: Optional[RemovalPolicy] = None,
         encryption: Optional[s3.BucketEncryption] = None,
         enforce_ssl: Optional[bool] = None,
+        event_bridge_enabled: Optional[bool] = None,
         **bucket_props: Any,
     ) -> s3.IBucket:
         """
@@ -95,6 +97,9 @@ class S3Factory:
             `aws_cdk.aws_s3.BucketEncryption.S3_MANAGED` by default.
         enforce_ssl : Optional[bool]
             Enforces SSL for requests. `True` by default.
+        event_bridge_enabled : Optional[bool]
+            Whether this bucket should send notifications to Amazon EventBridge or not.
+            `False` by default.
         bucket_props : Any
             Additional bucket properties. For complete list of properties refer to CDK Documentation -
             S3 Bucket: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_s3/Bucket.html
@@ -120,6 +125,7 @@ class S3Factory:
             "removal_policy": removal_policy,
             "encryption": encryption,
             "enforce_ssl": enforce_ssl,
+            "event_bridge_enabled": event_bridge_enabled,
             **bucket_props,
         }
         # Explicit ("hardcoded") props should always take precedence over config
