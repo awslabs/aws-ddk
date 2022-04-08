@@ -31,7 +31,6 @@ class BucketSchema(BaseSchema):
     versioned = fields.Bool(load_default=True)
     auto_delete_objects = fields.Bool()
     enforce_ssl = fields.Bool(load_default=True)
-    event_bridge_enabled = fields.Bool(load_default=True)
     access_control = fields.Method(
         deserialize="load_access_control", load_default=s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL
     )
