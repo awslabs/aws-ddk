@@ -39,7 +39,8 @@ class S3EventStage(DataStage):
         DDK S3 Event stage.
 
         It implements an S3 event pattern based on event names, a bucket name and optional key prefix.
-        Amazon EventBridge notifications must be enabled on the bucket.
+        Amazon EventBridge notifications or AWS CloudTrail data events must be enabled on the bucket in order
+        to use this construct.
 
         Parameters
         ----------
@@ -53,7 +54,8 @@ class S3EventStage(DataStage):
             https://docs.aws.amazon.com/AmazonS3/latest/userguide/cloudtrail-logging-s3-info.html#cloudtrail-object-level-tracking
             The list of events to capture
         bucket_name : str
-            The name of the S3 bucket
+            The name of the S3 bucket. Amazon EventBridge notifications or AWS CloudTrail data events must be enabled
+            on the bucket in order to use this construct.
         key_prefix : Optional[str]
             The S3 prefix. Capture root level prefix ("/") by default
         cloudtrail_trail: Optional[Trail]

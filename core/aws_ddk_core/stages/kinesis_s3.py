@@ -56,6 +56,8 @@ class KinesisToS3Stage(DataStage):
     ) -> None:
         """
         DDK Kinesis Firehose Delivery stream to S3 stage, with an optional Kinesis Data Stream.
+        Amazon EventBridge notifications or AWS CloudTrail data events must be enabled on the bucket in order
+        for this stage to produce events after its completion.
 
         Parameters
         ----------
@@ -68,7 +70,9 @@ class KinesisToS3Stage(DataStage):
         delivery_stream_name: Optional[str] = None
             Name of the Firehose Delivery Stream
         bucket_name: Optional[str] = None
-            Name of S3 Bucket to be created as a delivery destination
+            Name of S3 Bucket to be created as a delivery destination.
+            Amazon EventBridge notifications or AWS CloudTrail data events must be enabled on the bucket in order
+            for this stage to produce events after its completion.
         buffering_interval: Optional[Duration] = None
             The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
             Minimum: Duration.seconds(60)
@@ -131,6 +135,7 @@ class KinesisToS3Stage(DataStage):
                 id=f"{id}-bucket",
                 environment_id=environment_id,
                 bucket_name=bucket_name,
+                event_bridge_enabled=True,
             )
             if not bucket
             else bucket
