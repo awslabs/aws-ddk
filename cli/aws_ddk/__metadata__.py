@@ -15,7 +15,7 @@
 """Metadata Module.
 
 Source repository: https://github.com/awslabs/aws-ddk
-Documentation: TBD
+Documentation: https://awslabs.github.io/aws-ddk/
 """
 
 __version__: str = "0.3.0"

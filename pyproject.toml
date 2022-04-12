@@ -12,7 +12,7 @@ keywords = ["aws", "ddk", "dataops"]
 
 homepage = "TBD"
 repository = "https://github.com/awslabs/aws-ddk"
-documentation = "TBD"
+documentation = "https://awslabs.github.io/aws-ddk/"
 
 classifiers = [
     "Development Status :: 4 - Beta",
