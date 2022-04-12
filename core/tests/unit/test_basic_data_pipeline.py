@@ -101,12 +101,6 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         },
     )
     template.has_resource_properties(
-        "AWS::CloudTrail::Trail",
-        props={
-            "S3BucketName": {"Ref": "dummys3eventdummys3eventtrailbucket09B92664"},
-        },
-    )
-    template.has_resource_properties(
         "AWS::SNS::Topic",
         props={
             "TopicName": Match.string_like_regexp(pattern="dummy-pipeline-notifications"),

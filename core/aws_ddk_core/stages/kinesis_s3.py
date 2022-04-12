@@ -68,7 +68,9 @@ class KinesisToS3Stage(DataStage):
         delivery_stream_name: Optional[str] = None
             Name of the Firehose Delivery Stream
         bucket_name: Optional[str] = None
-            Name of S3 Bucket to be created as a delivery destination
+            Name of S3 Bucket to be created as a delivery destination.
+            Amazon EventBridge notifications must be enabled on the bucket in order
+            for this stage to produce events after its completion.
         buffering_interval: Optional[Duration] = None
             The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
             Minimum: Duration.seconds(60)
@@ -114,7 +116,9 @@ class KinesisToS3Stage(DataStage):
             Preexisting Delivery Stream to use in this stage
         bucket: Optional[IBucket] = None
             Preexisting S3 Bucket to use as a destination for the Firehose Stream.
-            If no bucket is provided, a new one is created
+            If no bucket is provided, a new one is created.
+            Amazon EventBridge notifications must be enabled on the bucket in order
+            for this stage to produce events after its completion.
         data_stream: Optional[Stream] = None
             Preexisting Kinesis Data Stream to use in stage before Delivery Stream.
             Setting this parameter will override any creation of Kinesis Data Streams
@@ -131,6 +135,7 @@ class KinesisToS3Stage(DataStage):
                 id=f"{id}-bucket",
                 environment_id=environment_id,
                 bucket_name=bucket_name,
+                event_bridge_enabled=True,
             )
             if not bucket
             else bucket
@@ -170,17 +175,20 @@ class KinesisToS3Stage(DataStage):
             else delivery_stream
         )
 
-        request_parameters: Dict[str, Any] = {"bucketName": [self._bucket.bucket_name]}
+        event_detail: Dict[str, Any] = {
+            "bucket": {
+                "name": [bucket_name],
+            },
+        }
         if data_output_prefix:
-            request_parameters["key"] = [{"prefix": data_output_prefix}]
+            event_detail["object"] = {
+                "key": [{"prefix": data_output_prefix}],
+            }
 
         self._event_pattern = EventPattern(
             source=["aws.s3"],
-            detail={
-                "eventSource": ["s3.amazonaws.com"],
-                "eventName": ["PutObject"],
-                "requestParameters": request_parameters,
-            },
+            detail=event_detail,
+            detail_type=["Object Created"],
         )
 
         # Cloudwatch Alarms
