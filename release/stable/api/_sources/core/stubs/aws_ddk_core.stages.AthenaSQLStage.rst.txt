@@ -1,0 +1,36 @@
+﻿aws\_ddk\_core.stages.AthenaSQLStage
+====================================
+
+.. currentmodule:: aws_ddk_core.stages
+
+.. autoclass:: AthenaSQLStage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AthenaSQLStage.__init__
+      ~AthenaSQLStage.add_alarm
+      ~AthenaSQLStage.get_event_pattern
+      ~AthenaSQLStage.get_targets
+      ~AthenaSQLStage.is_construct
+      ~AthenaSQLStage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~AthenaSQLStage.cloudwatch_alarms
+      ~AthenaSQLStage.node
+      ~AthenaSQLStage.state_machine
+   
+   
