@@ -32,7 +32,5 @@
       ~S3EventStage.cloudwatch_alarms
       ~S3EventStage.event_pattern
       ~S3EventStage.node
-      ~S3EventStage.trail
-      ~S3EventStage.trail_bucket
    
    

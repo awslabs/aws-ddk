@@ -31,5 +31,6 @@
    
       ~AthenaSQLStage.cloudwatch_alarms
       ~AthenaSQLStage.node
+      ~AthenaSQLStage.state_machine
    
    

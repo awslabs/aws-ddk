@@ -30,6 +30,8 @@
    .. autosummary::
    
       ~AppFlowIngestionStage.cloudwatch_alarms
+      ~AppFlowIngestionStage.flow
       ~AppFlowIngestionStage.node
+      ~AppFlowIngestionStage.state_machine
    
    

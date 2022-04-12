@@ -229,7 +229,9 @@
 <li><p><strong>id</strong> (<em>str</em>) – Identifier of the stage</p></li>
 <li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
 <li><p><strong>delivery_stream_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>] </em><em>= None</em>) – Name of the Firehose Delivery Stream</p></li>
-<li><p><strong>bucket_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>] </em><em>= None</em>) – Name of S3 Bucket to be created as a delivery destination</p></li>
+<li><p><strong>bucket_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>] </em><em>= None</em>) – Name of S3 Bucket to be created as a delivery destination.
+Amazon EventBridge notifications must be enabled on the bucket in order
+for this stage to produce events after its completion.</p></li>
 <li><p><strong>buffering_interval</strong> (<em>Optional</em><em>[</em><em>Duration</em><em>] </em><em>= None</em>) – The length of time that Firehose buffers incoming data before delivering it to the S3 bucket.
 Minimum: Duration.seconds(60)
 Maximum: Duration.seconds(900)
@@ -262,7 +264,9 @@ Default: 900</p></li>
 Default: 1</p></li>
 <li><p><strong>delivery_stream</strong> (<em>Optional</em><em>[</em><em>firehose.IDeliveryStream</em><em>] </em><em>= None</em>) – Preexisting Delivery Stream to use in this stage</p></li>
 <li><p><strong>bucket</strong> (<em>Optional</em><em>[</em><em>IBucket</em><em>] </em><em>= None</em>) – Preexisting S3 Bucket to use as a destination for the Firehose Stream.
-If no bucket is provided, a new one is created</p></li>
+If no bucket is provided, a new one is created.
+Amazon EventBridge notifications must be enabled on the bucket in order
+for this stage to produce events after its completion.</p></li>
 <li><p><strong>data_stream</strong> (<em>Optional</em><em>[</em><em>Stream</em><em>] </em><em>= None</em>) – Preexisting Kinesis Data Stream to use in stage before Delivery Stream.
 Setting this parameter will override any creation of Kinesis Data Streams
 in this stage. <cite>data_stream_enabled</cite> will have no effect.</p></li>

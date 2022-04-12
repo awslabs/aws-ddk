@@ -33,5 +33,6 @@
       ~GlueTransformStage.crawler
       ~GlueTransformStage.job
       ~GlueTransformStage.node
+      ~GlueTransformStage.state_machine
    
    
