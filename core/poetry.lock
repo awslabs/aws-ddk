@@ -78,7 +78,7 @@ publication = ">=0.0.3"
 
 [[package]]
 name = "cattrs"
-version = "1.10.0"
+version = "22.1.0"
 description = "Composable complex class support for attrs and dataclasses."
 category = "main"
 optional = false
@@ -86,6 +86,7 @@ python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
 attrs = ">=20"
+exceptiongroup = {version = "*", markers = "python_version <= \"3.10\""}
 typing_extensions = {version = "*", markers = "python_version >= \"3.7\" and python_version < \"3.8\""}
 
 [[package]]
@@ -98,15 +99,26 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "constructs"
-version = "10.0.108"
+version = "10.0.112"
 description = "A programming model for software-defined state"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-jsii = ">=1.55.1,<2.0.0"
+jsii = ">=1.56.0,<2.0.0"
 publication = ">=0.0.3"
+
+[[package]]
+name = "exceptiongroup"
+version = "1.0.0rc3"
+description = "Backport of PEP 654 (exception groups)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+test = ["pytest (>=6)", "coverage (>=6)"]
 
 [[package]]
 name = "importlib-metadata"
@@ -135,7 +147,7 @@ python-versions = "*"
 
 [[package]]
 name = "jsii"
-version = "1.55.1"
+version = "1.56.0"
 description = "Python client for jsii runtime"
 category = "main"
 optional = false
@@ -143,7 +155,7 @@ python-versions = "~=3.6"
 
 [package.dependencies]
 attrs = ">=21.2,<22.0"
-cattrs = {version = ">=1.8,<1.11", markers = "python_version >= \"3.7\""}
+cattrs = {version = ">=1.8,<22.2", markers = "python_version >= \"3.7\""}
 python-dateutil = "*"
 typing-extensions = ">=3.7,<5.0"
 
@@ -208,14 +220,14 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "pyparsing"
-version = "3.0.7"
-description = "Python parsing module"
+version = "3.0.8"
+description = "pyparsing module - Classes and methods to define and execute parsing grammars"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.6.8"
 
 [package.extras]
-diagrams = ["jinja2", "railroad-diagrams"]
+diagrams = ["railroad-diagrams", "jinja2"]
 
 [[package]]
 name = "pytest"
@@ -317,16 +329,20 @@ aws-cdk-lib = [
     {file = "aws_cdk.aws_kinesisfirehose_destinations_alpha-2.20.0a0-py3-none-any.whl", hash = "sha256:ea0e2b2d61c877ad7ab8972354276820f94c1d260d11a089a316e5d4370cd0f7"},
 ]
 cattrs = [
-    {file = "cattrs-1.10.0-py3-none-any.whl", hash = "sha256:35dd9063244263e63bd0bd24ea61e3015b00272cead084b2c40d788b0f857c46"},
-    {file = "cattrs-1.10.0.tar.gz", hash = "sha256:211800f725cdecedcbcf4c753bbd22d248312b37d130f06045434acb7d9b34e1"},
+    {file = "cattrs-22.1.0-py3-none-any.whl", hash = "sha256:d55c477b4672f93606e992049f15d526dc7867e6c756cd6256d4af92e2b1e364"},
+    {file = "cattrs-22.1.0.tar.gz", hash = "sha256:94b67b64cf92c994f8784c40c082177dc916e0489a73a9a36b24eb18a9db40c6"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 constructs = [
-    {file = "constructs-10.0.108-py3-none-any.whl", hash = "sha256:b6a6bfe65e6e4643e023380a55b5b8d9c9971a6cc7ef1607b31939103448a4c2"},
-    {file = "constructs-10.0.108.tar.gz", hash = "sha256:aa196be1e848831ad7ffe6c729229b69fc3e1db275a5e688eefbe37a0fa18f24"},
+    {file = "constructs-10.0.112-py3-none-any.whl", hash = "sha256:dc098a341e4b873c122527830cb9cd0ed2408feb0c60253ecc06d2ac2c8cba53"},
+    {file = "constructs-10.0.112.tar.gz", hash = "sha256:0c4503935322b74ab569a36d4d2cbe3353c858e10c1fbfb0d3be987add8d8626"},
+]
+exceptiongroup = [
+    {file = "exceptiongroup-1.0.0rc3-py3-none-any.whl", hash = "sha256:f734ede30b0d3f21f91d17bb83216e3ee780df0738a293e15d08925279623782"},
+    {file = "exceptiongroup-1.0.0rc3.tar.gz", hash = "sha256:ed5799dc1260d2421564c21567f7ec84cffb39f149cf0e5e7e0aa6548e1f7288"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.11.3-py3-none-any.whl", hash = "sha256:1208431ca90a8cca1a6b8af391bb53c1a2db74e5d1cef6ddced95d4b2062edc6"},
@@ -337,8 +353,8 @@ iniconfig = [
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
 ]
 jsii = [
-    {file = "jsii-1.55.1-py3-none-any.whl", hash = "sha256:1b735bb3ebcebaff02193c8bfbd8760f59bbed32ba38455557fb2ba16f9f97f1"},
-    {file = "jsii-1.55.1.tar.gz", hash = "sha256:251db2cc04a7bcb10e3ec9b1831153b02e920c0c9279ee76d91172d8e2130c44"},
+    {file = "jsii-1.56.0-py3-none-any.whl", hash = "sha256:8e61eb860a9a76c66cde44ce3a1e6f66b4b5ab3683131ca49124785f75f3792c"},
+    {file = "jsii-1.56.0.tar.gz", hash = "sha256:d393c72aa1864de301b95b65b161efc8838999b32099cd8d7cda6a03cea3cff9"},
 ]
 marshmallow = [
     {file = "marshmallow-3.15.0-py3-none-any.whl", hash = "sha256:ff79885ed43b579782f48c251d262e062bce49c65c52412458769a4fb57ac30f"},
@@ -361,8 +377,8 @@ py = [
     {file = "py-1.11.0.tar.gz", hash = "sha256:51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719"},
 ]
 pyparsing = [
-    {file = "pyparsing-3.0.7-py3-none-any.whl", hash = "sha256:a6c06a88f252e6c322f65faf8f418b16213b51bdfaece0524c1c1bc30c63c484"},
-    {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
+    {file = "pyparsing-3.0.8-py3-none-any.whl", hash = "sha256:ef7b523f6356f763771559412c0d7134753f037822dad1b16945b7b846f7ad06"},
+    {file = "pyparsing-3.0.8.tar.gz", hash = "sha256:7bf433498c016c4314268d95df76c81b842a4cb2b276fa3312cfb1e1d85f6954"},
 ]
 pytest = [
     {file = "pytest-6.2.5-py3-none-any.whl", hash = "sha256:7310f8d27bc79ced999e760ca304d69f6ba6c6649c0b60fb0e04a4a77cacc134"},

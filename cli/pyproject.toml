@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws-ddk"
-version = "0.2.1"
+version = "0.3.0"
 description = "AWS DataOps Development Kit - CLI"
 authors = [
     "AWS Professional Services <aws-proserve-opensource@amazon.com>"
