@@ -188,7 +188,7 @@ class KinesisToS3Stage(DataStage):
         self._event_pattern = EventPattern(
             source=["aws.s3"],
             detail=event_detail,
-            detail_type=[],
+            detail_type=["Object Created"],
         )
 
         # Cloudwatch Alarms

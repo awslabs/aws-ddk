@@ -49,7 +49,7 @@ class S3EventStage(DataStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
-        event_names : Optional[List[str]]
+        event_names : List[str]
             The list of events to capture, for example: ["Object Created"].
             https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html
         bucket_name : str
@@ -74,7 +74,7 @@ class S3EventStage(DataStage):
         self._event_pattern = EventPattern(
             source=["aws.s3"],
             detail=detail,
-            detail_type=["Object Created"],
+            detail_type=event_names,
         )
 
     @property
