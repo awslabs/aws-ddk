@@ -10,7 +10,7 @@ readme = "README.md"
 
 keywords = ["aws", "ddk", "dataops"]
 
-homepage = "TBD"
+homepage = "https://github.com/awslabs/aws-ddk"
 repository = "https://github.com/awslabs/aws-ddk"
 documentation = "https://awslabs.github.io/aws-ddk/"
 
