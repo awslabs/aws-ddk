@@ -34,36 +34,7 @@ jobs:
           cd docs/source && pip install -r requirements_core.txt -r requirements_cli.txt -r requirements.txt
           cd ../
           ./bin/build_docs.sh $RELEASE_VERSION
-      - name: Install Additional Requirements
-        run: |
-          pip install pyyaml
-      - name: Set Stable Docs Version
-        uses: jannekem/run-python-script-action@v1
-        with:
-          script: |
-            import os 
-
-            from yaml import YAMLError, dump, safe_load
-
-            file = "docs/_data/versions.yaml"
-            version = os.environ.get("RELEASE_VERSION")
-            with open(file, "r") as stream:
-                try:
-                    content = safe_load(stream)
-                except YAMLError as exc:
-                    print(exc)
-
-            if "stable" in [entry["name"] for entry in content]:
-                print(f"setting stable version to: '{version}'")
-                for i in range(len(content)):
-                    if content[i]["name"] == "stable":
-                        content[i]["root"] = version
-            else:
-                print(f"no stable version present in configuration; adding {version} as stable")
-                content.append({"name": "stable", "root": version})
-
-            with open(file, "w") as output:
-                dump(content, output)
+          ./bin/build_docs.sh stable
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v3
         with:
