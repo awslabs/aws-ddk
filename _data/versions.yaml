@@ -5,7 +5,7 @@
 - name: 0.2.0
   root: 0.2.0
 - name: stable
-  root: 0.3.0
+  root: stable
 - name: latest
   root: latest
 - name: 0.3.0
