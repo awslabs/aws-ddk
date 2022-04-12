@@ -1,0 +1,37 @@
+﻿aws\_ddk\_core.stages.AppFlowIngestionStage
+===========================================
+
+.. currentmodule:: aws_ddk_core.stages
+
+.. autoclass:: AppFlowIngestionStage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AppFlowIngestionStage.__init__
+      ~AppFlowIngestionStage.add_alarm
+      ~AppFlowIngestionStage.get_event_pattern
+      ~AppFlowIngestionStage.get_targets
+      ~AppFlowIngestionStage.is_construct
+      ~AppFlowIngestionStage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~AppFlowIngestionStage.cloudwatch_alarms
+      ~AppFlowIngestionStage.flow
+      ~AppFlowIngestionStage.node
+      ~AppFlowIngestionStage.state_machine
+   
+   
