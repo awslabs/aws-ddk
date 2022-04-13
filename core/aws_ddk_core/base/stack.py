@@ -65,6 +65,20 @@ class BaseStack(Stack):
             https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html#bootstrapping-synthesizers
         kwargs : Any
             Additional arguments
+        
+        Supported DDK Environment Configuration
+        ----------
+        prefix: str
+            Prefix for stack identifier.
+        qualifier: str
+            Qualifier to disambiguate multiple environments in the same account. 
+            You can use this and leave the other naming properties empty if you 
+            have deployed the bootstrap environment with standard names but only differnet qualifiers
+        termination_protection: str
+            If this value is set, stack termination protection will be enabled. 
+        tags: Dict[str, str]
+            Tag key/value pairs.
+
         """
         _logger.debug(f"Instantiating {id} stack")
 
