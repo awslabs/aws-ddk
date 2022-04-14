@@ -57,8 +57,6 @@ class S3EventStage(DataStage):
             on the bucket in order to use this construct.
         key_prefix : Optional[str]
             The S3 prefix. Capture root level prefix ("/") by default
-        cloudtrail_trail: Optional[Trail]
-            Preexisting CloudTrail Trail to use in stage
         """
         super().__init__(scope, id, **kwargs)
         self._bucket = Bucket.from_bucket_name(self, id=f"{id}-bucket", bucket_name=bucket_name)
