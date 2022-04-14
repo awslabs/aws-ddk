@@ -195,3 +195,67 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
             }
         },
     )
+
+
+def test_rshift_pipeline(test_stack: BaseStack) -> None:
+    bucket = S3Factory.bucket(
+        scope=test_stack,
+        id="dummy-bucket",
+        environment_id="dev",
+    )
+
+    s3_event_stage = S3EventStage(
+        scope=test_stack,
+        id="dummy-s3-event",
+        environment_id="dev",
+        event_names=["CopyObject", "PutObject"],
+        bucket_name=bucket.bucket_name,
+    )
+    sqs_lambda_stage = SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+    )
+    bucket.grant_read_write(sqs_lambda_stage.function)
+    glue_stage = GlueTransformStage(
+        scope=test_stack,
+        id="dummy-glue",
+        environment_id="dev",
+        job_name="dummy-glue-job",
+        crawler_name="dummy-glue-crawler",
+    )
+
+    # Chain stages with bitshift operator
+    s3_event_stage >> sqs_lambda_stage >> glue_stage
+
+    # Check both event rules were created
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Events::Rule",
+        props={
+            "Targets": [
+                {
+                    "Arn": {
+                        "Fn::GetAtt": [
+                            "dummysqslambdadummysqslambdaqueue97906E01",
+                            "Arn",
+                        ]
+                    },
+                }
+            ],
+        },
+    )
+    template.has_resource_properties(
+        "AWS::Events::Rule",
+        props={
+            "Targets": [
+                {
+                    "Arn": {
+                        "Ref": "dummygluedummygluestatemachine23F75506",
+                    },
+                }
+            ],
+        },
+    )
