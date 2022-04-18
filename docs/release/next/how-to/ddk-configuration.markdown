@@ -64,7 +64,7 @@ Resource constructs allow DDK configuration to set AWS resource properties. Thes
     }
 }
 ```
-Any underlying CDK resource matching the id: "ddk-glue-transform-job" would be passed the properties "*timeout*" and "*worker_count*".
+Any underlying CDK resource matching the id: "*ddk-glue-transform-job*" would be passed the properties "*timeout*" and "*worker_count*".
 
 ### Property Precedence
 Explicit properties will always take precedence over config values. 
@@ -75,7 +75,7 @@ data_stream = KinesisStreamsFactory.data_stream(
     self, id=f"example-data-stream", environment_id=environment_id, shard_count=10
 )
 ```
-The above Kinesis Data Stream will be created with value '*shard_count=10*' even if ddk.json has a different value
+The above Kinesis Data Stream will be created with value '*shard_count=10*' even if *ddk.json* has a different value
 
 This configuration value would be overridden
 ```json
