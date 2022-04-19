@@ -118,7 +118,7 @@ class DataStage(Construct):
         """
         pass
 
-    def __rshift__(self, stage: "DataStage"):
+    def __rshift__(self, stage: "DataStage") -> "DataStage":
         """
         Chain DataStage instances
 
@@ -133,7 +133,7 @@ class DataStage(Construct):
             event_pattern=self.get_event_pattern(),
             targets=stage.get_targets(),
         )
-        return stage
+        return self
 
     def add_alarm(
         self,
