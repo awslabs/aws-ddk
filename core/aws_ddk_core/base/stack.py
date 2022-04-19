@@ -67,6 +67,7 @@ class BaseStack(Stack):
             Additional arguments
 
         Supported DDK Environment Configuration
+        https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html
         ----------
         prefix: str
             Prefix for stack identifier.

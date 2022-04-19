@@ -122,6 +122,7 @@ class CICDPipelineStack(BaseStack):
             Additional args
 
         Supported DDK Environment Configuration
+        https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html
         ----------
         cdk_version: str
             Version of the AWS CDK to use in the deployment pipeline.
