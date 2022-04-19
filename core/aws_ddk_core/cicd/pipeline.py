@@ -120,6 +120,27 @@ class CICDPipelineStack(BaseStack):
             Environment
         kwargs: Any
             Additional args
+
+        Supported DDK Environment Configuration
+        https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html
+        ----------
+        cdk_version: str
+            Version of the AWS CDK to use in the deployment pipeline.
+        repository: str
+            Name of the CodeArtifact repository to pull artifacts from.
+        domain: str
+            Name of the CodeArtifact domain.
+        domain_owner: str
+            CodeArtifact domain owner account.
+        manual_approvals: str
+            Configure manual approvals if this parameter is set.
+        notifications_topic_arn: str
+            Existing SNS topic arn to use for pipeline notifications.
+        execute_security_lint: str
+            Configure security lint stage of pipeline if this parameter is set.
+        execute_tests: str
+            Configure tests stage of pipeline if this parameter is set.
+
         """
         self._config = Config()
         super().__init__(
