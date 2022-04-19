@@ -177,7 +177,7 @@ class KinesisToS3Stage(DataStage):
 
         event_detail: Dict[str, Any] = {
             "bucket": {
-                "name": [bucket_name],
+                "name": [self.bucket.bucket_name],
             },
         }
         if data_output_prefix:

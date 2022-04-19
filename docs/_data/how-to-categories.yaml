@@ -1,5 +1,8 @@
 - name: Introduction
   category: Introduction
 
+- name: Intermediate Topics
+  category: Intermediate 
+  
 - name: Advanced Topics
   category: Advanced

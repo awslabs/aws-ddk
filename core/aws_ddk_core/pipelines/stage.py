@@ -16,7 +16,7 @@ from abc import abstractmethod
 from typing import List, Optional
 
 from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator, IAlarm, IMetric
-from aws_cdk.aws_events import EventPattern, IRuleTarget
+from aws_cdk.aws_events import EventPattern, IRuleTarget, Rule
 from constructs import Construct
 
 
@@ -117,6 +117,23 @@ class DataStage(Construct):
             Event pattern
         """
         pass
+
+    def __rshift__(self, stage: "DataStage") -> "DataStage":
+        """
+        Chain DataStage instances
+
+        Returns
+        -------
+        stage : DataStage
+            Next stage
+        """
+        self.rule = Rule(
+            self,
+            id=f"{self.id}-{stage.id}-rule",
+            event_pattern=self.get_event_pattern(),
+            targets=stage.get_targets(),
+        )
+        return self
 
     def add_alarm(
         self,
