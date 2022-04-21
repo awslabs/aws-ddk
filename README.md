@@ -82,6 +82,12 @@ You can then deploy your DDK app:
 ddk deploy
 ```
 
+### Official Resources
+- [Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US)
+- [Documentation](https://awslabs.github.io/aws-ddk/)
+- [API Reference](https://awslabs.github.io/aws-ddk/release/stable/api/index)
+- [Examples](https://github.com/aws-samples/aws-ddk-examples/)
+
 ## Getting Help
 
 The best way to interact with our team is through GitHub.  You can open an issue and choose from one of our templates for bug reports, feature requests, or documentation issues.  If you have a feature request, don't forget you can search existing issues and upvote or comment on existing issues before creating a new one.
