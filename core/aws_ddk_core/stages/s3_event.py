@@ -14,13 +14,13 @@
 
 from typing import Any, Dict, List, Optional
 
-from aws_cdk.aws_events import EventPattern, IRuleTarget
+from aws_cdk.aws_events import EventPattern
 from aws_cdk.aws_s3 import Bucket
-from aws_ddk_core.pipelines import DataStage
+from aws_ddk_core.pipelines import EventStage
 from constructs import Construct
 
 
-class S3EventStage(DataStage):
+class S3EventStage(EventStage):
     """
     Class that represents an S3 Event DDK Stage.
     """
@@ -85,6 +85,3 @@ class S3EventStage(DataStage):
 
     def get_event_pattern(self) -> Optional[EventPattern]:
         return self._event_pattern
-
-    def get_targets(self) -> Optional[List[IRuleTarget]]:
-        return None
