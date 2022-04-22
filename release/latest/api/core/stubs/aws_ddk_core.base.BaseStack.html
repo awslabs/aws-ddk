@@ -231,11 +231,20 @@ and permissions boundary.</p>
 <li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
 <li><p><strong>id</strong> (<em>str</em>) – Identifier of the stack</p></li>
 <li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
-<li><p><strong>termination_protection</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Stack termination protection</p></li>
+<li><p><strong>termination_protection</strong> (<em>str</em>) – Stack termination protection</p></li>
 <li><p><strong>permissions_boundary_arn</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – ARN of the permissions boundary managed policy</p></li>
 <li><p><strong>synthesizer</strong> (<em>Optional</em><em>[</em><em>DefaultStackSynthesizer</em><em>]</em>) – CDK synthesizer configuration
 <a class="reference external" href="https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html#bootstrapping-synthesizers">https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html#bootstrapping-synthesizers</a></p></li>
 <li><p><strong>kwargs</strong> (<em>Any</em>) – Additional arguments</p></li>
+<li><p><strong>Configuration</strong> (<em>Supported DDK Environment</em>) – </p></li>
+<li><p><strong>https</strong> (<em>//awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html</em>) – </p></li>
+<li><p><strong>----------</strong> – </p></li>
+<li><p><strong>prefix</strong> (<em>str</em>) – Prefix for stack identifier.</p></li>
+<li><p><strong>qualifier</strong> (<em>str</em>) – Qualifier to disambiguate multiple environments in the same account.
+You can use this and leave the other naming properties empty if you
+have deployed the bootstrap environment with standard names but only differnet qualifiers</p></li>
+<li><p><strong>termination_protection</strong> – If this value is set, stack termination protection will be enabled.</p></li>
+<li><p><strong>tags</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – Tag key/value pairs.</p></li>
 </ul>
 </dd>
 </dl>

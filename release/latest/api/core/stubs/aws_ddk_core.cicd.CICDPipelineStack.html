@@ -259,6 +259,17 @@ several DDK-specific features, including:</p>
 <li><p><strong>pipeline_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name  of the pipeline</p></li>
 <li><p><strong>env</strong> (<em>Optional</em><em>[</em><em>Environment</em><em>]</em>) – Environment</p></li>
 <li><p><strong>kwargs</strong> (<em>Any</em>) – Additional args</p></li>
+<li><p><strong>Configuration</strong> (<em>Supported DDK Environment</em>) – </p></li>
+<li><p><strong>https</strong> (<em>//awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html</em>) – </p></li>
+<li><p><strong>----------</strong> – </p></li>
+<li><p><strong>cdk_version</strong> (<em>str</em>) – Version of the AWS CDK to use in the deployment pipeline.</p></li>
+<li><p><strong>repository</strong> (<em>str</em>) – Name of the CodeArtifact repository to pull artifacts from.</p></li>
+<li><p><strong>domain</strong> (<em>str</em>) – Name of the CodeArtifact domain.</p></li>
+<li><p><strong>domain_owner</strong> (<em>str</em>) – CodeArtifact domain owner account.</p></li>
+<li><p><strong>manual_approvals</strong> (<em>str</em>) – Configure manual approvals if this parameter is set.</p></li>
+<li><p><strong>notifications_topic_arn</strong> (<em>str</em>) – Existing SNS topic arn to use for pipeline notifications.</p></li>
+<li><p><strong>execute_security_lint</strong> (<em>str</em>) – Configure security lint stage of pipeline if this parameter is set.</p></li>
+<li><p><strong>execute_tests</strong> (<em>str</em>) – Configure tests stage of pipeline if this parameter is set.</p></li>
 </ul>
 </dd>
 </dl>

@@ -97,7 +97,7 @@ class DDKApplicationStack(BaseStack):
             scope=self,
             id="ddk-s3-event",
             environment_id=environment_id,
-            event_names=["CopyObject", "PutObject"],
+            event_names=["Object Created"],
             bucket_name=ddk_bucket.bucket_name,
             key_prefix="raw",
         )
