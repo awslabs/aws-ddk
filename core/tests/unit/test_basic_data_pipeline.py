@@ -39,7 +39,7 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         scope=test_stack,
         id="dummy-s3-event",
         environment_id="dev",
-        event_names=["CopyObject", "PutObject"],
+        event_names=["Object Created"],
         bucket_name=bucket.bucket_name,
     )
     sqs_lambda_stage = SqsToLambdaStage(
@@ -208,7 +208,7 @@ def test_rshift_pipeline(test_stack: BaseStack) -> None:
         scope=test_stack,
         id="dummy-s3-event",
         environment_id="dev",
-        event_names=["CopyObject", "PutObject"],
+        event_names=["Object Created"],
         bucket_name=bucket.bucket_name,
     )
     sqs_lambda_stage = SqsToLambdaStage(

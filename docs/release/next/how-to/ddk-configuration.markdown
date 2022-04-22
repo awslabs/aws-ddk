@@ -6,6 +6,7 @@ order: 3
 category: Intermediate
 ---
 
+## Purpose
 DDK promotes a [trunk based](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development) development approach where small changes are frequently applied to the `main` branch.
 As a result, this core branch is the one source of truth and the same infrastructure as code is used across multiple environments. However, there is often a need to apply distinct configuration
 to different environments (i.e. `dev`, `qa`, `prd`...). This How-To guide describes how this can be achieved in the DDK.
