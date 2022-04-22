@@ -39,6 +39,28 @@ To send us a pull request, please:
 GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/) and
 [creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
+## Setting up a test environment
+A number of unit tests are available in both the `cli` and `core` directories. For each directory, follow these instructions to run these tests on your local machine:
+
+1. Navigate to the relevant directory (`cli` or `core`)
+```
+cd core
+```
+
+2. Create a virtual environment:
+```
+poetry env use python
+```
+
+3. Install the libraries:
+```
+poetry install
+```
+
+4. Run the test suite:
+```
+pytest
+```
 
 ## Finding contributions to work on
 Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any 'help wanted' issues is a great place to start.
