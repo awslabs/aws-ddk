@@ -16,7 +16,6 @@ import logging
 from typing import Any, Dict, Optional, Union
 
 import aws_cdk.aws_dms as dms
-from aws_cdk.core import IResolvable
 from aws_ddk_core.config import Config
 from aws_ddk_core.resources.commons import BaseSchema
 from constructs import Construct
@@ -39,11 +38,12 @@ class DMSFactory:
 
     @staticmethod
     def endpoint(
+        scope: Construct,
         id: str,
         environment_id: str,
         endpoint_type: str,
         engine_name: str,
-        s3_settings: Union[IResolvable, dms.S3SettingsProperty, None],
+        s3_settings: Union[dms.CfnEndpoint.S3SettingsProperty, None],
         **endpoint_props: Any,
     ) -> dms.CfnEndpoint:
         """
@@ -55,6 +55,8 @@ class DMSFactory:
 
         Parameters
         ----------
+        scope : Construct
+            Scope within which this construct is defined
         id: str
             Identifier of the destination
         environment_id: str
@@ -66,7 +68,7 @@ class DMSFactory:
             Valid values : mysql | oracle | postgres | mariadb | aurora | aurora-postgresql 
             | opensearch | redshift | s3 | db2 | azuredb | sybase | dynamodb | mongodb 
             | kinesis | kafka | elasticsearch | docdb | sqlserver | neptune
-        s3_settings: Union[IResolvable, dms.S3SettingsProperty, None]
+        s3_settings: Union[dms.S3SettingsProperty, None]
              Settings in JSON format for the source and target Amazon S3 endpoint. 
              For more information about other available settings, see
              https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_dms/CfnEndpoint.html#s3settingsproperty
@@ -85,7 +87,8 @@ class DMSFactory:
             Config().get_resource_config(
                 environment_id=environment_id,
                 id=id,
-            )
+            ),
+            partial=["removal_policy"],
         )
 
         # Collect args
@@ -103,6 +106,6 @@ class DMSFactory:
 
         # create dms endpoint
         _logger.debug(f" dms endpoint properties: {endpoint_props}")
-        endpoint: dms.CfnEndpoint = dms.CfnEndpoint(**endpoint_config_props)
+        endpoint: dms.CfnEndpoint = dms.CfnEndpoint(scope, id, **endpoint_config_props)
 
         return endpoint

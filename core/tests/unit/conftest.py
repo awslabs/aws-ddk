@@ -23,7 +23,7 @@ from constructs import Construct
 from pytest import fixture
 
 config = {
-    "cdk_version": "2.8.0",
+    "cdk_version": "2.20.0",
     "environments": {
         "dev": {
             "account": "111111111111",

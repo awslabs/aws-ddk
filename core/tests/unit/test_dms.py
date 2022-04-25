@@ -34,7 +34,7 @@ def test_s3_source_endpoint(test_stack: BaseStack) -> None:
         endpoint_type="source",
         engine_name="s3",
         s3_settings=dms.CfnEndpoint.S3SettingsProperty(
-            bucket_name=bucket.name,
+            bucket_name=bucket.bucket_name,
         ),
     )
 
@@ -42,6 +42,12 @@ def test_s3_source_endpoint(test_stack: BaseStack) -> None:
     template.has_resource_properties(
         "AWS::DMS::Endpoint",
         props={
-            "DeliveryStreamName": "dummy-stream"
+            "EndpointType": "source",
+            "EngineName": "s3",
+            "S3Settings": {
+              "BucketName": {
+                "Ref": "dummybucket12E106EF4"
+              }
+            },
         },
     )
