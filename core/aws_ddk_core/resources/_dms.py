@@ -75,7 +75,7 @@ class DMSFactory:
         **endpoint_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             DMS Endpoints:
-            https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_dms/CfnEndpoint.html
+            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_dms/CfnEndpoint.html
 
         Returns
         -------
@@ -109,3 +109,64 @@ class DMSFactory:
         endpoint: dms.CfnEndpoint = dms.CfnEndpoint(scope, id, **endpoint_config_props)
 
         return endpoint
+      
+    @staticmethod
+    def replication_task(
+        scope: Construct,
+        id: str,
+        environment_id: str,
+        **replication_task_props: Any,
+    ) -> dms.CfnEndpoint:
+        """
+        Create and configure DMS replication task.
+
+        This construct allows to configure parameters of the dms replication task using ddk.json
+        configuration file depending on the `environment_id` in which the function is used.
+        Supported parameters are: ...
+
+        Parameters
+        ----------
+        scope : Construct
+            Scope within which this construct is defined
+        id: str
+            Identifier of the destination
+        environment_id: str
+            Identifier of the environment
+        **replication_task_props: Any
+            Additional properties. For complete list of properties refer to CDK Documentation -
+            DMS Endpoints:
+            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_dms/CfnReplicationTask.html
+
+        Returns
+        -------
+        dms.CfnReplicationTask: dms.CfnReplicationTask
+            A DMS Replication Task
+        """
+        # Load and validate the config
+        replication_task_config_props: Dict[str, Any] = DMSEndpointConfiguration().load(
+            Config().get_resource_config(
+                environment_id=environment_id,
+                id=id,
+            ),
+            partial=["removal_policy"],
+        )
+
+        # Collect args
+        replication_task_props = {
+            "endpoint_type": endpoint_type,
+            "engine_name": engine_name,
+            "s3_settings": s3_settings,
+            **replication_task_props,
+        }
+
+        # Explicit ("hardcoded") props should always take precedence over config
+        for key, value in replication_task_props.items():
+            if value is not None:
+                replication_task_config_props[key] = value
+
+        # create dms endpoint
+        _logger.debug(f" dms replication task properties: {replication_task_props}")
+        replication_task: dms.CfnReplicationTask = dms.CfnReplicationTask(scope, id, **replication_task_config_props)
+
+        return replication_task
+

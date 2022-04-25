@@ -51,3 +51,37 @@ def test_s3_source_endpoint(test_stack: BaseStack) -> None:
             },
         },
     )
+
+def test_s3_target_endpoint(test_stack: BaseStack) -> None:
+
+    bucket = S3Factory.bucket(
+        scope=test_stack,
+        id="dummy-bucket-1",
+        environment_id="dev",
+        bucket_name="my-dummy-bucket",
+    )
+
+    DMSFactory.endpoint(
+        scope=test_stack,
+        id="dummy-stream-1",
+        environment_id="dev",
+        endpoint_type="target",
+        engine_name="s3",
+        s3_settings=dms.CfnEndpoint.S3SettingsProperty(
+            bucket_name=bucket.bucket_name,
+        ),
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::DMS::Endpoint",
+        props={
+            "EndpointType": "target",
+            "EngineName": "s3",
+            "S3Settings": {
+              "BucketName": {
+                "Ref": "dummybucket12E106EF4"
+              }
+            },
+        },
+    )
