@@ -26,9 +26,9 @@ _logger: logging.Logger = logging.getLogger(__name__)
 class DMSEndpointConfiguration(BaseSchema):
     """DDK DMS Endpoint Marshmallow schema."""
 
+
 class DMSReplicationTaskConfiguration(BaseSchema):
     """DDK DMS ReplicationTask Marshmallow schema."""
-
 
 
 class DMSFactory:
@@ -64,12 +64,12 @@ class DMSFactory:
         endpoint_type: str
             The type of endpoint. Valid values are `source` and `target`.
         engine_name: str
-            The type of engine for the endpoint, depending on the EndpointType value. 
-            Valid values : mysql | oracle | postgres | mariadb | aurora | aurora-postgresql 
-            | opensearch | redshift | s3 | db2 | azuredb | sybase | dynamodb | mongodb 
+            The type of engine for the endpoint, depending on the EndpointType value.
+            Valid values : mysql | oracle | postgres | mariadb | aurora | aurora-postgresql
+            | opensearch | redshift | s3 | db2 | azuredb | sybase | dynamodb | mongodb
             | kinesis | kafka | elasticsearch | docdb | sqlserver | neptune
         s3_settings: Union[dms.S3SettingsProperty, None]
-             Settings in JSON format for the source and target Amazon S3 endpoint. 
+             Settings in JSON format for the source and target Amazon S3 endpoint.
              For more information about other available settings, see
              https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_dms/CfnEndpoint.html#s3settingsproperty
         **endpoint_props: Any
@@ -109,12 +109,17 @@ class DMSFactory:
         endpoint: dms.CfnEndpoint = dms.CfnEndpoint(scope, id, **endpoint_config_props)
 
         return endpoint
-      
+
     @staticmethod
     def replication_task(
         scope: Construct,
         id: str,
         environment_id: str,
+        replication_instance_arn: str,
+        source_endpoint_arn: str,
+        target_endpoint_arn: str,
+        table_mappings: str,
+        migration_type: str = "full-load",
         **replication_task_props: Any,
     ) -> dms.CfnEndpoint:
         """
@@ -132,6 +137,18 @@ class DMSFactory:
             Identifier of the destination
         environment_id: str
             Identifier of the environment
+        migration_type: str
+            The migration type. Valid values: full-load | cdc | full-load-and-cdc
+            Default: 'full-load'
+        replication_instance_arn: str
+            The Amazon Resource Name (ARN) of a replication instance.
+        source_endpoint_arn: str 
+            An Amazon Resource Name (ARN) that uniquely identifies the source endpoint.
+        target_endpoint_arn: str 
+            An Amazon Resource Name (ARN) that uniquely identifies the target endpoint.
+        table_mappings: str 
+            The table mappings for the task, in JSON format.
+        
         **replication_task_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             DMS Endpoints:
@@ -153,9 +170,11 @@ class DMSFactory:
 
         # Collect args
         replication_task_props = {
-            "endpoint_type": endpoint_type,
-            "engine_name": engine_name,
-            "s3_settings": s3_settings,
+            "migration_type": migration_type,
+            "replication_instance_arn": replication_instance_arn,
+            "source_endpoint_arn": source_endpoint_arn,
+            "target_endpoint_arn": target_endpoint_arn,
+            "table_mappings": table_mappings,
             **replication_task_props,
         }
 
@@ -169,4 +188,3 @@ class DMSFactory:
         replication_task: dms.CfnReplicationTask = dms.CfnReplicationTask(scope, id, **replication_task_config_props)
 
         return replication_task
-

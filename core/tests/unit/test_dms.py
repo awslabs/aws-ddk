@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from aws_cdk.assertions import Match, Template
 import aws_cdk.aws_dms as dms
+from aws_cdk.assertions import Match, Template
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.resources import DMSFactory, S3Factory
 
@@ -44,13 +44,10 @@ def test_s3_source_endpoint(test_stack: BaseStack) -> None:
         props={
             "EndpointType": "source",
             "EngineName": "s3",
-            "S3Settings": {
-              "BucketName": {
-                "Ref": "dummybucket12E106EF4"
-              }
-            },
+            "S3Settings": {"BucketName": {"Ref": "dummybucket12E106EF4"}},
         },
     )
+
 
 def test_s3_target_endpoint(test_stack: BaseStack) -> None:
 
@@ -78,10 +75,6 @@ def test_s3_target_endpoint(test_stack: BaseStack) -> None:
         props={
             "EndpointType": "target",
             "EngineName": "s3",
-            "S3Settings": {
-              "BucketName": {
-                "Ref": "dummybucket12E106EF4"
-              }
-            },
+            "S3Settings": {"BucketName": {"Ref": "dummybucket12E106EF4"}},
         },
     )
