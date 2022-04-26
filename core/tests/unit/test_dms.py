@@ -14,7 +14,7 @@
 import json
 
 import aws_cdk.aws_dms as dms
-from aws_cdk.assertions import Match, Template
+from aws_cdk.assertions import Template
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.resources import DMSFactory, S3Factory
 
@@ -120,33 +120,30 @@ def test_s3_to_s3_replication(test_stack: BaseStack) -> None:
     )
 
     replication_instance = DMSFactory.replication_instance(
-        scope=test_stack, id="dummy-stream-1", environment_id="dev", replication_instance_class="m5.large"
+        scope=test_stack, id="dummy-replication-instance-1", environment_id="dev", replication_instance_class="m5.large"
     )
 
-    # DMSFactory.replication_task(
-    #     scope=test_stack,
-    #     id="dummy-stream-1",
-    #     environment_id="dev",
-    #     replication_instance_arn=replication_instance.get_att('Arn'),
-    #     source_endpoint_arn=source_endpoint.get_att('Arn'),
-    #     target_endpoint_arn=target_endpoint.get_att('Arn'),
-    #     table_mappings=json.dumps(
-    #         {
-    #           "rules": [
-    #               {
-    #                   "rule-type": "selection",
-    #                   "rule-id": "1",
-    #                   "rule-name": "1",
-    #                   "object-locator": {
-    #                       "schema-name": "Test",
-    #                       "table-name": "%"
-    #                   },
-    #                   "rule-action": "include"
-    #               }
-    #           ]
-    #       },
-    #     )
-    # )
+    DMSFactory.replication_task(
+        scope=test_stack,
+        id="dummy-replication-task-1",
+        environment_id="dev",
+        replication_instance_arn=replication_instance.get_att("Arn").to_string(),
+        source_endpoint_arn=source_endpoint.get_att("Arn").to_string(),
+        target_endpoint_arn=target_endpoint.get_att("Arn").to_string(),
+        table_mappings=json.dumps(
+            {
+                "rules": [
+                    {
+                        "rule-type": "selection",
+                        "rule-id": "1",
+                        "rule-name": "1",
+                        "object-locator": {"schema-name": "Test", "table-name": "%"},
+                        "rule-action": "include",
+                    }
+                ]
+            },
+        ),
+    )
 
     template = Template.from_stack(test_stack)
     template.has_resource_properties(
@@ -169,5 +166,13 @@ def test_s3_to_s3_replication(test_stack: BaseStack) -> None:
         "AWS::DMS::ReplicationInstance",
         props={
             "ReplicationInstanceClass": "m5.large",
+        },
+    )
+    template.has_resource_properties(
+        "AWS::DMS::ReplicationTask",
+        props={
+            "ReplicationInstanceArn": {"Fn::GetAtt": ["dummyreplicationinstance1", "Arn"]},
+            "SourceEndpointArn": {"Fn::GetAtt": ["dummyendpointsource", "Arn"]},
+            "TargetEndpointArn": {"Fn::GetAtt": ["dummyendpointtarget", "Arn"]},
         },
     )
