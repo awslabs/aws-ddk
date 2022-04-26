@@ -16,6 +16,7 @@
    
       ~AthenaSQLStage.__init__
       ~AthenaSQLStage.add_alarm
+      ~AthenaSQLStage.build_state_machine
       ~AthenaSQLStage.get_event_pattern
       ~AthenaSQLStage.get_targets
       ~AthenaSQLStage.is_construct

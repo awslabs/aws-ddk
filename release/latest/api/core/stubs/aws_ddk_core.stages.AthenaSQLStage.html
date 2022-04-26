@@ -170,6 +170,8 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
@@ -258,16 +260,19 @@
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_alarm</span></code>(alarm_id, alarm_metric[, ...])</p></td>
 <td><p>Add a CloudWatch alarm for the Data Stage</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.AthenaSQLStage.get_event_pattern" title="aws_ddk_core.stages.AthenaSQLStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_state_machine</span></code>(id, environment_id, ...)</p></td>
+<td><p>Build state machine.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code>()</p></td>
 <td><p>Get output event pattern of the stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.AthenaSQLStage.get_targets" title="aws_ddk_core.stages.AthenaSQLStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code>()</p></td>
 <td><p>Get input targets of the stage.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
 <td><p>Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a construct.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
 <td><p>Returns a string representation of this construct.</p></td>
 </tr>
 </tbody>
@@ -285,51 +290,11 @@
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
 <td><p>The tree node.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.AthenaSQLStage.state_machine" title="aws_ddk_core.stages.AthenaSQLStage.state_machine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">state_machine</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">state_machine</span></code></p></td>
 <td><p>StateMachine The state machine</p></td>
 </tr>
 </tbody>
 </table></div>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.AthenaSQLStage.get_event_pattern">
-<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.AthenaSQLStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get output event pattern of the stage.</p>
-<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
-event patterns to select events and route them to targets.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Optional[EventPattern]</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.AthenaSQLStage.get_targets">
-<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.AthenaSQLStage.get_targets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get input targets of the stage.</p>
-<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.AthenaSQLStage.state_machine">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_machine</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_stepfunctions.StateMachine</span></em><a class="headerlink" href="#aws_ddk_core.stages.AthenaSQLStage.state_machine" title="Permalink to this definition">¶</a></dt>
-<dd><p>StateMachine
-The state machine</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Return</p>
-</dd>
-</dl>
-</dd></dl>
 </dd></dl>
 </section>
 

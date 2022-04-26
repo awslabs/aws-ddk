@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.GlueFactory" href="aws_ddk_core.resources.GlueFactory.html" /><link rel="prev" title="aws_ddk_core.pipelines.DataPipeline" href="aws_ddk_core.pipelines.DataPipeline.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.pipelines.EventStage" href="aws_ddk_core.pipelines.EventStage.html" /><link rel="prev" title="aws_ddk_core.pipelines.DataPipeline" href="aws_ddk_core.pipelines.DataPipeline.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
         <title>aws_ddk_core.pipelines.DataStage - Contents</title>
@@ -170,6 +170,8 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.pipelines.DataStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
@@ -217,7 +219,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataStage">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.pipelines.</span></span><span class="sig-name descname"><span class="pre">DataStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.pipelines.DataStage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class that represents a stage within a data pipeline.</p>
+<dd><p>Class that represents a data stage within a data pipeline.</p>
 <p>To create a DataStage, inherit from this class, add infrastructure required by the stage, and implement
 get_event_pattern and get_targets methods. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyStage</span><span class="p">(</span><span class="n">DataStage</span><span class="p">):</span>
@@ -227,6 +229,8 @@ get_event_pattern and get_targets methods. For example:</p>
         <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">environment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+
         <span class="c1"># Define stage infrastructure, for example a queue</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">SQSFactory</span><span class="o">.</span><span class="n">queue</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -279,10 +283,10 @@ get_event_pattern and get_targets methods. For example:</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataStage.add_alarm" title="aws_ddk_core.pipelines.DataStage.add_alarm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_alarm</span></code></a>(alarm_id, alarm_metric[, ...])</p></td>
 <td><p>Add a CloudWatch alarm for the Data Stage</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataStage.get_event_pattern" title="aws_ddk_core.pipelines.DataStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code>()</p></td>
 <td><p>Get output event pattern of the stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.DataStage.get_targets" title="aws_ddk_core.pipelines.DataStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code>()</p></td>
 <td><p>Get input targets of the stage.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
@@ -335,35 +339,6 @@ List of CloudWatch Alarms linked to the stage</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataStage.get_event_pattern">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.DataStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get output event pattern of the stage.</p>
-<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
-event patterns to select events and route them to targets.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Optional[EventPattern]</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.DataStage.get_targets">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.DataStage.get_targets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get input targets of the stage.</p>
-<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
-</dd>
-</dl>
-</dd></dl>
 </dd></dl>
 </section>
 
@@ -372,12 +347,12 @@ event patterns to select events and route them to targets.</p>
       <footer>
         
 <div class="related-pages">
-    <a class="next-page" href="aws_ddk_core.resources.GlueFactory.html">
+    <a class="next-page" href="aws_ddk_core.pipelines.EventStage.html">
         <div class="page-info">
             <div class="context">
                 <span>Next</span>
             </div>
-            <div class="title">aws_ddk_core.resources.GlueFactory</div>
+            <div class="title">aws_ddk_core.pipelines.EventStage</div>
         </div>
         <svg>
             <use href="#svg-arrow-right"></use>

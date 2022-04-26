@@ -16,6 +16,7 @@
    
       ~GlueTransformStage.__init__
       ~GlueTransformStage.add_alarm
+      ~GlueTransformStage.build_state_machine
       ~GlueTransformStage.get_event_pattern
       ~GlueTransformStage.get_targets
       ~GlueTransformStage.is_construct

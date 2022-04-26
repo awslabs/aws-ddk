@@ -168,6 +168,8 @@
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/stubs/aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
@@ -453,6 +455,10 @@
 </li>
           <li><a href="core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage.__init__">(aws_ddk_core.pipelines.DataStage method)</a>
 </li>
+          <li><a href="core/stubs/aws_ddk_core.pipelines.EventStage.html#aws_ddk_core.pipelines.EventStage.__init__">(aws_ddk_core.pipelines.EventStage method)</a>
+</li>
+          <li><a href="core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage.__init__">(aws_ddk_core.pipelines.StateMachineStage method)</a>
+</li>
           <li><a href="core/stubs/aws_ddk_core.resources.GlueFactory.html#aws_ddk_core.resources.GlueFactory.__init__">(aws_ddk_core.resources.GlueFactory method)</a>
 </li>
           <li><a href="core/stubs/aws_ddk_core.resources.KinesisFirehoseFactory.html#aws_ddk_core.resources.KinesisFirehoseFactory.__init__">(aws_ddk_core.resources.KinesisFirehoseFactory method)</a>
@@ -541,6 +547,8 @@
         <li><a href="core/stubs/aws_ddk_core.resources.S3Factory.html#aws_ddk_core.resources.S3Factory.bucket">bucket() (aws_ddk_core.resources.S3Factory static method)</a>
 </li>
         <li><a href="core/stubs/aws_ddk_core.cicd.CICDPipelineStack.html#aws_ddk_core.cicd.CICDPipelineStack.build">build() (aws_ddk_core.cicd.CICDPipelineStack method)</a>
+</li>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage.build_state_machine">build_state_machine() (aws_ddk_core.pipelines.StateMachineStage method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -704,6 +712,10 @@
 </li>
         </ul></li>
     </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.EventStage.html#aws_ddk_core.pipelines.EventStage">EventStage (class in aws_ddk_core.pipelines)</a>
+</li>
+    </ul></td>
   </tr></table>
 </section>
 
@@ -735,15 +747,9 @@
 </li>
         <li><a href="core/stubs/aws_ddk_core.config.Config.html#aws_ddk_core.config.Config.get_env_config">get_env_config() (aws_ddk_core.config.Config method)</a>
 </li>
-        <li><a href="core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage.get_event_pattern">get_event_pattern() (aws_ddk_core.pipelines.DataStage method)</a>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage.get_event_pattern">get_event_pattern() (aws_ddk_core.pipelines.StateMachineStage method)</a>
 
         <ul>
-          <li><a href="core/stubs/aws_ddk_core.stages.AppFlowIngestionStage.html#aws_ddk_core.stages.AppFlowIngestionStage.get_event_pattern">(aws_ddk_core.stages.AppFlowIngestionStage method)</a>
-</li>
-          <li><a href="core/stubs/aws_ddk_core.stages.AthenaSQLStage.html#aws_ddk_core.stages.AthenaSQLStage.get_event_pattern">(aws_ddk_core.stages.AthenaSQLStage method)</a>
-</li>
-          <li><a href="core/stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage.get_event_pattern">(aws_ddk_core.stages.GlueTransformStage method)</a>
-</li>
           <li><a href="core/stubs/aws_ddk_core.stages.KinesisToS3Stage.html#aws_ddk_core.stages.KinesisToS3Stage.get_event_pattern">(aws_ddk_core.stages.KinesisToS3Stage method)</a>
 </li>
           <li><a href="core/stubs/aws_ddk_core.stages.S3EventStage.html#aws_ddk_core.stages.S3EventStage.get_event_pattern">(aws_ddk_core.stages.S3EventStage method)</a>
@@ -757,18 +763,12 @@
 </li>
         <li><a href="core/stubs/aws_ddk_core.config.Config.html#aws_ddk_core.config.Config.get_tags">get_tags() (aws_ddk_core.config.Config method)</a>
 </li>
-        <li><a href="core/stubs/aws_ddk_core.pipelines.DataStage.html#aws_ddk_core.pipelines.DataStage.get_targets">get_targets() (aws_ddk_core.pipelines.DataStage method)</a>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.EventStage.html#aws_ddk_core.pipelines.EventStage.get_targets">get_targets() (aws_ddk_core.pipelines.EventStage method)</a>
 
         <ul>
-          <li><a href="core/stubs/aws_ddk_core.stages.AppFlowIngestionStage.html#aws_ddk_core.stages.AppFlowIngestionStage.get_targets">(aws_ddk_core.stages.AppFlowIngestionStage method)</a>
-</li>
-          <li><a href="core/stubs/aws_ddk_core.stages.AthenaSQLStage.html#aws_ddk_core.stages.AthenaSQLStage.get_targets">(aws_ddk_core.stages.AthenaSQLStage method)</a>
-</li>
-          <li><a href="core/stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage.get_targets">(aws_ddk_core.stages.GlueTransformStage method)</a>
+          <li><a href="core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage.get_targets">(aws_ddk_core.pipelines.StateMachineStage method)</a>
 </li>
           <li><a href="core/stubs/aws_ddk_core.stages.KinesisToS3Stage.html#aws_ddk_core.stages.KinesisToS3Stage.get_targets">(aws_ddk_core.stages.KinesisToS3Stage method)</a>
-</li>
-          <li><a href="core/stubs/aws_ddk_core.stages.S3EventStage.html#aws_ddk_core.stages.S3EventStage.get_targets">(aws_ddk_core.stages.S3EventStage method)</a>
 </li>
           <li><a href="core/stubs/aws_ddk_core.stages.SqsToLambdaStage.html#aws_ddk_core.stages.SqsToLambdaStage.get_targets">(aws_ddk_core.stages.SqsToLambdaStage method)</a>
 </li>
@@ -874,15 +874,11 @@
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="core/stubs/aws_ddk_core.stages.AppFlowIngestionStage.html#aws_ddk_core.stages.AppFlowIngestionStage.state_machine">state_machine (aws_ddk_core.stages.AppFlowIngestionStage property)</a>
-
-        <ul>
-          <li><a href="core/stubs/aws_ddk_core.stages.AthenaSQLStage.html#aws_ddk_core.stages.AthenaSQLStage.state_machine">(aws_ddk_core.stages.AthenaSQLStage property)</a>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage.state_machine">state_machine (aws_ddk_core.pipelines.StateMachineStage property)</a>
 </li>
-          <li><a href="core/stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage.state_machine">(aws_ddk_core.stages.GlueTransformStage property)</a>
-</li>
-        </ul></li>
         <li><a href="core/stubs/aws_ddk_core.resources.StepFunctionsFactory.html#aws_ddk_core.resources.StepFunctionsFactory.state_machine">state_machine() (aws_ddk_core.resources.StepFunctionsFactory static method)</a>
+</li>
+        <li><a href="core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage">StateMachineStage (class in aws_ddk_core.pipelines)</a>
 </li>
         <li><a href="core/stubs/aws_ddk_core.resources.StepFunctionsFactory.html#aws_ddk_core.resources.StepFunctionsFactory">StepFunctionsFactory (class in aws_ddk_core.resources)</a>
 </li>

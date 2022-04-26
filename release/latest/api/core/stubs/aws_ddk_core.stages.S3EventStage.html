@@ -170,6 +170,8 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
@@ -249,19 +251,16 @@ on the bucket in order to use this construct.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.__init__" title="aws_ddk_core.stages.S3EventStage.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id, environment_id, ...[, ...])</p></td>
 <td><p>DDK S3 Event stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_alarm</span></code>(alarm_id, alarm_metric[, ...])</p></td>
-<td><p>Add a CloudWatch alarm for the Data Stage</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.get_event_pattern" title="aws_ddk_core.stages.S3EventStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.get_event_pattern" title="aws_ddk_core.stages.S3EventStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
 <td><p>Get output event pattern of the stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.get_targets" title="aws_ddk_core.stages.S3EventStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code>()</p></td>
 <td><p>Get input targets of the stage.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
 <td><p>Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a construct.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
 <td><p>Returns a string representation of this construct.</p></td>
 </tr>
 </tbody>
@@ -273,13 +272,10 @@ on the bucket in order to use this construct.</p></li>
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cloudwatch_alarms</span></code></p></td>
-<td><p>List[Alarm] List of CloudWatch Alarms linked to the stage</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.event_pattern" title="aws_ddk_core.stages.S3EventStage.event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">event_pattern</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.S3EventStage.event_pattern" title="aws_ddk_core.stages.S3EventStage.event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">event_pattern</span></code></a></p></td>
 <td><p>EventPattern The S3 event pattern</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
 <td><p>The tree node.</p></td>
 </tr>
 </tbody>
@@ -307,20 +303,6 @@ event patterns to select events and route them to targets.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Optional[EventPattern]</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.stages.S3EventStage.get_targets">
-<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.stages.S3EventStage.get_targets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get input targets of the stage.</p>
-<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
 </dd>
 </dl>
 </dd></dl>

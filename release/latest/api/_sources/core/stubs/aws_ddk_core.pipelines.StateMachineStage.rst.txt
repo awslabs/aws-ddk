@@ -15,10 +15,9 @@
    .. autosummary::
    
       ~StateMachineStage.__init__
-      ~StateMachineStage.create_state_machine
+      ~StateMachineStage.add_alarm
+      ~StateMachineStage.build_state_machine
       ~StateMachineStage.get_event_pattern
-      ~StateMachineStage.get_event_task
-      ~StateMachineStage.get_output_event
       ~StateMachineStage.get_targets
       ~StateMachineStage.is_construct
       ~StateMachineStage.to_string
@@ -31,6 +30,7 @@
 
    .. autosummary::
    
+      ~StateMachineStage.cloudwatch_alarms
       ~StateMachineStage.node
       ~StateMachineStage.state_machine
    

@@ -16,6 +16,7 @@
    
       ~AppFlowIngestionStage.__init__
       ~AppFlowIngestionStage.add_alarm
+      ~AppFlowIngestionStage.build_state_machine
       ~AppFlowIngestionStage.get_event_pattern
       ~AppFlowIngestionStage.get_targets
       ~AppFlowIngestionStage.is_construct

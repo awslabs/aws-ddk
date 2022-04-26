@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.SQSFactory" href="aws_ddk_core.resources.SQSFactory.html" /><link rel="prev" title="aws_ddk_core.resources.LambdaFactory" href="aws_ddk_core.resources.LambdaFactory.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.pipelines.StateMachineStage" href="aws_ddk_core.pipelines.StateMachineStage.html" /><link rel="prev" title="aws_ddk_core.pipelines.DataStage" href="aws_ddk_core.pipelines.DataStage.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>aws_ddk_core.resources.S3Factory - Contents</title>
+        <title>aws_ddk_core.pipelines.EventStage - Contents</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -170,14 +170,14 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.config.JSONConfigStrategy.html">aws_ddk_core.config.JSONConfigStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.pipelines.EventStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.LambdaFactory.html">aws_ddk_core.resources.LambdaFactory</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.resources.S3Factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.S3Factory.html">aws_ddk_core.resources.S3Factory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.SQSFactory.html">aws_ddk_core.resources.SQSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AppFlowIngestionStage.html">aws_ddk_core.stages.AppFlowIngestionStage</a></li>
@@ -214,16 +214,53 @@
           </label>
         </div>
         <article role="main">
-          <section id="aws-ddk-core-resources-s3factory">
-<h1>aws_ddk_core.resources.S3Factory<a class="headerlink" href="#aws-ddk-core-resources-s3factory" title="Permalink to this headline">¶</a></h1>
+          <section id="aws-ddk-core-pipelines-eventstage">
+<h1>aws_ddk_core.pipelines.EventStage<a class="headerlink" href="#aws-ddk-core-pipelines-eventstage" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.S3Factory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.resources.</span></span><span class="sig-name descname"><span class="pre">S3Factory</span></span><a class="headerlink" href="#aws_ddk_core.resources.S3Factory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class factory to create and configure Simple Storage Service DDK resources, including Buckets.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.EventStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.pipelines.</span></span><span class="sig-name descname"><span class="pre">EventStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.pipelines.EventStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that represents an event stage within a data pipeline.</p>
+<p>To create an EventStage, inherit from this class, add infrastructure required by the stage, and implement
+get_event_pattern method. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyStage</span><span class="p">(</span><span class="n">EventStage</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">scope</span><span class="p">:</span> <span class="n">Construct</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">environment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+
+        <span class="c1"># Define stage infrastructure, for example an S3 event pattern</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_event_pattern</span> <span class="o">=</span> <span class="n">EventPattern</span><span class="p">(</span>
+            <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="s2">"aws.s3"</span><span class="p">],</span>
+            <span class="n">detail</span><span class="o">=</span><span class="n">detail</span><span class="p">,</span>
+            <span class="n">detail_type</span><span class="o">=</span><span class="n">event_names</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">event_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EventPattern</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_pattern</span>
+
+    <span class="k">def</span> <span class="nf">get_event_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EventPattern</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_pattern</span>
+</pre></div>
+</div>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.S3Factory.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.resources.S3Factory.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.EventStage.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.EventStage.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a stage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – Identifier of the stage</p></li>
+<li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the stage</p></li>
+<li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Description of the stage</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 <p class="rubric">Methods</p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
@@ -231,49 +268,46 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.S3Factory.__init__" title="aws_ddk_core.resources.S3Factory.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.EventStage.__init__" title="aws_ddk_core.pipelines.EventStage.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id[, name, description])</p></td>
+<td><p>Create a stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.resources.S3Factory.bucket" title="aws_ddk_core.resources.S3Factory.bucket"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bucket</span></code></a>(scope, id, environment_id[, ...])</p></td>
-<td><p>Create and configure S3 bucket.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code>()</p></td>
+<td><p>Get output event pattern of the stage.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.EventStage.get_targets" title="aws_ddk_core.pipelines.EventStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
+<td><p>Get input targets of the stage.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
+<td><p>Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a construct.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
+<td><p>Returns a string representation of this construct.</p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="rubric">Attributes</p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
+<td><p>The tree node.</p></td>
 </tr>
 </tbody>
 </table></div>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.S3Factory.bucket">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bucket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">versioned</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_control</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_s3.BucketAccessControl</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_public_access</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_s3.BlockPublicAccess</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removal_policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.RemovalPolicy</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_s3.BucketEncryption</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_ssl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_bridge_enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">bucket_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.aws_s3.IBucket</span></span></span><a class="headerlink" href="#aws_ddk_core.resources.S3Factory.bucket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and configure S3 bucket.</p>
-<p>This construct allows to configure parameters of the bucket using ddk.json configuration file
-depending on the <cite>environment_id</cite> in which the function is used. Supported parameters are:
-<cite>versioned</cite>,`auto_delete_objects`, <cite>enforce_ssl</cite>, <cite>access_control</cite>, and <cite>removal_policy</cite>.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.pipelines.EventStage.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.EventStage.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input targets of the stage.</p>
+<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
-<li><p><strong>id</strong> (<em>str</em>) – Identifier of the bucket</p></li>
-<li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
-<li><p><strong>bucket_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the bucket</p></li>
-<li><p><strong>versioned</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Whether this bucket should have versioning turned on or not. <cite>True</cite> by default.</p></li>
-<li><p><strong>access_control</strong> (<em>Optional</em><em>[</em><em>BucketAccessControl</em><em>]</em>) – Specifies a canned ACL that grants predefined permissions to the bucket
-<cite>aws_cdk.aws_s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL</cite> by default.</p></li>
-<li><p><strong>block_public_access</strong> (<em>Optional</em><em>[</em><em>BlockPublicAccess</em><em>]</em>) – The block public access configuration of this bucket.
-<cite>aws_cdk.aws_s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL</cite> by default.</p></li>
-<li><p><strong>removal_policy</strong> (<em>Optional</em><em>[</em><em>RemovalPolicy</em><em>]</em>) – Policy to apply when the bucket is removed from this stack.
-<cite>aws_cdk.RemovalPolicy.RETAIN</cite> by default.</p></li>
-<li><p><strong>encryption</strong> (<em>Optional</em><em>[</em><em>BucketEncryption</em><em>]</em>) – The kind of server-side encryption to apply to this bucket.
-<cite>aws_cdk.aws_s3.BucketEncryption.S3_MANAGED</cite> by default.</p></li>
-<li><p><strong>enforce_ssl</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Enforces SSL for requests. <cite>True</cite> by default.</p></li>
-<li><p><strong>event_bridge_enabled</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Whether this bucket should send notifications to Amazon EventBridge or not.
-<cite>False</cite> by default.</p></li>
-<li><p><strong>bucket_props</strong> (<em>Any</em>) – Additional bucket properties. For complete list of properties refer to CDK Documentation -
-S3 Bucket: <a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_s3/Bucket.html">https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_s3/Bucket.html</a></p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>bucket</strong> – S3 bucket</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>aws_cdk.aws_s3.Bucket</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -285,18 +319,18 @@ S3 Bucket: <a class="reference external" href="https://docs.aws.amazon.com/cdk/a
       <footer>
         
 <div class="related-pages">
-    <a class="next-page" href="aws_ddk_core.resources.SQSFactory.html">
+    <a class="next-page" href="aws_ddk_core.pipelines.StateMachineStage.html">
         <div class="page-info">
             <div class="context">
                 <span>Next</span>
             </div>
-            <div class="title">aws_ddk_core.resources.SQSFactory</div>
+            <div class="title">aws_ddk_core.pipelines.StateMachineStage</div>
         </div>
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
     </a>
-    <a class="prev-page" href="aws_ddk_core.resources.LambdaFactory.html">
+    <a class="prev-page" href="aws_ddk_core.pipelines.DataStage.html">
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
@@ -305,7 +339,7 @@ S3 Bucket: <a class="reference external" href="https://docs.aws.amazon.com/cdk/a
                 <span>Previous</span>
             </div>
             
-            <div class="title">aws_ddk_core.resources.LambdaFactory</div>
+            <div class="title">aws_ddk_core.pipelines.DataStage</div>
             
         </div>
     </a>
