@@ -14,27 +14,17 @@
 
 from typing import Any, Dict, List, Optional
 
-from aws_cdk.aws_events import EventPattern, IRuleTarget, RuleTargetInput
-from aws_cdk.aws_events_targets import SfnStateMachine
 from aws_cdk.aws_glue import CfnCrawler
 from aws_cdk.aws_glue_alpha import IJob, JobExecutable
-from aws_cdk.aws_iam import Effect, IRole, PolicyStatement
-from aws_cdk.aws_stepfunctions import (
-    CustomState,
-    IntegrationPattern,
-    JsonPath,
-    StateMachine,
-    StateMachineType,
-    Succeed,
-    TaskInput,
-)
+from aws_cdk.aws_iam import IRole, PolicyStatement
+from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, Succeed, TaskInput
 from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
-from aws_ddk_core.pipelines import DataStage
-from aws_ddk_core.resources import GlueFactory, StepFunctionsFactory
+from aws_ddk_core.pipelines import StateMachineStage
+from aws_ddk_core.resources import GlueFactory
 from constructs import Construct
 
 
-class GlueTransformStage(DataStage):
+class GlueTransformStage(StateMachineStage):
     """
     Class that represents a Glue Transform DDK DataStage.
     """
@@ -98,7 +88,6 @@ class GlueTransformStage(DataStage):
         """
         super().__init__(scope, id)
 
-        self._state_machine_input: Optional[Dict[str, Any]] = state_machine_input
         self._event_detail_type: str = f"{id}-event-type"
 
         # If Glue job name is not supplied, create one
@@ -149,34 +138,16 @@ class GlueTransformStage(DataStage):
                 "Catch": [{"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}],
             },
         )
+
         # Build state machine
-        self._state_machine: StateMachine = StepFunctionsFactory.state_machine(
-            self,
+        self.build_state_machine(
             id=f"{id}-state-machine",
             environment_id=environment_id,
             definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
-            state_machine_type=StateMachineType.STANDARD,
-        )
-
-        # Allow state machine to start crawler
-        self._state_machine.add_to_role_policy(
-            PolicyStatement(
-                effect=Effect.ALLOW,
-                actions=[
-                    "glue:StartCrawler",
-                ],
-                resources=["*"],
-            )
-        )
-        # Additional role policy statements
-        if additional_role_policy_statements:
-            for statement in additional_role_policy_statements:
-                self._state_machine.add_to_role_policy(statement)
-        self.add_alarm(
-            alarm_id=f"{id}-sm-failed-exec",
-            alarm_metric=self._state_machine.metric_failed(),
-            alarm_threshold=state_machine_failed_executions_alarm_threshold,
-            alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
+            state_machine_input=state_machine_input,
+            additional_role_policy_statements=additional_role_policy_statements,
+            state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
+            state_machine_failed_executions_alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,  # noqa
         )
 
     @property
@@ -194,31 +165,3 @@ class GlueTransformStage(DataStage):
             The Glue crawler
         """
         return self._crawler
-
-    @property
-    def state_machine(self) -> StateMachine:
-        """
-        Return: StateMachine
-            The state machine
-        """
-        return self._state_machine
-
-    def get_event_pattern(self) -> Optional[EventPattern]:
-        return EventPattern(
-            source=["aws.states"],
-            detail_type=["Step Functions Execution Status Change"],
-            detail={"status": ["SUCCEEDED"], "stateMachineArn": [self._state_machine.state_machine_arn]},
-        )
-
-    def get_targets(self) -> Optional[List[IRuleTarget]]:
-        """
-        Get input targets of the stage.
-
-        Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
-
-        Returns
-        -------
-        targets : Optional[List[IRuleTarget]]
-            List of targets
-        """
-        return [SfnStateMachine(self._state_machine, input=RuleTargetInput.from_object(self._state_machine_input))]

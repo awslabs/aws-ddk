@@ -53,6 +53,8 @@ Data Pipelines
 
    DataPipeline
    DataStage
+   EventStage
+   StateMachineStage
 
 Resources
 ------------
