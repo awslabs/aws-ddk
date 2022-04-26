@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import logging
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 import aws_cdk.aws_dms as dms
 from aws_ddk_core.config import Config
@@ -29,6 +29,10 @@ class DMSEndpointConfiguration(BaseSchema):
 
 class DMSReplicationTaskConfiguration(BaseSchema):
     """DDK DMS ReplicationTask Marshmallow schema."""
+
+
+class DMSReplicationInstanceConfiguration(BaseSchema):
+    """DDK DMS ReplicationInstance Marshmallow schema."""
 
 
 class DMSFactory:
@@ -142,13 +146,13 @@ class DMSFactory:
             Default: 'full-load'
         replication_instance_arn: str
             The Amazon Resource Name (ARN) of a replication instance.
-        source_endpoint_arn: str 
+        source_endpoint_arn: str
             An Amazon Resource Name (ARN) that uniquely identifies the source endpoint.
-        target_endpoint_arn: str 
+        target_endpoint_arn: str
             An Amazon Resource Name (ARN) that uniquely identifies the target endpoint.
-        table_mappings: str 
+        table_mappings: str
             The table mappings for the task, in JSON format.
-        
+
         **replication_task_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             DMS Endpoints:
@@ -160,7 +164,7 @@ class DMSFactory:
             A DMS Replication Task
         """
         # Load and validate the config
-        replication_task_config_props: Dict[str, Any] = DMSEndpointConfiguration().load(
+        replication_task_config_props: Dict[str, Any] = DMSReplicationTaskConfiguration().load(
             Config().get_resource_config(
                 environment_id=environment_id,
                 id=id,
@@ -188,3 +192,90 @@ class DMSFactory:
         replication_task: dms.CfnReplicationTask = dms.CfnReplicationTask(scope, id, **replication_task_config_props)
 
         return replication_task
+
+    @staticmethod
+    def replication_instance(
+        scope: Construct,
+        id: str,
+        environment_id: str,
+        replication_instance_class: str,
+        allocated_storage: Optional[str] = None,
+        allow_major_version_upgrade: Optional[bool] = False,
+        auto_minor_version_upgrade: Optional[bool] = False,
+        availability_zone: Optional[str] = None,
+        engine_version: Optional[str] = None,
+        kms_key_id: Optional[str] = None,
+        multi_az: Optional[bool] = False,
+        preferred_maintenance_window: Optional[str] = None,
+        publicly_accessible: Optional[bool] = False,
+        replication_instance_identifier: Optional[str] = None,
+        replication_subnet_group_identifier: Optional[str] = None,
+        resource_identifier: Optional[str] = None,
+        vpc_security_group_ids: Optional[List[str]] = None,
+        **replication_instance_props: Any,
+    ) -> dms.CfnReplicationInstance:
+        """
+        Create and configure DMS replication instance.
+
+        This construct allows to configure parameters of the dms replication instance using ddk.json
+        configuration file depending on the `environment_id` in which the function is used.
+        Supported parameters are: ...
+
+        Parameters
+        ----------
+        scope : Construct
+            Scope within which this construct is defined
+        id: str
+            Identifier of the destination
+        environment_id: str
+            Identifier of the environment
+        **replication_instance_props: Any
+            Additional properties. For complete list of properties refer to CDK Documentation -
+            DMS Endpoints:
+            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_dms/CfnReplicationInstance.html
+
+        Returns
+        -------
+        dms.CfnReplicationInstance: dms.CfnReplicationInstance
+            A DMS Replication instance
+        """
+        # Load and validate the config
+        replication_instance_config_props: Dict[str, Any] = DMSReplicationInstanceConfiguration().load(
+            Config().get_resource_config(
+                environment_id=environment_id,
+                id=id,
+            ),
+            partial=["removal_policy"],
+        )
+
+        # Collect args
+        replication_instance_props = {
+            "replication_instance_class": replication_instance_class,
+            "allocated_storage": allocated_storage,
+            "allow_major_version_upgrade": allow_major_version_upgrade,
+            "auto_minor_version_upgrade": auto_minor_version_upgrade,
+            "availability_zone": availability_zone,
+            "engine_version": engine_version,
+            "kms_key_id": kms_key_id,
+            "multi_az": multi_az,
+            "preferred_maintenance_window": preferred_maintenance_window,
+            "publicly_accessible": publicly_accessible,
+            "replication_instance_identifier": replication_instance_identifier,
+            "replication_subnet_group_identifier": replication_subnet_group_identifier,
+            "resource_identifier": resource_identifier,
+            "vpc_security_group_ids": vpc_security_group_ids,
+            **replication_instance_props,
+        }
+
+        # Explicit ("hardcoded") props should always take precedence over config
+        for key, value in replication_instance_props.items():
+            if value is not None:
+                replication_instance_config_props[key] = value
+
+        # create dms endpoint
+        _logger.debug(f" dms replication instance properties: {replication_instance_props}")
+        replication_instance: dms.CfnReplicationInstance = dms.CfnReplicationInstance(
+            scope, id, **replication_instance_config_props
+        )
+
+        return replication_instance
