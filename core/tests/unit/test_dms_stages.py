@@ -68,7 +68,7 @@ def test_s3_to_s3(test_stack: BaseStack) -> None:
     template.has_resource_properties(
         "AWS::DMS::ReplicationTask",
         props={
-            "ReplicationInstanceArn": {"Fn::GetAtt": ["dummydummydmsreplicationinstance641AF922", "Arn"]},
+            "ReplicationInstanceArn": {"Ref": "dummydummydmsreplicationinstance641AF922"},
             "SourceEndpointArn": {"Fn::GetAtt": ["dummydummysourcedmsendpointD8D1F3DD", "Arn"]},
             "TargetEndpointArn": {"Fn::GetAtt": ["dummydummytargetdmsendpoint068352C5", "Arn"]},
         },

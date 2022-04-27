@@ -63,9 +63,7 @@ class DMSS3ToS3Stage(DataStage):
                 id=f"{id}-dms-replication-instance",
                 environment_id=environment_id,
                 replication_instance_class=replication_instance_class,
-            )
-            .get_att("Arn")
-            .to_string(),
+            ).ref,
             source_endpoint_arn=DMSFactory.endpoint(
                 self,
                 id=f"{id}-source-dms-endpoint",
