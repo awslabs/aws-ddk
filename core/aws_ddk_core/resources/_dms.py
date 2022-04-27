@@ -36,10 +36,82 @@ class DMSReplicationInstanceConfiguration(BaseSchema):
     """DDK DMS ReplicationInstance Marshmallow schema."""
 
 
+class DMSEndpointS3SettingsConfiguration(BaseSchema):
+    """DDK DMS Endpoint S3 Settings Marshmallow schema."""
+
+
 class DMSFactory:
     """
     Class factory create and configure Kinesis DDK resources, including Delivery Streams.
     """
+
+    @staticmethod
+    def endpoint_settings_s3(
+        scope: Construct,
+        id: str,
+        environment_id: str,
+        bucket_name: str,
+        service_access_role_arn: str = None,
+        **endpoint_s3_props: Any,
+    ) -> dms.CfnEndpoint.S3SettingsProperty:
+        """
+        Create and configure DMS endpoint settings for s3.
+
+        This construct allows to configure parameters of the dms endpoint using ddk.json
+        configuration file depending on the `environment_id` in which the function is used.
+        Supported parameters are: ...
+
+        Parameters
+        ----------
+        scope : Construct
+            Scope within which this construct is defined
+        id: str
+            Identifier of the destination
+        environment_id: str
+            Identifier of the environment
+        **endpoint_settings_s3_props: Any
+            Additional properties. For complete list of properties refer to CDK Documentation -
+            DMS Endpoints:
+            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_dms/CfnEndpoint.html
+
+        Returns
+        -------
+        dms.CfnEndpoint.S3SettingsProperty: dms.CfnEndpoint.S3SettingsProperty:
+            DMS Endpoint Settings for S3
+        """
+        # Load and validate the config
+        endpoint_s3_config_props: Dict[str, Any] = DMSEndpointS3SettingsConfiguration().load(
+            Config().get_resource_config(
+                environment_id=environment_id,
+                id=id,
+            ),
+            partial=["removal_policy"],
+        )
+
+        if not service_access_role_arn:
+            service_access_role = Role(
+                scope, f"{id}-dms-service-role", assumed_by=ServicePrincipal("dms.amazonaws.com")
+            )
+            service_access_role.add_to_policy(PolicyStatement(resources=["*"], actions=["iam:PassRole"]))
+            service_access_role_arn = service_access_role.role_arn
+
+        # Collect args
+        endpoint_s3_props = {
+            "bucket_name": bucket_name,
+            "service_access_role_arn": service_access_role_arn,
+            **endpoint_s3_props,
+        }
+
+        # Explicit ("hardcoded") props should always take precedence over config
+        for key, value in endpoint_s3_props.items():
+            if value is not None:
+                endpoint_s3_config_props[key] = value
+
+        # create dms endpoint
+        _logger.debug(f" dms s3 endpoint properties: {endpoint_s3_props}")
+        settings: dms.CfnEndpoint.S3SettingsProperty = dms.CfnEndpoint.S3SettingsProperty(**endpoint_s3_config_props)
+
+        return settings
 
     @staticmethod
     def endpoint(
@@ -98,9 +170,9 @@ class DMSFactory:
 
         # S3 Settings
         if s3_settings and not s3_settings.service_access_role_arn:
-            role = Role(scope, f"{id}-dms-service-role", assumed_by=ServicePrincipal("dms.amazonaws.com"))
-
-            role.add_to_policy(PolicyStatement(resources=["*"], actions=["iam:PassRole"]))
+            s3_settings.service_access_role_arn = Role(
+                scope, f"{id}-dms-service-role", assumed_by=ServicePrincipal("dms.amazonaws.com")
+            ).add_to_policy(PolicyStatement(resources=["*"], actions=["iam:PassRole"]))
         # Collect args
         endpoint_props = {
             "endpoint_type": endpoint_type,

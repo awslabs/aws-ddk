@@ -34,8 +34,8 @@ def test_s3_source_endpoint(test_stack: BaseStack) -> None:
         environment_id="dev",
         endpoint_type="source",
         engine_name="s3",
-        s3_settings=dms.CfnEndpoint.S3SettingsProperty(
-            bucket_name=bucket.bucket_name,
+        s3_settings=DMSFactory.endpoint_settings_s3(
+            scope=test_stack, id="dummy-endpoint-settings", environment_id="dev", bucket_name=bucket.bucket_name
         ),
     )
 
@@ -65,8 +65,8 @@ def test_s3_target_endpoint(test_stack: BaseStack) -> None:
         environment_id="dev",
         endpoint_type="target",
         engine_name="s3",
-        s3_settings=dms.CfnEndpoint.S3SettingsProperty(
-            bucket_name=bucket.bucket_name,
+        s3_settings=DMSFactory.endpoint_settings_s3(
+            scope=test_stack, id="dummy-endpoint-settings", environment_id="dev", bucket_name=bucket.bucket_name
         ),
     )
 
@@ -103,7 +103,10 @@ def test_s3_to_s3_replication(test_stack: BaseStack) -> None:
         environment_id="dev",
         endpoint_type="source",
         engine_name="s3",
-        s3_settings=dms.CfnEndpoint.S3SettingsProperty(
+        s3_settings=DMSFactory.endpoint_settings_s3(
+            scope=test_stack,
+            id="dummy-endpoint-settings-source",
+            environment_id="dev",
             bucket_name=source_bucket.bucket_name,
         ),
     )
@@ -114,13 +117,19 @@ def test_s3_to_s3_replication(test_stack: BaseStack) -> None:
         environment_id="dev",
         endpoint_type="target",
         engine_name="s3",
-        s3_settings=dms.CfnEndpoint.S3SettingsProperty(
+        s3_settings=DMSFactory.endpoint_settings_s3(
+            scope=test_stack,
+            id="dummy-endpoint-settings-target",
+            environment_id="dev",
             bucket_name=target_bucket.bucket_name,
         ),
     )
 
     replication_instance = DMSFactory.replication_instance(
-        scope=test_stack, id="dummy-replication-instance-1", environment_id="dev", replication_instance_class="m5.large"
+        scope=test_stack,
+        id="dummy-replication-instance-1",
+        environment_id="dev",
+        replication_instance_class="dms.c5.large",
     )
 
     DMSFactory.replication_task(
@@ -151,7 +160,10 @@ def test_s3_to_s3_replication(test_stack: BaseStack) -> None:
         props={
             "EndpointType": "target",
             "EngineName": "s3",
-            "S3Settings": {"BucketName": {"Ref": "dummytargetbucket12A8F7644"}},
+            "S3Settings": {
+                "BucketName": {"Ref": "dummytargetbucket12A8F7644"},
+                "ServiceAccessRoleArn": {"Fn::GetAtt": ["dummyendpointsettingstargetdmsserviceroleC9A6554B", "Arn"]},
+            },
         },
     )
     template.has_resource_properties(
@@ -159,13 +171,16 @@ def test_s3_to_s3_replication(test_stack: BaseStack) -> None:
         props={
             "EndpointType": "source",
             "EngineName": "s3",
-            "S3Settings": {"BucketName": {"Ref": "dummysourcebucket15026EFCD"}},
+            "S3Settings": {
+                "BucketName": {"Ref": "dummysourcebucket15026EFCD"},
+                "ServiceAccessRoleArn": {"Fn::GetAtt": ["dummyendpointsettingssourcedmsservicerole5F6AADCD", "Arn"]},
+            },
         },
     )
     template.has_resource_properties(
         "AWS::DMS::ReplicationInstance",
         props={
-            "ReplicationInstanceClass": "m5.large",
+            "ReplicationInstanceClass": "dms.c5.large",
         },
     )
     template.has_resource_properties(
