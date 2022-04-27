@@ -51,7 +51,8 @@ class DMSFactory:
         id: str,
         environment_id: str,
         bucket_name: str,
-        service_access_role_arn: str = None,
+        service_access_role_arn: Optional[str] = None,
+        external_table_definition: Optional[str] = None,
         **endpoint_s3_props: Any,
     ) -> dms.CfnEndpoint.S3SettingsProperty:
         """
@@ -69,10 +70,20 @@ class DMSFactory:
             Identifier of the destination
         environment_id: str
             Identifier of the environment
+        bucket_name: str
+            The name of the S3 bucket.
+        service_access_role_arn: Optional[str]
+            A required parameter that specifies the Amazon Resource Name (ARN) used by
+            the service to access the IAM role.
+            The role must allow the iam:PassRole action.
+            It enables AWS DMS to read and write objects from an S3 bucket.
+        external_table_definition: Optional[str]
+            The external table definition.
+            Conditional: If S3 is used as a source then ExternalTableDefinition is required.
         **endpoint_settings_s3_props: Any
             Additional properties. For complete list of properties refer to CDK Documentation -
             DMS Endpoints:
-            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_dms/CfnEndpoint.html
+            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_dms/CfnEndpoint.html#s3settingsproperty
 
         Returns
         -------
@@ -88,6 +99,7 @@ class DMSFactory:
             partial=["removal_policy"],
         )
 
+        # Logic
         if not service_access_role_arn:
             service_access_role = Role(
                 scope, f"{id}-dms-service-role", assumed_by=ServicePrincipal("dms.amazonaws.com")

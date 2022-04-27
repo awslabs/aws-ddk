@@ -70,7 +70,10 @@ class DMSS3ToS3Stage(DataStage):
                 environment_id=environment_id,
                 endpoint_type="source",
                 engine_name="s3",
-                s3_settings=dms.CfnEndpoint.S3SettingsProperty(
+                s3_settings=DMSFactory.endpoint_settings_s3(
+                    self,
+                    id=f"{id}-source-s3-settings",
+                    environment_id=environment_id,
                     bucket_name=source_bucket.bucket_name,
                 ),
             ).ref,
@@ -80,7 +83,10 @@ class DMSS3ToS3Stage(DataStage):
                 environment_id=environment_id,
                 endpoint_type="target",
                 engine_name="s3",
-                s3_settings=dms.CfnEndpoint.S3SettingsProperty(
+                s3_settings=DMSFactory.endpoint_settings_s3(
+                    self,
+                    id=f"{id}-target-s3-settings",
+                    environment_id=environment_id,
                     bucket_name=target_bucket.bucket_name,
                 ),
             ).ref,
