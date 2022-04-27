@@ -13,7 +13,6 @@
 # limitations under the License.
 import json
 
-import aws_cdk.aws_dms as dms
 from aws_cdk.assertions import Template
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.resources import DMSFactory, S3Factory

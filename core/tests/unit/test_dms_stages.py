@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import json
 
 from aws_cdk.assertions import Template
 from aws_ddk_core.base import BaseStack
@@ -34,12 +35,32 @@ def test_s3_to_s3(test_stack: BaseStack) -> None:
         bucket_name="my-dummy-target-bucket",
     )
 
+    external_table_definition = {
+        "TableCount": "1",
+        "Tables": [
+            {
+                "TableName": "employee",
+                "TablePath": "hr/employee/",
+                "TableOwner": "hr",
+                "TableColumns": [
+                    {"ColumnName": "Id", "ColumnType": "INT8", "ColumnNullable": "false", "ColumnIsPk": "true"},
+                    {"ColumnName": "LastName", "ColumnType": "STRING", "ColumnLength": "20"},
+                    {"ColumnName": "FirstName", "ColumnType": "STRING", "ColumnLength": "30"},
+                    {"ColumnName": "HireDate", "ColumnType": "DATETIME"},
+                    {"ColumnName": "OfficeLocation", "ColumnType": "STRING", "ColumnLength": "20"},
+                ],
+                "TableColumnsTotal": "5",
+            }
+        ],
+    }
+
     DMSS3ToS3Stage(
         scope=test_stack,
         id="dummy",
         environment_id="dev",
         source_bucket=source_bucket,
         target_bucket=target_bucket,
+        external_table_definition=json.dumps(external_table_definition),
     )
 
     template = Template.from_stack(test_stack)

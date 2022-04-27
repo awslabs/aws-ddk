@@ -14,7 +14,6 @@
 import json
 from typing import Any, Dict, List, Optional, Union
 
-import aws_cdk.aws_dms as dms
 from aws_cdk.aws_events import EventPattern, IRuleTarget
 from aws_cdk.aws_s3 import IBucket
 from aws_ddk_core.pipelines.stage import DataStage
@@ -34,6 +33,7 @@ class DMSS3ToS3Stage(DataStage):
         environment_id: str,
         source_bucket: IBucket,
         target_bucket: IBucket,
+        external_table_definition: str,
         table_mappings: Union[str, None] = None,
         replication_instance_class: str = "dms.c5.large",
     ) -> None:
@@ -75,6 +75,7 @@ class DMSS3ToS3Stage(DataStage):
                     id=f"{id}-source-s3-settings",
                     environment_id=environment_id,
                     bucket_name=source_bucket.bucket_name,
+                    external_table_definition=external_table_definition,
                 ),
             ).ref,
             target_endpoint_arn=DMSFactory.endpoint(
