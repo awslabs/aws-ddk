@@ -35,7 +35,7 @@ class DMSS3ToS3Stage(DataStage):
         source_bucket: IBucket,
         target_bucket: IBucket,
         table_mappings: Union[str, None] = None,
-        replication_instance_class: str = "m5.large",
+        replication_instance_class: str = "dms.c5.large",
     ) -> None:
         """
         DDK DMS S3 to S3 replication stage
