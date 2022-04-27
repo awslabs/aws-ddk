@@ -16,6 +16,7 @@ import logging
 from typing import Any, Dict, List, Optional, Union
 
 import aws_cdk.aws_dms as dms
+from aws_cdk.aws_iam import PolicyStatement, Role, ServicePrincipal
 from aws_ddk_core.config import Config
 from aws_ddk_core.resources.commons import BaseSchema
 from constructs import Construct
@@ -95,6 +96,11 @@ class DMSFactory:
             partial=["removal_policy"],
         )
 
+        # S3 Settings
+        if s3_settings and not s3_settings.service_access_role_arn:
+            role = Role(scope, f"{id}-dms-service-role", assumed_by=ServicePrincipal("dms.amazonaws.com"))
+
+            role.add_to_policy(PolicyStatement(resources=["*"], actions=["iam:PassRole"]))
         # Collect args
         endpoint_props = {
             "endpoint_type": endpoint_type,
