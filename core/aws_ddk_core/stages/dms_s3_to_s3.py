@@ -73,9 +73,7 @@ class DMSS3ToS3Stage(DataStage):
                 s3_settings=dms.CfnEndpoint.S3SettingsProperty(
                     bucket_name=source_bucket.bucket_name,
                 ),
-            )
-            .get_att("Arn")
-            .to_string(),
+            ).ref,
             target_endpoint_arn=DMSFactory.endpoint(
                 self,
                 id=f"{id}-target-dms-endpoint",
@@ -85,9 +83,7 @@ class DMSS3ToS3Stage(DataStage):
                 s3_settings=dms.CfnEndpoint.S3SettingsProperty(
                     bucket_name=target_bucket.bucket_name,
                 ),
-            )
-            .get_att("Arn")
-            .to_string(),
+            ).ref,
             table_mappings=json.dumps(
                 {
                     "rules": [

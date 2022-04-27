@@ -69,7 +69,7 @@ def test_s3_to_s3(test_stack: BaseStack) -> None:
         "AWS::DMS::ReplicationTask",
         props={
             "ReplicationInstanceArn": {"Ref": "dummydummydmsreplicationinstance641AF922"},
-            "SourceEndpointArn": {"Fn::GetAtt": ["dummydummysourcedmsendpointD8D1F3DD", "Arn"]},
-            "TargetEndpointArn": {"Fn::GetAtt": ["dummydummytargetdmsendpoint068352C5", "Arn"]},
+            "SourceEndpointArn": {"Ref": "dummydummysourcedmsendpointD8D1F3DD"},
+            "TargetEndpointArn": {"Ref": "dummydummytargetdmsendpoint068352C5"},
         },
     )
