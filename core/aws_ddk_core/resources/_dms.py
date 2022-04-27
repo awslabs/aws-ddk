@@ -168,11 +168,6 @@ class DMSFactory:
             partial=["removal_policy"],
         )
 
-        # S3 Settings
-        if s3_settings and not s3_settings.service_access_role_arn:
-            s3_settings.service_access_role_arn = Role(
-                scope, f"{id}-dms-service-role", assumed_by=ServicePrincipal("dms.amazonaws.com")
-            ).add_to_policy(PolicyStatement(resources=["*"], actions=["iam:PassRole"]))
         # Collect args
         endpoint_props = {
             "endpoint_type": endpoint_type,

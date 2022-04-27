@@ -62,7 +62,7 @@ def test_s3_to_s3(test_stack: BaseStack) -> None:
     template.has_resource_properties(
         "AWS::DMS::ReplicationInstance",
         props={
-            "ReplicationInstanceClass": "m5.large",
+            "ReplicationInstanceClass": "dms.c5.large",
         },
     )
     template.has_resource_properties(
