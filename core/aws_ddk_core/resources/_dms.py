@@ -110,6 +110,7 @@ class DMSFactory:
         # Collect args
         endpoint_s3_props = {
             "bucket_name": bucket_name,
+            "external_table_definition": external_table_definition,
             "service_access_role_arn": service_access_role_arn,
             **endpoint_s3_props,
         }
