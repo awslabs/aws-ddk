@@ -25,14 +25,16 @@ from marshmallow import fields
 
 _logger: logging.Logger = logging.getLogger(__name__)
 
+
 class JobSchema(BaseSchema):
     """DDK Databrew recipe Marshmallow schema."""
-    
+
     # Databrew recipe CDK construct fields
     max_capacity = fields.Int()
     max_retries = fields.Int()
     timeout = Duration(load_default=cdk.Duration.seconds(3600))
     log_subscription = fields.Str()
+
 
 class DatabrewFactory:
     """
@@ -68,14 +70,14 @@ class DatabrewFactory:
         1 - Explicit arguments are always preferred
         2 - Values from configuration file
         3 - Defaults are used otherwise
-        
+
         Parameters
-        ----------        
+        ----------
         scope : Construct
             Scope within which this construct is defined
         id : str
             Identifier of the Databrew job
-        environment_id : str 
+        environment_id : str
             Identifier of the environment in which the job is used
         name : str
             Name of the Databrew job
@@ -106,7 +108,7 @@ class DatabrewFactory:
         timeout : Optional[cdk.Duration]
             The job execution time (in seconds) after which Databrew terminates the job.
             `aws_cdk.Duration.seconds(3600)` by default.
-        
+
         Returns
         -------
         job : databrew.CfnJob
@@ -132,7 +134,7 @@ class DatabrewFactory:
             "max_retries": max_retries,
             "output_location": output_location,
             "outputs": outputs,
-            "timeout": timeout
+            "timeout": timeout,
         }
 
         # Explicit ("hardcoded") props should always take precedence over config
@@ -142,5 +144,4 @@ class DatabrewFactory:
         # Otherwise use defaults
 
         _logger.debug(f"job_config_props: {job_config_props}")
-        return databrew.CfnJob(scope,id, **job_config_props)
-        
+        return databrew.CfnJob(scope, id, **job_config_props)
