@@ -48,6 +48,18 @@ class DMSS3ToS3Stage(DataStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
+        source_bucket: IBucket
+            Source S3 Bucket
+        target_bucket: IBucket
+            Target/Destination S3 Bucket
+        external_table_definition: str
+            An external table definition is a JSON document that describes how AWS DMS
+            should interpret the data from Amazon S3.
+            See: https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.S3.html#CHAP_Source.S3.ExternalTableDef
+        table_mappings: str
+            The table mappings for the task, in JSON format.
+            For more information see:
+            https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TableMapping.html
         """
         super().__init__(scope, id)
 
@@ -95,11 +107,12 @@ class DMSS3ToS3Stage(DataStage):
                 {
                     "rules": [
                         {
-                            "rule-type": "%",
+                            "rule-type": "selection",
                             "rule-id": "1",
                             "rule-name": "1",
-                            "object-locator": {"schema-name": "Test", "table-name": "%"},
+                            "object-locator": {"schema-name": "%", "table-name": "%"},
                             "rule-action": "include",
+                            "filters": [],
                         }
                     ]
                 },
@@ -119,8 +132,6 @@ class DMSS3ToS3Stage(DataStage):
             detail=event_detail,
             detail_type=["Object Created"],
         )
-
-        # Cloudwatch Alarms (todo)
 
     @property
     def event_pattern(self) -> EventPattern:
