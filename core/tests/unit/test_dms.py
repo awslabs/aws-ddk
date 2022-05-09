@@ -13,6 +13,7 @@
 # limitations under the License.
 import json
 
+import pytest
 from aws_cdk.assertions import Template
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.resources import DMSFactory, S3Factory
