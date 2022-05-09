@@ -73,7 +73,7 @@ class DMSFactory:
 
         This construct allows to configure parameters of the dms endpoint using ddk.json
         configuration file depending on the `environment_id` in which the function is used.
-        Supported parameters are: ...
+        Supported parameters are: `enable_statistics` and `max_file_size`
 
         Parameters
         ----------
