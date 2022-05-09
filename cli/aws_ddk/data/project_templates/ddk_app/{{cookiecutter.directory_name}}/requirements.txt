@@ -1,3 +1,6 @@
 aws-cdk-lib=={{cookiecutter.cdk_version_constraint}}
+aws-cdk.aws-glue-alpha=={{cookiecutter.cdk_version_constraint}}
+aws-cdk.aws-kinesisfirehose-alpha=={{cookiecutter.cdk_version_constraint}}
+aws-cdk.aws-kinesisfirehose-destinations-alpha=={{cookiecutter.cdk_version_constraint}}
 constructs{{cookiecutter.constructs_version_constraint}}
 aws_ddk_core=={{cookiecutter.ddk_version}}
