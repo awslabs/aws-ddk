@@ -36,6 +36,8 @@ class DMSS3ToS3Stage(DataStage):
         external_table_definition: str,
         table_mappings: Union[str, None] = None,
         replication_instance_class: str = "dms.c5.large",
+        source_bucket_prefix: Optional[str] = None,
+        target_bucket_prefix: Optional[str] = None,
     ) -> None:
         """
         DDK DMS S3 to S3 replication stage
@@ -50,8 +52,12 @@ class DMSS3ToS3Stage(DataStage):
             Identifier of the environment
         source_bucket: IBucket
             Source S3 Bucket
+        source_bucket_prefix: Optional[str]
+            Optional s3 prefix
         target_bucket: IBucket
             Target/Destination S3 Bucket
+        target_bucket_prefix: Optional[str]
+            Optional s3 prefix
         external_table_definition: str
             An external table definition is a JSON document that describes how AWS DMS
             should interpret the data from Amazon S3.
@@ -87,6 +93,7 @@ class DMSS3ToS3Stage(DataStage):
                     id=f"{id}-source-s3-settings",
                     environment_id=environment_id,
                     bucket_name=source_bucket.bucket_name,
+                    bucket_folder=source_bucket_prefix,
                     external_table_definition=external_table_definition,
                 ),
             ).ref,
@@ -101,6 +108,7 @@ class DMSS3ToS3Stage(DataStage):
                     id=f"{id}-target-s3-settings",
                     environment_id=environment_id,
                     bucket_name=target_bucket.bucket_name,
+                    bucket_folder=target_bucket_prefix,
                 ),
             ).ref,
             table_mappings=json.dumps(
@@ -126,6 +134,10 @@ class DMSS3ToS3Stage(DataStage):
                 "name": [target_bucket.bucket_name],
             },
         }
+        if target_bucket_prefix:
+            event_detail["object"] = {
+                "key": [{"prefix": target_bucket_prefix}],
+            }
 
         self._event_pattern = EventPattern(
             source=["aws.s3"],
