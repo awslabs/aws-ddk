@@ -51,7 +51,8 @@ class DMSEndpointS3SettingsConfiguration(BaseSchema):
 
 class DMSFactory:
     """
-    Class factory create and configure Kinesis DDK resources, including Delivery Streams.
+    Class factory create and configure DMS DDK resources,
+    including endpoints, replication tasks and replication instances.
     """
 
     @staticmethod
@@ -89,10 +90,9 @@ class DMSFactory:
             If provided, tables are created in the path *bucketFolder* / *schema_name* / *table_name* / .
             If this parameter isn’t specified, the path used is *schema_name* / *table_name* / .
         service_access_role_arn: Optional[str]
-            A required parameter that specifies the Amazon Resource Name (ARN) used by
-            the service to access the IAM role.
-            The role must allow the iam:PassRole action.
-            It enables AWS DMS to read and write objects from an S3 bucket.
+            An IAM role that should be able to access the specified bucket.
+            If no bucket is specified a role with required permissions will
+            be created for you.
         external_table_definition: Optional[str]
             The external table definition.
             Conditional: If S3 is used as a source then ExternalTableDefinition is required.
