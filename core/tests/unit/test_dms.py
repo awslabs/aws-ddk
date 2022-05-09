@@ -18,7 +18,8 @@ from aws_ddk_core.base import BaseStack
 from aws_ddk_core.resources import DMSFactory, S3Factory
 
 
-def test_s3_source_endpoint(test_stack: BaseStack) -> None:
+@pytest.mark.parametrize("type", ["source", "target"])
+def test_s3_endpoint(test_stack: BaseStack, type: str) -> None:
 
     bucket = S3Factory.bucket(
         scope=test_stack,
@@ -31,7 +32,7 @@ def test_s3_source_endpoint(test_stack: BaseStack) -> None:
         scope=test_stack,
         id="dummy-endpoint-1",
         environment_id="dev",
-        endpoint_type="source",
+        endpoint_type=type,
         engine_name="s3",
         s3_settings=DMSFactory.endpoint_settings_s3(
             scope=test_stack, id="dummy-endpoint-settings", environment_id="dev", bucket_name=bucket.bucket_name
@@ -42,38 +43,7 @@ def test_s3_source_endpoint(test_stack: BaseStack) -> None:
     template.has_resource_properties(
         "AWS::DMS::Endpoint",
         props={
-            "EndpointType": "source",
-            "EngineName": "s3",
-            "S3Settings": {"BucketName": {"Ref": "dummybucket12E106EF4"}},
-        },
-    )
-
-
-def test_s3_target_endpoint(test_stack: BaseStack) -> None:
-
-    bucket = S3Factory.bucket(
-        scope=test_stack,
-        id="dummy-bucket-1",
-        environment_id="dev",
-        bucket_name="my-dummy-bucket",
-    )
-
-    DMSFactory.endpoint(
-        scope=test_stack,
-        id="dummy-endpoint-1",
-        environment_id="dev",
-        endpoint_type="target",
-        engine_name="s3",
-        s3_settings=DMSFactory.endpoint_settings_s3(
-            scope=test_stack, id="dummy-endpoint-settings", environment_id="dev", bucket_name=bucket.bucket_name
-        ),
-    )
-
-    template = Template.from_stack(test_stack)
-    template.has_resource_properties(
-        "AWS::DMS::Endpoint",
-        props={
-            "EndpointType": "target",
+            "EndpointType": type,
             "EngineName": "s3",
             "S3Settings": {"BucketName": {"Ref": "dummybucket12E106EF4"}},
         },
