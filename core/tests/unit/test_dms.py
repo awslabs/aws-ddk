@@ -161,3 +161,18 @@ def test_s3_to_s3_replication(test_stack: BaseStack) -> None:
             "TargetEndpointArn": {"Fn::GetAtt": ["dummyendpointtarget", "Arn"]},
         },
     )
+
+
+def test_get_dms_config(test_stack: BaseStack) -> None:
+    DMSFactory.replication_instance(
+        scope=test_stack,
+        id="dummy-replication-instance-2",
+        environment_id="dev",
+        replication_instance_class="dms.c5.large",
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::DMS::ReplicationInstance",
+        props={"ReplicationInstanceClass": "dms.c5.large", "AllocatedStorage": 400},
+    )
