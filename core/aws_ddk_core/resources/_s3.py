@@ -87,7 +87,7 @@ class S3Factory:
             `aws_cdk.aws_s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL` by default.
         block_public_access : Optional[BlockPublicAccess]
             The block public access configuration of this bucket.
-            `aws_cdk.aws_s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL` by default.
+            `aws_cdk.aws_s3.BlockPublicAccess.BLOCK_ALL` by default.
         removal_policy : Optional[RemovalPolicy]
             Policy to apply when the bucket is removed from this stack.
             `aws_cdk.RemovalPolicy.RETAIN` by default.
