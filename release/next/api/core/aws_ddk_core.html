@@ -172,6 +172,7 @@
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.DMSFactory.html">aws_ddk_core.resources.DMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
@@ -182,6 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.AppFlowIngestionStage.html">aws_ddk_core.stages.AppFlowIngestionStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.AthenaSQLStage.html">aws_ddk_core.stages.AthenaSQLStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.DMSS3ToS3Stage.html">aws_ddk_core.stages.DMSS3ToS3Stage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.GlueTransformStage.html">aws_ddk_core.stages.GlueTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.KinesisToS3Stage.html">aws_ddk_core.stages.KinesisToS3Stage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stubs/aws_ddk_core.stages.S3EventStage.html">aws_ddk_core.stages.S3EventStage</a></li>
@@ -300,28 +302,31 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.GlueFactory.html#aws_ddk_core.resources.GlueFactory" title="aws_ddk_core.resources.GlueFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlueFactory</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.DMSFactory.html#aws_ddk_core.resources.DMSFactory" title="aws_ddk_core.resources.DMSFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DMSFactory</span></code></a>()</p></td>
+<td><p>Class factory create and configure DMS DDK resources, including endpoints, replication tasks and replication instances.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.GlueFactory.html#aws_ddk_core.resources.GlueFactory" title="aws_ddk_core.resources.GlueFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlueFactory</span></code></a>()</p></td>
 <td><p>Class factory to create and configure Glue DDK resources, including Jobs.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.KinesisFirehoseFactory.html#aws_ddk_core.resources.KinesisFirehoseFactory" title="aws_ddk_core.resources.KinesisFirehoseFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KinesisFirehoseFactory</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.KinesisFirehoseFactory.html#aws_ddk_core.resources.KinesisFirehoseFactory" title="aws_ddk_core.resources.KinesisFirehoseFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KinesisFirehoseFactory</span></code></a>()</p></td>
 <td><p>Class factory create and configure Kinesis DDK resources, including Delivery Streams.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.KinesisStreamsFactory.html#aws_ddk_core.resources.KinesisStreamsFactory" title="aws_ddk_core.resources.KinesisStreamsFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KinesisStreamsFactory</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.KinesisStreamsFactory.html#aws_ddk_core.resources.KinesisStreamsFactory" title="aws_ddk_core.resources.KinesisStreamsFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KinesisStreamsFactory</span></code></a>()</p></td>
 <td><p>Class factory create and configure Kinesis DDK resources, including Data Streams.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.KMSFactory.html#aws_ddk_core.resources.KMSFactory" title="aws_ddk_core.resources.KMSFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KMSFactory</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.KMSFactory.html#aws_ddk_core.resources.KMSFactory" title="aws_ddk_core.resources.KMSFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KMSFactory</span></code></a>()</p></td>
 <td><p>Class factory to create and configure Key Management Service DDK resources, including Keys.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.LambdaFactory.html#aws_ddk_core.resources.LambdaFactory" title="aws_ddk_core.resources.LambdaFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LambdaFactory</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.LambdaFactory.html#aws_ddk_core.resources.LambdaFactory" title="aws_ddk_core.resources.LambdaFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LambdaFactory</span></code></a>()</p></td>
 <td><p>Class factory to create and configure Lambda DDK resources, including Functions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.S3Factory.html#aws_ddk_core.resources.S3Factory" title="aws_ddk_core.resources.S3Factory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">S3Factory</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.S3Factory.html#aws_ddk_core.resources.S3Factory" title="aws_ddk_core.resources.S3Factory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">S3Factory</span></code></a>()</p></td>
 <td><p>Class factory to create and configure Simple Storage Service DDK resources, including Buckets.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.SQSFactory.html#aws_ddk_core.resources.SQSFactory" title="aws_ddk_core.resources.SQSFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SQSFactory</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.SQSFactory.html#aws_ddk_core.resources.SQSFactory" title="aws_ddk_core.resources.SQSFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SQSFactory</span></code></a>()</p></td>
 <td><p>Class factory create and configure Simple Queue Service DDK resources, including Queues.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.StepFunctionsFactory.html#aws_ddk_core.resources.StepFunctionsFactory" title="aws_ddk_core.resources.StepFunctionsFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StepFunctionsFactory</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.resources.StepFunctionsFactory.html#aws_ddk_core.resources.StepFunctionsFactory" title="aws_ddk_core.resources.StepFunctionsFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StepFunctionsFactory</span></code></a>()</p></td>
 <td><p>Class factory create and configure AWS Step Functions Service DDK resources, including State Machines.</p></td>
 </tr>
 </tbody>
@@ -341,16 +346,19 @@
 <tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.AthenaSQLStage.html#aws_ddk_core.stages.AthenaSQLStage" title="aws_ddk_core.stages.AthenaSQLStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AthenaSQLStage</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Class that represents a Athena SQL DDK DataStage.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage" title="aws_ddk_core.stages.GlueTransformStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlueTransformStage</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.DMSS3ToS3Stage.html#aws_ddk_core.stages.DMSS3ToS3Stage" title="aws_ddk_core.stages.DMSS3ToS3Stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DMSS3ToS3Stage</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Class that represents a DMS to S3 to S3 Replication DDK Stage.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.GlueTransformStage.html#aws_ddk_core.stages.GlueTransformStage" title="aws_ddk_core.stages.GlueTransformStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlueTransformStage</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Class that represents a Glue Transform DDK DataStage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.KinesisToS3Stage.html#aws_ddk_core.stages.KinesisToS3Stage" title="aws_ddk_core.stages.KinesisToS3Stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KinesisToS3Stage</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.KinesisToS3Stage.html#aws_ddk_core.stages.KinesisToS3Stage" title="aws_ddk_core.stages.KinesisToS3Stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KinesisToS3Stage</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Class that represents a Firehose to S3 Ingestion DDK Stage.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.S3EventStage.html#aws_ddk_core.stages.S3EventStage" title="aws_ddk_core.stages.S3EventStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">S3EventStage</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.S3EventStage.html#aws_ddk_core.stages.S3EventStage" title="aws_ddk_core.stages.S3EventStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">S3EventStage</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Class that represents an S3 Event DDK Stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.SqsToLambdaStage.html#aws_ddk_core.stages.SqsToLambdaStage" title="aws_ddk_core.stages.SqsToLambdaStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SqsToLambdaStage</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="stubs/aws_ddk_core.stages.SqsToLambdaStage.html#aws_ddk_core.stages.SqsToLambdaStage" title="aws_ddk_core.stages.SqsToLambdaStage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SqsToLambdaStage</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Class that represents an SQS to Lambda Transform DDK Stage.</p></td>
 </tr>
 </tbody>

@@ -172,6 +172,7 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.DMSFactory.html">aws_ddk_core.resources.DMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
@@ -182,6 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AppFlowIngestionStage.html">aws_ddk_core.stages.AppFlowIngestionStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AthenaSQLStage.html">aws_ddk_core.stages.AthenaSQLStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.DMSS3ToS3Stage.html">aws_ddk_core.stages.DMSS3ToS3Stage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.GlueTransformStage.html">aws_ddk_core.stages.GlueTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.KinesisToS3Stage.html">aws_ddk_core.stages.KinesisToS3Stage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.S3EventStage.html">aws_ddk_core.stages.S3EventStage</a></li>
@@ -257,7 +259,7 @@ depending on the <cite>environment_id</cite> in which the function is used. Supp
 <li><p><strong>access_control</strong> (<em>Optional</em><em>[</em><em>BucketAccessControl</em><em>]</em>) – Specifies a canned ACL that grants predefined permissions to the bucket
 <cite>aws_cdk.aws_s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL</cite> by default.</p></li>
 <li><p><strong>block_public_access</strong> (<em>Optional</em><em>[</em><em>BlockPublicAccess</em><em>]</em>) – The block public access configuration of this bucket.
-<cite>aws_cdk.aws_s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL</cite> by default.</p></li>
+<cite>aws_cdk.aws_s3.BlockPublicAccess.BLOCK_ALL</cite> by default.</p></li>
 <li><p><strong>removal_policy</strong> (<em>Optional</em><em>[</em><em>RemovalPolicy</em><em>]</em>) – Policy to apply when the bucket is removed from this stack.
 <cite>aws_cdk.RemovalPolicy.RETAIN</cite> by default.</p></li>
 <li><p><strong>encryption</strong> (<em>Optional</em><em>[</em><em>BucketEncryption</em><em>]</em>) – The kind of server-side encryption to apply to this bucket.

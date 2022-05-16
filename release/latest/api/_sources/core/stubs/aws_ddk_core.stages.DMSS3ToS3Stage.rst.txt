@@ -1,0 +1,36 @@
+﻿aws\_ddk\_core.stages.DMSS3ToS3Stage
+====================================
+
+.. currentmodule:: aws_ddk_core.stages
+
+.. autoclass:: DMSS3ToS3Stage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DMSS3ToS3Stage.__init__
+      ~DMSS3ToS3Stage.add_alarm
+      ~DMSS3ToS3Stage.get_event_pattern
+      ~DMSS3ToS3Stage.get_targets
+      ~DMSS3ToS3Stage.is_construct
+      ~DMSS3ToS3Stage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~DMSS3ToS3Stage.cloudwatch_alarms
+      ~DMSS3ToS3Stage.event_pattern
+      ~DMSS3ToS3Stage.node
+   
+   
