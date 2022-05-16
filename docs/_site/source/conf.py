@@ -15,7 +15,7 @@ for path in paths:
 project = "AWS DDK"
 copyright = "2022, AWS"
 author = "AWS Professional Services"
-release = "0.4.0"
+release = "0.4.1"
 
 
 # -- General configuration ---------------------------------------------------
