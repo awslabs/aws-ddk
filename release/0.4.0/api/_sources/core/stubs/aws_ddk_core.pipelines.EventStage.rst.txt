@@ -1,0 +1,33 @@
+﻿aws\_ddk\_core.pipelines.EventStage
+===================================
+
+.. currentmodule:: aws_ddk_core.pipelines
+
+.. autoclass:: EventStage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~EventStage.__init__
+      ~EventStage.get_event_pattern
+      ~EventStage.get_targets
+      ~EventStage.is_construct
+      ~EventStage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~EventStage.node
+   
+   

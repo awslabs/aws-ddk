@@ -1,0 +1,38 @@
+﻿aws\_ddk\_core.stages.SqsToLambdaStage
+======================================
+
+.. currentmodule:: aws_ddk_core.stages
+
+.. autoclass:: SqsToLambdaStage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SqsToLambdaStage.__init__
+      ~SqsToLambdaStage.add_alarm
+      ~SqsToLambdaStage.get_event_pattern
+      ~SqsToLambdaStage.get_targets
+      ~SqsToLambdaStage.is_construct
+      ~SqsToLambdaStage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SqsToLambdaStage.cloudwatch_alarms
+      ~SqsToLambdaStage.dlq
+      ~SqsToLambdaStage.function
+      ~SqsToLambdaStage.node
+      ~SqsToLambdaStage.queue
+   
+   
