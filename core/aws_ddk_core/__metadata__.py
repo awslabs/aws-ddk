@@ -18,7 +18,7 @@ Source repository: https://github.com/awslabs/aws-ddk
 Documentation: https://awslabs.github.io/aws-ddk/
 """
 
-__version__: str = "0.5.0"
+__version__: str = "0.4.0"
 __title__: str = "aws_ddk_core"
 __description__: str = "AWS DataOps Development Kit - Core"
 __license__: str = "Apache-2.0"
