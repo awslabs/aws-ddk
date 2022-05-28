@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from aws_ddk_core.resources._dms import DMSFactory
 from aws_ddk_core.resources._glue import GlueFactory
 from aws_ddk_core.resources._kinesis_firehose import KinesisFirehoseFactory
 from aws_ddk_core.resources._kinesis_streams import KinesisStreamsFactory
@@ -22,6 +23,7 @@ from aws_ddk_core.resources._sfn import StepFunctionsFactory
 from aws_ddk_core.resources._sqs import SQSFactory
 
 __all__ = [
+    "DMSFactory",
     "GlueFactory",
     "KinesisFirehoseFactory",
     "KinesisStreamsFactory",

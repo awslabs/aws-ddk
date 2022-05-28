@@ -14,5 +14,4 @@ For instance, an organisation might have specific requirements in terms of secur
 
 In DDK, this can be achieved through a private code artifactory. The idea is to define your custom DDK constructs in a Python library hosted in an [AWS CodeArtifact](https://aws.amazon.com/codeartifact/) repository. Once available in the private code artifactory, it can be reused by other users in the organisation in their own applications.
 
-To implement this pattern, follow this example:
-https://github.com/aws-samples/aws-ddk-examples/tree/main/private_artifactory
+To implement this pattern, follow this [example](https://github.com/aws-samples/aws-ddk-examples/tree/main/private_artifactory).

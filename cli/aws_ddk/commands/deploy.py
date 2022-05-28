@@ -33,7 +33,7 @@ def cdk_deploy(
 
     # generate command
     cmd = (
-        "cdk deploy "
+        "cdk deploy --all "
         f"{'--require-approval ' + require_approval + ' ' if require_approval else ''}"
         f"{'-f ' if force else ''}"
         f"--output {output_dir if output_dir else '.ddk.out'}"

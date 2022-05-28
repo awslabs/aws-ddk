@@ -66,6 +66,10 @@ config = {
                     "delivery_delay": 15,
                     "removal_policy": "destroy",
                 },
+                "dummy-replication-instance-2": {
+                    "replication_instance_class": "dms.r5.xlarge",
+                    "allocated_storage": 400,
+                },
                 "dummy-key-2": {
                     "enable_key_rotation": False,
                 },
