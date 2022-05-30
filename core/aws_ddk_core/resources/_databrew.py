@@ -49,8 +49,8 @@ class DatabrewFactory:
         name: str,
         role_arn: IRole,
         type: str,
-        dataset_name: Optional[str] = None,
-        recipe: Optional[databrew.CfnJob.RecipeProperty] = None,
+        dataset_name: str = None,
+        recipe: databrew.CfnJob.RecipeProperty = None,
         encryption_mode: Optional[str] = None,
         log_subscription: Optional[str] = None,
         max_capacity: Optional[int] = None,
@@ -87,9 +87,9 @@ class DatabrewFactory:
             The type of the Databrew job, which must be one of the following:
                 PROFILE - A job to analyze a dataset, to determine its size, data types, data distribution, and more.
                 RECIPE - A job to apply one or more transformations to a dataset.
-        dataset_name : Optional[str]
+        dataset_name : str
             The name of the Databrew dataset to be processed by the Databrew job
-        recipe : Optional[databrew.CfnJob.RecipeProperty]
+        recipe : databrew.CfnJob.RecipeProperty
             The recipe to be used by the Databrew job which is a series of data transformation steps.
         encryption_mode : Optional[str]
             The encryption mode to be used by the Databrew job, which can be one of the following:
