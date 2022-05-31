@@ -37,6 +37,7 @@ def bootstrap_account(
     trusted_accounts: Optional[Tuple[str]] = None,
     iam_policies: Optional[Tuple[str]] = None,
     permissions_boundary: Optional[str] = None,
+    disable_public_access_block_configuration: Optional[bool] = None,
     tags: Optional[Tuple[Tuple[str, str]]] = None,
 ) -> None:
     _logger.debug(f"environment: {environment}")
@@ -74,9 +75,16 @@ def bootstrap_account(
 
     echo(f"Bootstrapping environment {environment} - AWS account {get_account_id()} and region {get_region()}...")
     _logger.debug(f"parameters: {parameters}")
+
+    bootstrap_template = (
+        "data/cloudformation_templates/bootstrap.yaml"
+        if disable_public_access_block_configuration
+        else DEFAULT_BOOTSTRAP_TEMPLATE
+    )
+
     cfn.deploy_template(
         stack_name=f"{prefix.title()}{environment.title()}Bootstrap",
-        file_name=os.path.join(get_package_root(), DEFAULT_BOOTSTRAP_TEMPLATE),
+        file_name=os.path.join(get_package_root(), bootstrap_template),
         parameters=parameters,
         tags=key_value_tags,
     )

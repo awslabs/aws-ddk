@@ -194,6 +194,14 @@ def init(name: str, environment: str, template: Optional[str] = None, generate_o
     required=False,
 )
 @click.option(
+    "--disable-public-access-block-configuration",
+    is_flag=True,
+    type=bool,
+    default=False,
+    help="Block public access configuration on CDK toolkit bucket.",
+    required=False,
+)
+@click.option(
     "--tags",
     "-t",
     type=(str, str),
@@ -210,6 +218,7 @@ def bootstrap(
     trusted_accounts: Optional[Tuple[str]] = None,
     iam_policies: Optional[Tuple[str]] = None,
     permissions_boundary: Optional[str] = None,
+    disable_public_access_block_configuration: Optional[bool] = None,
     tags: Optional[Tuple[Tuple[str, str]]] = None,
 ) -> None:
     """Bootstrap the AWS account with DDK resources."""
@@ -221,6 +230,7 @@ def bootstrap(
         trusted_accounts=trusted_accounts,
         iam_policies=iam_policies,
         permissions_boundary=permissions_boundary,
+        disable_public_access_block_configuration=disable_public_access_block_configuration,
         tags=tags,
     )
 

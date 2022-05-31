@@ -61,6 +61,23 @@ def test_bootstrap() -> None:
     assert cloudformation.describe_stacks(StackName=stack_name)["Stacks"][0]["StackName"] == stack_name
 
 
+@mock_cloudformation
+@mock_sts
+def test_bootstrap_with_disabled_public_access_block() -> None:
+    runner = CliRunner()
+    cloudformation = boto3.client("cloudformation")
+    prefix = "dummy"
+    environment = "dev"
+
+    # run bootstrap
+    runner.invoke(
+        bootstrap,
+        ["--prefix", prefix, "--environment", environment, "--disable-public-access-block-configuration"],
+    )
+    stack_name = f"{prefix.title()}{environment.title()}Bootstrap"
+    assert cloudformation.describe_stacks(StackName=stack_name)["Stacks"][0]["StackName"] == stack_name
+
+
 def test_create_repository_help() -> None:
     runner = CliRunner()
     result = runner.invoke(create_repository, ["--help"])
