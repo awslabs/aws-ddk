@@ -82,7 +82,7 @@ class DatabrewTransformStage(StateMachineStage):
 
         self._event_detail_type: str = f"{id}-event-type"
 
-        # if Databrew job name is not supplied, create one
+        # If None, a Databrew job is created
         self._job: Optional[CfnJob] = None
         if not job_name:
             self._job = DatabrewFactory.job(
