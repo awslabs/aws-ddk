@@ -121,6 +121,6 @@ class DatabrewTransformStage(StateMachineStage):
     def job(self) -> Optional[CfnJob]:
         """
         Return: Optional[CfnJob]
-            The Glue DataBrew job
+            The DataBrew job
         """
         return self._job
