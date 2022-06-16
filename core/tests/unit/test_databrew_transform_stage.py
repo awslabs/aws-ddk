@@ -16,11 +16,11 @@ from aws_cdk.assertions import Match, Template
 from aws_cdk.aws_databrew import CfnJob
 from aws_cdk.aws_iam import Role, ServicePrincipal
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.stages import DatabrewTransformStage
+from aws_ddk_core.stages import DataBrewTransformStage
 
 
 def test_databrew_transform_stage_simple(test_stack: BaseStack) -> None:
-    DatabrewTransformStage(
+    DataBrewTransformStage(
         scope=test_stack,
         id="dummy-databrew-transform-simple",
         environment_id="dev",
@@ -46,7 +46,7 @@ def test_databrew_transform_stage_simple(test_stack: BaseStack) -> None:
 
 
 def test_databrew_transform_stage_create(test_stack: BaseStack) -> None:
-    DatabrewTransformStage(
+    DataBrewTransformStage(
         scope=test_stack,
         id="dummy-databrew-transform-create",
         environment_id="dev",

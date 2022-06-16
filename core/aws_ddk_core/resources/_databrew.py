@@ -26,18 +26,18 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 
 class JobSchema(BaseSchema):
-    """DDK Databrew recipe Marshmallow schema."""
+    """DDK DataBrew recipe Marshmallow schema."""
 
-    # Databrew recipe CDK construct fields
+    # DataBrew recipe CDK construct fields
     max_capacity = fields.Int()
     max_retries = fields.Int()
     timeout = fields.Int()
     log_subscription = fields.Str()
 
 
-class DatabrewFactory:
+class DataBrewFactory:
     """
-    Class factory to create and configure Databrew DDK resources, including Jobs.
+    Class factory to create and configure DataBrew DDK resources, including Jobs.
     """
 
     @staticmethod
@@ -60,7 +60,7 @@ class DatabrewFactory:
         **job_props: Any,
     ) -> databrew.CfnJob:
         """
-        Create and configure a Databrew job.
+        Create and configure a DataBrew job.
 
         This construct allows to configure parameters of the job using ddk.json configuration file
         depending on the `environment_id` in which the job is used. Supported parameters are:
@@ -76,37 +76,37 @@ class DatabrewFactory:
         scope : Construct
             Scope within which this construct is defined
         id : str
-            Identifier of the Databrew job
+            Identifier of the DataBrew job
         environment_id : str
             Identifier of the environment in which the job is used
         name : str
-            Name of the Databrew job
+            Name of the DataBrew job
         role_arn : Optional[str]
-            Arn of the execution role of the Databrew job
+            Arn of the execution role of the DataBrew job
         type : str
-            The type of the Databrew job, which must be one of the following:
+            The type of the DataBrew job, which must be one of the following:
                 PROFILE - A job to analyze a dataset, to determine its size, data types, data distribution, and more.
                 RECIPE - A job to apply one or more transformations to a dataset.
         dataset_name : Optional[str]
-            The name of the Databrew dataset to be processed by the Databrew job
+            The name of the DataBrew dataset to be processed by the DataBrew job
         recipe : Optional[databrew.CfnJob.RecipeProperty]
-            The recipe to be used by the Databrew job which is a series of data transformation steps.
+            The recipe to be used by the DataBrew job which is a series of data transformation steps.
         encryption_mode : Optional[str]
-            The encryption mode to be used by the Databrew job, which can be one of the following:
+            The encryption mode to be used by the DataBrew job, which can be one of the following:
                 SSE-KMS - Server-side encryption with keys managed by AWS KMS.
                 SSE-S3 - Server-side encryption with keys managed by Amazon S3.
         log_subscription : Optional[str]
-            The status of the Amazon Cloudwatch logging for the Databrew job
+            The status of the Amazon Cloudwatch logging for the DataBrew job
         max_capacity : Optional[int]
-            The maximum number of nodes that can be consumed by the Databrew job.
+            The maximum number of nodes that can be consumed by the DataBrew job.
         max_retries : Optional[int]
-            The maximum number of times to retry the Databrew job
+            The maximum number of times to retry the DataBrew job
         output_location : Optional[databrew.CfnJob.OutputLocationProperty]
-            Output location to be used by the Databrew job
+            Output location to be used by the DataBrew job
         outputs : Optional[Sequence[databrew.CfnJob.OutputProperty]]
-            One or more output artifacts that represent the output of the Databrew job
+            One or more output artifacts that represent the output of the DataBrew job
         timeout : Optional[cdk.Duration]
-            The job execution time (in seconds) after which Databrew terminates the job.
+            The job execution time (in seconds) after which DataBrew terminates the job.
             `aws_cdk.Duration.seconds(3600)` by default.
         job_props : Any
             Additional job properties. For complete list of properties refer to CDK Documentation -
@@ -115,7 +115,7 @@ class DatabrewFactory:
         Returns
         -------
         job : databrew.CfnJob
-            Databrew job
+            DataBrew job
         """
         job_config_props: Dict[str, Any] = JobSchema().load(
             Config().get_resource_config(
