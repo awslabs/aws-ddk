@@ -16,10 +16,9 @@ import logging
 from typing import Any, Dict, Optional, Sequence
 
 import aws_cdk as cdk
-from aws_cdk import aws_databrew as databrew
-from aws_cdk.aws_iam import IRole
+import aws_cdk.aws_databrew as databrew
 from aws_ddk_core.config import Config
-from aws_ddk_core.resources.commons import BaseSchema, Duration
+from aws_ddk_core.resources.commons import BaseSchema
 from constructs import Construct
 from marshmallow import fields
 
@@ -32,7 +31,7 @@ class JobSchema(BaseSchema):
     # Databrew recipe CDK construct fields
     max_capacity = fields.Int()
     max_retries = fields.Int()
-    timeout = Duration(load_default=cdk.Duration.seconds(3600))
+    timeout = fields.Int()
     log_subscription = fields.Str()
 
 
@@ -47,17 +46,18 @@ class DatabrewFactory:
         id: str,
         environment_id: str,
         name: str,
-        role_arn: IRole,
+        role_arn: str,
         type: str,
-        dataset_name: str = None,
-        recipe: databrew.CfnJob.RecipeProperty = None,
+        dataset_name: Optional[str] = None,
+        recipe: Optional[databrew.CfnJob.RecipeProperty] = None,
         encryption_mode: Optional[str] = None,
         log_subscription: Optional[str] = None,
         max_capacity: Optional[int] = None,
         max_retries: Optional[int] = None,
         output_location: Optional[databrew.CfnJob.OutputLocationProperty] = None,
-        outputs: Optional[Sequence[databrew.CfnJob.OutputLocationProperty]] = None,
+        outputs: Optional[Sequence[databrew.CfnJob.OutputProperty]] = None,
         timeout: Optional[cdk.Duration] = None,
+        **job_props: Any,
     ) -> databrew.CfnJob:
         """
         Create and configure a Databrew job.
@@ -81,15 +81,15 @@ class DatabrewFactory:
             Identifier of the environment in which the job is used
         name : str
             Name of the Databrew job
-        role_arn : Optional[IRole]
-            The execution role_arn of the Databrew job
+        role_arn : Optional[str]
+            Arn of the execution role of the Databrew job
         type : str
             The type of the Databrew job, which must be one of the following:
                 PROFILE - A job to analyze a dataset, to determine its size, data types, data distribution, and more.
                 RECIPE - A job to apply one or more transformations to a dataset.
-        dataset_name : str
+        dataset_name : Optional[str]
             The name of the Databrew dataset to be processed by the Databrew job
-        recipe : databrew.CfnJob.RecipeProperty
+        recipe : Optional[databrew.CfnJob.RecipeProperty]
             The recipe to be used by the Databrew job which is a series of data transformation steps.
         encryption_mode : Optional[str]
             The encryption mode to be used by the Databrew job, which can be one of the following:
@@ -103,11 +103,14 @@ class DatabrewFactory:
             The maximum number of times to retry the Databrew job
         output_location : Optional[databrew.CfnJob.OutputLocationProperty]
             Output location to be used by the Databrew job
-        outputs : Optional[Sequence[databrew.CfnJob.OutputLocationProperty]]
+        outputs : Optional[Sequence[databrew.CfnJob.OutputProperty]]
             One or more output artifacts that represent the output of the Databrew job
         timeout : Optional[cdk.Duration]
             The job execution time (in seconds) after which Databrew terminates the job.
             `aws_cdk.Duration.seconds(3600)` by default.
+        job_props : Any
+            Additional job properties. For complete list of properties refer to CDK Documentation -
+            DataBrew Job: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_databrew/CfnJob.html
 
         Returns
         -------
@@ -135,6 +138,7 @@ class DatabrewFactory:
             "output_location": output_location,
             "outputs": outputs,
             "timeout": timeout,
+            **job_props,
         }
 
         # Explicit ("hardcoded") props should always take precedence over config

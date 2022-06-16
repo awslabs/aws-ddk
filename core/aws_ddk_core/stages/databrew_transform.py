@@ -15,8 +15,8 @@
 from typing import Any, Dict, List, Optional
 
 from aws_cdk.aws_databrew import CfnJob
-from aws_cdk.aws_iam import IRole, PolicyStatement
-from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, Succeed, TaskInput
+from aws_cdk.aws_iam import PolicyStatement
+from aws_cdk.aws_stepfunctions import IntegrationPattern, Succeed
 from aws_cdk.aws_stepfunctions_tasks import GlueDataBrewStartJobRun
 from aws_ddk_core.pipelines import StateMachineStage
 from aws_ddk_core.resources import DatabrewFactory
@@ -34,7 +34,7 @@ class DatabrewTransformStage(StateMachineStage):
         id: str,
         environment_id: str,
         job_name: Optional[str] = None,
-        job_role: Optional[IRole] = None,
+        job_role_arn: Optional[str] = None,
         job_type: Optional[str] = None,
         dataset_name: Optional[str] = None,
         recipe: Optional[CfnJob.RecipeProperty] = None,
@@ -59,14 +59,14 @@ class DatabrewTransformStage(StateMachineStage):
             Identifier of the environment
         job_name : Optional[str]
             The name of a preexisting Databrew job to run. If None, a Databrew job is created
-        job_role : Optional[IRole]
-            The job execution role
+        job_role_arn : Optional[str]
+            The Arn of the job execution role. Required if job_name is None.
         job_type : Optional[str]
-            The type of job to run. If None, the job type is inferred if the recipe is provided or not.
+            The type of job to run.  Required if job_name is None.
         dataset_name : Optional[str]
             The name of the dataset to use for the job.
-        recipe_name : Optional[CfnJob.RecipeProperty]
-            The name of the recipe to use for the job.
+        recipe : Optional[CfnJob.RecipeProperty]
+            The recipe to be used by the Databrew job which is a series of data transformation steps.
         outputs : Optional[List[CfnJob.OutputProperty]]
             The output properties for the job.
         state_machine_input : Optional[Dict[str, Any]]
@@ -89,13 +89,14 @@ class DatabrewTransformStage(StateMachineStage):
                 self,
                 id=f"{id}-job",
                 environment_id=environment_id,
-                role=job_role,
-                type=job_type,
+                name=f"{id}-job",
+                role_arn=job_role_arn,  # type: ignore
+                type=job_type,  # type: ignore
                 dataset_name=dataset_name,
                 recipe=recipe,
                 outputs=outputs,
             )
-            job_name = self._job.job_name
+            job_name = self._job.name
 
         # Create GlueDataBrewStartJobRun step function task
         start_job_run: GlueDataBrewStartJobRun = GlueDataBrewStartJobRun(
@@ -120,6 +121,6 @@ class DatabrewTransformStage(StateMachineStage):
     def job(self) -> Optional[CfnJob]:
         """
         Return: Optional[CfnJob]
-            The Glue job
+            The Glue DataBrew job
         """
         return self._job

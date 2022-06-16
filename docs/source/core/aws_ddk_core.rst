@@ -65,6 +65,7 @@ Resources
    :toctree: stubs
    :template: custom-class-template.rst
 
+   DatabrewFactory
    DMSFactory
    GlueFactory
    KinesisFirehoseFactory
@@ -86,6 +87,7 @@ Data Stages
 
    AppFlowIngestionStage
    AthenaSQLStage
+   DatabrewTransformStage
    DMSS3ToS3Stage
    GlueTransformStage
    KinesisToS3Stage
