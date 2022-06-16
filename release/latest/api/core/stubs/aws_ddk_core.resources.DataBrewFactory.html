@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.KinesisFirehoseFactory" href="aws_ddk_core.resources.KinesisFirehoseFactory.html" /><link rel="prev" title="aws_ddk_core.resources.DMSFactory" href="aws_ddk_core.resources.DMSFactory.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.DMSFactory" href="aws_ddk_core.resources.DMSFactory.html" /><link rel="prev" title="aws_ddk_core.pipelines.StateMachineStage" href="aws_ddk_core.pipelines.StateMachineStage.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>aws_ddk_core.resources.GlueFactory - Contents</title>
+        <title>aws_ddk_core.resources.DataBrewFactory - Contents</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -172,9 +172,9 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.DataBrewFactory.html">aws_ddk_core.resources.DataBrewFactory</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.resources.DataBrewFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.DMSFactory.html">aws_ddk_core.resources.DMSFactory</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.resources.GlueFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">aws_ddk_core.resources.KinesisFirehoseFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KinesisStreamsFactory.html">aws_ddk_core.resources.KinesisStreamsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.KMSFactory.html">aws_ddk_core.resources.KMSFactory</a></li>
@@ -218,15 +218,15 @@
           </label>
         </div>
         <article role="main">
-          <section id="aws-ddk-core-resources-gluefactory">
-<h1>aws_ddk_core.resources.GlueFactory<a class="headerlink" href="#aws-ddk-core-resources-gluefactory" title="Permalink to this headline">¶</a></h1>
+          <section id="aws-ddk-core-resources-databrewfactory">
+<h1>aws_ddk_core.resources.DataBrewFactory<a class="headerlink" href="#aws-ddk-core-resources-databrewfactory" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.GlueFactory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.resources.</span></span><span class="sig-name descname"><span class="pre">GlueFactory</span></span><a class="headerlink" href="#aws_ddk_core.resources.GlueFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class factory to create and configure Glue DDK resources, including Jobs.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.DataBrewFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.resources.</span></span><span class="sig-name descname"><span class="pre">DataBrewFactory</span></span><a class="headerlink" href="#aws_ddk_core.resources.DataBrewFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class factory to create and configure DataBrew DDK resources, including Jobs.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.GlueFactory.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.resources.GlueFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.DataBrewFactory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.resources.DataBrewFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <p class="rubric">Methods</p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
@@ -235,22 +235,21 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.GlueFactory.__init__" title="aws_ddk_core.resources.GlueFactory.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.resources.DataBrewFactory.__init__" title="aws_ddk_core.resources.DataBrewFactory.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.resources.GlueFactory.job" title="aws_ddk_core.resources.GlueFactory.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>(scope, id, environment_id, executable[, ...])</p></td>
-<td><p>Create and configure Glue job.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.resources.DataBrewFactory.job" title="aws_ddk_core.resources.DataBrewFactory.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>(scope, id, environment_id, name, ...[, ...])</p></td>
+<td><p>Create and configure a DataBrew job.</p></td>
 </tr>
 </tbody>
 </table></div>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.resources.GlueFactory.job">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">aws_cdk.aws_glue_alpha.JobExecutable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.IRole</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">security_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_glue_alpha.ISecurityConfiguration</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.Duration</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_glue_alpha.WorkerType</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.aws_glue_alpha.IJob</span></span></span><a class="headerlink" href="#aws_ddk_core.resources.GlueFactory.job" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and configure Glue job.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.resources.DataBrewFactory.job">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_arn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_databrew.CfnJob.RecipeProperty</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_subscription</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_databrew.CfnJob.OutputLocationProperty</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_databrew.CfnJob.OutputProperty</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.Duration</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">aws_cdk.aws_databrew.CfnJob</span></span></span><a class="headerlink" href="#aws_ddk_core.resources.DataBrewFactory.job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and configure a DataBrew job.</p>
 <p>This construct allows to configure parameters of the job using ddk.json configuration file
 depending on the <cite>environment_id</cite> in which the job is used. Supported parameters are:
-<cite>default_arguments</cite>,`enable_profiling_metrics`, <cite>max_concurrent_runs</cite>, <cite>max_retries</cite>,
-<cite>timeout</cite>, <cite>worker_count</cite>.</p>
+<cite>max_capacity</cite>,`max_retries`, <cite>timeout</cite></p>
 <p>The parameters are respected in the following order:
 1 - Explicit arguments are always preferred
 2 - Values from configuration file
@@ -259,26 +258,40 @@ depending on the <cite>environment_id</cite> in which the job is used. Supported
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
-<li><p><strong>id</strong> (<em>str</em>) – Identifier of the Glue job</p></li>
-<li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
-<li><p><strong>executable</strong> (<em>JobExecutable</em>) – The job executable properties</p></li>
-<li><p><strong>job_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the Glue job</p></li>
-<li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The description of the Glue job</p></li>
-<li><p><strong>role</strong> (<em>Optional</em><em>[</em><em>IRole</em><em>]</em>) – The execution role of the Glue job</p></li>
-<li><p><strong>security_configuration</strong> (<em>Optional</em><em>[</em><em>ISecurityConfiguration</em><em>]</em>) – The security configuration of the Glue job. If None, a default configuration is used</p></li>
-<li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>Duration</em><em>]</em>) – The job execution time (in seconds) after which Glue terminates the job.
+<li><p><strong>id</strong> (<em>str</em>) – Identifier of the DataBrew job</p></li>
+<li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment in which the job is used</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of the DataBrew job</p></li>
+<li><p><strong>role_arn</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Arn of the execution role of the DataBrew job</p></li>
+<li><p><strong>type</strong> (<em>str</em>) – <dl class="simple">
+<dt>The type of the DataBrew job, which must be one of the following:</dt><dd><p>PROFILE - A job to analyze a dataset, to determine its size, data types, data distribution, and more.
+RECIPE - A job to apply one or more transformations to a dataset.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>dataset_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the DataBrew dataset to be processed by the DataBrew job</p></li>
+<li><p><strong>recipe</strong> (<em>Optional</em><em>[</em><em>databrew.CfnJob.RecipeProperty</em><em>]</em>) – The recipe to be used by the DataBrew job which is a series of data transformation steps.</p></li>
+<li><p><strong>encryption_mode</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <dl class="simple">
+<dt>The encryption mode to be used by the DataBrew job, which can be one of the following:</dt><dd><p>SSE-KMS - Server-side encryption with keys managed by AWS KMS.
+SSE-S3 - Server-side encryption with keys managed by Amazon S3.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>log_subscription</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The status of the Amazon Cloudwatch logging for the DataBrew job</p></li>
+<li><p><strong>max_capacity</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The maximum number of nodes that can be consumed by the DataBrew job.</p></li>
+<li><p><strong>max_retries</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The maximum number of times to retry the DataBrew job</p></li>
+<li><p><strong>output_location</strong> (<em>Optional</em><em>[</em><em>databrew.CfnJob.OutputLocationProperty</em><em>]</em>) – Output location to be used by the DataBrew job</p></li>
+<li><p><strong>outputs</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>[</em><em>databrew.CfnJob.OutputProperty</em><em>]</em><em>]</em>) – One or more output artifacts that represent the output of the DataBrew job</p></li>
+<li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>cdk.Duration</em><em>]</em>) – The job execution time (in seconds) after which DataBrew terminates the job.
 <cite>aws_cdk.Duration.seconds(3600)</cite> by default.</p></li>
-<li><p><strong>worker_count</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of workers of a defined WorkerType that are allocated when a job runs</p></li>
-<li><p><strong>worker_type</strong> (<em>Optional</em><em>[</em><em>WorkerType</em><em>]</em>) – The type of predefined worker that is allocated when a job runs</p></li>
 <li><p><strong>job_props</strong> (<em>Any</em>) – Additional job properties. For complete list of properties refer to CDK Documentation -
-Glue Job: <a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue_alpha/Job.html">https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue_alpha/Job.html</a></p></li>
+DataBrew Job: <a class="reference external" href="https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_databrew/CfnJob.html">https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_databrew/CfnJob.html</a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>job</strong> – Glue job</p>
+<dd class="field-even"><p><strong>job</strong> – DataBrew job</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>aws_cdk.aws_glue_alpha.Job</p>
+<dd class="field-odd"><p>databrew.CfnJob</p>
 </dd>
 </dl>
 </dd></dl>
@@ -290,18 +303,18 @@ Glue Job: <a class="reference external" href="https://docs.aws.amazon.com/cdk/ap
       <footer>
         
 <div class="related-pages">
-    <a class="next-page" href="aws_ddk_core.resources.KinesisFirehoseFactory.html">
+    <a class="next-page" href="aws_ddk_core.resources.DMSFactory.html">
         <div class="page-info">
             <div class="context">
                 <span>Next</span>
             </div>
-            <div class="title">aws_ddk_core.resources.KinesisFirehoseFactory</div>
+            <div class="title">aws_ddk_core.resources.DMSFactory</div>
         </div>
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
     </a>
-    <a class="prev-page" href="aws_ddk_core.resources.DMSFactory.html">
+    <a class="prev-page" href="aws_ddk_core.pipelines.StateMachineStage.html">
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
@@ -310,7 +323,7 @@ Glue Job: <a class="reference external" href="https://docs.aws.amazon.com/cdk/ap
                 <span>Previous</span>
             </div>
             
-            <div class="title">aws_ddk_core.resources.DMSFactory</div>
+            <div class="title">aws_ddk_core.pipelines.StateMachineStage</div>
             
         </div>
     </a>

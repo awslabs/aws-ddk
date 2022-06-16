@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.resources.DataBrewFactory" href="aws_ddk_core.resources.DataBrewFactory.html" /><link rel="prev" title="aws_ddk_core.pipelines.EventStage" href="aws_ddk_core.pipelines.EventStage.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="aws_ddk_core.stages.DMSS3ToS3Stage" href="aws_ddk_core.stages.DMSS3ToS3Stage.html" /><link rel="prev" title="aws_ddk_core.stages.AthenaSQLStage" href="aws_ddk_core.stages.AthenaSQLStage.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>aws_ddk_core.pipelines.StateMachineStage - Contents</title>
+        <title>aws_ddk_core.stages.DataBrewTransformStage - Contents</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -171,7 +171,7 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataPipeline.html">aws_ddk_core.pipelines.DataPipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.DataStage.html">aws_ddk_core.pipelines.DataStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.EventStage.html">aws_ddk_core.pipelines.EventStage</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.pipelines.StateMachineStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.pipelines.StateMachineStage.html">aws_ddk_core.pipelines.StateMachineStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.DataBrewFactory.html">aws_ddk_core.resources.DataBrewFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.DMSFactory.html">aws_ddk_core.resources.DMSFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.GlueFactory.html">aws_ddk_core.resources.GlueFactory</a></li>
@@ -184,7 +184,7 @@
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.resources.StepFunctionsFactory.html">aws_ddk_core.resources.StepFunctionsFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AppFlowIngestionStage.html">aws_ddk_core.stages.AppFlowIngestionStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.AthenaSQLStage.html">aws_ddk_core.stages.AthenaSQLStage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.DataBrewTransformStage.html">aws_ddk_core.stages.DataBrewTransformStage</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">aws_ddk_core.stages.DataBrewTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.DMSS3ToS3Stage.html">aws_ddk_core.stages.DMSS3ToS3Stage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.GlueTransformStage.html">aws_ddk_core.stages.GlueTransformStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aws_ddk_core.stages.KinesisToS3Stage.html">aws_ddk_core.stages.KinesisToS3Stage</a></li>
@@ -218,23 +218,33 @@
           </label>
         </div>
         <article role="main">
-          <section id="aws-ddk-core-pipelines-statemachinestage">
-<h1>aws_ddk_core.pipelines.StateMachineStage<a class="headerlink" href="#aws-ddk-core-pipelines-statemachinestage" title="Permalink to this headline">¶</a></h1>
+          <section id="aws-ddk-core-stages-databrewtransformstage">
+<h1>aws_ddk_core.stages.DataBrewTransformStage<a class="headerlink" href="#aws-ddk-core-stages-databrewtransformstage" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.StateMachineStage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.pipelines.</span></span><span class="sig-name descname"><span class="pre">StateMachineStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.pipelines.StateMachineStage" title="Permalink to this definition">¶</a></dt>
-<dd><p>DataStage with helper methods to simplify StateMachine stages creation.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.stages.DataBrewTransformStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aws_ddk_core.stages.</span></span><span class="sig-name descname"><span class="pre">DataBrewTransformStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aws_ddk_core.stages.DataBrewTransformStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that represents a DataBrew Transform DDK DataStage.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.StateMachineStage.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.StateMachineStage.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a stage.</p>
+<dt class="sig sig-object py" id="aws_ddk_core.stages.DataBrewTransformStage.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">constructs.Construct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_role_arn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_databrew.CfnJob.RecipeProperty</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_databrew.CfnJob.OutputProperty</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_machine_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_role_policy_statements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.PolicyStatement</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_machine_failed_executions_alarm_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_machine_failed_executions_alarm_evaluation_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.stages.DataBrewTransformStage.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>DDK DataBrew Transform stage.</p>
+<p>Stage that contains a step function that runs DataBrew job</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scope</strong> (<em>Construct</em>) – Scope within which this construct is defined</p></li>
 <li><p><strong>id</strong> (<em>str</em>) – Identifier of the stage</p></li>
-<li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Name of the stage</p></li>
-<li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Description of the stage</p></li>
+<li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
+<li><p><strong>job_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of a preexisting DataBrew job to run. If None, a DataBrew job is created</p></li>
+<li><p><strong>job_role_arn</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The Arn of the job execution role. Required if job_name is None.</p></li>
+<li><p><strong>job_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The type of job to run.  Required if job_name is None.</p></li>
+<li><p><strong>dataset_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the dataset to use for the job.</p></li>
+<li><p><strong>recipe</strong> (<em>Optional</em><em>[</em><em>CfnJob.RecipeProperty</em><em>]</em>) – The recipe to be used by the DataBrew job which is a series of data transformation steps.</p></li>
+<li><p><strong>outputs</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>CfnJob.OutputProperty</em><em>]</em><em>]</em>) – The output properties for the job.</p></li>
+<li><p><strong>state_machine_input</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – The input dict to the state machine</p></li>
+<li><p><strong>additional_role_policy_statements</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>PolicyStatement</em><em>]</em><em>]</em>) – Additional IAM policy statements to add to the state machine role</p></li>
+<li><p><strong>state_machine_failed_executions_alarm_threshold</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of failed state machine executions before triggering CW alarm. Defaults to <cite>1</cite></p></li>
+<li><p><strong>state_machine_failed_executions_alarm_evaluation_periods</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of periods over which data is compared to the specified threshold. Defaults to <cite>1</cite></p></li>
 </ul>
 </dd>
 </dl>
@@ -246,19 +256,19 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.StateMachineStage.__init__" title="aws_ddk_core.pipelines.StateMachineStage.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id[, name, description])</p></td>
-<td><p>Create a stage.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.stages.DataBrewTransformStage.__init__" title="aws_ddk_core.stages.DataBrewTransformStage.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(scope, id, environment_id[, ...])</p></td>
+<td><p>DDK DataBrew Transform stage.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_alarm</span></code>(alarm_id, alarm_metric[, ...])</p></td>
 <td><p>Add a CloudWatch alarm for the Data Stage</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.StateMachineStage.build_state_machine" title="aws_ddk_core.pipelines.StateMachineStage.build_state_machine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_state_machine</span></code></a>(id, environment_id, ...)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_state_machine</span></code>(id, environment_id, ...)</p></td>
 <td><p>Build state machine.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.StateMachineStage.get_event_pattern" title="aws_ddk_core.pipelines.StateMachineStage.get_event_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code></a>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_pattern</span></code>()</p></td>
 <td><p>Get output event pattern of the stage.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.StateMachineStage.get_targets" title="aws_ddk_core.pipelines.StateMachineStage.get_targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_targets</span></code>()</p></td>
 <td><p>Get input targets of the stage.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
@@ -279,66 +289,22 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cloudwatch_alarms</span></code></p></td>
 <td><p>List[Alarm] List of CloudWatch Alarms linked to the stage</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.stages.DataBrewTransformStage.job" title="aws_ddk_core.stages.DataBrewTransformStage.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a></p></td>
+<td><p>Optional[CfnJob] The DataBrew job</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></p></td>
 <td><p>The tree node.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.pipelines.StateMachineStage.state_machine" title="aws_ddk_core.pipelines.StateMachineStage.state_machine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">state_machine</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">state_machine</span></code></p></td>
 <td><p>StateMachine The state machine</p></td>
 </tr>
 </tbody>
 </table></div>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.StateMachineStage.build_state_machine">
-<span class="sig-name descname"><span class="pre">build_state_machine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_stepfunctions.IChainable</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_machine_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_role_policy_statements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_iam.PolicyStatement</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_machine_failed_executions_alarm_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_machine_failed_executions_alarm_evaluation_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.StateMachineStage.build_state_machine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build state machine.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<em>str</em>) – Identifier of the state machine</p></li>
-<li><p><strong>environment_id</strong> (<em>str</em>) – Identifier of the environment</p></li>
-<li><p><strong>definition</strong> (<em>Optional</em><em>[</em><em>IChainable</em><em>]</em>) – State machine definition</p></li>
-<li><p><strong>state_machine_input</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – Input of the state machine</p></li>
-<li><p><strong>additional_role_policy_statements</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>PolicyStatement</em><em>]</em><em>]</em>) – Additional IAM policy statements to add to the state machine role</p></li>
-<li><p><strong>state_machine_failed_executions_alarm_threshold</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of failed state machine executions before triggering CW alarm. Defaults to <cite>1</cite></p></li>
-<li><p><strong>state_machine_failed_executions_alarm_evaluation_periods</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of periods over which data is compared to the specified threshold. Defaults to <cite>1</cite></p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.StateMachineStage.get_event_pattern">
-<span class="sig-name descname"><span class="pre">get_event_pattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.EventPattern</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.StateMachineStage.get_event_pattern" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get output event pattern of the stage.</p>
-<p>Event pattern describes the structure of output event(s) produced by this stage. Event Rules use
-event patterns to select events and route them to targets.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>event_pattern</strong> – Event pattern</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Optional[EventPattern]</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.StateMachineStage.get_targets">
-<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_events.IRuleTarget</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#aws_ddk_core.pipelines.StateMachineStage.get_targets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get input targets of the stage.</p>
-<p>Targets are used by Event Rules to describe what should be invoked when a rule matches an event.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>targets</strong> – List of targets</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Optional[List[IRuleTarget]]</p>
-</dd>
-</dl>
-</dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="aws_ddk_core.pipelines.StateMachineStage.state_machine">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_machine</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aws_cdk.aws_stepfunctions.StateMachine</span></em><a class="headerlink" href="#aws_ddk_core.pipelines.StateMachineStage.state_machine" title="Permalink to this definition">¶</a></dt>
-<dd><p>StateMachine
-The state machine</p>
+<dt class="sig sig-object py" id="aws_ddk_core.stages.DataBrewTransformStage.job">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.aws_databrew.CfnJob</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aws_ddk_core.stages.DataBrewTransformStage.job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional[CfnJob]
+The DataBrew job</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>Return</p>
@@ -353,18 +319,18 @@ The state machine</p>
       <footer>
         
 <div class="related-pages">
-    <a class="next-page" href="aws_ddk_core.resources.DataBrewFactory.html">
+    <a class="next-page" href="aws_ddk_core.stages.DMSS3ToS3Stage.html">
         <div class="page-info">
             <div class="context">
                 <span>Next</span>
             </div>
-            <div class="title">aws_ddk_core.resources.DataBrewFactory</div>
+            <div class="title">aws_ddk_core.stages.DMSS3ToS3Stage</div>
         </div>
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
     </a>
-    <a class="prev-page" href="aws_ddk_core.pipelines.EventStage.html">
+    <a class="prev-page" href="aws_ddk_core.stages.AthenaSQLStage.html">
         <svg>
             <use href="#svg-arrow-right"></use>
         </svg>
@@ -373,7 +339,7 @@ The state machine</p>
                 <span>Previous</span>
             </div>
             
-            <div class="title">aws_ddk_core.pipelines.EventStage</div>
+            <div class="title">aws_ddk_core.stages.AthenaSQLStage</div>
             
         </div>
     </a>
