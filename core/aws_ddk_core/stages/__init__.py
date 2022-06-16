@@ -14,6 +14,7 @@
 
 from aws_ddk_core.stages.appflow_ingestion import AppFlowIngestionStage
 from aws_ddk_core.stages.athena_sql import AthenaSQLStage
+from aws_ddk_core.stages.databrew_transform import DataBrewTransformStage
 from aws_ddk_core.stages.dms_s3_to_s3 import DMSS3ToS3Stage
 from aws_ddk_core.stages.glue_transform import GlueTransformStage
 from aws_ddk_core.stages.kinesis_s3 import KinesisToS3Stage
@@ -23,6 +24,7 @@ from aws_ddk_core.stages.sqs_lambda import SqsToLambdaStage
 __all__ = [
     "AppFlowIngestionStage",
     "AthenaSQLStage",
+    "DataBrewTransformStage",
     "DMSS3ToS3Stage",
     "GlueTransformStage",
     "KinesisToS3Stage",

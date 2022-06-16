@@ -95,6 +95,11 @@ config = {
                     "max_concurrent_runs": 2,
                     "worker_count": 3,
                 },
+                "dummy-databrew-transform-create-job": {
+                    "max_capacity": 2,
+                    "max_retries": 1,
+                    "timeout": 60,
+                },
             },
         },
     },
