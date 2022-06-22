@@ -141,6 +141,5 @@ class GlueFactory:
             scope,
             f"{id}-security-config",
             security_configuration_name=f"{id}-security-config",
-            cloud_watch_encryption=glue.CloudWatchEncryption(mode=glue.CloudWatchEncryptionMode.KMS),
             s3_encryption=glue.S3Encryption(mode=glue.S3EncryptionMode.S3_MANAGED),
         )
