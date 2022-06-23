@@ -1,0 +1,39 @@
+﻿aws\_ddk\_core.stages.KinesisToS3Stage
+======================================
+
+.. currentmodule:: aws_ddk_core.stages
+
+.. autoclass:: KinesisToS3Stage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~KinesisToS3Stage.__init__
+      ~KinesisToS3Stage.add_alarm
+      ~KinesisToS3Stage.get_event_pattern
+      ~KinesisToS3Stage.get_targets
+      ~KinesisToS3Stage.is_construct
+      ~KinesisToS3Stage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~KinesisToS3Stage.bucket
+      ~KinesisToS3Stage.cloudwatch_alarms
+      ~KinesisToS3Stage.data_stream
+      ~KinesisToS3Stage.delivery_stream
+      ~KinesisToS3Stage.event_pattern
+      ~KinesisToS3Stage.node
+   
+   
