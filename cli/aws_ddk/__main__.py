@@ -17,7 +17,7 @@ import logging
 import os
 import re
 import sys
-from typing import Optional, Tuple
+from typing import List, Optional, Tuple
 
 import click
 from aws_ddk.__metadata__ import __version__
@@ -284,6 +284,11 @@ def create_repository(
 
 
 @cli.command(name="deploy")
+@click.argument(
+    "stacks",
+    type=list,
+    required=False,
+)
 @click.option(
     "--profile",
     "-p",
@@ -318,6 +323,7 @@ def deploy(
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
     output_dir: Optional[str] = None,
+    stacks: Optional[List[str]] = None,
 ) -> None:
     """Deploy DDK stacks to AWS account."""
     setup_boto_session(profile)
