@@ -27,7 +27,7 @@ def cdk_deploy(
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
     output_dir: Optional[str] = None,
-    stacks: Optional[List[str]] = ["--all"]
+    stacks: Optional[List[str]] = ["--all"],
 ) -> None:
 
     echo(f"Deploying DDK stacks: {stacks} to AWS account {get_account_id()} and region {get_region()}...")
