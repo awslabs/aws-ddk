@@ -23,7 +23,7 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 
 def cdk_deploy(
-    stacks: Iterable[str] = None,
+    stacks: Optional[Iterable[str]] = None,
     profile: Optional[str] = None,
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
