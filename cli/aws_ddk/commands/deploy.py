@@ -23,7 +23,7 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 
 def cdk_deploy(
-    stacks: Iterable[str] = ["--all"],
+    stacks: Iterable[str] = None,
     profile: Optional[str] = None,
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
@@ -34,7 +34,7 @@ def cdk_deploy(
 
     # generate command
     cmd = (
-        f"cdk deploy {' '.join(stacks)} "
+        f"cdk deploy {' '.join(stacks) if stacks else '--all'} "
         f"{'--require-approval ' + require_approval + ' ' if require_approval else ''}"
         f"{'-f ' if force else ''}"
         f"--output {output_dir if output_dir else '.ddk.out'}"
