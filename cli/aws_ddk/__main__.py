@@ -17,7 +17,7 @@ import logging
 import os
 import re
 import sys
-from typing import Optional, Tuple
+from typing import Iterable, Optional, Tuple
 
 import click
 from aws_ddk.__metadata__ import __version__
@@ -284,6 +284,11 @@ def create_repository(
 
 
 @cli.command(name="deploy")
+@click.argument(
+    "stacks",
+    type=list,
+    required=False,
+)
 @click.option(
     "--profile",
     "-p",
@@ -314,6 +319,7 @@ def create_repository(
     required=False,
 )
 def deploy(
+    stacks: Optional[Iterable[str]] = None,
     profile: Optional[str] = None,
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
@@ -322,6 +328,7 @@ def deploy(
     """Deploy DDK stacks to AWS account."""
     setup_boto_session(profile)
     cdk_deploy(
+        stacks=stacks,
         profile=profile,
         require_approval=require_approval,
         force=force,

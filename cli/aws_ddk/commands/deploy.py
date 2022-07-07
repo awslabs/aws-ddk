@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import logging
-from typing import Optional
+from typing import Iterable, Optional
 
 from aws_ddk.sh import run
 from aws_ddk.utils import get_account_id, get_region
@@ -23,17 +23,18 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 
 def cdk_deploy(
+    stacks: Optional[Iterable[str]] = None,
     profile: Optional[str] = None,
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
     output_dir: Optional[str] = None,
 ) -> None:
 
-    echo(f"Deploying DDK stacks to AWS account {get_account_id()} and region {get_region()}...")
+    echo(f"Deploying DDK stacks: {stacks} to AWS account {get_account_id()} and region {get_region()}...")
 
     # generate command
     cmd = (
-        "cdk deploy --all "
+        f"cdk deploy {' '.join(stacks) if stacks else '--all'} "
         f"{'--require-approval ' + require_approval + ' ' if require_approval else ''}"
         f"{'-f ' if force else ''}"
         f"--output {output_dir if output_dir else '.ddk.out'}"
