@@ -319,7 +319,7 @@ def create_repository(
     required=False,
 )
 def deploy(
-    stacks: Iterable[str] = ["--all"],
+    stacks: Optional[Iterable[str]] = None,
     profile: Optional[str] = None,
     require_approval: Optional[str] = None,
     force: Optional[bool] = None,
