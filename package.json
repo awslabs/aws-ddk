@@ -21,7 +21,7 @@
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
-    "release:typescript-conversion-lutleon": "npx projen release:typescript-conversion-lutleon",
+    "release:typescript-conversion": "npx projen release:typescript-conversion",
     "test": "npx projen test",
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",

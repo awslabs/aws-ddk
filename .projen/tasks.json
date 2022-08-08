@@ -174,9 +174,9 @@
       "name": "pre-compile",
       "description": "Prepare the project for compilation"
     },
-    "release:typescript-conversion-lutleon": {
-      "name": "release:typescript-conversion-lutleon",
-      "description": "Prepare a release from \"typescript-conversion-lutleon\" branch",
+    "release:typescript-conversion": {
+      "name": "release:typescript-conversion",
+      "description": "Prepare a release from \"typescript-conversion\" branch",
       "env": {
         "RELEASE": "true"
       },
