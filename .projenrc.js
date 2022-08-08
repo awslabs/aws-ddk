@@ -4,7 +4,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorAddress: 'aws-proserve-opensource@amazon.com',
 
   cdkVersion: '2.1.0',
-  defaultReleaseBranch: 'typescript-conversion', // TODO change this
+  release: false,
+  defaultReleaseBranch: 'main',
   name: 'aws-ddk-dev',
   description: 'AWS DataOps Development Kit',
   repositoryUrl: 'https://github.com/awslabs/aws-ddk',
