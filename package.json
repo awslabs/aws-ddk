@@ -1,8 +1,9 @@
 {
-  "name": "aws-ddk",
+  "name": "aws-ddk-dev",
+  "description": "AWS DataOps Development Kit",
   "repository": {
     "type": "git",
-    "url": "git@github.com:awslabs/aws-ddk.git"
+    "url": "https://github.com/awslabs/aws-ddk"
   },
   "scripts": {
     "build": "npx projen build",
@@ -20,7 +21,7 @@
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
-    "release": "npx projen release",
+    "release:typescript-conversion-lutleon": "npx projen release:typescript-conversion-lutleon",
     "test": "npx projen test",
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",
@@ -30,8 +31,8 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "Leon Luttenberger",
-    "email": "lutleon@amazon.com",
+    "name": "AWS Professional Services",
+    "email": "aws-proserve-opensource@amazon.com",
     "organization": false
   },
   "devDependencies": {
