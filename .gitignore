@@ -30,6 +30,7 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+.vscode/
 !/.projenrc.js
 /test-reports/
 junit.xml
@@ -47,4 +48,3 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
-.vscode/
