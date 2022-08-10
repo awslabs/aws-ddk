@@ -1,2 +1,1 @@
-export * from './pipelines';
-export * from './stages';
+export * from './cicd';
