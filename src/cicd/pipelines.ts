@@ -152,11 +152,11 @@ export class CICDPipelineStack extends Stack {
     var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
     if (manualApprovals) {
-      this.pipeline.addStage(props.stage, {
+      this.pipeline?.addStage(props.stage, {
         pre: [new ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId))],
       });
     } else {
-      this.pipeline.addStage(props.stage, {});
+      this.pipeline?.addStage(props.stage, {});
     }
 
     return this;
@@ -179,9 +179,9 @@ export class CICDPipelineStack extends Stack {
 
     var stageName = props.stageName ?? "SecurityLint";
     var cloudAssemblyFileSet =
-      props.cloudAssemblyFileSet ?? this.pipeline.cloudAssemblyFileSet;
+      props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
 
-    this.pipeline.addWave(stageName, {
+    this.pipeline?.addWave(stageName, {
       post: [
         getCfnNagAction({
           fileSetProducer: cloudAssemblyFileSet,
@@ -213,10 +213,10 @@ export class CICDPipelineStack extends Stack {
     */
     var stageName = props.stageName ?? "Tests";
     var cloudAssemblyFileSet =
-      props.cloudAssemblyFileSet ?? this.pipeline.cloudAssemblyFileSet;
+      props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
     var commands = props.commands ?? ["./test.sh"];
 
-    this.pipeline.addWave(stageName || "Tests", {
+    this.pipeline?.addWave(stageName || "Tests", {
       post: [
         getTestsAction({
           fileSetProducer: cloudAssemblyFileSet,
@@ -246,7 +246,7 @@ export class CICDPipelineStack extends Stack {
       new NotificationRule(this, "notification", {
         detailType: DetailType.BASIC,
         events: ["codepipeline-pipeline-pipeline-execution-failed"],
-        source: this.pipeline.pipeline,
+        source: this.pipeline?.pipeline,
         targets: [
           new Topic(
             this,
@@ -295,7 +295,7 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipeline
     CICD pipeline
     */
-    this.pipeline.addWave(props.stageName, {
+    this.pipeline?.addWave(props.stageName, {
       post: props.steps,
     });
 
@@ -311,7 +311,7 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICDPipelineStack
     */
-    this.pipeline.buildPipeline();
+    this.pipeline?.buildPipeline();
 
     // this.pipelineKey = this.pipeline.pipeline.artifactBucket.encryptionKey.node.defaultChild || null;
     // this.pipelineKey.enableKeyRotation = true;

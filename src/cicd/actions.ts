@@ -8,9 +8,7 @@ import {
   ShellStep,
 } from "aws-cdk-lib/pipelines";
 import { Construct } from "constructs";
-import {
-  getCodeartifactPublishPolicyStatements,
-} from "./utils";
+import { getCodeartifactPublishPolicyStatements } from "./utils";
 
 export interface GetSynthActionProps {
   readonly codePipelineSource?: IFileSetProducer;
