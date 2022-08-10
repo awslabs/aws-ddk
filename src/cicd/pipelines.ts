@@ -1,19 +1,10 @@
-import { Duration, Stack, StackProps, Stage } from "aws-cdk-lib";
-import { Construct, IConstruct } from "constructs";
+import { Stack, StackProps, Stage } from "aws-cdk-lib";
 import {
   DetailType,
   NotificationRule,
 } from "aws-cdk-lib/aws-codestarnotifications";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Topic } from "aws-cdk-lib/aws-sns";
-import {
-  getBanditAction,
-  getCfnNagAction,
-  getCodeCommitSourceAction,
-  getSynthAction,
-  getTestsAction,
-} from "./actions";
-import { toTitleCase } from "./utils";
 import {
   CodeBuildStep,
   CodePipeline,
@@ -23,6 +14,15 @@ import {
   ShellStep,
   Step,
 } from "aws-cdk-lib/pipelines";
+import { Construct, IConstruct } from "constructs";
+import {
+  getBanditAction,
+  getCfnNagAction,
+  getCodeCommitSourceAction,
+  getSynthAction,
+  getTestsAction,
+} from "./actions";
+import { toTitleCase } from "./utils";
 
 export interface SourceActionProps {
   sourceAction?: CodePipelineSource;
@@ -79,7 +79,7 @@ export class CICDPipelineStack extends Stack {
     scope: Construct,
     id: string,
     environmentId: string,
-    pipelineName: string = "",
+    pipelineName: string,
     props?: StackProps
   ) {
     super(scope, id, props);
@@ -127,9 +127,9 @@ export class CICDPipelineStack extends Stack {
         region: this.region,
         account: this.account,
         rolePolicyStatements: props.rolePolicyStatements,
-        codeartifactRepository: props.codeartifactRepository, // || this._artifactory_config.get("repository"),
-        codeartifactDomain: props.codeartifactDomain, // || this._artifactory_config.get("domain"),
-        codeartifactDomainOwner: props.codeartifactDomainOwner, //|| this._artifactory_config.get("domain_owner")
+        codeartifactRepository: props.codeartifactRepository, // || this._artifactory_config.get('repository'),
+        codeartifactDomain: props.codeartifactDomain, // || this._artifactory_config.get('domain'),
+        codeartifactDomainOwner: props.codeartifactDomainOwner, //|| this._artifactory_config.get('domain_owner')
       });
     return this;
   }
@@ -150,7 +150,7 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICDPipelineStack
     */
-    var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get("manual_approvals");
+    var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
     if (manualApprovals) {
       this.pipeline.addStage(props.stage, {
@@ -206,7 +206,7 @@ export class CICDPipelineStack extends Stack {
     cloudAssemblyFileSet: Optional[IFileSetProducer]
     Cloud assembly file set
     commands: Optional[List[str]]
-    Additional commands to run in the test. Defaults to "./test.sh" otherwise
+    Additional commands to run in the test. Defaults to './test.sh' otherwise
       Returns
     -------
     pipeline : CICDPipelineStack
@@ -269,11 +269,11 @@ export class CICDPipelineStack extends Stack {
   //   pipeline : CICDPipelineStack
   //   CICD pipeline
   //   */
-  //   if (this._config.get_env_config(this.environment_id).get("execute_security_lint")) {
+  //   if (this._config.get_env_config(this.environment_id).get('execute_security_lint')) {
   //     this.add_security_lint_stage();
   //   }
 
-  //   if (this._config.get_env_config(this.environment_id).get("execute_tests")) {
+  //   if (this._config.get_env_config(this.environment_id).get('execute_tests')) {
   //     this.add_test_stage();
   //   }
 

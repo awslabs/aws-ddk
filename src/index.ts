@@ -1,1 +1,1 @@
-export * from './cicd';
+export * from "./cicd";

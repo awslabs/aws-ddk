@@ -1,3 +1,5 @@
+import { Repository } from "aws-cdk-lib/aws-codecommit";
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import {
   CodeBuildStep,
   CodePipelineSource,
@@ -5,15 +7,13 @@ import {
   IFileSetProducer,
   ShellStep,
 } from "aws-cdk-lib/pipelines";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Repository } from "aws-cdk-lib/aws-codecommit";
 import { Construct } from "constructs";
 import {
   getCodeartifactPublishPolicyStatements,
   getCodeartifactReadPolicyStatements,
 } from "./utils";
 
-export interface getSynthActionProps {
+export interface GetSynthActionProps {
   codePipelineSource?: IFileSetProducer;
   cdkVersion?: string;
   partition?: string;
@@ -44,7 +44,7 @@ export function getCodeCommitSourceAction(props: CodeCommitSourceActionProps) {
   );
 }
 
-export function getSynthAction(props: getSynthActionProps) {
+export function getSynthAction(props: GetSynthActionProps) {
   var installCommands;
   installCommands = [
     `npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : ""}`,
@@ -67,12 +67,12 @@ export function getSynthAction(props: getSynthActionProps) {
   });
 }
 
-export interface cfnNagActionProps {
+export interface CfnNagActionProps {
   fileSetProducer: IFileSetProducer;
   stageName?: string;
 }
 
-export function getCfnNagAction(props: cfnNagActionProps) {
+export function getCfnNagAction(props: CfnNagActionProps) {
   /*
   Get CFN Nag action.
    Parameters
@@ -80,7 +80,7 @@ export function getCfnNagAction(props: cfnNagActionProps) {
   fileSetProducer: Optional[IFileSetProducer]
   File set to run security scan on
   stageName: Optional[str]
-  Name for stage. Default is "CFNNag"
+  Name for stage. Default is 'CFNNag'
    Returns
   -------
   action : ShellStep
@@ -99,12 +99,12 @@ export function getCfnNagAction(props: cfnNagActionProps) {
   });
 }
 
-export interface banditActionProps {
+export interface BanditActionProps {
   codePipelineSource: CodePipelineSource;
   stageName?: string;
 }
 
-export function getBanditAction(props: banditActionProps) {
+export function getBanditAction(props: BanditActionProps) {
   /*
   Get Bandit action.
    Parameters
@@ -112,7 +112,7 @@ export function getBanditAction(props: banditActionProps) {
   codePipelineSource: CodePipelineSource
   Code Pipeline source stage
   stageName: Optional[str]
-  Name for stage. Default is "Bandit"
+  Name for stage. Default is 'Bandit'
    Returns
   -------
   action : CodeBuildStep
@@ -128,14 +128,14 @@ export function getBanditAction(props: banditActionProps) {
   });
 }
 
-export interface testsActionProps {
+export interface TestsActionProps {
   fileSetProducer: IFileSetProducer;
   commands?: string[];
   installCommands?: string[];
   stageName?: string;
 }
 
-export function getTestsAction(props: testsActionProps) {
+export function getTestsAction(props: TestsActionProps) {
   /*
   Return shell script action that runs tests.
    Parameters
@@ -145,11 +145,11 @@ export function getTestsAction(props: testsActionProps) {
   fileSetProducer: [IFileSetProducer]
   File set to run tests on
   commands: Optional[List[str]]
-  Additional commands to run in the test. Defaults to "./test.sh" otherwise
+  Additional commands to run in the test. Defaults to './test.sh' otherwise
   installCommands: Optional[List[str]]
-  Override install commands. Default is: `"pip install -r requirements-dev.txt", "pip install -r requirements.txt"`
+  Override install commands. Default is: `'pip install -r requirements-dev.txt', 'pip install -r requirements.txt'`
   stageName: Optional[str]
-  Name for stage. Default is "Tests"
+  Name for stage. Default is 'Tests'
    Returns
   -------
   action : ShellStep
@@ -168,7 +168,7 @@ export function getTestsAction(props: testsActionProps) {
   });
 }
 
-export interface codeartifactPublishActionProps {
+export interface CodeartifactPublishActionProps {
   partition: string;
   region: string;
   account: string;
@@ -180,7 +180,7 @@ export interface codeartifactPublishActionProps {
 }
 
 export function getCodeartifactPublishAction(
-  props: codeartifactPublishActionProps
+  props: CodeartifactPublishActionProps
 ) {
   /*
   Get CodeArtifact upload action. This action builds Python wheel, and uploads it to CodeArtifact repository.
