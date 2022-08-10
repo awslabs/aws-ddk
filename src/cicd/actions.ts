@@ -1,14 +1,14 @@
-import { Repository } from "aws-cdk-lib/aws-codecommit";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import {
   CodeBuildStep,
   CodePipelineSource,
   ConnectionSourceOptions,
   IFileSetProducer,
   ShellStep,
-} from "aws-cdk-lib/pipelines";
-import { Construct } from "constructs";
-import { getCodeartifactPublishPolicyStatements } from "./utils";
+} from 'aws-cdk-lib/pipelines';
+import { Construct } from 'constructs';
+import { getCodeartifactPublishPolicyStatements } from './utils';
 
 export interface GetSynthActionProps {
   readonly codePipelineSource?: IFileSetProducer;
@@ -34,17 +34,17 @@ export function getCodeCommitSourceAction(props: CodeCommitSourceActionProps) {
     Repository.fromRepositoryName(
       props.scope,
       props.repositoryName,
-      props.repositoryName
+      props.repositoryName,
     ),
     props.branch,
-    props.props
+    props.props,
   );
 }
 
 export function getSynthAction(props: GetSynthActionProps) {
   var installCommands;
   installCommands = [
-    `npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : ""}`,
+    `npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : ''}`,
   ];
 
   // if (all([codeArtifactRepository, codeArtifactDomain, codeArtifactDomainOwner])) {
@@ -55,11 +55,11 @@ export function getSynthAction(props: GetSynthActionProps) {
   //   install_commands.psuh(`aws codeartifact login --tool pip --repository ${codeArtifactRepository} --domain ${codeArtifactDomain} --domain-owner ${codeArtifactDomainOwner}`);
   // }
 
-  installCommands.push("pip install -r requirements.txt");
-  return new CodeBuildStep("Synth", {
+  installCommands.push('pip install -r requirements.txt');
+  return new CodeBuildStep('Synth', {
     input: props.codePipelineSource,
     installCommands: installCommands,
-    commands: ["cdk synth"],
+    commands: ['cdk synth'],
     rolePolicyStatements: props.rolePolicyStatements,
   });
 }
@@ -84,14 +84,14 @@ export function getCfnNagAction(props: CfnNagActionProps) {
   Codebuild step
   */
 
-  var stageName = props.stageName ?? "CFNNag";
+  var stageName = props.stageName ?? 'CFNNag';
 
   return new ShellStep(stageName, {
     input: props.fileSetProducer,
-    installCommands: ["gem install cfn-nag"],
+    installCommands: ['gem install cfn-nag'],
     commands: [
       "fnames=$(find ./ -type f -name '*.template.json')",
-      "for f in $fnames; do cfn_nag_scan --input-path $f; done",
+      'for f in $fnames; do cfn_nag_scan --input-path $f; done',
     ],
   });
 }
@@ -116,12 +116,12 @@ export function getBanditAction(props: BanditActionProps) {
   Synth action
   */
 
-  var stageName = props.stageName ?? "Bandit";
+  var stageName = props.stageName ?? 'Bandit';
 
   return new ShellStep(stageName, {
     input: props.codePipelineSource,
-    installCommands: ["pip install bandit"],
-    commands: ["bandit -r -ll -ii ."],
+    installCommands: ['pip install bandit'],
+    commands: ['bandit -r -ll -ii .'],
   });
 }
 
@@ -153,11 +153,11 @@ export function getTestsAction(props: TestsActionProps) {
   Test action
   */
   var installCommands = props.installCommands ?? [
-    "pip install -r requirements-dev.txt",
-    "pip install -r requirements.txt",
+    'pip install -r requirements-dev.txt',
+    'pip install -r requirements.txt',
   ];
-  var commands = props.commands ?? ["./test.sh"];
-  var stageName = props.stageName ?? "Tests";
+  var commands = props.commands ?? ['./test.sh'];
+  var stageName = props.stageName ?? 'Tests';
   return new ShellStep(stageName, {
     input: props.fileSetProducer,
     installCommands: installCommands,
@@ -177,7 +177,7 @@ export interface CodeartifactPublishActionProps {
 }
 
 export function getCodeartifactPublishAction(
-  props: CodeartifactPublishActionProps
+  props: CodeartifactPublishActionProps,
 ) {
   /*
   Get CodeArtifact upload action. This action builds Python wheel, and uploads it to CodeArtifact repository.
@@ -214,7 +214,7 @@ export function getCodeartifactPublishAction(
       repository: props.codeartifactRepository,
     });
 
-  return new CodeBuildStep("BuildAndUploadArtifact", {
+  return new CodeBuildStep('BuildAndUploadArtifact', {
     input: props.codePipelineSource,
     buildEnvironment: {
       environmentVariables: {
@@ -230,15 +230,15 @@ export function getCodeartifactPublishAction(
       },
     },
     installCommands: [
-      "pip install wheel twine",
-      "pip install -U -r requirements.txt",
-      "python setup.py bdist_wheel",
-      "export VERSION=$(python setup.py --version)",
-      "export PACKAGE=$(python setup.py --name)",
-      "aws codeartifact login --tool twine --domain ${DOMAIN} --domain-owner ${OWNER} --repository ${REPOSITORY}",
+      'pip install wheel twine',
+      'pip install -U -r requirements.txt',
+      'python setup.py bdist_wheel',
+      'export VERSION=$(python setup.py --version)',
+      'export PACKAGE=$(python setup.py --name)',
+      'aws codeartifact login --tool twine --domain ${DOMAIN} --domain-owner ${OWNER} --repository ${REPOSITORY}',
     ],
     commands: [
-      "twine upload --repository codeartifact dist/${PACKAGE}-${VERSION}-py3-none-any.whl",
+      'twine upload --repository codeartifact dist/${PACKAGE}-${VERSION}-py3-none-any.whl',
     ],
     rolePolicyStatements: rolePolicyStatements,
   });

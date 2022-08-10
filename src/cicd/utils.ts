@@ -1,4 +1,4 @@
-import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 
 export interface getCodeartifactProps {
   partition: string;
@@ -9,15 +9,15 @@ export interface getCodeartifactProps {
 }
 
 export function getCodeartifactReadPolicyStatements(
-  props: getCodeartifactProps
+  props: getCodeartifactProps,
 ) {
   return [
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: [
-        "codeartifact:DescribeDomain",
-        "codeartifact:GetAuthorizationToken",
-        "codeartifact:ListRepositoriesInDomain",
+        'codeartifact:DescribeDomain',
+        'codeartifact:GetAuthorizationToken',
+        'codeartifact:ListRepositoriesInDomain',
       ],
       resources: [
         `arn:${props.partition}:codeartifact:${props.region}:${props.account}:domain/${props.domain}`,
@@ -26,8 +26,8 @@ export function getCodeartifactReadPolicyStatements(
     new PolicyStatement({
       effect: Effect.ALLOW,
       actions: [
-        "codeartifact:GetRepositoryEndpoint",
-        "codeartifact:ReadFromRepository",
+        'codeartifact:GetRepositoryEndpoint',
+        'codeartifact:ReadFromRepository',
       ],
       resources: [
         `arn:${props.partition}:codeartifact:${props.region}:${props.account}:repository/${props.domain}/${props.repository}`,
@@ -35,11 +35,11 @@ export function getCodeartifactReadPolicyStatements(
     }),
     new PolicyStatement({
       effect: Effect.ALLOW,
-      actions: ["sts:GetServiceBearerToken"],
-      resources: ["*"],
+      actions: ['sts:GetServiceBearerToken'],
+      resources: ['*'],
       conditions: {
         StringEquals: {
-          "sts:AWSServiceName": "codeartifact.amazonaws.com",
+          'sts:AWSServiceName': 'codeartifact.amazonaws.com',
         },
       },
     }),
@@ -47,14 +47,14 @@ export function getCodeartifactReadPolicyStatements(
 }
 
 export function getCodeartifactPublishPolicyStatements(
-  props: getCodeartifactProps
+  props: getCodeartifactProps,
 ) {
   return [
     new PolicyStatement({
       actions: [
-        "codeartifact:DescribeDomain",
-        "codeartifact:GetAuthorizationToken",
-        "codeartifact:ListRepositoriesInDomain",
+        'codeartifact:DescribeDomain',
+        'codeartifact:GetAuthorizationToken',
+        'codeartifact:ListRepositoriesInDomain',
       ],
       effect: Effect.ALLOW,
       resources: [
@@ -63,8 +63,8 @@ export function getCodeartifactPublishPolicyStatements(
     }),
     new PolicyStatement({
       actions: [
-        "codeartifact:GetRepositoryEndpoint",
-        "codeartifact:ReadFromRepository",
+        'codeartifact:GetRepositoryEndpoint',
+        'codeartifact:ReadFromRepository',
       ],
       effect: Effect.ALLOW,
       resources: [
@@ -72,17 +72,17 @@ export function getCodeartifactPublishPolicyStatements(
       ],
     }),
     new PolicyStatement({
-      actions: ["codeartifact:PublishPackageVersion"],
+      actions: ['codeartifact:PublishPackageVersion'],
       effect: Effect.ALLOW,
-      resources: ["*"],
+      resources: ['*'],
     }),
     new PolicyStatement({
-      actions: ["sts:GetServiceBearerToken"],
+      actions: ['sts:GetServiceBearerToken'],
       effect: Effect.ALLOW,
-      resources: ["*"],
+      resources: ['*'],
       conditions: {
         StringEquals: {
-          "sts:AWSServiceName": "codeartifact.amazonaws.com",
+          'sts:AWSServiceName': 'codeartifact.amazonaws.com',
         },
       },
     }),

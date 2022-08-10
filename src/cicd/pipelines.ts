@@ -1,10 +1,10 @@
-import { Stack, StackProps, Stage } from "aws-cdk-lib";
+import { Stack, StackProps, Stage } from 'aws-cdk-lib';
 import {
   DetailType,
   NotificationRule,
-} from "aws-cdk-lib/aws-codestarnotifications";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Topic } from "aws-cdk-lib/aws-sns";
+} from 'aws-cdk-lib/aws-codestarnotifications';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Topic } from 'aws-cdk-lib/aws-sns';
 import {
   CodeBuildStep,
   CodePipeline,
@@ -12,16 +12,16 @@ import {
   IFileSetProducer,
   ManualApprovalStep,
   Step,
-} from "aws-cdk-lib/pipelines";
-import { Construct, IConstruct } from "constructs";
+} from 'aws-cdk-lib/pipelines';
+import { Construct, IConstruct } from 'constructs';
 import {
   getBanditAction,
   getCfnNagAction,
   getCodeCommitSourceAction,
   getSynthAction,
   getTestsAction,
-} from "./actions";
-import { toTitleCase } from "./utils";
+} from './actions';
+import { toTitleCase } from './utils';
 
 export interface SourceActionProps {
   readonly sourceAction?: CodePipelineSource;
@@ -79,7 +79,7 @@ export class CICDPipelineStack extends Stack {
     id: string,
     environmentId: string,
     pipelineName: string,
-    props?: StackProps
+    props?: StackProps,
   ) {
     super(scope, id, props);
 
@@ -107,8 +107,8 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICDPipelineStack
     */
-    this.pipeline = new CodePipeline(this, "DDKCodePipeline", {
-      synth: this.synthAction,
+    this.pipeline = new CodePipeline(this, 'DDKCodePipeline', {
+      synth: this.synthAction!,
       crossAccountKeys: true,
       pipelineName: this.pipelineName,
       //cliVersion: Handle when Config() is decided on
@@ -153,7 +153,7 @@ export class CICDPipelineStack extends Stack {
 
     if (manualApprovals) {
       this.pipeline?.addStage(props.stage, {
-        pre: [new ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId))],
+        pre: [new ManualApprovalStep('PromoteTo' + toTitleCase(props.stageId))],
       });
     } else {
       this.pipeline?.addStage(props.stage, {});
@@ -177,17 +177,17 @@ export class CICDPipelineStack extends Stack {
     CICD pipeline
     */
 
-    var stageName = props.stageName ?? "SecurityLint";
+    var stageName = props.stageName ?? 'SecurityLint';
     var cloudAssemblyFileSet =
       props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
 
     this.pipeline?.addWave(stageName, {
       post: [
         getCfnNagAction({
-          fileSetProducer: cloudAssemblyFileSet,
+          fileSetProducer: cloudAssemblyFileSet!,
         }),
         getBanditAction({
-          codePipelineSource: this.sourceAction,
+          codePipelineSource: this.sourceAction!,
         }),
       ],
     });
@@ -211,15 +211,15 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICD pipeline
     */
-    var stageName = props.stageName ?? "Tests";
+    var stageName = props.stageName ?? 'Tests';
     var cloudAssemblyFileSet =
       props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
-    var commands = props.commands ?? ["./test.sh"];
+    var commands = props.commands ?? ['./test.sh'];
 
-    this.pipeline?.addWave(stageName || "Tests", {
+    this.pipeline?.addWave(stageName || 'Tests', {
       post: [
         getTestsAction({
-          fileSetProducer: cloudAssemblyFileSet,
+          fileSetProducer: cloudAssemblyFileSet!,
           commands: commands,
         }),
       ],
@@ -243,17 +243,17 @@ export class CICDPipelineStack extends Stack {
 
     this.notificationRule =
       props.notificationRule ??
-      new NotificationRule(this, "notification", {
+      new NotificationRule(this, 'notification', {
         detailType: DetailType.BASIC,
-        events: ["codepipeline-pipeline-pipeline-execution-failed"],
-        source: this.pipeline?.pipeline,
+        events: ['codepipeline-pipeline-pipeline-execution-failed'],
+        source: this.pipeline?.pipeline!,
         targets: [
           new Topic(
             this,
             `${this.pipelineName}-${this.environmentId}-notifications`,
             {
               topicName: `${this.pipelineName}-${this.environmentId}-notifications`,
-            }
+            },
           ),
         ], // Implement config defined topic later on
       });
