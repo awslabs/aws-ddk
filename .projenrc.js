@@ -1,7 +1,7 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'AWS Professional Services',
-  authorAddress: 'aws-proserve-opensource@amazon.com',
+  authorAddress: 'aws-proserve-orion-dev@amazon.com',
 
   cdkVersion: '2.1.0',
   release: false,

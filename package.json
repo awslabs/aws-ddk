@@ -29,7 +29,7 @@
   },
   "author": {
     "name": "AWS Professional Services",
-    "email": "aws-proserve-opensource@amazon.com",
+    "email": "aws-proserve-orion-dev@amazon.com",
     "organization": false
   },
   "devDependencies": {
