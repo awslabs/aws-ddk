@@ -10,26 +10,25 @@ import {
 import { Construct } from "constructs";
 import {
   getCodeartifactPublishPolicyStatements,
-  getCodeartifactReadPolicyStatements,
 } from "./utils";
 
 export interface GetSynthActionProps {
-  codePipelineSource?: IFileSetProducer;
-  cdkVersion?: string;
-  partition?: string;
-  region?: string;
-  account?: string;
-  rolePolicyStatements?: PolicyStatement[];
-  codeartifactRepository?: string;
-  codeartifactDomain?: string;
-  codeartifactDomainOwner?: string;
+  readonly codePipelineSource?: IFileSetProducer;
+  readonly cdkVersion?: string;
+  readonly partition?: string;
+  readonly region?: string;
+  readonly account?: string;
+  readonly rolePolicyStatements?: PolicyStatement[];
+  readonly codeartifactRepository?: string;
+  readonly codeartifactDomain?: string;
+  readonly codeartifactDomainOwner?: string;
 }
 
 export interface CodeCommitSourceActionProps {
-  scope: Construct;
-  repositoryName: string;
-  branch: string;
-  props?: ConnectionSourceOptions;
+  readonly scope: Construct;
+  readonly repositoryName: string;
+  readonly branch: string;
+  readonly props?: ConnectionSourceOptions;
 }
 
 export function getCodeCommitSourceAction(props: CodeCommitSourceActionProps) {
@@ -68,8 +67,8 @@ export function getSynthAction(props: GetSynthActionProps) {
 }
 
 export interface CfnNagActionProps {
-  fileSetProducer: IFileSetProducer;
-  stageName?: string;
+  readonly fileSetProducer: IFileSetProducer;
+  readonly stageName?: string;
 }
 
 export function getCfnNagAction(props: CfnNagActionProps) {
@@ -100,8 +99,8 @@ export function getCfnNagAction(props: CfnNagActionProps) {
 }
 
 export interface BanditActionProps {
-  codePipelineSource: CodePipelineSource;
-  stageName?: string;
+  readonly codePipelineSource: CodePipelineSource;
+  readonly stageName?: string;
 }
 
 export function getBanditAction(props: BanditActionProps) {
@@ -129,10 +128,10 @@ export function getBanditAction(props: BanditActionProps) {
 }
 
 export interface TestsActionProps {
-  fileSetProducer: IFileSetProducer;
-  commands?: string[];
-  installCommands?: string[];
-  stageName?: string;
+  readonly fileSetProducer: IFileSetProducer;
+  readonly commands?: string[];
+  readonly installCommands?: string[];
+  readonly stageName?: string;
 }
 
 export function getTestsAction(props: TestsActionProps) {
@@ -169,14 +168,14 @@ export function getTestsAction(props: TestsActionProps) {
 }
 
 export interface CodeartifactPublishActionProps {
-  partition: string;
-  region: string;
-  account: string;
-  codeartifactRepository: string;
-  codeartifactDomain: string;
-  codeartifactDomainOwner: string;
-  codePipelineSource?: CodePipelineSource;
-  rolePolicyStatements?: PolicyStatement[];
+  readonly partition: string;
+  readonly region: string;
+  readonly account: string;
+  readonly codeartifactRepository: string;
+  readonly codeartifactDomain: string;
+  readonly codeartifactDomainOwner: string;
+  readonly codePipelineSource?: CodePipelineSource;
+  readonly rolePolicyStatements?: PolicyStatement[];
 }
 
 export function getCodeartifactPublishAction(

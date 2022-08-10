@@ -11,7 +11,6 @@ import {
   CodePipelineSource,
   IFileSetProducer,
   ManualApprovalStep,
-  ShellStep,
   Step,
 } from "aws-cdk-lib/pipelines";
 import { Construct, IConstruct } from "constructs";
@@ -25,44 +24,44 @@ import {
 import { toTitleCase } from "./utils";
 
 export interface SourceActionProps {
-  sourceAction?: CodePipelineSource;
-  repositoryName: string;
-  branch: string;
+  readonly sourceAction?: CodePipelineSource;
+  readonly repositoryName: string;
+  readonly branch: string;
 }
 
 export interface SynthActionProps {
-  cdkVersion?: string;
-  codeartifactRepository?: string;
-  codeartifactDomain?: string;
-  codeartifactDomainOwner?: string;
-  rolePolicyStatements?: PolicyStatement[];
-  synthAction?: CodeBuildStep;
+  readonly cdkVersion?: string;
+  readonly codeartifactRepository?: string;
+  readonly codeartifactDomain?: string;
+  readonly codeartifactDomainOwner?: string;
+  readonly rolePolicyStatements?: PolicyStatement[];
+  readonly synthAction?: CodeBuildStep;
 }
 
-export interface addStageProps {
-  stageId: string;
-  stage: Stage;
-  manualApprovals?: boolean;
+export interface AddStageProps {
+  readonly stageId: string;
+  readonly stage: Stage;
+  readonly manualApprovals?: boolean;
 }
 
-export interface addSecurityLintStageProps {
-  stageName?: string;
-  cloudAssemblyFileSet?: IFileSetProducer;
+export interface AddSecurityLintStageProps {
+  readonly stageName?: string;
+  readonly cloudAssemblyFileSet?: IFileSetProducer;
 }
 
-export interface addTestStageProps {
-  stageName?: string;
-  cloudAssemblyFileSet?: IFileSetProducer;
-  commands?: string[];
+export interface AddTestStageProps {
+  readonly stageName?: string;
+  readonly cloudAssemblyFileSet?: IFileSetProducer;
+  readonly commands?: string[];
 }
 
-export interface addNotificationsProps {
-  notificationRule?: NotificationRule;
+export interface AddNotificationsProps {
+  readonly notificationRule?: NotificationRule;
 }
 
-export interface addCustomStageProps {
-  stageName: string;
-  steps: Step[];
+export interface AddCustomStageProps {
+  readonly stageName: string;
+  readonly steps: Step[];
 }
 
 export class CICDPipelineStack extends Stack {
@@ -70,10 +69,10 @@ export class CICDPipelineStack extends Stack {
   readonly pipelineName?: string;
   readonly pipelineId?: string;
   public notificationRule?: NotificationRule;
-  private pipeline: CodePipeline;
-  private pipelineKey?: IConstruct;
-  private sourceAction: CodePipelineSource;
-  private synthAction: CodeBuildStep;
+  public pipeline?: CodePipeline;
+  public pipelineKey?: IConstruct;
+  public sourceAction?: CodePipelineSource;
+  public synthAction?: CodeBuildStep;
 
   constructor(
     scope: Construct,
@@ -100,7 +99,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  build() {
+  buildPipeline() {
     /*
     Build the pipeline structure.
      Returns
@@ -134,7 +133,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  addStage(props: addStageProps) {
+  addStage(props: AddStageProps) {
     /*
     Add application stage to the CICD pipeline. This stage deploys your application infrastructure.
       Parameters
@@ -163,7 +162,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  addSecurityLintStage(props: addSecurityLintStageProps) {
+  addSecurityLintStage(props: AddSecurityLintStageProps) {
     /*
     Add linting - cfn-nag, and bandit.
       Parameters
@@ -196,7 +195,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  addTestStage(props: addTestStageProps) {
+  addTestStage(props: AddTestStageProps) {
     /*
     Add test - e.g. pytest.
       Parameters
@@ -229,7 +228,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  addNotifications(props: addNotificationsProps) {
+  addNotifications(props: AddNotificationsProps) {
     /*
     Add pipeline notifications. Create notification rule that sends events to the specified SNS topic.
       Parameters
@@ -280,7 +279,7 @@ export class CICDPipelineStack extends Stack {
   //   return this;
   // }
 
-  addCustomStage(props: addCustomStageProps) {
+  addCustomStage(props: AddCustomStageProps) {
     /*
     Add custom stage to the pipeline.
       Parameters
