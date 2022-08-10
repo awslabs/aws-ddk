@@ -4,8 +4,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorAddress: 'aws-proserve-orion-dev@amazon.com',
 
   cdkVersion: '2.1.0',
-  release: false,
   defaultReleaseBranch: 'main',
+  release: false,
   name: 'aws-ddk-dev',
   description: 'AWS DataOps Development Kit',
   repositoryUrl: 'https://github.com/awslabs/aws-ddk',
