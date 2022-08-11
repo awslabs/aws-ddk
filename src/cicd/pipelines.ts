@@ -26,7 +26,7 @@ import { toTitleCase } from './utils';
 export interface SourceActionProps {
   readonly sourceAction?: CodePipelineSource;
   readonly repositoryName: string;
-  readonly branch: string;
+  readonly branch?: string;
 }
 
 export interface SynthActionProps {
@@ -89,12 +89,13 @@ export class CICDPipelineStack extends Stack {
   }
 
   addSourceAction(props: SourceActionProps) {
+    var branch = props.branch ?? 'main';
     this.sourceAction =
       props.sourceAction ||
       getCodeCommitSourceAction({
         scope: this,
         repositoryName: props.repositoryName,
-        branch: props.branch,
+        branch: branch,
       });
     return this;
   }
