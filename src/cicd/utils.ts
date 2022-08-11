@@ -1,6 +1,6 @@
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 
-export interface getCodeartifactProps {
+export interface getCodeArtifactProps {
   partition: string;
   region: string;
   account: string;
@@ -8,8 +8,8 @@ export interface getCodeartifactProps {
   repository: string;
 }
 
-export function getCodeartifactReadPolicyStatements(
-  props: getCodeartifactProps,
+export function getCodeArtifactReadPolicyStatements(
+  props: getCodeArtifactProps,
 ): PolicyStatement[] {
   return [
     new PolicyStatement({
@@ -46,8 +46,8 @@ export function getCodeartifactReadPolicyStatements(
   ];
 }
 
-export function getCodeartifactPublishPolicyStatements(
-  props: getCodeartifactProps,
+export function getCodeArtifactPublishPolicyStatements(
+  props: getCodeArtifactProps,
 ): PolicyStatement[] {
   return [
     new PolicyStatement({

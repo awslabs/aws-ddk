@@ -8,7 +8,7 @@ import {
   ShellStep,
 } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-import { getCodeartifactPublishPolicyStatements } from './utils';
+import { getCodeArtifactPublishPolicyStatements } from './utils';
 
 export interface GetSynthActionProps {
   readonly codePipelineSource?: IFileSetProducer;
@@ -155,7 +155,7 @@ export function getTestsAction(
   });
 }
 
-export interface CodeartifactPublishActionProps {
+export interface CodeArtifactPublishActionProps {
   readonly partition: string;
   readonly region: string;
   readonly account: string;
@@ -166,8 +166,8 @@ export interface CodeartifactPublishActionProps {
   readonly rolePolicyStatements?: PolicyStatement[];
 }
 
-export function getCodeartifactPublishAction(
-  props: CodeartifactPublishActionProps,
+export function getCodeArtifactPublishAction(
+  props: CodeArtifactPublishActionProps,
 ): CodeBuildStep {
   /*
   Get CodeArtifact upload action. This action builds Python wheel, and uploads it to CodeArtifact repository.
@@ -196,7 +196,7 @@ export function getCodeartifactPublishAction(
   */
   var rolePolicyStatements =
     props.rolePolicyStatements ??
-    getCodeartifactPublishPolicyStatements({
+    getCodeArtifactPublishPolicyStatements({
       partition: props.partition,
       region: props.region,
       account: props.account,
