@@ -1,12 +1,9 @@
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
-//import { ShellStep } from 'aws-cdk-lib/pipelines';
-//import { Construct } from 'constructs';
 import { ShellStep } from "aws-cdk-lib/pipelines";
 import {
-  CICDPipelineStack /*, getCodeartifactPublishAction*/,
+  CICDPipelineStack,
   getCodeartifactPublishAction,
-  toTitleCase,
 } from "../src";
 
 test("Basic CICDPipeline", () => {
