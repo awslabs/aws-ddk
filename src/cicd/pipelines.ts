@@ -244,7 +244,7 @@ export class CICDPipelineStack extends Stack {
 
     this.notificationRule =
       props.notificationRule ??
-      new NotificationRule(this, 'notification', {
+      new NotificationRule(this, 'Notification', {
         detailType: DetailType.BASIC,
         events: ['codepipeline-pipeline-pipeline-execution-failed'],
         source: this.pipeline?.pipeline!,
