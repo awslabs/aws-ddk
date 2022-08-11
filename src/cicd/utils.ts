@@ -1,15 +1,11 @@
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 
-export interface getCodeArtifactProps {
-  partition: string;
-  region: string;
-  account: string;
-  domain: string;
-  repository: string;
-}
-
 export function getCodeArtifactReadPolicyStatements(
-  props: getCodeArtifactProps,
+  partition: string,
+  region: string,
+  account: string,
+  domain: string,
+  repository: string,
 ): PolicyStatement[] {
   return [
     new PolicyStatement({
@@ -20,7 +16,7 @@ export function getCodeArtifactReadPolicyStatements(
         'codeartifact:ListRepositoriesInDomain',
       ],
       resources: [
-        `arn:${props.partition}:codeartifact:${props.region}:${props.account}:domain/${props.domain}`,
+        `arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`,
       ],
     }),
     new PolicyStatement({
@@ -30,7 +26,7 @@ export function getCodeArtifactReadPolicyStatements(
         'codeartifact:ReadFromRepository',
       ],
       resources: [
-        `arn:${props.partition}:codeartifact:${props.region}:${props.account}:repository/${props.domain}/${props.repository}`,
+        `arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`,
       ],
     }),
     new PolicyStatement({
@@ -47,7 +43,11 @@ export function getCodeArtifactReadPolicyStatements(
 }
 
 export function getCodeArtifactPublishPolicyStatements(
-  props: getCodeArtifactProps,
+  partition: string,
+  region: string,
+  account: string,
+  domain: string,
+  repository: string,
 ): PolicyStatement[] {
   return [
     new PolicyStatement({
@@ -58,7 +58,7 @@ export function getCodeArtifactPublishPolicyStatements(
       ],
       effect: Effect.ALLOW,
       resources: [
-        `arn:${props.partition}:codeartifact:${props.region}:${props.account}:domain/${props.domain}`,
+        `arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`,
       ],
     }),
     new PolicyStatement({
@@ -68,7 +68,7 @@ export function getCodeArtifactPublishPolicyStatements(
       ],
       effect: Effect.ALLOW,
       resources: [
-        `arn:${props.partition}:codeartifact:${props.region}:${props.account}:repository/${props.domain}/${props.repository}`,
+        `arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`,
       ],
     }),
     new PolicyStatement({
