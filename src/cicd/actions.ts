@@ -29,7 +29,9 @@ export interface CodeCommitSourceActionProps {
   readonly props?: ConnectionSourceOptions;
 }
 
-export function getCodeCommitSourceAction(props: CodeCommitSourceActionProps) {
+export function getCodeCommitSourceAction(
+  props: CodeCommitSourceActionProps,
+): CodePipelineSource {
   return CodePipelineSource.codeCommit(
     Repository.fromRepositoryName(
       props.scope,
@@ -41,7 +43,7 @@ export function getCodeCommitSourceAction(props: CodeCommitSourceActionProps) {
   );
 }
 
-export function getSynthAction(props: GetSynthActionProps) {
+export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
   var installCommands;
   installCommands = [
     `npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : ''}`,
@@ -64,12 +66,10 @@ export function getSynthAction(props: GetSynthActionProps) {
   });
 }
 
-export interface CfnNagActionProps {
-  readonly fileSetProducer: IFileSetProducer;
-  readonly stageName?: string;
-}
-
-export function getCfnNagAction(props: CfnNagActionProps) {
+export function getCfnNagAction(
+  fileSetProducer: IFileSetProducer,
+  stageName: string = 'CFNNag',
+): ShellStep {
   /*
   Get CFN Nag action.
    Parameters
@@ -84,24 +84,20 @@ export function getCfnNagAction(props: CfnNagActionProps) {
   Codebuild step
   */
 
-  var stageName = props.stageName ?? 'CFNNag';
-
   return new ShellStep(stageName, {
-    input: props.fileSetProducer,
+    input: fileSetProducer,
     installCommands: ['gem install cfn-nag'],
     commands: [
-      "fnames=$(find ./ -type f -name '*.template.json')",
+      'fnames=$(find ./ -type f -name "*.template.json")',
       'for f in $fnames; do cfn_nag_scan --input-path $f; done',
     ],
   });
 }
 
-export interface BanditActionProps {
-  readonly codePipelineSource: CodePipelineSource;
-  readonly stageName?: string;
-}
-
-export function getBanditAction(props: BanditActionProps) {
+export function getBanditAction(
+  codePipelineSource: CodePipelineSource,
+  stageName: string = 'Bandit',
+): ShellStep {
   /*
   Get Bandit action.
    Parameters
@@ -116,23 +112,22 @@ export function getBanditAction(props: BanditActionProps) {
   Synth action
   */
 
-  var stageName = props.stageName ?? 'Bandit';
-
   return new ShellStep(stageName, {
-    input: props.codePipelineSource,
+    input: codePipelineSource,
     installCommands: ['pip install bandit'],
     commands: ['bandit -r -ll -ii .'],
   });
 }
 
-export interface TestsActionProps {
-  readonly fileSetProducer: IFileSetProducer;
-  readonly commands?: string[];
-  readonly installCommands?: string[];
-  readonly stageName?: string;
-}
-
-export function getTestsAction(props: TestsActionProps) {
+export function getTestsAction(
+  fileSetProducer: IFileSetProducer,
+  commands: string[] = ['./test.sh'],
+  installCommands: string[] = [
+    'pip install -r requirements-dev.txt',
+    'pip install -r requirements.txt',
+  ],
+  stageName: string = 'Tests',
+) {
   /*
   Return shell script action that runs tests.
    Parameters
@@ -152,14 +147,9 @@ export function getTestsAction(props: TestsActionProps) {
   action : ShellStep
   Test action
   */
-  var installCommands = props.installCommands ?? [
-    'pip install -r requirements-dev.txt',
-    'pip install -r requirements.txt',
-  ];
-  var commands = props.commands ?? ['./test.sh'];
-  var stageName = props.stageName ?? 'Tests';
+
   return new ShellStep(stageName, {
-    input: props.fileSetProducer,
+    input: fileSetProducer,
     installCommands: installCommands,
     commands: commands,
   });
@@ -178,7 +168,7 @@ export interface CodeartifactPublishActionProps {
 
 export function getCodeartifactPublishAction(
   props: CodeartifactPublishActionProps,
-) {
+): CodeBuildStep {
   /*
   Get CodeArtifact upload action. This action builds Python wheel, and uploads it to CodeArtifact repository.
    Parameters

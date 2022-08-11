@@ -10,7 +10,7 @@ export interface getCodeartifactProps {
 
 export function getCodeartifactReadPolicyStatements(
   props: getCodeartifactProps,
-) {
+): PolicyStatement[] {
   return [
     new PolicyStatement({
       effect: Effect.ALLOW,
@@ -48,7 +48,7 @@ export function getCodeartifactReadPolicyStatements(
 
 export function getCodeartifactPublishPolicyStatements(
   props: getCodeartifactProps,
-) {
+): PolicyStatement[] {
   return [
     new PolicyStatement({
       actions: [
@@ -89,6 +89,6 @@ export function getCodeartifactPublishPolicyStatements(
   ];
 }
 
-export function toTitleCase(str: string) {
+export function toTitleCase(str: string): string {
   return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
 }
