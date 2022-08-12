@@ -108,8 +108,12 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICDPipelineStack
     */
+
+    if (this.synthAction === undefined) {
+      throw new Error('Pipeline cannot be built without a synth action.');
+    }
     this.pipeline = new CodePipeline(this, 'DDKCodePipeline', {
-      synth: this.synthAction!,
+      synth: this.synthAction,
       crossAccountKeys: true,
       pipelineName: this.pipelineName,
       //cliVersion: Handle when Config() is decided on
@@ -150,6 +154,10 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICDPipelineStack
     */
+    
+    if (this.pipeline? === undefined) {
+      throw new Error("Pipeline must")
+    }
     var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
     if (manualApprovals) {
@@ -178,6 +186,13 @@ export class CICDPipelineStack extends Stack {
     CICD pipeline
     */
 
+    if (this.sourceAction === undefined) {
+      throw new Error('Source Action Must Be configured before calling this method.');
+    }
+    if (this.pipeline?.cloudAssemblyFileSet === undefined) {
+      throw new Error
+    }
+
     var stageName = props.stageName ?? 'SecurityLint';
     var cloudAssemblyFileSet =
       props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
@@ -185,10 +200,10 @@ export class CICDPipelineStack extends Stack {
     this.pipeline?.addWave(stageName, {
       post: [
         getCfnNagAction({
-          fileSetProducer: cloudAssemblyFileSet!,
+          fileSetProducer: cloudAssemblyFileSet,
         }),
         getBanditAction({
-          codePipelineSource: this.sourceAction!,
+          codePipelineSource: this.sourceAction,
         }),
       ],
     });
@@ -217,10 +232,14 @@ export class CICDPipelineStack extends Stack {
       props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
     var commands = props.commands ?? ['./test.sh'];
 
+    if (cloudAssemblyFileSet === undefined) {
+      throw new Error("Bad")
+    }
+
     this.pipeline?.addWave(stageName || 'Tests', {
       post: [
         getTestsAction({
-          fileSetProducer: cloudAssemblyFileSet!,
+          fileSetProducer: cloudAssemblyFileSet,
           commands: commands,
         }),
       ],
@@ -248,15 +267,7 @@ export class CICDPipelineStack extends Stack {
         detailType: DetailType.BASIC,
         events: ['codepipeline-pipeline-pipeline-execution-failed'],
         source: this.pipeline?.pipeline!,
-        targets: [
-          new Topic(
-            this,
-            `${this.pipelineName}-${this.environmentId}-notifications`,
-            {
-              topicName: `${this.pipelineName}-${this.environmentId}-notifications`,
-            },
-          ),
-        ], // Implement config defined topic later on
+        targets: [new Topic(this, 'ExecutionFailedNotifications')], // Implement config defined topic later on
       });
     return this;
   }

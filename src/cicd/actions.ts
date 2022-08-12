@@ -167,7 +167,20 @@ export interface CodeArtifactPublishActionProps {
 }
 
 export function getCodeArtifactPublishAction(
-  props: CodeArtifactPublishActionProps,
+  partition: string,
+  region: string,
+  account: string,
+  codeartifactRepository: string,
+  codeartifactDomain: string,
+  codeartifactDomainOwner: string,
+  codePipelineSource?: CodePipelineSource,
+  rolePolicyStatements: PolicyStatement[] = getCodeArtifactPublishPolicyStatements(
+    partition,
+    region,
+    account,
+    codeartifactDomain,
+    codeartifactRepository,
+  ),
 ): CodeBuildStep {
   /*
   Get CodeArtifact upload action. This action builds Python wheel, and uploads it to CodeArtifact repository.
@@ -195,27 +208,27 @@ export function getCodeArtifactPublishAction(
   Upload action
   */
   var rolePolicyStatements =
-    props.rolePolicyStatements ??
-    getCodeArtifactPublishPolicyStatements({
-      partition: props.partition,
-      region: props.region,
-      account: props.account,
-      domain: props.codeartifactDomain,
-      repository: props.codeartifactRepository,
-    });
+    rolePolicyStatements ??
+    getCodeArtifactPublishPolicyStatements(
+      partition,
+      region,
+      account,
+      codeartifactDomain,
+      codeartifactRepository,
+    );
 
   return new CodeBuildStep('BuildAndUploadArtifact', {
-    input: props.codePipelineSource,
+    input: codePipelineSource,
     buildEnvironment: {
       environmentVariables: {
         DOMAIN: {
-          value: props.codeartifactDomain,
+          value: codeartifactDomain,
         },
         OWNER: {
-          value: props.codeartifactDomainOwner,
+          value: codeartifactDomainOwner,
         },
         REPOSITORY: {
-          value: props.codeartifactRepository,
+          value: codeartifactRepository,
         },
       },
     },
