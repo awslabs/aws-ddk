@@ -154,10 +154,7 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICDPipelineStack
     */
-    
-    if (this.pipeline? === undefined) {
-      throw new Error("Pipeline must")
-    }
+
     var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
     if (manualApprovals) {
@@ -187,10 +184,14 @@ export class CICDPipelineStack extends Stack {
     */
 
     if (this.sourceAction === undefined) {
-      throw new Error('Source Action Must Be configured before calling this method.');
+      throw new Error(
+        'Source Action Must Be configured before calling this method.',
+      );
     }
     if (this.pipeline?.cloudAssemblyFileSet === undefined) {
-      throw new Error
+      throw new Error(
+        'No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.',
+      );
     }
 
     var stageName = props.stageName ?? 'SecurityLint';
@@ -199,12 +200,8 @@ export class CICDPipelineStack extends Stack {
 
     this.pipeline?.addWave(stageName, {
       post: [
-        getCfnNagAction({
-          fileSetProducer: cloudAssemblyFileSet,
-        }),
-        getBanditAction({
-          codePipelineSource: this.sourceAction,
-        }),
+        getCfnNagAction(cloudAssemblyFileSet),
+        getBanditAction(this.sourceAction),
       ],
     });
 
@@ -233,16 +230,13 @@ export class CICDPipelineStack extends Stack {
     var commands = props.commands ?? ['./test.sh'];
 
     if (cloudAssemblyFileSet === undefined) {
-      throw new Error("Bad")
+      throw new Error(
+        'No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.',
+      );
     }
 
     this.pipeline?.addWave(stageName || 'Tests', {
-      post: [
-        getTestsAction({
-          fileSetProducer: cloudAssemblyFileSet,
-          commands: commands,
-        }),
-      ],
+      post: [getTestsAction(cloudAssemblyFileSet, commands)],
     });
 
     return this;
