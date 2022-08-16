@@ -1,14 +1,11 @@
 import * as cdk from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { ShellStep } from 'aws-cdk-lib/pipelines';
-import {
-  CICDPipelineStack,
-  getCodeArtifactPublishAction,
-} from '../src';
+import { CICDPipelineStack, getCodeArtifactPublishAction } from '../src';
 
 test('Basic CICDPipeline', () => {
   const app = new cdk.App();
-  
+  //const baseStack = new cdk.Stack(app, "my-base-stack"); will add when base stack is implemented
   const stack = new CICDPipelineStack(
     app,
     'dummy-pipeline',
@@ -19,9 +16,11 @@ test('Basic CICDPipeline', () => {
     .addSourceAction({ repositoryName: 'dummy-repository' })
     .addSynthAction({})
     .buildPipeline()
+    //.addStage({ stageId: 'dev', stage: new cdk.Stage(baseStack, 'my-stack')}) will add when base stack is implemented
     .synth();
 
   const template = Template.fromStack(stack);
+  console.log(template.toJSON());
   template.resourceCountIs('AWS::CodePipeline::Pipeline', 1);
   template.hasResourceProperties('AWS::CodePipeline::Pipeline', {
     Stages: Match.arrayWith([
@@ -65,6 +64,9 @@ test('Basic CICDPipeline', () => {
           }),
         ]),
       }),
+      // Match.objectLike({
+      //   Name: 'dev',
+      // }),
     ]),
   });
   template.hasResourceProperties('AWS::IAM::Role', {
@@ -278,4 +280,46 @@ test('Test Pipeline with Artifact Upload', () => {
       }),
     ]),
   });
+});
+
+test('Build Pipeline with no Synth Action', () => {
+  const app = new cdk.App();
+  const stack = () =>
+    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+      .addSourceAction({ repositoryName: 'dummy-repository' })
+      .buildPipeline()
+      .synth();
+  expect(stack).toThrow(Error);
+});
+
+test('Build Pipeline with test stage but no Source Action', () => {
+  const app = new cdk.App();
+  const stack = () =>
+    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+      .addSynthAction({})
+      .addTestStage({})
+      .buildPipeline()
+      .synth();
+  expect(stack).toThrow(Error('No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.'));
+});
+
+test('Build Pipeline with security lint stage but no Source Action', () => {
+  const app = new cdk.App();
+  const stack = () =>
+    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+      .addSynthAction({})
+      .addSecurityLintStage({})
+      .buildPipeline()
+      .synth();
+  expect(stack).toThrow(Error('Source Action Must Be configured before calling this method.'));
+});
+
+test('Add stage without building pipeline', () => {
+  const app = new cdk.App();
+  const stack = () =>
+    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+      .addSynthAction({})
+      .addStage({ stageId: 'dev', stage: new cdk.Stage(app, 'my-stack') })
+      .synth();
+  expect(stack).toThrow(Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'));
 });

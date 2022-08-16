@@ -154,7 +154,9 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICDPipelineStack
     */
-
+    if (this.pipeline === undefined) {
+      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
+    }
     var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
     if (manualApprovals) {
