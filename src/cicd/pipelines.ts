@@ -38,7 +38,7 @@ export interface SynthActionProps {
   readonly synthAction?: CodeBuildStep;
 }
 
-export interface AddStageProps {
+export interface AddApplicationStageProps {
   readonly stageId: string;
   readonly stage: Stage;
   readonly manualApprovals?: boolean;
@@ -138,7 +138,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  addStage(props: AddStageProps) {
+  addStage(props: AddApplicationStageProps) {
     /*
     Add application stage to the CICD pipeline. This stage deploys your application infrastructure.
       Parameters

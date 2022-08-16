@@ -3,11 +3,12 @@ import { Match, Template } from 'aws-cdk-lib/assertions';
 import { ShellStep } from 'aws-cdk-lib/pipelines';
 import {
   CICDPipelineStack,
-  getCodeartifactPublishAction,
+  getCodeArtifactPublishAction,
 } from '../src';
 
 test('Basic CICDPipeline', () => {
   const app = new cdk.App();
+  
   const stack = new CICDPipelineStack(
     app,
     'dummy-pipeline',
@@ -21,7 +22,6 @@ test('Basic CICDPipeline', () => {
     .synth();
 
   const template = Template.fromStack(stack);
-  console.log(template.toJSON());
   template.resourceCountIs('AWS::CodePipeline::Pipeline', 1);
   template.hasResourceProperties('AWS::CodePipeline::Pipeline', {
     Stages: Match.arrayWith([
@@ -216,9 +216,8 @@ test('CICD Pipeline with Notifications', () => {
     .addNotifications({});
 
   const template = Template.fromStack(stack);
-  template.hasResourceProperties('AWS::SNS::Topic', {
-    TopicName: Match.exact('dummy-pipeline-dev-notifications'),
-  });
+  console.log(template.toJSON());
+  template.resourceCountIs('AWS::SNS::Topic', 1);
   template.hasResourceProperties('AWS::SNS::TopicPolicy', {
     PolicyDocument: Match.objectLike({
       Statement: [
@@ -226,7 +225,7 @@ test('CICD Pipeline with Notifications', () => {
           Action: 'sns:Publish',
           Effect: 'Allow',
           Principal: { Service: 'codestar-notifications.amazonaws.com' },
-          Resource: { Ref: 'dummypipelinedevnotificationsE4CDC252' },
+          Resource: { Ref: 'ExecutionFailedNotifications4D682D12' },
           Sid: '0',
         },
       ],
@@ -249,14 +248,14 @@ test('Test Pipeline with Artifact Upload', () => {
     .addCustomStage({
       stageName: 'PublishToCodeArtifact',
       steps: [
-        getCodeartifactPublishAction({
-          partition: 'aws',
-          region: app.region!,
-          account: app.account!,
-          codeartifactRepository: 'dummy',
-          codeartifactDomain: 'dummy',
-          codeartifactDomainOwner: 'dummy',
-        }),
+        getCodeArtifactPublishAction(
+          'aws',
+          app.region ?? 'us-east-1',
+          app.account ?? '111111111111',
+          'dummy',
+          'dummy',
+          'dummy',
+        ),
       ],
     })
     .synth()
