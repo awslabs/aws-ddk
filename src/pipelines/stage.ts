@@ -1,6 +1,6 @@
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as events from 'aws-cdk-lib/aws-events';
-import { SfnStateMachine } from 'aws-cdk-lib/aws-events-targets';
+import * as events_targets from 'aws-cdk-lib/aws-events-targets';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
 import { IChainable } from 'aws-cdk-lib/aws-stepfunctions';
@@ -66,6 +66,8 @@ export abstract class DataStage extends Stage {
 }
 
 export class StateMachineStage extends DataStage {
+  readonly targets?: events.IRuleTarget[];
+  readonly eventPattern?: events.EventPattern;
   public stateMachine?: sfn.StateMachine;
   public stateMachineInput?: {};
   /*
@@ -91,9 +93,6 @@ export class StateMachineStage extends DataStage {
       definition: props.definition
     });
 
-    const eventSource = `${id}-event-source`;
-    const eventDetailType = `${id}-event-type`;
-
     if (props.additionalRolePolicyStatements) {
       for (var statement, _pj_c = 0, _pj_a = props.additionalRolePolicyStatements, _pj_b = _pj_a.length; _pj_c < _pj_b; _pj_c += 1) {
         statement = _pj_a[_pj_c];
@@ -117,21 +116,7 @@ export class StateMachineStage extends DataStage {
           "stateMachineArn": [this.stateMachine.stateMachineArn]
         }
     }
-  }
-
-
-  getTargets() {
-    /*
-    Get input targets of the stage.
-    Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
-    Returns
-    -------
-    targets : Optional[List[IRuleTarget]]
-    List of targets
-    */
-    return [new SfnStateMachine(this.stateMachine, {
-      "input": events.RuleTargetInput.fromObject(this.stateMachineInput)
-    })];
+    this.targets = [new events_targets.SfnStateMachine(this.stateMachineInput)];
   }
 
 }
