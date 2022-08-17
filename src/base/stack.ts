@@ -5,19 +5,24 @@ import { Construct } from 'constructs';
 const BOOTSTRAP_PREFIX = 'ddk';
 const BOOTSTRAP_QUALIFIER = 'hnb659fds';
 
+const PH_REGION = '${{AWS::Region}}';
+const PH_ACCOUNT_ID = '${{AWS::AccountId}}';
+const PH_PARTITION = '${{AWS::Partition}}';
+
 export interface BaseStackProps extends cdk.StackProps {
-  permissionBoundaryArn?: string;
+  readonly permissionBoundaryArn?: string;
 }
 
 export class BaseStack extends cdk.Stack {
   private static buildRoleArn(name: string): string {
-    return `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/${BOOTSTRAP_PREFIX}-${BOOTSTRAP_QUALIFIER}-${name}-${cdk.Aws.ACCOUNT_ID}-${cdk.Aws.REGION}`;
+    return `arn:${PH_PARTITION}:iam::${PH_ACCOUNT_ID}:role/${BOOTSTRAP_PREFIX}-${BOOTSTRAP_QUALIFIER}-${name}-${PH_ACCOUNT_ID}-${PH_REGION}`;
   }
 
-  constructor(scope: Construct, id: string, props: BaseStackProps) {
+  constructor(scope: Construct, id: string, props: BaseStackProps = {}) {
+
     const synthesizer = props.synthesizer ?? new cdk.DefaultStackSynthesizer({
       qualifier: BOOTSTRAP_QUALIFIER,
-      fileAssetsBucketName: `${BOOTSTRAP_PREFIX}-${BOOTSTRAP_QUALIFIER}-assets-${cdk.Aws.ACCOUNT_ID}-${cdk.Aws.REGION}`,
+      fileAssetsBucketName: `${BOOTSTRAP_PREFIX}-${BOOTSTRAP_QUALIFIER}-assets-${PH_ACCOUNT_ID}-${PH_REGION}`,
       bootstrapStackVersionSsmParameter: `/${BOOTSTRAP_PREFIX}/${BOOTSTRAP_QUALIFIER}/bootstrap-version`,
       deployRoleArn: BaseStack.buildRoleArn('deploy'),
       fileAssetPublishingRoleArn: BaseStack.buildRoleArn('file-publish'),
