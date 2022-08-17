@@ -2138,7 +2138,6 @@ const codeCommitSourceActionProps: CodeCommitSourceActionProps = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-dev.CodeCommitSourceActionProps.property.branch">branch</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.CodeCommitSourceActionProps.property.repositoryName">repositoryName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.CodeCommitSourceActionProps.property.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.CodeCommitSourceActionProps.property.props">props</a></code> | <code>aws-cdk-lib.pipelines.ConnectionSourceOptions</code> | *No description.* |
 
 ---
@@ -2160,16 +2159,6 @@ public readonly repositoryName: string;
 ```
 
 - *Type:* string
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-dev.CodeCommitSourceActionProps.property.scope"></a>
-
-```typescript
-public readonly scope: Construct;
-```
-
-- *Type:* constructs.Construct
 
 ---
 
