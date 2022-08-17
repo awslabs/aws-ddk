@@ -2,7 +2,7 @@ import { SnsAction } from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as events from 'aws-cdk-lib/aws-events';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import { Construct } from 'constructs';
-import { DataStage } from './stage';
+import { DataStage, Stage } from './stage';
 
 export interface DataPipelineProps {
   readonly name?: string;
@@ -10,7 +10,7 @@ export interface DataPipelineProps {
 }
 
 export interface AddStageProps {
-  readonly stage: DataStage;
+  readonly stage: Stage;
   readonly skipRule?: boolean;
   readonly overrideRule?: events.IRule;
 }
@@ -26,7 +26,7 @@ export class DataPipeline extends Construct {
   readonly name?: string;
   readonly description?: string;
 
-  private previousStage?: DataStage;
+  private previousStage?: Stage;
   private rules: events.IRule[];
   private notificationsTopic?: sns.ITopic;
 
@@ -46,6 +46,12 @@ export class DataPipeline extends Construct {
     if (props.overrideRule) {
       this.addRule({ overrideRule: props.overrideRule });
     } else if (this.previousStage && skipRule === false) {
+      if (stage.targets === undefined) {
+        throw new Error(
+          'DataPipeline stage is missing a targets. Unless the rule between stages is overridden, every stage except for the first one must be a DataStage with a defined list of targets.',
+        );
+      }
+
       this.addRule({
         id: `${stage.node.id} Rule`,
         eventPattern: this.previousStage?.eventPattern,
@@ -53,7 +59,7 @@ export class DataPipeline extends Construct {
       });
     }
 
-    if (this.notificationsTopic && stage.cloudwatchAlarms) {
+    if (this.notificationsTopic && stage instanceof DataStage) {
       const topic = this.notificationsTopic;
       stage.cloudwatchAlarms.forEach(alarm => {
         alarm.addAlarmAction(new SnsAction(topic));
