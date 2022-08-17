@@ -23,18 +23,18 @@ export interface GetSynthActionProps {
 }
 
 export interface CodeCommitSourceActionProps {
-  readonly scope: Construct;
   readonly repositoryName: string;
   readonly branch: string;
   readonly props?: ConnectionSourceOptions;
 }
 
 export function getCodeCommitSourceAction(
+  scope: Construct,
   props: CodeCommitSourceActionProps,
 ): CodePipelineSource {
   return CodePipelineSource.codeCommit(
     Repository.fromRepositoryName(
-      props.scope,
+      scope,
       props.repositoryName,
       props.repositoryName,
     ),

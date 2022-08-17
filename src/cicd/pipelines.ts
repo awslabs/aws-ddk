@@ -92,8 +92,7 @@ export class CICDPipelineStack extends Stack {
     var branch = props.branch ?? 'main';
     this.sourceAction =
       props.sourceAction ||
-      getCodeCommitSourceAction({
-        scope: this,
+      getCodeCommitSourceAction(this, {
         repositoryName: props.repositoryName,
         branch: branch,
       });
@@ -155,7 +154,9 @@ export class CICDPipelineStack extends Stack {
     CICDPipelineStack
     */
     if (this.pipeline === undefined) {
-      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
+      throw new Error(
+        '`.buildPipeline()` needs to be called first before adding application stages to the pipeline.',
+      );
     }
     var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
@@ -256,13 +257,18 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipeline
     CICD pipeline
     */
+    if (this.pipeline === undefined) {
+      throw new Error(
+        '`.buildPipeline()` needs to be called first before adding application stages to the pipeline.',
+      );
+    }
 
     this.notificationRule =
       props.notificationRule ??
       new NotificationRule(this, 'Notification', {
         detailType: DetailType.BASIC,
         events: ['codepipeline-pipeline-pipeline-execution-failed'],
-        source: this.pipeline?.pipeline!,
+        source: this.pipeline?.pipeline,
         targets: [new Topic(this, 'ExecutionFailedNotifications')], // Implement config defined topic later on
       });
     return this;

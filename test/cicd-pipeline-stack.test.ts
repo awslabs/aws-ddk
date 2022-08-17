@@ -323,3 +323,14 @@ test('Add stage without building pipeline', () => {
       .synth();
   expect(stack).toThrow(Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'));
 });
+
+test('Add notifications without building pipeline', () => {
+  const app = new cdk.App();
+  const stack = () =>
+    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+      .addSynthAction({})
+      .addStage({ stageId: 'dev', stage: new cdk.Stage(app, 'my-stack') })
+      .synth()
+      .addNotifications({});
+  expect(stack).toThrow(Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'));
+});
