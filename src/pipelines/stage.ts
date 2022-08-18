@@ -65,11 +65,13 @@ export abstract class DataStage extends Stage {
   }
 }
 
-export class StateMachineStage extends DataStage {
+export abstract class StateMachineStage extends DataStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
+
   public stateMachine?: sfn.StateMachine;
   public stateMachineInput?: { [key: string]: any };
+
   /*
   DataStage with helper methods to simplify StateMachine stages creation.
   */
@@ -88,15 +90,9 @@ export class StateMachineStage extends DataStage {
     Description of the stage
     */
     super(scope, id, props);
-  }
 
-  buildStateMachine(
-    id: string,
-    definition: sfn.IChainable,
-    props: StateMachineStageProps,
-  ) {
     this.stateMachine = new sfn.StateMachine(this, id, {
-      definition: definition,
+      definition: this.createStateMachineSteps(),
     });
 
     if (props.additionalRolePolicyStatements) {
@@ -135,8 +131,7 @@ export class StateMachineStage extends DataStage {
         input: events.RuleTargetInput.fromObject(this.stateMachineInput),
       }),
     ];
-
-    return this;
   }
-  
+
+  protected abstract createStateMachineSteps(): sfn.IChainable;
 }

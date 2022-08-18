@@ -16,7 +16,7 @@ test('AthenaToSQL stage creates State Machine', () => {
     DefinitionString: {
       'Fn::Join': [
         '',
-        Match.arrayWith([Match.stringLikeRegexp('start-query-exec')]),
+        Match.arrayWith([Match.stringLikeRegexp('Start Query Exec')]),
       ],
     },
   });

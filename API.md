@@ -44,7 +44,6 @@ new AthenaSQLStage(scope: Construct, id: string, props: AthenaToSQLStageProps)
 | --- | --- |
 | <code><a href="#aws-ddk-dev.AthenaSQLStage.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#aws-ddk-dev.AthenaSQLStage.addAlarm">addAlarm</a></code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.buildStateMachine">buildStateMachine</a></code> | *No description.* |
 
 ---
 
@@ -71,30 +70,6 @@ public addAlarm(id: string, props: AlarmProps): DataStage
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.AthenaSQLStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-dev.AlarmProps">AlarmProps</a>
-
----
-
-##### `buildStateMachine` <a name="buildStateMachine" id="aws-ddk-dev.AthenaSQLStage.buildStateMachine"></a>
-
-```typescript
-public buildStateMachine(id: string, definition: IChainable, props: StateMachineStageProps): StateMachineStage
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.AthenaSQLStage.buildStateMachine.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `definition`<sup>Required</sup> <a name="definition" id="aws-ddk-dev.AthenaSQLStage.buildStateMachine.parameter.definition"></a>
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.IChainable
-
----
-
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.AthenaSQLStage.buildStateMachine.parameter.props"></a>
-
-- *Type:* <a href="#aws-ddk-dev.StateMachineStageProps">StateMachineStageProps</a>
 
 ---
 
@@ -439,7 +414,7 @@ into the generated ARN at the location that component corresponds to.
 
 The ARN will be formatted as follows:
 
-   arn:{partition}:{service}:{region}:{account}:{resource}{sep}}{resource-name}
+   arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
 
 The required ARN pieces that are omitted will be taken from the stack that
 the 'scope' is attached to. If all ARN pieces are supplied, the supplied scope
@@ -1949,7 +1924,6 @@ new StateMachineStage(scope: Construct, id: string, props: StateMachineStageProp
 | --- | --- |
 | <code><a href="#aws-ddk-dev.StateMachineStage.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#aws-ddk-dev.StateMachineStage.addAlarm">addAlarm</a></code> | *No description.* |
-| <code><a href="#aws-ddk-dev.StateMachineStage.buildStateMachine">buildStateMachine</a></code> | *No description.* |
 
 ---
 
@@ -1976,30 +1950,6 @@ public addAlarm(id: string, props: AlarmProps): DataStage
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.StateMachineStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-dev.AlarmProps">AlarmProps</a>
-
----
-
-##### `buildStateMachine` <a name="buildStateMachine" id="aws-ddk-dev.StateMachineStage.buildStateMachine"></a>
-
-```typescript
-public buildStateMachine(id: string, definition: IChainable, props: StateMachineStageProps): StateMachineStage
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.StateMachineStage.buildStateMachine.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `definition`<sup>Required</sup> <a name="definition" id="aws-ddk-dev.StateMachineStage.buildStateMachine.parameter.definition"></a>
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.IChainable
-
----
-
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.StateMachineStage.buildStateMachine.parameter.props"></a>
-
-- *Type:* <a href="#aws-ddk-dev.StateMachineStageProps">StateMachineStageProps</a>
 
 ---
 
@@ -2532,8 +2482,7 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.Key</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.encryptionOption">encryptionOption</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.EncryptionOption</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.outputBucketName">outputBucketName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.outputObjectKey">outputObjectKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_s3.Location</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.workGroup">workGroup</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -2648,23 +2597,13 @@ public readonly encryptionOption: EncryptionOption;
 
 ---
 
-##### `outputBucketName`<sup>Optional</sup> <a name="outputBucketName" id="aws-ddk-dev.AthenaToSQLStageProps.property.outputBucketName"></a>
+##### `outputLocation`<sup>Optional</sup> <a name="outputLocation" id="aws-ddk-dev.AthenaToSQLStageProps.property.outputLocation"></a>
 
 ```typescript
-public readonly outputBucketName: string;
+public readonly outputLocation: Location;
 ```
 
-- *Type:* string
-
----
-
-##### `outputObjectKey`<sup>Optional</sup> <a name="outputObjectKey" id="aws-ddk-dev.AthenaToSQLStageProps.property.outputObjectKey"></a>
-
-```typescript
-public readonly outputObjectKey: string;
-```
-
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_s3.Location
 
 ---
 

@@ -1,4 +1,5 @@
 import * as kms from 'aws-cdk-lib/aws-kms';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
 import * as tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
 import { Construct } from 'constructs';
@@ -9,58 +10,61 @@ export interface AthenaToSQLStageProps extends StateMachineStageProps {
   readonly workGroup?: string;
   readonly catalogName?: string;
   readonly databaseName?: string;
-  readonly outputBucketName?: string;
-  readonly outputObjectKey?: string;
+  readonly outputLocation?: s3.Location;
   readonly encryptionOption?: tasks.EncryptionOption;
   readonly encryptionKey?: kms.Key;
 }
 
 export class AthenaSQLStage extends StateMachineStage {
-  /*
-  Class that represents a Athena SQL DDK DataStage.
-  */
+
+  private readonly queryString: string;
+
+  private readonly workGroup?: string;
+  private readonly catalogName?: string;
+  private readonly databaseName?: string;
+
+  private readonly outputLocation?: s3.Location;
+
+  private readonly encryptionOption: tasks.EncryptionOption;
+  private readonly encryptionKey?: kms.Key;
 
   constructor(scope: Construct, id: string, props: AthenaToSQLStageProps) {
     super(scope, id, props);
 
-    var startQueryExec = new tasks.AthenaStartQueryExecution(
+    this.queryString = props.queryString;
+
+    this.workGroup = props.workGroup;
+    this.catalogName = props.catalogName;
+    this.databaseName = props.databaseName;
+
+    this.outputLocation = props.outputLocation;
+
+    this.encryptionOption = props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED;
+    this.encryptionKey = props.encryptionKey;
+  }
+
+  protected createStateMachineSteps(): sfn.IChainable {
+    const startQueryExec = new tasks.AthenaStartQueryExecution(
       this,
-      'start-query-exec',
+      'Start Query Exec',
       {
-        queryString: props.queryString,
+        queryString: this.queryString,
         integrationPattern: sfn.IntegrationPattern.RUN_JOB,
         queryExecutionContext: {
-          catalogName: props.catalogName,
-          databaseName: props.databaseName,
+          catalogName: this.catalogName,
+          databaseName: this.databaseName,
         },
         resultConfiguration: {
           encryptionConfiguration: {
-            encryptionOption:
-              props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED,
-            encryptionKey: props.encryptionKey,
+            encryptionOption: this.encryptionOption,
+            encryptionKey: this.encryptionKey,
           },
-          outputLocation:
-            props.outputBucketName && props.outputObjectKey
-              ? {
-                  bucketName: props.outputBucketName,
-                  objectKey: props.outputObjectKey,
-                }
-              : undefined,
+          outputLocation: this.outputLocation,
         },
-        workGroup: props.workGroup,
+        workGroup: this.workGroup,
       },
     );
-    this.buildStateMachine(
-      id,
-      startQueryExec.next(new sfn.Succeed(this, 'success')),
-      {
-        stateMachineInput: props.stateMachineInput,
-        additionalRolePolicyStatements: props.additionalRolePolicyStatements,
-        stateMachineFailedExecutionsAlarmThreshold:
-          props.stateMachineFailedExecutionsAlarmThreshold,
-        stateMachineFailedExecutionsAlarmEvaluationPeriods:
-          props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
-      },
-    );
+
+    return startQueryExec.next(new sfn.Succeed(this, 'Success'));
   }
 }
