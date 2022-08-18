@@ -16,7 +16,6 @@ export interface AthenaToSQLStageProps extends StateMachineStageProps {
 }
 
 export class AthenaSQLStage extends StateMachineStage {
-
   private readonly queryString: string;
 
   private readonly workGroup?: string;
@@ -39,7 +38,8 @@ export class AthenaSQLStage extends StateMachineStage {
 
     this.outputLocation = props.outputLocation;
 
-    this.encryptionOption = props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED;
+    this.encryptionOption =
+      props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED;
     this.encryptionKey = props.encryptionKey;
   }
 
