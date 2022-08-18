@@ -186,7 +186,7 @@ public readonly stateMachine: StateMachine;
 
 ---
 
-##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-dev.AthenaSQLStage.property.stateMachineInput"></a>
+##### `stateMachineInput`<sup>Required</sup> <a name="stateMachineInput" id="aws-ddk-dev.AthenaSQLStage.property.stateMachineInput"></a>
 
 ```typescript
 public readonly stateMachineInput: {[ key: string ]: any};
@@ -3159,7 +3159,7 @@ public readonly stateMachine: StateMachine;
 
 ---
 
-##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-dev.StateMachineStage.property.stateMachineInput"></a>
+##### `stateMachineInput`<sup>Required</sup> <a name="stateMachineInput" id="aws-ddk-dev.StateMachineStage.property.stateMachineInput"></a>
 
 ```typescript
 public readonly stateMachineInput: {[ key: string ]: any};

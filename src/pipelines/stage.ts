@@ -70,7 +70,7 @@ export abstract class StateMachineStage extends DataStage {
   readonly eventPattern?: events.EventPattern;
 
   public stateMachine: sfn.StateMachine;
-  public stateMachineInput?: { [key: string]: any };
+  public stateMachineInput: { [key: string]: any };
 
   /*
   DataStage with helper methods to simplify StateMachine stages creation.
@@ -108,7 +108,7 @@ export abstract class StateMachineStage extends DataStage {
         props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
     });
 
-    this.stateMachineInput = props.stateMachineInput;
+    this.stateMachineInput = props.stateMachineInput ?? {};
     this.eventPattern = {
       source: ['aws.states'],
       detailType: ['Step Functions Execution Status Change'],
