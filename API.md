@@ -2,7 +2,6 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
-<<<<<<< HEAD
 ### AthenaSQLStage <a name="AthenaSQLStage" id="aws-ddk-dev.AthenaSQLStage"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-dev.AthenaSQLStage.Initializer"></a>
@@ -11,7 +10,193 @@
 import { AthenaSQLStage } from 'aws-ddk-dev'
 
 new AthenaSQLStage(scope: Construct, id: string, props: AthenaToSQLStageProps)
-=======
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps">AthenaToSQLStageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-dev.AthenaSQLStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.AthenaSQLStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.AthenaSQLStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-dev.AthenaToSQLStageProps">AthenaToSQLStageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.addAlarm">addAlarm</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-dev.AthenaSQLStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-dev.AthenaSQLStage.addAlarm"></a>
+
+```typescript
+public addAlarm(id: string, props: AlarmProps): DataStage
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.AthenaSQLStage.addAlarm.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.AthenaSQLStage.addAlarm.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-dev.AlarmProps">AlarmProps</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-dev.AthenaSQLStage.isConstruct"></a>
+
+```typescript
+import { AthenaSQLStage } from 'aws-ddk-dev'
+
+AthenaSQLStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-dev.AthenaSQLStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-dev.AthenaSQLStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.AthenaSQLStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-dev.AthenaSQLStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-dev.AthenaSQLStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-dev.AthenaSQLStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-dev.AthenaSQLStage.property.cloudwatchAlarms"></a>
+
+```typescript
+public readonly cloudwatchAlarms: Alarm[];
+```
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `stateMachine`<sup>Optional</sup> <a name="stateMachine" id="aws-ddk-dev.AthenaSQLStage.property.stateMachine"></a>
+
+```typescript
+public readonly stateMachine: StateMachine;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-dev.AthenaSQLStage.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+
 ### BaseStack <a name="BaseStack" id="aws-ddk-dev.BaseStack"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-dev.BaseStack.Initializer"></a>
@@ -20,20 +205,10 @@ new AthenaSQLStage(scope: Construct, id: string, props: AthenaToSQLStageProps)
 import { BaseStack } from 'aws-ddk-dev'
 
 new BaseStack(scope: Construct, id: string, props?: BaseStackProps)
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-<<<<<<< HEAD
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps">AthenaToSQLStageProps</a></code> | *No description.* |
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-dev.AthenaSQLStage.Initializer.parameter.scope"></a>
-=======
 | <code><a href="#aws-ddk-dev.BaseStack.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.BaseStack.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.BaseStack.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-dev.BaseStackProps">BaseStackProps</a></code> | *No description.* |
@@ -41,31 +216,20 @@ new BaseStack(scope: Construct, id: string, props?: BaseStackProps)
 ---
 
 ##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-dev.BaseStack.Initializer.parameter.scope"></a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 - *Type:* constructs.Construct
 
 ---
 
-<<<<<<< HEAD
-##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.AthenaSQLStage.Initializer.parameter.id"></a>
-=======
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.BaseStack.Initializer.parameter.id"></a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 - *Type:* string
 
 ---
 
-<<<<<<< HEAD
-##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.AthenaSQLStage.Initializer.parameter.props"></a>
-
-- *Type:* <a href="#aws-ddk-dev.AthenaToSQLStageProps">AthenaToSQLStageProps</a>
-=======
 ##### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-dev.BaseStack.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-dev.BaseStackProps">BaseStackProps</a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 ---
 
@@ -73,20 +237,13 @@ new BaseStack(scope: Construct, id: string, props?: BaseStackProps)
 
 | **Name** | **Description** |
 | --- | --- |
-<<<<<<< HEAD
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.addAlarm">addAlarm</a></code> | *No description.* |
-
----
-
-##### `toString` <a name="toString" id="aws-ddk-dev.AthenaSQLStage.toString"></a>
-=======
 | <code><a href="#aws-ddk-dev.BaseStack.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#aws-ddk-dev.BaseStack.addDependency">addDependency</a></code> | Add a dependency between this stack and another stack. |
 | <code><a href="#aws-ddk-dev.BaseStack.addTransform">addTransform</a></code> | Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template. |
 | <code><a href="#aws-ddk-dev.BaseStack.exportValue">exportValue</a></code> | Create a CloudFormation Export for a value. |
 | <code><a href="#aws-ddk-dev.BaseStack.formatArn">formatArn</a></code> | Creates an ARN from components. |
 | <code><a href="#aws-ddk-dev.BaseStack.getLogicalId">getLogicalId</a></code> | Allocates a stack-unique CloudFormation-compatible logical identity for a specific resource. |
+| <code><a href="#aws-ddk-dev.BaseStack.regionalFact">regionalFact</a></code> | Look up a fact value for the given fact for the region of this stack. |
 | <code><a href="#aws-ddk-dev.BaseStack.renameLogicalId">renameLogicalId</a></code> | Rename a generated logical identities. |
 | <code><a href="#aws-ddk-dev.BaseStack.reportMissingContextKey">reportMissingContextKey</a></code> | Indicate that a context key was expected. |
 | <code><a href="#aws-ddk-dev.BaseStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
@@ -96,7 +253,6 @@ new BaseStack(scope: Construct, id: string, props?: BaseStackProps)
 ---
 
 ##### `toString` <a name="toString" id="aws-ddk-dev.BaseStack.toString"></a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 ```typescript
 public toString(): string
@@ -104,15 +260,6 @@ public toString(): string
 
 Returns a string representation of this construct.
 
-<<<<<<< HEAD
-##### `addAlarm` <a name="addAlarm" id="aws-ddk-dev.AthenaSQLStage.addAlarm"></a>
-
-```typescript
-public addAlarm(id: string, props: AlarmProps): DataStage
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.AthenaSQLStage.addAlarm.parameter.id"></a>
-=======
 ##### `addDependency` <a name="addDependency" id="aws-ddk-dev.BaseStack.addDependency"></a>
 
 ```typescript
@@ -131,17 +278,11 @@ app, and also supports nested stacks.
 ---
 
 ###### `reason`<sup>Optional</sup> <a name="reason" id="aws-ddk-dev.BaseStack.addDependency.parameter.reason"></a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 - *Type:* string
 
 ---
 
-<<<<<<< HEAD
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.AthenaSQLStage.addAlarm.parameter.props"></a>
-
-- *Type:* <a href="#aws-ddk-dev.AlarmProps">AlarmProps</a>
-=======
 ##### `addTransform` <a name="addTransform" id="aws-ddk-dev.BaseStack.addTransform"></a>
 
 ```typescript
@@ -286,6 +427,42 @@ The CloudFormation element for which a logical identity is needed.
 
 ---
 
+##### `regionalFact` <a name="regionalFact" id="aws-ddk-dev.BaseStack.regionalFact"></a>
+
+```typescript
+public regionalFact(factName: string, defaultValue?: string): string
+```
+
+Look up a fact value for the given fact for the region of this stack.
+
+Will return a definite value only if the region of the current stack is resolved.
+If not, a lookup map will be added to the stack and the lookup will be done at
+CDK deployment time.
+
+What regions will be included in the lookup map is controlled by the
+`@aws-cdk/core:target-partitions` context value: it must be set to a list
+of partitions, and only regions from the given partitions will be included.
+If no such context key is set, all regions will be included.
+
+This function is intended to be used by construct library authors. Application
+builders can rely on the abstractions offered by construct libraries and do
+not have to worry about regional facts.
+
+If `defaultValue` is not given, it is an error if the fact is unknown for
+the given region.
+
+###### `factName`<sup>Required</sup> <a name="factName" id="aws-ddk-dev.BaseStack.regionalFact.parameter.factName"></a>
+
+- *Type:* string
+
+---
+
+###### `defaultValue`<sup>Optional</sup> <a name="defaultValue" id="aws-ddk-dev.BaseStack.regionalFact.parameter.defaultValue"></a>
+
+- *Type:* string
+
+---
+
 ##### `renameLogicalId` <a name="renameLogicalId" id="aws-ddk-dev.BaseStack.renameLogicalId"></a>
 
 ```typescript
@@ -388,7 +565,6 @@ Convert an object, potentially containing tokens, to a JSON string.
 ###### `space`<sup>Optional</sup> <a name="space" id="aws-ddk-dev.BaseStack.toJsonString.parameter.space"></a>
 
 - *Type:* number
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 ---
 
@@ -396,18 +572,6 @@ Convert an object, potentially containing tokens, to a JSON string.
 
 | **Name** | **Description** |
 | --- | --- |
-<<<<<<< HEAD
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
----
-
-##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-dev.AthenaSQLStage.isConstruct"></a>
-
-```typescript
-import { AthenaSQLStage } from 'aws-ddk-dev'
-
-AthenaSQLStage.isConstruct(x: any)
-=======
 | <code><a href="#aws-ddk-dev.BaseStack.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#aws-ddk-dev.BaseStack.isStack">isStack</a></code> | Return whether the given object is a Stack. |
 | <code><a href="#aws-ddk-dev.BaseStack.of">of</a></code> | Looks up the first stack scope in which `construct` is defined. |
@@ -420,16 +584,11 @@ AthenaSQLStage.isConstruct(x: any)
 import { BaseStack } from 'aws-ddk-dev'
 
 BaseStack.isConstruct(x: any)
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 ```
 
 Checks if `x` is a construct.
 
-<<<<<<< HEAD
-###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-dev.AthenaSQLStage.isConstruct.parameter.x"></a>
-=======
 ###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-dev.BaseStack.isConstruct.parameter.x"></a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 - *Type:* any
 
@@ -437,8 +596,6 @@ Any object.
 
 ---
 
-<<<<<<< HEAD
-=======
 ##### `isStack` <a name="isStack" id="aws-ddk-dev.BaseStack.isStack"></a>
 
 ```typescript
@@ -477,34 +634,18 @@ The construct to start the search from.
 
 ---
 
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-<<<<<<< HEAD
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
-| <code><a href="#aws-ddk-dev.AthenaSQLStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-dev.AthenaSQLStage.property.node"></a>
-=======
 | <code><a href="#aws-ddk-dev.BaseStack.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.account">account</a></code> | <code>string</code> | The AWS account into which this stack will be deployed. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.artifactId">artifactId</a></code> | <code>string</code> | The ID of the cloud assembly artifact for this stack. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | Returns the list of AZs that are available in the AWS environment (account/region) associated with this stack. |
+| <code><a href="#aws-ddk-dev.BaseStack.property.bundlingRequired">bundlingRequired</a></code> | <code>boolean</code> | Indicates whether the stack requires bundling or not. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.dependencies">dependencies</a></code> | <code>aws-cdk-lib.Stack[]</code> | Return the stacks this stack depends on. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.environment">environment</a></code> | <code>string</code> | The environment coordinates in which this stack is deployed. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.nested">nested</a></code> | <code>boolean</code> | Indicates if this is a nested stack, in which case `parentStack` will include a reference to it's parent. |
-| <code><a href="#aws-ddk-dev.BaseStack.property.nestedStackParent">nestedStackParent</a></code> | <code>aws-cdk-lib.Stack</code> | If this is a nested stack, returns it's parent stack. |
-| <code><a href="#aws-ddk-dev.BaseStack.property.nestedStackResource">nestedStackResource</a></code> | <code>aws-cdk-lib.CfnResource</code> | If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | Returns the list of notification Amazon Resource Names (ARNs) for the current stack. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.partition">partition</a></code> | <code>string</code> | The partition in which this stack is defined. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.region">region</a></code> | <code>string</code> | The AWS region into which this stack will be deployed (e.g. `us-west-2`). |
@@ -514,13 +655,14 @@ The construct to start the search from.
 | <code><a href="#aws-ddk-dev.BaseStack.property.tags">tags</a></code> | <code>aws-cdk-lib.TagManager</code> | Tags to be applied to the stack. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.templateFile">templateFile</a></code> | <code>string</code> | The name of the CloudFormation template file emitted to the output directory during synthesis. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.templateOptions">templateOptions</a></code> | <code>aws-cdk-lib.ITemplateOptions</code> | Options for CloudFormation template (like version, transform, description). |
-| <code><a href="#aws-ddk-dev.BaseStack.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether termination protection is enabled for this stack. |
 | <code><a href="#aws-ddk-dev.BaseStack.property.urlSuffix">urlSuffix</a></code> | <code>string</code> | The Amazon domain suffix for the region in which this stack is defined. |
+| <code><a href="#aws-ddk-dev.BaseStack.property.nestedStackParent">nestedStackParent</a></code> | <code>aws-cdk-lib.Stack</code> | If this is a nested stack, returns it's parent stack. |
+| <code><a href="#aws-ddk-dev.BaseStack.property.nestedStackResource">nestedStackResource</a></code> | <code>aws-cdk-lib.CfnResource</code> | If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource. |
+| <code><a href="#aws-ddk-dev.BaseStack.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether termination protection is enabled for this stack. |
 
 ---
 
 ##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-dev.BaseStack.property.node"></a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 ```typescript
 public readonly node: Node;
@@ -532,39 +674,14 @@ The tree node.
 
 ---
 
-<<<<<<< HEAD
-##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.AthenaSQLStage.property.description"></a>
-
-```typescript
-public readonly description: string;
-=======
 ##### `account`<sup>Required</sup> <a name="account" id="aws-ddk-dev.BaseStack.property.account"></a>
 
 ```typescript
 public readonly account: string;
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 ```
 
 - *Type:* string
 
-<<<<<<< HEAD
----
-
-##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-dev.AthenaSQLStage.property.eventPattern"></a>
-
-```typescript
-public readonly eventPattern: EventPattern;
-```
-
-- *Type:* aws-cdk-lib.aws_events.EventPattern
-
----
-
-##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-dev.AthenaSQLStage.property.name"></a>
-
-```typescript
-public readonly name: string;
-=======
 The AWS account into which this stack will be deployed.
 
 This value is resolved according to the following rules:
@@ -590,52 +707,10 @@ implement some other region-agnostic behavior.
 
 ```typescript
 public readonly artifactId: string;
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 ```
 
 - *Type:* string
 
-<<<<<<< HEAD
----
-
-##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-dev.AthenaSQLStage.property.targets"></a>
-
-```typescript
-public readonly targets: IRuleTarget[];
-```
-
-- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
-
----
-
-##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-dev.AthenaSQLStage.property.cloudwatchAlarms"></a>
-
-```typescript
-public readonly cloudwatchAlarms: Alarm[];
-```
-
-- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
-
----
-
-##### `stateMachine`<sup>Optional</sup> <a name="stateMachine" id="aws-ddk-dev.AthenaSQLStage.property.stateMachine"></a>
-
-```typescript
-public readonly stateMachine: StateMachine;
-```
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
-
----
-
-##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-dev.AthenaSQLStage.property.stateMachineInput"></a>
-
-```typescript
-public readonly stateMachineInput: {[ key: string ]: any};
-```
-
-- *Type:* {[ key: string ]: any}
-=======
 The ID of the cloud assembly artifact for this stack.
 
 ---
@@ -660,6 +735,18 @@ reports them as missing, and let the CLI resolve them by calling EC2
 `DescribeAvailabilityZones` on the target environment.
 
 To specify a different strategy for selecting availability zones override this method.
+
+---
+
+##### `bundlingRequired`<sup>Required</sup> <a name="bundlingRequired" id="aws-ddk-dev.BaseStack.property.bundlingRequired"></a>
+
+```typescript
+public readonly bundlingRequired: boolean;
+```
+
+- *Type:* boolean
+
+Indicates whether the stack requires bundling or not.
 
 ---
 
@@ -708,32 +795,6 @@ public readonly nested: boolean;
 - *Type:* boolean
 
 Indicates if this is a nested stack, in which case `parentStack` will include a reference to it's parent.
-
----
-
-##### `nestedStackParent`<sup>Optional</sup> <a name="nestedStackParent" id="aws-ddk-dev.BaseStack.property.nestedStackParent"></a>
-
-```typescript
-public readonly nestedStackParent: Stack;
-```
-
-- *Type:* aws-cdk-lib.Stack
-
-If this is a nested stack, returns it's parent stack.
-
----
-
-##### `nestedStackResource`<sup>Optional</sup> <a name="nestedStackResource" id="aws-ddk-dev.BaseStack.property.nestedStackResource"></a>
-
-```typescript
-public readonly nestedStackResource: CfnResource;
-```
-
-- *Type:* aws-cdk-lib.CfnResource
-
-If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource.
-
-`undefined` for top-level (non-nested) stacks.
 
 ---
 
@@ -881,18 +942,6 @@ Options for CloudFormation template (like version, transform, description).
 
 ---
 
-##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="aws-ddk-dev.BaseStack.property.terminationProtection"></a>
-
-```typescript
-public readonly terminationProtection: boolean;
-```
-
-- *Type:* boolean
-
-Whether termination protection is enabled for this stack.
-
----
-
 ##### `urlSuffix`<sup>Required</sup> <a name="urlSuffix" id="aws-ddk-dev.BaseStack.property.urlSuffix"></a>
 
 ```typescript
@@ -902,7 +951,44 @@ public readonly urlSuffix: string;
 - *Type:* string
 
 The Amazon domain suffix for the region in which this stack is defined.
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
+
+---
+
+##### `nestedStackParent`<sup>Optional</sup> <a name="nestedStackParent" id="aws-ddk-dev.BaseStack.property.nestedStackParent"></a>
+
+```typescript
+public readonly nestedStackParent: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+If this is a nested stack, returns it's parent stack.
+
+---
+
+##### `nestedStackResource`<sup>Optional</sup> <a name="nestedStackResource" id="aws-ddk-dev.BaseStack.property.nestedStackResource"></a>
+
+```typescript
+public readonly nestedStackResource: CfnResource;
+```
+
+- *Type:* aws-cdk-lib.CfnResource
+
+If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource.
+
+`undefined` for top-level (non-nested) stacks.
+
+---
+
+##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="aws-ddk-dev.BaseStack.property.terminationProtection"></a>
+
+```typescript
+public readonly terminationProtection: boolean;
+```
+
+- *Type:* boolean
+
+Whether termination protection is enabled for this stack.
 
 ---
 
@@ -3464,7 +3550,6 @@ public readonly threshold: number;
 
 ---
 
-<<<<<<< HEAD
 ### AthenaToSQLStageProps <a name="AthenaToSQLStageProps" id="aws-ddk-dev.AthenaToSQLStageProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-dev.AthenaToSQLStageProps.Initializer"></a>
@@ -3473,23 +3558,12 @@ public readonly threshold: number;
 import { AthenaToSQLStageProps } from 'aws-ddk-dev'
 
 const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
-=======
-### BaseStackProps <a name="BaseStackProps" id="aws-ddk-dev.BaseStackProps"></a>
-
-#### Initializer <a name="Initializer" id="aws-ddk-dev.BaseStackProps.Initializer"></a>
-
-```typescript
-import { BaseStackProps } from 'aws-ddk-dev'
-
-const baseStackProps: BaseStackProps = { ... }
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 ```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-<<<<<<< HEAD
 | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.AthenaToSQLStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
@@ -3507,40 +3581,12 @@ const baseStackProps: BaseStackProps = { ... }
 ---
 
 ##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.AthenaToSQLStageProps.property.description"></a>
-=======
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.analyticsReporting">analyticsReporting</a></code> | <code>boolean</code> | Include runtime versioning information in this Stack. |
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
-| <code><a href="#aws-ddk-dev.BaseStackProps.property.permissionBoundaryArn">permissionBoundaryArn</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `analyticsReporting`<sup>Optional</sup> <a name="analyticsReporting" id="aws-ddk-dev.BaseStackProps.property.analyticsReporting"></a>
-
-```typescript
-public readonly analyticsReporting: boolean;
-```
-
-- *Type:* boolean
-- *Default:* `analyticsReporting` setting of containing `App`, or value of 'aws:cdk:version-reporting' context key
-
-Include runtime versioning information in this Stack.
-
----
-
-##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.BaseStackProps.property.description"></a>
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 
 ```typescript
 public readonly description: string;
 ```
 
 - *Type:* string
-<<<<<<< HEAD
 
 ---
 
@@ -3658,7 +3704,57 @@ public readonly outputLocation: Location;
 
 ```typescript
 public readonly workGroup: string;
-=======
+```
+
+- *Type:* string
+
+---
+
+### BaseStackProps <a name="BaseStackProps" id="aws-ddk-dev.BaseStackProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-dev.BaseStackProps.Initializer"></a>
+
+```typescript
+import { BaseStackProps } from 'aws-ddk-dev'
+
+const baseStackProps: BaseStackProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.analyticsReporting">analyticsReporting</a></code> | <code>boolean</code> | Include runtime versioning information in this Stack. |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
+| <code><a href="#aws-ddk-dev.BaseStackProps.property.permissionBoundaryArn">permissionBoundaryArn</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `analyticsReporting`<sup>Optional</sup> <a name="analyticsReporting" id="aws-ddk-dev.BaseStackProps.property.analyticsReporting"></a>
+
+```typescript
+public readonly analyticsReporting: boolean;
+```
+
+- *Type:* boolean
+- *Default:* `analyticsReporting` setting of containing `App`, or value of 'aws:cdk:version-reporting' context key
+
+Include runtime versioning information in this Stack.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.BaseStackProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
 - *Default:* No description.
 
 A description of the stack.
@@ -3795,7 +3891,6 @@ Whether to enable termination protection for this stack.
 
 ```typescript
 public readonly permissionBoundaryArn: string;
->>>>>>> 2642d7199a1922c8cdc4a3683e33dda4228fcd26
 ```
 
 - *Type:* string
