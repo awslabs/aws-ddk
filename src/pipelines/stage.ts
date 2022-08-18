@@ -69,7 +69,7 @@ export abstract class StateMachineStage extends DataStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
 
-  public stateMachine?: sfn.StateMachine;
+  public stateMachine: sfn.StateMachine;
   public stateMachineInput?: { [key: string]: any };
 
   /*
@@ -96,18 +96,9 @@ export abstract class StateMachineStage extends DataStage {
     });
 
     if (props.additionalRolePolicyStatements) {
-      for (
-        var statement,
-          _pj_c = 0,
-          _pj_a = props.additionalRolePolicyStatements,
-          _pj_b = _pj_a.length;
-        _pj_c < _pj_b;
-        _pj_c += 1
-      ) {
-        statement = _pj_a[_pj_c];
-
-        this.stateMachine.addToRolePolicy(statement);
-      }
+      props.additionalRolePolicyStatements.forEach(s => {
+        this.stateMachine.addToRolePolicy(s);
+      });
     }
 
     this.addAlarm('State Machine Failure Alarm', {

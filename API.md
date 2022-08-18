@@ -176,7 +176,7 @@ public readonly cloudwatchAlarms: Alarm[];
 
 ---
 
-##### `stateMachine`<sup>Optional</sup> <a name="stateMachine" id="aws-ddk-dev.AthenaSQLStage.property.stateMachine"></a>
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-dev.AthenaSQLStage.property.stateMachine"></a>
 
 ```typescript
 public readonly stateMachine: StateMachine;
@@ -3149,7 +3149,7 @@ public readonly cloudwatchAlarms: Alarm[];
 
 ---
 
-##### `stateMachine`<sup>Optional</sup> <a name="stateMachine" id="aws-ddk-dev.StateMachineStage.property.stateMachine"></a>
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-dev.StateMachineStage.property.stateMachine"></a>
 
 ```typescript
 public readonly stateMachine: StateMachine;
