@@ -3,7 +3,6 @@ import * as events from 'aws-cdk-lib/aws-events';
 import * as events_targets from 'aws-cdk-lib/aws-events-targets';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
-import { IChainable } from 'aws-cdk-lib/aws-stepfunctions';
 import { Construct } from 'constructs';
 
 export interface StageProps {
@@ -26,12 +25,10 @@ export abstract class Stage extends Construct {
   }
 }
 
-export interface DataStageProps extends StageProps {
-}
+export interface DataStageProps extends StageProps {}
 
 export interface StateMachineStageProps extends StageProps {
-  readonly definition: IChainable;
-  readonly stateMachineInput?: {};
+  readonly stateMachineInput?: { [key: string]: any };
   readonly additionalRolePolicyStatements?: iam.PolicyStatement[];
   readonly stateMachineFailedExecutionsAlarmThreshold?: number;
   readonly stateMachineFailedExecutionsAlarmEvaluationPeriods?: number;
@@ -44,7 +41,6 @@ export interface AlarmProps {
   readonly threshold?: number;
 }
 
-
 export abstract class DataStage extends Stage {
   readonly cloudwatchAlarms: cloudwatch.Alarm[];
 
@@ -55,12 +51,16 @@ export abstract class DataStage extends Stage {
   }
 
   addAlarm(id: string, props: AlarmProps): DataStage {
-    this.cloudwatchAlarms.push(new cloudwatch.Alarm(this, id, {
-      metric: props.metric,
-      comparisonOperator: props.comparisonOperator ?? cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
-      threshold: props.threshold ?? 5,
-      evaluationPeriods: props.evaluationPeriods ?? 1,
-    }));
+    this.cloudwatchAlarms.push(
+      new cloudwatch.Alarm(this, id, {
+        metric: props.metric,
+        comparisonOperator:
+          props.comparisonOperator ??
+          cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
+        threshold: props.threshold ?? 5,
+        evaluationPeriods: props.evaluationPeriods ?? 1,
+      }),
+    );
     return this;
   }
 }
@@ -69,7 +69,7 @@ export class StateMachineStage extends DataStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
   public stateMachine?: sfn.StateMachine;
-  public stateMachineInput?: {};
+  public stateMachineInput?: { [key: string]: any };
   /*
   DataStage with helper methods to simplify StateMachine stages creation.
   */
@@ -88,13 +88,44 @@ export class StateMachineStage extends DataStage {
     Description of the stage
     */
     super(scope, id, props);
+    
+    if (this.stateMachine === undefined) {
+      throw new Error('State Machine has not been built yet.');
+    }
     this.stateMachineInput = props.stateMachineInput;
+    this.eventPattern = {
+      source: ['aws.states'],
+      detailType: ['Step Functions Execution Status Change'],
+      detail: {
+        status: ['SUCCEEDED'],
+        stateMachineArn: [this.stateMachine.stateMachineArn],
+      },
+    };
+    this.targets = [
+      new events_targets.SfnStateMachine(this.stateMachine, {
+        input: events.RuleTargetInput.fromObject(this.stateMachineInput),
+      }),
+    ];
+  }
+
+  buildStateMachine(
+    id: string,
+    definition: sfn.IChainable,
+    props: StateMachineStageProps,
+  ) {
     this.stateMachine = new sfn.StateMachine(this, id, {
-      definition: props.definition
+      definition: definition,
     });
 
     if (props.additionalRolePolicyStatements) {
-      for (var statement, _pj_c = 0, _pj_a = props.additionalRolePolicyStatements, _pj_b = _pj_a.length; _pj_c < _pj_b; _pj_c += 1) {
+      for (
+        var statement,
+          _pj_c = 0,
+          _pj_a = props.additionalRolePolicyStatements,
+          _pj_b = _pj_a.length;
+        _pj_c < _pj_b;
+        _pj_c += 1
+      ) {
         statement = _pj_a[_pj_c];
 
         this.stateMachine.addToRolePolicy(statement);
@@ -102,21 +133,12 @@ export class StateMachineStage extends DataStage {
     }
 
     this.addAlarm(`${id}-sm-failed-exec`, {
-        metric: this.stateMachine.metricFailed(),
-        threshold: props.stateMachineFailedExecutionsAlarmThreshold,
-        evaluationPeriods: props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
-      }
-    )
-  
-    this.eventPattern = {
-        source: "aws.states",
-        detailType: ["Step Functions Execution Status Change"],
-        detail: {
-          "status": ["SUCCEEDED"],
-          "stateMachineArn": [this.stateMachine.stateMachineArn]
-        }
-    }
-    this.targets = [new events_targets.SfnStateMachine(this.stateMachineInput)];
-  }
+      metric: this.stateMachine.metricFailed(),
+      threshold: props.stateMachineFailedExecutionsAlarmThreshold,
+      evaluationPeriods:
+        props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
+    });
 
+    return this;
+  }
 }
