@@ -88,24 +88,6 @@ export class StateMachineStage extends DataStage {
     Description of the stage
     */
     super(scope, id, props);
-    
-    if (this.stateMachine === undefined) {
-      throw new Error('State Machine has not been built yet.');
-    }
-    this.stateMachineInput = props.stateMachineInput;
-    this.eventPattern = {
-      source: ['aws.states'],
-      detailType: ['Step Functions Execution Status Change'],
-      detail: {
-        status: ['SUCCEEDED'],
-        stateMachineArn: [this.stateMachine.stateMachineArn],
-      },
-    };
-    this.targets = [
-      new events_targets.SfnStateMachine(this.stateMachine, {
-        input: events.RuleTargetInput.fromObject(this.stateMachineInput),
-      }),
-    ];
   }
 
   buildStateMachine(
@@ -139,6 +121,22 @@ export class StateMachineStage extends DataStage {
         props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
     });
 
+    this.stateMachineInput = props.stateMachineInput;
+    this.eventPattern = {
+      source: ['aws.states'],
+      detailType: ['Step Functions Execution Status Change'],
+      detail: {
+        status: ['SUCCEEDED'],
+        stateMachineArn: [this.stateMachine.stateMachineArn],
+      },
+    };
+    this.targets = [
+      new events_targets.SfnStateMachine(this.stateMachine, {
+        input: events.RuleTargetInput.fromObject(this.stateMachineInput),
+      }),
+    ];
+
     return this;
   }
+  
 }
