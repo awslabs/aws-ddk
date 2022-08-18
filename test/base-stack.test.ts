@@ -27,18 +27,7 @@ test('Test Base Stack', () => {
           {
             Ref: 'AWS::Partition',
           },
-          ':iam::',
-          {
-            Ref: 'AWS::AccountId',
-          },
-          ':policy/ddk-hnb659fds-permissions-boundary-',
-          {
-            Ref: 'AWS::AccountId',
-          },
-          '-',
-          {
-            Ref: 'AWS::Region',
-          },
+          ':iam::1111111111:policy/ddk-hnb659fds-permissions-boundary-1111111111-us-west-2',
         ],
       ],
     }),

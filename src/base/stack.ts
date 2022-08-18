@@ -15,6 +15,9 @@ export interface BaseStackProps extends cdk.StackProps {
 
 export class BaseStack extends cdk.Stack {
   private static buildRoleArn(name: string): string {
+    // These role ARNs are built for the stack synthesize step.
+    // At this time, the stack is not generated and therefore we cannot rely on stack-based tokens (like cdk.Aws.ACCOUNT_ID).
+    // Therefore we are relying on placeholder variables like AWS::AccountId.
     return `arn:${PH_PARTITION}:iam::${PH_ACCOUNT_ID}:role/${BOOTSTRAP_PREFIX}-${BOOTSTRAP_QUALIFIER}-${name}-${PH_ACCOUNT_ID}-${PH_REGION}`;
   }
 
@@ -37,7 +40,7 @@ export class BaseStack extends cdk.Stack {
     });
 
     const permissionBoundaryArn = props.permissionBoundaryArn
-      ?? `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:policy/${BOOTSTRAP_PREFIX}-${BOOTSTRAP_QUALIFIER}-permissions-boundary-${cdk.Aws.ACCOUNT_ID}-${cdk.Aws.REGION}`;
+      ?? `arn:${this.partition}:iam::${this.account}:policy/${BOOTSTRAP_PREFIX}-${BOOTSTRAP_QUALIFIER}-permissions-boundary-${this.account}-${this.region}`;
 
     iam.PermissionsBoundary.of(this).apply(
       iam.ManagedPolicy.fromManagedPolicyArn(this, 'Permissions Boundary', permissionBoundaryArn),
