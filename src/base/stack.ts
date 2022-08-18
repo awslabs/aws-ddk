@@ -11,6 +11,13 @@ const PH_PARTITION = '${{AWS::Partition}}';
 
 export interface BaseStackProps extends cdk.StackProps {
   readonly permissionBoundaryArn?: string;
+  /**
+   * Whether to enable termination protection for this stack.
+   *
+   * @default true
+   * @stability stable
+   */
+  readonly terminationProtection?: boolean;
 }
 
 export class BaseStack extends cdk.Stack {
