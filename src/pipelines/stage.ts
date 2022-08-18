@@ -51,3 +51,16 @@ export abstract class DataStage extends Stage {
     return this;
   }
 }
+
+export interface EventStageProps extends StageProps {
+}
+
+export abstract class EventStage extends Stage {
+  readonly targets?: events.IRuleTarget[];
+
+  constructor(scope: Construct, id: string, props: EventStageProps) {
+    super(scope, id, props);
+
+    this.targets = undefined;
+  }
+}
