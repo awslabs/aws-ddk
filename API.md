@@ -1288,6 +1288,303 @@ public readonly cloudwatchAlarms: Alarm[];
 ---
 
 
+### EventStage <a name="EventStage" id="aws-ddk-dev.EventStage"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-dev.EventStage.Initializer"></a>
+
+```typescript
+import { EventStage } from 'aws-ddk-dev'
+
+new EventStage(scope: Construct, id: string, props: EventStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.EventStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.EventStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.EventStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-dev.EventStageProps">EventStageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-dev.EventStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.EventStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.EventStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-dev.EventStageProps">EventStageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-dev.EventStage.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-dev.EventStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-dev.EventStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-dev.EventStage.isConstruct"></a>
+
+```typescript
+import { EventStage } from 'aws-ddk-dev'
+
+EventStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-dev.EventStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.EventStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-dev.EventStage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.EventStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.EventStage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.EventStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-dev.EventStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.EventStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-dev.EventStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-dev.EventStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-dev.EventStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+
+### S3EventStage <a name="S3EventStage" id="aws-ddk-dev.S3EventStage"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-dev.S3EventStage.Initializer"></a>
+
+```typescript
+import { S3EventStage } from 'aws-ddk-dev'
+
+new S3EventStage(scope: Construct, id: string, props: S3EventStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.S3EventStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-dev.S3EventStageProps">S3EventStageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-dev.S3EventStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-dev.S3EventStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-dev.S3EventStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-dev.S3EventStageProps">S3EventStageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-dev.S3EventStage.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-dev.S3EventStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-dev.S3EventStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-dev.S3EventStage.isConstruct"></a>
+
+```typescript
+import { S3EventStage } from 'aws-ddk-dev'
+
+S3EventStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-dev.S3EventStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.S3EventStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-dev.S3EventStage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-dev.S3EventStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.S3EventStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-dev.S3EventStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-dev.S3EventStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-dev.S3EventStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="aws-ddk-dev.S3EventStage.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+
 ### SqsToLambdaStage <a name="SqsToLambdaStage" id="aws-ddk-dev.SqsToLambdaStage"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-dev.SqsToLambdaStage.Initializer"></a>
@@ -1870,7 +2167,7 @@ const addStageProps: AddStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-dev.AddStageProps.property.stage">stage</a></code> | <code><a href="#aws-ddk-dev.DataStage">DataStage</a></code> | *No description.* |
+| <code><a href="#aws-ddk-dev.AddStageProps.property.stage">stage</a></code> | <code><a href="#aws-ddk-dev.Stage">Stage</a></code> | *No description.* |
 | <code><a href="#aws-ddk-dev.AddStageProps.property.overrideRule">overrideRule</a></code> | <code>aws-cdk-lib.aws_events.IRule</code> | *No description.* |
 | <code><a href="#aws-ddk-dev.AddStageProps.property.skipRule">skipRule</a></code> | <code>boolean</code> | *No description.* |
 
@@ -1879,10 +2176,10 @@ const addStageProps: AddStageProps = { ... }
 ##### `stage`<sup>Required</sup> <a name="stage" id="aws-ddk-dev.AddStageProps.property.stage"></a>
 
 ```typescript
-public readonly stage: DataStage;
+public readonly stage: Stage;
 ```
 
-- *Type:* <a href="#aws-ddk-dev.DataStage">DataStage</a>
+- *Type:* <a href="#aws-ddk-dev.Stage">Stage</a>
 
 ---
 
@@ -2250,6 +2547,45 @@ public readonly name: string;
 
 ---
 
+### EventStageProps <a name="EventStageProps" id="aws-ddk-dev.EventStageProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-dev.EventStageProps.Initializer"></a>
+
+```typescript
+import { EventStageProps } from 'aws-ddk-dev'
+
+const eventStageProps: EventStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.EventStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.EventStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.EventStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-dev.EventStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
 ### GetSynthActionProps <a name="GetSynthActionProps" id="aws-ddk-dev.GetSynthActionProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-dev.GetSynthActionProps.Initializer"></a>
@@ -2363,6 +2699,78 @@ public readonly rolePolicyStatements: PolicyStatement[];
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+### S3EventStageProps <a name="S3EventStageProps" id="aws-ddk-dev.S3EventStageProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-dev.S3EventStageProps.Initializer"></a>
+
+```typescript
+import { S3EventStageProps } from 'aws-ddk-dev'
+
+const s3EventStageProps: S3EventStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-dev.S3EventStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStageProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStageProps.property.eventNames">eventNames</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#aws-ddk-dev.S3EventStageProps.property.keyPrefix">keyPrefix</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-dev.S3EventStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-dev.S3EventStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="aws-ddk-dev.S3EventStageProps.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `eventNames`<sup>Required</sup> <a name="eventNames" id="aws-ddk-dev.S3EventStageProps.property.eventNames"></a>
+
+```typescript
+public readonly eventNames: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `keyPrefix`<sup>Optional</sup> <a name="keyPrefix" id="aws-ddk-dev.S3EventStageProps.property.keyPrefix"></a>
+
+```typescript
+public readonly keyPrefix: string;
+```
+
+- *Type:* string
 
 ---
 
