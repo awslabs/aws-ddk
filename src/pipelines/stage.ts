@@ -91,7 +91,7 @@ export abstract class StateMachineStage extends DataStage {
     */
     super(scope, id, props);
 
-    this.stateMachine = new sfn.StateMachine(this, id, {
+    this.stateMachine = new sfn.StateMachine(this, 'State Machine', {
       definition: this.createStateMachineSteps(),
     });
 
@@ -110,7 +110,7 @@ export abstract class StateMachineStage extends DataStage {
       }
     }
 
-    this.addAlarm(`${id}-sm-failed-exec`, {
+    this.addAlarm('State Machine Failure Alarm', {
       metric: this.stateMachine.metricFailed(),
       threshold: props.stateMachineFailedExecutionsAlarmThreshold,
       evaluationPeriods:
