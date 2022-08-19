@@ -15,19 +15,12 @@ export function getCodeArtifactReadPolicyStatements(
         'codeartifact:GetAuthorizationToken',
         'codeartifact:ListRepositoriesInDomain',
       ],
-      resources: [
-        `arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`,
-      ],
+      resources: [`arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`],
     }),
     new PolicyStatement({
       effect: Effect.ALLOW,
-      actions: [
-        'codeartifact:GetRepositoryEndpoint',
-        'codeartifact:ReadFromRepository',
-      ],
-      resources: [
-        `arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`,
-      ],
+      actions: ['codeartifact:GetRepositoryEndpoint', 'codeartifact:ReadFromRepository'],
+      resources: [`arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`],
     }),
     new PolicyStatement({
       effect: Effect.ALLOW,
@@ -57,19 +50,12 @@ export function getCodeArtifactPublishPolicyStatements(
         'codeartifact:ListRepositoriesInDomain',
       ],
       effect: Effect.ALLOW,
-      resources: [
-        `arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`,
-      ],
+      resources: [`arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`],
     }),
     new PolicyStatement({
-      actions: [
-        'codeartifact:GetRepositoryEndpoint',
-        'codeartifact:ReadFromRepository',
-      ],
+      actions: ['codeartifact:GetRepositoryEndpoint', 'codeartifact:ReadFromRepository'],
       effect: Effect.ALLOW,
-      resources: [
-        `arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`,
-      ],
+      resources: [`arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`],
     }),
     new PolicyStatement({
       actions: ['codeartifact:PublishPackageVersion'],

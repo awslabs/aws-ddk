@@ -6,13 +6,7 @@ import { CICDPipelineStack, getCodeArtifactPublishAction } from '../src';
 test('Basic CICDPipeline', () => {
   const app = new cdk.App();
   //const baseStack = new cdk.Stack(app, "my-base-stack"); will add when base stack is implemented
-  const stack = new CICDPipelineStack(
-    app,
-    'dummy-pipeline',
-    'dev',
-    'dummy-pipeline',
-    {},
-  )
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
     .addSourceAction({ repositoryName: 'dummy-repository' })
     .addSynthAction({})
     .buildPipeline()
@@ -85,13 +79,7 @@ test('Basic CICDPipeline', () => {
 
 test('CICD Pipeline with Security Checks', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(
-    app,
-    'dummy-pipeline',
-    'dev',
-    'dummy-pipeline',
-    {},
-  )
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
     .addSourceAction({ repositoryName: 'dummy-repository' })
     .addSynthAction({})
     .buildPipeline()
@@ -139,13 +127,7 @@ test('CICD Pipeline with Security Checks', () => {
 
 test('CICD Pipeline with Custom Stage', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(
-    app,
-    'dummy-pipeline',
-    'dev',
-    'dummy-pipeline',
-    {},
-  )
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
     .addSourceAction({ repositoryName: 'dummy-repository' })
     .addSynthAction({})
     .buildPipeline()
@@ -191,13 +173,7 @@ test('CICD Pipeline with Custom Stage', () => {
 
 test('CICD Pipeline with Notifications', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(
-    app,
-    'dummy-pipeline',
-    'dev',
-    'dummy-pipeline',
-    {},
-  )
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
     .addSourceAction({ repositoryName: 'dummy-repository' })
     .addSynthAction({})
     .buildPipeline()
@@ -235,13 +211,7 @@ test('CICD Pipeline with Notifications', () => {
 
 test('Test Pipeline with Artifact Upload', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(
-    app,
-    'dummy-pipeline',
-    'dev',
-    'dummy-pipeline',
-    {},
-  )
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
     .addSourceAction({ repositoryName: 'dummy-repository' })
     .addSynthAction({})
     .buildPipeline()
@@ -298,7 +268,9 @@ test('Build Pipeline with test stage but no Source Action', () => {
       .addTestStage({})
       .buildPipeline()
       .synth();
-  expect(stack).toThrow(Error('No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.'));
+  expect(stack).toThrow(
+    Error('No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.'),
+  );
 });
 
 test('Build Pipeline with security lint stage but no Source Action', () => {
@@ -319,7 +291,9 @@ test('Add stage without building pipeline', () => {
       .addSynthAction({})
       .addStage({ stageId: 'dev', stage: new cdk.Stage(app, 'my-stack') })
       .synth();
-  expect(stack).toThrow(Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'));
+  expect(stack).toThrow(
+    Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'),
+  );
 });
 
 test('Add notifications without building pipeline', () => {
@@ -330,5 +304,7 @@ test('Add notifications without building pipeline', () => {
       .addStage({ stageId: 'dev', stage: new cdk.Stage(app, 'my-stack') })
       .synth()
       .addNotifications({});
-  expect(stack).toThrow(Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'));
+  expect(stack).toThrow(
+    Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'),
+  );
 });
