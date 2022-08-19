@@ -20,7 +20,6 @@ test('Basic CICDPipeline', () => {
     .synth();
 
   const template = Template.fromStack(stack);
-  console.log(template.toJSON());
   template.resourceCountIs('AWS::CodePipeline::Pipeline', 1);
   template.hasResourceProperties('AWS::CodePipeline::Pipeline', {
     Stages: Match.arrayWith([
@@ -218,7 +217,6 @@ test('CICD Pipeline with Notifications', () => {
     .addNotifications({});
 
   const template = Template.fromStack(stack);
-  console.log(template.toJSON());
   template.resourceCountIs('AWS::SNS::Topic', 1);
   template.hasResourceProperties('AWS::SNS::TopicPolicy', {
     PolicyDocument: Match.objectLike({
