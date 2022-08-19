@@ -1,6 +1,11 @@
 {
   "dependencies": [
     {
+      "name": "@aws-cdk/aws-glue-alpha",
+      "version": "2.38.1-alpha.0",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "version": "^27",
       "type": "build"
@@ -106,6 +111,16 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "@aws-cdk/aws-glue-alpha",
+      "version": "2.38.1-alpha.0",
+      "type": "devenv"
+    },
+    {
+      "name": "@aws-cdk/aws-glue-alpha",
+      "version": "^2.38.1-alpha.0",
+      "type": "peer"
     },
     {
       "name": "aws-cdk-lib",
