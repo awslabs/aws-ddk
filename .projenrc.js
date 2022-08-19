@@ -1,5 +1,4 @@
-const { awscdk } = require('projen');
-const { TrailingComma } = require('projen/lib/javascript');
+const { awscdk, javascript } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'AWS Professional Services',
   authorAddress: 'aws-proserve-orion-dev@amazon.com',
@@ -26,7 +25,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   prettierOptions: {
     settings: {
       singleQuote: true,
-      trailingComma: TrailingComma.ALL,
+      trailingComma: javascript.TrailingComma.ALL,
       printWidth: 120,
     },
   },
