@@ -1194,10 +1194,10 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-aws-cdk-lib@2.34.0:
-  version "2.34.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.34.0.tgz#89b8c03d40d0814800e57a8431c183453c5f0cdc"
-  integrity sha512-fA14Zs+U2sohdCV+FhCR5K8wEimMdFS4m/e0h/I6jn2QaUeUG3DGAjxeZT1oPyn8pqL6/x5mYJCg19sIEn708w==
+aws-cdk-lib@2.38.1:
+  version "2.38.1"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.38.1.tgz#e96ee1362c86260786b3d808f593ca5edd813b29"
+  integrity sha512-vEgJBUzL1yqlSMYGjipl+eRwy900x3RmbVzTcxKdCZvhtBMQ1hqJAMgVswvoyA5EnvfELLlz9ufm+qdKGs9DxQ==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     case "1.6.3"

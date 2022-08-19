@@ -3,7 +3,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'AWS Professional Services',
   authorAddress: 'aws-proserve-orion-dev@amazon.com',
 
-  cdkVersion: '2.34.0',
+  cdkVersion: '2.38.1',
   defaultReleaseBranch: 'main',
   release: false,
   name: 'aws-ddk-core',
