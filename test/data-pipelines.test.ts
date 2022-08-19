@@ -2,14 +2,18 @@ import path from 'path';
 import * as cdk from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
 
-import { DataPipeline, SqsToLambdaStage } from '../src';
+import { DataPipeline, FirehoseToS3Stage, SqsToLambdaStage } from '../src';
 
 
 test('Basic DataPipeline', () => {
   const stack = new cdk.Stack();
+  const bucket = new Bucket(stack, 'Bucket');
 
-  const stage1 = new SqsToLambdaStage(stack, 'SQS To Lambda Stage 1', {
+  const firehoseToS3Stage = new FirehoseToS3Stage(stack, 'Firehose To S3 Stage', { s3Bucket: bucket });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(stack, 'SQS To Lambda Stage 2', {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, '/../src/')),
       handler: 'commons.handlers.lambda_handler',
@@ -20,17 +24,9 @@ test('Basic DataPipeline', () => {
     },
   });
 
-  const stage2 = new SqsToLambdaStage(stack, 'SQS To Lambda Stage 2', {
-    lambdaFunctionProps: {
-      code: lambda.Code.fromAsset(path.join(__dirname, '/../src/')),
-      handler: 'commons.handlers.lambda_handler',
-    },
-    dlqEnabled: true,
-  });
-
   const pipeline = new DataPipeline(stack, 'Pipeline', {});
 
-  pipeline.addNotifications().addStage({ stage: stage1 }).addStage({ stage: stage2 });
+  pipeline.addNotifications().addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage });
 
   const template = Template.fromStack(stack);
 
@@ -40,14 +36,14 @@ test('Basic DataPipeline', () => {
   template.hasResourceProperties('AWS::Events::Rule', {
     State: 'ENABLED',
     EventPattern: Match.objectLike({
-      'detail-type': stage1.eventPattern?.detailType,
-      'source': stage1.eventPattern?.source,
+      'detail-type': firehoseToS3Stage.eventPattern?.detailType,
+      'source': firehoseToS3Stage.eventPattern?.source,
     }),
     Targets: Match.arrayEquals([
       Match.objectLike({
         Arn: {
           'Fn::GetAtt': [
-            stack.resolve((stage2.queue.node.defaultChild as cdk.CfnElement).logicalId),
+            stack.resolve((sqsToLambdaStage.queue.node.defaultChild as cdk.CfnElement).logicalId),
             'Arn',
           ],
         },

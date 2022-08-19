@@ -1,9 +1,12 @@
-const { awscdk } = require('projen');
+const { awscdk, DependencyType } = require('projen');
+
+const CDK_VERSION = '2.20.0';
+
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'AWS Professional Services',
   authorAddress: 'aws-proserve-orion-dev@amazon.com',
 
-  cdkVersion: '2.1.0',
+  cdkVersion: CDK_VERSION,
   defaultReleaseBranch: 'main',
   release: false,
   name: 'aws-ddk-dev',
@@ -17,7 +20,31 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   gitignore: [
     '.vscode/',
+    '*.code-workspace',
   ],
+});
+
+// Experimental modules
+[
+  '@aws-cdk/aws-kinesisfirehose-alpha',
+  '@aws-cdk/aws-kinesisfirehose-destinations-alpha',
+].forEach((dep) => {
+  project.deps.addDependency(
+    `${dep}@^${CDK_VERSION}-alpha.0`,
+    DependencyType.PEER,
+  );
+  project.deps.addDependency(
+    `${dep}@${CDK_VERSION}-alpha.0`,
+    DependencyType.DEVENV,
+  );
+});
+
+// Other dependencies
+[
+  'deepmerge@4.0.0',
+].forEach((dep) => {
+  project.deps.addDependency(dep, DependencyType.PEER);
+  project.deps.addDependency(dep, DependencyType.DEVENV);
 });
 
 project.synth();
