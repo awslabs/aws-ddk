@@ -1,4 +1,5 @@
 const { awscdk } = require('projen');
+const { TrailingComma } = require('projen/lib/javascript');
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'AWS Professional Services',
   authorAddress: 'aws-proserve-orion-dev@amazon.com',
@@ -21,9 +22,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
     module: 'aws_ddk_core',
   },
 
-  gitignore: [
-    '.vscode/',
-  ],
+  prettier: true,
+  prettierOptions: {
+    settings: {
+      singleQuote: true,
+      trailingComma: TrailingComma.ALL,
+      printWidth: 120,
+    },
+  },
+
+  gitignore: ['.vscode/'],
 });
 
 project.synth();

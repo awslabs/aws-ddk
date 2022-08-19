@@ -1,8 +1,5 @@
 import { Stack, StackProps, Stage } from 'aws-cdk-lib';
-import {
-  DetailType,
-  NotificationRule,
-} from 'aws-cdk-lib/aws-codestarnotifications';
+import { DetailType, NotificationRule } from 'aws-cdk-lib/aws-codestarnotifications';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import {
@@ -14,13 +11,7 @@ import {
   Step,
 } from 'aws-cdk-lib/pipelines';
 import { Construct, IConstruct } from 'constructs';
-import {
-  getBanditAction,
-  getCfnNagAction,
-  getCodeCommitSourceAction,
-  getSynthAction,
-  getTestsAction,
-} from './actions';
+import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from './actions';
 import { toTitleCase } from './utils';
 
 export interface SourceActionProps {
@@ -74,13 +65,7 @@ export class CICDPipelineStack extends Stack {
   public sourceAction?: CodePipelineSource;
   public synthAction?: CodeBuildStep;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    environmentId: string,
-    pipelineName: string,
-    props?: StackProps,
-  ) {
+  constructor(scope: Construct, id: string, environmentId: string, pipelineName: string, props?: StackProps) {
     super(scope, id, props);
 
     this.environmentId = environmentId;
@@ -154,9 +139,7 @@ export class CICDPipelineStack extends Stack {
     CICDPipelineStack
     */
     if (this.pipeline === undefined) {
-      throw new Error(
-        '`.buildPipeline()` needs to be called first before adding application stages to the pipeline.',
-      );
+      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
     }
     var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
@@ -187,25 +170,17 @@ export class CICDPipelineStack extends Stack {
     */
 
     if (this.sourceAction === undefined) {
-      throw new Error(
-        'Source Action Must Be configured before calling this method.',
-      );
+      throw new Error('Source Action Must Be configured before calling this method.');
     }
     if (this.pipeline?.cloudAssemblyFileSet === undefined) {
-      throw new Error(
-        'No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.',
-      );
+      throw new Error('No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.');
     }
 
     var stageName = props.stageName ?? 'SecurityLint';
-    var cloudAssemblyFileSet =
-      props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
+    var cloudAssemblyFileSet = props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
 
     this.pipeline?.addWave(stageName, {
-      post: [
-        getCfnNagAction(cloudAssemblyFileSet),
-        getBanditAction(this.sourceAction),
-      ],
+      post: [getCfnNagAction(cloudAssemblyFileSet), getBanditAction(this.sourceAction)],
     });
 
     return this;
@@ -228,14 +203,11 @@ export class CICDPipelineStack extends Stack {
     CICD pipeline
     */
     var stageName = props.stageName ?? 'Tests';
-    var cloudAssemblyFileSet =
-      props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
+    var cloudAssemblyFileSet = props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
     var commands = props.commands ?? ['./test.sh'];
 
     if (cloudAssemblyFileSet === undefined) {
-      throw new Error(
-        'No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.',
-      );
+      throw new Error('No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.');
     }
 
     this.pipeline?.addWave(stageName || 'Tests', {
@@ -258,9 +230,7 @@ export class CICDPipelineStack extends Stack {
     CICD pipeline
     */
     if (this.pipeline === undefined) {
-      throw new Error(
-        '`.buildPipeline()` needs to be called first before adding application stages to the pipeline.',
-      );
+      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
     }
 
     this.notificationRule =

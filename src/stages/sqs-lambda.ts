@@ -36,7 +36,6 @@ export interface SqsToLambdaStageProps extends DataStageProps {
   readonly maxReceiveCount?: number;
 }
 
-
 export class SqsToLambdaStage extends DataStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
@@ -53,7 +52,6 @@ export class SqsToLambdaStage extends DataStage {
 
     if (props.lambdaFunction) {
       this.function = props.lambdaFunction;
-
     } else if (props.lambdaFunctionProps) {
       const functionProps: SqsToLambdaStageFunctionProps = props.lambdaFunctionProps;
 
@@ -70,16 +68,17 @@ export class SqsToLambdaStage extends DataStage {
           EVENT_DETAIL_TYPE: eventDetailType,
         },
       });
-
     } else {
       throw TypeError("'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage");
     }
 
     // Enable the function to publish events to the default EventBus
-    this.function.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['events:PutEvents'],
-      resources: ['*'],
-    }));
+    this.function.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ['events:PutEvents'],
+        resources: ['*'],
+      }),
+    );
 
     const dlqEnabled = props.dlqEnabled ?? false;
     if (dlqEnabled == true) {
@@ -88,20 +87,23 @@ export class SqsToLambdaStage extends DataStage {
 
     if (props.sqsQueue) {
       this.queue = props.sqsQueue;
-
     } else {
       this.queue = new sqs.Queue(this, 'Queue', {
         visibilityTimeout: props.sqsQueueProps?.visibilityTimeout ?? cdk.Duration.minutes(2),
-        deadLetterQueue: this.deadLetterQueue ? {
-          queue: this.deadLetterQueue,
-          maxReceiveCount: props.maxReceiveCount ?? 1,
-        } : undefined,
+        deadLetterQueue: this.deadLetterQueue
+          ? {
+              queue: this.deadLetterQueue,
+              maxReceiveCount: props.maxReceiveCount ?? 1,
+            }
+          : undefined,
       });
     }
 
-    this.function.addEventSource(new SqsEventSource(this.queue, {
-      batchSize: props.batchSize,
-    }));
+    this.function.addEventSource(
+      new SqsEventSource(this.queue, {
+        batchSize: props.batchSize,
+      }),
+    );
 
     this.addAlarm('Process Function Errors', {
       metric: this.function.metricErrors(),

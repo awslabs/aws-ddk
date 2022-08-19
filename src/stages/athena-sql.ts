@@ -38,32 +38,27 @@ export class AthenaSQLStage extends StateMachineStage {
 
     this.outputLocation = props.outputLocation;
 
-    this.encryptionOption =
-      props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED;
+    this.encryptionOption = props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED;
     this.encryptionKey = props.encryptionKey;
   }
 
   protected createStateMachineSteps(): sfn.IChainable {
-    const startQueryExec = new tasks.AthenaStartQueryExecution(
-      this,
-      'Start Query Exec',
-      {
-        queryString: this.queryString,
-        integrationPattern: sfn.IntegrationPattern.RUN_JOB,
-        queryExecutionContext: {
-          catalogName: this.catalogName,
-          databaseName: this.databaseName,
-        },
-        resultConfiguration: {
-          encryptionConfiguration: {
-            encryptionOption: this.encryptionOption,
-            encryptionKey: this.encryptionKey,
-          },
-          outputLocation: this.outputLocation,
-        },
-        workGroup: this.workGroup,
+    const startQueryExec = new tasks.AthenaStartQueryExecution(this, 'Start Query Exec', {
+      queryString: this.queryString,
+      integrationPattern: sfn.IntegrationPattern.RUN_JOB,
+      queryExecutionContext: {
+        catalogName: this.catalogName,
+        databaseName: this.databaseName,
       },
-    );
+      resultConfiguration: {
+        encryptionConfiguration: {
+          encryptionOption: this.encryptionOption,
+          encryptionKey: this.encryptionKey,
+        },
+        outputLocation: this.outputLocation,
+      },
+      workGroup: this.workGroup,
+    });
 
     return startQueryExec.next(new sfn.Succeed(this, 'Success'));
   }

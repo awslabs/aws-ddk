@@ -37,15 +37,12 @@ test('Basic DataPipeline', () => {
     State: 'ENABLED',
     EventPattern: Match.objectLike({
       'detail-type': s3EventStage.eventPattern?.detailType,
-      'source': s3EventStage.eventPattern?.source,
+      source: s3EventStage.eventPattern?.source,
     }),
     Targets: Match.arrayEquals([
       Match.objectLike({
         Arn: {
-          'Fn::GetAtt': [
-            stack.resolve((sqsToLambdaStage.queue.node.defaultChild as cdk.CfnElement).logicalId),
-            'Arn',
-          ],
+          'Fn::GetAtt': [stack.resolve((sqsToLambdaStage.queue.node.defaultChild as cdk.CfnElement).logicalId), 'Arn'],
         },
       }),
     ]),

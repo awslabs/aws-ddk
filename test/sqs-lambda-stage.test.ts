@@ -24,9 +24,7 @@ test('SQSToLambdaStage creates Lambda Function and SQS Queue', () => {
   template.hasResourceProperties('AWS::Lambda::Function', {
     Runtime: 'python3.9',
     MemorySize: 512,
-    Layers: Match.arrayWith([
-      'arn:aws:lambda:us-east-1:222222222222:layer:dummy:1',
-    ]),
+    Layers: Match.arrayWith(['arn:aws:lambda:us-east-1:222222222222:layer:dummy:1']),
   });
 
   template.hasResourceProperties('AWS::SQS::Queue', {
