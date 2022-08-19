@@ -21,7 +21,7 @@ export class S3EventStage extends EventStage {
 
     var detail: { [key: string]: any } = {
       bucket: {
-        name: props.bucket.bucketName,
+        name: [props.bucket.bucketName],
       },
     };
 
