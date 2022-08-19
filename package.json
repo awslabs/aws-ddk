@@ -1,5 +1,5 @@
 {
-  "name": "aws-ddk-dev",
+  "name": "aws-ddk-core",
   "description": "AWS DataOps Development Kit",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "package": "npx projen package",
     "package-all": "npx projen package-all",
     "package:js": "npx projen package:js",
+    "package:python": "npx projen package:python",
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
@@ -115,7 +116,12 @@
   "stability": "stable",
   "jsii": {
     "outdir": "dist",
-    "targets": {},
+    "targets": {
+      "python": {
+        "distName": "aws-ddk-core",
+        "module": "aws_ddk_core"
+      }
+    },
     "tsc": {
       "outDir": "lib",
       "rootDir": "src"

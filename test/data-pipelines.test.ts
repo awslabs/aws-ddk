@@ -2,14 +2,13 @@ import path from 'path';
 import * as cdk from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { Bucket } from 'aws-cdk-lib/aws-s3';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 
-import { DataPipeline, FirehoseToS3Stage, SqsToLambdaStage } from '../src';
-
+import { DataPipeline, FirehoseToS3Stage, S3EventStage, SqsToLambdaStage } from '../src';
 
 test('Basic DataPipeline', () => {
   const stack = new cdk.Stack();
-  const bucket = new Bucket(stack, 'Bucket');
+  const bucket = new s3.Bucket(stack, 'Bucket');
 
   const firehoseToS3Stage = new FirehoseToS3Stage(stack, 'Firehose To S3 Stage', { s3Bucket: bucket });
 
@@ -50,4 +49,31 @@ test('Basic DataPipeline', () => {
       }),
     ]),
   });
+});
+
+test('DataPipeline cannot have a Stage without targets in the middle', () => {
+  const stack = new cdk.Stack();
+
+  const bucket = new s3.Bucket(stack, 'Bucket');
+
+  const s3EventStage = new S3EventStage(stack, 'S3 Event Stage', {
+    eventNames: ['Object Created'],
+    bucket: bucket,
+  });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(stack, 'SQS To Lambda Stage', {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, '/../src/')),
+      handler: 'commons.handlers.lambda_handler',
+    },
+    dlqEnabled: true,
+  });
+
+  const pipeline = new DataPipeline(stack, 'Pipeline', {});
+
+  pipeline.addNotifications().addStage({ stage: sqsToLambdaStage });
+
+  expect(() => {
+    pipeline.addStage({ stage: s3EventStage });
+  }).toThrowError();
 });

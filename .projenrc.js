@@ -9,7 +9,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: CDK_VERSION,
   defaultReleaseBranch: 'main',
   release: false,
-  name: 'aws-ddk-dev',
+  name: 'aws-ddk-core',
   description: 'AWS DataOps Development Kit',
   repositoryUrl: 'https://github.com/awslabs/aws-ddk',
 
@@ -17,6 +17,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
+
+  // Artifact config: Python
+  publishToPypi: {
+    distName: 'aws-ddk-core',
+    module: 'aws_ddk_core',
+  },
 
   gitignore: [
     '.vscode/',
