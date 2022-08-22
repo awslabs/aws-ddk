@@ -1,9 +1,12 @@
-const { awscdk, javascript } = require('projen');
+const { awscdk, DependencyType, javascript } = require('projen');
+
+const CDK_VERSION = '2.38.1';
+
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'AWS Professional Services',
   authorAddress: 'aws-proserve-orion-dev@amazon.com',
 
-  cdkVersion: '2.38.1',
+  cdkVersion: CDK_VERSION,
   defaultReleaseBranch: 'main',
   release: false,
   name: 'aws-ddk-core',
@@ -31,6 +34,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   gitignore: ['.vscode/'],
+});
+
+// Experimental modules
+[].forEach((dep) => {
+  project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
+  project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
 });
 
 project.synth();
