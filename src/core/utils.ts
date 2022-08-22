@@ -1,8 +1,7 @@
 import deepmerge from 'deepmerge';
 
 function isObject(val: object) {
-  return val != null && typeof val === 'object'
-    && Object.prototype.toString.call(val) === '[object Object]';
+  return val != null && typeof val === 'object' && Object.prototype.toString.call(val) === '[object Object]';
 }
 
 function isPlainObject(o: object) {
@@ -59,7 +58,12 @@ export function overrideProps(DefaultProps: object, userProps: object, concatArr
   }
 }
 
-export function consolidateProps(defaultProps: object, clientProps?: object, constructProps?: object, concatArray: boolean = false): any {
+export function consolidateProps(
+  defaultProps: object,
+  clientProps?: object,
+  constructProps?: object,
+  concatArray: boolean = false,
+): any {
   let result: object = defaultProps;
 
   if (clientProps) {

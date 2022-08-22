@@ -41,11 +41,6 @@
       "type": "build"
     },
     {
-      "name": "deepmerge",
-      "version": "4.0.0",
-      "type": "build"
-    },
-    {
       "name": "eslint-config-prettier",
       "type": "build"
     },
@@ -123,6 +118,11 @@
       "type": "build"
     },
     {
+      "name": "deepmerge",
+      "version": "4.0.0",
+      "type": "bundled"
+    },
+    {
       "name": "@aws-cdk/aws-kinesisfirehose-alpha",
       "version": "2.38.1-alpha.0",
       "type": "devenv"
@@ -130,11 +130,6 @@
     {
       "name": "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
       "version": "2.38.1-alpha.0",
-      "type": "devenv"
-    },
-    {
-      "name": "deepmerge",
-      "version": "4.0.0",
       "type": "devenv"
     },
     {
@@ -155,11 +150,6 @@
     {
       "name": "constructs",
       "version": "^10.0.5",
-      "type": "peer"
-    },
-    {
-      "name": "deepmerge",
-      "version": "4.0.0",
       "type": "peer"
     }
   ],

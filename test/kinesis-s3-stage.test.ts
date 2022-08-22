@@ -36,11 +36,11 @@ test('FirehoseToS3Stage creates Firehose DeliveryStream and S3 Bucket', () => {
   template.hasResourceProperties('AWS::KinesisFirehose::DeliveryStream', {
     ExtendedS3DestinationConfiguration: Match.objectLike({
       BucketARN: Match.objectLike({
-        'Fn::GetAtt': Match.arrayWith(
-          [stack.resolve((stage.bucket.node.defaultChild as cdk.CfnElement).logicalId), 'Arn'],
-        ),
-      },
-      ),
+        'Fn::GetAtt': Match.arrayWith([
+          stack.resolve((stage.bucket.node.defaultChild as cdk.CfnElement).logicalId),
+          'Arn',
+        ]),
+      }),
       CompressionFormat: 'GZIP',
       BufferingHints: {
         IntervalInSeconds: 300,
@@ -81,11 +81,11 @@ test('FirehoseToS3Stage uses S3 Bucket and creates Kinesis DataStream', () => {
   template.hasResourceProperties('AWS::KinesisFirehose::DeliveryStream', {
     KinesisStreamSourceConfiguration: Match.objectLike({
       KinesisStreamARN: Match.objectLike({
-        'Fn::GetAtt': Match.arrayWith(
-          [stack.resolve((stage.dataStream?.node.defaultChild as cdk.CfnElement).logicalId), 'Arn'],
-        ),
-      },
-      ),
+        'Fn::GetAtt': Match.arrayWith([
+          stack.resolve((stage.dataStream?.node.defaultChild as cdk.CfnElement).logicalId),
+          'Arn',
+        ]),
+      }),
     }),
   });
 

@@ -33,33 +33,18 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  gitignore: [
-    '.vscode/',
-    '*.code-workspace',
-  ],
+  gitignore: ['.vscode/', '*.code-workspace'],
 });
 
 // Experimental modules
-[
-  '@aws-cdk/aws-kinesisfirehose-alpha',
-  '@aws-cdk/aws-kinesisfirehose-destinations-alpha',
-].forEach((dep) => {
-  project.deps.addDependency(
-    `${dep}@^${CDK_VERSION}-alpha.0`,
-    DependencyType.PEER,
-  );
-  project.deps.addDependency(
-    `${dep}@${CDK_VERSION}-alpha.0`,
-    DependencyType.DEVENV,
-  );
+['@aws-cdk/aws-kinesisfirehose-alpha', '@aws-cdk/aws-kinesisfirehose-destinations-alpha'].forEach((dep) => {
+  project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
+  project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
 });
 
-// Other dependencies
-[
-  'deepmerge@4.0.0',
-].forEach((dep) => {
-  project.deps.addDependency(dep, DependencyType.PEER);
-  project.deps.addDependency(dep, DependencyType.DEVENV);
+// Other Bundled dependencies
+['deepmerge@4.0.0'].forEach((dep) => {
+  project.addBundledDeps(dep);
 });
 
 project.synth();

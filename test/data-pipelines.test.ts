@@ -36,7 +36,7 @@ test('Basic DataPipeline', () => {
     State: 'ENABLED',
     EventPattern: Match.objectLike({
       'detail-type': firehoseToS3Stage.eventPattern?.detailType,
-      'source': firehoseToS3Stage.eventPattern?.source,
+      source: firehoseToS3Stage.eventPattern?.source,
     }),
     Targets: Match.arrayEquals([
       Match.objectLike({

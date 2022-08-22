@@ -4,8 +4,8 @@ import * as events from 'aws-cdk-lib/aws-events';
 import * as kinesis from 'aws-cdk-lib/aws-kinesis';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
-import { DefaultDestinationsS3BucketProps } from '../core/kinesis-firehose-defaults';
-import { DefaultS3BucketProps } from '../core/s3-defaults';
+import { defaultDestinationsS3BucketProps } from '../core/kinesis-firehose-defaults';
+import { defaultS3BucketProps } from '../core/s3-defaults';
 import { consolidateProps, overrideProps } from '../core/utils';
 import { DataStage, DataStageProps } from '../pipelines/stage';
 
@@ -33,12 +33,10 @@ export class FirehoseToS3Stage extends DataStage {
 
     if (props.s3Bucket) {
       this.bucket = props.s3Bucket;
-
     } else if (props.s3BucketProps) {
-      const defaultBucketProps = overrideProps(DefaultS3BucketProps(), { eventBridgeEnabled: true });
+      const defaultBucketProps = overrideProps(defaultS3BucketProps(), { eventBridgeEnabled: true });
       const consolidatedBucketProps = consolidateProps(defaultBucketProps, props.s3BucketProps);
       this.bucket = new s3.Bucket(this, 'Stage Bucket', consolidatedBucketProps);
-
     } else {
       throw TypeError("'s3Bucket' or 's3BucketProps' must be set to instantiate this stage");
     }
@@ -50,7 +48,7 @@ export class FirehoseToS3Stage extends DataStage {
 
     const destinationsBucketProps = props.kinesisFirehoseDestinationsS3BucketProps ?? {};
     const consolidatedDestinationsBucketProps = consolidateProps(
-      DefaultDestinationsS3BucketProps(props.dataOutputPrefix),
+      defaultDestinationsS3BucketProps(props.dataOutputPrefix),
       destinationsBucketProps,
     );
     this.deliveryStream = new firehose.DeliveryStream(this, 'Delivery Stream', {
