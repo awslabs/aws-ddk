@@ -14,10 +14,7 @@ test('AthenaToSQL stage creates State Machine', () => {
   const template = Template.fromStack(stack);
   template.hasResourceProperties('AWS::StepFunctions::StateMachine', {
     DefinitionString: {
-      'Fn::Join': [
-        '',
-        Match.arrayWith([Match.stringLikeRegexp('Start Query Exec')]),
-      ],
+      'Fn::Join': ['', Match.arrayWith([Match.stringLikeRegexp('Start Query Exec')])],
     },
   });
 });

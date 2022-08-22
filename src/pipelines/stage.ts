@@ -54,9 +54,7 @@ export abstract class DataStage extends Stage {
     this.cloudwatchAlarms.push(
       new cloudwatch.Alarm(this, id, {
         metric: props.metric,
-        comparisonOperator:
-          props.comparisonOperator ??
-          cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
+        comparisonOperator: props.comparisonOperator ?? cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
         threshold: props.threshold ?? 5,
         evaluationPeriods: props.evaluationPeriods ?? 1,
       }),
@@ -96,7 +94,7 @@ export abstract class StateMachineStage extends DataStage {
     });
 
     if (props.additionalRolePolicyStatements) {
-      props.additionalRolePolicyStatements.forEach(s => {
+      props.additionalRolePolicyStatements.forEach((s) => {
         this.stateMachine.addToRolePolicy(s);
       });
     }
@@ -104,8 +102,7 @@ export abstract class StateMachineStage extends DataStage {
     this.addAlarm('State Machine Failure Alarm', {
       metric: this.stateMachine.metricFailed(),
       threshold: props.stateMachineFailedExecutionsAlarmThreshold,
-      evaluationPeriods:
-        props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
+      evaluationPeriods: props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
     });
 
     this.stateMachineInput = props.stateMachineInput ?? {};
@@ -126,8 +123,7 @@ export abstract class StateMachineStage extends DataStage {
 
   protected abstract createStateMachineSteps(): sfn.IChainable;
 }
-export interface EventStageProps extends StageProps {
-}
+export interface EventStageProps extends StageProps {}
 
 export abstract class EventStage extends Stage {
   readonly targets?: events.IRuleTarget[];

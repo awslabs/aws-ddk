@@ -41,10 +41,7 @@ test('Basic DataPipeline', () => {
     Targets: Match.arrayEquals([
       Match.objectLike({
         Arn: {
-          'Fn::GetAtt': [
-            stack.resolve((sqsToLambdaStage.queue.node.defaultChild as cdk.CfnElement).logicalId),
-            'Arn',
-          ],
+          'Fn::GetAtt': [stack.resolve((sqsToLambdaStage.queue.node.defaultChild as cdk.CfnElement).logicalId), 'Arn'],
         },
       }),
     ]),

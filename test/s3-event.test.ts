@@ -16,7 +16,7 @@ test('S3EventStage created the event pattern without a prefix', () => {
     source: ['aws.s3'],
     detail: {
       bucket: {
-        name: bucket.bucketName,
+        name: [bucket.bucketName],
       },
     },
     detailType: ['Object Created'],
@@ -37,7 +37,7 @@ test('S3EventStage created the event pattern with a prefix', () => {
     source: ['aws.s3'],
     detail: {
       bucket: {
-        name: bucket.bucketName,
+        name: [bucket.bucketName],
       },
       object: {
         key: [
@@ -64,7 +64,7 @@ test('S3EventStage created the event pattern for multiple event types', () => {
     source: ['aws.s3'],
     detail: {
       bucket: {
-        name: bucket.bucketName,
+        name: [bucket.bucketName],
       },
     },
     detailType: ['Object Created', 'Object Deleted'],

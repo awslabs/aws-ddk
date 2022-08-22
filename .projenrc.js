@@ -1,4 +1,4 @@
-const { awscdk, DependencyType } = require('projen');
+const { awscdk, javascript, DependencyType } = require('projen');
 
 const CDK_VERSION = '2.38.1';
 
@@ -22,6 +22,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   publishToPypi: {
     distName: 'aws-ddk-core',
     module: 'aws_ddk_core',
+  },
+
+  prettier: true,
+  prettierOptions: {
+    settings: {
+      singleQuote: true,
+      trailingComma: javascript.TrailingComma.ALL,
+      printWidth: 120,
+    },
   },
 
   gitignore: [

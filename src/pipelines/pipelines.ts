@@ -61,7 +61,7 @@ export class DataPipeline extends Construct {
 
     if (this.notificationsTopic && stage instanceof DataStage) {
       const topic = this.notificationsTopic;
-      stage.cloudwatchAlarms.forEach(alarm => {
+      stage.cloudwatchAlarms.forEach((alarm) => {
         alarm.addAlarmAction(new SnsAction(topic));
       });
     }
@@ -71,10 +71,14 @@ export class DataPipeline extends Construct {
   }
 
   addRule(props: AddRuleProps): DataPipeline {
-    this.rules.push(props.overrideRule ? props.overrideRule : new events.Rule(this, props.id!, {
-      eventPattern: props.eventPattern,
-      targets: props.eventTargets,
-    }));
+    this.rules.push(
+      props.overrideRule
+        ? props.overrideRule
+        : new events.Rule(this, props.id!, {
+            eventPattern: props.eventPattern,
+            targets: props.eventTargets,
+          }),
+    );
 
     return this;
   }
