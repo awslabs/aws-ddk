@@ -1,4 +1,4 @@
-import deepmerge from 'deepmerge';
+const deepmerge = require('deepmerge'); // eslint-disable-line  @typescript-eslint/no-require-imports
 
 function isObject(val: object) {
   return val != null && typeof val === 'object' && Object.prototype.toString.call(val) === '[object Object]';
