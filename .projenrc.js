@@ -38,14 +38,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 // Experimental modules
 [].forEach((dep) => {
-  project.deps.addDependency(
-    `${dep}@^${CDK_VERSION}-alpha.0`,
-    DependencyType.PEER,
-  );
-  project.deps.addDependency(
-    `${dep}@${CDK_VERSION}-alpha.0`,
-    DependencyType.DEVENV,
-  );
+  project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
+  project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
 });
 
 project.synth();

@@ -23,30 +23,21 @@ export class GlueTransformStage extends StateMachineStage {
   }
 
   protected createStateMachineSteps(): sfn.IChainable {
+    const startJobRun = new tasks.GlueStartJobRun(this, 'Start Job Run', {
+      glueJobName: this.jobName,
+      integrationPattern: sfn.IntegrationPattern.RUN_JOB,
+      arguments: this.jobArgs ? sfn.TaskInput.fromObject(this.jobArgs) : undefined,
+      resultPath: sfn.JsonPath.DISCARD,
+    });
 
-    const startJobRun = new tasks.GlueStartJobRun(
-      this,
-      'Start Job Run',
-      {
-        glueJobName: this.jobName,
-        integrationPattern: sfn.IntegrationPattern.RUN_JOB,
-        arguments: this.jobArgs ? sfn.TaskInput.fromObject(this.jobArgs) : undefined,
-        resultPath: sfn.JsonPath.DISCARD,
+    const crawlObject = new sfn.CustomState(this, 'Crawl Object', {
+      stateJson: {
+        Type: 'Task',
+        Resource: 'arn:aws:states:::aws-sdk:glue:startCrawler',
+        Parameters: { Name: this.crawlerName },
+        Catch: [{ ErrorEquals: ['Glue.CrawlerRunningException'], Next: 'Success' }],
       },
-    );
-
-    const crawlObject = new sfn.CustomState(
-      this,
-      'Crawl Object',
-      {
-        stateJson: {
-          Type: 'Task',
-          Resource: 'arn:aws:states:::aws-sdk:glue:startCrawler',
-          Parameters: { Name: this.crawlerName },
-          Catch: [{ ErrorEquals: ['Glue.CrawlerRunningException'], Next: 'Success' }],
-        },
-      },
-    );
+    });
 
     return startJobRun.next(crawlObject.next(new sfn.Succeed(this, 'Success')));
   }

@@ -16,10 +16,7 @@ test('GlueTransformStage stage creates State Machine', () => {
     DefinitionString: {
       'Fn::Join': [
         '',
-        Match.arrayWith([
-          Match.stringLikeRegexp('Start Job Run'),
-          Match.stringLikeRegexp('Crawl Object'),
-        ]),
+        Match.arrayWith([Match.stringLikeRegexp('Start Job Run'), Match.stringLikeRegexp('Crawl Object')]),
       ],
     },
   });
