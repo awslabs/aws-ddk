@@ -13,9 +13,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   description: 'AWS DataOps Development Kit',
   repositoryUrl: 'https://github.com/awslabs/aws-ddk',
 
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // packageName: undefined,  /* The "name" in package.json. */
-
   // Artifact config: Python
   publishToPypi: {
     distName: 'aws-ddk-core',
