@@ -47,4 +47,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   project.addBundledDeps(dep);
 });
 
+// Experimental modules
+[].forEach((dep) => {
+  project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
+  project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
+});
+
 project.synth();

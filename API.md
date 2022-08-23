@@ -1676,39 +1676,39 @@ public readonly targets: IRuleTarget[];
 ---
 
 
-### FirehoseToS3Stage <a name="FirehoseToS3Stage" id="aws-ddk-core.FirehoseToS3Stage"></a>
+### GlueTransformStage <a name="GlueTransformStage" id="aws-ddk-core.GlueTransformStage"></a>
 
-#### Initializers <a name="Initializers" id="aws-ddk-core.FirehoseToS3Stage.Initializer"></a>
+#### Initializers <a name="Initializers" id="aws-ddk-core.GlueTransformStage.Initializer"></a>
 
 ```typescript
-import { FirehoseToS3Stage } from 'aws-ddk-core'
+import { GlueTransformStage } from 'aws-ddk-core'
 
-new FirehoseToS3Stage(scope: Construct, id: string, props: FirehoseToS3StageProps)
+new GlueTransformStage(scope: Construct, id: string, props: GlueTransformStageProps)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.FirehoseToS3StageProps">FirehoseToS3StageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.GlueTransformStageProps">GlueTransformStageProps</a></code> | *No description.* |
 
 ---
 
-##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.scope"></a>
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.GlueTransformStage.Initializer.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
 ---
 
-##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.id"></a>
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.GlueTransformStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
 ---
 
-##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.props"></a>
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueTransformStage.Initializer.parameter.props"></a>
 
-- *Type:* <a href="#aws-ddk-core.FirehoseToS3StageProps">FirehoseToS3StageProps</a>
+- *Type:* <a href="#aws-ddk-core.GlueTransformStageProps">GlueTransformStageProps</a>
 
 ---
 
@@ -1716,12 +1716,12 @@ new FirehoseToS3Stage(scope: Construct, id: string, props: FirehoseToS3StageProp
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.addAlarm">addAlarm</a></code> | *No description.* |
 
 ---
 
-##### `toString` <a name="toString" id="aws-ddk-core.FirehoseToS3Stage.toString"></a>
+##### `toString` <a name="toString" id="aws-ddk-core.GlueTransformStage.toString"></a>
 
 ```typescript
 public toString(): string
@@ -1729,19 +1729,19 @@ public toString(): string
 
 Returns a string representation of this construct.
 
-##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.FirehoseToS3Stage.addAlarm"></a>
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.GlueTransformStage.addAlarm"></a>
 
 ```typescript
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
-###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.FirehoseToS3Stage.addAlarm.parameter.id"></a>
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.GlueTransformStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
 
 ---
 
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseToS3Stage.addAlarm.parameter.props"></a>
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueTransformStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
 
@@ -1751,21 +1751,21 @@ public addAlarm(id: string, props: AlarmProps): DataStage
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.FirehoseToS3Stage.isConstruct"></a>
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.GlueTransformStage.isConstruct"></a>
 
 ```typescript
-import { FirehoseToS3Stage } from 'aws-ddk-core'
+import { GlueTransformStage } from 'aws-ddk-core'
 
-FirehoseToS3Stage.isConstruct(x: any)
+GlueTransformStage.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
 
-###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.FirehoseToS3Stage.isConstruct.parameter.x"></a>
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.GlueTransformStage.isConstruct.parameter.x"></a>
 
 - *Type:* any
 
@@ -1777,19 +1777,18 @@ Any object.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.deliveryStream">deliveryStream</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
 ---
 
-##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.FirehoseToS3Stage.property.node"></a>
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.GlueTransformStage.property.node"></a>
 
 ```typescript
 public readonly node: Node;
@@ -1801,7 +1800,7 @@ The tree node.
 
 ---
 
-##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.FirehoseToS3Stage.property.description"></a>
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.GlueTransformStage.property.description"></a>
 
 ```typescript
 public readonly description: string;
@@ -1811,7 +1810,7 @@ public readonly description: string;
 
 ---
 
-##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.FirehoseToS3Stage.property.eventPattern"></a>
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.GlueTransformStage.property.eventPattern"></a>
 
 ```typescript
 public readonly eventPattern: EventPattern;
@@ -1821,7 +1820,7 @@ public readonly eventPattern: EventPattern;
 
 ---
 
-##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.FirehoseToS3Stage.property.name"></a>
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.GlueTransformStage.property.name"></a>
 
 ```typescript
 public readonly name: string;
@@ -1831,7 +1830,7 @@ public readonly name: string;
 
 ---
 
-##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.FirehoseToS3Stage.property.targets"></a>
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.GlueTransformStage.property.targets"></a>
 
 ```typescript
 public readonly targets: IRuleTarget[];
@@ -1841,7 +1840,7 @@ public readonly targets: IRuleTarget[];
 
 ---
 
-##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms"></a>
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms"></a>
 
 ```typescript
 public readonly cloudwatchAlarms: Alarm[];
@@ -1850,34 +1849,23 @@ public readonly cloudwatchAlarms: Alarm[];
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
 ---
-
-##### `bucket`<sup>Required</sup> <a name="bucket" id="aws-ddk-core.FirehoseToS3Stage.property.bucket"></a>
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.GlueTransformStage.property.stateMachine"></a>
 
 ```typescript
-public readonly bucket: IBucket;
+public readonly stateMachine: StateMachine;
 ```
 
-- *Type:* aws-cdk-lib.aws_s3.IBucket
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
 
 ---
 
-##### `deliveryStream`<sup>Required</sup> <a name="deliveryStream" id="aws-ddk-core.FirehoseToS3Stage.property.deliveryStream"></a>
+##### `stateMachineInput`<sup>Required</sup> <a name="stateMachineInput" id="aws-ddk-core.GlueTransformStage.property.stateMachineInput"></a>
 
 ```typescript
-public readonly deliveryStream: DeliveryStream;
+public readonly stateMachineInput: {[ key: string ]: any};
 ```
 
-- *Type:* @aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream
-
----
-
-##### `dataStream`<sup>Optional</sup> <a name="dataStream" id="aws-ddk-core.FirehoseToS3Stage.property.dataStream"></a>
-
-```typescript
-public readonly dataStream: Stream;
-```
-
-- *Type:* aws-cdk-lib.aws_kinesis.Stream
+- *Type:* {[ key: string ]: any}
 
 ---
 
@@ -3621,6 +3609,122 @@ public readonly rolePolicyStatements: PolicyStatement[];
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+### GlueTransformStageProps <a name="GlueTransformStageProps" id="aws-ddk-core.GlueTransformStageProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.GlueTransformStageProps.Initializer"></a>
+
+```typescript
+import { GlueTransformStageProps } from 'aws-ddk-core'
+
+const glueTransformStageProps: GlueTransformStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobArgs">jobArgs</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.GlueTransformStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.GlueTransformStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `additionalRolePolicyStatements`<sup>Optional</sup> <a name="additionalRolePolicyStatements" id="aws-ddk-core.GlueTransformStageProps.property.additionalRolePolicyStatements"></a>
+
+```typescript
+public readonly additionalRolePolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+##### `stateMachineFailedExecutionsAlarmEvaluationPeriods`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmEvaluationPeriods" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stateMachineFailedExecutionsAlarmThreshold`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmThreshold" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmThreshold: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+##### `crawlerName`<sup>Required</sup> <a name="crawlerName" id="aws-ddk-core.GlueTransformStageProps.property.crawlerName"></a>
+
+```typescript
+public readonly crawlerName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `jobName`<sup>Required</sup> <a name="jobName" id="aws-ddk-core.GlueTransformStageProps.property.jobName"></a>
+
+```typescript
+public readonly jobName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `jobArgs`<sup>Optional</sup> <a name="jobArgs" id="aws-ddk-core.GlueTransformStageProps.property.jobArgs"></a>
+
+```typescript
+public readonly jobArgs: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
 
 ---
 
