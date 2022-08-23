@@ -1,4 +1,4 @@
-const { awscdk, DependencyType, javascript } = require('projen');
+const { awscdk, javascript, DependencyType } = require('projen');
 
 const CDK_VERSION = '2.38.1';
 
@@ -33,7 +33,18 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  gitignore: ['.vscode/'],
+  gitignore: ['.vscode/', '*.code-workspace'],
+});
+
+// Experimental modules
+['@aws-cdk/aws-kinesisfirehose-alpha', '@aws-cdk/aws-kinesisfirehose-destinations-alpha'].forEach((dep) => {
+  project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
+  project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
+});
+
+// Other Bundled dependencies
+['deepmerge@4.0.0'].forEach((dep) => {
+  project.addBundledDeps(dep);
 });
 
 // Experimental modules
