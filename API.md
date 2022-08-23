@@ -1676,6 +1676,212 @@ public readonly targets: IRuleTarget[];
 ---
 
 
+### FirehoseToS3Stage <a name="FirehoseToS3Stage" id="aws-ddk-core.FirehoseToS3Stage"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.FirehoseToS3Stage.Initializer"></a>
+
+```typescript
+import { FirehoseToS3Stage } from 'aws-ddk-core'
+
+new FirehoseToS3Stage(scope: Construct, id: string, props: FirehoseToS3StageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.FirehoseToS3StageProps">FirehoseToS3StageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.FirehoseToS3StageProps">FirehoseToS3StageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.addAlarm">addAlarm</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.FirehoseToS3Stage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.FirehoseToS3Stage.addAlarm"></a>
+
+```typescript
+public addAlarm(id: string, props: AlarmProps): DataStage
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.FirehoseToS3Stage.addAlarm.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseToS3Stage.addAlarm.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.FirehoseToS3Stage.isConstruct"></a>
+
+```typescript
+import { FirehoseToS3Stage } from 'aws-ddk-core'
+
+FirehoseToS3Stage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.FirehoseToS3Stage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.deliveryStream">deliveryStream</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.FirehoseToS3Stage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.FirehoseToS3Stage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.FirehoseToS3Stage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.FirehoseToS3Stage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.FirehoseToS3Stage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms"></a>
+
+```typescript
+public readonly cloudwatchAlarms: Alarm[];
+```
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="aws-ddk-core.FirehoseToS3Stage.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `deliveryStream`<sup>Required</sup> <a name="deliveryStream" id="aws-ddk-core.FirehoseToS3Stage.property.deliveryStream"></a>
+
+```typescript
+public readonly deliveryStream: DeliveryStream;
+```
+
+- *Type:* @aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream
+
+---
+
+##### `dataStream`<sup>Optional</sup> <a name="dataStream" id="aws-ddk-core.FirehoseToS3Stage.property.dataStream"></a>
+
+```typescript
+public readonly dataStream: Stream;
+```
+
+- *Type:* aws-cdk-lib.aws_kinesis.Stream
+
+---
+
+
 ### GlueTransformStage <a name="GlueTransformStage" id="aws-ddk-core.GlueTransformStage"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.GlueTransformStage.Initializer"></a>
@@ -1849,6 +2055,7 @@ public readonly cloudwatchAlarms: Alarm[];
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
 ---
+
 ##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.GlueTransformStage.property.stateMachine"></a>
 
 ```typescript
