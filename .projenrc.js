@@ -13,11 +13,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   description: 'AWS DataOps Development Kit',
   repositoryUrl: 'https://github.com/awslabs/aws-ddk',
 
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
-
   // Artifact config: Python
   publishToPypi: {
     distName: 'aws-ddk-core',
@@ -45,12 +40,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 // Other Bundled dependencies
 ['deepmerge@4.0.0'].forEach((dep) => {
   project.addBundledDeps(dep);
-});
-
-// Experimental modules
-[].forEach((dep) => {
-  project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
-  project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
 });
 
 project.synth();
