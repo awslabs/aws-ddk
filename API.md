@@ -3723,6 +3723,7 @@ const getSynthActionProps: GetSynthActionProps = { ... }
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codeartifactRepository">codeartifactRepository</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codePipelineSource">codePipelineSource</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetSynthActionProps.property.localPackagePath">localPackagePath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.partition">partition</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.rolePolicyStatements">rolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
@@ -3786,6 +3787,16 @@ public readonly codePipelineSource: IFileSetProducer;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.IFileSetProducer
+
+---
+
+##### `localPackagePath`<sup>Optional</sup> <a name="localPackagePath" id="aws-ddk-core.GetSynthActionProps.property.localPackagePath"></a>
+
+```typescript
+public readonly localPackagePath: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -4457,6 +4468,7 @@ const synthActionProps: SynthActionProps = { ... }
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomain">codeartifactDomain</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactRepository">codeartifactRepository</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.localPackagePath">localPackagePath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.rolePolicyStatements">rolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.synthAction">synthAction</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildStep</code> | *No description.* |
 
@@ -4496,6 +4508,16 @@ public readonly codeartifactDomainOwner: string;
 
 ```typescript
 public readonly codeartifactRepository: string;
+```
+
+- *Type:* string
+
+---
+
+##### `localPackagePath`<sup>Optional</sup> <a name="localPackagePath" id="aws-ddk-core.SynthActionProps.property.localPackagePath"></a>
+
+```typescript
+public readonly localPackagePath: string;
 ```
 
 - *Type:* string

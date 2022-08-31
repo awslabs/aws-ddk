@@ -20,6 +20,7 @@ export interface GetSynthActionProps {
   readonly codeartifactRepository?: string;
   readonly codeartifactDomain?: string;
   readonly codeartifactDomainOwner?: string;
+  readonly localPackagePath?: string;
 }
 
 export interface CodeCommitSourceActionProps {
@@ -38,7 +39,7 @@ export function getCodeCommitSourceAction(scope: Construct, props: CodeCommitSou
 
 export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
   var installCommands;
-  installCommands = [`npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : ''}`];
+  installCommands = [`npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : 'latest'}`];
 
   // if (all([codeArtifactRepository, codeArtifactDomain, codeArtifactDomainOwner])) {
   //   if (!rolePolicyStatements) {
@@ -47,8 +48,8 @@ export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
 
   //   install_commands.psuh(`aws codeartifact login --tool pip --repository ${codeArtifactRepository} --domain ${codeArtifactDomain} --domain-owner ${codeArtifactDomainOwner}`);
   // }
-
-  installCommands.push('pip install -r requirements.txt');
+  const localPackagePath = props.localPackagePath ?? 'package/';
+  installCommands.push(`npm install ${localPackagePath} || true`); // will need to be replaced with `npm install aws-ddk-core@${version}` when available
   return new CodeBuildStep('Synth', {
     input: props.codePipelineSource,
     installCommands: installCommands,
