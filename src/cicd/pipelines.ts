@@ -27,7 +27,6 @@ export interface SynthActionProps {
   readonly codeartifactDomainOwner?: string;
   readonly rolePolicyStatements?: PolicyStatement[];
   readonly synthAction?: CodeBuildStep;
-  readonly localPackagePath?: string;
 }
 
 export interface AddApplicationStageProps {
@@ -119,7 +118,6 @@ export class CICDPipelineStack extends Stack {
         codeartifactRepository: props.codeartifactRepository, // || this._artifactory_config.get('repository'),
         codeartifactDomain: props.codeartifactDomain, // || this._artifactory_config.get('domain'),
         codeartifactDomainOwner: props.codeartifactDomainOwner, //|| this._artifactory_config.get('domain_owner')
-        localPackagePath: props.localPackagePath,
       });
     return this;
   }

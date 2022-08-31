@@ -20,7 +20,6 @@ export interface GetSynthActionProps {
   readonly codeartifactRepository?: string;
   readonly codeartifactDomain?: string;
   readonly codeartifactDomainOwner?: string;
-  readonly localPackagePath?: string;
 }
 
 export interface CodeCommitSourceActionProps {
@@ -48,8 +47,7 @@ export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
 
   //   install_commands.psuh(`aws codeartifact login --tool pip --repository ${codeArtifactRepository} --domain ${codeArtifactDomain} --domain-owner ${codeArtifactDomainOwner}`);
   // }
-  const localPackagePath = props.localPackagePath ?? 'package/';
-  installCommands.push(`npm install ${localPackagePath} || true`); // will need to be replaced with `npm install aws-ddk-core@${version}` when available
+  installCommands.push('npm install'); // will need to be replaced with `npm install aws-ddk-core@${version}` when available
   return new CodeBuildStep('Synth', {
     input: props.codePipelineSource,
     installCommands: installCommands,
