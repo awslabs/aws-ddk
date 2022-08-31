@@ -58,6 +58,7 @@ def test_cicd_pipeline_simple(cdk_app: App) -> None:
     template.has_resource_properties(
         "AWS::CodePipeline::Pipeline",
         props={
+            "Name": "dummy-pipeline",
             "Stages": Match.array_with(
                 pattern=[
                     Match.object_like(
