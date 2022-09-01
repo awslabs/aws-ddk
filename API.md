@@ -3718,6 +3718,7 @@ const getSynthActionProps: GetSynthActionProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.account">account</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetSynthActionProps.property.additionalInstallCommands">additionalInstallCommands</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codeartifactDomain">codeartifactDomain</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | *No description.* |
@@ -3736,6 +3737,16 @@ public readonly account: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `additionalInstallCommands`<sup>Optional</sup> <a name="additionalInstallCommands" id="aws-ddk-core.GetSynthActionProps.property.additionalInstallCommands"></a>
+
+```typescript
+public readonly additionalInstallCommands: string[];
+```
+
+- *Type:* string[]
 
 ---
 
@@ -4453,12 +4464,23 @@ const synthActionProps: SynthActionProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.additionalInstallCommands">additionalInstallCommands</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomain">codeartifactDomain</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactRepository">codeartifactRepository</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.rolePolicyStatements">rolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.synthAction">synthAction</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildStep</code> | *No description.* |
+
+---
+
+##### `additionalInstallCommands`<sup>Optional</sup> <a name="additionalInstallCommands" id="aws-ddk-core.SynthActionProps.property.additionalInstallCommands"></a>
+
+```typescript
+public readonly additionalInstallCommands: string[];
+```
+
+- *Type:* string[]
 
 ---
 
