@@ -252,6 +252,7 @@ class CICDPipelineStack(BaseStack):
             cross_account_keys=True,
             synth=self._synth_action,
             cli_version=self._config.get_cdk_version(),
+            pipeline_name=self.pipeline_name,
         )
         return self
 
