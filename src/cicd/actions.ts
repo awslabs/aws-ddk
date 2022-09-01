@@ -49,7 +49,7 @@ export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
   //   install_commands.psuh(`aws codeartifact login --tool pip --repository ${codeArtifactRepository} --domain ${codeArtifactDomain} --domain-owner ${codeArtifactDomainOwner}`);
   // }
   if (props.additionalInstallCommands != undefined && props.additionalInstallCommands.length > 0) {
-    installCommands.concat(props.additionalInstallCommands); // will need to be replaced with `npm install aws-ddk-core@${version}` when available
+    installCommands = installCommands.concat(props.additionalInstallCommands); // will need to be replaced with `npm install aws-ddk-core@${version}` when available
   }
   return new CodeBuildStep('Synth', {
     input: props.codePipelineSource,
