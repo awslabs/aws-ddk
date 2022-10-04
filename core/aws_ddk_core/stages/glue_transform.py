@@ -108,6 +108,7 @@ class GlueTransformStage(StateMachineStage):
             self._crawler = CfnCrawler(
                 self,
                 f"{id}-crawler",
+                name=f"{id}_crawler",
                 database_name=database_name,
                 targets=targets,
                 role=crawler_role.role_arn,  # type: ignore
