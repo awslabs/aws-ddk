@@ -112,7 +112,7 @@ class GlueTransformStage(StateMachineStage):
                 targets=targets,
                 role=crawler_role.role_arn,  # type: ignore
             )
-            crawler_name = self._crawler.name
+            crawler_name = self._crawler.ref
 
         # Create GlueStartJobRun step function task
         start_job_run: GlueStartJobRun = GlueStartJobRun(
