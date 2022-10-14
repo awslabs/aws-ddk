@@ -101,13 +101,13 @@ class GlueTransformStage(StateMachineStage):
         # If Glue job name is not supplied, create one
         self._job: Optional[IJob] = None
         if not job_name:
-            self._job = GlueFactory.job(
+            self._job = GlueFactory.job(  # type: ignore
                 self,
                 id=f"{id}-job",
                 environment_id=environment_id,
                 executable=executable,
                 role=job_role,
-                **glue_job_args,
+                **glue_job_args,  # type: ignore
             )
             job_name = self._job.job_name
 
@@ -120,7 +120,7 @@ class GlueTransformStage(StateMachineStage):
                 database_name=database_name,
                 targets=targets,
                 role=crawler_role.role_arn,  # type: ignore
-                **glue_crawler_args,
+                **glue_crawler_args,  # type: ignore
             )
             crawler_name = self._crawler.ref
 

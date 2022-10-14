@@ -113,7 +113,7 @@ class SqsToLambdaStage(DataStage):
         if lambda_function:
             self._function = lambda_function
         elif code and handler:
-            self._function = LambdaFactory.function(
+            self._function = LambdaFactory.function(  # type: ignore
                 self,
                 id=f"{id}-function",
                 environment_id=environment_id,
