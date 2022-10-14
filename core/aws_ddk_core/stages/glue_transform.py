@@ -107,7 +107,7 @@ class GlueTransformStage(StateMachineStage):
                 environment_id=environment_id,
                 executable=executable,
                 role=job_role,
-                **glue_job_args,  # type: ignore
+                **glue_job_args,
             )
             job_name = self._job.job_name
 
@@ -120,7 +120,7 @@ class GlueTransformStage(StateMachineStage):
                 database_name=database_name,
                 targets=targets,
                 role=crawler_role.role_arn,  # type: ignore
-                **glue_crawler_args,  # type: ignore
+                **glue_crawler_args,
             )
             crawler_name = self._crawler.ref
 
