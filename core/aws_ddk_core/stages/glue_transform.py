@@ -42,6 +42,8 @@ class GlueTransformStage(StateMachineStage):
         crawler_role: Optional[IRole] = None,
         targets: Optional[CfnCrawler.TargetsProperty] = None,
         job_args: Optional[Dict[str, Any]] = None,
+        glue_job_args: Optional[Dict[str, Any]] = None,
+        glue_crawler_args: Optional[Dict[str, Any]] = None,
         state_machine_input: Optional[Dict[str, Any]] = None,
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
@@ -77,6 +79,12 @@ class GlueTransformStage(StateMachineStage):
             A collection of targets to crawl
         job_args : Optional[Dict[str, Any]]
             The input arguments to the Glue job
+        glue_job_args: Optional[Dict[str, Any]]
+            Additional Glue job properties. For complete list of properties refer to CDK Documentation -
+            Glue Job: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue_alpha/Job.html
+        glue_crawler_args: Optional[Dict[str, Any]]
+            Additional arguments to pass to CDK L1 Construct: `CfnCrawler`.
+            See: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue/CfnCrawler.html
         state_machine_input : Optional[Dict[str, Any]]
             The input dict to the state machine
         additional_role_policy_statements : Optional[List[PolicyStatement]]
@@ -99,6 +107,7 @@ class GlueTransformStage(StateMachineStage):
                 environment_id=environment_id,
                 executable=executable,
                 role=job_role,
+                job_props=glue_job_args,
             )
             job_name = self._job.job_name
 
@@ -111,6 +120,7 @@ class GlueTransformStage(StateMachineStage):
                 database_name=database_name,
                 targets=targets,
                 role=crawler_role.role_arn,  # type: ignore
+                **glue_crawler_args,
             )
             crawler_name = self._crawler.ref
 

@@ -171,3 +171,34 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
             "Threshold": 10,
         },
     )
+
+
+def test_sqs_lambda_with_additional_function_props(test_stack: BaseStack) -> None:
+    SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+        layers=[
+            LayerVersion.from_layer_version_arn(
+                test_stack, "layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"
+            )
+        ],
+        function_props={"profiling": True},
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Lambda::Function",
+        props={
+            "Runtime": "python3.9",
+            "MemorySize": 512,
+            "Layers": Match.array_with(
+                pattern=[
+                    "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+                ],
+            ),
+            "Profiling": True,
+        },
+    )
