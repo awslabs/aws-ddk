@@ -17,13 +17,7 @@ from typing import Any, Dict, List, Optional
 from aws_cdk.aws_glue import CfnCrawler
 from aws_cdk.aws_glue_alpha import IJob, JobExecutable
 from aws_cdk.aws_iam import IRole, PolicyStatement
-from aws_cdk.aws_stepfunctions import (
-    CustomState,
-    IntegrationPattern,
-    JsonPath,
-    Succeed,
-    TaskInput,
-)
+from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, Succeed, TaskInput
 from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
 from aws_ddk_core.pipelines import StateMachineStage
 from aws_ddk_core.resources import GlueFactory
