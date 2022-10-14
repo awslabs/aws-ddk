@@ -30,7 +30,9 @@ def test_sqs_lambda(test_stack: BaseStack) -> None:
         handler="commons.handlers.lambda_handler",
         layers=[
             LayerVersion.from_layer_version_arn(
-                test_stack, "layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"
+                test_stack,
+                "layer",
+                "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
             )
         ],
     )
@@ -163,7 +165,9 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
                     Match.object_like(
                         pattern={
                             "Name": "FunctionName",
-                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
+                            "Value": {
+                                "Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"
+                            },
                         }
                     )
                 ]
@@ -182,7 +186,9 @@ def test_sqs_lambda_with_additional_function_props(test_stack: BaseStack) -> Non
         handler="commons.handlers.lambda_handler",
         layers=[
             LayerVersion.from_layer_version_arn(
-                test_stack, "layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"
+                test_stack,
+                "layer",
+                "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
             )
         ],
         function_props={"profiling": True},
@@ -199,6 +205,18 @@ def test_sqs_lambda_with_additional_function_props(test_stack: BaseStack) -> Non
                     "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
                 ],
             ),
-            "Profiling": True,
+            "Environment": {
+                "Variables": {
+                    "AWS_CODEGURU_PROFILER_GROUP_ARN": {
+                        "Fn::GetAtt": [
+                            "dummysqslambdadummysqslambdafunctionProfilingGroup993A85CA",
+                            "Arn",
+                        ]
+                    },
+                    "AWS_CODEGURU_PROFILER_ENABLED": "TRUE",
+                    "EVENT_SOURCE": "dummy-sqs-lambda-event-source",
+                    "EVENT_DETAIL_TYPE": "dummy-sqs-lambda-event-type",
+                }
+            },
         },
     )

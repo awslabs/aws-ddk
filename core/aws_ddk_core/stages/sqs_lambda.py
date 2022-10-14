@@ -51,7 +51,7 @@ class SqsToLambdaStage(DataStage):
         sqs_queue: Optional[IQueue] = None,
         lambda_function_errors_alarm_threshold: Optional[int] = 5,
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
-        function_props: Optional[Dict[str, Any]] = None,
+        function_props: Optional[Dict[str, Any]] = {},
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -128,10 +128,12 @@ class SqsToLambdaStage(DataStage):
                     "EVENT_DETAIL_TYPE": self._event_detail_type,
                 },
                 layers=layers,
-                function_props=function_props,
+                **function_props,
             )
         else:
-            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instantiate this stage")
+            raise ValueError(
+                "'code' and 'handler' or 'lambda_function' must be set to instantiate this stage"
+            )
 
         # Enable the function to publish events to the default EventBus
         self._function.add_to_role_policy(
@@ -163,7 +165,9 @@ class SqsToLambdaStage(DataStage):
             dead_letter_queue=self._dlq,
         )
 
-        self._function.add_event_source(SqsEventSource(queue=self._queue, batch_size=batch_size))
+        self._function.add_event_source(
+            SqsEventSource(queue=self._queue, batch_size=batch_size)
+        )
 
         self.add_alarm(
             alarm_id=f"{id}-function-errors",

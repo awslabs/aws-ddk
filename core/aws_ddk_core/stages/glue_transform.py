@@ -17,7 +17,13 @@ from typing import Any, Dict, List, Optional
 from aws_cdk.aws_glue import CfnCrawler
 from aws_cdk.aws_glue_alpha import IJob, JobExecutable
 from aws_cdk.aws_iam import IRole, PolicyStatement
-from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, Succeed, TaskInput
+from aws_cdk.aws_stepfunctions import (
+    CustomState,
+    IntegrationPattern,
+    JsonPath,
+    Succeed,
+    TaskInput,
+)
 from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
 from aws_ddk_core.pipelines import StateMachineStage
 from aws_ddk_core.resources import GlueFactory
@@ -42,8 +48,8 @@ class GlueTransformStage(StateMachineStage):
         crawler_role: Optional[IRole] = None,
         targets: Optional[CfnCrawler.TargetsProperty] = None,
         job_args: Optional[Dict[str, Any]] = None,
-        glue_job_args: Optional[Dict[str, Any]] = None,
-        glue_crawler_args: Optional[Dict[str, Any]] = None,
+        glue_job_args: Optional[Dict[str, Any]] = {},
+        glue_crawler_args: Optional[Dict[str, Any]] = {},
         state_machine_input: Optional[Dict[str, Any]] = None,
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
@@ -107,7 +113,7 @@ class GlueTransformStage(StateMachineStage):
                 environment_id=environment_id,
                 executable=executable,
                 role=job_role,
-                job_props=glue_job_args,
+                **glue_job_args,
             )
             job_name = self._job.job_name
 
@@ -145,7 +151,9 @@ class GlueTransformStage(StateMachineStage):
                 "Type": "Task",
                 "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
                 "Parameters": {"Name": crawler_name},
-                "Catch": [{"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}],
+                "Catch": [
+                    {"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}
+                ],
             },
         )
 
@@ -153,7 +161,9 @@ class GlueTransformStage(StateMachineStage):
         self.build_state_machine(
             id=f"{id}-state-machine",
             environment_id=environment_id,
-            definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
+            definition=(
+                start_job_run.next(crawl_object).next(Succeed(self, "success"))
+            ),
             state_machine_input=state_machine_input,
             additional_role_policy_statements=additional_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
