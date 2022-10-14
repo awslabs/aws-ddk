@@ -131,9 +131,7 @@ class SqsToLambdaStage(DataStage):
                 **function_props,
             )
         else:
-            raise ValueError(
-                "'code' and 'handler' or 'lambda_function' must be set to instantiate this stage"
-            )
+            raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instantiate this stage")
 
         # Enable the function to publish events to the default EventBus
         self._function.add_to_role_policy(
@@ -165,9 +163,7 @@ class SqsToLambdaStage(DataStage):
             dead_letter_queue=self._dlq,
         )
 
-        self._function.add_event_source(
-            SqsEventSource(queue=self._queue, batch_size=batch_size)
-        )
+        self._function.add_event_source(SqsEventSource(queue=self._queue, batch_size=batch_size))
 
         self.add_alarm(
             alarm_id=f"{id}-function-errors",

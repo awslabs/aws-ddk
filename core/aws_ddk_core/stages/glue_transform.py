@@ -145,9 +145,7 @@ class GlueTransformStage(StateMachineStage):
                 "Type": "Task",
                 "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
                 "Parameters": {"Name": crawler_name},
-                "Catch": [
-                    {"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}
-                ],
+                "Catch": [{"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}],
             },
         )
 
@@ -155,9 +153,7 @@ class GlueTransformStage(StateMachineStage):
         self.build_state_machine(
             id=f"{id}-state-machine",
             environment_id=environment_id,
-            definition=(
-                start_job_run.next(crawl_object).next(Succeed(self, "success"))
-            ),
+            definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
             state_machine_input=state_machine_input,
             additional_role_policy_statements=additional_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,

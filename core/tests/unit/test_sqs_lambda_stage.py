@@ -165,9 +165,7 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
                     Match.object_like(
                         pattern={
                             "Name": "FunctionName",
-                            "Value": {
-                                "Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"
-                            },
+                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
                         }
                     )
                 ]

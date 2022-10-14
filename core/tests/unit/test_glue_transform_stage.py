@@ -62,9 +62,7 @@ def test_glue_transform_stage_create(test_stack: BaseStack) -> None:
             type=JobType.ETL,
         ),
         database_name="dummy-glue-database",
-        targets=CfnCrawler.TargetsProperty(
-            s3_targets=[CfnCrawler.S3TargetProperty(path="s3://dummy-path/")]
-        ),
+        targets=CfnCrawler.TargetsProperty(s3_targets=[CfnCrawler.S3TargetProperty(path="s3://dummy-path/")]),
         crawler_role=Role(
             scope=test_stack,
             id="dummy-role",
@@ -114,9 +112,7 @@ def test_glue_transform_stage_with_additional_args(test_stack: BaseStack) -> Non
             type=JobType.ETL,
         ),
         database_name="dummy-glue-database",
-        targets=CfnCrawler.TargetsProperty(
-            s3_targets=[CfnCrawler.S3TargetProperty(path="s3://dummy-path/")]
-        ),
+        targets=CfnCrawler.TargetsProperty(s3_targets=[CfnCrawler.S3TargetProperty(path="s3://dummy-path/")]),
         crawler_role=Role(
             scope=test_stack,
             id="dummy-role",
