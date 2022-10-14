@@ -16,13 +16,7 @@ from pathlib import Path
 
 from aws_cdk.assertions import Match, Template
 from aws_cdk.aws_glue import CfnCrawler
-from aws_cdk.aws_glue_alpha import (
-    Code,
-    GlueVersion,
-    JobExecutable,
-    JobLanguage,
-    JobType,
-)
+from aws_cdk.aws_glue_alpha import Code, GlueVersion, JobExecutable, JobLanguage, JobType
 from aws_cdk.aws_iam import Role, ServicePrincipal
 from aws_ddk_core.base import BaseStack
 from aws_ddk_core.stages import GlueTransformStage
