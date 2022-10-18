@@ -17,7 +17,28 @@ from aws_ddk_core.resources import S3Factory
 from aws_ddk_core.stages import S3EventStage
 
 
-def test_basic_pipeline(test_stack: BaseStack) -> None:
+def test_s3_event_stage_single_prefix(test_stack: BaseStack) -> None:
+    prefix = "data"
+
+    bucket = S3Factory.bucket(
+        scope=test_stack,
+        id="dummy-bucket",
+        environment_id="dev",
+    )
+
+    s3_event_stage = S3EventStage(
+        scope=test_stack,
+        id="dummy-s3-event",
+        environment_id="dev",
+        event_names=["Object Created"],
+        bucket_name=bucket.bucket_name,
+        key_prefix=prefix,
+    )
+
+    assert [{"prefix": "data"}] == s3_event_stage.event_pattern.detail["object"]["key"]
+
+
+def test_s3_event_stage_multiple_prefixes(test_stack: BaseStack) -> None:
     prefixes = ["data-0", "data-1", "data-2"]
 
     bucket = S3Factory.bucket(
@@ -32,7 +53,7 @@ def test_basic_pipeline(test_stack: BaseStack) -> None:
         environment_id="dev",
         event_names=["Object Created"],
         bucket_name=bucket.bucket_name,
-        key_prefixes=prefixes,
+        key_prefix=prefixes,
     )
 
     assert [{"prefix": key} for key in prefixes] == s3_event_stage.event_pattern.detail["object"]["key"]

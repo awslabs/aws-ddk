@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from aws_cdk.aws_events import EventPattern
 from aws_cdk.aws_s3 import Bucket
@@ -32,8 +32,7 @@ class S3EventStage(EventStage):
         environment_id: str,
         event_names: List[str],
         bucket_name: str,
-        key_prefix: Optional[str] = None,
-        key_prefixes: Optional[List[str]] = None,
+        key_prefix: Optional[Union[str, List[str]]] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -56,10 +55,8 @@ class S3EventStage(EventStage):
         bucket_name : str
             The name of the S3 bucket. Amazon EventBridge notifications must be enabled
             on the bucket in order to use this construct.
-        key_prefix : Optional[str]
-            The S3 prefix. Capture root level prefix ("/") by default
-        key_prefixes : Optional[List[str]]
-            List of S3 prefixes to capture events for. Will overwrite `key_prefix` value if set.
+        key_prefix : Optional[Union[str, List[str]]]
+            The S3 prefix or list of prefixes. Capture root level prefix ("/") by default
         """
         super().__init__(scope, id, **kwargs)
         self._bucket = Bucket.from_bucket_name(self, id=f"{id}-bucket", bucket_name=bucket_name)
@@ -68,13 +65,14 @@ class S3EventStage(EventStage):
                 "name": [bucket_name],
             },
         }
+
         if key_prefix:
+            if isinstance(key_prefix, str):
+                prefixes = [key_prefix]
+            else:
+                prefixes = key_prefix
             detail["object"] = {
-                "key": [{"prefix": key_prefix}],
-            }
-        if key_prefixes:
-            detail["object"] = {
-                "key": [{"prefix": prefix} for prefix in key_prefixes],
+                "key": [{"prefix": prefix} for prefix in prefixes],
             }
         self._event_pattern = EventPattern(
             source=["aws.s3"],
