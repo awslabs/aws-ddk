@@ -33,6 +33,7 @@ class S3EventStage(EventStage):
         event_names: List[str],
         bucket_name: str,
         key_prefix: Optional[str] = None,
+        key_prefixes: Optional[List[str]] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -57,6 +58,8 @@ class S3EventStage(EventStage):
             on the bucket in order to use this construct.
         key_prefix : Optional[str]
             The S3 prefix. Capture root level prefix ("/") by default
+        key_prefixes : Optional[List[str]]
+            List of S3 prefixes to capture events for. Will overwrite `key_prefix` value if set.
         """
         super().__init__(scope, id, **kwargs)
         self._bucket = Bucket.from_bucket_name(self, id=f"{id}-bucket", bucket_name=bucket_name)
@@ -68,6 +71,10 @@ class S3EventStage(EventStage):
         if key_prefix:
             detail["object"] = {
                 "key": [{"prefix": key_prefix}],
+            }
+        if key_prefixes:
+            detail["object"] = {
+                "key": [{"prefix": prefix} for prefix in key_prefixes],
             }
         self._event_pattern = EventPattern(
             source=["aws.s3"],
