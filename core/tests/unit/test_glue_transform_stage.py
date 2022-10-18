@@ -98,3 +98,40 @@ def test_glue_transform_stage_create(test_stack: BaseStack) -> None:
             "Targets": {"S3Targets": [{"Path": "s3://dummy-path/"}]},
         },
     )
+
+
+def test_glue_transform_stage_with_additional_args(test_stack: BaseStack) -> None:
+    GlueTransformStage(
+        scope=test_stack,
+        id="dummy-glue-transform-create",
+        environment_id="dev",
+        executable=JobExecutable.of(
+            glue_version=GlueVersion.V2_0,
+            language=JobLanguage.PYTHON,
+            script=Code.from_asset(f"{Path(__file__)}"),
+            type=JobType.ETL,
+        ),
+        database_name="dummy-glue-database",
+        targets=CfnCrawler.TargetsProperty(s3_targets=[CfnCrawler.S3TargetProperty(path="s3://dummy-path/")]),
+        crawler_role=Role(
+            scope=test_stack,
+            id="dummy-role",
+            assumed_by=ServicePrincipal("glue.amazonaws.com"),
+        ),
+        job_args={"input_bucket": "dummy-bucket"},
+        state_machine_input={"event": "dummy-event"},
+        glue_job_args={"max_concurrent_runs": 100},
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Glue::Job",
+        props={
+            "GlueVersion": "2.0",
+            "DefaultArguments": {"--job-language": "python", "--enable-metrics": ""},
+            "ExecutionProperty": {"MaxConcurrentRuns": 100},
+            "MaxRetries": 0,
+            "NumberOfWorkers": 3,
+            "Timeout": 60,
+        },
+    )

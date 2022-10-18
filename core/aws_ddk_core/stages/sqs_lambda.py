@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from aws_cdk import Duration
 from aws_cdk.aws_events import EventPattern, IRuleTarget
@@ -51,6 +51,7 @@ class SqsToLambdaStage(DataStage):
         sqs_queue: Optional[IQueue] = None,
         lambda_function_errors_alarm_threshold: Optional[int] = 5,
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
+        function_props: Optional[Dict[str, Any]] = {},
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -100,6 +101,9 @@ class SqsToLambdaStage(DataStage):
             Amount of errored function invocations before triggering CW alarm. Defaults to `5`
         lambda_function_errors_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        function_props : Any
+            Additional function properties. For complete list of properties refer to CDK Documentation -
+            Lambda Function: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_lambda/Function.html
         """
         super().__init__(scope, id)
 
@@ -109,7 +113,7 @@ class SqsToLambdaStage(DataStage):
         if lambda_function:
             self._function = lambda_function
         elif code and handler:
-            self._function = LambdaFactory.function(
+            self._function = LambdaFactory.function(  # type: ignore
                 self,
                 id=f"{id}-function",
                 environment_id=environment_id,
@@ -124,6 +128,7 @@ class SqsToLambdaStage(DataStage):
                     "EVENT_DETAIL_TYPE": self._event_detail_type,
                 },
                 layers=layers,
+                **function_props,
             )
         else:
             raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instantiate this stage")
