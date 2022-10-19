@@ -57,3 +57,30 @@ def test_s3_event_stage_multiple_prefixes(test_stack: BaseStack) -> None:
     )
 
     assert [{"prefix": key} for key in prefixes] == s3_event_stage.event_pattern.detail["object"]["key"]
+
+
+def test_s3_event_stage_multiple_buckets(test_stack: BaseStack) -> None:
+    prefixes = ["data-0", "data-1", "data-2"]
+
+    bucket_1 = S3Factory.bucket(
+        scope=test_stack,
+        id="dummy-bucket-1",
+        environment_id="dev",
+    )
+    bucket_2 = S3Factory.bucket(
+        scope=test_stack,
+        id="dummy-bucket-2",
+        environment_id="dev",
+    )
+
+    s3_event_stage = S3EventStage(
+        scope=test_stack,
+        id="dummy-s3-event",
+        environment_id="dev",
+        event_names=["Object Created"],
+        bucket_name=[bucket_1.bucket_name, bucket_2.bucket_name],
+        key_prefix=prefixes,
+    )
+
+    assert [{"prefix": key} for key in prefixes] == s3_event_stage.event_pattern.detail["object"]["key"]
+    assert [bucket_1.bucket_name, bucket_2.bucket_name] == s3_event_stage.event_pattern.detail["bucket"]["name"]
