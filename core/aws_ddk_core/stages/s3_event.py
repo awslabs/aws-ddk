@@ -15,7 +15,6 @@
 from typing import Any, Dict, List, Optional, Union
 
 from aws_cdk.aws_events import EventPattern
-from aws_cdk.aws_s3 import Bucket
 from aws_ddk_core.pipelines import EventStage
 from constructs import Construct
 
@@ -31,7 +30,7 @@ class S3EventStage(EventStage):
         id: str,
         environment_id: str,
         event_names: List[str],
-        bucket_name: str,
+        bucket_name: Union[str, List[str]],
         key_prefix: Optional[Union[str, List[str]]] = None,
         **kwargs: Any,
     ) -> None:
@@ -52,17 +51,16 @@ class S3EventStage(EventStage):
         event_names : List[str]
             The list of events to capture, for example: ["Object Created"].
             https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html
-        bucket_name : str
-            The name of the S3 bucket. Amazon EventBridge notifications must be enabled
+        bucket_name : Union[str, List[str]]
+            The name(s) of the S3 bucket(s). Amazon EventBridge notifications must be enabled
             on the bucket in order to use this construct.
         key_prefix : Optional[Union[str, List[str]]]
             The S3 prefix or list of prefixes. Capture root level prefix ("/") by default
         """
         super().__init__(scope, id, **kwargs)
-        self._bucket = Bucket.from_bucket_name(self, id=f"{id}-bucket", bucket_name=bucket_name)
         detail: Dict[str, Any] = {
             "bucket": {
-                "name": [bucket_name],
+                "name": [bucket_name] if isinstance(bucket_name, str) else bucket_name,
             },
         }
 
