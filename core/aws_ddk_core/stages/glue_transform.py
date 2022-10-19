@@ -124,9 +124,10 @@ class GlueTransformStage(StateMachineStage):
                 **glue_crawler_args,
             )
             crawler_name = self._crawler.ref
+        stack = cdk.Stack.of(self)
         crawler_arn = f"""
-            arn:{cdk.Stack.of(self).partition}:
-            glue:{cdk.Stack.of(self).region}:{cdk.Stack.of(self).account}:
+            arn:{stack.partition}:
+            glue:{stack.region}:{stack.account}:
             crawler/{crawler_name}"
         """
 
