@@ -18,7 +18,7 @@ import aws_cdk as cdk
 from aws_cdk.aws_glue import CfnCrawler
 from aws_cdk.aws_glue_alpha import IJob, JobExecutable
 from aws_cdk.aws_iam import IRole, PolicyStatement
-from aws_cdk.aws_stepfunctions import Fail, IntegrationPattern, JsonPath, Succeed, TaskInput
+from aws_cdk.aws_stepfunctions import IntegrationPattern, JsonPath, Succeed, TaskInput
 from aws_cdk.aws_stepfunctions_tasks import CallAwsService, GlueStartJobRun
 from aws_ddk_core.pipelines import StateMachineStage
 from aws_ddk_core.resources import GlueFactory
@@ -155,15 +155,14 @@ class GlueTransformStage(StateMachineStage):
             },
             iam_resources=[crawler_arn],
         )
-        crawl_object.add_catch(
-            Fail(self, "failure", cause="Glue Crawler Failed"), errors=["Glue.CrawlerRunningException"]
-        )
+        success = Succeed(self, "success")
+        crawl_object.add_catch(success, errors=["Glue.CrawlerRunningException"])
 
         # Build state machine
         self.build_state_machine(
             id=f"{id}-state-machine",
             environment_id=environment_id,
-            definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
+            definition=(start_job_run.next(crawl_object).next(success)),
             state_machine_input=state_machine_input,
             additional_role_policy_statements=additional_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
