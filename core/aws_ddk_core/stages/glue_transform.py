@@ -14,11 +14,12 @@
 
 from typing import Any, Dict, List, Optional
 
+import aws_cdk as cdk
 from aws_cdk.aws_glue import CfnCrawler
 from aws_cdk.aws_glue_alpha import IJob, JobExecutable
 from aws_cdk.aws_iam import IRole, PolicyStatement
-from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, Succeed, TaskInput
-from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
+from aws_cdk.aws_stepfunctions import Fail, IntegrationPattern, JsonPath, Succeed, TaskInput
+from aws_cdk.aws_stepfunctions_tasks import CallAwsService, GlueStartJobRun
 from aws_ddk_core.pipelines import StateMachineStage
 from aws_ddk_core.resources import GlueFactory
 from constructs import Construct
@@ -123,6 +124,12 @@ class GlueTransformStage(StateMachineStage):
                 **glue_crawler_args,
             )
             crawler_name = self._crawler.ref
+        stack = cdk.Stack.of(self)
+        crawler_arn = f"""
+            arn:{stack.partition}:
+            glue:{stack.region}:{stack.account}:
+            crawler/{crawler_name}"
+        """
 
         # Create GlueStartJobRun step function task
         start_job_run: GlueStartJobRun = GlueStartJobRun(
@@ -138,15 +145,18 @@ class GlueTransformStage(StateMachineStage):
             result_path=JsonPath.DISCARD,
         )
         # Create start crawler step function task
-        crawl_object = CustomState(
+        crawl_object = CallAwsService(
             self,
             "crawl-object",
-            state_json={
-                "Type": "Task",
-                "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
-                "Parameters": {"Name": crawler_name},
-                "Catch": [{"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}],
+            service="glue",
+            action="startCrawler",
+            parameters={
+                "Name": crawler_name,
             },
+            iam_resources=[crawler_arn],
+        )
+        crawl_object.add_catch(
+            Fail(self, "failure", cause="Glue Crawler Failed"), errors=["Glue.CrawlerRunningException"]
         )
 
         # Build state machine
