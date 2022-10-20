@@ -155,13 +155,14 @@ class GlueTransformStage(StateMachineStage):
             },
             iam_resources=[crawler_arn],
         )
-        crawl_object.add_catch(Succeed(self, "crawler-pass"), errors=["Glue.CrawlerRunningException"])
+        success = Succeed(self, "success")
+        crawl_object.add_catch(success, errors=["Glue.CrawlerRunningException"])
 
         # Build state machine
         self.build_state_machine(
             id=f"{id}-state-machine",
             environment_id=environment_id,
-            definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
+            definition=(start_job_run.next(crawl_object).next(success)),
             state_machine_input=state_machine_input,
             additional_role_policy_statements=additional_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
