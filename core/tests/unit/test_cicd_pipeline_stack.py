@@ -315,7 +315,11 @@ def test_cicd_pipeline_custom_stage(cdk_app: App) -> None:
                     "foo",
                     commands=["ls -al", "echo 'dummy'"],
                 ),
-                ShellStep("bar", commands=["flake8 ."], install_commands=["pip install flake8"]),
+                ShellStep(
+                    "bar",
+                    commands=["flake8 ."],
+                    install_commands=["pip install flake8"],
+                ),
             ],
         )
         .add_stage("dev", DevStage(cdk_app, "dev"))
@@ -455,6 +459,257 @@ def test_cicd_pipeline_codeartifact_upload(cdk_app: App) -> None:
                                     ),
                                 ],
                             ),
+                        },
+                    ),
+                ],
+            ),
+        },
+    )
+
+
+def test_cicd_pipeline_with_wave(cdk_app: App) -> None:
+    pipeline_stack = (
+        CICDPipelineStack(
+            cdk_app,
+            id="dummy-pipeline",
+            environment_id="dev",
+            pipeline_name="dummy-pipeline",
+        )
+        .add_source_action(repository_name="dummy-repository")
+        .add_synth_action()
+        .build()
+        .add_wave("dev", [DevStage(cdk_app, "dummy-0"), DevStage(cdk_app, "dummy-1")])
+        .synth()
+    )
+    template = Template.from_stack(pipeline_stack)
+    # Check if synthesized pipeline contains source, synth, self-update, and app stage
+    template.has_resource_properties(
+        "AWS::CodePipeline::Pipeline",
+        props={
+            "Name": "dummy-pipeline",
+            "Stages": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "Source",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "dummy-repository",
+                                            "ActionTypeId": {
+                                                "Category": "Source",
+                                                "Provider": "CodeCommit",
+                                            },
+                                            "Configuration": {
+                                                "RepositoryName": "dummy-repository",
+                                                "BranchName": "main",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
+                        },
+                    ),
+                    Match.object_like(
+                        pattern={
+                            "Name": "Build",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "Synth",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
+                        },
+                    ),
+                    Match.object_like(
+                        pattern={
+                            "Name": "UpdatePipeline",
+                            "Actions": Match.array_with(
+                                pattern=[
+                                    Match.object_like(
+                                        pattern={
+                                            "Name": "SelfMutate",
+                                            "ActionTypeId": {
+                                                "Category": "Build",
+                                                "Provider": "CodeBuild",
+                                            },
+                                        },
+                                    ),
+                                ],
+                            ),
+                        },
+                    ),
+                    Match.object_like(
+                        pattern={
+                            "Name": "dev",
+                            "Actions": [
+                                {
+                                    "ActionTypeId": {
+                                        "Category": "Deploy",
+                                        "Owner": "AWS",
+                                        "Provider": "CloudFormation",
+                                        "Version": "1",
+                                    },
+                                    "Configuration": {
+                                        "StackName": "dummy-0-my-stack",
+                                        "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                                        "RoleArn": {
+                                            "Fn::Join": [
+                                                "",
+                                                [
+                                                    "arn:",
+                                                    {"Ref": "AWS::Partition"},
+                                                    ":iam::",
+                                                    {"Ref": "AWS::AccountId"},
+                                                    ":role/ddk-dev-hnb659fds-cfn-exec-",
+                                                    {"Ref": "AWS::AccountId"},
+                                                    "-",
+                                                    {"Ref": "AWS::Region"},
+                                                ],
+                                            ]
+                                        },
+                                        "TemplateConfiguration": Match.any_value(),
+                                        "ActionMode": "CHANGE_SET_REPLACE",
+                                        "ChangeSetName": "PipelineChange",
+                                        "TemplatePath": Match.any_value(),
+                                    },
+                                    "InputArtifacts": [{"Name": "Synth_Output"}],
+                                    "Name": "dummy-0.my-stack.Prepare",
+                                    "RoleArn": {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                "arn:",
+                                                {"Ref": "AWS::Partition"},
+                                                ":iam::",
+                                                {"Ref": "AWS::AccountId"},
+                                                ":role/ddk-dev-hnb659fds-deploy-",
+                                                {"Ref": "AWS::AccountId"},
+                                                "-",
+                                                {"Ref": "AWS::Region"},
+                                            ],
+                                        ]
+                                    },
+                                    "RunOrder": 1,
+                                },
+                                {
+                                    "ActionTypeId": {
+                                        "Category": "Deploy",
+                                        "Owner": "AWS",
+                                        "Provider": "CloudFormation",
+                                        "Version": "1",
+                                    },
+                                    "Configuration": {
+                                        "StackName": "dummy-1-my-stack",
+                                        "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                                        "RoleArn": {
+                                            "Fn::Join": [
+                                                "",
+                                                [
+                                                    "arn:",
+                                                    {"Ref": "AWS::Partition"},
+                                                    ":iam::",
+                                                    {"Ref": "AWS::AccountId"},
+                                                    ":role/ddk-dev-hnb659fds-cfn-exec-",
+                                                    {"Ref": "AWS::AccountId"},
+                                                    "-",
+                                                    {"Ref": "AWS::Region"},
+                                                ],
+                                            ]
+                                        },
+                                        "TemplateConfiguration": Match.any_value(),
+                                        "ActionMode": "CHANGE_SET_REPLACE",
+                                        "ChangeSetName": "PipelineChange",
+                                        "TemplatePath": Match.any_value(),
+                                    },
+                                    "InputArtifacts": [{"Name": "Synth_Output"}],
+                                    "Name": "dummy-1.my-stack.Prepare",
+                                    "RoleArn": {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                "arn:",
+                                                {"Ref": "AWS::Partition"},
+                                                ":iam::",
+                                                {"Ref": "AWS::AccountId"},
+                                                ":role/ddk-dev-hnb659fds-deploy-",
+                                                {"Ref": "AWS::AccountId"},
+                                                "-",
+                                                {"Ref": "AWS::Region"},
+                                            ],
+                                        ]
+                                    },
+                                    "RunOrder": 1,
+                                },
+                                {
+                                    "ActionTypeId": {
+                                        "Category": "Deploy",
+                                        "Owner": "AWS",
+                                        "Provider": "CloudFormation",
+                                        "Version": "1",
+                                    },
+                                    "Configuration": {
+                                        "StackName": "dummy-0-my-stack",
+                                        "ActionMode": "CHANGE_SET_EXECUTE",
+                                        "ChangeSetName": "PipelineChange",
+                                    },
+                                    "Name": "dummy-0.my-stack.Deploy",
+                                    "RoleArn": {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                "arn:",
+                                                {"Ref": "AWS::Partition"},
+                                                ":iam::",
+                                                {"Ref": "AWS::AccountId"},
+                                                ":role/ddk-dev-hnb659fds-deploy-",
+                                                {"Ref": "AWS::AccountId"},
+                                                "-",
+                                                {"Ref": "AWS::Region"},
+                                            ],
+                                        ]
+                                    },
+                                    "RunOrder": 2,
+                                },
+                                {
+                                    "ActionTypeId": {
+                                        "Category": "Deploy",
+                                        "Owner": "AWS",
+                                        "Provider": "CloudFormation",
+                                        "Version": "1",
+                                    },
+                                    "Configuration": {
+                                        "StackName": "dummy-1-my-stack",
+                                        "ActionMode": "CHANGE_SET_EXECUTE",
+                                        "ChangeSetName": "PipelineChange",
+                                    },
+                                    "Name": "dummy-1.my-stack.Deploy",
+                                    "RoleArn": {
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                "arn:",
+                                                {"Ref": "AWS::Partition"},
+                                                ":iam::",
+                                                {"Ref": "AWS::AccountId"},
+                                                ":role/ddk-dev-hnb659fds-deploy-",
+                                                {"Ref": "AWS::AccountId"},
+                                                "-",
+                                                {"Ref": "AWS::Region"},
+                                            ],
+                                        ]
+                                    },
+                                    "RunOrder": 2,
+                                },
+                            ],
                         },
                     ),
                 ],
