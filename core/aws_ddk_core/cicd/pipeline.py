@@ -287,6 +287,39 @@ class CICDPipelineStack(BaseStack):
         )
         return self
 
+    def add_wave(
+        self,
+        stage_id: str,
+        stages: List[Stage],
+        manual_approvals: Optional[bool] = False,
+    ) -> "CICDPipelineStack":
+        """
+        Add multiple application stages in parallel to the CICD pipeline.
+
+        Parameters
+        ----------
+        stage_id: str
+            Identifier of the wave
+        stages: List[Stage]
+            Application stage instance
+        manual_approvals: Optional[bool]
+            Configure manual approvals. False by default
+
+        Returns
+        -------
+        pipeline : CICDPipelineStack
+            CICDPipelineStack
+        """
+        manual_approvals = manual_approvals or self._config.get_env_config(stage_id).get("manual_approvals")
+
+        wave = self._pipeline.add_wave(
+            stage_id,
+            pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None,
+        )
+        for stage in stages:
+            wave.add_stage(stage)
+        return self
+
     def add_security_lint_stage(
         self,
         stage_name: Optional[str] = None,
