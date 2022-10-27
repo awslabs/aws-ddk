@@ -29,7 +29,7 @@ def _clean_up_stdout_line(line: bytes) -> str:
 
 
 def _run_iterating(cmd: str, cwd: Optional[str] = None) -> Iterable[str]:
-    p = subprocess.Popen(shlex.split(cmd), cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    p = subprocess.Popen(shlex.split(cmd), cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, encoding="utf-8")
     if p.stdout is None:
         return []
     while p.poll() is None:
