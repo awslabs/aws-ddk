@@ -46,6 +46,7 @@ class SqsToLambdaStage(DataStage):
         dead_letter_queue_enabled: bool = False,
         max_receive_count: int = 1,
         batch_size: Optional[int] = None,
+        max_batching_window: Optional[Duration] = None,
         layers: Optional[List[ILayerVersion]] = None,
         lambda_function: Optional[IFunction] = None,
         sqs_queue: Optional[IQueue] = None,
@@ -91,6 +92,11 @@ class SqsToLambdaStage(DataStage):
         batch_size : Optional[int]
             The maximum number of records retrieved from the event source at the function invocation time.
             `10` by default
+        max_batching_window: Optional[Duration]
+            The maximum amount of time to gather records before invoking the function.
+            Valid Range: Minimum value of 0 minutes.
+            Maximum value of 5 minutes.
+            Default: - no batching window.
         layers : Optional[List[ILayerVersion]]
             A list of layers to add to the lambda function's execution environment.
         lambda_function: Optional[IFunction]
@@ -163,7 +169,9 @@ class SqsToLambdaStage(DataStage):
             dead_letter_queue=self._dlq,
         )
 
-        self._function.add_event_source(SqsEventSource(queue=self._queue, batch_size=batch_size))
+        self._function.add_event_source(
+            SqsEventSource(queue=self._queue, batch_size=batch_size, max_batching_window=max_batching_window)
+        )
 
         self.add_alarm(
             alarm_id=f"{id}-function-errors",
