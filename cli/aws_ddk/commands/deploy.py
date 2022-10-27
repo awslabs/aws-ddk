@@ -44,6 +44,6 @@ def cdk_deploy(
 
     try:
         run(cmd)
-    except Exception:
-        raise SystemExit(f"ERROR - Failed to run `{cmd}`. See output above.")
+    except Exception as e:
+        raise SystemExit(f"ERROR - Failed to run `{cmd}`. Exception: {e}.")
     echo("Done.")
