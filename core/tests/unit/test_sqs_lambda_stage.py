@@ -14,6 +14,7 @@
 
 from pathlib import Path
 
+import aws_cdk as cdk
 from aws_cdk.assertions import Match, Template
 from aws_cdk.aws_lambda import Code, Function, LayerVersion, Runtime
 from aws_cdk.aws_sqs import Queue
@@ -216,5 +217,33 @@ def test_sqs_lambda_with_additional_function_props(test_stack: BaseStack) -> Non
                     "EVENT_DETAIL_TYPE": "dummy-sqs-lambda-event-type",
                 }
             },
+        },
+    )
+
+
+def test_sqs_lambda_batching(test_stack: BaseStack) -> None:
+    SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+        batch_size=100,
+        max_batching_window=cdk.Duration.minutes(3),
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Lambda::Function",
+        props={
+            "Runtime": "python3.9",
+            "MemorySize": 512,
+        },
+    )
+    template.has_resource_properties(
+        "AWS::Lambda::EventSourceMapping",
+        props={
+            "BatchSize": 100,
+            "MaximumBatchingWindowInSeconds": 180,
         },
     )
