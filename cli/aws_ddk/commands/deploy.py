@@ -33,8 +33,9 @@ def cdk_deploy(
     echo(f"Deploying DDK stacks: {stacks} to AWS account {get_account_id()} and region {get_region()}...")
 
     # generate command
+    file = "cdk.CMD" if os.name == "nt" else "cdk"
     cmd = (
-        f"cdk deploy {' '.join(stacks) if stacks else '--all'} "
+        f"{file} deploy {' '.join(stacks) if stacks else '--all'} "
         f"{'--require-approval ' + require_approval + ' ' if require_approval else ''}"
         f"{'-f ' if force else ''}"
         f"--output {output_dir if output_dir else '.ddk.out'}"
