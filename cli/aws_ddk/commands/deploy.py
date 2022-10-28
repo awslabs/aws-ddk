@@ -34,7 +34,13 @@ def cdk_deploy(
     echo(f"Deploying DDK stacks: {stacks} to AWS account {get_account_id()} and region {get_region()}...")
 
     # generate command
-    file = "cdk.CMD" if os.name == "nt" else "cdk"
+    if os.name == "nt":
+        file = "cdk.CMD"
+        run_args = {"text": True}
+    else:
+        file = "cdk"
+        run_args = {}
+
     cmd = (
         f"{file} deploy {' '.join(stacks) if stacks else '--all'} "
         f"{'--require-approval ' + require_approval + ' ' if require_approval else ''}"
@@ -45,7 +51,7 @@ def cdk_deploy(
         cmd += f" --profile {profile}"
 
     try:
-        run(cmd)
+        run(cmd, **run_args)
     except Exception as e:
         raise SystemExit(f"ERROR - Failed to run `{cmd}`. Exception: {e}.")
     echo("Done.")
