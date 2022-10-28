@@ -36,7 +36,7 @@ def _run_iterating(cmd: str, cwd: Optional[str] = None) -> Iterable[str]:
     if p.stdout is None:
         return []
     while p.poll() is None:
-        print(f"line type: {p.stdout.readline()}")
+        print(f"line type: {type(p.stdout.readline())}")
         yield _clean_up_stdout_line(line=p.stdout.readline())
     if p.returncode != 0:
         raise FailedShellCommand(f"Exit code: {p.returncode}")
