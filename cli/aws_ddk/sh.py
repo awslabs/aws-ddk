@@ -34,7 +34,7 @@ def _run_iterating(cmd: str, cwd: Optional[str] = None) -> Iterable[str]:
         return []
     while p.poll() is None:
         line = p.stdout.readline()
-        yield _clean_up_stdout_line(line=p.stdout.readline()) if type(bytes) else line
+        yield _clean_up_stdout_line(line=p.stdout.readline()) if isinstance(line, bytes) else line
     if p.returncode != 0:
         raise FailedShellCommand(f"Exit code: {p.returncode}")
 
