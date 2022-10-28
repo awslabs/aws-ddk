@@ -24,10 +24,7 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 
 def _clean_up_stdout_line(line: bytes) -> str:
-    try:
-        line_str = line.decode("utf-8")
-    except Exception:
-        line_str = line
+    line_str = line.decode("utf-8")
     return line_str[:-1] if line_str.endswith("\n") else line_str
 
 
@@ -36,8 +33,8 @@ def _run_iterating(cmd: str, cwd: Optional[str] = None) -> Iterable[str]:
     if p.stdout is None:
         return []
     while p.poll() is None:
-        print(f"line type: {type(p.stdout.readline())}")
-        yield _clean_up_stdout_line(line=p.stdout.readline())
+        line = p.stdout.readline()
+        yield _clean_up_stdout_line(line=p.stdout.readline()) if type(bytes) else line
     if p.returncode != 0:
         raise FailedShellCommand(f"Exit code: {p.returncode}")
 
