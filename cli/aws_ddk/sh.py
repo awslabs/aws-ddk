@@ -24,9 +24,12 @@ _logger: logging.Logger = logging.getLogger(__name__)
 
 
 def _clean_up_stdout_line(line: bytes) -> str:
+    print(f"text: {line}")
+    if line == "\n":    
+        print("newline")
     try:
         line_str = line.decode("utf-8")
-    except:
+    except Exception:
         line_str = line
     return line_str[:-1] if line_str.endswith("\n") else line_str
 
