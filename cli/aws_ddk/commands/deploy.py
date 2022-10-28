@@ -14,7 +14,7 @@
 
 import logging
 import os
-from typing import Iterable, Optional
+from typing import Any, Iterable, Optional
 
 from aws_ddk.sh import run
 from aws_ddk.utils import get_account_id, get_region
@@ -36,7 +36,7 @@ def cdk_deploy(
     # generate command
     if os.name == "nt":
         file = "cdk.CMD"
-        run_args = {"text": True}
+        run_args: Any = {"text": True}
     else:
         file = "cdk"
         run_args = {}
