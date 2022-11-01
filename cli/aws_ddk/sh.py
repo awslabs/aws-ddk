@@ -15,7 +15,7 @@
 import logging
 import shlex
 import subprocess
-from typing import Iterable, Optional
+from typing import Any, Iterable, Optional
 
 from aws_ddk.exceptions import FailedShellCommand
 from click import echo
@@ -28,18 +28,19 @@ def _clean_up_stdout_line(line: bytes) -> str:
     return line_str[:-1] if line_str.endswith("\n") else line_str
 
 
-def _run_iterating(cmd: str, cwd: Optional[str] = None) -> Iterable[str]:
-    p = subprocess.Popen(shlex.split(cmd), cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+def _run_iterating(cmd: str, cwd: Optional[str] = None, **kwargs: Any) -> Iterable[str]:
+    p = subprocess.Popen(shlex.split(cmd), cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kwargs)
     if p.stdout is None:
         return []
     while p.poll() is None:
-        yield _clean_up_stdout_line(line=p.stdout.readline())
+        line = p.stdout.readline()
+        yield _clean_up_stdout_line(line=p.stdout.readline()) if isinstance(line, bytes) else line
     if p.returncode != 0:
         raise FailedShellCommand(f"Exit code: {p.returncode}")
 
 
-def run(cmd: str, cwd: Optional[str] = None, hide_cmd: bool = False) -> None:
+def run(cmd: str, cwd: Optional[str] = None, hide_cmd: bool = False, **kwargs: Any) -> None:
     if hide_cmd is False:
         _logger.debug(f"+ {cmd}")
-    for line in _run_iterating(cmd=cmd, cwd=cwd):
+    for line in _run_iterating(cmd=cmd, cwd=cwd, **kwargs):
         echo(line)
