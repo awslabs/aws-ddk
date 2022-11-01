@@ -25,6 +25,7 @@
       ~CICDPipelineStack.add_synth_action
       ~CICDPipelineStack.add_test_stage
       ~CICDPipelineStack.add_transform
+      ~CICDPipelineStack.add_wave
       ~CICDPipelineStack.build
       ~CICDPipelineStack.export_value
       ~CICDPipelineStack.format_arn

@@ -320,49 +320,52 @@ several DDK-specific features, including:</p>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_transform</span></code>(transform)</p></td>
 <td><p>Add a Transform to this stack.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.build" title="aws_ddk_core.cicd.CICDPipelineStack.build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.add_wave" title="aws_ddk_core.cicd.CICDPipelineStack.add_wave"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_wave</span></code></a>(stage_id, stages[, manual_approvals])</p></td>
+<td><p>Add multiple application stages in parallel to the CICD pipeline.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.build" title="aws_ddk_core.cicd.CICDPipelineStack.build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build</span></code></a>()</p></td>
 <td><p>Build the pipeline structure.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_value</span></code>(exported_value, *[, name])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_value</span></code>(exported_value, *[, name])</p></td>
 <td><p>Create a CloudFormation Export for a value.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_arn</span></code>(*, resource, service[, account, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_arn</span></code>(*, resource, service[, account, ...])</p></td>
 <td><p>Creates an ARN from components.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_logical_id</span></code>(element)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_logical_id</span></code>(element)</p></td>
 <td><p>Allocates a stack-unique CloudFormation-compatible logical identity for a specific resource.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_construct</span></code>(x)</p></td>
 <td><p>Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a construct.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_stack</span></code>(x)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_stack</span></code>(x)</p></td>
 <td><p>Return whether the given object is a Stack.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code>(construct)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code>(construct)</p></td>
 <td><p>Looks up the first stack scope in which <code class="docutils literal notranslate"><span class="pre">construct</span></code> is defined.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">regional_fact</span></code>(fact_name[, default_value])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">regional_fact</span></code>(fact_name[, default_value])</p></td>
 <td><p>Look up a fact value for the given fact for the region of this stack.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_logical_id</span></code>(old_id, new_id)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_logical_id</span></code>(old_id, new_id)</p></td>
 <td><p>Rename a generated logical identities.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">report_missing_context_key</span></code>(*, key, props, ...)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">report_missing_context_key</span></code>(*, key, props, ...)</p></td>
 <td><p>Indicate that a context key was expected.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve</span></code>(obj)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve</span></code>(obj)</p></td>
 <td><p>Resolve a tokenized value in the context of the current stack.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_arn</span></code>(arn, arn_format)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_arn</span></code>(arn, arn_format)</p></td>
 <td><p>Splits the provided ARN into its components.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.synth" title="aws_ddk_core.cicd.CICDPipelineStack.synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synth</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack.synth" title="aws_ddk_core.cicd.CICDPipelineStack.synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synth</span></code></a>()</p></td>
 <td><p>Synthesize the pipeline.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json_string</span></code>(obj[, space])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json_string</span></code>(obj[, space])</p></td>
 <td><p>Convert an object, potentially containing tokens, to a JSON string.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>()</p></td>
 <td><p>Returns a string representation of this construct.</p></td>
 </tr>
 </tbody>
@@ -584,6 +587,26 @@ See <cite>Documentation on aws_cdk.pipelines.Step</cite>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>pipeline</strong> – CICD pipeline</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aws_ddk_core.cicd.CICDPipelineStack.add_wave">
+<span class="sig-name descname"><span class="pre">add_wave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">aws_cdk.Stage</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_approvals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.pipeline.CICDPipelineStack"><span class="pre">aws_ddk_core.cicd.pipeline.CICDPipelineStack</span></a></span></span><a class="headerlink" href="#aws_ddk_core.cicd.CICDPipelineStack.add_wave" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add multiple application stages in parallel to the CICD pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stage_id</strong> (<em>str</em>) – Identifier of the wave</p></li>
+<li><p><strong>stages</strong> (<em>List</em><em>[</em><em>Stage</em><em>]</em>) – Application stage instance</p></li>
+<li><p><strong>manual_approvals</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Configure manual approvals. False by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipeline</strong> – CICDPipelineStack</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#aws_ddk_core.cicd.CICDPipelineStack" title="aws_ddk_core.cicd.CICDPipelineStack">CICDPipelineStack</a></p>
