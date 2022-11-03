@@ -101,6 +101,7 @@ class CICDPipelineStack(BaseStack):
         environment_id: str,
         pipeline_name: Optional[str] = None,
         env: Optional[Environment] = None,
+        publish_assets_in_parallel: Optional[bool] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -118,6 +119,11 @@ class CICDPipelineStack(BaseStack):
             Name  of the pipeline
         env: Optional[Environment]
             Environment
+        publish_assets_in_parallel: Optional[bool]
+            Publish assets in multiple CodeBuild projects.
+            If set to false, use one Project per type to publish all assets.
+            Publishing in parallel improves concurrency and may reduce publishing latency,
+            but may also increase overall provisioning time of the CodeBuild projects.
         kwargs: Any
             Additional args
 
@@ -153,6 +159,7 @@ class CICDPipelineStack(BaseStack):
         self.environment_id = environment_id
         self.pipeline_name = pipeline_name
         self.pipeline_id = id
+        self.publish_assets_in_parallel = publish_assets_in_parallel
 
     def add_source_action(
         self,
@@ -253,6 +260,7 @@ class CICDPipelineStack(BaseStack):
             synth=self._synth_action,
             cli_version=self._config.get_cdk_version(),
             pipeline_name=self.pipeline_name,
+            publish_assets_in_parallel=self.publish_assets_in_parallel,
         )
         return self
 
