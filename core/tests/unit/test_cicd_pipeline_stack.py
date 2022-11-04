@@ -716,21 +716,3 @@ def test_cicd_pipeline_with_wave(cdk_app: App) -> None:
             ),
         },
     )
-
-
-def test_cicd_pipeline_additional_settings(cdk_app: App) -> None:
-    pipeline_stack = (
-        CICDPipelineStack(
-            cdk_app,
-            id="dummy-pipeline",
-            environment_id="dev",
-            pipeline_name="dummy-pipeline",
-            publish_assets_in_parallel=True,
-        )
-        .add_source_action(repository_name="dummy-repository")
-        .add_synth_action()
-        .build()
-        .add_stage("dev", DevStage(cdk_app, "dev"))
-        .synth()
-    )
-    template = Template.from_stack(pipeline_stack)

@@ -101,7 +101,7 @@ class CICDPipelineStack(BaseStack):
         environment_id: str,
         pipeline_name: Optional[str] = None,
         env: Optional[Environment] = None,
-        publish_assets_in_parallel: Optional[bool] = None,
+        pipeline_args: Optional[Dict[str, Any]] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -119,13 +119,11 @@ class CICDPipelineStack(BaseStack):
             Name  of the pipeline
         env: Optional[Environment]
             Environment
-        publish_assets_in_parallel: Optional[bool]
-            Publish assets in multiple CodeBuild projects.
-            If set to false, use one Project per type to publish all assets.
-            Publishing in parallel improves concurrency and may reduce publishing latency,
-            but may also increase overall provisioning time of the CodeBuild projects.
+        pipeline_args: Optional[Dict[str,Any]]
+            Additional attributes.
+            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.pipelines/CodePipeline.html
         kwargs: Any
-            Additional args
+            Additional pipeline settings.
 
         Supported DDK Environment Configuration
         https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html
@@ -159,7 +157,7 @@ class CICDPipelineStack(BaseStack):
         self.environment_id = environment_id
         self.pipeline_name = pipeline_name
         self.pipeline_id = id
-        self.publish_assets_in_parallel = publish_assets_in_parallel
+        self.pipeline_args = pipeline_args
 
     def add_source_action(
         self,
@@ -260,7 +258,7 @@ class CICDPipelineStack(BaseStack):
             synth=self._synth_action,
             cli_version=self._config.get_cdk_version(),
             pipeline_name=self.pipeline_name,
-            publish_assets_in_parallel=self.publish_assets_in_parallel,
+            **self.pipeline_args,
         )
         return self
 
