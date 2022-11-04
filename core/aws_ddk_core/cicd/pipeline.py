@@ -101,7 +101,7 @@ class CICDPipelineStack(BaseStack):
         environment_id: str,
         pipeline_name: Optional[str] = None,
         env: Optional[Environment] = None,
-        pipeline_args: Optional[Dict[str, Any]] = None,
+        pipeline_args: Optional[Dict[str, Any]] = {},
         **kwargs: Any,
     ) -> None:
         """
