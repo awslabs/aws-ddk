@@ -119,7 +119,7 @@ class SqsToLambdaStage(DataStage):
 
         self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"
-        self._message_group_id: str = message_group_id
+        self._message_group_id = message_group_id
 
         if lambda_function:
             self._function = lambda_function
