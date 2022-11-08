@@ -50,6 +50,7 @@ class SqsToLambdaStage(DataStage):
         layers: Optional[List[ILayerVersion]] = None,
         lambda_function: Optional[IFunction] = None,
         sqs_queue: Optional[IQueue] = None,
+        message_group_id: Optional[str] = None,
         lambda_function_errors_alarm_threshold: Optional[int] = 5,
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
         function_props: Optional[Dict[str, Any]] = {},
@@ -103,6 +104,9 @@ class SqsToLambdaStage(DataStage):
             Preexisting Lambda Function to use in stage. `None` by default
         sqs_queue: Optional[IQueue]
             Preexisting SQS Queue  to use in stage. `None` by default
+        message_group_id: Optional[str]
+            Message Group ID for messages sent to this queue.
+            Required for FIFO queues
         lambda_function_errors_alarm_threshold: Optional[int]
             Amount of errored function invocations before triggering CW alarm. Defaults to `5`
         lambda_function_errors_alarm_evaluation_periods: Optional[int]
@@ -115,6 +119,7 @@ class SqsToLambdaStage(DataStage):
 
         self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"
+        self._message_group_id: str = message_group_id
 
         if lambda_function:
             self._function = lambda_function
@@ -170,7 +175,11 @@ class SqsToLambdaStage(DataStage):
         )
 
         self._function.add_event_source(
-            SqsEventSource(queue=self._queue, batch_size=batch_size, max_batching_window=max_batching_window)
+            SqsEventSource(
+                queue=self._queue,
+                batch_size=batch_size,
+                max_batching_window=max_batching_window,
+            )
         )
 
         self.add_alarm(
@@ -211,4 +220,8 @@ class SqsToLambdaStage(DataStage):
         )
 
     def get_targets(self) -> Optional[List[IRuleTarget]]:
-        return [SqsQueue(self._queue)]
+        return [
+            SqsQueue(self._queue, message_group_id=self._message_group_id)
+            if self._queue.fifo
+            else SqsQueue(self._queue)
+        ]

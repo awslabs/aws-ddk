@@ -19,7 +19,9 @@ from aws_cdk.assertions import Match, Template
 from aws_cdk.aws_lambda import Code, Function, LayerVersion, Runtime
 from aws_cdk.aws_sqs import Queue
 from aws_ddk_core.base import BaseStack
-from aws_ddk_core.stages.sqs_lambda import SqsToLambdaStage
+from aws_ddk_core.pipelines import DataPipeline
+from aws_ddk_core.resources import S3Factory, SQSFactory
+from aws_ddk_core.stages import S3EventStage, SqsToLambdaStage
 
 
 def test_sqs_lambda(test_stack: BaseStack) -> None:
@@ -245,5 +247,58 @@ def test_sqs_lambda_batching(test_stack: BaseStack) -> None:
         props={
             "BatchSize": 100,
             "MaximumBatchingWindowInSeconds": 180,
+        },
+    )
+
+
+def test_sqs_lambda_fifo(test_stack: BaseStack) -> None:
+
+    bucket = S3Factory.bucket(
+        scope=test_stack,
+        id="dummy-bucket",
+        environment_id="dev",
+    )
+
+    s3_event_stage = S3EventStage(
+        scope=test_stack,
+        id="dummy-s3-event",
+        environment_id="dev",
+        event_names=["Object Created"],
+        bucket_name=bucket.bucket_name,
+    )
+
+    sqs_lambda_stage = SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+        sqs_queue=SQSFactory.queue(
+            scope=test_stack,
+            environment_id="dev",
+            id="dummy-queue",
+            queue_name="dummy-queue.fifo",
+        ),
+        message_group_id="dummy-group",
+    )
+
+    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage)
+
+    template = Template.from_stack(test_stack)
+
+    template.has_resource_properties(
+        "AWS::SQS::Queue",
+        props={"QueueName": "dummy-queue.fifo", "FifoQueue": True},
+    )
+    template.has_resource_properties(
+        "AWS::Events::Rule",
+        props={
+            "Targets": [
+                {
+                    "Arn": {"Fn::GetAtt": ["dummyqueue43F4223D", "Arn"]},
+                    "Id": "Target0",
+                    "SqsParameters": {"MessageGroupId": "dummy-group"},
+                }
+            ]
         },
     )
