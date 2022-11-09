@@ -174,6 +174,9 @@ class SqsToLambdaStage(DataStage):
             dead_letter_queue=self._dlq,
         )
 
+        if hasattr(sqs_queue, "fifo") and sqs_queue.fifo and not message_group_id:
+            raise Exception("When using a fifo queue argument: 'message_group_id' must be specified.")
+
         self._function.add_event_source(
             SqsEventSource(
                 queue=self._queue,

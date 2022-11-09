@@ -15,6 +15,7 @@
 from pathlib import Path
 
 import aws_cdk as cdk
+import pytest
 from aws_cdk.assertions import Match, Template
 from aws_cdk.aws_lambda import Code, Function, LayerVersion, Runtime
 from aws_cdk.aws_sqs import Queue
@@ -302,3 +303,32 @@ def test_sqs_lambda_fifo(test_stack: BaseStack) -> None:
             ]
         },
     )
+
+
+def test_invalid_arguments(test_stack: BaseStack) -> None:
+    with pytest.raises(Exception):
+        SqsToLambdaStage(
+            scope=test_stack,
+            id="dummy-sqs-lambda-0",
+            environment_id="dev",
+            code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+            handler="commons.handlers.lambda_handler",
+            sqs_queue=SQSFactory.queue(
+                scope=test_stack,
+                environment_id="dev",
+                id="dummy-queue-0",
+                queue_name="dummy-queue.fifo",
+            ),
+        )
+    with pytest.raises(ValueError):
+        SqsToLambdaStage(
+            scope=test_stack,
+            id="dummy-sqs-lambda-1",
+            environment_id="dev",
+            sqs_queue=SQSFactory.queue(
+                scope=test_stack,
+                environment_id="dev",
+                id="dummy-queue-1",
+                queue_name="dummy-queue",
+            ),
+        )
