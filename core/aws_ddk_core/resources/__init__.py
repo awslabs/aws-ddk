@@ -22,6 +22,7 @@ from aws_ddk_core.resources._lambda import LambdaFactory
 from aws_ddk_core.resources._s3 import S3Factory
 from aws_ddk_core.resources._sfn import StepFunctionsFactory
 from aws_ddk_core.resources._sqs import SQSFactory
+from aws_ddk_core.resources._utils import lookup_pandas_sdk_layer
 
 __all__ = [
     "DataBrewFactory",
@@ -34,4 +35,5 @@ __all__ = [
     "S3Factory",
     "SQSFactory",
     "StepFunctionsFactory",
+    lookup_pandas_sdk_layer,
 ]
