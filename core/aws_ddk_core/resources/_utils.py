@@ -1,7 +1,10 @@
 import logging
 import platform
+from typing import Optional
 
+import aws_cdk.aws_lambda as lmbda
 import boto3
+from constructs import Construct
 
 AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID = "336392948345"
 MAX_VERSION_POLL = 50
@@ -61,13 +64,19 @@ def _get_layer_for_version(version: str, boto3_client: boto3.client, region: str
     return None
 
 
-def lookup_pandas_sdk_layer(
-    region: str = "us-east-1",
-    version: str = None,
+def pandas_sdk_layer(
+    scope: Construct,
+    id: Optional[str] = "pandas-sdk-layer",
+    region: Optional[str] = "us-east-1",
+    version: Optional[str] = None,
 ) -> str:
     logger.debug(f" Scanning region: {region}")
     lambda_client = boto3.client("lambda", region_name=region)
     if not version:
-        return _latest_layer(lambda_client, region=region)
+        return lmbda.LayerVersion.from_layer_version_arn(
+            scope, id, layer_version_arn=_latest_layer(lambda_client, region=region)
+        )
     else:
-        return _get_layer_for_version(version, lambda_client, region=region)
+        return lmbda.LayerVersion.from_layer_version_arn(
+            scope, id, layer_version_arn=_get_layer_for_version(lambda_client, region=region)
+        )
