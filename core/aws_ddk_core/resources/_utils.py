@@ -17,7 +17,7 @@ def _get_python_version() -> str:
     return "Python" + "".join(platform.python_version().split(".")[0:2])
 
 
-def _latest_layer(boto3_client: boto3.client, region: str ="us-east-1") -> str:
+def _latest_layer(boto3_client: boto3.client, region: str = "us-east-1", scan_buffer_range: int = 25) -> str:
     layer_arn = (
         f"arn:aws:lambda:{region}:{AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID}:layer:AWSSDKPandas-{_get_python_version()}"
     )
@@ -34,7 +34,9 @@ def _latest_layer(boto3_client: boto3.client, region: str ="us-east-1") -> str:
             description = response["Description"]
             version += 1
         except Exception:
-            latest = True
+            scan_buffer_range -= 1
+            if scan_buffer_range == 0:
+                latest = True
         latest_version = version - 1
         logger.debug(f" Latest version is {latest_version}. Arn: {layer_arn}:{latest_version}. {description}")
         return f"{layer_arn}:{latest_version}"
