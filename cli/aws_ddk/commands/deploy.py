@@ -13,7 +13,8 @@
 # limitations under the License.
 
 import logging
-from typing import Iterable, Optional
+import os
+from typing import Any, Iterable, Optional
 
 from aws_ddk.sh import run
 from aws_ddk.utils import get_account_id, get_region
@@ -33,8 +34,15 @@ def cdk_deploy(
     echo(f"Deploying DDK stacks: {stacks} to AWS account {get_account_id()} and region {get_region()}...")
 
     # generate command
+    if os.name == "nt":
+        file = "cdk.CMD"
+        run_args: Any = {"text": True}
+    else:
+        file = "cdk"
+        run_args = {}
+
     cmd = (
-        f"cdk deploy {' '.join(stacks) if stacks else '--all'} "
+        f"{file} deploy {' '.join(stacks) if stacks else '--all'} "
         f"{'--require-approval ' + require_approval + ' ' if require_approval else ''}"
         f"{'-f ' if force else ''}"
         f"--output {output_dir if output_dir else '.ddk.out'}"
@@ -43,7 +51,7 @@ def cdk_deploy(
         cmd += f" --profile {profile}"
 
     try:
-        run(cmd)
-    except Exception:
-        raise SystemExit(f"ERROR - Failed to run `{cmd}`. See output above.")
+        run(cmd, **run_args)
+    except Exception as e:
+        raise SystemExit(f"ERROR - Failed to run `{cmd}`. Exception: {e}.")
     echo("Done.")

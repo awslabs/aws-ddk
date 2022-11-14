@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from aws_cdk import Duration
 from aws_cdk.aws_events import EventPattern, IRuleTarget
@@ -46,11 +46,14 @@ class SqsToLambdaStage(DataStage):
         dead_letter_queue_enabled: bool = False,
         max_receive_count: int = 1,
         batch_size: Optional[int] = None,
+        max_batching_window: Optional[Duration] = None,
         layers: Optional[List[ILayerVersion]] = None,
         lambda_function: Optional[IFunction] = None,
         sqs_queue: Optional[IQueue] = None,
+        message_group_id: Optional[str] = None,
         lambda_function_errors_alarm_threshold: Optional[int] = 5,
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
+        function_props: Optional[Dict[str, Any]] = {},
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -90,26 +93,38 @@ class SqsToLambdaStage(DataStage):
         batch_size : Optional[int]
             The maximum number of records retrieved from the event source at the function invocation time.
             `10` by default
+        max_batching_window: Optional[Duration]
+            The maximum amount of time to gather records before invoking the function.
+            Valid Range: Minimum value of 0 minutes.
+            Maximum value of 5 minutes.
+            Default: - no batching window.
         layers : Optional[List[ILayerVersion]]
             A list of layers to add to the lambda function's execution environment.
         lambda_function: Optional[IFunction]
             Preexisting Lambda Function to use in stage. `None` by default
         sqs_queue: Optional[IQueue]
             Preexisting SQS Queue  to use in stage. `None` by default
+        message_group_id: Optional[str]
+            Message Group ID for messages sent to this queue.
+            Required for FIFO queues
         lambda_function_errors_alarm_threshold: Optional[int]
             Amount of errored function invocations before triggering CW alarm. Defaults to `5`
         lambda_function_errors_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        function_props : Any
+            Additional function properties. For complete list of properties refer to CDK Documentation -
+            Lambda Function: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_lambda/Function.html
         """
         super().__init__(scope, id)
 
         self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"
+        self._message_group_id = message_group_id
 
         if lambda_function:
             self._function = lambda_function
         elif code and handler:
-            self._function = LambdaFactory.function(
+            self._function = LambdaFactory.function(  # type: ignore
                 self,
                 id=f"{id}-function",
                 environment_id=environment_id,
@@ -124,6 +139,7 @@ class SqsToLambdaStage(DataStage):
                     "EVENT_DETAIL_TYPE": self._event_detail_type,
                 },
                 layers=layers,
+                **function_props,
             )
         else:
             raise ValueError("'code' and 'handler' or 'lambda_function' must be set to instantiate this stage")
@@ -158,7 +174,16 @@ class SqsToLambdaStage(DataStage):
             dead_letter_queue=self._dlq,
         )
 
-        self._function.add_event_source(SqsEventSource(queue=self._queue, batch_size=batch_size))
+        if hasattr(sqs_queue, "fifo") and sqs_queue.fifo and not message_group_id:  # type: ignore
+            raise Exception("When using a fifo queue argument: 'message_group_id' must be specified.")
+
+        self._function.add_event_source(
+            SqsEventSource(
+                queue=self._queue,
+                batch_size=batch_size,
+                max_batching_window=max_batching_window,
+            )
+        )
 
         self.add_alarm(
             alarm_id=f"{id}-function-errors",
@@ -198,4 +223,8 @@ class SqsToLambdaStage(DataStage):
         )
 
     def get_targets(self) -> Optional[List[IRuleTarget]]:
-        return [SqsQueue(self._queue)]
+        return [
+            SqsQueue(self._queue, message_group_id=self._message_group_id)
+            if self._queue.fifo
+            else SqsQueue(self._queue)
+        ]

@@ -34,7 +34,11 @@ class DataPipeline(Construct):
     """
 
     def __init__(
-        self, scope: Construct, id: str, name: Optional[str] = None, description: Optional[str] = None
+        self,
+        scope: Construct,
+        id: str,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> None:
         """
         Create a data pipeline.
@@ -60,7 +64,10 @@ class DataPipeline(Construct):
         self._notifications_topic: Optional[ITopic] = None
 
     def add_stage(
-        self, stage: DataStage, skip_rule: bool = False, override_rule: Optional[Rule] = None
+        self,
+        stage: DataStage,
+        skip_rule: bool = False,
+        override_rule: Optional[Rule] = None,
     ) -> "DataPipeline":
         """
         Add a stage to the data pipeline.

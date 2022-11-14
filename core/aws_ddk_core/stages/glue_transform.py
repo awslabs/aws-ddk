@@ -14,11 +14,12 @@
 
 from typing import Any, Dict, List, Optional
 
+import aws_cdk as cdk
 from aws_cdk.aws_glue import CfnCrawler
 from aws_cdk.aws_glue_alpha import IJob, JobExecutable
 from aws_cdk.aws_iam import IRole, PolicyStatement
-from aws_cdk.aws_stepfunctions import CustomState, IntegrationPattern, JsonPath, Succeed, TaskInput
-from aws_cdk.aws_stepfunctions_tasks import GlueStartJobRun
+from aws_cdk.aws_stepfunctions import IntegrationPattern, JsonPath, Succeed, TaskInput
+from aws_cdk.aws_stepfunctions_tasks import CallAwsService, GlueStartJobRun
 from aws_ddk_core.pipelines import StateMachineStage
 from aws_ddk_core.resources import GlueFactory
 from constructs import Construct
@@ -42,6 +43,8 @@ class GlueTransformStage(StateMachineStage):
         crawler_role: Optional[IRole] = None,
         targets: Optional[CfnCrawler.TargetsProperty] = None,
         job_args: Optional[Dict[str, Any]] = None,
+        glue_job_args: Optional[Dict[str, Any]] = {},
+        glue_crawler_args: Optional[Dict[str, Any]] = {},
         state_machine_input: Optional[Dict[str, Any]] = None,
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
@@ -77,6 +80,12 @@ class GlueTransformStage(StateMachineStage):
             A collection of targets to crawl
         job_args : Optional[Dict[str, Any]]
             The input arguments to the Glue job
+        glue_job_args: Optional[Dict[str, Any]]
+            Additional Glue job properties. For complete list of properties refer to CDK Documentation -
+            Glue Job: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue_alpha/Job.html
+        glue_crawler_args: Optional[Dict[str, Any]]
+            Additional arguments to pass to CDK L1 Construct: `CfnCrawler`.
+            See: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue/CfnCrawler.html
         state_machine_input : Optional[Dict[str, Any]]
             The input dict to the state machine
         additional_role_policy_statements : Optional[List[PolicyStatement]]
@@ -93,12 +102,13 @@ class GlueTransformStage(StateMachineStage):
         # If Glue job name is not supplied, create one
         self._job: Optional[IJob] = None
         if not job_name:
-            self._job = GlueFactory.job(
+            self._job = GlueFactory.job(  # type: ignore
                 self,
                 id=f"{id}-job",
                 environment_id=environment_id,
                 executable=executable,
                 role=job_role,
+                **glue_job_args,
             )
             job_name = self._job.job_name
 
@@ -111,8 +121,15 @@ class GlueTransformStage(StateMachineStage):
                 database_name=database_name,
                 targets=targets,
                 role=crawler_role.role_arn,  # type: ignore
+                **glue_crawler_args,
             )
             crawler_name = self._crawler.ref
+        stack = cdk.Stack.of(self)
+        crawler_arn = f"""
+            arn:{stack.partition}:
+            glue:{stack.region}:{stack.account}:
+            crawler/{crawler_name}"
+        """
 
         # Create GlueStartJobRun step function task
         start_job_run: GlueStartJobRun = GlueStartJobRun(
@@ -128,22 +145,24 @@ class GlueTransformStage(StateMachineStage):
             result_path=JsonPath.DISCARD,
         )
         # Create start crawler step function task
-        crawl_object = CustomState(
+        crawl_object = CallAwsService(
             self,
             "crawl-object",
-            state_json={
-                "Type": "Task",
-                "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
-                "Parameters": {"Name": crawler_name},
-                "Catch": [{"ErrorEquals": ["Glue.CrawlerRunningException"], "Next": "success"}],
+            service="glue",
+            action="startCrawler",
+            parameters={
+                "Name": crawler_name,
             },
+            iam_resources=[crawler_arn],
         )
+        success = Succeed(self, "success")
+        crawl_object.add_catch(success, errors=["Glue.CrawlerRunningException"])
 
         # Build state machine
         self.build_state_machine(
             id=f"{id}-state-machine",
             environment_id=environment_id,
-            definition=(start_job_run.next(crawl_object).next(Succeed(self, "success"))),
+            definition=(start_job_run.next(crawl_object).next(success)),
             state_machine_input=state_machine_input,
             additional_role_policy_statements=additional_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,

@@ -101,6 +101,7 @@ class CICDPipelineStack(BaseStack):
         environment_id: str,
         pipeline_name: Optional[str] = None,
         env: Optional[Environment] = None,
+        pipeline_args: Optional[Dict[str, Any]] = {},
         **kwargs: Any,
     ) -> None:
         """
@@ -118,8 +119,11 @@ class CICDPipelineStack(BaseStack):
             Name  of the pipeline
         env: Optional[Environment]
             Environment
+        pipeline_args: Optional[Dict[str,Any]]
+            Additional attributes.
+            https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.pipelines/CodePipeline.html
         kwargs: Any
-            Additional args
+            Additional pipeline settings.
 
         Supported DDK Environment Configuration
         https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html
@@ -153,6 +157,7 @@ class CICDPipelineStack(BaseStack):
         self.environment_id = environment_id
         self.pipeline_name = pipeline_name
         self.pipeline_id = id
+        self.pipeline_args = pipeline_args
 
     def add_source_action(
         self,
@@ -253,6 +258,7 @@ class CICDPipelineStack(BaseStack):
             synth=self._synth_action,
             cli_version=self._config.get_cdk_version(),
             pipeline_name=self.pipeline_name,
+            **self.pipeline_args,
         )
         return self
 
@@ -285,6 +291,39 @@ class CICDPipelineStack(BaseStack):
             stage,
             pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None,
         )
+        return self
+
+    def add_wave(
+        self,
+        stage_id: str,
+        stages: List[Stage],
+        manual_approvals: Optional[bool] = False,
+    ) -> "CICDPipelineStack":
+        """
+        Add multiple application stages in parallel to the CICD pipeline.
+
+        Parameters
+        ----------
+        stage_id: str
+            Identifier of the wave
+        stages: List[Stage]
+            Application stage instance
+        manual_approvals: Optional[bool]
+            Configure manual approvals. False by default
+
+        Returns
+        -------
+        pipeline : CICDPipelineStack
+            CICDPipelineStack
+        """
+        manual_approvals = manual_approvals or self._config.get_env_config(stage_id).get("manual_approvals")
+
+        wave = self._pipeline.add_wave(
+            stage_id,
+            pre=[ManualApprovalStep(f"PromoteTo{stage_id.title()}")] if manual_approvals else None,
+        )
+        for stage in stages:
+            wave.add_stage(stage)
         return self
 
     def add_security_lint_stage(
