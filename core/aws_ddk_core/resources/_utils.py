@@ -78,5 +78,5 @@ def pandas_sdk_layer(
         )
     else:
         return lmbda.LayerVersion.from_layer_version_arn(
-            scope, id, layer_version_arn=_get_layer_for_version(lambda_client, region=region)
+            scope, id, layer_version_arn=_get_layer_for_version(version, lambda_client, region=region)
         )
