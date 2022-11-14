@@ -17,7 +17,7 @@ def _get_python_version() -> str:
     return "Python" + "".join(platform.python_version().split(".")[0:2])
 
 
-def _latest_layer(boto3_client: boto3.client, region="us-east-1") -> str:
+def _latest_layer(boto3_client: boto3.client, region: str ="us-east-1") -> str:
     layer_arn = (
         f"arn:aws:lambda:{region}:{AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID}:layer:AWSSDKPandas-{_get_python_version()}"
     )
@@ -69,7 +69,7 @@ def pandas_sdk_layer(
     id: Optional[str] = "pandas-sdk-layer",
     region: Optional[str] = "us-east-1",
     version: Optional[str] = None,
-) -> str:
+) -> lmbda.LayerVersion:
     logger.debug(f" Scanning region: {region}")
     lambda_client = boto3.client("lambda", region_name=region)
     if not version:
