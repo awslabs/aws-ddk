@@ -1,10 +1,11 @@
 import logging
 import platform
-from typing import Optional
+from typing import Any, Optional
 
 import aws_cdk.aws_lambda as lmbda
 import boto3
 from constructs import Construct
+from mypy_boto3_lambda.client import LambdaClient
 
 AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID = "336392948345"
 MAX_VERSION_POLL = 50
@@ -17,7 +18,7 @@ def _get_python_version() -> str:
     return "Python" + "".join(platform.python_version().split(".")[0:2])
 
 
-def _latest_layer(boto3_client: boto3.client, region: str = "us-east-1", scan_buffer_range: int = 25) -> str:
+def _latest_layer(boto3_client: LambdaClient, region: str = "us-east-1", scan_buffer_range: int = 10) -> Any:
     layer_arn = (
         f"arn:aws:lambda:{region}:{AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID}:layer:AWSSDKPandas-{_get_python_version()}"
     )
@@ -40,9 +41,10 @@ def _latest_layer(boto3_client: boto3.client, region: str = "us-east-1", scan_bu
         latest_version = version - 1
         logger.debug(f" Latest version is {latest_version}. Arn: {layer_arn}:{latest_version}. {description}")
         return f"{layer_arn}:{latest_version}"
+    return None
 
 
-def _get_layer_for_version(version: str, boto3_client: boto3.client, region: str = "us-east-1") -> str:
+def _get_layer_for_version(version: str, boto3_client: LambdaClient, region: str = "us-east-1") -> Any:
     layer_arns = [
         f"arn:aws:lambda:{region}:{AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID}:layer:{prefix}-{_get_python_version()}"
         for prefix in LAYER_PREFIXES
