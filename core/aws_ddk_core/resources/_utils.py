@@ -87,7 +87,7 @@ def pandas_sdk_layer(
     id: Optional[str]
         Logical id of lambda layer resource in scope.
     environment_id: Optional[str]
-        DDK environment to pull value from 
+        DDK environment to pull value from
         when using DDK config to specify layer.
     region : Optional[str]
         Name of region to lookup in. Defaults to region of CDK stack.
