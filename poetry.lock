@@ -646,7 +646,7 @@ python-versions = "*"
 name = "mypy"
 version = "0.931"
 description = "Optional static typing for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -708,7 +708,7 @@ typing-extensions = ">=4.1.0"
 name = "mypy-extensions"
 version = "0.4.3"
 description = "Experimental type system extensions for programs checked with the mypy typechecker."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -883,7 +883,7 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -891,7 +891,7 @@ python-versions = ">=3.7"
 name = "typed-ast"
 version = "1.5.4"
 description = "a fork of Python 2 and 3 ast modules with type comment support"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -918,7 +918,7 @@ types-awscrt = "*"
 name = "typing-extensions"
 version = "4.4.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -950,7 +950,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1, <3.11"
-content-hash = "14dfe5399c78a36ec899068345f572c5b49a3b6eafbe8c8d15c3a836aa13d001"
+content-hash = "bd35291c6863756babddee98a73e0e18de9e7f6e9aa445b1c78dc010fe6bf1c3"
 
 [metadata.files]
 attrs = [

@@ -2,6 +2,7 @@ import logging
 import platform
 from typing import Any, Optional
 
+import aws_cdk as cdk
 import aws_cdk.aws_lambda as lmbda
 import boto3
 from constructs import Construct
@@ -71,10 +72,12 @@ def _get_layer_for_version(version: str, boto3_client: LambdaClient, region: str
 def pandas_sdk_layer(
     scope: Construct,
     id: Optional[str] = "pandas-sdk-layer",
-    region: Optional[str] = "us-east-1",
+    region: Optional[str] = None,
     version: Optional[str] = None,
 ) -> lmbda.LayerVersion:
 
+    if not region:
+        region: str = cdk.Stack.of(scope).region
     context_layer = scope.node.try_get_context("pandas_sdk_lambda_layer_version_arn")
     if context_layer:
         return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=context_layer)
