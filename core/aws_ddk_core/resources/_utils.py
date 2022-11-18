@@ -76,6 +76,57 @@ def pandas_sdk_layer(
     region: Optional[str] = None,
     version: Optional[str] = None,
 ) -> lmbda.LayerVersion:
+    """Retrieves AWS SDK for pandas managed Lambda layer.
+
+    Parameters
+    ----------
+    scope: Construct
+        CDK stack.
+    id : Optional[str]
+        Logical id of lambda layer resource in scope.
+    region : Optional[str]
+        Name of region to lookup in. Defaults to region of CDK stack.
+    version: Optional[str]
+        Version of AWS SDK for pandas layer i.e. '2.17.0'.
+        If no version is specified the latest version
+        in the region will be returned
+
+    Returns
+    -------
+    lmbda.LayerVersion
+
+    Examples
+    --------
+    Lookup latest version
+
+    ```
+    _fn = LambdaFactory.function(
+        self,
+        id="dummy-lambda-1",
+        environment_id="dev",
+        code=Code.from_asset("./ddk_tester/src/"),
+        handler="commons.handlers.lambda_handler",
+        layers=[
+            pandas_sdk_layer(self)
+        ]
+    )
+    ```
+
+    Lookup specific verion
+
+    ```
+    _fn = LambdaFactory.function(
+        self,
+        id="dummy-lambda-1",
+        environment_id="dev",
+        code=Code.from_asset("./ddk_tester/src/"),
+        handler="commons.handlers.lambda_handler",
+        layers=[
+            pandas_sdk_layer(self, version="2.16.1")
+        ]
+    )
+    ```
+    """
 
     region_name: str = region if region else cdk.Stack.of(scope).region
 
@@ -87,9 +138,7 @@ def pandas_sdk_layer(
     lambda_client: LambdaClient = boto3.client("lambda", region_name=region_name)  # type: ignore
     if not version:
         layer_version_arn = _latest_layer(lambda_client, region=region_name)
-        scope.set_context(CONTEXT_VALUE_NAME, layer_version_arn)
     else:
         layer_version_arn = _get_layer_for_version(version, lambda_client, region=region_name)
-        scope.set_context(CONTEXT_VALUE_NAME, layer_version_arn)
 
     return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=layer_version_arn)
