@@ -82,8 +82,8 @@ def pandas_sdk_layer(
     if context_layer:
         return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=context_layer)
 
-    logger.debug(f" Scanning region: {region}")
-    lambda_client: LambdaClient = boto3.client("lambda", region_name=region)
+    logger.debug(f" Scanning region: {region_name}")
+    lambda_client: LambdaClient = boto3.client("lambda", region_name=region_name) # type: ignore
     if not version:
         return lmbda.LayerVersion.from_layer_version_arn(
             scope, id, layer_version_arn=_latest_layer(lambda_client, region=region_name)
