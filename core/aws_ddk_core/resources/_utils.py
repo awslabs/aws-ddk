@@ -76,21 +76,21 @@ def pandas_sdk_layer(
     version: Optional[str] = None,
 ) -> lmbda.LayerVersion:
 
-    if not region:
-        region: str = cdk.Stack.of(scope).region
+    region_name: str = region if region else cdk.Stack.of(scope).region
+
     context_layer = scope.node.try_get_context("pandas_sdk_lambda_layer_version_arn")
     if context_layer:
         return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=context_layer)
 
     logger.debug(f" Scanning region: {region}")
-    lambda_client = boto3.client("lambda", region_name=region)
+    lambda_client: LambdaClient = boto3.client("lambda", region_name=region)
     if not version:
         return lmbda.LayerVersion.from_layer_version_arn(
-            scope, id, layer_version_arn=_latest_layer(lambda_client, region=region)
+            scope, id, layer_version_arn=_latest_layer(lambda_client, region=region_name)
         )
     else:
         return lmbda.LayerVersion.from_layer_version_arn(
             scope,
             id,
-            layer_version_arn=_get_layer_for_version(version, lambda_client, region=region),
+            layer_version_arn=_get_layer_for_version(version, lambda_client, region=region_name),
         )

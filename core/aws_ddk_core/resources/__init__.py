@@ -35,5 +35,5 @@ __all__ = [
     "S3Factory",
     "SQSFactory",
     "StepFunctionsFactory",
-    pandas_sdk_layer,
+    "pandas_sdk_layer",
 ]
