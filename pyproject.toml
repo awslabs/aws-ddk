@@ -33,7 +33,7 @@ python = ">=3.7.1, <3.11"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
-boto3-stubs-lite = {version = "*", extras = ["codecommit", "cloudformation", "sts"]}
+boto3-stubs-lite = {version = "*", extras = ["codecommit", "cloudformation", "sts", "lambda"]}
 bump2version = "^1.0.1"
 cfn-lint = "^0.56.4"
 doc8 = "^0.10.1"
