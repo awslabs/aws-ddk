@@ -7,6 +7,7 @@ import aws_cdk.aws_lambda as lmbda
 import boto3
 from constructs import Construct
 from mypy_boto3_lambda.client import LambdaClient
+from aws_ddk_core.config import Config
 
 AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID = "336392948345"
 MAX_VERSION_POLL = 50
@@ -73,6 +74,7 @@ def _get_layer_for_version(version: str, boto3_client: LambdaClient, region: str
 def pandas_sdk_layer(
     scope: Construct,
     id: Optional[str] = "pandas-sdk-layer",
+    environment_id: Optional[str] = None,
     region: Optional[str] = None,
     version: Optional[str] = None,
 ) -> lmbda.LayerVersion:
@@ -94,6 +96,11 @@ def pandas_sdk_layer(
     Returns
     -------
     lmbda.LayerVersion
+
+    CDK Context
+    -------
+    The value `pandas_sdk_lambda_layer_version_arn`
+    is supported for maintaining the ARN in context.
 
     Examples
     --------
@@ -130,7 +137,13 @@ def pandas_sdk_layer(
 
     region_name: str = region if region else cdk.Stack.of(scope).region
 
-    context_layer = scope.node.try_get_context(CONTEXT_VALUE_NAME)
+    if environment_id:
+        context_layer = (
+            Config.get_env_config(environment_id).get(CONTEXT_VALUE_NAME)
+            if Config.get_env_config(environment_id).get(CONTEXT_VALUE_NAME)
+            else scope.node.try_get_context(CONTEXT_VALUE_NAME)
+        )
+
     if context_layer:
         return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=context_layer)
 
