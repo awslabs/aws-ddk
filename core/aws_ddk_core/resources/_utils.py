@@ -5,9 +5,9 @@ from typing import Any, Optional
 import aws_cdk as cdk
 import aws_cdk.aws_lambda as lmbda
 import boto3
+from aws_ddk_core.config import Config
 from constructs import Construct
 from mypy_boto3_lambda.client import LambdaClient
-from aws_ddk_core.config import Config
 
 AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID = "336392948345"
 MAX_VERSION_POLL = 50
