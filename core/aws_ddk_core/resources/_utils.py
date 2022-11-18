@@ -11,6 +11,7 @@ from mypy_boto3_lambda.client import LambdaClient
 AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID = "336392948345"
 MAX_VERSION_POLL = 50
 LAYER_PREFIXES = ["AWSDataWrangler", "AWSSDKPandas"]
+CONTEXT_VALUE_NAME = "pandas_sdk_lambda_layer_version_arn"
 logging.basicConfig()
 logger = logging.getLogger("aws-sdk-pandas-layer-lookup")
 
@@ -78,19 +79,17 @@ def pandas_sdk_layer(
 
     region_name: str = region if region else cdk.Stack.of(scope).region
 
-    context_layer = scope.node.try_get_context("pandas_sdk_lambda_layer_version_arn")
+    context_layer = scope.node.try_get_context(CONTEXT_VALUE_NAME)
     if context_layer:
         return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=context_layer)
 
     logger.debug(f" Scanning region: {region_name}")
-    lambda_client: LambdaClient = boto3.client("lambda", region_name=region_name) # type: ignore
+    lambda_client: LambdaClient = boto3.client("lambda", region_name=region_name)  # type: ignore
     if not version:
-        return lmbda.LayerVersion.from_layer_version_arn(
-            scope, id, layer_version_arn=_latest_layer(lambda_client, region=region_name)
-        )
+        layer_version_arn = _latest_layer(lambda_client, region=region_name)
+        scope.set_context(CONTEXT_VALUE_NAME, layer_version_arn)
     else:
-        return lmbda.LayerVersion.from_layer_version_arn(
-            scope,
-            id,
-            layer_version_arn=_get_layer_for_version(version, lambda_client, region=region_name),
-        )
+        layer_version_arn = _get_layer_for_version(version, lambda_client, region=region_name)
+        scope.set_context(CONTEXT_VALUE_NAME, layer_version_arn)
+
+    return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=layer_version_arn)
