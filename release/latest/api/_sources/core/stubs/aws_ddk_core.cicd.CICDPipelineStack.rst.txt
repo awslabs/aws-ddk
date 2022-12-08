@@ -18,6 +18,7 @@
       ~CICDPipelineStack.add_checks
       ~CICDPipelineStack.add_custom_stage
       ~CICDPipelineStack.add_dependency
+      ~CICDPipelineStack.add_metadata
       ~CICDPipelineStack.add_notifications
       ~CICDPipelineStack.add_security_lint_stage
       ~CICDPipelineStack.add_source_action

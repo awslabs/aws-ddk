@@ -16,6 +16,7 @@
    
       ~BaseStack.__init__
       ~BaseStack.add_dependency
+      ~BaseStack.add_metadata
       ~BaseStack.add_transform
       ~BaseStack.export_value
       ~BaseStack.format_arn
