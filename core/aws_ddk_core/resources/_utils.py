@@ -78,7 +78,8 @@ def pandas_sdk_layer(
     region: Optional[str] = None,
     version: Optional[str] = None,
 ) -> lmbda.LayerVersion:
-    """Retrieves AWS SDK for pandas managed Lambda layer.
+    """
+    Retrieves AWS SDK for pandas managed Lambda Layer.
 
     Parameters
     ----------
