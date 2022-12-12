@@ -100,7 +100,7 @@ def pandas_sdk_layer(
     Returns
     -------
     lmbda.LayerVersion
-    
+
     """
 
     region_name: str = region if region else cdk.Stack.of(scope).region
