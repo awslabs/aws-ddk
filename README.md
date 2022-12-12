@@ -7,7 +7,7 @@
 
 The AWS DataOps Development Kit is an open source development framework for customers that build data workflows and modern data architecture on AWS.
 
-Based on the [AWS CDK](https://github.com/aws/aws-cdk), it offers high-level abstractions allowing you to build pipelines that manage data flows on AWS, driven by DevOps best practices.  The framework is extensible, you can add abstractions for your own data processing infrastructure or replace our best practices with your own standards. It's easy to share templates, so everyone in your organisation can concentrate on the business logic of dealing with their data, rather than boilerplate logic.
+Based on the [AWS CDK](https://github.com/aws/aws-cdk), it offers high-level abstractions allowing you to build pipelines that manage data flows on AWS, driven by DevOps best practices.  The framework is extensible, you can add abstractions for your own data processing infrastructure or replace our b est practices with your own standards. It's easy to share templates, so everyone in your organisation can concentrate on the business logic of dealing with their data, rather than boilerplate logic.
 
 ---
 
@@ -17,11 +17,101 @@ You can compose constructs from the DDK Core into a **DDK App**.  Your DDK App c
 
 You can use the **DDK CLI** to manage your DDK App.  You can use it to create a new app from a template, or deploy your DDK app to AWS.
 
-## Getting Started
+## Overview
 
-For a detailed walk-through, check out our [Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US).
+For a detailed walk-through, check out our [Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US) or
+take a look at [examples](https://github.com/aws-samples/aws-ddk-examples).
 
-### At a glance
+### Build Data Pipelines
+
+One of the core features of DDK is ability to create Data Pipelines. A DDK [DataPipeline](https://awslabs.github.io/aws-ddk/release/stable/api/core/stubs/aws_ddk_core.pipelines.DataPipeline.html) 
+is a chained series of stages. It automatically “wires” the stages together using 
+[AWS EventBridge Rules](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html) .
+
+DDK comes with a library of stages, however users can also create their own based on their use cases, 
+and are encouraged to share them with the community. 
+
+Let's take a look at an example below:
+
+```python
+...
+
+firehose_s3_stage = KinesisToS3Stage(
+    self,
+    "ddk-firehose-s3",
+    environment_id=environment_id,
+    bucket=ddk_bucket,
+    data_output_prefix="raw/",
+)
+sqs_lambda_stage = SqsToLambdaStage(
+    scope=self,
+    id="ddk-sqs-lambda",
+    environment_id=environment_id,
+    code=Code.from_asset("./lambda"),
+    handler="index.lambda_handler",
+    layers=[
+        LayerVersion.from_layer_version_arn(
+            self,
+            "ddk-lambda-layer-wrangler",
+            f"arn:aws:lambda:{self.region}:336392948345:layer:AWSDataWrangler-Python39:2",
+        )
+    ]
+)
+
+(
+    DataPipeline(scope=self, id="ddk-pipeline")
+    .add_stage(firehose_s3_stage)
+    .add_stage(sqs_lambda_stage)
+)
+...
+```
+
+First, we import the required resources from the aws_ddk_core library, including the two stage constructs: 
+[KinesisToS3Stage](https://awslabs.github.io/aws-ddk/release/stable/api/core/stubs/aws_ddk_core.stages.KinesisToS3Stage.html), and 
+[SQSToLambdaStage()](https://awslabs.github.io/aws-ddk/release/stable/api/core/stubs/aws_ddk_core.stages.SqsToLambdaStage.html). 
+These two classes are then instantiated and the delivery stream is configured with the S3 prefix (raw/). 
+Finally, the DDK DataPipeline construct is used to chain these two stages together into a data pipeline.
+
+Complete source code of the data pipeline above can be found in 
+[AWS DDK Examples - Basic Data Pipeline](https://github.com/aws-samples/aws-ddk-examples/tree/main/basic-data-pipeline)
+
+### Resource Configuration
+
+Another core feature of DDK is ability to provide environment-dependent configuration to your resources.
+
+In the example below, we create Kinesis Data Stream using 
+[KinesisStreamsFactory](https://awslabs.github.io/aws-ddk/release/latest/api/core/stubs/aws_ddk_core.resources.KinesisStreamsFactory.html#aws_ddk_core.resources.KinesisStreamsFactory).
+
+```python
+...
+from aws_ddk_core.resources import KinesisStreamsFactory
+
+...
+data_stream = KinesisStreamsFactory.data_stream(
+    self, id=f"example-data-stream", environment_id=environment_id,
+)
+...
+```
+
+Resources created by DDK factories are automatically configured with properties from `ddk.json`.
+
+```json
+{
+    "environments": {
+        "test": {
+            "account": "3333333333333",
+            "region": "us-east-1",
+            "resources": {
+                "example-data-stream": {"shard_count": 5},
+            }
+        }
+    }
+}
+```
+
+In this example, the Kinesis Data Stream will be configured with `5` shards.
+
+### Starting a new project
 
 Install or update the AWS DDK from PyPi.
 
