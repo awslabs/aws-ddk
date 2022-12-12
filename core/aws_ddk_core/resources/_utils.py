@@ -100,43 +100,7 @@ def pandas_sdk_layer(
     Returns
     -------
     lmbda.LayerVersion
-
-    CDK Context
-    -------
-    The value `pandas_sdk_lambda_layer_version_arn`
-    is supported for maintaining the ARN in context.
-
-    Examples
-    --------
-    Lookup latest version
-
-    ```
-    _fn = LambdaFactory.function(
-        self,
-        id="dummy-lambda-1",
-        environment_id="dev",
-        code=Code.from_asset("./ddk_tester/src/"),
-        handler="commons.handlers.lambda_handler",
-        layers=[
-            pandas_sdk_layer(self)
-        ]
-    )
-    ```
-
-    Lookup specific verion
-
-    ```
-    _fn = LambdaFactory.function(
-        self,
-        id="dummy-lambda-1",
-        environment_id="dev",
-        code=Code.from_asset("./ddk_tester/src/"),
-        handler="commons.handlers.lambda_handler",
-        layers=[
-            pandas_sdk_layer(self, version="2.16.1")
-        ]
-    )
-    ```
+    
     """
 
     region_name: str = region if region else cdk.Stack.of(scope).region
