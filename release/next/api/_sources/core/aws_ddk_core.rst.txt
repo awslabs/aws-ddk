@@ -76,6 +76,8 @@ Resources
    SQSFactory
    StepFunctionsFactory
 
+.. autofunction:: pandas_sdk_layer
+
 Data Stages
 ------------
 
