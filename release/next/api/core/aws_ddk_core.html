@@ -353,48 +353,10 @@ If no version is specified the latest version
 in the region will be returned</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>lmbda.LayerVersion</em></p></li>
-<li><p><em>CDK Context</em></p></li>
-<li><p><em>——-</em></p></li>
-<li><p>The value <cite>pandas_sdk_lambda_layer_version_arn</cite></p></li>
-<li><p><em>is supported for maintaining the ARN in context.</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>lmbda.LayerVersion</p>
 </dd>
 </dl>
-<p class="rubric">Examples</p>
-<p>Lookup latest version</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
-_fn = LambdaFactory.function(</p>
-<blockquote>
-<div><p>self,
-id=”dummy-lambda-1”,
-environment_id=”dev”,
-code=Code.from_asset(“./ddk_tester/src/”),
-handler=”commons.handlers.lambda_handler”,
-layers=[</p>
-<blockquote>
-<div><p>pandas_sdk_layer(self)</p>
-</div></blockquote>
-<p>]</p>
-</div></blockquote>
-<p>Lookup specific verion</p>
-<p><a href="#id3"><span class="problematic" id="id4">``</span></a>`
-_fn = LambdaFactory.function(</p>
-<blockquote>
-<div><p>self,
-id=”dummy-lambda-1”,
-environment_id=”dev”,
-code=Code.from_asset(“./ddk_tester/src/”),
-handler=”commons.handlers.lambda_handler”,
-layers=[</p>
-<blockquote>
-<div><p>pandas_sdk_layer(self, version=”2.16.1”)</p>
-</div></blockquote>
-<p>]</p>
-</div></blockquote>
 </dd></dl>
 </section>
 <section id="data-stages">
