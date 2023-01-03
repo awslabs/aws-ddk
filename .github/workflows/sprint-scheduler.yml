@@ -9,7 +9,7 @@ on:
 jobs:
   sprint_milestone:
     permissions:
-      milestones: write
+      issues: write
     runs-on: ubuntu-latest
     steps:
     - uses: davideviolante/sprint-milestone-action@v2.2.1
