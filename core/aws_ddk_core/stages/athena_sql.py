@@ -16,8 +16,10 @@ from typing import Any, Dict, List, Optional
 
 from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_kms import Key
+from aws_cdk.aws_events_targets import SfnStateMachine
+from aws_cdk.aws_events import IRuleTarget, RuleTargetInput
 from aws_cdk.aws_s3 import Location
-from aws_cdk.aws_stepfunctions import IntegrationPattern, Succeed
+from aws_cdk.aws_stepfunctions import IntegrationPattern, Succeed, JsonPath
 from aws_cdk.aws_stepfunctions_tasks import (
     AthenaStartQueryExecution,
     EncryptionConfiguration,
@@ -39,7 +41,8 @@ class AthenaSQLStage(StateMachineStage):
         scope: Construct,
         id: str,
         environment_id: str,
-        query_string: str,
+        query_string: Optional[str] = None,
+        query_string_path: Optional[str] = None,
         workgroup: Optional[str] = None,
         catalog_name: Optional[str] = None,
         database_name: Optional[str] = None,
@@ -65,8 +68,11 @@ class AthenaSQLStage(StateMachineStage):
             Identifier of the stage
         environment_id : str
             Identifier of the environment
-        query_string : str
+        query_string : Optional[str]
             SQL query that will be started
+        query_string_path : Optional[str]
+            dynamic path in statemachine for SQL query to be started
+            `$.queryString` by default
         workgroup : Optional[str]
             Workgroup name
         catalog_name : Optional[str]
@@ -92,13 +98,22 @@ class AthenaSQLStage(StateMachineStage):
         """
         super().__init__(scope, id)
 
+        if query_string and query_string_path:
+            raise Exception("For this stage provide one of query_string or query_string_path parameter, not both")
+
+        if query_string is None and query_string_path is None:
+            raise Exception("For this stage one of query_string or query_string_path parameter is required")
+
         self._event_detail_type: str = f"{id}-event-type"
+        self._query_string = query_string
+        self._state_machine_input = state_machine_input
+        self._event_bridge_event_path: Optional[str] = "$.detail" if query_string_path else None
 
         # Create AthenaStartQueryExecution step function task
         start_query_exec: AthenaStartQueryExecution = AthenaStartQueryExecution(
             self,
             "start-query-exec",
-            query_string=query_string,
+            query_string=query_string if query_string else JsonPath.string_at(query_string_path),
             integration_pattern=IntegrationPattern.RUN_JOB,
             query_execution_context=QueryExecutionContext(
                 catalog_name=catalog_name if catalog_name else None,
@@ -135,3 +150,10 @@ class AthenaSQLStage(StateMachineStage):
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
             state_machine_failed_executions_alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,  # noqa
         )
+
+    def get_targets(self) -> Optional[List[IRuleTarget]]:
+        return [
+            SfnStateMachine(self.state_machine, input=RuleTargetInput.from_object(self._state_machine_input),)
+            if self._query_string
+            else SfnStateMachine(self.state_machine, input=RuleTargetInput.from_event_path(self._event_bridge_event_path),)
+        ]
