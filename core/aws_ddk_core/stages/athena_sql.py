@@ -14,12 +14,12 @@
 
 from typing import Any, Dict, List, Optional
 
+from aws_cdk.aws_events import IRuleTarget, RuleTargetInput
+from aws_cdk.aws_events_targets import SfnStateMachine
 from aws_cdk.aws_iam import PolicyStatement
 from aws_cdk.aws_kms import Key
-from aws_cdk.aws_events_targets import SfnStateMachine
-from aws_cdk.aws_events import IRuleTarget, RuleTargetInput
 from aws_cdk.aws_s3 import Location
-from aws_cdk.aws_stepfunctions import IntegrationPattern, Succeed, JsonPath
+from aws_cdk.aws_stepfunctions import IntegrationPattern, JsonPath, Succeed
 from aws_cdk.aws_stepfunctions_tasks import (
     AthenaStartQueryExecution,
     EncryptionConfiguration,
