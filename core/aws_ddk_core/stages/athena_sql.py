@@ -72,7 +72,6 @@ class AthenaSQLStage(StateMachineStage):
             SQL query that will be started
         query_string_path : Optional[str]
             dynamic path in statemachine for SQL query to be started
-            `$.queryString` by default
         workgroup : Optional[str]
             Workgroup name
         catalog_name : Optional[str]
