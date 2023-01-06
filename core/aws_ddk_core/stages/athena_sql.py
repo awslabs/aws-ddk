@@ -99,29 +99,21 @@ class AthenaSQLStage(StateMachineStage):
         super().__init__(scope, id)
 
         if query_string and query_string_path:
-            raise Exception(
-                "For this stage provide one of query_string or query_string_path parameter, not both"
-            )
+            raise Exception("For this stage provide one of query_string or query_string_path parameter, not both")
 
         if query_string is None and query_string_path is None:
-            raise Exception(
-                "For this stage one of query_string or query_string_path parameter is required"
-            )
+            raise Exception("For this stage one of query_string or query_string_path parameter is required")
 
         self._event_detail_type: str = f"{id}-event-type"
         self._query_string = query_string
         self._state_machine_input = state_machine_input
-        self._event_bridge_event_path: Optional[str] = (
-            "$.detail" if query_string_path else None
-        )
+        self._event_bridge_event_path: Optional[str] = "$.detail" if query_string_path else None
 
         # Create AthenaStartQueryExecution step function task
         start_query_exec: AthenaStartQueryExecution = AthenaStartQueryExecution(
             self,
             "start-query-exec",
-            query_string=query_string
-            if query_string
-            else JsonPath.string_at(query_string_path),
+            query_string=query_string if query_string else JsonPath.string_at(query_string_path),
             integration_pattern=IntegrationPattern.RUN_JOB,
             query_execution_context=QueryExecutionContext(
                 catalog_name=catalog_name if catalog_name else None,
