@@ -154,11 +154,8 @@ class AthenaSQLStage(StateMachineStage):
         return [
             SfnStateMachine(
                 self.state_machine,
-                input=RuleTargetInput.from_object(self._state_machine_input),
-            )
-            if self._query_string
-            else SfnStateMachine(
-                self.state_machine,
-                input=RuleTargetInput.from_event_path(self._event_bridge_event_path),
+                input=RuleTargetInput.from_object(self._state_machine_input)
+                if self._query_string
+                else RuleTargetInput.from_event_path(self._event_bridge_event_path),
             )
         ]
