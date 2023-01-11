@@ -169,9 +169,7 @@ def test_sqs_lambda_alarm(test_stack: BaseStack) -> None:
                     Match.object_like(
                         pattern={
                             "Name": "FunctionName",
-                            "Value": {
-                                "Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"
-                            },
+                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
                         }
                     )
                 ]
@@ -252,9 +250,7 @@ def test_sqs_lambda_no_alarm(test_stack: BaseStack) -> None:
                     Match.object_like(
                         pattern={
                             "Name": "FunctionName",
-                            "Value": {
-                                "Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"
-                            },
+                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
                         }
                     )
                 ]
@@ -324,9 +320,7 @@ def test_sqs_lambda_fifo(test_stack: BaseStack) -> None:
         message_group_id="dummy-group",
     )
 
-    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(
-        s3_event_stage
-    ).add_stage(sqs_lambda_stage)
+    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sqs_lambda_stage)
 
     template = Template.from_stack(test_stack)
 
