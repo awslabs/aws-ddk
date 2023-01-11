@@ -92,7 +92,7 @@ class Config:
         Create Config class instance.
 
         Provide ConfigStrategy to determine how/where the config should be read from.
-        Reads from cdk.json in the root of the repo by default.
+        Reads from ddk.json in the root of the repo by default.
 
         Parameters
         ----------
