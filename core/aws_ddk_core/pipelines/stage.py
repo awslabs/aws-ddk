@@ -175,19 +175,21 @@ class DataStage(Stage):
             Comparison operator to use for alarm. `GREATER_THAN_THRESHOLD` by default.
         alarm_threshold: Optional[int]
             The value against which the specified alarm statistic is compared. `5` by default.
+            A value of '0' in a 'DataStage' will disable alarm creation.
         alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. `1` by default.
         """
-        self._cloudwatch_alarms.append(
-            Alarm(
-                scope=self,
-                id=alarm_id,
-                comparison_operator=alarm_comparison_operator,
-                threshold=alarm_threshold,
-                evaluation_periods=alarm_evaluation_periods,
-                metric=alarm_metric,
+        if alarm_threshold != 0:
+            self._cloudwatch_alarms.append(
+                Alarm(
+                    scope=self,
+                    id=alarm_id,
+                    comparison_operator=alarm_comparison_operator,
+                    threshold=alarm_threshold,
+                    evaluation_periods=alarm_evaluation_periods,
+                    metric=alarm_metric,
+                )
             )
-        )
         return self
 
     @property
