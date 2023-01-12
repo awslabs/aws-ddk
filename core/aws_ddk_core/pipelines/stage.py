@@ -178,17 +178,16 @@ class DataStage(Stage):
         alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. `1` by default.
         """
-        if alarm_threshold != 0:
-            self._cloudwatch_alarms.append(
-                Alarm(
-                    scope=self,
-                    id=alarm_id,
-                    comparison_operator=alarm_comparison_operator,
-                    threshold=alarm_threshold,
-                    evaluation_periods=alarm_evaluation_periods,
-                    metric=alarm_metric,
-                )
+        self._cloudwatch_alarms.append(
+            Alarm(
+                scope=self,
+                id=alarm_id,
+                comparison_operator=alarm_comparison_operator,
+                threshold=alarm_threshold,
+                evaluation_periods=alarm_evaluation_periods,
+                metric=alarm_metric,
             )
+        )
         return self
 
     @property
