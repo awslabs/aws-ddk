@@ -54,6 +54,7 @@ class SqsToLambdaStage(DataStage):
         lambda_function_errors_alarm_threshold: Optional[int] = 5,
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
         function_props: Optional[Dict[str, Any]] = {},
+        queue_props: Optional[Dict[str, Any]] = {},
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -111,6 +112,9 @@ class SqsToLambdaStage(DataStage):
             Amount of errored function invocations before triggering CW alarm. Defaults to `5`
         lambda_function_errors_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        queue_props : Any
+            Additional queue properties. For complete list of properties refer to CDK Documentation -
+            SQS Queue: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_sqs/Queue.html
         function_props : Any
             Additional function properties. For complete list of properties refer to CDK Documentation -
             Lambda Function: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_lambda/Function.html
@@ -172,6 +176,7 @@ class SqsToLambdaStage(DataStage):
             environment_id=environment_id,
             visibility_timeout=visibility_timeout,
             dead_letter_queue=self._dlq,
+            **queue_props,
         )
 
         if hasattr(sqs_queue, "fifo") and sqs_queue.fifo and not message_group_id:  # type: ignore
