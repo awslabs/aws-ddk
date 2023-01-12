@@ -55,6 +55,7 @@ class SqsToLambdaStage(DataStage):
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
         lambda_function_errors_alarm_enabled: Optional[bool] = True,
         function_props: Optional[Dict[str, Any]] = {},
+        queue_props: Optional[Dict[str, Any]] = {},
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -115,6 +116,9 @@ class SqsToLambdaStage(DataStage):
         lambda_function_errors_alarm_enabled: Optional[bool]
             Enable or disable creation of cloudwatch alarm as part of this stage
             Default: true - alarm is created
+        queue_props : Any
+            Additional queue properties. For complete list of properties refer to CDK Documentation -
+            SQS Queue: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_sqs/Queue.html
         function_props : Any
             Additional function properties. For complete list of properties refer to CDK Documentation -
             Lambda Function: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_lambda/Function.html
@@ -170,12 +174,13 @@ class SqsToLambdaStage(DataStage):
                 ),
             )
 
-        self._queue = sqs_queue or SQSFactory.queue(
+        self._queue = sqs_queue or SQSFactory.queue(  # type: ignore
             self,
             id=f"{id}-queue",
             environment_id=environment_id,
             visibility_timeout=visibility_timeout,
             dead_letter_queue=self._dlq,
+            **queue_props,
         )
 
         if hasattr(sqs_queue, "fifo") and sqs_queue.fifo and not message_group_id:  # type: ignore

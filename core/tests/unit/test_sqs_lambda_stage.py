@@ -369,3 +369,29 @@ def test_invalid_arguments(test_stack: BaseStack) -> None:
                 queue_name="dummy-queue",
             ),
         )
+
+
+def test_sqs_lambda_name_override(test_stack: BaseStack) -> None:
+    SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+        queue_props={"queue_name": "foobar"},
+        function_props={"function_name": "foobar"},
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Lambda::Function",
+        props={
+            "FunctionName": "foobar",
+        },
+    )
+    template.has_resource_properties(
+        "AWS::SQS::Queue",
+        props={
+            "QueueName": "foobar",
+        },
+    )
