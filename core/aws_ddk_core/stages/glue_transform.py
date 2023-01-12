@@ -91,7 +91,7 @@ class GlueTransformStage(StateMachineStage):
             Additional arguments to pass to CDK L1 Construct: `CfnCrawler`.
             See: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue/CfnCrawler.html
         crawler_allow_failure: Optional[Bool]
-            Argument to allow step function success in case of crawler failures and execption such as Glue.CrawlerRunningException
+            Argument to allow stepfunction success for crawler failures/execption like Glue.CrawlerRunningException
             Defaults to `True`
         state_machine_input : Optional[Dict[str, Any]]
             The input dict to the state machine
