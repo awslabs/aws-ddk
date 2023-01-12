@@ -175,7 +175,6 @@ class DataStage(Stage):
             Comparison operator to use for alarm. `GREATER_THAN_THRESHOLD` by default.
         alarm_threshold: Optional[int]
             The value against which the specified alarm statistic is compared. `5` by default.
-            A value of '0' in a 'DataStage' will disable alarm creation.
         alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. `1` by default.
         """
@@ -299,6 +298,7 @@ class StateMachineStage(DataStage):
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
+        state_machine_failed_executions_alarm_enabled: Optional[bool] = True,
     ) -> None:
         """
         Build state machine.
@@ -319,6 +319,9 @@ class StateMachineStage(DataStage):
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        state_machine_failed_executions_alarm_enabled: Optional[bool]
+            Enable or disable creation of cloudwatch alarm as part of this state machine.
+            Default: true - alarm is created
         """
 
         self._state_machine_input: Optional[Dict[str, Any]] = state_machine_input
@@ -336,12 +339,13 @@ class StateMachineStage(DataStage):
                 self._state_machine.add_to_role_policy(statement)
 
         # Failed executions alarm
-        self.add_alarm(
-            alarm_id=f"{id}-sm-failed-exec",
-            alarm_metric=self._state_machine.metric_failed(),
-            alarm_threshold=state_machine_failed_executions_alarm_threshold,
-            alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
-        )
+        if state_machine_failed_executions_alarm_enabled:
+            self.add_alarm(
+                alarm_id=f"{id}-sm-failed-exec",
+                alarm_metric=self._state_machine.metric_failed(),
+                alarm_threshold=state_machine_failed_executions_alarm_threshold,
+                alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,
+            )
 
     @property
     def state_machine(self) -> StateMachine:

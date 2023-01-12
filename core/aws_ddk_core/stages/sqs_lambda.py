@@ -53,6 +53,7 @@ class SqsToLambdaStage(DataStage):
         message_group_id: Optional[str] = None,
         lambda_function_errors_alarm_threshold: Optional[int] = 5,
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
+        lambda_function_errors_alarm_enabled: Optional[bool] = True,
         function_props: Optional[Dict[str, Any]] = {},
     ) -> None:
         """
@@ -111,6 +112,9 @@ class SqsToLambdaStage(DataStage):
             Amount of errored function invocations before triggering CW alarm. Defaults to `5`
         lambda_function_errors_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        lambda_function_errors_alarm_enabled: Optional[bool]
+            Enable or disable creation of cloudwatch alarm as part of this stage
+            Default: true - alarm is created
         function_props : Any
             Additional function properties. For complete list of properties refer to CDK Documentation -
             Lambda Function: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_lambda/Function.html
@@ -185,12 +189,13 @@ class SqsToLambdaStage(DataStage):
             )
         )
 
-        self.add_alarm(
-            alarm_id=f"{id}-function-errors",
-            alarm_metric=self._function.metric_errors(),
-            alarm_threshold=lambda_function_errors_alarm_threshold,
-            alarm_evaluation_periods=lambda_function_errors_alarm_evaluation_periods,
-        )
+        if lambda_function_errors_alarm_enabled:
+            self.add_alarm(
+                alarm_id=f"{id}-function-errors",
+                alarm_metric=self._function.metric_errors(),
+                alarm_threshold=lambda_function_errors_alarm_threshold,
+                alarm_evaluation_periods=lambda_function_errors_alarm_evaluation_periods,
+            )
 
     @property
     def function(self) -> IFunction:

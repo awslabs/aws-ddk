@@ -50,6 +50,7 @@ class KinesisToS3Stage(DataStage):
         log_group: Optional[ILogGroup] = None,
         kinesis_delivery_stream_alarm_threshold: Optional[int] = 900,
         kinesis_delivery_stream_alarm_evaluation_periods: Optional[int] = 1,
+        kinesis_delivery_stream_alarm_enabled: Optional[bool] = True,
         delivery_stream: Optional[firehose.IDeliveryStream] = None,
         bucket: Optional[IBucket] = None,
         data_stream: Optional[Stream] = None,
@@ -112,6 +113,9 @@ class KinesisToS3Stage(DataStage):
         kinesis_delivery_stream_alarm_evaluation_periods: Optional[int] = 1
             Evaluation period value for Cloudwatch alarm created for this stage.
             Default: 1
+        kinesis_delivery_stream_alarm_enabled: Optional[bool]
+            Enable or disable creation of cloudwatch alarm as part of this stage.
+            Default: true - alarm is created
         delivery_stream: Optional[firehose.IDeliveryStream] = None
             Preexisting Delivery Stream to use in this stage
         bucket: Optional[IBucket] = None
@@ -192,16 +196,17 @@ class KinesisToS3Stage(DataStage):
         )
 
         # Cloudwatch Alarms
-        self.add_alarm(
-            alarm_id=f"{id}-data-freshness",
-            alarm_metric=self._delivery_stream.metric(
-                "DeliveryToS3.DataFreshness",
-                period=buffering_interval if buffering_interval else Duration.seconds(300),
-                statistic="Maximum",
-            ),
-            alarm_threshold=kinesis_delivery_stream_alarm_threshold,
-            alarm_evaluation_periods=kinesis_delivery_stream_alarm_evaluation_periods,
-        )
+        if kinesis_delivery_stream_alarm_enabled:
+            self.add_alarm(
+                alarm_id=f"{id}-data-freshness",
+                alarm_metric=self._delivery_stream.metric(
+                    "DeliveryToS3.DataFreshness",
+                    period=buffering_interval if buffering_interval else Duration.seconds(300),
+                    statistic="Maximum",
+                ),
+                alarm_threshold=kinesis_delivery_stream_alarm_threshold,
+                alarm_evaluation_periods=kinesis_delivery_stream_alarm_evaluation_periods,
+            )
 
     @property
     def bucket(self) -> IBucket:

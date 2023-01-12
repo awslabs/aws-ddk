@@ -45,6 +45,7 @@ class AppFlowIngestionStage(StateMachineStage):
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
+        state_machine_failed_executions_alarm_enabled: Optional[bool] = True,
     ) -> None:
         """
         DDK AppFlow Ingestion stage.
@@ -79,6 +80,9 @@ class AppFlowIngestionStage(StateMachineStage):
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        state_machine_failed_executions_alarm_enabled: Optional[bool]
+            Enable or disable creation of cloudwatch alarm as part of this stage
+            Default: true - alarm is created
         """
         super().__init__(scope, id)
 
@@ -154,6 +158,7 @@ class AppFlowIngestionStage(StateMachineStage):
             additional_role_policy_statements=state_machine_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
             state_machine_failed_executions_alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,  # noqa
+            state_machine_failed_executions_alarm_enabled=state_machine_failed_executions_alarm_enabled,
         )
 
     @property

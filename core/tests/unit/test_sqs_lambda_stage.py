@@ -231,7 +231,7 @@ def test_sqs_lambda_no_alarm(test_stack: BaseStack) -> None:
         environment_id="dev",
         code=Code.from_asset(f"{Path(__file__).parents[2]}"),
         handler="commons.handlers.lambda_handler",
-        lambda_function_errors_alarm_threshold=0,
+        lambda_function_errors_alarm_enabled=False,
     )
 
     template = Template.from_stack(test_stack)
