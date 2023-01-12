@@ -45,6 +45,7 @@ class GlueTransformStage(StateMachineStage):
         job_args: Optional[Dict[str, Any]] = None,
         glue_job_args: Optional[Dict[str, Any]] = {},
         glue_crawler_args: Optional[Dict[str, Any]] = {},
+        crawler_allow_failure: Optional[bool] = True,
         state_machine_input: Optional[Dict[str, Any]] = None,
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_retry_max_attempts: Optional[int] = 3,
@@ -89,6 +90,9 @@ class GlueTransformStage(StateMachineStage):
         glue_crawler_args: Optional[Dict[str, Any]]
             Additional arguments to pass to CDK L1 Construct: `CfnCrawler`.
             See: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_glue/CfnCrawler.html
+        crawler_allow_failure: Optional[Bool]
+            Argument to allow step function success in case of crawler failures and execption such as Glue.CrawlerRunningException
+            Defaults to `True`
         state_machine_input : Optional[Dict[str, Any]]
             The input dict to the state machine
         additional_role_policy_statements : Optional[List[PolicyStatement]]
@@ -97,10 +101,10 @@ class GlueTransformStage(StateMachineStage):
             How many times to retry this particular error.
             Defaults to `3`
         state_machine_retry_backoff_rate: Optional[int]
-            Multiplication for how much longer the wait interval gets on every retry.
+            Multiplication for how much longer the wait interval gets on every retry. 
             Defaults to `2`
         state_machine_retry_interval: Optional[cdk.Duration]
-            How many seconds to wait initially before retrying.
+            How many seconds to wait initially before retrying. 
             Defaults to `cdk.Duration.seconds(1)`
         state_machine_failed_executions_alarm_threshold: Optional[int]
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
@@ -176,6 +180,9 @@ class GlueTransformStage(StateMachineStage):
             backoff_rate=state_machine_retry_backoff_rate,
             interval=state_machine_retry_interval,
         )
+
+        if crawler_allow_failure:
+            crawl_object.add_catch(success, errors=["Glue.CrawlerRunningException"])
 
         # Build state machine
         self.build_state_machine(
