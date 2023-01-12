@@ -170,7 +170,7 @@ class SqsToLambdaStage(DataStage):
                 ),
             )
 
-        self._queue = sqs_queue or SQSFactory.queue( # type: ignore
+        self._queue = sqs_queue or SQSFactory.queue(  # type: ignore
             self,
             id=f"{id}-queue",
             environment_id=environment_id,
