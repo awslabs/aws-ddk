@@ -47,6 +47,9 @@ class GlueTransformStage(StateMachineStage):
         glue_crawler_args: Optional[Dict[str, Any]] = {},
         state_machine_input: Optional[Dict[str, Any]] = None,
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
+        state_machine_retry_max_attempts: Optional[int] = 3,
+        state_machine_retry_backoff_rate: Optional[int] = 2,
+        state_machine_retry_interval: Optional[cdk.Duration] = cdk.Duration.seconds(1),
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
     ) -> None:
@@ -90,6 +93,15 @@ class GlueTransformStage(StateMachineStage):
             The input dict to the state machine
         additional_role_policy_statements : Optional[List[PolicyStatement]]
             Additional IAM policy statements to add to the state machine role
+        state_machine_retry_max_attempts: Optional[int],
+            How many times to retry this particular error.
+            Defaults to `3`
+        state_machine_retry_backoff_rate: Optional[int]
+            Multiplication for how much longer the wait interval gets on every retry.
+            Defaults to `2`
+        state_machine_retry_interval: Optional[cdk.Duration]
+            How many seconds to wait initially before retrying.
+            Defaults to `cdk.Duration.seconds(1)`
         state_machine_failed_executions_alarm_threshold: Optional[int]
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
@@ -155,8 +167,15 @@ class GlueTransformStage(StateMachineStage):
             },
             iam_resources=[crawler_arn],
         )
+
         success = Succeed(self, "success")
-        crawl_object.add_catch(success, errors=["Glue.CrawlerRunningException"])
+
+        crawl_object.add_retry(
+            errors=["Glue.CrawlerRunningException"],
+            max_attempts=state_machine_retry_max_attempts,
+            backoff_rate=state_machine_retry_backoff_rate,
+            interval=state_machine_retry_interval,
+        )
 
         # Build state machine
         self.build_state_machine(
