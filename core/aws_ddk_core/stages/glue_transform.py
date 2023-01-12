@@ -101,10 +101,10 @@ class GlueTransformStage(StateMachineStage):
             How many times to retry this particular error.
             Defaults to `3`
         state_machine_retry_backoff_rate: Optional[int]
-            Multiplication for how much longer the wait interval gets on every retry. 
+            Multiplication for how much longer the wait interval gets on every retry.
             Defaults to `2`
         state_machine_retry_interval: Optional[cdk.Duration]
-            How many seconds to wait initially before retrying. 
+            How many seconds to wait initially before retrying.
             Defaults to `cdk.Duration.seconds(1)`
         state_machine_failed_executions_alarm_threshold: Optional[int]
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
