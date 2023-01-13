@@ -49,3 +49,21 @@ def test_appflow_stage_simple(test_stack: BaseStack) -> None:
             }
         },
     )
+
+
+def test_appflow_stage_additional_args(test_stack: BaseStack) -> None:
+    AppFlowIngestionStage(
+        scope=test_stack,
+        id="dummy-appflow",
+        environment_id="dev",
+        flow_name="dummy-appflow-flow",
+        state_machine_args={"state_machine_name": "dummy-sfn"},
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::StepFunctions::StateMachine",
+        props={
+            "StateMachineName": "dummy-sfn",
+        },
+    )

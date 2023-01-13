@@ -2,7 +2,6 @@ import logging
 import platform
 from typing import Any, Optional
 
-import aws_cdk as cdk
 import aws_cdk.aws_lambda as lmbda
 import boto3
 from aws_ddk_core.config import Config
@@ -103,7 +102,7 @@ def pandas_sdk_layer(
 
     """
 
-    region_name: str = region if region else cdk.Stack.of(scope).region
+    region_name: str = region if region else boto3.session.Session().region_name
 
     if environment_id:
         context_layer = (
@@ -112,7 +111,6 @@ def pandas_sdk_layer(
             else scope.node.try_get_context(CONTEXT_VALUE_NAME)
         )
 
-    if context_layer:
         return lmbda.LayerVersion.from_layer_version_arn(scope, id, layer_version_arn=context_layer)
 
     logger.debug(f" Scanning region: {region_name}")

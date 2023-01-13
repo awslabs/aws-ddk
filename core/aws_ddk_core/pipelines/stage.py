@@ -297,7 +297,8 @@ class StateMachineStage(DataStage):
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
-        state_machine_failed_executions_alarm_enabled: Optional[bool] = True,
+        alarms_enabled: Optional[bool] = True,
+        **kwargs: Any,
     ) -> None:
         """
         Build state machine.
@@ -318,9 +319,11 @@ class StateMachineStage(DataStage):
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
-        state_machine_failed_executions_alarm_enabled: Optional[bool]
-            Enable or disable creation of cloudwatch alarm as part of this state machine.
-            Default: true - alarm is created
+        alarms_enabled: Optional[bool]
+            Enable or disable creation of cloudwatch alarms as part of this state machine.
+            Default: true - alarms is created
+        kwargs: Any
+            Additional paramaters to pass to State Machine creation.
         """
 
         self._state_machine_input: Optional[Dict[str, Any]] = state_machine_input
@@ -330,6 +333,7 @@ class StateMachineStage(DataStage):
             id=id,
             environment_id=environment_id,
             definition=definition,
+            **kwargs,
         )
 
         # Additional role policy statements
@@ -338,7 +342,7 @@ class StateMachineStage(DataStage):
                 self._state_machine.add_to_role_policy(statement)
 
         # Failed executions alarm
-        if state_machine_failed_executions_alarm_enabled:
+        if alarms_enabled:
             self.add_alarm(
                 alarm_id=f"{id}-sm-failed-exec",
                 alarm_metric=self._state_machine.metric_failed(),
