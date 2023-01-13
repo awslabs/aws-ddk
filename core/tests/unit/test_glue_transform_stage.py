@@ -121,7 +121,7 @@ def test_glue_transform_stage_with_additional_args(test_stack: BaseStack) -> Non
         job_args={"input_bucket": "dummy-bucket"},
         state_machine_input={"event": "dummy-event"},
         glue_job_args={"max_concurrent_runs": 100},
-        state_machine_args={"state_machine_name": "dummy-sfn"},
+        state_machine_args={"state_machine_name": "dummy-sfn", "alarms_enabled": False},
     )
 
     template = Template.from_stack(test_stack)
@@ -142,4 +142,10 @@ def test_glue_transform_stage_with_additional_args(test_stack: BaseStack) -> Non
         props={
             "StateMachineName": "dummy-sfn",
         },
+    )
+
+    template.resource_properties_count_is(
+        "AWS::CloudWatch::Alarm",
+        props={},
+        count=0,
     )

@@ -197,11 +197,7 @@ class GlueTransformStage(StateMachineStage):
             additional_role_policy_statements=additional_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
             state_machine_failed_executions_alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,  # noqa
-<<<<<<< HEAD
-            state_machine_failed_executions_alarm_enabled=state_machine_failed_executions_alarm_enabled,
-=======
             **state_machine_args,
->>>>>>> 93e1af61712284d96058e6fd01e30fe01a0b549a
         )
 
     @property
