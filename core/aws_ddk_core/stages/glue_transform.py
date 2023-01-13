@@ -189,7 +189,7 @@ class GlueTransformStage(StateMachineStage):
             crawl_object.add_catch(success, errors=["Glue.CrawlerRunningException"])
 
         # Build state machine
-        self.build_state_machine( # type: ignore
+        self.build_state_machine(  # type: ignore
             id=f"{id}-state-machine",
             environment_id=environment_id,
             definition=(start_job_run.next(crawl_object).next(success)),

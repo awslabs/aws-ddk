@@ -131,7 +131,7 @@ class AppFlowIngestionStage(StateMachineStage):
             state_machine_role_policy_statements.extend(additional_role_policy_statements)
 
         # Build state machine
-        self.build_state_machine( # type: ignore
+        self.build_state_machine(  # type: ignore
             id=f"{id}-state-machine",
             environment_id=environment_id,
             definition=(

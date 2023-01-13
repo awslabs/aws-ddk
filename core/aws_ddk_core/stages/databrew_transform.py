@@ -111,7 +111,7 @@ class DataBrewTransformStage(StateMachineStage):
         )
 
         # Build state machine
-        self.build_state_machine( # type: ignore
+        self.build_state_machine(  # type: ignore
             id=f"{id}-state-machine",
             environment_id=environment_id,
             definition=(start_job_run.next(Succeed(self, "success"))),
