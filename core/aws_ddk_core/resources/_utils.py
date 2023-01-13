@@ -23,7 +23,7 @@ def _get_python_version() -> str:
 def _latest_layer(boto3_client: LambdaClient, region: str = "us-east-1", scan_buffer_range: int = 10) -> Any:
     layer_arn = (
         f"arn:aws:lambda:{region}:{AWS_SDK_PANDAS_ARTIFACT_ACCOUNT_ID}:layer:AWSSDKPandas-{_get_python_version()}"
-        )
+    )
     logger.debug(f" Layer Arn: {layer_arn}")
     logger.debug(" Scanning versions for latest...")
     latest = False
