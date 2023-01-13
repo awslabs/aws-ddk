@@ -144,7 +144,7 @@ class AthenaSQLStage(StateMachineStage):
         )
 
         # Build state machine
-        self.build_state_machine(
+        self.build_state_machine( # type: ignore
             id=f"{id}-state-machine",
             environment_id=environment_id,
             definition=(start_query_exec.next(Succeed(self, "success"))),
@@ -152,6 +152,7 @@ class AthenaSQLStage(StateMachineStage):
             additional_role_policy_statements=additional_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
             state_machine_failed_executions_alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,  # noqa
+            **state_machine_args,
         )
 
     def get_targets(self) -> Optional[List[IRuleTarget]]:
