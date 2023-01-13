@@ -77,3 +77,21 @@ def test_databrew_transform_stage_create(test_stack: BaseStack) -> None:
             "Timeout": 60,
         },
     )
+
+
+def test_databrew_transform_stage_additional_args(test_stack: BaseStack) -> None:
+    DataBrewTransformStage(
+        scope=test_stack,
+        id="dummy-databrew-transform-simple",
+        environment_id="dev",
+        job_name="dummy-databrew-job",
+        state_machine_args={"state_machine_name": "dummy-sfn"},
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::StepFunctions::StateMachine",
+        props={
+            "StateMachineName": "dummy-sfn",
+        },
+    )

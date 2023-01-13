@@ -45,6 +45,7 @@ class AppFlowIngestionStage(StateMachineStage):
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
+        state_machine_args: Optional[Dict[str, Any]] = {},
     ) -> None:
         """
         DDK AppFlow Ingestion stage.
@@ -79,6 +80,9 @@ class AppFlowIngestionStage(StateMachineStage):
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        state_machine_args: Optional[Dict[str, Any]]
+            Additional arguments to pass to State Machine creation.
+            See: https://awslabs.github.io/aws-ddk/release/latest/api/core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage.build_state_machine # noqa
         """
         super().__init__(scope, id)
 
@@ -154,6 +158,7 @@ class AppFlowIngestionStage(StateMachineStage):
             additional_role_policy_statements=state_machine_role_policy_statements,
             state_machine_failed_executions_alarm_threshold=state_machine_failed_executions_alarm_threshold,
             state_machine_failed_executions_alarm_evaluation_periods=state_machine_failed_executions_alarm_evaluation_periods,  # noqa
+            **state_machine_args,
         )
 
     @property
