@@ -121,6 +121,7 @@ def test_glue_transform_stage_with_additional_args(test_stack: BaseStack) -> Non
         job_args={"input_bucket": "dummy-bucket"},
         state_machine_input={"event": "dummy-event"},
         glue_job_args={"max_concurrent_runs": 100},
+        state_machine_args={"state_machine_name": "dummy-sfn"},
     )
 
     template = Template.from_stack(test_stack)
@@ -133,5 +134,12 @@ def test_glue_transform_stage_with_additional_args(test_stack: BaseStack) -> Non
             "MaxRetries": 0,
             "NumberOfWorkers": 3,
             "Timeout": 60,
+        },
+    )
+
+    template.has_resource_properties(
+        "AWS::StepFunctions::StateMachine",
+        props={
+            "StateMachineName": "dummy-sfn",
         },
     )
