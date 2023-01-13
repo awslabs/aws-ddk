@@ -297,6 +297,7 @@ class StateMachineStage(DataStage):
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
+        **kwargs: Any,
     ) -> None:
         """
         Build state machine.
@@ -317,6 +318,8 @@ class StateMachineStage(DataStage):
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
+        kwargs: Any
+            Additional paramaters to pass to State Machine creation.
         """
 
         self._state_machine_input: Optional[Dict[str, Any]] = state_machine_input
@@ -326,6 +329,7 @@ class StateMachineStage(DataStage):
             id=id,
             environment_id=environment_id,
             definition=definition,
+            **kwargs,
         )
 
         # Additional role policy statements

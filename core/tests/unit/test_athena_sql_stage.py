@@ -88,3 +88,22 @@ def test_invalid_arguments(test_stack: BaseStack) -> None:
             environment_id="dev",
             workgroup="primary",
         )
+
+
+def test_athena_sql_stage_additional_args(test_stack: BaseStack) -> None:
+    AthenaSQLStage(
+        scope=test_stack,
+        id="athena-sql",
+        environment_id="dev",
+        query_string_path="$.queryString",
+        workgroup="primary",
+        state_machine_args={"state_machine_name": "dummy-sfn"},
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::StepFunctions::StateMachine",
+        props={
+            "StateMachineName": "dummy-sfn",
+        },
+    )
