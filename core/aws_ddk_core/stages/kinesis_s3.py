@@ -54,6 +54,7 @@ class KinesisToS3Stage(DataStage):
         delivery_stream: Optional[firehose.IDeliveryStream] = None,
         bucket: Optional[IBucket] = None,
         data_stream: Optional[Stream] = None,
+        **kwargs: Any,
     ) -> None:
         """
         DDK Kinesis Firehose Delivery stream to S3 stage, with an optional Kinesis Data Stream.

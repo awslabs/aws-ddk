@@ -136,6 +136,7 @@ class DataStage(Stage):
         id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
+        **kwargs: Any,
     ) -> None:
         """
         Create a stage.
@@ -150,9 +151,13 @@ class DataStage(Stage):
             Name of the stage
         description :  Optional[str]
             Description of the stage
+        alarms_enabled: Optional[bool]
+            Enable/Disable all alarms in a DataStage.
+            Default - True
         """
         super().__init__(scope, id, name, description)
         self._cloudwatch_alarms: List[Optional[IAlarm]] = []
+        self._alarms_enabled = kwargs["alarms_enabled"] if "alarms_enabled" in kwargs.keys() else True
 
     def add_alarm(
         self,
@@ -178,16 +183,17 @@ class DataStage(Stage):
         alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. `1` by default.
         """
-        self._cloudwatch_alarms.append(
-            Alarm(
-                scope=self,
-                id=alarm_id,
-                comparison_operator=alarm_comparison_operator,
-                threshold=alarm_threshold,
-                evaluation_periods=alarm_evaluation_periods,
-                metric=alarm_metric,
+        if self._alarms_enabled:
+            self._cloudwatch_alarms.append(
+                Alarm(
+                    scope=self,
+                    id=alarm_id,
+                    comparison_operator=alarm_comparison_operator,
+                    threshold=alarm_threshold,
+                    evaluation_periods=alarm_evaluation_periods,
+                    metric=alarm_metric,
+                )
             )
-        )
         return self
 
     @property
@@ -271,6 +277,7 @@ class StateMachineStage(DataStage):
         id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
+        **kwargs: Any,
     ) -> None:
         """
         Create a stage.
@@ -286,7 +293,7 @@ class StateMachineStage(DataStage):
         description :  Optional[str]
             Description of the stage
         """
-        super().__init__(scope, id, name, description)
+        super().__init__(scope, id, name, description, **kwargs)
 
     def build_state_machine(
         self,
@@ -297,7 +304,6 @@ class StateMachineStage(DataStage):
         additional_role_policy_statements: Optional[List[PolicyStatement]] = None,
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
-        alarms_enabled: Optional[bool] = True,
         **kwargs: Any,
     ) -> None:
         """
@@ -319,9 +325,6 @@ class StateMachineStage(DataStage):
             The number of failed state machine executions before triggering CW alarm. Defaults to `1`
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int]
             The number of periods over which data is compared to the specified threshold. Defaults to `1`
-        alarms_enabled: Optional[bool]
-            Enable or disable creation of cloudwatch alarms as part of this state machine.
-            Default: true - alarms is created
         kwargs: Any
             Additional paramaters to pass to State Machine creation.
         """
@@ -342,7 +345,7 @@ class StateMachineStage(DataStage):
                 self._state_machine.add_to_role_policy(statement)
 
         # Failed executions alarm
-        if alarms_enabled:
+        if self._alarms_enabled:
             self.add_alarm(
                 alarm_id=f"{id}-sm-failed-exec",
                 alarm_metric=self._state_machine.metric_failed(),

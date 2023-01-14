@@ -54,6 +54,7 @@ class GlueTransformStage(StateMachineStage):
         state_machine_failed_executions_alarm_threshold: Optional[int] = 1,
         state_machine_failed_executions_alarm_evaluation_periods: Optional[int] = 1,
         state_machine_args: Optional[Dict[str, Any]] = {},
+        **kwargs: Any,
     ) -> None:
         """
         DDK Glue Transform stage.
@@ -115,7 +116,7 @@ class GlueTransformStage(StateMachineStage):
             Additional arguments to pass to State Machine creation.
             See: https://awslabs.github.io/aws-ddk/release/latest/api/core/stubs/aws_ddk_core.pipelines.StateMachineStage.html#aws_ddk_core.pipelines.StateMachineStage.build_state_machine # noqa
         """
-        super().__init__(scope, id)
+        super().__init__(scope, id, **kwargs)
 
         self._event_detail_type: str = f"{id}-event-type"
 
