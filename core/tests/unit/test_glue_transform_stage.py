@@ -99,6 +99,25 @@ def test_glue_transform_stage_create(test_stack: BaseStack) -> None:
         },
     )
 
+    template.has_resource_properties(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 1,
+            "MetricName": "ExecutionsFailed",
+            "Namespace": "AWS/States",
+            "Period": 300,
+            "Statistic": "Sum",
+            "Threshold": 1,
+        },
+    )
+
+    template.resource_properties_count_is(
+        "AWS::CloudWatch::Alarm",
+        props={},
+        count=1,
+    )
+
 
 def test_glue_transform_stage_with_additional_args(test_stack: BaseStack) -> None:
     GlueTransformStage(

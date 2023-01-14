@@ -77,6 +77,18 @@ def test_databrew_transform_stage_create(test_stack: BaseStack) -> None:
             "Timeout": 60,
         },
     )
+    template.has_resource_properties(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 1,
+            "MetricName": "ExecutionsFailed",
+            "Namespace": "AWS/States",
+            "Period": 300,
+            "Statistic": "Sum",
+            "Threshold": 1,
+        },
+    )
 
 
 def test_databrew_transform_stage_additional_args(test_stack: BaseStack) -> None:
@@ -86,6 +98,7 @@ def test_databrew_transform_stage_additional_args(test_stack: BaseStack) -> None
         environment_id="dev",
         job_name="dummy-databrew-job",
         state_machine_args={"state_machine_name": "dummy-sfn"},
+        alarms_enabled=False,
     )
 
     template = Template.from_stack(test_stack)
@@ -94,4 +107,10 @@ def test_databrew_transform_stage_additional_args(test_stack: BaseStack) -> None
         props={
             "StateMachineName": "dummy-sfn",
         },
+    )
+
+    template.resource_properties_count_is(
+        "AWS::CloudWatch::Alarm",
+        props={},
+        count=0,
     )
