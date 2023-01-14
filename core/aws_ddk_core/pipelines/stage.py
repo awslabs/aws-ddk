@@ -136,7 +136,7 @@ class DataStage(Stage):
         id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        **kwargs: Any,
+        alarms_enabled: Optional[bool] = True,
     ) -> None:
         """
         Create a stage.
@@ -157,7 +157,7 @@ class DataStage(Stage):
         """
         super().__init__(scope, id, name, description)
         self._cloudwatch_alarms: List[Optional[IAlarm]] = []
-        self._alarms_enabled = kwargs["alarms_enabled"] if "alarms_enabled" in kwargs.keys() else True
+        self._alarms_enabled = alarms_enabled
 
     def add_alarm(
         self,
