@@ -277,7 +277,7 @@ class StateMachineStage(DataStage):
         id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        **kwargs: Any,
+        alarms_enabled: Optional[bool] = True,
     ) -> None:
         """
         Create a stage.
@@ -292,8 +292,11 @@ class StateMachineStage(DataStage):
             Name of the stage
         description :  Optional[str]
             Description of the stage
+        alarms_enabled: Optional[bool]
+            Enable/Disable all alarms in a DataStage.
+            Default - True
         """
-        super().__init__(scope, id, name, description, **kwargs)
+        super().__init__(scope, id, name, description, alarms_enabled)
 
     def build_state_machine(
         self,
