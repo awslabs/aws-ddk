@@ -25,13 +25,16 @@ export abstract class Stage extends Construct {
   }
 }
 
-export interface DataStageProps extends StageProps {}
+export interface DataStageProps extends StageProps {
+  readonly alarmsEnabled?: boolean;
+}
 
 export interface StateMachineStageProps extends StageProps {
   readonly stateMachineInput?: { [key: string]: any };
   readonly additionalRolePolicyStatements?: iam.PolicyStatement[];
   readonly stateMachineFailedExecutionsAlarmThreshold?: number;
   readonly stateMachineFailedExecutionsAlarmEvaluationPeriods?: number;
+  readonly alarmsEnabled?: boolean;
 }
 
 export interface AlarmProps {
@@ -43,22 +46,26 @@ export interface AlarmProps {
 
 export abstract class DataStage extends Stage {
   readonly cloudwatchAlarms: cloudwatch.Alarm[];
+  readonly alarmsEnabled?: boolean;
 
   constructor(scope: Construct, id: string, props: DataStageProps) {
     super(scope, id, props);
 
+    this.alarmsEnabled = props.alarmsEnabled === undefined ? true : props.alarmsEnabled;
     this.cloudwatchAlarms = [];
   }
 
   addAlarm(id: string, props: AlarmProps): DataStage {
-    this.cloudwatchAlarms.push(
-      new cloudwatch.Alarm(this, id, {
-        metric: props.metric,
-        comparisonOperator: props.comparisonOperator ?? cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
-        threshold: props.threshold ?? 5,
-        evaluationPeriods: props.evaluationPeriods ?? 1,
-      }),
-    );
+    if (this.alarmsEnabled) {
+      this.cloudwatchAlarms.push(
+        new cloudwatch.Alarm(this, id, {
+          metric: props.metric,
+          comparisonOperator: props.comparisonOperator ?? cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
+          threshold: props.threshold ?? 5,
+          evaluationPeriods: props.evaluationPeriods ?? 1,
+        }),
+      );
+    }
     return this;
   }
 }
@@ -66,6 +73,7 @@ export abstract class DataStage extends Stage {
 export abstract class StateMachineStage extends DataStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
+  readonly alarmsEnabled?: boolean;
 
   public stateMachine: sfn.StateMachine;
   public stateMachineInput: { [key: string]: any };

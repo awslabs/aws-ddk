@@ -204,7 +204,7 @@ public readonly stateMachineInput: {[ key: string ]: any};
 ```typescript
 import { CICDPipelineStack } from 'aws-ddk-core'
 
-new CICDPipelineStack(scope: Construct, id: string, environmentId: string, pipelineName: string, props?: StackProps)
+new CICDPipelineStack(scope: Construct, id: string, environmentId: string, pipelineName: string, pipelineProps: CodePipelineProps, props?: StackProps)
 ```
 
 | **Name** | **Type** | **Description** |
@@ -213,6 +213,7 @@ new CICDPipelineStack(scope: Construct, id: string, environmentId: string, pipel
 | <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineProps">pipelineProps</a></code> | <code>aws-cdk-lib.pipelines.CodePipelineProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.props">props</a></code> | <code>aws-cdk-lib.StackProps</code> | *No description.* |
 
 ---
@@ -238,6 +239,12 @@ new CICDPipelineStack(scope: Construct, id: string, environmentId: string, pipel
 ##### `pipelineName`<sup>Required</sup> <a name="pipelineName" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineName"></a>
 
 - *Type:* string
+
+---
+
+##### `pipelineProps`<sup>Required</sup> <a name="pipelineProps" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineProps"></a>
+
+- *Type:* aws-cdk-lib.pipelines.CodePipelineProps
 
 ---
 
@@ -270,6 +277,7 @@ new CICDPipelineStack(scope: Construct, id: string, environmentId: string, pipel
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addStage">addStage</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addSynthAction">addSynthAction</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addTestStage">addTestStage</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addWave">addWave</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.buildPipeline">buildPipeline</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.synth">synth</a></code> | *No description.* |
 
@@ -675,6 +683,18 @@ public addTestStage(props: AddTestStageProps): CICDPipelineStack
 
 ---
 
+##### `addWave` <a name="addWave" id="aws-ddk-core.CICDPipelineStack.addWave"></a>
+
+```typescript
+public addWave(props: AddApplicationWaveProps): CICDPipelineStack
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addWave.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AddApplicationWaveProps">AddApplicationWaveProps</a>
+
+---
+
 ##### `buildPipeline` <a name="buildPipeline" id="aws-ddk-core.CICDPipelineStack.buildPipeline"></a>
 
 ```typescript
@@ -781,6 +801,7 @@ The construct to start the search from.
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineId">pipelineId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineProps">pipelineProps</a></code> | <code>aws-cdk-lib.pipelines.CodePipelineProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.notificationRule">notificationRule</a></code> | <code>aws-cdk-lib.aws_codestarnotifications.NotificationRule</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.pipelines.CodePipeline</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineKey">pipelineKey</a></code> | <code>constructs.IConstruct</code> | *No description.* |
@@ -1146,6 +1167,16 @@ public readonly pipelineName: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `pipelineProps`<sup>Optional</sup> <a name="pipelineProps" id="aws-ddk-core.CICDPipelineStack.property.pipelineProps"></a>
+
+```typescript
+public readonly pipelineProps: CodePipelineProps;
+```
+
+- *Type:* aws-cdk-lib.pipelines.CodePipelineProps
 
 ---
 
@@ -2164,7 +2195,6 @@ Any object.
 | <code><a href="#aws-ddk-core.S3EventStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
 | <code><a href="#aws-ddk-core.S3EventStage.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.S3EventStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 
 ---
 
@@ -2217,16 +2247,6 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
-
----
-
-##### `bucket`<sup>Required</sup> <a name="bucket" id="aws-ddk-core.S3EventStage.property.bucket"></a>
-
-```typescript
-public readonly bucket: IBucket;
-```
-
-- *Type:* aws-cdk-lib.aws_s3.IBucket
 
 ---
 
@@ -2827,6 +2847,56 @@ public readonly manualApprovals: boolean;
 
 ---
 
+### AddApplicationWaveProps <a name="AddApplicationWaveProps" id="aws-ddk-core.AddApplicationWaveProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.AddApplicationWaveProps.Initializer"></a>
+
+```typescript
+import { AddApplicationWaveProps } from 'aws-ddk-core'
+
+const addApplicationWaveProps: AddApplicationWaveProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stageId">stageId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stages">stages</a></code> | <code>aws-cdk-lib.Stage</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.manualApprovals">manualApprovals</a></code> | <code>boolean</code> | *No description.* |
+
+---
+
+##### `stageId`<sup>Required</sup> <a name="stageId" id="aws-ddk-core.AddApplicationWaveProps.property.stageId"></a>
+
+```typescript
+public readonly stageId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `stages`<sup>Required</sup> <a name="stages" id="aws-ddk-core.AddApplicationWaveProps.property.stages"></a>
+
+```typescript
+public readonly stages: Stage;
+```
+
+- *Type:* aws-cdk-lib.Stage
+
+---
+
+##### `manualApprovals`<sup>Optional</sup> <a name="manualApprovals" id="aws-ddk-core.AddApplicationWaveProps.property.manualApprovals"></a>
+
+```typescript
+public readonly manualApprovals: boolean;
+```
+
+- *Type:* boolean
+
+---
+
 ### AddCustomStageProps <a name="AddCustomStageProps" id="aws-ddk-core.AddCustomStageProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddCustomStageProps.Initializer"></a>
@@ -2912,6 +2982,7 @@ const addRuleProps: AddRuleProps = { ... }
 | <code><a href="#aws-ddk-core.AddRuleProps.property.eventTargets">eventTargets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddRuleProps.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddRuleProps.property.overrideRule">overrideRule</a></code> | <code>aws-cdk-lib.aws_events.IRule</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddRuleProps.property.ruleName">ruleName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -2952,6 +3023,16 @@ public readonly overrideRule: IRule;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRule
+
+---
+
+##### `ruleName`<sup>Optional</sup> <a name="ruleName" id="aws-ddk-core.AddRuleProps.property.ruleName"></a>
+
+```typescript
+public readonly ruleName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -3010,6 +3091,7 @@ const addStageProps: AddStageProps = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.AddStageProps.property.stage">stage</a></code> | <code><a href="#aws-ddk-core.Stage">Stage</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddStageProps.property.overrideRule">overrideRule</a></code> | <code>aws-cdk-lib.aws_events.IRule</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddStageProps.property.ruleName">ruleName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddStageProps.property.skipRule">skipRule</a></code> | <code>boolean</code> | *No description.* |
 
 ---
@@ -3031,6 +3113,16 @@ public readonly overrideRule: IRule;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRule
+
+---
+
+##### `ruleName`<sup>Optional</sup> <a name="ruleName" id="aws-ddk-core.AddStageProps.property.ruleName"></a>
+
+```typescript
+public readonly ruleName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -3962,9 +4054,9 @@ const s3EventStageProps: S3EventStageProps = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStageProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#aws-ddk-core.S3EventStageProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket \| aws-cdk-lib.aws_s3.IBucket[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.eventNames">eventNames</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStageProps.property.keyPrefix">keyPrefix</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.S3EventStageProps.property.keyPrefix">keyPrefix</a></code> | <code>string \| string[]</code> | *No description.* |
 
 ---
 
@@ -3991,10 +4083,10 @@ public readonly name: string;
 ##### `bucket`<sup>Required</sup> <a name="bucket" id="aws-ddk-core.S3EventStageProps.property.bucket"></a>
 
 ```typescript
-public readonly bucket: IBucket;
+public readonly bucket: IBucket | IBucket[];
 ```
 
-- *Type:* aws-cdk-lib.aws_s3.IBucket
+- *Type:* aws-cdk-lib.aws_s3.IBucket | aws-cdk-lib.aws_s3.IBucket[]
 
 ---
 
@@ -4011,10 +4103,10 @@ public readonly eventNames: string[];
 ##### `keyPrefix`<sup>Optional</sup> <a name="keyPrefix" id="aws-ddk-core.S3EventStageProps.property.keyPrefix"></a>
 
 ```typescript
-public readonly keyPrefix: string;
+public readonly keyPrefix: string | string[];
 ```
 
-- *Type:* string
+- *Type:* string | string[]
 
 ---
 
@@ -4204,7 +4296,9 @@ const sqsToLambdaStageProps: SqsToLambdaStageProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.maxBatchingWindow">maxBatchingWindow</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.maxReceiveCount">maxReceiveCount</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.messageGroupId">messageGroupId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueue">sqsQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageQueueProps">SqsToLambdaStageQueueProps</a></code> | *No description.* |
 
@@ -4270,6 +4364,16 @@ public readonly lambdaFunctionProps: SqsToLambdaStageFunctionProps;
 
 ---
 
+##### `maxBatchingWindow`<sup>Optional</sup> <a name="maxBatchingWindow" id="aws-ddk-core.SqsToLambdaStageProps.property.maxBatchingWindow"></a>
+
+```typescript
+public readonly maxBatchingWindow: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+
+---
+
 ##### `maxReceiveCount`<sup>Optional</sup> <a name="maxReceiveCount" id="aws-ddk-core.SqsToLambdaStageProps.property.maxReceiveCount"></a>
 
 ```typescript
@@ -4277,6 +4381,16 @@ public readonly maxReceiveCount: number;
 ```
 
 - *Type:* number
+
+---
+
+##### `messageGroupId`<sup>Optional</sup> <a name="messageGroupId" id="aws-ddk-core.SqsToLambdaStageProps.property.messageGroupId"></a>
+
+```typescript
+public readonly messageGroupId: string;
+```
+
+- *Type:* string
 
 ---
 
