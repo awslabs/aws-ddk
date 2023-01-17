@@ -35,6 +35,7 @@ export interface SqsToLambdaStageProps extends DataStageProps {
   readonly maxBatchingWindow?: cdk.Duration;
   readonly dlqEnabled?: boolean;
   readonly maxReceiveCount?: number;
+  readonly messageGroupId?: string;
 }
 
 export class SqsToLambdaStage extends DataStage {
@@ -118,6 +119,12 @@ export class SqsToLambdaStage extends DataStage {
       detailType: [eventDetailType],
     };
 
-    this.targets = [new events_targets.SqsQueue(this.queue)];
+    if (this.queue.fifo && props.messageGroupId == 'undefined') {
+      throw TypeError("'messageGroupId' must be set to when target is a fifo queue");
+    }
+
+    this.targets = this.queue.fifo
+      ? [new events_targets.SqsQueue(this.queue, { messageGroupId: props.messageGroupId })]
+      : [new events_targets.SqsQueue(this.queue)];
   }
 }
