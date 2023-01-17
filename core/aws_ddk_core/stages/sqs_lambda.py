@@ -55,6 +55,7 @@ class SqsToLambdaStage(DataStage):
         lambda_function_errors_alarm_evaluation_periods: Optional[int] = 1,
         function_props: Optional[Dict[str, Any]] = {},
         queue_props: Optional[Dict[str, Any]] = {},
+        alarms_enabled: Optional[bool] = True,
     ) -> None:
         """
         DDK SQS to Lambda stage.
@@ -118,8 +119,11 @@ class SqsToLambdaStage(DataStage):
         function_props : Any
             Additional function properties. For complete list of properties refer to CDK Documentation -
             Lambda Function: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_lambda/Function.html
+        alarms_enabled: Optional[bool]
+            Enable/Disable all alarms in the stage.
+            Default - True
         """
-        super().__init__(scope, id)
+        super().__init__(scope, id, alarms_enabled=alarms_enabled)
 
         self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"

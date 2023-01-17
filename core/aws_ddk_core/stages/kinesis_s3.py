@@ -53,6 +53,7 @@ class KinesisToS3Stage(DataStage):
         delivery_stream: Optional[firehose.IDeliveryStream] = None,
         bucket: Optional[IBucket] = None,
         data_stream: Optional[Stream] = None,
+        alarms_enabled: Optional[bool] = True,
     ) -> None:
         """
         DDK Kinesis Firehose Delivery stream to S3 stage, with an optional Kinesis Data Stream.
@@ -123,8 +124,11 @@ class KinesisToS3Stage(DataStage):
             Preexisting Kinesis Data Stream to use in stage before Delivery Stream.
             Setting this parameter will override any creation of Kinesis Data Streams
             in this stage. `data_stream_enabled` will have no effect.
+        alarms_enabled: Optional[bool]
+            Enable/Disable all alarms in the stage.
+            Default - True
         """
-        super().__init__(scope, id)
+        super().__init__(scope, id, alarms_enabled=alarms_enabled)
 
         self._event_source: str = f"{id}-event-source"
         self._event_detail_type: str = f"{id}-event-type"

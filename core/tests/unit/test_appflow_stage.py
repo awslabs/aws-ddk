@@ -49,6 +49,18 @@ def test_appflow_stage_simple(test_stack: BaseStack) -> None:
             }
         },
     )
+    template.has_resource_properties(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 1,
+            "MetricName": "ExecutionsFailed",
+            "Namespace": "AWS/States",
+            "Period": 300,
+            "Statistic": "Sum",
+            "Threshold": 1,
+        },
+    )
 
 
 def test_appflow_stage_additional_args(test_stack: BaseStack) -> None:
@@ -58,6 +70,7 @@ def test_appflow_stage_additional_args(test_stack: BaseStack) -> None:
         environment_id="dev",
         flow_name="dummy-appflow-flow",
         state_machine_args={"state_machine_name": "dummy-sfn"},
+        alarms_enabled=False,
     )
 
     template = Template.from_stack(test_stack)
@@ -66,4 +79,10 @@ def test_appflow_stage_additional_args(test_stack: BaseStack) -> None:
         props={
             "StateMachineName": "dummy-sfn",
         },
+    )
+
+    template.resource_properties_count_is(
+        "AWS::CloudWatch::Alarm",
+        props={},
+        count=0,
     )

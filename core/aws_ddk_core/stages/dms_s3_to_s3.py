@@ -38,6 +38,7 @@ class DMSS3ToS3Stage(DataStage):
         replication_instance_class: str = "dms.c5.large",
         source_bucket_prefix: Optional[str] = None,
         target_bucket_prefix: Optional[str] = None,
+        **kwargs: Any,
     ) -> None:
         """
         DDK DMS S3 to S3 replication stage

@@ -224,6 +224,43 @@ def test_sqs_lambda_with_additional_function_props(test_stack: BaseStack) -> Non
     )
 
 
+def test_sqs_lambda_no_alarm(test_stack: BaseStack) -> None:
+    SqsToLambdaStage(
+        scope=test_stack,
+        id="dummy-sqs-lambda",
+        environment_id="dev",
+        code=Code.from_asset(f"{Path(__file__).parents[2]}"),
+        handler="commons.handlers.lambda_handler",
+        alarms_enabled=False,
+    )
+
+    template = Template.from_stack(test_stack)
+    template.has_resource_properties(
+        "AWS::Lambda::Function",
+        props={
+            "Runtime": "python3.9",
+            "MemorySize": 512,
+        },
+    )
+    template.resource_properties_count_is(
+        "AWS::CloudWatch::Alarm",
+        props={
+            "Dimensions": Match.array_with(
+                pattern=[
+                    Match.object_like(
+                        pattern={
+                            "Name": "FunctionName",
+                            "Value": {"Ref": "dummysqslambdadummysqslambdafunction6E0AB03E"},
+                        }
+                    )
+                ]
+            ),
+            "Threshold": 10,
+        },
+        count=0,
+    )
+
+
 def test_sqs_lambda_batching(test_stack: BaseStack) -> None:
     SqsToLambdaStage(
         scope=test_stack,
