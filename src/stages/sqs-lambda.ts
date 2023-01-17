@@ -32,6 +32,7 @@ export interface SqsToLambdaStageProps extends DataStageProps {
   readonly sqsQueueProps?: SqsToLambdaStageQueueProps;
 
   readonly batchSize?: number;
+  readonly maxBatchingWindow?: cdk.Duration;
   readonly dlqEnabled?: boolean;
   readonly maxReceiveCount?: number;
 }
@@ -102,6 +103,7 @@ export class SqsToLambdaStage extends DataStage {
     this.function.addEventSource(
       new SqsEventSource(this.queue, {
         batchSize: props.batchSize,
+        maxBatchingWindow: props.maxBatchingWindow,
       }),
     );
 
