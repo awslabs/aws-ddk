@@ -9,6 +9,7 @@ import {
   IFileSetProducer,
   ManualApprovalStep,
   Step,
+  Wave,
 } from 'aws-cdk-lib/pipelines';
 import { Construct, IConstruct } from 'constructs';
 import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from './actions';
@@ -33,6 +34,12 @@ export interface SynthActionProps {
 export interface AddApplicationStageProps {
   readonly stageId: string;
   readonly stage: Stage;
+  readonly manualApprovals?: boolean;
+}
+
+export interface AddApplicationWaveProps {
+  readonly stageId: string;
+  readonly stages: Stage;
   readonly manualApprovals?: boolean;
 }
 
@@ -153,6 +160,40 @@ export class CICDPipelineStack extends Stack {
       this.pipeline?.addStage(props.stage, {});
     }
 
+    return this;
+  }
+
+  addWave(props: AddApplicationWaveProps) {
+    /*
+    Add multiple application stages in parallel to the CICD pipeline. This stage deploys your application infrastructure.
+      Parameters
+    ----------
+    stageId: str
+    Identifier of the wave
+    stages: Stage[]
+    Application stage instance
+    manualApprovals: Optional[bool]
+    Configure manual approvals. False by default
+      Returns
+    -------
+    pipeline : CICDPipelineStack
+    CICDPipelineStack
+    */
+    if (this.pipeline === undefined) {
+      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
+    }
+    var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
+
+    var wave = new Wave(props.stageId);
+    if (manualApprovals) {
+      wave.addPre(new ManualApprovalStep('PromoteTo' + toTitleCase(props.stageId)));
+    }
+
+    Object.entries(props.stages).forEach(([_, value]) => {
+      wave.addStage(value);
+    });
+
+    this.pipeline?.addWave(props.stageId, wave);
     return this;
   }
 
