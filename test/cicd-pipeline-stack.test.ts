@@ -75,6 +75,9 @@ test('Basic CICDPipeline', () => {
       ],
     }),
   });
+  template.hasResourceProperties('AWS::CodePipeline::Pipeline', {
+    Name: 'dummy-pipeline',
+  });
 });
 
 test('CICD Pipeline with Security Checks', () => {
