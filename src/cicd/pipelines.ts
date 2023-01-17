@@ -40,7 +40,7 @@ export interface AddApplicationStageProps {
 
 export interface AddApplicationWaveProps {
   readonly stageId: string;
-  readonly stages: Stage;
+  readonly stages: Stage[];
   readonly manualApprovals?: boolean;
 }
 
@@ -199,8 +199,8 @@ export class CICDPipelineStack extends Stack {
       wave.addPre(new ManualApprovalStep('PromoteTo' + toTitleCase(props.stageId)));
     }
 
-    Object.entries(props.stages).forEach(([_, value]) => {
-      wave.addStage(value);
+    props.stages.forEach((stage) => {
+      wave.addStage(stage);
     });
 
     this.pipeline?.addWave(props.stageId, wave);

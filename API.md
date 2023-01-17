@@ -2928,7 +2928,7 @@ const addApplicationWaveProps: AddApplicationWaveProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stageId">stageId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stages">stages</a></code> | <code>aws-cdk-lib.Stage</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stages">stages</a></code> | <code>aws-cdk-lib.Stage[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.manualApprovals">manualApprovals</a></code> | <code>boolean</code> | *No description.* |
 
 ---
@@ -2946,10 +2946,10 @@ public readonly stageId: string;
 ##### `stages`<sup>Required</sup> <a name="stages" id="aws-ddk-core.AddApplicationWaveProps.property.stages"></a>
 
 ```typescript
-public readonly stages: Stage;
+public readonly stages: Stage[];
 ```
 
-- *Type:* aws-cdk-lib.Stage
+- *Type:* aws-cdk-lib.Stage[]
 
 ---
 
