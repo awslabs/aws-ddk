@@ -109,6 +109,7 @@ Any object.
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
@@ -173,6 +174,16 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.AthenaSQLStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -1498,6 +1509,7 @@ Any object.
 | <code><a href="#aws-ddk-core.DataStage.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -1560,6 +1572,16 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.DataStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -1814,6 +1836,7 @@ Any object.
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.deliveryStream">deliveryStream</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | *No description.* |
@@ -1879,6 +1902,16 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.FirehoseToS3Stage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -2020,6 +2053,7 @@ Any object.
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
@@ -2084,6 +2118,16 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.GlueTransformStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -2358,6 +2402,7 @@ Any object.
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.queue">queue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.Queue</code> | *No description.* |
@@ -2423,6 +2468,16 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.SqsToLambdaStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -2707,6 +2762,7 @@ Any object.
 | <code><a href="#aws-ddk-core.StateMachineStage.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
@@ -2771,6 +2827,16 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.StateMachineStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -3264,6 +3330,7 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
@@ -3304,6 +3371,16 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.AthenaToSQLStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -3617,6 +3694,7 @@ const dataStageProps: DataStageProps = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.DataStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -3637,6 +3715,16 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.DataStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -3695,6 +3783,7 @@ const firehoseToS3StageProps: FirehoseToS3StageProps = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataOutputPrefix">dataOutputPrefix</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled">dataStreamEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsAlarmThreshold">deliveryStreamDataFreshnessErrorsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
@@ -3722,6 +3811,16 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.FirehoseToS3StageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -3939,6 +4038,7 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
@@ -3975,6 +4075,16 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.GlueTransformStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -4292,6 +4402,7 @@ const sqsToLambdaStageProps: SqsToLambdaStageProps = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
@@ -4321,6 +4432,16 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.SqsToLambdaStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -4498,6 +4619,7 @@ const stateMachineStageProps: StateMachineStageProps = { ... }
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
@@ -4531,6 +4653,16 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.StateMachineStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

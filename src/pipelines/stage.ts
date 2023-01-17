@@ -46,12 +46,12 @@ export interface AlarmProps {
 
 export abstract class DataStage extends Stage {
   readonly cloudwatchAlarms: cloudwatch.Alarm[];
-  readonly alarmsEnabled?: boolean;
+  readonly alarmsEnabled: boolean;
 
   constructor(scope: Construct, id: string, props: DataStageProps) {
     super(scope, id, props);
 
-    this.alarmsEnabled = props.alarmsEnabled === undefined ? true : props.alarmsEnabled;
+    this.alarmsEnabled = props.alarmsEnabled ?? true;
     this.cloudwatchAlarms = [];
   }
 

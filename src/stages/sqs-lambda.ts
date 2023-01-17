@@ -119,7 +119,7 @@ export class SqsToLambdaStage extends DataStage {
       detailType: [eventDetailType],
     };
 
-    if (this.queue.fifo && props.messageGroupId == 'undefined') {
+    if (!props.messageGroupId) {
       throw TypeError("'messageGroupId' must be set to when target is a fifo queue");
     }
 
