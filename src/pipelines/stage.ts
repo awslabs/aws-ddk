@@ -73,7 +73,6 @@ export abstract class DataStage extends Stage {
 export abstract class StateMachineStage extends DataStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
-  readonly alarmsEnabled?: boolean;
 
   public stateMachine: sfn.StateMachine;
   public stateMachineInput: { [key: string]: any };
