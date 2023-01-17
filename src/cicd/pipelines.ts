@@ -1,10 +1,12 @@
 import { Stack, StackProps, Stage } from 'aws-cdk-lib';
+import { Pipeline } from 'aws-cdk-lib/aws-codepipeline';
 import { DetailType, NotificationRule } from 'aws-cdk-lib/aws-codestarnotifications';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import {
   CodeBuildStep,
   CodePipeline,
+  CodePipelineProps,
   CodePipelineSource,
   IFileSetProducer,
   ManualApprovalStep,
@@ -67,18 +69,20 @@ export class CICDPipelineStack extends Stack {
   readonly environmentId?: string;
   readonly pipelineName?: string;
   readonly pipelineId?: string;
+  readonly pipelineProps?: CodePipelineProps
   public notificationRule?: NotificationRule;
   public pipeline?: CodePipeline;
   public pipelineKey?: IConstruct;
   public sourceAction?: CodePipelineSource;
   public synthAction?: CodeBuildStep;
 
-  constructor(scope: Construct, id: string, environmentId: string, pipelineName: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, environmentId: string, pipelineName: string, pipelineProps: CodePipelineProps, props?: StackProps) {
     super(scope, id, props);
 
     this.environmentId = environmentId;
     this.pipelineName = pipelineName;
     this.pipelineId = id;
+    this.pipelineProps = pipelineProps
   }
 
   addSourceAction(props: SourceActionProps) {
@@ -108,7 +112,7 @@ export class CICDPipelineStack extends Stack {
       synth: this.synthAction,
       crossAccountKeys: true,
       pipelineName: this.pipelineName,
-      //cliVersion: Handle when Config() is decided on
+      //this.pipelineProps,
     });
     return this;
   }
