@@ -1,7 +1,7 @@
-const deepmerge = require('deepmerge'); // eslint-disable-line  @typescript-eslint/no-require-imports
+const deepmerge = require("deepmerge"); // eslint-disable-line  @typescript-eslint/no-require-imports
 
 function isObject(val: object) {
-  return val != null && typeof val === 'object' && Object.prototype.toString.call(val) === '[object Object]';
+  return val != null && typeof val === "object" && Object.prototype.toString.call(val) === "[object Object]";
 }
 
 function isPlainObject(o: object) {
@@ -15,7 +15,7 @@ function isPlainObject(o: object) {
 
   // If has modified constructor
   const ctor = o.constructor;
-  if (typeof ctor !== 'function') {
+  if (typeof ctor !== "function") {
     return false;
   }
 
@@ -26,7 +26,7 @@ function isPlainObject(o: object) {
   }
 
   // If constructor does not have an Object-specific method
-  if (prot.hasOwnProperty('isPrototypeOf') === false) {
+  if (prot.hasOwnProperty("isPrototypeOf") === false) {
     return false;
   }
 

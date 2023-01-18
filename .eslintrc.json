@@ -45,7 +45,10 @@
   ],
   "rules": {
     "prettier/prettier": [
-      "error"
+      "error",
+      {
+        "singleQuote": false
+      }
     ],
     "@typescript-eslint/no-require-imports": [
       "error"

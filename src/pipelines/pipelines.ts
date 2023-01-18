@@ -1,8 +1,8 @@
-import { SnsAction } from 'aws-cdk-lib/aws-cloudwatch-actions';
-import * as events from 'aws-cdk-lib/aws-events';
-import * as sns from 'aws-cdk-lib/aws-sns';
-import { Construct } from 'constructs';
-import { DataStage, Stage } from './stage';
+import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
+import * as events from "aws-cdk-lib/aws-events";
+import * as sns from "aws-cdk-lib/aws-sns";
+import { Construct } from "constructs";
+import { DataStage, Stage } from "./stage";
 
 export interface DataPipelineProps {
   readonly name?: string;
@@ -50,7 +50,7 @@ export class DataPipeline extends Construct {
     } else if (this.previousStage && skipRule === false) {
       if (stage.targets === undefined) {
         throw new Error(
-          'DataPipeline stage is missing a targets. Unless the rule between stages is overridden, every stage except for the first one must be a DataStage with a defined list of targets.',
+          "DataPipeline stage is missing a targets. Unless the rule between stages is overridden, every stage except for the first one must be a DataStage with a defined list of targets.",
         );
       }
 
@@ -87,7 +87,7 @@ export class DataPipeline extends Construct {
   }
 
   addNotifications(notificationsTopic?: sns.ITopic): DataPipeline {
-    this.notificationsTopic = notificationsTopic ?? new sns.Topic(this, 'Notifications');
+    this.notificationsTopic = notificationsTopic ?? new sns.Topic(this, "Notifications");
     return this;
   }
 }

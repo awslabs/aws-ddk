@@ -1,5 +1,5 @@
-import { Compression, S3BucketProps } from '@aws-cdk/aws-kinesisfirehose-destinations-alpha';
-import { Duration, Size } from 'aws-cdk-lib';
+import { Compression, S3BucketProps } from "@aws-cdk/aws-kinesisfirehose-destinations-alpha";
+import { Duration, Size } from "aws-cdk-lib";
 
 export function defaultDestinationsS3BucketProps(_dataOutputPrefix?: string) {
   return {

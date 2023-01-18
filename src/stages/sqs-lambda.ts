@@ -1,12 +1,12 @@
-import * as cdk from 'aws-cdk-lib';
-import * as events from 'aws-cdk-lib/aws-events';
-import * as events_targets from 'aws-cdk-lib/aws-events-targets';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { SqsEventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
-import * as sqs from 'aws-cdk-lib/aws-sqs';
-import { Construct } from 'constructs';
-import { DataStage, DataStageProps } from '../pipelines/stage';
+import * as cdk from "aws-cdk-lib";
+import * as events from "aws-cdk-lib/aws-events";
+import * as events_targets from "aws-cdk-lib/aws-events-targets";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import { SqsEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
+import * as sqs from "aws-cdk-lib/aws-sqs";
+import { Construct } from "constructs";
+import { DataStage, DataStageProps } from "../pipelines/stage";
 
 export interface SqsToLambdaStageFunctionProps {
   readonly code: lambda.Code;
@@ -57,7 +57,7 @@ export class SqsToLambdaStage extends DataStage {
     } else if (props.lambdaFunctionProps) {
       const functionProps: SqsToLambdaStageFunctionProps = props.lambdaFunctionProps;
 
-      this.function = new lambda.Function(this, 'Process Function', {
+      this.function = new lambda.Function(this, "Process Function", {
         code: functionProps.code,
         runtime: functionProps.runtime ?? lambda.Runtime.PYTHON_3_9,
         handler: functionProps.handler,
@@ -77,20 +77,20 @@ export class SqsToLambdaStage extends DataStage {
     // Enable the function to publish events to the default EventBus
     this.function.addToRolePolicy(
       new iam.PolicyStatement({
-        actions: ['events:PutEvents'],
-        resources: ['*'],
+        actions: ["events:PutEvents"],
+        resources: ["*"],
       }),
     );
 
     const dlqEnabled = props.dlqEnabled ?? false;
     if (dlqEnabled == true) {
-      this.deadLetterQueue = new sqs.Queue(this, 'Dead Letter Queue', {});
+      this.deadLetterQueue = new sqs.Queue(this, "Dead Letter Queue", {});
     }
 
     if (props.sqsQueue) {
       this.queue = props.sqsQueue;
     } else {
-      this.queue = new sqs.Queue(this, 'Queue', {
+      this.queue = new sqs.Queue(this, "Queue", {
         visibilityTimeout: props.sqsQueueProps?.visibilityTimeout ?? cdk.Duration.minutes(2),
         deadLetterQueue: this.deadLetterQueue
           ? {
@@ -108,7 +108,7 @@ export class SqsToLambdaStage extends DataStage {
       }),
     );
 
-    this.addAlarm('Process Function Errors', {
+    this.addAlarm("Process Function Errors", {
       metric: this.function.metricErrors(),
       threshold: props.lambdaFunctionProps?.errorsAlarmThreshold ?? 5,
       evaluationPeriods: props.lambdaFunctionProps?.errorsEvaluationPeriods ?? 1,
