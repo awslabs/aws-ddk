@@ -1,7 +1,7 @@
-import * as events from 'aws-cdk-lib/aws-events';
-import * as s3 from 'aws-cdk-lib/aws-s3';
-import { Construct } from 'constructs';
-import { EventStage, EventStageProps } from '../pipelines/stage';
+import * as events from "aws-cdk-lib/aws-events";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import { Construct } from "constructs";
+import { EventStage, EventStageProps } from "../pipelines/stage";
 
 export interface S3EventStageProps extends EventStageProps {
   readonly eventNames: string[];
@@ -28,7 +28,7 @@ export class S3EventStage extends EventStage {
     };
 
     if (props.keyPrefix) {
-      if (typeof props.keyPrefix === 'string') {
+      if (typeof props.keyPrefix === "string") {
         var prefixes = [props.keyPrefix];
       } else {
         var prefixes = props.keyPrefix;
@@ -39,7 +39,7 @@ export class S3EventStage extends EventStage {
     }
 
     this.eventPattern = {
-      source: ['aws.s3'],
+      source: ["aws.s3"],
       detail: detail,
       detailType: props.eventNames,
     };

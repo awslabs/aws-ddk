@@ -1,9 +1,9 @@
-import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
-import * as events from 'aws-cdk-lib/aws-events';
-import * as events_targets from 'aws-cdk-lib/aws-events-targets';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
-import { Construct } from 'constructs';
+import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
+import * as events from "aws-cdk-lib/aws-events";
+import * as events_targets from "aws-cdk-lib/aws-events-targets";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as sfn from "aws-cdk-lib/aws-stepfunctions";
+import { Construct } from "constructs";
 
 export interface StageProps {
   readonly name?: string;
@@ -81,7 +81,7 @@ export abstract class StateMachineStage extends DataStage {
     definition: sfn.IChainable,
     props: StateMachineStageProps,
   ): [events.EventPattern, events.IRuleTarget[], sfn.StateMachine] {
-    const stateMachine = new sfn.StateMachine(this, 'State Machine', {
+    const stateMachine = new sfn.StateMachine(this, "State Machine", {
       definition: definition,
     });
 
@@ -91,7 +91,7 @@ export abstract class StateMachineStage extends DataStage {
       });
     }
 
-    this.addAlarm('State Machine Failure Alarm', {
+    this.addAlarm("State Machine Failure Alarm", {
       metric: stateMachine.metricFailed(),
       threshold: props.stateMachineFailedExecutionsAlarmThreshold,
       evaluationPeriods: props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
@@ -99,10 +99,10 @@ export abstract class StateMachineStage extends DataStage {
 
     const stateMachineInput = props.stateMachineInput ?? {};
     const eventPattern = {
-      source: ['aws.states'],
-      detailType: ['Step Functions Execution Status Change'],
+      source: ["aws.states"],
+      detailType: ["Step Functions Execution Status Change"],
       detail: {
-        status: ['SUCCEEDED'],
+        status: ["SUCCEEDED"],
         stateMachineArn: [stateMachine.stateMachineArn],
       },
     };

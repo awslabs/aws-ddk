@@ -1,6 +1,6 @@
-import { RemovalPolicy } from 'aws-cdk-lib';
-import * as s3 from 'aws-cdk-lib/aws-s3';
-import { Bucket, BucketProps } from 'aws-cdk-lib/aws-s3';
+import { RemovalPolicy } from "aws-cdk-lib";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import { Bucket, BucketProps } from "aws-cdk-lib/aws-s3";
 
 export function defaultS3BucketProps(loggingBucket?: Bucket, lifecycleRules?: s3.LifecycleRule[]): s3.BucketProps {
   return {

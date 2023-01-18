@@ -1,8 +1,8 @@
-import { Stack, StackProps, Stage } from 'aws-cdk-lib';
-import { Pipeline } from 'aws-cdk-lib/aws-codepipeline';
-import { DetailType, NotificationRule } from 'aws-cdk-lib/aws-codestarnotifications';
-import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { Topic } from 'aws-cdk-lib/aws-sns';
+import { Stack, StackProps, Stage } from "aws-cdk-lib";
+import { Pipeline } from "aws-cdk-lib/aws-codepipeline";
+import { DetailType, NotificationRule } from "aws-cdk-lib/aws-codestarnotifications";
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { Topic } from "aws-cdk-lib/aws-sns";
 import {
   CodeBuildOptions,
   CodeBuildStep,
@@ -13,10 +13,10 @@ import {
   ManualApprovalStep,
   Step,
   Wave,
-} from 'aws-cdk-lib/pipelines';
-import { Construct, IConstruct } from 'constructs';
-import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from './actions';
-import { toTitleCase } from './utils';
+} from "aws-cdk-lib/pipelines";
+import { Construct, IConstruct } from "constructs";
+import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from "./actions";
+import { toTitleCase } from "./utils";
 
 export interface SourceActionProps {
   readonly sourceAction?: CodePipelineSource;
@@ -105,7 +105,7 @@ export class CICDPipelineStack extends Stack {
   }
 
   addSourceAction(props: SourceActionProps) {
-    var branch = props.branch ?? 'main';
+    var branch = props.branch ?? "main";
     this.sourceAction =
       props.sourceAction ||
       getCodeCommitSourceAction(this, {
@@ -125,9 +125,9 @@ export class CICDPipelineStack extends Stack {
     */
 
     if (this.synthAction === undefined) {
-      throw new Error('Pipeline cannot be built without a synth action.');
+      throw new Error("Pipeline cannot be built without a synth action.");
     }
-    this.pipeline = new CodePipeline(this, 'DDKCodePipeline', {
+    this.pipeline = new CodePipeline(this, "DDKCodePipeline", {
       synth: this.synthAction,
       crossAccountKeys: true,
       pipelineName: this.pipelineName,
@@ -171,13 +171,13 @@ export class CICDPipelineStack extends Stack {
     CICDPipelineStack
     */
     if (this.pipeline === undefined) {
-      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
+      throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
     var manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
     if (manualApprovals) {
       this.pipeline?.addStage(props.stage, {
-        pre: [new ManualApprovalStep('PromoteTo' + toTitleCase(props.stageId))],
+        pre: [new ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId))],
       });
     } else {
       this.pipeline?.addStage(props.stage, {});
@@ -203,13 +203,13 @@ export class CICDPipelineStack extends Stack {
     CICDPipelineStack
     */
     if (this.pipeline === undefined) {
-      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
+      throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
     const manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
     var wave = new Wave(props.stageId);
     if (manualApprovals) {
-      wave.addPre(new ManualApprovalStep('PromoteTo' + toTitleCase(props.stageId)));
+      wave.addPre(new ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId)));
     }
 
     props.stages.forEach((stage) => {
@@ -236,13 +236,13 @@ export class CICDPipelineStack extends Stack {
     */
 
     if (this.sourceAction === undefined) {
-      throw new Error('Source Action Must Be configured before calling this method.');
+      throw new Error("Source Action Must Be configured before calling this method.");
     }
     if (this.pipeline?.cloudAssemblyFileSet === undefined) {
-      throw new Error('No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.');
+      throw new Error("No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.");
     }
 
-    var stageName = props.stageName ?? 'SecurityLint';
+    var stageName = props.stageName ?? "SecurityLint";
     var cloudAssemblyFileSet = props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
 
     this.pipeline?.addWave(stageName, {
@@ -268,15 +268,15 @@ export class CICDPipelineStack extends Stack {
     pipeline : CICDPipelineStack
     CICD pipeline
     */
-    var stageName = props.stageName ?? 'Tests';
+    var stageName = props.stageName ?? "Tests";
     var cloudAssemblyFileSet = props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
-    var commands = props.commands ?? ['./test.sh'];
+    var commands = props.commands ?? ["./test.sh"];
 
     if (cloudAssemblyFileSet === undefined) {
-      throw new Error('No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.');
+      throw new Error("No cloudAssemblyFileSet configured, source action needs to be configured for this pipeline.");
     }
 
-    this.pipeline?.addWave(stageName || 'Tests', {
+    this.pipeline?.addWave(stageName || "Tests", {
       post: [getTestsAction(cloudAssemblyFileSet, commands)],
     });
 
@@ -296,16 +296,16 @@ export class CICDPipelineStack extends Stack {
     CICD pipeline
     */
     if (this.pipeline === undefined) {
-      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
+      throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
 
     this.notificationRule =
       props.notificationRule ??
-      new NotificationRule(this, 'Notification', {
+      new NotificationRule(this, "Notification", {
         detailType: DetailType.BASIC,
-        events: ['codepipeline-pipeline-pipeline-execution-failed'],
+        events: ["codepipeline-pipeline-pipeline-execution-failed"],
         source: this.pipeline?.pipeline,
-        targets: [new Topic(this, 'ExecutionFailedNotifications')], // Implement config defined topic later on
+        targets: [new Topic(this, "ExecutionFailedNotifications")], // Implement config defined topic later on
       });
     return this;
   }
