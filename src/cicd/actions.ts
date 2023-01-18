@@ -1,22 +1,16 @@
-import { Repository } from "aws-cdk-lib/aws-codecommit";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import {
-  CodeBuildStep,
-  CodePipelineSource,
-  ConnectionSourceOptions,
-  IFileSetProducer,
-  ShellStep,
-} from "aws-cdk-lib/pipelines";
+import * as codecommit from "aws-cdk-lib/aws-codecommit";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as pipelines from "aws-cdk-lib/pipelines";
 import { Construct } from "constructs";
 import { getCodeArtifactPublishPolicyStatements } from "./utils";
 
 export interface GetSynthActionProps {
-  readonly codePipelineSource?: IFileSetProducer;
+  readonly codePipelineSource?: pipelines.IFileSetProducer;
   readonly cdkVersion?: string;
   readonly partition?: string;
   readonly region?: string;
   readonly account?: string;
-  readonly rolePolicyStatements?: PolicyStatement[];
+  readonly rolePolicyStatements?: iam.PolicyStatement[];
   readonly codeartifactRepository?: string;
   readonly codeartifactDomain?: string;
   readonly codeartifactDomainOwner?: string;
@@ -26,18 +20,21 @@ export interface GetSynthActionProps {
 export interface CodeCommitSourceActionProps {
   readonly repositoryName: string;
   readonly branch: string;
-  readonly props?: ConnectionSourceOptions;
+  readonly props?: pipelines.ConnectionSourceOptions;
 }
 
-export function getCodeCommitSourceAction(scope: Construct, props: CodeCommitSourceActionProps): CodePipelineSource {
-  return CodePipelineSource.codeCommit(
-    Repository.fromRepositoryName(scope, props.repositoryName, props.repositoryName),
+export function getCodeCommitSourceAction(
+  scope: Construct,
+  props: CodeCommitSourceActionProps,
+): pipelines.CodePipelineSource {
+  return pipelines.CodePipelineSource.codeCommit(
+    codecommit.Repository.fromRepositoryName(scope, props.repositoryName, props.repositoryName),
     props.branch,
     props.props,
   );
 }
 
-export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
+export function getSynthAction(props: GetSynthActionProps): pipelines.CodeBuildStep {
   var installCommands;
   installCommands = [`npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : "latest"}`];
 
@@ -51,7 +48,7 @@ export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
   if (props.additionalInstallCommands != undefined && props.additionalInstallCommands.length > 0) {
     installCommands = installCommands.concat(props.additionalInstallCommands); // will need to be replaced with `npm install aws-ddk-core@${version}` when available
   }
-  return new CodeBuildStep("Synth", {
+  return new pipelines.CodeBuildStep("Synth", {
     input: props.codePipelineSource,
     installCommands: installCommands,
     commands: ["cdk synth"],
@@ -59,7 +56,10 @@ export function getSynthAction(props: GetSynthActionProps): CodeBuildStep {
   });
 }
 
-export function getCfnNagAction(fileSetProducer: IFileSetProducer, stageName: string = "CFNNag"): ShellStep {
+export function getCfnNagAction(
+  fileSetProducer: pipelines.IFileSetProducer,
+  stageName: string = "CFNNag",
+): pipelines.ShellStep {
   /*
   Get CFN Nag action.
    Parameters
@@ -74,7 +74,7 @@ export function getCfnNagAction(fileSetProducer: IFileSetProducer, stageName: st
   Codebuild step
   */
 
-  return new ShellStep(stageName, {
+  return new pipelines.ShellStep(stageName, {
     input: fileSetProducer,
     installCommands: ["gem install cfn-nag"],
     commands: [
@@ -84,7 +84,10 @@ export function getCfnNagAction(fileSetProducer: IFileSetProducer, stageName: st
   });
 }
 
-export function getBanditAction(codePipelineSource: CodePipelineSource, stageName: string = "Bandit"): ShellStep {
+export function getBanditAction(
+  codePipelineSource: pipelines.CodePipelineSource,
+  stageName: string = "Bandit",
+): pipelines.ShellStep {
   /*
   Get Bandit action.
    Parameters
@@ -99,7 +102,7 @@ export function getBanditAction(codePipelineSource: CodePipelineSource, stageNam
   Synth action
   */
 
-  return new ShellStep(stageName, {
+  return new pipelines.ShellStep(stageName, {
     input: codePipelineSource,
     installCommands: ["pip install bandit"],
     commands: ["bandit -r -ll -ii ."],
@@ -107,7 +110,7 @@ export function getBanditAction(codePipelineSource: CodePipelineSource, stageNam
 }
 
 export function getTestsAction(
-  fileSetProducer: IFileSetProducer,
+  fileSetProducer: pipelines.IFileSetProducer,
   commands: string[] = ["./test.sh"],
   installCommands: string[] = ["pip install -r requirements-dev.txt", "pip install -r requirements.txt"],
   stageName: string = "Tests",
@@ -132,7 +135,7 @@ export function getTestsAction(
   Test action
   */
 
-  return new ShellStep(stageName, {
+  return new pipelines.ShellStep(stageName, {
     input: fileSetProducer,
     installCommands: installCommands,
     commands: commands,
@@ -146,8 +149,8 @@ export interface CodeArtifactPublishActionProps {
   readonly codeartifactRepository: string;
   readonly codeartifactDomain: string;
   readonly codeartifactDomainOwner: string;
-  readonly codePipelineSource?: CodePipelineSource;
-  readonly rolePolicyStatements?: PolicyStatement[];
+  readonly codePipelineSource?: pipelines.CodePipelineSource;
+  readonly rolePolicyStatements?: iam.PolicyStatement[];
 }
 
 export function getCodeArtifactPublishAction(
@@ -157,15 +160,15 @@ export function getCodeArtifactPublishAction(
   codeartifactRepository: string,
   codeartifactDomain: string,
   codeartifactDomainOwner: string,
-  codePipelineSource?: CodePipelineSource,
-  rolePolicyStatements: PolicyStatement[] = getCodeArtifactPublishPolicyStatements(
+  codePipelineSource?: pipelines.CodePipelineSource,
+  rolePolicyStatements: iam.PolicyStatement[] = getCodeArtifactPublishPolicyStatements(
     partition,
     region,
     account,
     codeartifactDomain,
     codeartifactRepository,
   ),
-): CodeBuildStep {
+): pipelines.CodeBuildStep {
   /*
   Get CodeArtifact upload action. This action builds Python wheel, and uploads it to CodeArtifact repository.
    Parameters
@@ -195,7 +198,7 @@ export function getCodeArtifactPublishAction(
     rolePolicyStatements ??
     getCodeArtifactPublishPolicyStatements(partition, region, account, codeartifactDomain, codeartifactRepository);
 
-  return new CodeBuildStep("BuildAndUploadArtifact", {
+  return new pipelines.CodeBuildStep("BuildAndUploadArtifact", {
     input: codePipelineSource,
     buildEnvironment: {
       environmentVariables: {

@@ -1,4 +1,4 @@
-import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 export function getCodeArtifactReadPolicyStatements(
   partition: string,
@@ -6,10 +6,10 @@ export function getCodeArtifactReadPolicyStatements(
   account: string,
   domain: string,
   repository: string,
-): PolicyStatement[] {
+): iam.PolicyStatement[] {
   return [
-    new PolicyStatement({
-      effect: Effect.ALLOW,
+    new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
       actions: [
         "codeartifact:DescribeDomain",
         "codeartifact:GetAuthorizationToken",
@@ -17,13 +17,13 @@ export function getCodeArtifactReadPolicyStatements(
       ],
       resources: [`arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`],
     }),
-    new PolicyStatement({
-      effect: Effect.ALLOW,
+    new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
       actions: ["codeartifact:GetRepositoryEndpoint", "codeartifact:ReadFromRepository"],
       resources: [`arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`],
     }),
-    new PolicyStatement({
-      effect: Effect.ALLOW,
+    new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
       actions: ["sts:GetServiceBearerToken"],
       resources: ["*"],
       conditions: {
@@ -41,30 +41,30 @@ export function getCodeArtifactPublishPolicyStatements(
   account: string,
   domain: string,
   repository: string,
-): PolicyStatement[] {
+): iam.PolicyStatement[] {
   return [
-    new PolicyStatement({
+    new iam.PolicyStatement({
       actions: [
         "codeartifact:DescribeDomain",
         "codeartifact:GetAuthorizationToken",
         "codeartifact:ListRepositoriesInDomain",
       ],
-      effect: Effect.ALLOW,
+      effect: iam.Effect.ALLOW,
       resources: [`arn:${partition}:codeartifact:${region}:${account}:domain/${domain}`],
     }),
-    new PolicyStatement({
+    new iam.PolicyStatement({
       actions: ["codeartifact:GetRepositoryEndpoint", "codeartifact:ReadFromRepository"],
-      effect: Effect.ALLOW,
+      effect: iam.Effect.ALLOW,
       resources: [`arn:${partition}:codeartifact:${region}:${account}:repository/${domain}/${repository}`],
     }),
-    new PolicyStatement({
+    new iam.PolicyStatement({
       actions: ["codeartifact:PublishPackageVersion"],
-      effect: Effect.ALLOW,
+      effect: iam.Effect.ALLOW,
       resources: ["*"],
     }),
-    new PolicyStatement({
+    new iam.PolicyStatement({
       actions: ["sts:GetServiceBearerToken"],
-      effect: Effect.ALLOW,
+      effect: iam.Effect.ALLOW,
       resources: ["*"],
       conditions: {
         StringEquals: {

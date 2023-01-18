@@ -3,7 +3,7 @@ import * as events from "aws-cdk-lib/aws-events";
 import * as events_targets from "aws-cdk-lib/aws-events-targets";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import { SqsEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
+import * as lambda_event_sources from "aws-cdk-lib/aws-lambda-event-sources";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
 import { DataStage, DataStageProps } from "../pipelines/stage";
@@ -102,7 +102,7 @@ export class SqsToLambdaStage extends DataStage {
     }
 
     this.function.addEventSource(
-      new SqsEventSource(this.queue, {
+      new lambda_event_sources.SqsEventSource(this.queue, {
         batchSize: props.batchSize,
         maxBatchingWindow: props.maxBatchingWindow,
       }),
