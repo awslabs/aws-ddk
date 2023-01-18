@@ -29,14 +29,6 @@ export interface DataStageProps extends StageProps {
   readonly alarmsEnabled?: boolean;
 }
 
-export interface StateMachineStageProps extends StageProps {
-  readonly stateMachineInput?: { [key: string]: any };
-  readonly additionalRolePolicyStatements?: iam.PolicyStatement[];
-  readonly stateMachineFailedExecutionsAlarmThreshold?: number;
-  readonly stateMachineFailedExecutionsAlarmEvaluationPeriods?: number;
-  readonly alarmsEnabled?: boolean;
-}
-
 export interface AlarmProps {
   readonly metric: cloudwatch.IMetric;
   readonly comparisonOperator?: cloudwatch.ComparisonOperator;
@@ -70,65 +62,58 @@ export abstract class DataStage extends Stage {
   }
 }
 
+export interface StateMachineStageProps extends StageProps {
+  readonly stateMachineInput?: { [key: string]: any };
+  readonly additionalRolePolicyStatements?: iam.PolicyStatement[];
+  readonly stateMachineFailedExecutionsAlarmThreshold?: number;
+  readonly stateMachineFailedExecutionsAlarmEvaluationPeriods?: number;
+  readonly alarmsEnabled?: boolean;
+}
+
 export abstract class StateMachineStage extends DataStage {
-  readonly targets?: events.IRuleTarget[];
-  readonly eventPattern?: events.EventPattern;
+  abstract readonly stateMachine: sfn.StateMachine;
 
-  public stateMachine: sfn.StateMachine;
-  public stateMachineInput: { [key: string]: any };
-
-  /*
-  DataStage with helper methods to simplify StateMachine stages creation.
-  */
   constructor(scope: Construct, id: string, props: StateMachineStageProps) {
-    /*
-    Create a stage.
-    Parameters
-    ----------
-    scope : Construct
-    Scope within which this construct is defined
-    id : str
-    Identifier of the stage
-    name : Optional[str]
-    Name of the stage
-    description :  Optional[str]
-    Description of the stage
-    */
     super(scope, id, props);
+  }
 
-    this.stateMachine = new sfn.StateMachine(this, 'State Machine', {
-      definition: this.createStateMachineSteps(),
+  protected createStateMachine(
+    definition: sfn.IChainable,
+    props: StateMachineStageProps,
+  ): [events.EventPattern, events.IRuleTarget[], sfn.StateMachine] {
+    const stateMachine = new sfn.StateMachine(this, 'State Machine', {
+      definition: definition,
     });
 
     if (props.additionalRolePolicyStatements) {
       props.additionalRolePolicyStatements.forEach((s) => {
-        this.stateMachine.addToRolePolicy(s);
+        stateMachine.addToRolePolicy(s);
       });
     }
 
     this.addAlarm('State Machine Failure Alarm', {
-      metric: this.stateMachine.metricFailed(),
+      metric: stateMachine.metricFailed(),
       threshold: props.stateMachineFailedExecutionsAlarmThreshold,
       evaluationPeriods: props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
     });
 
-    this.stateMachineInput = props.stateMachineInput ?? {};
-    this.eventPattern = {
+    const stateMachineInput = props.stateMachineInput ?? {};
+    const eventPattern = {
       source: ['aws.states'],
       detailType: ['Step Functions Execution Status Change'],
       detail: {
         status: ['SUCCEEDED'],
-        stateMachineArn: [this.stateMachine.stateMachineArn],
+        stateMachineArn: [stateMachine.stateMachineArn],
       },
     };
-    this.targets = [
-      new events_targets.SfnStateMachine(this.stateMachine, {
-        input: events.RuleTargetInput.fromObject(this.stateMachineInput),
+    const targets = [
+      new events_targets.SfnStateMachine(stateMachine, {
+        input: events.RuleTargetInput.fromObject(stateMachineInput),
       }),
     ];
-  }
 
-  protected abstract createStateMachineSteps(): sfn.IChainable;
+    return [eventPattern, targets, stateMachine];
+  }
 }
 export interface EventStageProps extends StageProps {}
 

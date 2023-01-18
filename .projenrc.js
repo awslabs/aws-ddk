@@ -32,7 +32,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 
 // Experimental modules
-['@aws-cdk/aws-kinesisfirehose-alpha', '@aws-cdk/aws-kinesisfirehose-destinations-alpha'].forEach((dep) => {
+[
+  '@aws-cdk/aws-kinesisfirehose-alpha',
+  '@aws-cdk/aws-kinesisfirehose-destinations-alpha',
+  '@aws-cdk/aws-glue-alpha',
+].forEach((dep) => {
   project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
   project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
 });
