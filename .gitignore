@@ -32,6 +32,8 @@ jspm_packages/
 .cache
 .vscode/
 *.code-workspace
+.python-version
+.DS_Store
 !/.projenrc.js
 /test-reports/
 junit.xml
