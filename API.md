@@ -4331,8 +4331,10 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobArgs">jobArgs</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobProps">jobProps</a></code> | <code>@aws-cdk/aws-glue-alpha.JobProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobRunArgs">jobRunArgs</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
 ---
 
@@ -4406,7 +4408,7 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 ---
 
-##### `crawlerName`<sup>Required</sup> <a name="crawlerName" id="aws-ddk-core.GlueTransformStageProps.property.crawlerName"></a>
+##### `crawlerName`<sup>Optional</sup> <a name="crawlerName" id="aws-ddk-core.GlueTransformStageProps.property.crawlerName"></a>
 
 ```typescript
 public readonly crawlerName: string;
@@ -4416,7 +4418,17 @@ public readonly crawlerName: string;
 
 ---
 
-##### `jobName`<sup>Required</sup> <a name="jobName" id="aws-ddk-core.GlueTransformStageProps.property.jobName"></a>
+##### `crawlerProps`<sup>Optional</sup> <a name="crawlerProps" id="aws-ddk-core.GlueTransformStageProps.property.crawlerProps"></a>
+
+```typescript
+public readonly crawlerProps: CfnCrawlerProps;
+```
+
+- *Type:* aws-cdk-lib.aws_glue.CfnCrawlerProps
+
+---
+
+##### `jobName`<sup>Optional</sup> <a name="jobName" id="aws-ddk-core.GlueTransformStageProps.property.jobName"></a>
 
 ```typescript
 public readonly jobName: string;
@@ -4426,10 +4438,20 @@ public readonly jobName: string;
 
 ---
 
-##### `jobArgs`<sup>Optional</sup> <a name="jobArgs" id="aws-ddk-core.GlueTransformStageProps.property.jobArgs"></a>
+##### `jobProps`<sup>Optional</sup> <a name="jobProps" id="aws-ddk-core.GlueTransformStageProps.property.jobProps"></a>
 
 ```typescript
-public readonly jobArgs: {[ key: string ]: any};
+public readonly jobProps: JobProps;
+```
+
+- *Type:* @aws-cdk/aws-glue-alpha.JobProps
+
+---
+
+##### `jobRunArgs`<sup>Optional</sup> <a name="jobRunArgs" id="aws-ddk-core.GlueTransformStageProps.property.jobRunArgs"></a>
+
+```typescript
+public readonly jobRunArgs: {[ key: string ]: any};
 ```
 
 - *Type:* {[ key: string ]: any}
