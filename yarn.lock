@@ -10,6 +10,11 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
+"@aws-cdk/aws-glue-alpha@2.38.1-alpha.0":
+  version "2.38.1-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-glue-alpha/-/aws-glue-alpha-2.38.1-alpha.0.tgz#b30926c4c88d93c492c01bf6c33431f6700e3e80"
+  integrity sha512-p1oMOpFyVePXy+1DEXo0mAyW3oAiSqX4/3k4bMYa34GahPs0H7Qo7pbqUkwJxsBLfFI9x8ddDQoP38LJo1Qo5g==
+
 "@aws-cdk/aws-kinesisfirehose-alpha@2.38.1-alpha.0":
   version "2.38.1-alpha.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-kinesisfirehose-alpha/-/aws-kinesisfirehose-alpha-2.38.1-alpha.0.tgz#f961deedbd01f31be9e7bf733cba6a09ab4e4919"
