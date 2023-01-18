@@ -111,7 +111,6 @@ Any object.
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
 ---
 
@@ -194,16 +193,6 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
-
----
-
-##### `stateMachineInput`<sup>Required</sup> <a name="stateMachineInput" id="aws-ddk-core.AthenaSQLStage.property.stateMachineInput"></a>
-
-```typescript
-public readonly stateMachineInput: {[ key: string ]: any};
-```
-
-- *Type:* {[ key: string ]: any}
 
 ---
 
@@ -2029,7 +2018,6 @@ Any object.
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
 ---
 
@@ -2112,16 +2100,6 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
-
----
-
-##### `stateMachineInput`<sup>Required</sup> <a name="stateMachineInput" id="aws-ddk-core.GlueTransformStage.property.stateMachineInput"></a>
-
-```typescript
-public readonly stateMachineInput: {[ key: string ]: any};
-```
-
-- *Type:* {[ key: string ]: any}
 
 ---
 
@@ -2738,7 +2716,6 @@ Any object.
 | <code><a href="#aws-ddk-core.StateMachineStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
 ---
 
@@ -2821,16 +2798,6 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
-
----
-
-##### `stateMachineInput`<sup>Required</sup> <a name="stateMachineInput" id="aws-ddk-core.StateMachineStage.property.stateMachineInput"></a>
-
-```typescript
-public readonly stateMachineInput: {[ key: string ]: any};
-```
-
-- *Type:* {[ key: string ]: any}
 
 ---
 
