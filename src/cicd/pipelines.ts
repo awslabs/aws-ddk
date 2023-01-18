@@ -1,12 +1,14 @@
 import { Stack, StackProps, Stage } from 'aws-cdk-lib';
+import { Pipeline } from 'aws-cdk-lib/aws-codepipeline';
 import { DetailType, NotificationRule } from 'aws-cdk-lib/aws-codestarnotifications';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import {
+  CodeBuildOptions,
   CodeBuildStep,
   CodePipeline,
-  CodePipelineProps,
   CodePipelineSource,
+  DockerCredential,
   IFileSetProducer,
   ManualApprovalStep,
   Step,
@@ -64,31 +66,42 @@ export interface AddCustomStageProps {
   readonly steps: Step[];
 }
 
+export interface CICDPipelineStackProps extends StackProps {
+  readonly environmentId?: string;
+  readonly pipelineName?: string;
+}
+
+export interface AdditionalPipelineProps {
+  readonly assetPublishingCodeBuildDefaults?: CodeBuildOptions;
+  readonly cliVersion?: string;
+  readonly codeBuildDefaults?: CodeBuildOptions;
+  readonly codePipeline?: Pipeline;
+  readonly dockerCredentials?: DockerCredential[];
+  readonly dockerEnabledForSelfMutation?: boolean;
+  readonly dockerEnabledForSynth?: boolean;
+  readonly publishAssetsInParallel?: boolean;
+  readonly reuseCrossRegionSupportStacks?: boolean;
+  readonly selfMutation?: boolean;
+  readonly selfMutationCodeBuildDefaults?: CodeBuildOptions;
+  readonly synthCodeBuildDefaults?: CodeBuildOptions;
+}
+
 export class CICDPipelineStack extends Stack {
   readonly environmentId?: string;
   readonly pipelineName?: string;
   readonly pipelineId?: string;
-  readonly pipelineProps?: CodePipelineProps;
   public notificationRule?: NotificationRule;
   public pipeline?: CodePipeline;
   public pipelineKey?: IConstruct;
   public sourceAction?: CodePipelineSource;
   public synthAction?: CodeBuildStep;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    environmentId: string,
-    pipelineName: string,
-    pipelineProps: CodePipelineProps,
-    props?: StackProps,
-  ) {
+  constructor(scope: Construct, id: string, props: CICDPipelineStackProps) {
     super(scope, id, props);
 
-    this.environmentId = environmentId;
-    this.pipelineName = pipelineName;
+    this.environmentId = props.environmentId;
+    this.pipelineName = props.pipelineName;
     this.pipelineId = id;
-    this.pipelineProps = pipelineProps;
   }
 
   addSourceAction(props: SourceActionProps) {
@@ -102,7 +115,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  buildPipeline() {
+  buildPipeline(props: AdditionalPipelineProps = {}) {
     /*
     Build the pipeline structure.
      Returns
@@ -118,12 +131,12 @@ export class CICDPipelineStack extends Stack {
       synth: this.synthAction,
       crossAccountKeys: true,
       pipelineName: this.pipelineName,
-      //this.pipelineProps,
+      ...props,
     });
     return this;
   }
 
-  addSynthAction(props: SynthActionProps) {
+  addSynthAction(props: SynthActionProps = {}) {
     this.synthAction =
       props.synthAction ||
       getSynthAction({
@@ -270,7 +283,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  addNotifications(props: AddNotificationsProps) {
+  addNotifications(props: AddNotificationsProps = {}) {
     /*
     Add pipeline notifications. Create notification rule that sends events to the specified SNS topic.
       Parameters

@@ -6,9 +6,9 @@ import { CICDPipelineStack, getCodeArtifactPublishAction } from '../src';
 test('Basic CICDPipeline', () => {
   const app = new cdk.App();
   //const baseStack = new cdk.Stack(app, "my-base-stack"); will add when base stack is implemented
-  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
     .addSourceAction({ repositoryName: 'dummy-repository' })
-    .addSynthAction({})
+    .addSynthAction()
     .buildPipeline()
     //.addStage({ stageId: 'dev', stage: new cdk.Stage(baseStack, 'my-stack')}) will add when base stack is implemented
     .synth();
@@ -82,9 +82,9 @@ test('Basic CICDPipeline', () => {
 
 test('CICD Pipeline with Security Checks', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
     .addSourceAction({ repositoryName: 'dummy-repository' })
-    .addSynthAction({})
+    .addSynthAction()
     .buildPipeline()
     .addSecurityLintStage({})
     .addTestStage({})
@@ -130,9 +130,9 @@ test('CICD Pipeline with Security Checks', () => {
 
 test('CICD Pipeline with Custom Stage', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
     .addSourceAction({ repositoryName: 'dummy-repository' })
-    .addSynthAction({})
+    .addSynthAction()
     .buildPipeline()
     .addCustomStage({
       stageName: 'CustomStage',
@@ -176,9 +176,9 @@ test('CICD Pipeline with Custom Stage', () => {
 
 test('CICD Pipeline with Notifications', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
     .addSourceAction({ repositoryName: 'dummy-repository' })
-    .addSynthAction({})
+    .addSynthAction()
     .buildPipeline()
     .addCustomStage({
       stageName: 'CustomStage',
@@ -193,7 +193,7 @@ test('CICD Pipeline with Notifications', () => {
       ],
     })
     .synth()
-    .addNotifications({});
+    .addNotifications();
 
   const template = Template.fromStack(stack);
   template.resourceCountIs('AWS::SNS::Topic', 1);
@@ -214,9 +214,9 @@ test('CICD Pipeline with Notifications', () => {
 
 test('Test Pipeline with Artifact Upload', () => {
   const app = new cdk.App();
-  const stack = new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+  const stack = new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
     .addSourceAction({ repositoryName: 'dummy-repository' })
-    .addSynthAction({})
+    .addSynthAction()
     .buildPipeline()
     .addCustomStage({
       stageName: 'PublishToCodeArtifact',
@@ -232,7 +232,7 @@ test('Test Pipeline with Artifact Upload', () => {
       ],
     })
     .synth()
-    .addNotifications({});
+    .addNotifications();
 
   const template = Template.fromStack(stack);
   template.hasResourceProperties('AWS::CodePipeline::Pipeline', {
@@ -256,7 +256,7 @@ test('Test Pipeline with Artifact Upload', () => {
 test('Build Pipeline with no Synth Action', () => {
   const app = new cdk.App();
   const stack = () =>
-    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
+    new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
       .addSourceAction({ repositoryName: 'dummy-repository' })
       .buildPipeline()
       .synth();
@@ -266,8 +266,8 @@ test('Build Pipeline with no Synth Action', () => {
 test('Build Pipeline with test stage but no Source Action', () => {
   const app = new cdk.App();
   const stack = () =>
-    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
-      .addSynthAction({})
+    new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
+      .addSynthAction()
       .addTestStage({})
       .buildPipeline()
       .synth();
@@ -279,8 +279,8 @@ test('Build Pipeline with test stage but no Source Action', () => {
 test('Build Pipeline with security lint stage but no Source Action', () => {
   const app = new cdk.App();
   const stack = () =>
-    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
-      .addSynthAction({})
+    new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
+      .addSynthAction()
       .addSecurityLintStage({})
       .buildPipeline()
       .synth();
@@ -290,8 +290,8 @@ test('Build Pipeline with security lint stage but no Source Action', () => {
 test('Add stage without building pipeline', () => {
   const app = new cdk.App();
   const stack = () =>
-    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
-      .addSynthAction({})
+    new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
+      .addSynthAction()
       .addStage({ stageId: 'dev', stage: new cdk.Stage(app, 'my-stack') })
       .synth();
   expect(stack).toThrow(
@@ -302,11 +302,11 @@ test('Add stage without building pipeline', () => {
 test('Add notifications without building pipeline', () => {
   const app = new cdk.App();
   const stack = () =>
-    new CICDPipelineStack(app, 'dummy-pipeline', 'dev', 'dummy-pipeline', {})
-      .addSynthAction({})
+    new CICDPipelineStack(app, 'dummy-pipeline', { environmentId: 'dev', pipelineName: 'dummy-pipeline' })
+      .addSynthAction()
       .addStage({ stageId: 'dev', stage: new cdk.Stage(app, 'my-stack') })
       .synth()
-      .addNotifications({});
+      .addNotifications();
   expect(stack).toThrow(
     Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.'),
   );

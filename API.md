@@ -215,17 +215,14 @@ public readonly stateMachineInput: {[ key: string ]: any};
 ```typescript
 import { CICDPipelineStack } from 'aws-ddk-core'
 
-new CICDPipelineStack(scope: Construct, id: string, environmentId: string, pipelineName: string, pipelineProps: CodePipelineProps, props?: StackProps)
+new CICDPipelineStack(scope: Construct, id: string, props: CICDPipelineStackProps)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineProps">pipelineProps</a></code> | <code>aws-cdk-lib.pipelines.CodePipelineProps</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.props">props</a></code> | <code>aws-cdk-lib.StackProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.CICDPipelineStackProps">CICDPipelineStackProps</a></code> | *No description.* |
 
 ---
 
@@ -241,27 +238,9 @@ new CICDPipelineStack(scope: Construct, id: string, environmentId: string, pipel
 
 ---
 
-##### `environmentId`<sup>Required</sup> <a name="environmentId" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.environmentId"></a>
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.props"></a>
 
-- *Type:* string
-
----
-
-##### `pipelineName`<sup>Required</sup> <a name="pipelineName" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineName"></a>
-
-- *Type:* string
-
----
-
-##### `pipelineProps`<sup>Required</sup> <a name="pipelineProps" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.pipelineProps"></a>
-
-- *Type:* aws-cdk-lib.pipelines.CodePipelineProps
-
----
-
-##### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.props"></a>
-
-- *Type:* aws-cdk-lib.StackProps
+- *Type:* <a href="#aws-ddk-core.CICDPipelineStackProps">CICDPipelineStackProps</a>
 
 ---
 
@@ -625,10 +604,10 @@ public addCustomStage(props: AddCustomStageProps): CICDPipelineStack
 ##### `addNotifications` <a name="addNotifications" id="aws-ddk-core.CICDPipelineStack.addNotifications"></a>
 
 ```typescript
-public addNotifications(props: AddNotificationsProps): CICDPipelineStack
+public addNotifications(props?: AddNotificationsProps): CICDPipelineStack
 ```
 
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addNotifications.parameter.props"></a>
+###### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addNotifications.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AddNotificationsProps">AddNotificationsProps</a>
 
@@ -673,10 +652,10 @@ public addStage(props: AddApplicationStageProps): CICDPipelineStack
 ##### `addSynthAction` <a name="addSynthAction" id="aws-ddk-core.CICDPipelineStack.addSynthAction"></a>
 
 ```typescript
-public addSynthAction(props: SynthActionProps): CICDPipelineStack
+public addSynthAction(props?: SynthActionProps): CICDPipelineStack
 ```
 
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addSynthAction.parameter.props"></a>
+###### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addSynthAction.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.SynthActionProps">SynthActionProps</a>
 
@@ -709,8 +688,14 @@ public addWave(props: AddApplicationWaveProps): CICDPipelineStack
 ##### `buildPipeline` <a name="buildPipeline" id="aws-ddk-core.CICDPipelineStack.buildPipeline"></a>
 
 ```typescript
-public buildPipeline(): CICDPipelineStack
+public buildPipeline(props?: AdditionalPipelineProps): CICDPipelineStack
 ```
+
+###### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.buildPipeline.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AdditionalPipelineProps">AdditionalPipelineProps</a>
+
+---
 
 ##### `synth` <a name="synth" id="aws-ddk-core.CICDPipelineStack.synth"></a>
 
@@ -812,7 +797,6 @@ The construct to start the search from.
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineId">pipelineId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineProps">pipelineProps</a></code> | <code>aws-cdk-lib.pipelines.CodePipelineProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.notificationRule">notificationRule</a></code> | <code>aws-cdk-lib.aws_codestarnotifications.NotificationRule</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.pipelines.CodePipeline</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineKey">pipelineKey</a></code> | <code>constructs.IConstruct</code> | *No description.* |
@@ -1178,16 +1162,6 @@ public readonly pipelineName: string;
 ```
 
 - *Type:* string
-
----
-
-##### `pipelineProps`<sup>Optional</sup> <a name="pipelineProps" id="aws-ddk-core.CICDPipelineStack.property.pipelineProps"></a>
-
-```typescript
-public readonly pipelineProps: CodePipelineProps;
-```
-
-- *Type:* aws-cdk-lib.pipelines.CodePipelineProps
 
 ---
 
@@ -3002,6 +2976,155 @@ public readonly steps: Step[];
 
 ---
 
+### AdditionalPipelineProps <a name="AdditionalPipelineProps" id="aws-ddk-core.AdditionalPipelineProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.AdditionalPipelineProps.Initializer"></a>
+
+```typescript
+import { AdditionalPipelineProps } from 'aws-ddk-core'
+
+const additionalPipelineProps: AdditionalPipelineProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.assetPublishingCodeBuildDefaults">assetPublishingCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.cliVersion">cliVersion</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.codeBuildDefaults">codeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.codePipeline">codePipeline</a></code> | <code>aws-cdk-lib.aws_codepipeline.Pipeline</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerCredentials">dockerCredentials</a></code> | <code>aws-cdk-lib.pipelines.DockerCredential[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSelfMutation">dockerEnabledForSelfMutation</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSynth">dockerEnabledForSynth</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.publishAssetsInParallel">publishAssetsInParallel</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.reuseCrossRegionSupportStacks">reuseCrossRegionSupportStacks</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.selfMutation">selfMutation</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.selfMutationCodeBuildDefaults">selfMutationCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.synthCodeBuildDefaults">synthCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
+
+---
+
+##### `assetPublishingCodeBuildDefaults`<sup>Optional</sup> <a name="assetPublishingCodeBuildDefaults" id="aws-ddk-core.AdditionalPipelineProps.property.assetPublishingCodeBuildDefaults"></a>
+
+```typescript
+public readonly assetPublishingCodeBuildDefaults: CodeBuildOptions;
+```
+
+- *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+
+---
+
+##### `cliVersion`<sup>Optional</sup> <a name="cliVersion" id="aws-ddk-core.AdditionalPipelineProps.property.cliVersion"></a>
+
+```typescript
+public readonly cliVersion: string;
+```
+
+- *Type:* string
+
+---
+
+##### `codeBuildDefaults`<sup>Optional</sup> <a name="codeBuildDefaults" id="aws-ddk-core.AdditionalPipelineProps.property.codeBuildDefaults"></a>
+
+```typescript
+public readonly codeBuildDefaults: CodeBuildOptions;
+```
+
+- *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+
+---
+
+##### `codePipeline`<sup>Optional</sup> <a name="codePipeline" id="aws-ddk-core.AdditionalPipelineProps.property.codePipeline"></a>
+
+```typescript
+public readonly codePipeline: Pipeline;
+```
+
+- *Type:* aws-cdk-lib.aws_codepipeline.Pipeline
+
+---
+
+##### `dockerCredentials`<sup>Optional</sup> <a name="dockerCredentials" id="aws-ddk-core.AdditionalPipelineProps.property.dockerCredentials"></a>
+
+```typescript
+public readonly dockerCredentials: DockerCredential[];
+```
+
+- *Type:* aws-cdk-lib.pipelines.DockerCredential[]
+
+---
+
+##### `dockerEnabledForSelfMutation`<sup>Optional</sup> <a name="dockerEnabledForSelfMutation" id="aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSelfMutation"></a>
+
+```typescript
+public readonly dockerEnabledForSelfMutation: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `dockerEnabledForSynth`<sup>Optional</sup> <a name="dockerEnabledForSynth" id="aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSynth"></a>
+
+```typescript
+public readonly dockerEnabledForSynth: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `publishAssetsInParallel`<sup>Optional</sup> <a name="publishAssetsInParallel" id="aws-ddk-core.AdditionalPipelineProps.property.publishAssetsInParallel"></a>
+
+```typescript
+public readonly publishAssetsInParallel: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `reuseCrossRegionSupportStacks`<sup>Optional</sup> <a name="reuseCrossRegionSupportStacks" id="aws-ddk-core.AdditionalPipelineProps.property.reuseCrossRegionSupportStacks"></a>
+
+```typescript
+public readonly reuseCrossRegionSupportStacks: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `selfMutation`<sup>Optional</sup> <a name="selfMutation" id="aws-ddk-core.AdditionalPipelineProps.property.selfMutation"></a>
+
+```typescript
+public readonly selfMutation: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `selfMutationCodeBuildDefaults`<sup>Optional</sup> <a name="selfMutationCodeBuildDefaults" id="aws-ddk-core.AdditionalPipelineProps.property.selfMutationCodeBuildDefaults"></a>
+
+```typescript
+public readonly selfMutationCodeBuildDefaults: CodeBuildOptions;
+```
+
+- *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+
+---
+
+##### `synthCodeBuildDefaults`<sup>Optional</sup> <a name="synthCodeBuildDefaults" id="aws-ddk-core.AdditionalPipelineProps.property.synthCodeBuildDefaults"></a>
+
+```typescript
+public readonly synthCodeBuildDefaults: CodeBuildOptions;
+```
+
+- *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+
+---
+
 ### AddNotificationsProps <a name="AddNotificationsProps" id="aws-ddk-core.AddNotificationsProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddNotificationsProps.Initializer"></a>
@@ -3478,6 +3601,204 @@ public readonly outputLocation: Location;
 
 ```typescript
 public readonly workGroup: string;
+```
+
+- *Type:* string
+
+---
+
+### CICDPipelineStackProps <a name="CICDPipelineStackProps" id="aws-ddk-core.CICDPipelineStackProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.CICDPipelineStackProps.Initializer"></a>
+
+```typescript
+import { CICDPipelineStackProps } from 'aws-ddk-core'
+
+const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.analyticsReporting">analyticsReporting</a></code> | <code>boolean</code> | Include runtime versioning information in this Stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `analyticsReporting`<sup>Optional</sup> <a name="analyticsReporting" id="aws-ddk-core.CICDPipelineStackProps.property.analyticsReporting"></a>
+
+```typescript
+public readonly analyticsReporting: boolean;
+```
+
+- *Type:* boolean
+- *Default:* `analyticsReporting` setting of containing `App`, or value of 'aws:cdk:version-reporting' context key
+
+Include runtime versioning information in this Stack.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.CICDPipelineStackProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* No description.
+
+A description of the stack.
+
+---
+
+##### `env`<sup>Optional</sup> <a name="env" id="aws-ddk-core.CICDPipelineStackProps.property.env"></a>
+
+```typescript
+public readonly env: Environment;
+```
+
+- *Type:* aws-cdk-lib.Environment
+- *Default:* The environment of the containing `Stage` if available, otherwise create the stack will be environment-agnostic.
+
+The AWS environment (account/region) where this stack will be deployed.
+
+Set the `region`/`account` fields of `env` to either a concrete value to
+select the indicated environment (recommended for production stacks), or to
+the values of environment variables
+`CDK_DEFAULT_REGION`/`CDK_DEFAULT_ACCOUNT` to let the target environment
+depend on the AWS credentials/configuration that the CDK CLI is executed
+under (recommended for development stacks).
+
+If the `Stack` is instantiated inside a `Stage`, any undefined
+`region`/`account` fields from `env` will default to the same field on the
+encompassing `Stage`, if configured there.
+
+If either `region` or `account` are not set nor inherited from `Stage`, the
+Stack will be considered "*environment-agnostic*"". Environment-agnostic
+stacks can be deployed to any environment but may not be able to take
+advantage of all features of the CDK. For example, they will not be able to
+use environmental context lookups such as `ec2.Vpc.fromLookup` and will not
+automatically translate Service Principals to the right format based on the
+environment's AWS partition, and other such enhancements.
+
+---
+
+*Example*
+
+```typescript
+// Use a concrete account and region to deploy this stack to:
+// `.account` and `.region` will simply return these values.
+new Stack(app, 'Stack1', {
+  env: {
+    account: '123456789012',
+    region: 'us-east-1'
+  },
+});
+
+// Use the CLI's current credentials to determine the target environment:
+// `.account` and `.region` will reflect the account+region the CLI
+// is configured to use (based on the user CLI credentials)
+new Stack(app, 'Stack2', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION
+  },
+});
+
+// Define multiple stacks stage associated with an environment
+const myStage = new Stage(app, 'MyStage', {
+  env: {
+    account: '123456789012',
+    region: 'us-east-1'
+  }
+});
+
+// both of these stacks will use the stage's account/region:
+// `.account` and `.region` will resolve to the concrete values as above
+new MyStack(myStage, 'Stack1');
+new YourStack(myStage, 'Stack2');
+
+// Define an environment-agnostic stack:
+// `.account` and `.region` will resolve to `{ "Ref": "AWS::AccountId" }` and `{ "Ref": "AWS::Region" }` respectively.
+// which will only resolve to actual values by CloudFormation during deployment.
+new MyStack(app, 'Stack1');
+```
+
+
+##### `stackName`<sup>Optional</sup> <a name="stackName" id="aws-ddk-core.CICDPipelineStackProps.property.stackName"></a>
+
+```typescript
+public readonly stackName: string;
+```
+
+- *Type:* string
+- *Default:* Derived from construct path.
+
+Name to deploy the stack with.
+
+---
+
+##### `synthesizer`<sup>Optional</sup> <a name="synthesizer" id="aws-ddk-core.CICDPipelineStackProps.property.synthesizer"></a>
+
+```typescript
+public readonly synthesizer: IStackSynthesizer;
+```
+
+- *Type:* aws-cdk-lib.IStackSynthesizer
+- *Default:* `DefaultStackSynthesizer` if the `@aws-cdk/core:newStyleStackSynthesis` feature flag is set, `LegacyStackSynthesizer` otherwise.
+
+Synthesis method to use while deploying this stack.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.CICDPipelineStackProps.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Stack tags that will be applied to all the taggable resources and the stack itself.
+
+---
+
+##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="aws-ddk-core.CICDPipelineStackProps.property.terminationProtection"></a>
+
+```typescript
+public readonly terminationProtection: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable termination protection for this stack.
+
+---
+
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.CICDPipelineStackProps.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `pipelineName`<sup>Optional</sup> <a name="pipelineName" id="aws-ddk-core.CICDPipelineStackProps.property.pipelineName"></a>
+
+```typescript
+public readonly pipelineName: string;
 ```
 
 - *Type:* string
