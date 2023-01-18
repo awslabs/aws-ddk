@@ -5,33 +5,36 @@ import { EventStage, EventStageProps } from '../pipelines/stage';
 
 export interface S3EventStageProps extends EventStageProps {
   readonly eventNames: string[];
-  readonly bucket: s3.IBucket;
-  readonly keyPrefix?: string;
+  readonly bucket: s3.IBucket | s3.IBucket[];
+  readonly keyPrefix?: string | string[];
 }
 
 export class S3EventStage extends EventStage {
   readonly eventPattern?: events.EventPattern;
 
-  readonly bucket: s3.IBucket;
-
   constructor(scope: Construct, id: string, props: S3EventStageProps) {
     super(scope, id, props);
 
-    this.bucket = props.bucket;
+    if (Array.isArray(props.bucket)) {
+      var buckets = props.bucket;
+    } else {
+      var buckets = [props.bucket];
+    }
 
     var detail: { [key: string]: any } = {
       bucket: {
-        name: [props.bucket.bucketName],
+        name: Array.from(buckets, (bucket) => bucket.bucketName),
       },
     };
 
     if (props.keyPrefix) {
+      if (typeof props.keyPrefix === 'string') {
+        var prefixes = [props.keyPrefix];
+      } else {
+        var prefixes = props.keyPrefix;
+      }
       detail.object = {
-        key: [
-          {
-            prefix: props.keyPrefix,
-          },
-        ],
+        key: prefixes.map((p) => ({ prefix: p })),
       };
     }
 

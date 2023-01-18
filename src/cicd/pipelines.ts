@@ -1,14 +1,18 @@
 import { Stack, StackProps, Stage } from 'aws-cdk-lib';
+import { Pipeline } from 'aws-cdk-lib/aws-codepipeline';
 import { DetailType, NotificationRule } from 'aws-cdk-lib/aws-codestarnotifications';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import {
+  CodeBuildOptions,
   CodeBuildStep,
   CodePipeline,
   CodePipelineSource,
+  DockerCredential,
   IFileSetProducer,
   ManualApprovalStep,
   Step,
+  Wave,
 } from 'aws-cdk-lib/pipelines';
 import { Construct, IConstruct } from 'constructs';
 import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from './actions';
@@ -36,6 +40,12 @@ export interface AddApplicationStageProps {
   readonly manualApprovals?: boolean;
 }
 
+export interface AddApplicationWaveProps {
+  readonly stageId: string;
+  readonly stages: Stage[];
+  readonly manualApprovals?: boolean;
+}
+
 export interface AddSecurityLintStageProps {
   readonly stageName?: string;
   readonly cloudAssemblyFileSet?: IFileSetProducer;
@@ -56,6 +66,26 @@ export interface AddCustomStageProps {
   readonly steps: Step[];
 }
 
+export interface CICDPipelineStackProps extends StackProps {
+  readonly environmentId?: string;
+  readonly pipelineName?: string;
+}
+
+export interface AdditionalPipelineProps {
+  readonly assetPublishingCodeBuildDefaults?: CodeBuildOptions;
+  readonly cliVersion?: string;
+  readonly codeBuildDefaults?: CodeBuildOptions;
+  readonly codePipeline?: Pipeline;
+  readonly dockerCredentials?: DockerCredential[];
+  readonly dockerEnabledForSelfMutation?: boolean;
+  readonly dockerEnabledForSynth?: boolean;
+  readonly publishAssetsInParallel?: boolean;
+  readonly reuseCrossRegionSupportStacks?: boolean;
+  readonly selfMutation?: boolean;
+  readonly selfMutationCodeBuildDefaults?: CodeBuildOptions;
+  readonly synthCodeBuildDefaults?: CodeBuildOptions;
+}
+
 export class CICDPipelineStack extends Stack {
   readonly environmentId?: string;
   readonly pipelineName?: string;
@@ -66,11 +96,11 @@ export class CICDPipelineStack extends Stack {
   public sourceAction?: CodePipelineSource;
   public synthAction?: CodeBuildStep;
 
-  constructor(scope: Construct, id: string, environmentId: string, pipelineName: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props: CICDPipelineStackProps) {
     super(scope, id, props);
 
-    this.environmentId = environmentId;
-    this.pipelineName = pipelineName;
+    this.environmentId = props.environmentId;
+    this.pipelineName = props.pipelineName;
     this.pipelineId = id;
   }
 
@@ -85,7 +115,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  buildPipeline() {
+  buildPipeline(props: AdditionalPipelineProps = {}) {
     /*
     Build the pipeline structure.
      Returns
@@ -101,12 +131,12 @@ export class CICDPipelineStack extends Stack {
       synth: this.synthAction,
       crossAccountKeys: true,
       pipelineName: this.pipelineName,
-      //cliVersion: Handle when Config() is decided on
+      ...props,
     });
     return this;
   }
 
-  addSynthAction(props: SynthActionProps) {
+  addSynthAction(props: SynthActionProps = {}) {
     this.synthAction =
       props.synthAction ||
       getSynthAction({
@@ -153,6 +183,40 @@ export class CICDPipelineStack extends Stack {
       this.pipeline?.addStage(props.stage, {});
     }
 
+    return this;
+  }
+
+  addWave(props: AddApplicationWaveProps) {
+    /*
+    Add multiple application stages in parallel to the CICD pipeline. This stage deploys your application infrastructure.
+      Parameters
+    ----------
+    stageId: str
+    Identifier of the wave
+    stages: Stage[]
+    Application stage instance
+    manualApprovals: Optional[bool]
+    Configure manual approvals. False by default
+      Returns
+    -------
+    pipeline : CICDPipelineStack
+    CICDPipelineStack
+    */
+    if (this.pipeline === undefined) {
+      throw new Error('`.buildPipeline()` needs to be called first before adding application stages to the pipeline.');
+    }
+    const manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
+
+    var wave = new Wave(props.stageId);
+    if (manualApprovals) {
+      wave.addPre(new ManualApprovalStep('PromoteTo' + toTitleCase(props.stageId)));
+    }
+
+    props.stages.forEach((stage) => {
+      wave.addStage(stage);
+    });
+
+    this.pipeline?.addWave(props.stageId, wave);
     return this;
   }
 
@@ -219,7 +283,7 @@ export class CICDPipelineStack extends Stack {
     return this;
   }
 
-  addNotifications(props: AddNotificationsProps) {
+  addNotifications(props: AddNotificationsProps = {}) {
     /*
     Add pipeline notifications. Create notification rule that sends events to the specified SNS topic.
       Parameters

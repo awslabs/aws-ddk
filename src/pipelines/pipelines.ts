@@ -13,6 +13,7 @@ export interface AddStageProps {
   readonly stage: Stage;
   readonly skipRule?: boolean;
   readonly overrideRule?: events.IRule;
+  readonly ruleName?: string;
 }
 
 export interface AddRuleProps {
@@ -20,6 +21,7 @@ export interface AddRuleProps {
   readonly eventPattern?: events.EventPattern;
   readonly eventTargets?: events.IRuleTarget[];
   readonly overrideRule?: events.IRule;
+  readonly ruleName?: string;
 }
 
 export class DataPipeline extends Construct {
@@ -77,6 +79,7 @@ export class DataPipeline extends Construct {
         : new events.Rule(this, props.id!, {
             eventPattern: props.eventPattern,
             targets: props.eventTargets,
+            ruleName: props.ruleName,
           }),
     );
 
