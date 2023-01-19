@@ -1,25 +1,15 @@
-import { Stack, StackProps, Stage } from "aws-cdk-lib";
-import { Pipeline } from "aws-cdk-lib/aws-codepipeline";
-import { DetailType, NotificationRule } from "aws-cdk-lib/aws-codestarnotifications";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Topic } from "aws-cdk-lib/aws-sns";
-import {
-  CodeBuildOptions,
-  CodeBuildStep,
-  CodePipeline,
-  CodePipelineSource,
-  DockerCredential,
-  IFileSetProducer,
-  ManualApprovalStep,
-  Step,
-  Wave,
-} from "aws-cdk-lib/pipelines";
+import * as cdk from "aws-cdk-lib";
+import * as codepipeline from "aws-cdk-lib/aws-codepipeline";
+import * as codestarnotifications from "aws-cdk-lib/aws-codestarnotifications";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as sns from "aws-cdk-lib/aws-sns";
+import * as pipelines from "aws-cdk-lib/pipelines";
 import { Construct, IConstruct } from "constructs";
 import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from "./actions";
 import { toTitleCase } from "./utils";
 
 export interface SourceActionProps {
-  readonly sourceAction?: CodePipelineSource;
+  readonly sourceAction?: pipelines.CodePipelineSource;
   readonly repositoryName: string;
   readonly branch?: string;
 }
@@ -29,72 +19,72 @@ export interface SynthActionProps {
   readonly codeartifactRepository?: string;
   readonly codeartifactDomain?: string;
   readonly codeartifactDomainOwner?: string;
-  readonly rolePolicyStatements?: PolicyStatement[];
-  readonly synthAction?: CodeBuildStep;
+  readonly rolePolicyStatements?: iam.PolicyStatement[];
+  readonly synthAction?: pipelines.CodeBuildStep;
   readonly additionalInstallCommands?: string[];
 }
 
 export interface AddApplicationStageProps {
   readonly stageId: string;
-  readonly stage: Stage;
+  readonly stage: cdk.Stage;
   readonly manualApprovals?: boolean;
 }
 
 export interface AddApplicationWaveProps {
   readonly stageId: string;
-  readonly stages: Stage[];
+  readonly stages: cdk.Stage[];
   readonly manualApprovals?: boolean;
 }
 
 export interface AddSecurityLintStageProps {
   readonly stageName?: string;
-  readonly cloudAssemblyFileSet?: IFileSetProducer;
+  readonly cloudAssemblyFileSet?: pipelines.IFileSetProducer;
 }
 
 export interface AddTestStageProps {
   readonly stageName?: string;
-  readonly cloudAssemblyFileSet?: IFileSetProducer;
+  readonly cloudAssemblyFileSet?: pipelines.IFileSetProducer;
   readonly commands?: string[];
 }
 
 export interface AddNotificationsProps {
-  readonly notificationRule?: NotificationRule;
+  readonly notificationRule?: codestarnotifications.NotificationRule;
 }
 
 export interface AddCustomStageProps {
   readonly stageName: string;
-  readonly steps: Step[];
+  readonly steps: pipelines.Step[];
 }
 
-export interface CICDPipelineStackProps extends StackProps {
+export interface CICDPipelineStackProps extends cdk.StackProps {
   readonly environmentId?: string;
   readonly pipelineName?: string;
 }
 
 export interface AdditionalPipelineProps {
-  readonly assetPublishingCodeBuildDefaults?: CodeBuildOptions;
+  readonly assetPublishingCodeBuildDefaults?: pipelines.CodeBuildOptions;
   readonly cliVersion?: string;
-  readonly codeBuildDefaults?: CodeBuildOptions;
-  readonly codePipeline?: Pipeline;
-  readonly dockerCredentials?: DockerCredential[];
+  readonly codeBuildDefaults?: pipelines.CodeBuildOptions;
+  readonly codePipeline?: codepipeline.Pipeline;
+  readonly dockerCredentials?: pipelines.DockerCredential[];
   readonly dockerEnabledForSelfMutation?: boolean;
   readonly dockerEnabledForSynth?: boolean;
   readonly publishAssetsInParallel?: boolean;
   readonly reuseCrossRegionSupportStacks?: boolean;
   readonly selfMutation?: boolean;
-  readonly selfMutationCodeBuildDefaults?: CodeBuildOptions;
-  readonly synthCodeBuildDefaults?: CodeBuildOptions;
+  readonly selfMutationCodeBuildDefaults?: pipelines.CodeBuildOptions;
+  readonly synthCodeBuildDefaults?: pipelines.CodeBuildOptions;
 }
 
-export class CICDPipelineStack extends Stack {
+export class CICDPipelineStack extends cdk.Stack {
   readonly environmentId?: string;
   readonly pipelineName?: string;
   readonly pipelineId?: string;
-  public notificationRule?: NotificationRule;
-  public pipeline?: CodePipeline;
+  public notificationRule?: codestarnotifications.NotificationRule;
+  public pipeline?: pipelines.CodePipeline;
   public pipelineKey?: IConstruct;
-  public sourceAction?: CodePipelineSource;
-  public synthAction?: CodeBuildStep;
+  public sourceAction?: pipelines.CodePipelineSource;
+  public synthAction?: pipelines.CodeBuildStep;
 
   constructor(scope: Construct, id: string, props: CICDPipelineStackProps) {
     super(scope, id, props);
@@ -127,7 +117,7 @@ export class CICDPipelineStack extends Stack {
     if (this.synthAction === undefined) {
       throw new Error("Pipeline cannot be built without a synth action.");
     }
-    this.pipeline = new CodePipeline(this, "DDKCodePipeline", {
+    this.pipeline = new pipelines.CodePipeline(this, "DDKCodePipeline", {
       synth: this.synthAction,
       crossAccountKeys: true,
       pipelineName: this.pipelineName,
@@ -177,7 +167,7 @@ export class CICDPipelineStack extends Stack {
 
     if (manualApprovals) {
       this.pipeline?.addStage(props.stage, {
-        pre: [new ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId))],
+        pre: [new pipelines.ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId))],
       });
     } else {
       this.pipeline?.addStage(props.stage, {});
@@ -207,9 +197,9 @@ export class CICDPipelineStack extends Stack {
     }
     const manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
 
-    var wave = new Wave(props.stageId);
+    var wave = new pipelines.Wave(props.stageId);
     if (manualApprovals) {
-      wave.addPre(new ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId)));
+      wave.addPre(new pipelines.ManualApprovalStep("PromoteTo" + toTitleCase(props.stageId)));
     }
 
     props.stages.forEach((stage) => {
@@ -301,11 +291,11 @@ export class CICDPipelineStack extends Stack {
 
     this.notificationRule =
       props.notificationRule ??
-      new NotificationRule(this, "Notification", {
-        detailType: DetailType.BASIC,
+      new codestarnotifications.NotificationRule(this, "Notification", {
+        detailType: codestarnotifications.DetailType.BASIC,
         events: ["codepipeline-pipeline-pipeline-execution-failed"],
         source: this.pipeline?.pipeline,
-        targets: [new Topic(this, "ExecutionFailedNotifications")], // Implement config defined topic later on
+        targets: [new sns.Topic(this, "ExecutionFailedNotifications")], // Implement config defined topic later on
       });
     return this;
   }

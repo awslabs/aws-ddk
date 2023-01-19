@@ -1,4 +1,4 @@
-import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
+import * as cloudwatch_actions from "aws-cdk-lib/aws-cloudwatch-actions";
 import * as events from "aws-cdk-lib/aws-events";
 import * as sns from "aws-cdk-lib/aws-sns";
 import { Construct } from "constructs";
@@ -64,7 +64,7 @@ export class DataPipeline extends Construct {
     if (this.notificationsTopic && stage instanceof DataStage) {
       const topic = this.notificationsTopic;
       stage.cloudwatchAlarms.forEach((alarm) => {
-        alarm.addAlarmAction(new SnsAction(topic));
+        alarm.addAlarmAction(new cloudwatch_actions.SnsAction(topic));
       });
     }
 
