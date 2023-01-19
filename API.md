@@ -4024,6 +4024,56 @@ public readonly props: ConnectionSourceOptions;
 
 ---
 
+### CreateStateMachineResult <a name="CreateStateMachineResult" id="aws-ddk-core.CreateStateMachineResult"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.CreateStateMachineResult.Initializer"></a>
+
+```typescript
+import { CreateStateMachineResult } from 'aws-ddk-core'
+
+const createStateMachineResult: CreateStateMachineResult = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.CreateStateMachineResult.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CreateStateMachineResult.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CreateStateMachineResult.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+
+---
+
+##### `eventPattern`<sup>Required</sup> <a name="eventPattern" id="aws-ddk-core.CreateStateMachineResult.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.CreateStateMachineResult.property.stateMachine"></a>
+
+```typescript
+public readonly stateMachine: StateMachine;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+---
+
+##### `targets`<sup>Required</sup> <a name="targets" id="aws-ddk-core.CreateStateMachineResult.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
 ### DataPipelineProps <a name="DataPipelineProps" id="aws-ddk-core.DataPipelineProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.DataPipelineProps.Initializer"></a>

@@ -70,6 +70,12 @@ export interface StateMachineStageProps extends StageProps {
   readonly alarmsEnabled?: boolean;
 }
 
+export interface CreateStateMachineResult {
+  readonly eventPattern: events.EventPattern;
+  readonly targets: events.IRuleTarget[];
+  readonly stateMachine: sfn.StateMachine;
+}
+
 export abstract class StateMachineStage extends DataStage {
   abstract readonly stateMachine: sfn.StateMachine;
 
@@ -77,10 +83,7 @@ export abstract class StateMachineStage extends DataStage {
     super(scope, id, props);
   }
 
-  protected createStateMachine(
-    definition: sfn.IChainable,
-    props: StateMachineStageProps,
-  ): [events.EventPattern, events.IRuleTarget[], sfn.StateMachine] {
+  protected createStateMachine(definition: sfn.IChainable, props: StateMachineStageProps): CreateStateMachineResult {
     const stateMachine = new sfn.StateMachine(this, "State Machine", {
       definition: definition,
     });
@@ -112,7 +115,11 @@ export abstract class StateMachineStage extends DataStage {
       }),
     ];
 
-    return [eventPattern, targets, stateMachine];
+    return {
+      eventPattern,
+      targets,
+      stateMachine,
+    };
   }
 }
 export interface EventStageProps extends StageProps {}

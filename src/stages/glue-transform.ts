@@ -44,7 +44,11 @@ export class GlueTransformStage extends StateMachineStage {
 
     const definition = startJobRun.next(crawlObject.next(new sfn.Succeed(this, "Success")));
 
-    [this.eventPattern, this.targets, this.stateMachine] = this.createStateMachine(definition, props);
+    ({
+      eventPattern: this.eventPattern,
+      targets: this.targets,
+      stateMachine: this.stateMachine,
+    } = this.createStateMachine(definition, props));
   }
 
   private getGlueJob(props: GlueTransformStageProps): glue_alpha.IJob {
