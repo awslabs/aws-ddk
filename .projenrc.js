@@ -1,6 +1,6 @@
 const { awscdk, javascript, DependencyType } = require("projen");
 
-const CDK_VERSION = "2.60.0";
+const CDK_VERSION = "2.61.0";
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: "AWS Professional Services",
