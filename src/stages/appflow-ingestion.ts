@@ -35,7 +35,7 @@ export class AppFlowIngestionStage extends StateMachineStage {
           "if 'flowName' is not specified, 'destinationFlowConfig', 'sourceFlowConfig' & 'tasks' are required properties",
         );
       }
-      const flow = new appflow.CfnFlow(this, `${id}-flow`, {
+      const flow = new appflow.CfnFlow(this, "Flow", {
         destinationFlowConfigList: [destinationFlowConfig],
         flowName: `${id}-flow`,
         sourceFlowConfig: sourceFlowConfig,
@@ -50,7 +50,7 @@ export class AppFlowIngestionStage extends StateMachineStage {
     }
 
     // Create check flow execution status step function task
-    const flowExecutionRecords = this.createCheckFlowExecutionTask(id);
+    const flowExecutionRecords = this.createCheckFlowExecutionTask();
     // Create step function loop to check flow execution status
     const flowObjectExecutionStatus = new sfn.Choice(this, "check-flow-execution-status");
     const flowObjectExecutionStatusWait = new sfn.Wait(this, "wait-before-checking-flow-status-again", {
@@ -105,13 +105,13 @@ export class AppFlowIngestionStage extends StateMachineStage {
     return new sfn.CustomState(this, "start-flow-execution", { stateJson });
   }
 
-  private createCheckFlowExecutionTask(id: string): tasks.LambdaInvoke {
-    const statusLambdaRole = new iam.Role(this, `{id}-flow-execution-status-lambda-role`, {
+  private createCheckFlowExecutionTask(): tasks.LambdaInvoke {
+    const statusLambdaRole = new iam.Role(this, "Flow Execution Status Lambda Role", {
       assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
       description: "lambda role to check appflow flow execution status",
     });
 
-    const statusLambda = new lambda.Function(this, `${id}-flow-execution-status-lambda`, {
+    const statusLambda = new lambda.Function(this, "Flow Execution Status Lambda", {
       code: lambda.Code.fromAsset(path.join(__dirname, "lambda_handlers/appflow_check_flow_status/")),
       handler: "lambda_function.lambda_handler",
       role: statusLambdaRole,
