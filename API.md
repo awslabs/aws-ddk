@@ -1475,6 +1475,234 @@ public readonly synthAction: CodeBuildStep;
 ---
 
 
+### DataBrewTransformStage <a name="DataBrewTransformStage" id="aws-ddk-core.DataBrewTransformStage"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.DataBrewTransformStage.Initializer"></a>
+
+```typescript
+import { DataBrewTransformStage } from 'aws-ddk-core'
+
+new DataBrewTransformStage(scope: Construct, id: string, props: DataBrewTransformStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.DataBrewTransformStageProps">DataBrewTransformStageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.DataBrewTransformStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.DataBrewTransformStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.DataBrewTransformStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.DataBrewTransformStageProps">DataBrewTransformStageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.addAlarm">addAlarm</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.DataBrewTransformStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.DataBrewTransformStage.addAlarm"></a>
+
+```typescript
+public addAlarm(id: string, props: AlarmProps): DataStage
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.DataBrewTransformStage.addAlarm.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.DataBrewTransformStage.addAlarm.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.DataBrewTransformStage.isConstruct"></a>
+
+```typescript
+import { DataBrewTransformStage } from 'aws-ddk-core'
+
+DataBrewTransformStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.DataBrewTransformStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.job">job</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.DataBrewTransformStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.DataBrewTransformStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.DataBrewTransformStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.DataBrewTransformStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.DataBrewTransformStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+##### `alarmsEnabled`<sup>Required</sup> <a name="alarmsEnabled" id="aws-ddk-core.DataBrewTransformStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.DataBrewTransformStage.property.cloudwatchAlarms"></a>
+
+```typescript
+public readonly cloudwatchAlarms: Alarm[];
+```
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.DataBrewTransformStage.property.stateMachine"></a>
+
+```typescript
+public readonly stateMachine: StateMachine;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+---
+
+##### `createJob`<sup>Required</sup> <a name="createJob" id="aws-ddk-core.DataBrewTransformStage.property.createJob"></a>
+
+```typescript
+public readonly createJob: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `jobName`<sup>Required</sup> <a name="jobName" id="aws-ddk-core.DataBrewTransformStage.property.jobName"></a>
+
+```typescript
+public readonly jobName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `job`<sup>Optional</sup> <a name="job" id="aws-ddk-core.DataBrewTransformStage.property.job"></a>
+
+```typescript
+public readonly job: CfnJob;
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob
+
+---
+
+
 ### DataPipeline <a name="DataPipeline" id="aws-ddk-core.DataPipeline"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.DataPipeline.Initializer"></a>
@@ -4436,6 +4664,177 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+### DataBrewTransformStageProps <a name="DataBrewTransformStageProps" id="aws-ddk-core.DataBrewTransformStageProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.DataBrewTransformStageProps.Initializer"></a>
+
+```typescript
+import { DataBrewTransformStageProps } from 'aws-ddk-core'
+
+const dataBrewTransformStageProps: DataBrewTransformStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.datasetName">datasetName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobRoleArn">jobRoleArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobType">jobType</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.outputs">outputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.OutputProperty[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.recipe">recipe</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.RecipeProperty</code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.DataBrewTransformStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.DataBrewTransformStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `additionalRolePolicyStatements`<sup>Optional</sup> <a name="additionalRolePolicyStatements" id="aws-ddk-core.DataBrewTransformStageProps.property.additionalRolePolicyStatements"></a>
+
+```typescript
+public readonly additionalRolePolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.DataBrewTransformStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `stateMachineFailedExecutionsAlarmEvaluationPeriods`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmEvaluationPeriods" id="aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stateMachineFailedExecutionsAlarmThreshold`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmThreshold" id="aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmThreshold: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+##### `createJob`<sup>Optional</sup> <a name="createJob" id="aws-ddk-core.DataBrewTransformStageProps.property.createJob"></a>
+
+```typescript
+public readonly createJob: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `datasetName`<sup>Optional</sup> <a name="datasetName" id="aws-ddk-core.DataBrewTransformStageProps.property.datasetName"></a>
+
+```typescript
+public readonly datasetName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `jobName`<sup>Optional</sup> <a name="jobName" id="aws-ddk-core.DataBrewTransformStageProps.property.jobName"></a>
+
+```typescript
+public readonly jobName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `jobRoleArn`<sup>Optional</sup> <a name="jobRoleArn" id="aws-ddk-core.DataBrewTransformStageProps.property.jobRoleArn"></a>
+
+```typescript
+public readonly jobRoleArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `jobType`<sup>Optional</sup> <a name="jobType" id="aws-ddk-core.DataBrewTransformStageProps.property.jobType"></a>
+
+```typescript
+public readonly jobType: string;
+```
+
+- *Type:* string
+
+---
+
+##### `outputs`<sup>Optional</sup> <a name="outputs" id="aws-ddk-core.DataBrewTransformStageProps.property.outputs"></a>
+
+```typescript
+public readonly outputs: OutputProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.OutputProperty[]
+
+---
+
+##### `recipe`<sup>Optional</sup> <a name="recipe" id="aws-ddk-core.DataBrewTransformStageProps.property.recipe"></a>
+
+```typescript
+public readonly recipe: RecipeProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.RecipeProperty
 
 ---
 
