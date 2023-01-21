@@ -23,7 +23,6 @@ export interface SqsToLambdaStageFunctionProps {
 
 export interface SqsToLambdaStageQueueProps {
   readonly visibilityTimeout?: cdk.Duration;
-  readonly fifo?: boolean;
 }
 
 export interface SqsToLambdaStageProps extends DataStageProps {
@@ -99,7 +98,6 @@ export class SqsToLambdaStage extends DataStage {
               maxReceiveCount: props.maxReceiveCount ?? 1,
             }
           : undefined,
-        fifo: props.sqsQueueProps.fifo ?? false,
       });
     }
 

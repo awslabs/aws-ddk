@@ -160,33 +160,3 @@ test("SQSToLambdaStage is able to create a CloudWatch alarm", () => {
     ]),
   });
 });
-
-test("SQSToLambda must have 'lambdaFunction' or 'lambdaFunctionProps' set", () => {
-  const stack = new cdk.Stack();
-  expect(() => {
-    new SqsToLambdaStage(stack, "Stage", {});
-  }).toThrowError(
-    "'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage",
-  );
-});
-
-test("SQSToLambda must have 'messageGroupId' when using a fifo queue", () => {
-  const stack = new cdk.Stack();
-  expect(() => {
-    new SqsToLambdaStage(stack, "Stage", {
-      lambdaFunctionProps: {
-        code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
-        handler: "commons.handlers.lambda_handler",
-        memorySize: cdk.Size.mebibytes(512),
-        layers: [
-          lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
-        ],
-      },
-      sqsQueueProps: {
-        fifo: true,
-      }
-    });
-  }).toThrowError(
-    "'messageGroupId' must be set to when target is a fifo queue",
-  );
-});
