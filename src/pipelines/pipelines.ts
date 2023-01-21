@@ -14,6 +14,7 @@ export interface AddStageProps {
   readonly skipRule?: boolean;
   readonly overrideRule?: events.IRule;
   readonly ruleName?: string;
+  readonly schedule?: events.Schedule;
 }
 
 export interface AddRuleProps {
@@ -22,6 +23,7 @@ export interface AddRuleProps {
   readonly eventTargets?: events.IRuleTarget[];
   readonly overrideRule?: events.IRule;
   readonly ruleName?: string;
+  readonly schedule?: events.Schedule;
 }
 
 export class DataPipeline extends Construct {
@@ -46,7 +48,7 @@ export class DataPipeline extends Construct {
     const skipRule = props.skipRule ?? false;
 
     if (props.overrideRule) {
-      this.addRule({ overrideRule: props.overrideRule });
+      this.addRule({ overrideRule: props.overrideRule, schedule: props.schedule });
     } else if (this.previousStage && skipRule === false) {
       if (stage.targets === undefined) {
         throw new Error(
@@ -58,6 +60,7 @@ export class DataPipeline extends Construct {
         id: `${stage.node.id} Rule`,
         eventPattern: this.previousStage?.eventPattern,
         eventTargets: stage.targets,
+        schedule: props.schedule,
       });
     }
 
@@ -76,6 +79,12 @@ export class DataPipeline extends Construct {
     this.rules.push(
       props.overrideRule
         ? props.overrideRule
+        : props.schedule
+        ? new events.Rule(this, props.id!, {
+            schedule: props.schedule,
+            targets: props.eventTargets,
+            ruleName: props.ruleName,
+          })
         : new events.Rule(this, props.id!, {
             eventPattern: props.eventPattern,
             targets: props.eventTargets,

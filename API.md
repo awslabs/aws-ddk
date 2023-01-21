@@ -3637,6 +3637,7 @@ const addRuleProps: AddRuleProps = { ... }
 | <code><a href="#aws-ddk-core.AddRuleProps.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddRuleProps.property.overrideRule">overrideRule</a></code> | <code>aws-cdk-lib.aws_events.IRule</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddRuleProps.property.ruleName">ruleName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddRuleProps.property.schedule">schedule</a></code> | <code>aws-cdk-lib.aws_events.Schedule</code> | *No description.* |
 
 ---
 
@@ -3687,6 +3688,16 @@ public readonly ruleName: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `schedule`<sup>Optional</sup> <a name="schedule" id="aws-ddk-core.AddRuleProps.property.schedule"></a>
+
+```typescript
+public readonly schedule: Schedule;
+```
+
+- *Type:* aws-cdk-lib.aws_events.Schedule
 
 ---
 
@@ -3746,6 +3757,7 @@ const addStageProps: AddStageProps = { ... }
 | <code><a href="#aws-ddk-core.AddStageProps.property.stage">stage</a></code> | <code><a href="#aws-ddk-core.Stage">Stage</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddStageProps.property.overrideRule">overrideRule</a></code> | <code>aws-cdk-lib.aws_events.IRule</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddStageProps.property.ruleName">ruleName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddStageProps.property.schedule">schedule</a></code> | <code>aws-cdk-lib.aws_events.Schedule</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AddStageProps.property.skipRule">skipRule</a></code> | <code>boolean</code> | *No description.* |
 
 ---
@@ -3777,6 +3789,16 @@ public readonly ruleName: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `schedule`<sup>Optional</sup> <a name="schedule" id="aws-ddk-core.AddStageProps.property.schedule"></a>
+
+```typescript
+public readonly schedule: Schedule;
+```
+
+- *Type:* aws-cdk-lib.aws_events.Schedule
 
 ---
 
