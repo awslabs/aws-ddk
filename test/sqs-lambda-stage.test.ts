@@ -1,6 +1,7 @@
 import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
+import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 
@@ -142,6 +143,7 @@ test("SQSToLambdaStage is able to create a CloudWatch alarm", () => {
       handler: "commons.handlers.lambda_handler",
       errorsAlarmThreshold: 10,
       errorsEvaluationPeriods: 3,
+      errorsComparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
     },
   });
 
