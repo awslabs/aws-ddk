@@ -114,6 +114,64 @@ test("Basic CICDPipeline", () => {
   });
 });
 
+test("CICDPipeline with manual approval set", () => {
+  const app = new cdk.App();
+  const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
+  const devStack = new cdk.Stack(devStage, "application-stack");
+
+  const bucket = new s3.Bucket(devStack, "Bucket");
+  const firehoseToS3Stage = new FirehoseToS3Stage(devStack, "Firehose To S3 Stage", { s3Bucket: bucket });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(devStack, "SQS To Lambda Stage 2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: cdk.Size.mebibytes(512),
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(
+          devStack,
+          "Layer",
+          "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+        ),
+      ],
+    },
+  });
+
+  const pipeline = new DataPipeline(devStack, "Pipeline", {});
+
+  pipeline.addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage });
+
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addStage({ stageId: "dev", stage: devStage, manualApprovals: true })
+    .synth();
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::CodePipeline::Pipeline", 1);
+});
+
+test("CICDPipeline with wave", () => {
+  const app = new cdk.App();
+  const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
+  const devStack = new cdk.Stack(devStage, "dev-application-stack");
+  const prodStage = new cdk.Stage(app, "prod", { env: { account: "000000000000" } });
+  const prodStack = new cdk.Stack(prodStage, "prod-application-stack");
+  new s3.Bucket(devStack, "Bucket");
+  new s3.Bucket(prodStack, "Bucket");
+
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addWave({ stageId: "applications", stages: [devStage, prodStage] })
+    .synth();
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::CodePipeline::Pipeline", 1);
+});
+
 test("CICD Pipeline with Security Checks", () => {
   const app = new cdk.App();
   const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
