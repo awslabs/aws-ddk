@@ -1,31 +1,42 @@
+import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import * as iam from "aws-cdk-lib/aws-iam";
-import path from "path";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import { ShellStep } from "aws-cdk-lib/pipelines";
-import { CICDPipelineStack, DataPipeline, FirehoseToS3Stage, getCodeArtifactPublishAction, SqsToLambdaStage } from "../src";
+import {
+  CICDPipelineStack,
+  DataPipeline,
+  FirehoseToS3Stage,
+  getCodeArtifactPublishAction,
+  SqsToLambdaStage,
+} from "../src";
 
 test("Basic CICDPipeline", () => {
   const app = new cdk.App();
-  const appStack = new cdk.Stack(app, "application-stack");
-  const bucket = new s3.Bucket(appStack, "Bucket");
+  const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
+  const devStack = new cdk.Stack(devStage, "application-stack");
 
-  const firehoseToS3Stage = new FirehoseToS3Stage(appStack, "Firehose To S3 Stage", { s3Bucket: bucket });
+  const bucket = new s3.Bucket(devStack, "Bucket");
+  const firehoseToS3Stage = new FirehoseToS3Stage(devStack, "Firehose To S3 Stage", { s3Bucket: bucket });
 
-  const sqsToLambdaStage = new SqsToLambdaStage(appStack, "SQS To Lambda Stage 2", {
+  const sqsToLambdaStage = new SqsToLambdaStage(devStack, "SQS To Lambda Stage 2", {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
       memorySize: cdk.Size.mebibytes(512),
       layers: [
-        lambda.LayerVersion.fromLayerVersionArn(appStack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
+        lambda.LayerVersion.fromLayerVersionArn(
+          devStack,
+          "Layer",
+          "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+        ),
       ],
     },
   });
 
-  const pipeline = new DataPipeline(appStack, "Pipeline", {});
+  const pipeline = new DataPipeline(devStack, "Pipeline", {});
 
   pipeline.addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage });
 
@@ -33,7 +44,7 @@ test("Basic CICDPipeline", () => {
     .addSourceAction({ repositoryName: "dummy-repository" })
     .addSynthAction()
     .buildPipeline()
-    .addStage({ stageId: 'dev', stage: new cdk.Stage(appStack, 'my-data-pipeline')})
+    .addStage({ stageId: "dev", stage: devStage })
     .synth();
 
   const template = Template.fromStack(stack);
@@ -81,7 +92,7 @@ test("Basic CICDPipeline", () => {
         ]),
       }),
       Match.objectLike({
-        Name: 'dev',
+        Name: "dev",
       }),
     ]),
   });
