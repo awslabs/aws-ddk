@@ -5770,7 +5770,18 @@ const sqsToLambdaStageQueueProps: SqsToLambdaStageQueueProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageQueueProps.property.fifo">fifo</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageQueueProps.property.visibilityTimeout">visibilityTimeout</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+
+---
+
+##### `fifo`<sup>Optional</sup> <a name="fifo" id="aws-ddk-core.SqsToLambdaStageQueueProps.property.fifo"></a>
+
+```typescript
+public readonly fifo: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

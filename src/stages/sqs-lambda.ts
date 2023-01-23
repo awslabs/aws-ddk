@@ -99,7 +99,7 @@ export class SqsToLambdaStage extends DataStage {
               maxReceiveCount: props.maxReceiveCount ?? 1,
             }
           : undefined,
-        fifo: props.sqsQueueProps.fifo ?? false,
+        fifo: props.sqsQueueProps?.fifo ?? false,
       });
     }
 

@@ -165,9 +165,7 @@ test("SQSToLambda must have 'lambdaFunction' or 'lambdaFunctionProps' set", () =
   const stack = new cdk.Stack();
   expect(() => {
     new SqsToLambdaStage(stack, "Stage", {});
-  }).toThrowError(
-    "'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage",
-  );
+  }).toThrowError("'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage");
 });
 
 test("SQSToLambda must have 'messageGroupId' when using a fifo queue", () => {
@@ -179,14 +177,45 @@ test("SQSToLambda must have 'messageGroupId' when using a fifo queue", () => {
         handler: "commons.handlers.lambda_handler",
         memorySize: cdk.Size.mebibytes(512),
         layers: [
-          lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
+          lambda.LayerVersion.fromLayerVersionArn(
+            stack,
+            "Layer",
+            "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+          ),
         ],
       },
       sqsQueueProps: {
         fifo: true,
-      }
+      },
     });
-  }).toThrowError(
-    "'messageGroupId' must be set to when target is a fifo queue",
-  );
+  }).toThrowError("'messageGroupId' must be set to when target is a fifo queue");
+});
+
+test("SQSToLambdaStage additional properties", () => {
+  const stack = new cdk.Stack();
+
+  new SqsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_8,
+    },
+    messageGroupId: "dummy-group",
+    maxReceiveCount: 2,
+    dlqEnabled: true,
+    sqsQueueProps: {
+      fifo: true,
+      visibilityTimeout: cdk.Duration.minutes(5),
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    Runtime: "python3.8",
+  });
+  template.resourceCountIs("AWS::SQS::Queue", 2);
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    VisibilityTimeout: 300,
+  });
 });
