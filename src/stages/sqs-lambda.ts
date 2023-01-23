@@ -1,4 +1,5 @@
 import * as cdk from "aws-cdk-lib";
+import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import * as events from "aws-cdk-lib/aws-events";
 import * as events_targets from "aws-cdk-lib/aws-events-targets";
 import * as iam from "aws-cdk-lib/aws-iam";
@@ -19,10 +20,12 @@ export interface SqsToLambdaStageFunctionProps {
 
   readonly errorsAlarmThreshold?: number;
   readonly errorsEvaluationPeriods?: number;
+  readonly errorsComparisonOperator?: cloudwatch.ComparisonOperator;
 }
 
 export interface SqsToLambdaStageQueueProps {
   readonly visibilityTimeout?: cdk.Duration;
+  readonly fifo?: boolean;
 }
 
 export interface SqsToLambdaStageProps extends DataStageProps {
@@ -98,6 +101,7 @@ export class SqsToLambdaStage extends DataStage {
               maxReceiveCount: props.maxReceiveCount ?? 1,
             }
           : undefined,
+        fifo: props.sqsQueueProps?.fifo ?? false,
       });
     }
 
@@ -112,6 +116,8 @@ export class SqsToLambdaStage extends DataStage {
       metric: this.function.metricErrors(),
       threshold: props.lambdaFunctionProps?.errorsAlarmThreshold ?? 5,
       evaluationPeriods: props.lambdaFunctionProps?.errorsEvaluationPeriods ?? 1,
+      comparisonOperator:
+        props.lambdaFunctionProps?.errorsComparisonOperator ?? cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
     });
 
     this.eventPattern = {

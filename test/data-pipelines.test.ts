@@ -10,6 +10,7 @@ import { DataPipeline, FirehoseToS3Stage, GlueTransformStage, S3EventStage, SqsT
 
 test("Basic DataPipeline", () => {
   const stack = new cdk.Stack();
+
   const bucket = new s3.Bucket(stack, "Bucket");
 
   const firehoseToS3Stage = new FirehoseToS3Stage(stack, "Firehose To S3 Stage", { s3Bucket: bucket });
@@ -118,4 +119,60 @@ test("DataPipeline with Scheduled stage", () => {
     State: "ENABLED",
     ScheduleExpression: "rate(5 minutes)",
   });
+});
+
+test("DataPipeline with override rule", () => {
+  const stack = new cdk.Stack();
+  const bucket = new s3.Bucket(stack, "Bucket");
+
+  const firehoseToS3Stage = new FirehoseToS3Stage(stack, "Firehose To S3 Stage", { s3Bucket: bucket });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(stack, "SQS To Lambda Stage 2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: cdk.Size.mebibytes(512),
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
+      ],
+    },
+  });
+
+  const pipeline = new DataPipeline(stack, "Pipeline", {});
+  pipeline.addStage({ stage: firehoseToS3Stage }).addStage({
+    stage: sqsToLambdaStage,
+    overrideRule: new events.Rule(stack, "rule", {
+      eventPattern: {
+        source: ["aws.ec2"],
+      },
+    }),
+  });
+
+  Template.fromStack(stack);
+});
+
+test("DataPipeline with skip rule", () => {
+  const stack = new cdk.Stack();
+  const bucket = new s3.Bucket(stack, "Bucket");
+
+  const firehoseToS3Stage = new FirehoseToS3Stage(stack, "Firehose To S3 Stage", { s3Bucket: bucket });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(stack, "SQS To Lambda Stage 2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: cdk.Size.mebibytes(512),
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
+      ],
+    },
+  });
+
+  const pipeline = new DataPipeline(stack, "Pipeline", {});
+  pipeline.addStage({ stage: firehoseToS3Stage }).addStage({
+    stage: sqsToLambdaStage,
+    skipRule: true,
+  });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::Events::Rule", 0);
 });

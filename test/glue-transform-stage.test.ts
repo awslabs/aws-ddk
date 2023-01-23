@@ -38,6 +38,9 @@ test("GlueTransformStage stage creates Glue Job", () => {
       }),
       jobName: "myJob",
     },
+    jobRunArgs: {
+      foo: "bar",
+    },
     crawlerName: "myCrawler",
   });
 
@@ -70,4 +73,20 @@ test("GlueTransformStage stage creates Glue Crawler", () => {
   template.hasResourceProperties("AWS::Glue::Crawler", {
     Role: "role",
   });
+});
+
+test("GlueTranformStage must have 'jobName' or 'jobProps' set", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new GlueTransformStage(stack, "Stage", {});
+  }).toThrowError("'jobName' or 'jobProps' must be set to instantiate this stage");
+});
+
+test("GlueTranformStage must have 'crawlerName' or 'crawlerProps' set", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new GlueTransformStage(stack, "Stage", {
+      jobName: "myJob",
+    });
+  }).toThrowError("'crawlerName' or 'crawlerProps' must be set to instantiate this stage");
 });

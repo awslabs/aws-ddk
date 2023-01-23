@@ -1,16 +1,50 @@
+import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as s3 from "aws-cdk-lib/aws-s3";
 import { ShellStep } from "aws-cdk-lib/pipelines";
-import { CICDPipelineStack, getCodeArtifactPublishAction } from "../src";
+import {
+  CICDPipelineStack,
+  DataPipeline,
+  FirehoseToS3Stage,
+  getCodeArtifactPublishAction,
+  SqsToLambdaStage,
+} from "../src";
 
 test("Basic CICDPipeline", () => {
   const app = new cdk.App();
-  //const baseStack = new cdk.Stack(app, "my-base-stack"); will add when base stack is implemented
+  const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
+  const devStack = new cdk.Stack(devStage, "application-stack");
+
+  const bucket = new s3.Bucket(devStack, "Bucket");
+  const firehoseToS3Stage = new FirehoseToS3Stage(devStack, "Firehose To S3 Stage", { s3Bucket: bucket });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(devStack, "SQS To Lambda Stage 2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: cdk.Size.mebibytes(512),
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(
+          devStack,
+          "Layer",
+          "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+        ),
+      ],
+    },
+  });
+
+  const pipeline = new DataPipeline(devStack, "Pipeline", {});
+
+  pipeline.addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage });
+
   const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
     .addSourceAction({ repositoryName: "dummy-repository" })
     .addSynthAction()
     .buildPipeline()
-    //.addStage({ stageId: 'dev', stage: new cdk.Stage(baseStack, 'my-stack')}) will add when base stack is implemented
+    .addStage({ stageId: "dev", stage: devStage })
     .synth();
 
   const template = Template.fromStack(stack);
@@ -57,9 +91,9 @@ test("Basic CICDPipeline", () => {
           }),
         ]),
       }),
-      // Match.objectLike({
-      //   Name: 'dev',
-      // }),
+      Match.objectLike({
+        Name: "dev",
+      }),
     ]),
   });
   template.hasResourceProperties("AWS::IAM::Role", {
@@ -78,6 +112,64 @@ test("Basic CICDPipeline", () => {
   template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
     Name: "dummy-pipeline",
   });
+});
+
+test("CICDPipeline with manual approval set", () => {
+  const app = new cdk.App();
+  const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
+  const devStack = new cdk.Stack(devStage, "application-stack");
+
+  const bucket = new s3.Bucket(devStack, "Bucket");
+  const firehoseToS3Stage = new FirehoseToS3Stage(devStack, "Firehose To S3 Stage", { s3Bucket: bucket });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(devStack, "SQS To Lambda Stage 2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: cdk.Size.mebibytes(512),
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(
+          devStack,
+          "Layer",
+          "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+        ),
+      ],
+    },
+  });
+
+  const pipeline = new DataPipeline(devStack, "Pipeline", {});
+
+  pipeline.addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage });
+
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addStage({ stageId: "dev", stage: devStage, manualApprovals: true })
+    .synth();
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::CodePipeline::Pipeline", 1);
+});
+
+test("CICDPipeline with wave", () => {
+  const app = new cdk.App();
+  const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
+  const devStack = new cdk.Stack(devStage, "dev-application-stack");
+  const prodStage = new cdk.Stage(app, "prod", { env: { account: "000000000000" } });
+  const prodStack = new cdk.Stack(prodStage, "prod-application-stack");
+  new s3.Bucket(devStack, "Bucket");
+  new s3.Bucket(prodStack, "Bucket");
+
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addWave({ stageId: "applications", stages: [devStage, prodStage] })
+    .synth();
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::CodePipeline::Pipeline", 1);
 });
 
 test("CICD Pipeline with Security Checks", () => {
@@ -310,4 +402,84 @@ test("Add notifications without building pipeline", () => {
   expect(stack).toThrow(
     Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline."),
   );
+});
+
+test("CICDPipeline additional properties", () => {
+  const app = new cdk.App();
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction({
+      additionalInstallCommands: ["echo 'foobar'"],
+      cdkVersion: "2.61.0",
+    })
+    .buildPipeline()
+    .addTestStage({
+      commands: ["./my-test.sh"],
+    })
+    //.addStage({ stageId: 'dev', stage: new cdk.Stage(baseStack, 'my-stack')}) will add when base stack is implemented
+    .synth();
+
+  Template.fromStack(stack);
+});
+
+test("Error when running build pipeline before adding synth action", () => {
+  const app = new cdk.App();
+  const stack = () =>
+    new CICDPipelineStack(app, "dummy-pipeline", {
+      environmentId: "dev",
+      pipelineName: "dummy-pipeline",
+    }).buildPipeline();
+  expect(stack).toThrow(Error("Pipeline cannot be built without a synth action."));
+});
+
+test("Test Pipeline with Artifact Upload", () => {
+  const app = new cdk.App();
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addCustomStage({
+      stageName: "PublishToCodeArtifact",
+      steps: [
+        getCodeArtifactPublishAction(
+          "aws",
+          app.region ?? "us-east-1",
+          app.account ?? "111111111111",
+          "dummy",
+          "dummy",
+          "dummy",
+          undefined,
+          [
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                "codeartifact:DescribeDomain",
+                "codeartifact:GetAuthorizationToken",
+                "codeartifact:ListRepositoriesInDomain",
+              ],
+              resources: ["arn:aws:codeartifact:us-east-1:222222222222:domain/dummy"],
+            }),
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: ["codeartifact:GetRepositoryEndpoint", "codeartifact:ReadFromRepository"],
+              resources: ["arn:aws:codeartifact:us-east-1:222222222222:repository/dummy/dummy-repo"],
+            }),
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: ["sts:GetServiceBearerToken"],
+              resources: ["*"],
+              conditions: {
+                StringEquals: {
+                  "sts:AWSServiceName": "codeartifact.amazonaws.com",
+                },
+              },
+            }),
+          ],
+        ),
+      ],
+    })
+    .synth()
+    .addNotifications();
+
+  Template.fromStack(stack);
 });

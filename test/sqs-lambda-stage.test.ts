@@ -1,6 +1,7 @@
 import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
+import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 
@@ -142,6 +143,7 @@ test("SQSToLambdaStage is able to create a CloudWatch alarm", () => {
       handler: "commons.handlers.lambda_handler",
       errorsAlarmThreshold: 10,
       errorsEvaluationPeriods: 3,
+      errorsComparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
     },
   });
 
@@ -158,5 +160,64 @@ test("SQSToLambdaStage is able to create a CloudWatch alarm", () => {
         },
       }),
     ]),
+  });
+});
+
+test("SQSToLambda must have 'lambdaFunction' or 'lambdaFunctionProps' set", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new SqsToLambdaStage(stack, "Stage", {});
+  }).toThrowError("'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage");
+});
+
+test("SQSToLambda must have 'messageGroupId' when using a fifo queue", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new SqsToLambdaStage(stack, "Stage", {
+      lambdaFunctionProps: {
+        code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+        handler: "commons.handlers.lambda_handler",
+        memorySize: cdk.Size.mebibytes(512),
+        layers: [
+          lambda.LayerVersion.fromLayerVersionArn(
+            stack,
+            "Layer",
+            "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1",
+          ),
+        ],
+      },
+      sqsQueueProps: {
+        fifo: true,
+      },
+    });
+  }).toThrowError("'messageGroupId' must be set to when target is a fifo queue");
+});
+
+test("SQSToLambdaStage additional properties", () => {
+  const stack = new cdk.Stack();
+
+  new SqsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_8,
+    },
+    messageGroupId: "dummy-group",
+    maxReceiveCount: 2,
+    dlqEnabled: true,
+    sqsQueueProps: {
+      fifo: true,
+      visibilityTimeout: cdk.Duration.minutes(5),
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    Runtime: "python3.8",
+  });
+  template.resourceCountIs("AWS::SQS::Queue", 2);
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    VisibilityTimeout: 300,
   });
 });
