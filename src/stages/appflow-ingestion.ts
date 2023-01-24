@@ -1,4 +1,5 @@
 import * as path from "path";
+import * as cdk from "aws-cdk-lib";
 import { Duration } from "aws-cdk-lib";
 import * as appflow from "aws-cdk-lib/aws-appflow";
 import * as events from "aws-cdk-lib/aws-events";
@@ -87,10 +88,11 @@ export class AppFlowIngestionStage extends StateMachineStage {
   }
 
   private createStartFlowCustomTask(flowName: string, waitHandler?: sfn.Wait): tasks.CallAwsService {
+    const stack = cdk.Stack.of(this);
     const task = new tasks.CallAwsService(this, "Start Flow Execution", {
       service: "appflow",
       action: "startFlow",
-      iamResources: ["*"],
+      iamResources: [`arn:${stack.partition}:appflow:${stack.region}:${stack.account}:flow/${flowName}`],
       parameters: {
         FlowName: flowName,
       },
@@ -128,7 +130,7 @@ export class AppFlowIngestionStage extends StateMachineStage {
     );
 
     // Create check flow execution status step function task
-    return new tasks.LambdaInvoke(this, "get-flow-execution-status", {
+    return new tasks.LambdaInvoke(this, "Get Flow Execution Status", {
       lambdaFunction: statusLambda,
       resultSelector: { "FlowExecutionStatus.$": "$.Payload" },
     });
