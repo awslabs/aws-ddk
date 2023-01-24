@@ -96,7 +96,6 @@ export class AppFlowIngestionStage extends StateMachineStage {
       parameters: {
         FlowName: flowName,
       },
-      outputPath: "$.ExecutionId",
     });
     if (waitHandler) {
       task.addCatch(waitHandler, {
