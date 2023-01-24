@@ -9,30 +9,17 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
 import { DataStage, DataStageProps } from "../pipelines/stage";
 
-export interface SqsToLambdaStageFunctionProps {
-  readonly code: lambda.Code;
-  readonly handler: string;
-  readonly runtime?: lambda.Runtime;
-  readonly timeout?: cdk.Duration;
-  readonly memorySize?: cdk.Size;
-  readonly role?: iam.Role;
-  readonly layers?: lambda.ILayerVersion[];
-
+export interface SqsToLambdaStageFunctionProps extends lambda.FunctionProps {
   readonly errorsAlarmThreshold?: number;
   readonly errorsEvaluationPeriods?: number;
   readonly errorsComparisonOperator?: cloudwatch.ComparisonOperator;
-}
-
-export interface SqsToLambdaStageQueueProps {
-  readonly visibilityTimeout?: cdk.Duration;
-  readonly fifo?: boolean;
 }
 
 export interface SqsToLambdaStageProps extends DataStageProps {
   readonly lambdaFunction?: lambda.IFunction;
   readonly lambdaFunctionProps?: SqsToLambdaStageFunctionProps;
   readonly sqsQueue?: sqs.IQueue;
-  readonly sqsQueueProps?: SqsToLambdaStageQueueProps;
+  readonly sqsQueueProps?: sqs.QueueProps;
 
   readonly batchSize?: number;
   readonly maxBatchingWindow?: cdk.Duration;
@@ -62,10 +49,10 @@ export class SqsToLambdaStage extends DataStage {
 
       this.function = new lambda.Function(this, "Process Function", {
         code: functionProps.code,
-        runtime: functionProps.runtime ?? lambda.Runtime.PYTHON_3_9,
+        runtime: functionProps.runtime,
         handler: functionProps.handler,
         timeout: functionProps.timeout,
-        memorySize: functionProps.memorySize?.toMebibytes(),
+        memorySize: functionProps.memorySize,
         layers: functionProps.layers,
         role: functionProps.role,
         environment: {

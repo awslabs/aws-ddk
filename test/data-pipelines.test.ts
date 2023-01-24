@@ -19,7 +19,8 @@ test("Basic DataPipeline", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
-      memorySize: cdk.Size.mebibytes(512),
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
       ],
@@ -65,6 +66,7 @@ test("DataPipeline cannot have a Stage without targets in the middle", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
     },
     dlqEnabled: true,
   });
@@ -88,7 +90,8 @@ test("DataPipeline with Scheduled stage", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
-      memorySize: cdk.Size.mebibytes(512),
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
       ],
@@ -131,7 +134,8 @@ test("DataPipeline with override rule", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
-      memorySize: cdk.Size.mebibytes(512),
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
       ],
@@ -161,7 +165,8 @@ test("DataPipeline with skip rule", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
-      memorySize: cdk.Size.mebibytes(512),
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
       ],

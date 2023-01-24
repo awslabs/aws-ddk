@@ -35,6 +35,7 @@ test("AthenaToSQL stage with additional properties", () => {
       }),
     ],
     stateMachineInput: { foo: "bar" },
+    stateMachineName: "dummy-statemachine",
   });
 
   const template = Template.fromStack(stack);
@@ -42,5 +43,6 @@ test("AthenaToSQL stage with additional properties", () => {
     DefinitionString: {
       "Fn::Join": ["", Match.arrayWith([Match.stringLikeRegexp("Start Query Exec")])],
     },
+    StateMachineName: "dummy-statemachine",
   });
 });

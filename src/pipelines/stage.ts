@@ -64,10 +64,12 @@ export abstract class DataStage extends Stage {
 
 export interface StateMachineStageProps extends StageProps {
   readonly stateMachineInput?: { [key: string]: any };
+  readonly stateMachineName?: string;
   readonly additionalRolePolicyStatements?: iam.PolicyStatement[];
   readonly stateMachineFailedExecutionsAlarmThreshold?: number;
   readonly stateMachineFailedExecutionsAlarmEvaluationPeriods?: number;
   readonly alarmsEnabled?: boolean;
+  readonly stateMachineProps?: sfn.StateMachineProps;
 }
 
 export interface CreateStateMachineResult {
@@ -86,6 +88,7 @@ export abstract class StateMachineStage extends DataStage {
   protected createStateMachine(definition: sfn.IChainable, props: StateMachineStageProps): CreateStateMachineResult {
     const stateMachine = new sfn.StateMachine(this, "State Machine", {
       definition: definition,
+      stateMachineName: props.stateMachineName,
     });
 
     if (props.additionalRolePolicyStatements) {
