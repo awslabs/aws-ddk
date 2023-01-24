@@ -3945,7 +3945,6 @@ const appFlowIngestionStageProps: AppFlowIngestionStageProps = { ... }
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineProps">stateMachineProps</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachineProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.destinationFlowConfig">destinationFlowConfig</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.DestinationFlowConfigProperty</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowExecutionStatusCheckPeriod">flowExecutionStatusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowName">flowName</a></code> | <code>string</code> | *No description.* |
@@ -4034,16 +4033,6 @@ public readonly stateMachineName: string;
 
 ---
 
-##### `stateMachineProps`<sup>Optional</sup> <a name="stateMachineProps" id="aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineProps"></a>
-
-```typescript
-public readonly stateMachineProps: StateMachineProps;
-```
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachineProps
-
----
-
 ##### `destinationFlowConfig`<sup>Optional</sup> <a name="destinationFlowConfig" id="aws-ddk-core.AppFlowIngestionStageProps.property.destinationFlowConfig"></a>
 
 ```typescript
@@ -4116,7 +4105,6 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineProps">stateMachineProps</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachineProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.catalogName">catalogName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
@@ -4204,16 +4192,6 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
-
----
-
-##### `stateMachineProps`<sup>Optional</sup> <a name="stateMachineProps" id="aws-ddk-core.AthenaToSQLStageProps.property.stateMachineProps"></a>
-
-```typescript
-public readonly stateMachineProps: StateMachineProps;
-```
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachineProps
 
 ---
 
@@ -4755,7 +4733,6 @@ const dataBrewTransformStageProps: DataBrewTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineProps">stateMachineProps</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachineProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.datasetName">datasetName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
@@ -4843,16 +4820,6 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
-
----
-
-##### `stateMachineProps`<sup>Optional</sup> <a name="stateMachineProps" id="aws-ddk-core.DataBrewTransformStageProps.property.stateMachineProps"></a>
-
-```typescript
-public readonly stateMachineProps: StateMachineProps;
-```
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachineProps
 
 ---
 
@@ -5341,7 +5308,6 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineProps">stateMachineProps</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachineProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
@@ -5427,16 +5393,6 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
-
----
-
-##### `stateMachineProps`<sup>Optional</sup> <a name="stateMachineProps" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineProps"></a>
-
-```typescript
-public readonly stateMachineProps: StateMachineProps;
-```
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachineProps
 
 ---
 
@@ -6511,7 +6467,6 @@ const stateMachineStageProps: StateMachineStageProps = { ... }
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineProps">stateMachineProps</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachineProps</code> | *No description.* |
 
 ---
 
@@ -6592,16 +6547,6 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
-
----
-
-##### `stateMachineProps`<sup>Optional</sup> <a name="stateMachineProps" id="aws-ddk-core.StateMachineStageProps.property.stateMachineProps"></a>
-
-```typescript
-public readonly stateMachineProps: StateMachineProps;
-```
-
-- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachineProps
 
 ---
 

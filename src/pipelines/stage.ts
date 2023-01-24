@@ -69,7 +69,6 @@ export interface StateMachineStageProps extends StageProps {
   readonly stateMachineFailedExecutionsAlarmThreshold?: number;
   readonly stateMachineFailedExecutionsAlarmEvaluationPeriods?: number;
   readonly alarmsEnabled?: boolean;
-  readonly stateMachineProps?: sfn.StateMachineProps;
 }
 
 export interface CreateStateMachineResult {
