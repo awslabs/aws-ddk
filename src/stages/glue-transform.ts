@@ -1,4 +1,5 @@
 import * as glue_alpha from "@aws-cdk/aws-glue-alpha";
+import * as cdk from "aws-cdk-lib";
 import * as events from "aws-cdk-lib/aws-events";
 import * as glue from "aws-cdk-lib/aws-glue";
 import * as sfn from "aws-cdk-lib/aws-stepfunctions";
@@ -33,16 +34,23 @@ export class GlueTransformStage extends StateMachineStage {
       resultPath: sfn.JsonPath.DISCARD,
     });
 
-    const crawlObject = new sfn.CustomState(this, "Crawl Object", {
-      stateJson: {
-        Type: "Task",
-        Resource: "arn:aws:states:::aws-sdk:glue:startCrawler",
-        Parameters: { Name: crawlerName },
-        Catch: [{ ErrorEquals: ["Glue.CrawlerRunningException"], Next: "Success" }],
+    const stack = cdk.Stack.of(this);
+    const crawlObject = new tasks.CallAwsService(this, "Crawl Object", {
+      service: "glue",
+      action: "startCrawler",
+      parameters: {
+        Name: crawlerName,
       },
+      iamResources: [`arn:${stack.partition}:glue:${stack.region}:${stack.account}:crawler/${crawlerName}`],
     });
 
-    const definition = startJobRun.next(crawlObject.next(new sfn.Succeed(this, "Success")));
+    const successTask = new sfn.Succeed(this, "Success");
+
+    crawlObject.addCatch(successTask, {
+      errors: ["Glue.CrawlerRunningException"],
+    });
+
+    const definition = startJobRun.next(crawlObject.next(successTask));
 
     ({
       eventPattern: this.eventPattern,
