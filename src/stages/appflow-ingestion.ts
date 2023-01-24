@@ -21,12 +21,18 @@ export class AppFlowIngestionStage extends StateMachineStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
   readonly stateMachine: sfn.StateMachine;
-  readonly flowObject: sfn.CustomState;
+  readonly flowObject: tasks.CallAwsService;
+  readonly flowName: string;
 
   constructor(scope: Construct, id: string, props: AppFlowIngestionStageProps) {
     super(scope, id, props);
 
     const { flowName, flowExecutionStatusCheckPeriod, destinationFlowConfig, sourceFlowConfig, flowTasks } = props;
+    const flowExecutionRecords = this.createCheckFlowExecutionTask();
+    const flowObjectExecutionStatus = new sfn.Choice(this, "Check Flow Execution Status");
+    const flowObjectExecutionStatusWait = new sfn.Wait(this, "Wait Before Checking Flow Status", {
+      time: sfn.WaitTime.duration(flowExecutionStatusCheckPeriod ?? Duration.seconds(15)),
+    });
 
     if (!flowName) {
       // Check required props for CfnFlow create and except if not provided
@@ -44,18 +50,11 @@ export class AppFlowIngestionStage extends StateMachineStage {
           triggerType: "OnDemand",
         },
       });
-      this.flowObject = this.createStartFlowCustomTask(flow.flowName);
+      this.flowName = flow.flowName;
     } else {
-      this.flowObject = this.createStartFlowCustomTask(flowName);
+      this.flowName = flowName;
     }
-
-    // Create check flow execution status step function task
-    const flowExecutionRecords = this.createCheckFlowExecutionTask();
-    // Create step function loop to check flow execution status
-    const flowObjectExecutionStatus = new sfn.Choice(this, "check-flow-execution-status");
-    const flowObjectExecutionStatusWait = new sfn.Wait(this, "wait-before-checking-flow-status-again", {
-      time: sfn.WaitTime.duration(flowExecutionStatusCheckPeriod ?? Duration.seconds(15)),
-    });
+    this.flowObject = this.createStartFlowCustomTask(this.flowName, flowObjectExecutionStatusWait);
 
     const definition = this.flowObject
       .next(flowObjectExecutionStatusWait)
@@ -87,22 +86,23 @@ export class AppFlowIngestionStage extends StateMachineStage {
     );
   }
 
-  private createStartFlowCustomTask(flowName: string): sfn.CustomState {
-    const stateJson = {
-      Type: "Task",
-      Resource: "arn:aws:states:::aws-sdk:appflow:startFlow",
-      Parameters: {
+  private createStartFlowCustomTask(flowName: string, waitHandler?: sfn.Wait): tasks.CallAwsService {
+    const task = new tasks.CallAwsService(this, "Start Flow Execution", {
+      service: "appflow",
+      action: "startFlow",
+      iamResources: ["*"],
+      parameters: {
         FlowName: flowName,
       },
-      Catch: [
-        {
-          ErrorEquals: ["Appflow.ConflictException"],
-          Next: "wait-before-checking-flow-status-again",
-        },
-      ],
-    };
+      outputPath: "$.ExecutionId",
+    });
+    if (waitHandler) {
+      task.addCatch(waitHandler, {
+        errors: ["Appflow.ConflictException"],
+      });
+    }
 
-    return new sfn.CustomState(this, "start-flow-execution", { stateJson });
+    return task;
   }
 
   private createCheckFlowExecutionTask(): tasks.LambdaInvoke {

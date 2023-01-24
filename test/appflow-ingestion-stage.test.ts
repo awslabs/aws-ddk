@@ -17,8 +17,8 @@ test("AppFlow Ingestion stage creates State Machine, Lambda & Alarm", () => {
       "Fn::Join": [
         "",
         Match.arrayWith([
-          Match.stringLikeRegexp("start-flow-execution"),
-          Match.stringLikeRegexp("check-flow-execution-status"),
+          Match.stringLikeRegexp("Start Flow Execution"),
+          Match.stringLikeRegexp("Check Flow Execution Status"),
         ]),
       ],
     },
@@ -76,9 +76,7 @@ test("AppFlow Ingestion stage creates flow", () => {
     DefinitionString: {
       "Fn::Join": [
         "",
-        Match.arrayWith([
-          Match.stringLikeRegexp('"wait-before-checking-flow-status-again":{"Type":"Wait","Seconds":10'),
-        ]),
+        Match.arrayWith([Match.stringLikeRegexp('"Wait Before Checking Flow Status":{"Type":"Wait","Seconds":10')]),
       ],
     },
   });
