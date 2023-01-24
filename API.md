@@ -111,7 +111,8 @@ Any object.
 | <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.flowObject">flowObject</a></code> | <code>aws-cdk-lib.aws_stepfunctions.CustomState</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.flowName">flowName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.flowObject">flowObject</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService</code> | *No description.* |
 
 ---
 
@@ -197,13 +198,23 @@ public readonly stateMachine: StateMachine;
 
 ---
 
+##### `flowName`<sup>Required</sup> <a name="flowName" id="aws-ddk-core.AppFlowIngestionStage.property.flowName"></a>
+
+```typescript
+public readonly flowName: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `flowObject`<sup>Required</sup> <a name="flowObject" id="aws-ddk-core.AppFlowIngestionStage.property.flowObject"></a>
 
 ```typescript
-public readonly flowObject: CustomState;
+public readonly flowObject: CallAwsService;
 ```
 
-- *Type:* aws-cdk-lib.aws_stepfunctions.CustomState
+- *Type:* aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService
 
 ---
 
