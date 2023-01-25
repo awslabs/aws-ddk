@@ -1,11 +1,13 @@
 import { Compression, S3BucketProps } from "@aws-cdk/aws-kinesisfirehose-destinations-alpha";
 import * as cdk from "aws-cdk-lib";
+import { overrideProps } from "./utils";
 
-export function defaultDestinationsS3BucketProps(_dataOutputPrefix?: string) {
-  return {
+export function assignDestinationsS3BucketProps(props: S3BucketProps) {
+  const defaultProps: Partial<S3BucketProps> = {
     compression: Compression.GZIP,
     bufferingInterval: cdk.Duration.seconds(300),
     bufferingSize: cdk.Size.mebibytes(5),
-    ...(_dataOutputPrefix !== undefined && { dataOutputPrefix: _dataOutputPrefix }),
-  } as S3BucketProps;
+  };
+
+  return overrideProps(defaultProps, props);
 }
