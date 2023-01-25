@@ -25,7 +25,8 @@ test("Basic CICDPipeline", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
-      memorySize: cdk.Size.mebibytes(512),
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(
           devStack,
@@ -126,7 +127,8 @@ test("CICDPipeline with manual approval set", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
-      memorySize: cdk.Size.mebibytes(512),
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(
           devStack,

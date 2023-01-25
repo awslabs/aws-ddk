@@ -3955,6 +3955,7 @@ const appFlowIngestionStageProps: AppFlowIngestionStageProps = { ... }
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.destinationFlowConfig">destinationFlowConfig</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.DestinationFlowConfigProperty</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowExecutionStatusCheckPeriod">flowExecutionStatusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowName">flowName</a></code> | <code>string</code> | *No description.* |
@@ -4033,6 +4034,16 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 ---
 
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `destinationFlowConfig`<sup>Optional</sup> <a name="destinationFlowConfig" id="aws-ddk-core.AppFlowIngestionStageProps.property.destinationFlowConfig"></a>
 
 ```typescript
@@ -4104,6 +4115,7 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.catalogName">catalogName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
@@ -4181,6 +4193,16 @@ public readonly stateMachineInput: {[ key: string ]: any};
 ```
 
 - *Type:* {[ key: string ]: any}
+
+---
+
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -4721,6 +4743,7 @@ const dataBrewTransformStageProps: DataBrewTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.datasetName">datasetName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
@@ -4798,6 +4821,16 @@ public readonly stateMachineInput: {[ key: string ]: any};
 ```
 
 - *Type:* {[ key: string ]: any}
+
+---
+
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -5020,6 +5053,7 @@ const firehoseToS3StageProps: FirehoseToS3StageProps = { ... }
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled">dataStreamEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsAlarmThreshold">deliveryStreamDataFreshnessErrorsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsEvaluationPeriods">deliveryStreamDataFreshnessErrorsEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps">firehoseDeliveryStreamProps</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStreamProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.kinesisFirehoseDestinationsS3BucketProps">kinesisFirehoseDestinationsS3BucketProps</a></code> | <code>@aws-cdk/aws-kinesisfirehose-destinations-alpha.S3BucketProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3BucketProps">s3BucketProps</a></code> | <code>aws-cdk-lib.aws_s3.BucketProps</code> | *No description.* |
@@ -5093,6 +5127,16 @@ public readonly deliveryStreamDataFreshnessErrorsEvaluationPeriods: number;
 ```
 
 - *Type:* number
+
+---
+
+##### `firehoseDeliveryStreamProps`<sup>Optional</sup> <a name="firehoseDeliveryStreamProps" id="aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps"></a>
+
+```typescript
+public readonly firehoseDeliveryStreamProps: DeliveryStreamProps;
+```
+
+- *Type:* @aws-cdk/aws-kinesisfirehose-alpha.DeliveryStreamProps
 
 ---
 
@@ -5274,6 +5318,7 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
@@ -5349,6 +5394,16 @@ public readonly stateMachineInput: {[ key: string ]: any};
 ```
 
 - *Type:* {[ key: string ]: any}
+
+---
+
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -5538,16 +5593,593 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.code">code</a></code> | <code>aws-cdk-lib.aws_lambda.Code</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.handler">handler</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.maxEventAge">maxEventAge</a></code> | <code>aws-cdk-lib.Duration</code> | The maximum age of a request that Lambda sends to a function for processing. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.onFailure">onFailure</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The destination for failed invocations. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.onSuccess">onSuccess</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The destination for successful invocations. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.retryAttempts">retryAttempts</a></code> | <code>number</code> | The maximum number of times to retry when the function returns an error. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.adotInstrumentation">adotInstrumentation</a></code> | <code>aws-cdk-lib.aws_lambda.AdotInstrumentationConfig</code> | Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllOutbound">allowAllOutbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all network traffic. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowPublicSubnet">allowPublicSubnet</a></code> | <code>boolean</code> | Lambda Functions in a public subnet can NOT access the internet. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.architecture">architecture</a></code> | <code>aws-cdk-lib.aws_lambda.Architecture</code> | The system architectures compatible with this lambda function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.codeSigningConfig">codeSigningConfig</a></code> | <code>aws-cdk-lib.aws_lambda.ICodeSigningConfig</code> | Code signing config associated with this function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.currentVersionOptions">currentVersionOptions</a></code> | <code>aws-cdk-lib.aws_lambda.VersionOptions</code> | Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | The SQS queue to use if DLQ is enabled. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.deadLetterQueueEnabled">deadLetterQueueEnabled</a></code> | <code>boolean</code> | Enabled DLQ. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.deadLetterTopic">deadLetterTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | The SNS topic to use as a DLQ. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.description">description</a></code> | <code>string</code> | A description of the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.environment">environment</a></code> | <code>{[ key: string ]: string}</code> | Key-value pairs that Lambda caches and makes available for your Lambda functions. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.environmentEncryption">environmentEncryption</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | The AWS KMS key that's used to encrypt your function's environment variables. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.ephemeralStorageSize">ephemeralStorageSize</a></code> | <code>aws-cdk-lib.Size</code> | The size of the function’s /tmp directory in MiB. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.events">events</a></code> | <code>aws-cdk-lib.aws_lambda.IEventSource[]</code> | Event sources for this function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.filesystem">filesystem</a></code> | <code>aws-cdk-lib.aws_lambda.FileSystem</code> | The filesystem configuration for the lambda function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.functionName">functionName</a></code> | <code>string</code> | A name for the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.initialPolicy">initialPolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Initial policy statements to add to the created Lambda Role. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.insightsVersion">insightsVersion</a></code> | <code>aws-cdk-lib.aws_lambda.LambdaInsightsVersion</code> | Specify the version of CloudWatch Lambda insights to use for monitoring. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | A list of layers to add to the function's execution environment. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetention">logRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | The number of days log events are kept in CloudWatch Logs. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRetryOptions">logRetentionRetryOptions</a></code> | <code>aws-cdk-lib.aws_lambda.LogRetentionRetryOptions</code> | When log retention is specified, a custom resource attempts to create the CloudWatch log group. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRole">logRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role for the Lambda function associated with the custom resource that sets the retention policy. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.memorySize">memorySize</a></code> | <code>number</code> | The amount of memory, in MB, that is allocated to your Lambda function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profiling">profiling</a></code> | <code>boolean</code> | Enable profiling. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profilingGroup">profilingGroup</a></code> | <code>aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup</code> | Profiling Group. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.reservedConcurrentExecutions">reservedConcurrentExecutions</a></code> | <code>number</code> | The maximum of concurrent executions you want to reserve for the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Lambda execution role. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The list of security groups to associate with the Lambda's network interfaces. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The function execution time (in seconds) after which Lambda terminates the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.tracing">tracing</a></code> | <code>aws-cdk-lib.aws_lambda.Tracing</code> | Enable AWS X-Ray Tracing for Lambda Function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place Lambda network interfaces. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.code">code</a></code> | <code>aws-cdk-lib.aws_lambda.Code</code> | The source code of your Lambda function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.handler">handler</a></code> | <code>string</code> | The name of the method within your code that Lambda calls to execute your function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.runtime">runtime</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime</code> | The runtime environment for the Lambda function that you are uploading. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsAlarmThreshold">errorsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsComparisonOperator">errorsComparisonOperator</a></code> | <code>aws-cdk-lib.aws_cloudwatch.ComparisonOperator</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsEvaluationPeriods">errorsEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.memorySize">memorySize</a></code> | <code>aws-cdk-lib.Size</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.runtime">runtime</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+
+---
+
+##### `maxEventAge`<sup>Optional</sup> <a name="maxEventAge" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.maxEventAge"></a>
+
+```typescript
+public readonly maxEventAge: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.hours(6)
+
+The maximum age of a request that Lambda sends to a function for processing.
+
+Minimum: 60 seconds
+Maximum: 6 hours
+
+---
+
+##### `onFailure`<sup>Optional</sup> <a name="onFailure" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.onFailure"></a>
+
+```typescript
+public readonly onFailure: IDestination;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IDestination
+- *Default:* no destination
+
+The destination for failed invocations.
+
+---
+
+##### `onSuccess`<sup>Optional</sup> <a name="onSuccess" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.onSuccess"></a>
+
+```typescript
+public readonly onSuccess: IDestination;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IDestination
+- *Default:* no destination
+
+The destination for successful invocations.
+
+---
+
+##### `retryAttempts`<sup>Optional</sup> <a name="retryAttempts" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.retryAttempts"></a>
+
+```typescript
+public readonly retryAttempts: number;
+```
+
+- *Type:* number
+- *Default:* 2
+
+The maximum number of times to retry when the function returns an error.
+
+Minimum: 0
+Maximum: 2
+
+---
+
+##### `adotInstrumentation`<sup>Optional</sup> <a name="adotInstrumentation" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.adotInstrumentation"></a>
+
+```typescript
+public readonly adotInstrumentation: AdotInstrumentationConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.AdotInstrumentationConfig
+- *Default:* No ADOT instrumentation
+
+Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation.
+
+> [https://aws-otel.github.io/docs/getting-started/lambda](https://aws-otel.github.io/docs/getting-started/lambda)
+
+---
+
+##### `allowAllOutbound`<sup>Optional</sup> <a name="allowAllOutbound" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllOutbound"></a>
+
+```typescript
+public readonly allowAllOutbound: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to allow the Lambda to send all network traffic.
+
+If set to false, you must individually add traffic rules to allow the
+Lambda to connect to network targets.
+
+---
+
+##### `allowPublicSubnet`<sup>Optional</sup> <a name="allowPublicSubnet" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowPublicSubnet"></a>
+
+```typescript
+public readonly allowPublicSubnet: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Lambda Functions in a public subnet can NOT access the internet.
+
+Use this property to acknowledge this limitation and still place the function in a public subnet.
+
+> [https://stackoverflow.com/questions/52992085/why-cant-an-aws-lambda-function-inside-a-public-subnet-in-a-vpc-connect-to-the/52994841#52994841](https://stackoverflow.com/questions/52992085/why-cant-an-aws-lambda-function-inside-a-public-subnet-in-a-vpc-connect-to-the/52994841#52994841)
+
+---
+
+##### `architecture`<sup>Optional</sup> <a name="architecture" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.architecture"></a>
+
+```typescript
+public readonly architecture: Architecture;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Architecture
+- *Default:* Architecture.X86_64
+
+The system architectures compatible with this lambda function.
+
+---
+
+##### `codeSigningConfig`<sup>Optional</sup> <a name="codeSigningConfig" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.codeSigningConfig"></a>
+
+```typescript
+public readonly codeSigningConfig: ICodeSigningConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ICodeSigningConfig
+- *Default:* Not Sign the Code
+
+Code signing config associated with this function.
+
+---
+
+##### `currentVersionOptions`<sup>Optional</sup> <a name="currentVersionOptions" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.currentVersionOptions"></a>
+
+```typescript
+public readonly currentVersionOptions: VersionOptions;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.VersionOptions
+- *Default:* default options as described in `VersionOptions`
+
+Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method.
+
+---
+
+##### `deadLetterQueue`<sup>Optional</sup> <a name="deadLetterQueue" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.deadLetterQueue"></a>
+
+```typescript
+public readonly deadLetterQueue: IQueue;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.IQueue
+- *Default:* SQS queue with 14 day retention period if `deadLetterQueueEnabled` is `true`
+
+The SQS queue to use if DLQ is enabled.
+
+If SNS topic is desired, specify `deadLetterTopic` property instead.
+
+---
+
+##### `deadLetterQueueEnabled`<sup>Optional</sup> <a name="deadLetterQueueEnabled" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.deadLetterQueueEnabled"></a>
+
+```typescript
+public readonly deadLetterQueueEnabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false unless `deadLetterQueue` is set, which implies DLQ is enabled.
+
+Enabled DLQ.
+
+If `deadLetterQueue` is undefined,
+an SQS queue with default options will be defined for your Function.
+
+---
+
+##### `deadLetterTopic`<sup>Optional</sup> <a name="deadLetterTopic" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.deadLetterTopic"></a>
+
+```typescript
+public readonly deadLetterTopic: ITopic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.ITopic
+- *Default:* no SNS topic
+
+The SNS topic to use as a DLQ.
+
+Note that if `deadLetterQueueEnabled` is set to `true`, an SQS queue will be created
+rather than an SNS topic. Using an SNS topic as a DLQ requires this property to be set explicitly.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* No description.
+
+A description of the function.
+
+---
+
+##### `environment`<sup>Optional</sup> <a name="environment" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.environment"></a>
+
+```typescript
+public readonly environment: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* No environment variables.
+
+Key-value pairs that Lambda caches and makes available for your Lambda functions.
+
+Use environment variables to apply configuration changes, such
+as test and production environment configurations, without changing your
+Lambda function source code.
+
+---
+
+##### `environmentEncryption`<sup>Optional</sup> <a name="environmentEncryption" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.environmentEncryption"></a>
+
+```typescript
+public readonly environmentEncryption: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+- *Default:* AWS Lambda creates and uses an AWS managed customer master key (CMK).
+
+The AWS KMS key that's used to encrypt your function's environment variables.
+
+---
+
+##### `ephemeralStorageSize`<sup>Optional</sup> <a name="ephemeralStorageSize" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.ephemeralStorageSize"></a>
+
+```typescript
+public readonly ephemeralStorageSize: Size;
+```
+
+- *Type:* aws-cdk-lib.Size
+- *Default:* 512 MiB
+
+The size of the function’s /tmp directory in MiB.
+
+---
+
+##### `events`<sup>Optional</sup> <a name="events" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.events"></a>
+
+```typescript
+public readonly events: IEventSource[];
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IEventSource[]
+- *Default:* No event sources.
+
+Event sources for this function.
+
+You can also add event sources using `addEventSource`.
+
+---
+
+##### `filesystem`<sup>Optional</sup> <a name="filesystem" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.filesystem"></a>
+
+```typescript
+public readonly filesystem: FileSystem;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.FileSystem
+- *Default:* will not mount any filesystem
+
+The filesystem configuration for the lambda function.
+
+---
+
+##### `functionName`<sup>Optional</sup> <a name="functionName" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.functionName"></a>
+
+```typescript
+public readonly functionName: string;
+```
+
+- *Type:* string
+- *Default:* AWS CloudFormation generates a unique physical ID and uses that ID for the function's name. For more information, see Name Type.
+
+A name for the function.
+
+---
+
+##### `initialPolicy`<sup>Optional</sup> <a name="initialPolicy" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.initialPolicy"></a>
+
+```typescript
+public readonly initialPolicy: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+- *Default:* No policy statements are added to the created Lambda role.
+
+Initial policy statements to add to the created Lambda Role.
+
+You can call `addToRolePolicy` to the created lambda to add statements post creation.
+
+---
+
+##### `insightsVersion`<sup>Optional</sup> <a name="insightsVersion" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.insightsVersion"></a>
+
+```typescript
+public readonly insightsVersion: LambdaInsightsVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.LambdaInsightsVersion
+- *Default:* No Lambda Insights
+
+Specify the version of CloudWatch Lambda insights to use for monitoring.
+
+> [https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started-docker.html](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started-docker.html)
+
+---
+
+##### `layers`<sup>Optional</sup> <a name="layers" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.layers"></a>
+
+```typescript
+public readonly layers: ILayerVersion[];
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ILayerVersion[]
+- *Default:* No layers.
+
+A list of layers to add to the function's execution environment.
+
+You can configure your Lambda function to pull in
+additional code during initialization in the form of layers. Layers are packages of libraries or other dependencies
+that can be used by multiple functions.
+
+---
+
+##### `logRetention`<sup>Optional</sup> <a name="logRetention" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetention"></a>
+
+```typescript
+public readonly logRetention: RetentionDays;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.RetentionDays
+- *Default:* logs.RetentionDays.INFINITE
+
+The number of days log events are kept in CloudWatch Logs.
+
+When updating
+this property, unsetting it doesn't remove the log retention policy. To
+remove the retention policy, set the value to `INFINITE`.
+
+---
+
+##### `logRetentionRetryOptions`<sup>Optional</sup> <a name="logRetentionRetryOptions" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRetryOptions"></a>
+
+```typescript
+public readonly logRetentionRetryOptions: LogRetentionRetryOptions;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.LogRetentionRetryOptions
+- *Default:* Default AWS SDK retry options.
+
+When log retention is specified, a custom resource attempts to create the CloudWatch log group.
+
+These options control the retry policy when interacting with CloudWatch APIs.
+
+---
+
+##### `logRetentionRole`<sup>Optional</sup> <a name="logRetentionRole" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRole"></a>
+
+```typescript
+public readonly logRetentionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* A new role is created.
+
+The IAM role for the Lambda function associated with the custom resource that sets the retention policy.
+
+---
+
+##### `memorySize`<sup>Optional</sup> <a name="memorySize" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.memorySize"></a>
+
+```typescript
+public readonly memorySize: number;
+```
+
+- *Type:* number
+- *Default:* 128
+
+The amount of memory, in MB, that is allocated to your Lambda function.
+
+Lambda uses this value to proportionally allocate the amount of CPU
+power. For more information, see Resource Model in the AWS Lambda
+Developer Guide.
+
+---
+
+##### `profiling`<sup>Optional</sup> <a name="profiling" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.profiling"></a>
+
+```typescript
+public readonly profiling: boolean;
+```
+
+- *Type:* boolean
+- *Default:* No profiling.
+
+Enable profiling.
+
+> [https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html)
+
+---
+
+##### `profilingGroup`<sup>Optional</sup> <a name="profilingGroup" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.profilingGroup"></a>
+
+```typescript
+public readonly profilingGroup: IProfilingGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup
+- *Default:* A new profiling group will be created if `profiling` is set.
+
+Profiling Group.
+
+> [https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html)
+
+---
+
+##### `reservedConcurrentExecutions`<sup>Optional</sup> <a name="reservedConcurrentExecutions" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.reservedConcurrentExecutions"></a>
+
+```typescript
+public readonly reservedConcurrentExecutions: number;
+```
+
+- *Type:* number
+- *Default:* No specific limit - account limit.
+
+The maximum of concurrent executions you want to reserve for the function.
+
+> [https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html)
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* A unique role will be generated for this lambda function. Both supplied and generated roles can always be changed by calling `addToRolePolicy`.
+
+Lambda execution role.
+
+This is the role that will be assumed by the function upon execution.
+It controls the permissions that the function will have. The Role must
+be assumable by the 'lambda.amazonaws.com' service principal.
+
+The default Role automatically has permissions granted for Lambda execution. If you
+provide a Role, you must add the relevant AWS managed policies yourself.
+
+The relevant managed policies are "service-role/AWSLambdaBasicExecutionRole" and
+"service-role/AWSLambdaVPCAccessExecutionRole".
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.securityGroups"></a>
+
+```typescript
+public readonly securityGroups: ISecurityGroup[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+- *Default:* If the function is placed within a VPC and a security group is not specified, either by this or securityGroup prop, a dedicated security group will be created for this function.
+
+The list of security groups to associate with the Lambda's network interfaces.
+
+Only used if 'vpc' is supplied.
+
+---
+
+##### `timeout`<sup>Optional</sup> <a name="timeout" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.timeout"></a>
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.seconds(3)
+
+The function execution time (in seconds) after which Lambda terminates the function.
+
+Because the execution time affects cost, set this value
+based on the function's expected execution time.
+
+---
+
+##### `tracing`<sup>Optional</sup> <a name="tracing" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.tracing"></a>
+
+```typescript
+public readonly tracing: Tracing;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Tracing
+- *Default:* Tracing.Disabled
+
+Enable AWS X-Ray Tracing for Lambda Function.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+- *Default:* Function is not placed within a VPC.
+
+VPC network to place Lambda network interfaces.
+
+Specify this if the Lambda function needs to access resources in a VPC.
+This is required when `vpcSubnets` is specified.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="vpcSubnets" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.vpcSubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+- *Default:* the Vpc default strategy if not specified
+
+Where to place the network interfaces within the VPC.
+
+This requires `vpc` to be specified in order for interfaces to actually be
+placed in the subnets. If `vpc` is not specify, this will raise an error.
+
+Note: Internet access for Lambda Functions requires a NAT Gateway, so picking
+public subnets is not allowed (unless `allowPublicSubnet` is set to `true`).
 
 ---
 
@@ -5559,6 +6191,12 @@ public readonly code: Code;
 
 - *Type:* aws-cdk-lib.aws_lambda.Code
 
+The source code of your Lambda function.
+
+You can point to a file in an
+Amazon Simple Storage Service (Amazon S3) bucket or specify your source
+code as inline text.
+
 ---
 
 ##### `handler`<sup>Required</sup> <a name="handler" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.handler"></a>
@@ -5568,6 +6206,35 @@ public readonly handler: string;
 ```
 
 - *Type:* string
+
+The name of the method within your code that Lambda calls to execute your function.
+
+The format includes the file name. It can also include
+namespaces and other qualifiers, depending on the runtime.
+For more information, see https://docs.aws.amazon.com/lambda/latest/dg/foundation-progmodel.html.
+
+Use `Handler.FROM_IMAGE` when defining a function from a Docker image.
+
+NOTE: If you specify your source code as inline text by specifying the
+ZipFile property within the Code property, specify index.function_name as
+the handler.
+
+---
+
+##### `runtime`<sup>Required</sup> <a name="runtime" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.runtime"></a>
+
+```typescript
+public readonly runtime: Runtime;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Runtime
+
+The runtime environment for the Lambda function that you are uploading.
+
+For valid values, see the Runtime property in the AWS Lambda Developer
+Guide.
+
+Use `Runtime.FROM_IMAGE` when defining a function from a Docker image.
 
 ---
 
@@ -5601,56 +6268,6 @@ public readonly errorsEvaluationPeriods: number;
 
 ---
 
-##### `layers`<sup>Optional</sup> <a name="layers" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.layers"></a>
-
-```typescript
-public readonly layers: ILayerVersion[];
-```
-
-- *Type:* aws-cdk-lib.aws_lambda.ILayerVersion[]
-
----
-
-##### `memorySize`<sup>Optional</sup> <a name="memorySize" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.memorySize"></a>
-
-```typescript
-public readonly memorySize: Size;
-```
-
-- *Type:* aws-cdk-lib.Size
-
----
-
-##### `role`<sup>Optional</sup> <a name="role" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.role"></a>
-
-```typescript
-public readonly role: Role;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.Role
-
----
-
-##### `runtime`<sup>Optional</sup> <a name="runtime" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.runtime"></a>
-
-```typescript
-public readonly runtime: Runtime;
-```
-
-- *Type:* aws-cdk-lib.aws_lambda.Runtime
-
----
-
-##### `timeout`<sup>Optional</sup> <a name="timeout" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.timeout"></a>
-
-```typescript
-public readonly timeout: Duration;
-```
-
-- *Type:* aws-cdk-lib.Duration
-
----
-
 ### SqsToLambdaStageProps <a name="SqsToLambdaStageProps" id="aws-ddk-core.SqsToLambdaStageProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.SqsToLambdaStageProps.Initializer"></a>
@@ -5676,7 +6293,7 @@ const sqsToLambdaStageProps: SqsToLambdaStageProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.maxReceiveCount">maxReceiveCount</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.messageGroupId">messageGroupId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueue">sqsQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageQueueProps">SqsToLambdaStageQueueProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code>aws-cdk-lib.aws_sqs.QueueProps</code> | *No description.* |
 
 ---
 
@@ -5793,49 +6410,10 @@ public readonly sqsQueue: IQueue;
 ##### `sqsQueueProps`<sup>Optional</sup> <a name="sqsQueueProps" id="aws-ddk-core.SqsToLambdaStageProps.property.sqsQueueProps"></a>
 
 ```typescript
-public readonly sqsQueueProps: SqsToLambdaStageQueueProps;
+public readonly sqsQueueProps: QueueProps;
 ```
 
-- *Type:* <a href="#aws-ddk-core.SqsToLambdaStageQueueProps">SqsToLambdaStageQueueProps</a>
-
----
-
-### SqsToLambdaStageQueueProps <a name="SqsToLambdaStageQueueProps" id="aws-ddk-core.SqsToLambdaStageQueueProps"></a>
-
-#### Initializer <a name="Initializer" id="aws-ddk-core.SqsToLambdaStageQueueProps.Initializer"></a>
-
-```typescript
-import { SqsToLambdaStageQueueProps } from 'aws-ddk-core'
-
-const sqsToLambdaStageQueueProps: SqsToLambdaStageQueueProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageQueueProps.property.fifo">fifo</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageQueueProps.property.visibilityTimeout">visibilityTimeout</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
-
----
-
-##### `fifo`<sup>Optional</sup> <a name="fifo" id="aws-ddk-core.SqsToLambdaStageQueueProps.property.fifo"></a>
-
-```typescript
-public readonly fifo: boolean;
-```
-
-- *Type:* boolean
-
----
-
-##### `visibilityTimeout`<sup>Optional</sup> <a name="visibilityTimeout" id="aws-ddk-core.SqsToLambdaStageQueueProps.property.visibilityTimeout"></a>
-
-```typescript
-public readonly visibilityTimeout: Duration;
-```
-
-- *Type:* aws-cdk-lib.Duration
+- *Type:* aws-cdk-lib.aws_sqs.QueueProps
 
 ---
 
@@ -5899,6 +6477,7 @@ const stateMachineStageProps: StateMachineStageProps = { ... }
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -5969,6 +6548,16 @@ public readonly stateMachineInput: {[ key: string ]: any};
 ```
 
 - *Type:* {[ key: string ]: any}
+
+---
+
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.StateMachineStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
 
 ---
 

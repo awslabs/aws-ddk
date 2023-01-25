@@ -12,6 +12,7 @@ import { DataStage, DataStageProps } from "../pipelines/stage";
 export interface FirehoseToS3StageProps extends DataStageProps {
   readonly s3Bucket?: s3.IBucket;
   readonly s3BucketProps?: s3.BucketProps;
+  readonly firehoseDeliveryStreamProps?: firehose.DeliveryStreamProps;
   readonly kinesisFirehoseDestinationsS3BucketProps?: destinations.S3BucketProps;
 
   readonly dataOutputPrefix?: string;
@@ -54,6 +55,7 @@ export class FirehoseToS3Stage extends DataStage {
     this.deliveryStream = new firehose.DeliveryStream(this, "Delivery Stream", {
       destinations: [new destinations.S3Bucket(this.bucket, consolidatedDestinationsBucketProps)],
       sourceStream: this.dataStream,
+      ...props.firehoseDeliveryStreamProps,
     });
     const dataOutputPrefix: string = consolidatedDestinationsBucketProps.dataOutputPrefix;
 

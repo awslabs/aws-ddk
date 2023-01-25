@@ -14,7 +14,8 @@ test("SQSToLambdaStage creates Lambda Function and SQS Queue", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
-      memorySize: cdk.Size.mebibytes(512),
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
       ],
@@ -40,6 +41,7 @@ test("SQSToLambdaStage has event source mapping", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
     },
     batchSize: 5,
   });
@@ -57,6 +59,7 @@ test("SQSToLambdaStage does not use dead letter queue when not needed", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
 
@@ -78,6 +81,7 @@ test("SQSToLambdaStage creates dead letter queue when needed", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
     },
     dlqEnabled: true,
   });
@@ -100,6 +104,7 @@ test("SQSToLambdaStage is able to reuse an existing queue", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
     },
     sqsQueue: new sqs.Queue(stack, "Queue", {
       queueName: "custom-queue",
@@ -141,6 +146,7 @@ test("SQSToLambdaStage is able to create a CloudWatch alarm", () => {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
       errorsAlarmThreshold: 10,
       errorsEvaluationPeriods: 3,
       errorsComparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
@@ -177,7 +183,8 @@ test("SQSToLambda must have 'messageGroupId' when using a fifo queue", () => {
       lambdaFunctionProps: {
         code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
         handler: "commons.handlers.lambda_handler",
-        memorySize: cdk.Size.mebibytes(512),
+        memorySize: 512,
+        runtime: lambda.Runtime.PYTHON_3_9,
         layers: [
           lambda.LayerVersion.fromLayerVersionArn(
             stack,
