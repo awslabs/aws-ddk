@@ -27,7 +27,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  gitignore: [".vscode/", "*.code-workspace", ".python-version", ".DS_Store"],
+  gitignore: [".vscode/", "*.code-workspace", ".python-version", ".DS_Store", "*snapshot/*"],
 });
 
 // Experimental modules
