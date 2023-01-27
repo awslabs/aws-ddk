@@ -1,6 +1,6 @@
 const { awscdk, javascript, DependencyType } = require("projen");
 
-const CDK_VERSION = "2.61.0";
+const CDK_VERSION = "2.62.2";
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: "AWS Professional Services",
@@ -35,13 +35,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
   "@aws-cdk/aws-kinesisfirehose-alpha",
   "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
   "@aws-cdk/aws-glue-alpha",
+  "@aws-cdk/integ-tests-alpha",
 ].forEach((dep) => {
   project.deps.addDependency(`${dep}@^${CDK_VERSION}-alpha.0`, DependencyType.PEER);
   project.deps.addDependency(`${dep}@${CDK_VERSION}-alpha.0`, DependencyType.DEVENV);
 });
 
 // Other Bundled dependencies
-["deepmerge@4.0.0"].forEach((dep) => {
+["deepmerge@4.0.0", "ts-node"].forEach((dep) => {
   project.addBundledDeps(dep);
 });
 
