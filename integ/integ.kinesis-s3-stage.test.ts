@@ -8,6 +8,8 @@ import { FirehoseToS3Stage } from "../src";
 
 interface FirehoseToS3StageTestStackProps extends cdk.StackProps {
   readonly enforceSSL?: boolean;
+  readonly dataStreamEnabled?: boolean;
+  readonly deliveryStreamDataFreshnessErrorsEvaluationPeriods?: number;
 }
 
 class FirehoseToS3StageTestStack extends cdk.Stack {
@@ -20,6 +22,8 @@ class FirehoseToS3StageTestStack extends cdk.Stack {
         bucketName: bucket.bucketName,
         enforceSSL: props.enforceSSL,
       },
+      dataStreamEnabled: props.dataStreamEnabled,
+      deliveryStreamDataFreshnessErrorsEvaluationPeriods: props.deliveryStreamDataFreshnessErrorsEvaluationPeriods,
     });
   }
 }
@@ -27,7 +31,8 @@ class FirehoseToS3StageTestStack extends cdk.Stack {
 const app = new cdk.App();
 new integration.IntegTest(app, "S3 Event Integration Tests", {
     testCases: [
-      new FirehoseToS3StageTestStack(app, "Default", {}),
+      new FirehoseToS3StageTestStack(app, "Basic", {}),
+      new FirehoseToS3StageTestStack(app, "DataStream", {dataStreamEnabled: true})
     ],
     diffAssets: true,
     stackUpdateWorkflow: true,
