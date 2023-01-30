@@ -18,10 +18,7 @@ class FirehoseToS3StageTestStack extends cdk.Stack {
 
     const bucket = new s3.Bucket(this, "Bucket");
     new FirehoseToS3Stage(this, "Stage", {
-      s3BucketProps: {
-        bucketName: bucket.bucketName,
-        enforceSSL: props.enforceSSL,
-      },
+      s3Bucket: bucket,
       dataStreamEnabled: props.dataStreamEnabled,
       deliveryStreamDataFreshnessErrorsEvaluationPeriods: props.deliveryStreamDataFreshnessErrorsEvaluationPeriods,
     });
@@ -29,7 +26,7 @@ class FirehoseToS3StageTestStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new integration.IntegTest(app, "S3 Event Integration Tests", {
+new integration.IntegTest(app, "Firehose S3 Stage Integration Tests", {
     testCases: [
       new FirehoseToS3StageTestStack(app, "Basic", {}),
       new FirehoseToS3StageTestStack(app, "DataStream", {dataStreamEnabled: true})
