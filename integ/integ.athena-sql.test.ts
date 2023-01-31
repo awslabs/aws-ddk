@@ -30,7 +30,7 @@ class AthenaSqlStageTestStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new integration.IntegTest(app, "Sqs Lambda Stage Integration Tests", {
+new integration.IntegTest(app, "AthenaSQL Stage Integration Tests", {
     testCases: [
       new AthenaSqlStageTestStack(app, "GlueTransformBasic", {
         queryString: "SELECT 1",

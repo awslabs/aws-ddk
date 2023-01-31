@@ -43,7 +43,7 @@ class CICDPipelineTestStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new integration.IntegTest(app, "Sqs Lambda Stage Integration Tests", {
+new integration.IntegTest(app, "CICD Pipeline Stack Integration Tests", {
     testCases: [
       new CICDPipelineTestStack(app, "CICDPipeline", {}),
     ],

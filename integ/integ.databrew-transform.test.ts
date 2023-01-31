@@ -28,7 +28,7 @@ class DataBrewTransformStageTestStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new integration.IntegTest(app, "Sqs Lambda Stage Integration Tests", {
+new integration.IntegTest(app, "DataBrew Transform Stage Integration Tests", {
     testCases: [
       new DataBrewTransformStageTestStack(app, "GlueTransformBasic", {
         jobName: "dummy-job",

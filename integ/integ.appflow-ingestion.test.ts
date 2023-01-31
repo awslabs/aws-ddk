@@ -27,7 +27,7 @@ class AppFlowIngestionStageTestStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new integration.IntegTest(app, "Sqs Lambda Stage Integration Tests", {
+new integration.IntegTest(app, "Glue Transform Stage Integration Tests", {
     testCases: [
       new AppFlowIngestionStageTestStack(app, "GlueTransformBasic", {
         flowName: "dummy-appflow-flow",
