@@ -2,17 +2,22 @@
   "dependencies": [
     {
       "name": "@aws-cdk/aws-glue-alpha",
-      "version": "2.61.0-alpha.0",
+      "version": "2.62.2-alpha.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-alpha",
-      "version": "2.61.0-alpha.0",
+      "version": "2.62.2-alpha.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
-      "version": "2.61.0-alpha.0",
+      "version": "2.62.2-alpha.0",
+      "type": "build"
+    },
+    {
+      "name": "@aws-cdk/integ-tests-alpha",
+      "version": "2.62.2-alpha.0",
       "type": "build"
     },
     {
@@ -37,7 +42,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.61.0",
+      "version": "2.62.2",
       "type": "build"
     },
     {
@@ -102,7 +107,7 @@
     },
     {
       "name": "npm-check-updates",
-      "version": "^15",
+      "version": "^16",
       "type": "build"
     },
     {
@@ -128,38 +133,62 @@
       "type": "bundled"
     },
     {
+      "name": "ts-node",
+      "type": "bundled"
+    },
+    {
       "name": "@aws-cdk/aws-glue-alpha",
-      "version": "2.61.0-alpha.0",
+      "version": "2.62.2-alpha.0",
       "type": "devenv"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-alpha",
-      "version": "2.61.0-alpha.0",
+      "version": "2.62.2-alpha.0",
       "type": "devenv"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
-      "version": "2.61.0-alpha.0",
+      "version": "2.62.2-alpha.0",
       "type": "devenv"
     },
     {
+      "name": "@aws-cdk/integ-tests-alpha",
+      "version": "2.62.2-alpha.0",
+      "type": "devenv"
+    },
+    {
+      "name": "@types/babel__traverse",
+      "version": "7.18.2",
+      "type": "override"
+    },
+    {
+      "name": "@types/prettier",
+      "version": "2.6.0",
+      "type": "override"
+    },
+    {
       "name": "@aws-cdk/aws-glue-alpha",
-      "version": "^2.61.0-alpha.0",
+      "version": "^2.62.2-alpha.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-alpha",
-      "version": "^2.61.0-alpha.0",
+      "version": "^2.62.2-alpha.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
-      "version": "^2.61.0-alpha.0",
+      "version": "^2.62.2-alpha.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/integ-tests-alpha",
+      "version": "^2.62.2-alpha.0",
       "type": "peer"
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.61.0",
+      "version": "^2.62.2",
       "type": "peer"
     },
     {

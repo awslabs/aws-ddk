@@ -50,9 +50,25 @@ A number of unit tests are available in the `test/` directory.
 npm install projen
 ```
 
-#### Run Tests 
+#### Unit Tests 
 ```
 npx projen test
+```
+
+
+#### Integration Testing 
+The integration tests leverage the [`integ-runner` CLI ](https://github.com/aws/aws-cdk/tree/main/packages/%40aws-cdk/integ-runner)
+
+##### Prequisites
+- AWS credentials must be configured in order to run integration tests.
+- Install the `integ-runner` cli.
+```
+npm install @aws-cdk/integ-runner
+```
+
+##### Usage 
+```
+integ-runner --language typescript --update-on-failed --directory integ/
 ```
 
 ## Finding contributions to work on
