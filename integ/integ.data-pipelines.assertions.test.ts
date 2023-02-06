@@ -88,8 +88,4 @@ const message = integTest.assertions.awsApiCall("SQS", "receiveMessage", {
   WaitTimeSeconds: 20,
 });
 
-message.assertAtPath("Messages.0.Body", integration.ExpectedResult.objectLike({
-  responseContext: {
-    statusCode: 200,
-  },
-}));
+message.assertAtPath("Messages.0.Body.detail.object.key", integration.ExpectedResult.stringLikeRegexp(INPUT_KEY));
