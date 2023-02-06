@@ -58,6 +58,7 @@ export class SqsToLambdaStage extends DataStage {
         environment: {
           EVENT_SOURCE: eventSource,
           EVENT_DETAIL_TYPE: eventDetailType,
+          ...(functionProps.environment ?? {}),
         },
       });
     } else {
