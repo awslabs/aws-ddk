@@ -21,6 +21,7 @@ from aws_ddk_core.resources._kms import KMSFactory
 from aws_ddk_core.resources._lambda import LambdaFactory
 from aws_ddk_core.resources._s3 import S3Factory
 from aws_ddk_core.resources._sfn import StepFunctionsFactory
+from aws_ddk_core.resources._sns import SNSFactory
 from aws_ddk_core.resources._sqs import SQSFactory
 from aws_ddk_core.resources._utils import pandas_sdk_layer
 
@@ -33,6 +34,7 @@ __all__ = [
     "KMSFactory",
     "LambdaFactory",
     "S3Factory",
+    "SNSFactory",
     "SQSFactory",
     "StepFunctionsFactory",
     "pandas_sdk_layer",
