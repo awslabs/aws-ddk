@@ -147,7 +147,7 @@ class SnsToLambdaStage(DataStage):
             )
         )
 
-        self._topic = sns_topic or SNSFactory.topic( # type: ignore
+        self._topic = sns_topic or SNSFactory.topic(  # type: ignore
             self,
             id=f"{id}-topic",
             environment_id=environment_id,
