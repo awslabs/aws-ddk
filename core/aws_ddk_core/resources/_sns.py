@@ -18,7 +18,6 @@ from typing import Any, Dict, Optional
 import aws_cdk as cdk
 import aws_cdk.aws_kms as kms
 import aws_cdk.aws_sns as sns
-import aws_cdk.aws_sqs as sqs
 from aws_cdk.aws_iam import AccountPrincipal, AnyPrincipal, Effect, PolicyStatement
 from aws_ddk_core.config import Config
 from aws_ddk_core.resources.commons import BaseSchema
