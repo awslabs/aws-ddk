@@ -200,7 +200,6 @@ def test_sns_lambda_with_additional_function_props(test_stack: BaseStack) -> Non
 
 
 def test_sns_lambda_fifo(test_stack: BaseStack) -> None:
-
     bucket = S3Factory.bucket(
         scope=test_stack,
         id="dummy-bucket",

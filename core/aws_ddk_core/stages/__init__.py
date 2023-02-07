@@ -31,5 +31,5 @@ __all__ = [
     "KinesisToS3Stage",
     "S3EventStage",
     "SnsToLambdaStage",
-    "SqsToLambdaStage"
+    "SqsToLambdaStage",
 ]
