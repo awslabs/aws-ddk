@@ -82,8 +82,7 @@ def test_sns_lambda_with_existing_topic(test_stack: BaseStack) -> None:
     )
     template.has_resource_properties(
         "AWS::SNS::Topic",
-        props={
-        },
+        props={},
     )
 
 
@@ -143,7 +142,9 @@ def test_sns_lambda_alarm(test_stack: BaseStack) -> None:
                     Match.object_like(
                         pattern={
                             "Name": "FunctionName",
-                            "Value": {"Ref": "dummysnslambdadummysnslambdafunction29FD977D"},
+                            "Value": {
+                                "Ref": "dummysnslambdadummysnslambdafunction29FD977D"
+                            },
                         }
                     )
                 ]
@@ -198,7 +199,6 @@ def test_sns_lambda_with_additional_function_props(test_stack: BaseStack) -> Non
     )
 
 
-
 def test_sns_lambda_fifo(test_stack: BaseStack) -> None:
 
     bucket = S3Factory.bucket(
@@ -229,24 +229,19 @@ def test_sns_lambda_fifo(test_stack: BaseStack) -> None:
         ),
     )
 
-    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sns_lambda_stage)
+    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(
+        s3_event_stage
+    ).add_stage(sns_lambda_stage)
 
     template = Template.from_stack(test_stack)
 
     template.has_resource_properties(
         "AWS::SNS::Topic",
-        props={"TopicName": "dummystack-dummytopic-D1A70B8B.fifo", "FifoTopic": True} 
+        props={"TopicName": "dummystack-dummytopic-D1A70B8B.fifo", "FifoTopic": True},
     )
     template.has_resource_properties(
         "AWS::Events::Rule",
-        props={
-            "Targets": [
-                {
-                    "Arn": {"Ref": "dummytopicDBE00BF1"},
-                    "Id": "Target0"
-                }
-            ]
-        },
+        props={"Targets": [{"Arn": {"Ref": "dummytopicDBE00BF1"}, "Id": "Target0"}]},
     )
 
 
@@ -276,7 +271,7 @@ def test_invalid_arguments(test_stack: BaseStack) -> None:
                 environment_id="dev",
                 id="dummy-topic-1",
                 topic_name="dummy-topic",
-                fifo=True
+                fifo=True,
             ),
         )
 
