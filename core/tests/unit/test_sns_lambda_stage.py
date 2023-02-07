@@ -142,9 +142,7 @@ def test_sns_lambda_alarm(test_stack: BaseStack) -> None:
                     Match.object_like(
                         pattern={
                             "Name": "FunctionName",
-                            "Value": {
-                                "Ref": "dummysnslambdadummysnslambdafunction29FD977D"
-                            },
+                            "Value": {"Ref": "dummysnslambdadummysnslambdafunction29FD977D"},
                         }
                     )
                 ]
@@ -228,9 +226,7 @@ def test_sns_lambda_fifo(test_stack: BaseStack) -> None:
         ),
     )
 
-    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(
-        s3_event_stage
-    ).add_stage(sns_lambda_stage)
+    DataPipeline(scope=test_stack, id="dummy-pipeline").add_stage(s3_event_stage).add_stage(sns_lambda_stage)
 
     template = Template.from_stack(test_stack)
 
