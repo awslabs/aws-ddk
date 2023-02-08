@@ -1,0 +1,11 @@
+{
+  "environments": {
+    "dev": {
+        "account": "222222222222",
+        "region": "us-east-1",
+        "resources": {
+            "S3::BUCKET": {"versioned": false, "removal_policy": "destroy"}
+        }
+    }
+  }
+}
