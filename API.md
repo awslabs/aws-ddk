@@ -6452,7 +6452,9 @@ const snsToLambdaStageProps: SnsToLambdaStageProps = { ... }
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.disableDefaultTopicPolicy">disableDefaultTopicPolicy</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.filterPolicy">filterPolicy</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_sns.SubscriptionFilter}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code><a href="#aws-ddk-core.SnsToLambdaStageFunctionProps">SnsToLambdaStageFunctionProps</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | *No description.* |
@@ -6490,6 +6492,16 @@ public readonly alarmsEnabled: boolean;
 
 ---
 
+##### `disableDefaultTopicPolicy`<sup>Optional</sup> <a name="disableDefaultTopicPolicy" id="aws-ddk-core.SnsToLambdaStageProps.property.disableDefaultTopicPolicy"></a>
+
+```typescript
+public readonly disableDefaultTopicPolicy: boolean;
+```
+
+- *Type:* boolean
+
+---
+
 ##### `dlqEnabled`<sup>Optional</sup> <a name="dlqEnabled" id="aws-ddk-core.SnsToLambdaStageProps.property.dlqEnabled"></a>
 
 ```typescript
@@ -6497,6 +6509,16 @@ public readonly dlqEnabled: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `filterPolicy`<sup>Optional</sup> <a name="filterPolicy" id="aws-ddk-core.SnsToLambdaStageProps.property.filterPolicy"></a>
+
+```typescript
+public readonly filterPolicy: {[ key: string ]: SubscriptionFilter};
+```
+
+- *Type:* {[ key: string ]: aws-cdk-lib.aws_sns.SubscriptionFilter}
 
 ---
 

@@ -30,7 +30,7 @@ test("SnsToLambdaStage creates Lambda Function and Sns Topic", () => {
   });
 
   template.hasResourceProperties("AWS::SNS::Topic", {});
-  template.resourceCountIs("AWS::Lambda::EventSourceMapping", 1);
+  template.resourceCountIs("AWS::SNS::Subscription", 1);
   template.resourceCountIs("AWS::SNS::TopicPolicy", 1);
 });
 
@@ -161,9 +161,71 @@ test("SnsToLambdaStage is able to create a CloudWatch alarm", () => {
   });
 });
 
-test("SQSToLambda must have 'lambdaFunction' or 'lambdaFunctionProps' set", () => {
+test("SnsToLambdaStage additional properties", () => {
+  const stack = new cdk.Stack();
+
+  new SnsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromInline("def lambda_handler(event, context): return 200"),
+      handler: "lambda_function.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+      errorsAlarmThreshold: 10,
+      errorsEvaluationPeriods: 3,
+      errorsComparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      environment: {
+        FOO: "BAR",
+      },
+    },
+    dlqEnabled: true,
+    filterPolicy: {
+      color: sns.SubscriptionFilter.stringFilter({
+        allowlist: ["red", "orange"],
+        matchPrefixes: ["bl"],
+      }),
+      size: sns.SubscriptionFilter.stringFilter({
+        denylist: ["small", "medium"],
+      }),
+      store: sns.SubscriptionFilter.existsFilter(),
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.hasResourceProperties("AWS::SNS::Subscription", {
+    FilterPolicy: {
+      color: ["red", "orange", { prefix: "bl" }],
+      size: [{ "anything-but": ["small", "medium"] }],
+      store: [{ exists: true }],
+    },
+  });
+});
+
+test("SnsToLambda must have 'lambdaFunction' or 'lambdaFunctionProps' set", () => {
   const stack = new cdk.Stack();
   expect(() => {
     new SnsToLambdaStage(stack, "Stage", {});
   }).toThrowError("'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage");
+});
+
+test("SnsToLambda cannot use a fifo topic", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new SnsToLambdaStage(stack, "Stage", {
+      lambdaFunctionProps: {
+        code: lambda.Code.fromInline("def lambda_handler(event, context): return 200"),
+        handler: "lambda_function.lambda_handler",
+        memorySize: 512,
+        runtime: lambda.Runtime.PYTHON_3_9,
+        errorsAlarmThreshold: 10,
+        errorsEvaluationPeriods: 3,
+        errorsComparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      },
+      dlqEnabled: true,
+      snsTopicProps: {
+        contentBasedDeduplication: true,
+        fifo: true,
+      },
+    });
+  }).toThrowError("FIFO SNS Topics are unsupported for Lambda Triggers");
 });

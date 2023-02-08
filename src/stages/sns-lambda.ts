@@ -22,6 +22,7 @@ export interface SnsToLambdaStageProps extends DataStageProps {
   readonly snsTopic?: sns.ITopic;
   readonly snsTopicProps?: sns.TopicProps;
 
+  readonly filterPolicy?: { [attribute: string]: sns.SubscriptionFilter };
   readonly dlqEnabled?: boolean;
   readonly disableDefaultTopicPolicy?: boolean;
 }
@@ -73,6 +74,9 @@ export class SnsToLambdaStage extends DataStage {
 
     this.deadLetterQueue = props.dlqEnabled ? new sqs.Queue(this, "Dead Letter Queue", {}) : undefined;
     this.topic = props.snsTopic ? props.snsTopic : new sns.Topic(this, "Topic", { ...props.snsTopicProps });
+    if (this.topic.fifo) {
+      throw TypeError("FIFO SNS Topics are unsupported for Lambda Triggers");
+    }
     if (!props.disableDefaultTopicPolicy) {
       secureSnsTopicPolicy(this.topic);
     }
@@ -80,6 +84,7 @@ export class SnsToLambdaStage extends DataStage {
     this.function.addEventSource(
       new lambda_event_sources.SnsEventSource(this.topic, {
         deadLetterQueue: this.deadLetterQueue,
+        filterPolicy: props.filterPolicy ?? {},
       }),
     );
 
