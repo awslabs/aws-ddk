@@ -9,6 +9,16 @@
           "Runtime": "python3.8"
         }
       }
+    },
+    "prod": {
+      "account": "222222222222",
+      "region": "us-east-1",
+      "resources": {
+        "AWS::Lambda::Function": {
+          "MemorySize": 1024,
+          "Runtime": "python3.8"
+        }
+      }
     }
   }
 }

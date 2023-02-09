@@ -2,8 +2,9 @@ import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as s3 from "aws-cdk-lib/aws-s3";
 
-import { Configurator, SqsToLambdaStage } from "../src";
+import { Configurator, CICDPipelineStack, DataPipeline, FirehoseToS3Stage, SqsToLambdaStage } from "../src";
 
 test("Config Simple Override", () => {
   const sampleConfig = {
@@ -142,6 +143,68 @@ test("File Based Config", () => {
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 128,
+    Runtime: "python3.8",
+  });
+});
+
+test("CICDPipeline with Config", () => {
+  const app = new cdk.App();
+
+  // Dev
+  const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
+  const devStack = new cdk.Stack(devStage, "dev-application-stack");
+  new Configurator(devStage, "./test/test-config.json", "dev");
+  const devBucket = new s3.Bucket(devStack, "Bucket");
+  const devFirehoseToS3Stage = new FirehoseToS3Stage(devStack, "Firehose To S3 Stage", { s3Bucket: devBucket });
+
+  const devSqsToLambdaStage = new SqsToLambdaStage(devStack, "SQS To Lambda Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+    },
+  });
+
+  const devDataPipeline = new DataPipeline(devStack, "Pipeline", {});
+
+  devDataPipeline.addStage({ stage: devFirehoseToS3Stage }).addStage({ stage: devSqsToLambdaStage });
+
+  // Prod
+  const prodStage = new cdk.Stage(app, "prod", { env: { account: "000000000000" } });
+  const prodStack = new cdk.Stack(prodStage, "prod-application-stack");
+  new Configurator(prodStage, "./test/test-config.json", "prod");
+  const prodBucket = new s3.Bucket(prodStack, "Bucket");
+  const prodFirehoseToS3Stage = new FirehoseToS3Stage(prodStack, "Firehose To S3 Stage", { s3Bucket: prodBucket });
+
+  const prodSqsToLambdaStage = new SqsToLambdaStage(prodStack, "SQS To Lambda Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+    },
+  });
+  const prodDataPipeline = new DataPipeline(prodStack, "Pipeline", {});
+  prodDataPipeline.addStage({ stage: prodFirehoseToS3Stage }).addStage({ stage: prodSqsToLambdaStage });
+
+  // CI/CD Stack
+  new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addStage({ stageId: "dev", stage: devStage })
+    .addStage({ stageId: "prod", stage: prodStage })
+    .synth();
+
+  const devStageTemplate = Template.fromStack(devStack);
+  devStageTemplate.hasResourceProperties("AWS::Lambda::Function", {
+    MemorySize: 128,
+    Runtime: "python3.8",
+  });
+  const prodStageTemplate = Template.fromStack(prodStack);
+  prodStageTemplate.hasResourceProperties("AWS::Lambda::Function", {
+    MemorySize: 1024,
     Runtime: "python3.8",
   });
 });
