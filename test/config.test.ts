@@ -20,7 +20,7 @@ test("Config Simple Override", () => {
       },
     },
   };
-
+  console.log(typeof sampleConfig);
   const stack = new cdk.Stack();
 
   new SqsToLambdaStage(stack, "Stage", {
@@ -123,5 +123,25 @@ test("Different values per environment", () => {
   });
   prodTemplate.hasResourceProperties("AWS::SQS::Queue", {
     MessageRetentionPeriod: 7200,
+  });
+});
+
+test("File Based Config", () => {
+  const stack = new cdk.Stack();
+
+  new SqsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+    },
+  });
+
+  new Configurator(stack, "./test/test-config.json", "dev");
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    MemorySize: 128,
+    Runtime: "python3.8",
   });
 });

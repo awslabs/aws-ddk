@@ -1,3 +1,4 @@
+import { readFileSync } from "fs";
 import * as cdk from "aws-cdk-lib";
 import * as constructs from "constructs";
 
@@ -20,8 +21,9 @@ class ConfiguratorAspect implements cdk.IAspect {
 
 export class Configurator {
   private readonly config: any;
-  constructor(scope: constructs.Construct, configData: any, environmentId?: string) {
-    this.config = configData;
+  constructor(scope: constructs.Construct, config: string | object, environmentId?: string) {
+    this.config = typeof config == "object" ? config : this.readJson(config);
+
     for (const environment in this.config.environments) {
       if (environment == environmentId) {
         for (const attribute in this.config.environments[environment]) {
@@ -41,5 +43,9 @@ export class Configurator {
         }
       }
     }
+  }
+  readJson(path: string): object {
+    const rawdata = readFileSync(path, "utf-8");
+    return JSON.parse(rawdata);
   }
 }

@@ -1,0 +1,14 @@
+{
+  "environments": {
+    "dev": {
+      "account": "222222222222",
+      "region": "us-east-1",
+      "resources": {
+        "AWS::Lambda::Function": {
+          "MemorySize": 128,
+          "Runtime": "python3.8"
+        }
+      }
+    }
+  }
+}
