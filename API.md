@@ -6664,13 +6664,13 @@ public readonly synthAction: CodeBuildStep;
 ```typescript
 import { Configurator } from 'aws-ddk-core'
 
-new Configurator(scope: Construct, configData: any, environmentId?: string)
+new Configurator(scope: Construct, config: string | object, environmentId?: string)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.configData">configData</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.config">config</a></code> | <code>string \| object</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -6681,9 +6681,9 @@ new Configurator(scope: Construct, configData: any, environmentId?: string)
 
 ---
 
-##### `configData`<sup>Required</sup> <a name="configData" id="aws-ddk-core.Configurator.Initializer.parameter.configData"></a>
+##### `config`<sup>Required</sup> <a name="config" id="aws-ddk-core.Configurator.Initializer.parameter.config"></a>
 
-- *Type:* any
+- *Type:* string | object
 
 ---
 
@@ -6693,6 +6693,25 @@ new Configurator(scope: Construct, configData: any, environmentId?: string)
 
 ---
 
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.Configurator.readJson">readJson</a></code> | *No description.* |
+
+---
+
+##### `readJson` <a name="readJson" id="aws-ddk-core.Configurator.readJson"></a>
+
+```typescript
+public readJson(path: string): object
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="aws-ddk-core.Configurator.readJson.parameter.path"></a>
+
+- *Type:* string
+
+---
 
 
 
