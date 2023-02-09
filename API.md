@@ -6655,5 +6655,46 @@ public readonly synthAction: CodeBuildStep;
 
 ---
 
+## Classes <a name="Classes" id="Classes"></a>
+
+### Configurator <a name="Configurator" id="aws-ddk-core.Configurator"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.Configurator.Initializer"></a>
+
+```typescript
+import { Configurator } from 'aws-ddk-core'
+
+new Configurator(scope: Construct, configData: any, environmentId?: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.configData">configData</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.Configurator.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `configData`<sup>Required</sup> <a name="configData" id="aws-ddk-core.Configurator.Initializer.parameter.configData"></a>
+
+- *Type:* any
+
+---
+
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.Configurator.Initializer.parameter.environmentId"></a>
+
+- *Type:* string
+
+---
+
+
+
+
 
 

@@ -20,23 +20,26 @@ class ConfiguratorAspect implements cdk.IAspect {
 
 export class Configurator {
   private readonly config: any;
-  constructor(scope: constructs.Construct, configData: any) {
+  constructor(scope: constructs.Construct, configData: any, environmentId?: string) {
     this.config = configData;
-    for (const environment in this.config["environments"]) {
-      for (const attribute in this.config[environment]) {
-        if (attribute == "resources") {
-          for (const resourceType in this.config[environment]["resources"]) {
-            console.log("I have found a property to override")
-            const propertyName = Object.keys(this.config[environment]["resources"][resourceType])[0];
-            cdk.Aspects.of(scope).add(new ConfiguratorAspect(
-              resourceType,
-              propertyName, 
-              this.config[environment]["resources"][resourceType][propertyName], 
-            ));
+    for (const environment in this.config.environments) {
+      if (environment == environmentId) {
+        for (const attribute in this.config.environments[environment]) {
+          if (attribute == "resources") {
+            for (const resourceType in this.config.environments[environment].resources) {
+              for (const property in this.config.environments[environment].resources[resourceType]) {
+                cdk.Aspects.of(scope).add(
+                  new ConfiguratorAspect(
+                    resourceType,
+                    property,
+                    this.config.environments[environment].resources[resourceType][property],
+                  ),
+                );
+              }
+            }
           }
         }
       }
     }
-
   }
 }
