@@ -1,4 +1,7 @@
 {
+  "tags": {
+    "global": "tag"
+  },
   "environments": {
     "dev": {
       "account": "222222222222",
@@ -8,7 +11,8 @@
           "MemorySize": 128,
           "Runtime": "python3.8"
         }
-      }
+      },
+      "tags": {"CostCenter": "2014"}
     },
     "prod": {
       "account": "222222222222",
@@ -18,7 +22,8 @@
           "MemorySize": 1024,
           "Runtime": "python3.8"
         }
-      }
+      },
+      "tags": {"CostCenter": "2015"}
     }
   }
 }

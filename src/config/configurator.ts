@@ -23,7 +23,9 @@ export class Configurator {
   private readonly config: any;
   constructor(scope: constructs.Construct, config: string | object, environmentId?: string) {
     this.config = typeof config == "object" ? config : this.readJson(config);
-
+    
+    // Global Tags 
+    this.tagConstruct(scope, this.config.tags);
     for (const environment in this.config.environments) {
       if (environment == environmentId) {
         for (const attribute in this.config.environments[environment]) {
@@ -47,5 +49,10 @@ export class Configurator {
   readJson(path: string): object {
     const rawdata = readFileSync(path, "utf-8");
     return JSON.parse(rawdata);
+  }
+  tagConstruct(scope: constructs.Construct, tags: [{[attribute: string]: string}]): void {
+    Object.entries(tags).forEach(
+      ([key, value]) => cdk.Tags.of(scope).add(key, value)
+    );
   }
 }
