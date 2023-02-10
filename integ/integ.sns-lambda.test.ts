@@ -6,7 +6,7 @@ import * as sns from "aws-cdk-lib/aws-sns";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { SnsToLambdaStage } from "../src";
+import { SnsSqsToLambdaStage } from "../src";
 
 interface SnsToLambdaStageFunctionProps extends lambda.FunctionProps {
   readonly errorsAlarmThreshold?: number;
@@ -14,20 +14,21 @@ interface SnsToLambdaStageFunctionProps extends lambda.FunctionProps {
   readonly errorsComparisonOperator?: cloudwatch.ComparisonOperator;
 }
 
-interface SnsToLambdaStageTestStackProps extends cdk.StackProps {
+interface SnsSqsToLambdaStageTestStackProps extends cdk.StackProps {
   readonly lambdaFunction?: lambda.IFunction;
   readonly lambdaFunctionProps?: SnsToLambdaStageFunctionProps;
   readonly snsTopic?: sns.ITopic;
   readonly snsTopicProps?: sns.TopicProps;
-  readonly dlqEnabled?: boolean;
+  readonly snsDlqEnabled?: boolean;
+  readonly rawMessageDelivery?: boolean;
   readonly filterPolicy?: { [attribute: string]: sns.SubscriptionFilter };
 }
 
-class SnsToLambdaStageTestStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props: SnsToLambdaStageTestStackProps) {
+class SnsSqsToLambdaStageTestStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: SnsSqsToLambdaStageTestStackProps) {
     super(scope, id, props);
 
-    new SnsToLambdaStage(this, "Stage", {
+    new SnsSqsToLambdaStage(this, "Stage", {
       ...props,
     });
   }
@@ -36,7 +37,7 @@ class SnsToLambdaStageTestStack extends cdk.Stack {
 const app = new cdk.App();
 new integration.IntegTest(app, "Sns Lambda Stage Integration Tests", {
     testCases: [
-      new SnsToLambdaStageTestStack(app, "SnsLambdaBasic", {
+      new SnsSqsToLambdaStageTestStack(app, "SnsSqsLambdaBasic", {
         lambdaFunctionProps: {
           code: lambda.Code.fromInline("def lambda_handler(event, context): return 200"),
           handler: "lambda_function.lambda_handler",
@@ -44,7 +45,7 @@ new integration.IntegTest(app, "Sns Lambda Stage Integration Tests", {
           runtime: lambda.Runtime.PYTHON_3_9,
         },
       }),
-      new SnsToLambdaStageTestStack(app, "SnsLambdaFull", {
+      new SnsSqsToLambdaStageTestStack(app, "SnsSqsLambdaFull", {
         lambdaFunctionProps: {
           code: lambda.Code.fromInline("def lambda_handler(event, context): return 200"),
           handler: "lambda_function.lambda_handler",
@@ -57,7 +58,7 @@ new integration.IntegTest(app, "Sns Lambda Stage Integration Tests", {
             FOO: "BAR"
           }
         },
-        dlqEnabled: true,
+        snsDlqEnabled: true,
         filterPolicy: {
           color: sns.SubscriptionFilter.stringFilter({
             allowlist: ['red', 'orange'],
