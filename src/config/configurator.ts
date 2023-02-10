@@ -21,26 +21,22 @@ class ConfiguratorAspect implements cdk.IAspect {
 
 export class Configurator {
   private readonly config: any;
-  constructor(scope: constructs.Construct, config: string | object, environmentId?: string) {
+  constructor(scope: constructs.Construct, config: string | object, environmentId: string) {
     this.config = typeof config == "object" ? config : this.readJson(config);
-    
-    // Global Tags 
-    this.tagConstruct(scope, this.config.tags);
-    for (const environment in this.config.environments) {
-      if (environment == environmentId) {
-        for (const attribute in this.config.environments[environment]) {
-          if (attribute == "resources") {
-            for (const resourceType in this.config.environments[environment].resources) {
-              for (const property in this.config.environments[environment].resources[resourceType]) {
-                cdk.Aspects.of(scope).add(
-                  new ConfiguratorAspect(
-                    resourceType,
-                    property,
-                    this.config.environments[environment].resources[resourceType][property],
-                  ),
-                );
-              }
-            }
+
+    // Tags
+    const tags = { ...this.config.tags, ...this.config.environments[environmentId].tags };
+    this.tagConstruct(scope, tags);
+
+    // Environment Based
+    const environment = this.config.environments[environmentId];
+    for (const attribute in environment) {
+      if (attribute == "resources") {
+        for (const resourceType in environment.resources) {
+          for (const property in environment.resources[resourceType]) {
+            cdk.Aspects.of(scope).add(
+              new ConfiguratorAspect(resourceType, property, environment.resources[resourceType][property]),
+            );
           }
         }
       }
@@ -50,9 +46,9 @@ export class Configurator {
     const rawdata = readFileSync(path, "utf-8");
     return JSON.parse(rawdata);
   }
-  tagConstruct(scope: constructs.Construct, tags: [{[attribute: string]: string}]): void {
-    Object.entries(tags).forEach(
-      ([key, value]) => cdk.Tags.of(scope).add(key, value)
-    );
+  tagConstruct(scope: constructs.Construct, tags: { [key: string]: string }): void {
+    if (tags) {
+      Object.entries(tags).forEach(([key, value]) => cdk.Tags.of(scope).add(key, value));
+    }
   }
 }

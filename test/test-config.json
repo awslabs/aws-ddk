@@ -1,6 +1,6 @@
 {
   "tags": {
-    "global": "tag"
+    "global:foo": "bar"
   },
   "environments": {
     "dev": {

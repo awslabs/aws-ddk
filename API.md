@@ -7118,7 +7118,7 @@ public readonly synthAction: CodeBuildStep;
 ```typescript
 import { Configurator } from 'aws-ddk-core'
 
-new Configurator(scope: Construct, config: string | object, environmentId?: string)
+new Configurator(scope: Construct, config: string | object, environmentId: string)
 ```
 
 | **Name** | **Type** | **Description** |
@@ -7141,7 +7141,7 @@ new Configurator(scope: Construct, config: string | object, environmentId?: stri
 
 ---
 
-##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.Configurator.Initializer.parameter.environmentId"></a>
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="aws-ddk-core.Configurator.Initializer.parameter.environmentId"></a>
 
 - *Type:* string
 
@@ -7152,6 +7152,7 @@ new Configurator(scope: Construct, config: string | object, environmentId?: stri
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.Configurator.readJson">readJson</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.tagConstruct">tagConstruct</a></code> | *No description.* |
 
 ---
 
@@ -7164,6 +7165,24 @@ public readJson(path: string): object
 ###### `path`<sup>Required</sup> <a name="path" id="aws-ddk-core.Configurator.readJson.parameter.path"></a>
 
 - *Type:* string
+
+---
+
+##### `tagConstruct` <a name="tagConstruct" id="aws-ddk-core.Configurator.tagConstruct"></a>
+
+```typescript
+public tagConstruct(scope: Construct, tags: {[ key: string ]: string}): void
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.Configurator.tagConstruct.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `tags`<sup>Required</sup> <a name="tags" id="aws-ddk-core.Configurator.tagConstruct.parameter.tags"></a>
+
+- *Type:* {[ key: string ]: string}
 
 ---
 

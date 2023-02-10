@@ -60,6 +60,7 @@ test("Different values per environment", () => {
             MessageRetentionPeriod: 300,
           },
         },
+        tags: { CostCenter: "2020" },
       },
       stage: {
         resources: {
@@ -70,6 +71,7 @@ test("Different values per environment", () => {
             MessageRetentionPeriod: 3600,
           },
         },
+        tags: { CostCenter: "3030" },
       },
       prod: {
         resources: {
@@ -80,6 +82,7 @@ test("Different values per environment", () => {
             MessageRetentionPeriod: 7200,
           },
         },
+        tags: { CostCenter: "4040" },
       },
     },
   };
@@ -105,25 +108,61 @@ test("Different values per environment", () => {
   const devTemplate = Template.fromStack(stacks.dev);
   devTemplate.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 128,
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "2020",
+      },
+    ],
   });
   devTemplate.hasResourceProperties("AWS::SQS::Queue", {
     MessageRetentionPeriod: 300,
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "2020",
+      },
+    ],
   });
 
   const stageTemplate = Template.fromStack(stacks.stage);
   stageTemplate.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 512,
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "3030",
+      },
+    ],
   });
   stageTemplate.hasResourceProperties("AWS::SQS::Queue", {
     MessageRetentionPeriod: 3600,
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "3030",
+      },
+    ],
   });
 
   const prodTemplate = Template.fromStack(stacks.prod);
   prodTemplate.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 1024,
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "4040",
+      },
+    ],
   });
   prodTemplate.hasResourceProperties("AWS::SQS::Queue", {
     MessageRetentionPeriod: 7200,
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "4040",
+      },
+    ],
   });
 });
 
@@ -144,6 +183,16 @@ test("File Based Config", () => {
   template.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 128,
     Runtime: "python3.8",
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "2014",
+      },
+      {
+        Key: "global:foo",
+        Value: "bar",
+      },
+    ],
   });
 });
 
