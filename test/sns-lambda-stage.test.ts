@@ -5,12 +5,12 @@ import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as sns from "aws-cdk-lib/aws-sns";
 
-import { SnsToLambdaStage } from "../src";
+import { SnsSqsToLambdaStage } from "../src";
 
-test("SnsToLambdaStage creates Lambda Function and Sns Topic", () => {
+test("SnsSqsToLambdaStage creates Lambda Function and Sns Topic", () => {
   const stack = new cdk.Stack();
 
-  new SnsToLambdaStage(stack, "Stage", {
+  new SnsSqsToLambdaStage(stack, "Stage", {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
@@ -34,10 +34,10 @@ test("SnsToLambdaStage creates Lambda Function and Sns Topic", () => {
   template.resourceCountIs("AWS::SNS::TopicPolicy", 1);
 });
 
-test("SnsToLambdaStage with default policy disabled", () => {
+test("SnsSqsToLambdaStage with default policy disabled", () => {
   const stack = new cdk.Stack();
 
-  new SnsToLambdaStage(stack, "Stage", {
+  new SnsSqsToLambdaStage(stack, "Stage", {
     disableDefaultTopicPolicy: true,
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
@@ -54,10 +54,10 @@ test("SnsToLambdaStage with default policy disabled", () => {
   template.resourceCountIs("AWS::SNS::TopicPolicy", 0);
 });
 
-test("SnsToLambdaStage does not use dead letter queue when not needed", () => {
+test("SnsSqsToLambdaStage does not use dead letter queue when not needed", () => {
   const stack = new cdk.Stack();
 
-  new SnsToLambdaStage(stack, "Stage", {
+  new SnsSqsToLambdaStage(stack, "Stage", {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
@@ -68,31 +68,31 @@ test("SnsToLambdaStage does not use dead letter queue when not needed", () => {
   const template = Template.fromStack(stack);
 
   // Main queue only
-  template.resourceCountIs("AWS::SQS::Queue", 0);
+  template.resourceCountIs("AWS::SQS::Queue", 1);
 });
 
-test("SnsToLambdaStage creates dead letter queue when needed", () => {
+test("SnsSqsToLambdaStage creates dead letter queue when needed", () => {
   const stack = new cdk.Stack();
 
-  new SnsToLambdaStage(stack, "Stage", {
+  new SnsSqsToLambdaStage(stack, "Stage", {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
       runtime: lambda.Runtime.PYTHON_3_9,
     },
-    dlqEnabled: true,
+    snsDlqEnabled: true,
   });
 
   const template = Template.fromStack(stack);
 
   // Main queue and dead letter queue
-  template.resourceCountIs("AWS::SQS::Queue", 1);
+  template.resourceCountIs("AWS::SQS::Queue", 2);
 });
 
-test("SnsToLambdaStage is able to reuse an existing queue", () => {
+test("SnsSqsToLambdaStage is able to reuse an existing queue", () => {
   const stack = new cdk.Stack();
 
-  new SnsToLambdaStage(stack, "Stage", {
+  new SnsSqsToLambdaStage(stack, "Stage", {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
@@ -111,10 +111,10 @@ test("SnsToLambdaStage is able to reuse an existing queue", () => {
   });
 });
 
-test("SnsToLambdaStage is able to reuse an existing lambda", () => {
+test("SnsSqsToLambdaStage is able to reuse an existing lambda", () => {
   const stack = new cdk.Stack();
 
-  new SnsToLambdaStage(stack, "Stage", {
+  new SnsSqsToLambdaStage(stack, "Stage", {
     lambdaFunction: new lambda.Function(stack, "Function", {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
@@ -131,10 +131,10 @@ test("SnsToLambdaStage is able to reuse an existing lambda", () => {
   });
 });
 
-test("SnsToLambdaStage is able to create a CloudWatch alarm", () => {
+test("SnsSqsToLambdaStage is able to create a CloudWatch alarm", () => {
   const stack = new cdk.Stack();
 
-  const stage = new SnsToLambdaStage(stack, "Stage", {
+  const stage = new SnsSqsToLambdaStage(stack, "Stage", {
     lambdaFunctionProps: {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
@@ -161,10 +161,10 @@ test("SnsToLambdaStage is able to create a CloudWatch alarm", () => {
   });
 });
 
-test("SnsToLambdaStage additional properties", () => {
+test("SnsSqsToLambdaStage additional properties", () => {
   const stack = new cdk.Stack();
 
-  new SnsToLambdaStage(stack, "Stage", {
+  new SnsSqsToLambdaStage(stack, "Stage", {
     lambdaFunctionProps: {
       code: lambda.Code.fromInline("def lambda_handler(event, context): return 200"),
       handler: "lambda_function.lambda_handler",
@@ -177,7 +177,8 @@ test("SnsToLambdaStage additional properties", () => {
         FOO: "BAR",
       },
     },
-    dlqEnabled: true,
+    snsDlqEnabled: true,
+    rawMessageDelivery: true,
     filterPolicy: {
       color: sns.SubscriptionFilter.stringFilter({
         allowlist: ["red", "orange"],
@@ -204,14 +205,14 @@ test("SnsToLambdaStage additional properties", () => {
 test("SnsToLambda must have 'lambdaFunction' or 'lambdaFunctionProps' set", () => {
   const stack = new cdk.Stack();
   expect(() => {
-    new SnsToLambdaStage(stack, "Stage", {});
+    new SnsSqsToLambdaStage(stack, "Stage", {});
   }).toThrowError("'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage");
 });
 
 test("SnsToLambda cannot use a fifo topic", () => {
   const stack = new cdk.Stack();
   expect(() => {
-    new SnsToLambdaStage(stack, "Stage", {
+    new SnsSqsToLambdaStage(stack, "Stage", {
       lambdaFunctionProps: {
         code: lambda.Code.fromInline("def lambda_handler(event, context): return 200"),
         handler: "lambda_function.lambda_handler",
