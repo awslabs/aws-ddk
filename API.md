@@ -2756,6 +2756,245 @@ public readonly targets: IRuleTarget[];
 ---
 
 
+### SnsSqsToLambdaStage <a name="SnsSqsToLambdaStage" id="aws-ddk-core.SnsSqsToLambdaStage"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.SnsSqsToLambdaStage.Initializer"></a>
+
+```typescript
+import { SnsSqsToLambdaStage } from 'aws-ddk-core'
+
+new SnsSqsToLambdaStage(scope: Construct, id: string, props: SnsToLambdaStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.SnsToLambdaStageProps">SnsToLambdaStageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.SnsToLambdaStageProps">SnsToLambdaStageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.addAlarm">addAlarm</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.SnsSqsToLambdaStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.SnsSqsToLambdaStage.addAlarm"></a>
+
+```typescript
+public addAlarm(id: string, props: AlarmProps): DataStage
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.SnsSqsToLambdaStage.addAlarm.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.SnsSqsToLambdaStage.addAlarm.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.SnsSqsToLambdaStage.isConstruct"></a>
+
+```typescript
+import { SnsSqsToLambdaStage } from 'aws-ddk-core'
+
+SnsSqsToLambdaStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.SnsSqsToLambdaStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.queue">queue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.Queue</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.topic">topic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.snsDeadLetterQueue">snsDeadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.Queue</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.SnsSqsToLambdaStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.SnsSqsToLambdaStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.SnsSqsToLambdaStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.SnsSqsToLambdaStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.SnsSqsToLambdaStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+##### `alarmsEnabled`<sup>Required</sup> <a name="alarmsEnabled" id="aws-ddk-core.SnsSqsToLambdaStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.SnsSqsToLambdaStage.property.cloudwatchAlarms"></a>
+
+```typescript
+public readonly cloudwatchAlarms: Alarm[];
+```
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `function`<sup>Required</sup> <a name="function" id="aws-ddk-core.SnsSqsToLambdaStage.property.function"></a>
+
+```typescript
+public readonly function: IFunction;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IFunction
+
+---
+
+##### `queue`<sup>Required</sup> <a name="queue" id="aws-ddk-core.SnsSqsToLambdaStage.property.queue"></a>
+
+```typescript
+public readonly queue: IQueue;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.IQueue
+
+---
+
+##### `deadLetterQueue`<sup>Optional</sup> <a name="deadLetterQueue" id="aws-ddk-core.SnsSqsToLambdaStage.property.deadLetterQueue"></a>
+
+```typescript
+public readonly deadLetterQueue: Queue;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.Queue
+
+---
+
+##### `topic`<sup>Required</sup> <a name="topic" id="aws-ddk-core.SnsSqsToLambdaStage.property.topic"></a>
+
+```typescript
+public readonly topic: ITopic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.ITopic
+
+---
+
+##### `snsDeadLetterQueue`<sup>Optional</sup> <a name="snsDeadLetterQueue" id="aws-ddk-core.SnsSqsToLambdaStage.property.snsDeadLetterQueue"></a>
+
+```typescript
+public readonly snsDeadLetterQueue: Queue;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.Queue
+
+---
+
+
 ### SqsToLambdaStage <a name="SqsToLambdaStage" id="aws-ddk-core.SqsToLambdaStage"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.SqsToLambdaStage.Initializer"></a>
@@ -5526,6 +5765,221 @@ public readonly keyPrefix: string | string[];
 ```
 
 - *Type:* string | string[]
+
+---
+
+### SnsToLambdaStageProps <a name="SnsToLambdaStageProps" id="aws-ddk-core.SnsToLambdaStageProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.SnsToLambdaStageProps.Initializer"></a>
+
+```typescript
+import { SnsToLambdaStageProps } from 'aws-ddk-core'
+
+const snsToLambdaStageProps: SnsToLambdaStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.maxBatchingWindow">maxBatchingWindow</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.maxReceiveCount">maxReceiveCount</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.messageGroupId">messageGroupId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.sqsQueue">sqsQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code>aws-cdk-lib.aws_sqs.QueueProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.disableDefaultTopicPolicy">disableDefaultTopicPolicy</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.filterPolicy">filterPolicy</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_sns.SubscriptionFilter}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.rawMessageDelivery">rawMessageDelivery</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsDlqEnabled">snsDlqEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsTopicProps">snsTopicProps</a></code> | <code>aws-cdk-lib.aws_sns.TopicProps</code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.SnsToLambdaStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.SnsToLambdaStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.SnsToLambdaStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `batchSize`<sup>Optional</sup> <a name="batchSize" id="aws-ddk-core.SnsToLambdaStageProps.property.batchSize"></a>
+
+```typescript
+public readonly batchSize: number;
+```
+
+- *Type:* number
+
+---
+
+##### `dlqEnabled`<sup>Optional</sup> <a name="dlqEnabled" id="aws-ddk-core.SnsToLambdaStageProps.property.dlqEnabled"></a>
+
+```typescript
+public readonly dlqEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `lambdaFunction`<sup>Optional</sup> <a name="lambdaFunction" id="aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunction"></a>
+
+```typescript
+public readonly lambdaFunction: IFunction;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IFunction
+
+---
+
+##### `lambdaFunctionProps`<sup>Optional</sup> <a name="lambdaFunctionProps" id="aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunctionProps"></a>
+
+```typescript
+public readonly lambdaFunctionProps: SqsToLambdaStageFunctionProps;
+```
+
+- *Type:* <a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a>
+
+---
+
+##### `maxBatchingWindow`<sup>Optional</sup> <a name="maxBatchingWindow" id="aws-ddk-core.SnsToLambdaStageProps.property.maxBatchingWindow"></a>
+
+```typescript
+public readonly maxBatchingWindow: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+
+---
+
+##### `maxReceiveCount`<sup>Optional</sup> <a name="maxReceiveCount" id="aws-ddk-core.SnsToLambdaStageProps.property.maxReceiveCount"></a>
+
+```typescript
+public readonly maxReceiveCount: number;
+```
+
+- *Type:* number
+
+---
+
+##### `messageGroupId`<sup>Optional</sup> <a name="messageGroupId" id="aws-ddk-core.SnsToLambdaStageProps.property.messageGroupId"></a>
+
+```typescript
+public readonly messageGroupId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `sqsQueue`<sup>Optional</sup> <a name="sqsQueue" id="aws-ddk-core.SnsToLambdaStageProps.property.sqsQueue"></a>
+
+```typescript
+public readonly sqsQueue: IQueue;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.IQueue
+
+---
+
+##### `sqsQueueProps`<sup>Optional</sup> <a name="sqsQueueProps" id="aws-ddk-core.SnsToLambdaStageProps.property.sqsQueueProps"></a>
+
+```typescript
+public readonly sqsQueueProps: QueueProps;
+```
+
+- *Type:* aws-cdk-lib.aws_sqs.QueueProps
+
+---
+
+##### `disableDefaultTopicPolicy`<sup>Optional</sup> <a name="disableDefaultTopicPolicy" id="aws-ddk-core.SnsToLambdaStageProps.property.disableDefaultTopicPolicy"></a>
+
+```typescript
+public readonly disableDefaultTopicPolicy: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `filterPolicy`<sup>Optional</sup> <a name="filterPolicy" id="aws-ddk-core.SnsToLambdaStageProps.property.filterPolicy"></a>
+
+```typescript
+public readonly filterPolicy: {[ key: string ]: SubscriptionFilter};
+```
+
+- *Type:* {[ key: string ]: aws-cdk-lib.aws_sns.SubscriptionFilter}
+
+---
+
+##### `rawMessageDelivery`<sup>Optional</sup> <a name="rawMessageDelivery" id="aws-ddk-core.SnsToLambdaStageProps.property.rawMessageDelivery"></a>
+
+```typescript
+public readonly rawMessageDelivery: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `snsDlqEnabled`<sup>Optional</sup> <a name="snsDlqEnabled" id="aws-ddk-core.SnsToLambdaStageProps.property.snsDlqEnabled"></a>
+
+```typescript
+public readonly snsDlqEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `snsTopic`<sup>Optional</sup> <a name="snsTopic" id="aws-ddk-core.SnsToLambdaStageProps.property.snsTopic"></a>
+
+```typescript
+public readonly snsTopic: ITopic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.ITopic
+
+---
+
+##### `snsTopicProps`<sup>Optional</sup> <a name="snsTopicProps" id="aws-ddk-core.SnsToLambdaStageProps.property.snsTopicProps"></a>
+
+```typescript
+public readonly snsTopicProps: TopicProps;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.TopicProps
 
 ---
 
