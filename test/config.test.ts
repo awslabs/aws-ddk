@@ -48,6 +48,31 @@ test("Config Simple Override", () => {
   });
 });
 
+
+// test("Config Override By Id", () => {
+//   const sampleConfig = {
+//     environments: {
+//       dev: {
+//         account: "222222222222",
+//         region: "us-east-1",
+//         resources: {
+//           "MyBucket": {
+//             BucketName: "my-exact-bucket-name-for-this-resource",
+//           },
+//         },
+//       },
+//     },
+//   };
+//   const stack = new cdk.Stack();
+//   new s3.Bucket(stack, "MyBucket");
+//   new Configurator(stack, sampleConfig, "dev");
+
+//   const template = Template.fromStack(stack);
+//   template.hasResourceProperties("AWS::S3::Bucket", {
+//     BucketName: "my-exact-bucket-name-for-this-resource",
+//   });
+// });
+
 test("Different values per environment", () => {
   const sampleConfig = {
     environments: {
