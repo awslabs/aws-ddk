@@ -26,6 +26,7 @@ class ConfiguratorAspect implements cdk.IAspect {
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
     if (this.resourceId && cdk.CfnResource.isCfnResource(node) && node.node.id == this.resourceId) {
+      console.log(`debug node id: ${node.node.id} | debug resource id: ${this.resourceId}`);
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
   }
@@ -44,13 +45,14 @@ export class Configurator {
     const environment = this.config.environments[environmentId];
     for (const attribute in environment) {
       if (attribute == "resources") {
-        for (const resourceType in environment.resources) {
-          for (const property in environment.resources[resourceType]) {
+        for (const resource in environment.resources) {
+          for (const property in environment.resources[resource]) {
+            // add resource id support here
             cdk.Aspects.of(scope).add(
               new ConfiguratorAspect({
-                resourceType: resourceType,
+                resourceType: resource,
                 propertyName: property,
-                propertyValue: environment.resources[resourceType][property],
+                propertyValue: environment.resources[resource][property],
               }),
             );
           }
