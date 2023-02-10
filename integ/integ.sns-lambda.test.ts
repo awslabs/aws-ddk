@@ -8,7 +8,7 @@ import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
 import { SnsSqsToLambdaStage } from "../src";
 
-interface SnsToLambdaStageFunctionProps extends lambda.FunctionProps {
+interface SnsSqsToLambdaStageFunctionProps extends lambda.FunctionProps {
   readonly errorsAlarmThreshold?: number;
   readonly errorsEvaluationPeriods?: number;
   readonly errorsComparisonOperator?: cloudwatch.ComparisonOperator;
@@ -16,7 +16,7 @@ interface SnsToLambdaStageFunctionProps extends lambda.FunctionProps {
 
 interface SnsSqsToLambdaStageTestStackProps extends cdk.StackProps {
   readonly lambdaFunction?: lambda.IFunction;
-  readonly lambdaFunctionProps?: SnsToLambdaStageFunctionProps;
+  readonly lambdaFunctionProps?: SnsSqsToLambdaStageFunctionProps;
   readonly snsTopic?: sns.ITopic;
   readonly snsTopicProps?: sns.TopicProps;
   readonly snsDlqEnabled?: boolean;
