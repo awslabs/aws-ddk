@@ -71,11 +71,13 @@
   },
   "dependencies": {
     "deepmerge": "4.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "yaml": "^2.2.1"
   },
   "bundledDependencies": [
     "deepmerge",
-    "ts-node"
+    "ts-node",
+    "yaml"
   ],
   "keywords": [
     "cdk"

@@ -196,7 +196,7 @@ test("Different values per environment", () => {
   });
 });
 
-test("File Based Config", () => {
+test("File Based Config: JSON", () => {
   const stack = new cdk.Stack();
 
   new SqsToLambdaStage(stack, "Stage", {
@@ -224,6 +224,43 @@ test("File Based Config", () => {
       },
     ],
   });
+});
+
+test("File Based Config: YAML", () => {
+  const stack = new cdk.Stack();
+
+  new SqsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+    },
+  });
+
+  new Configurator(stack, "./test/test-config.yaml", "dev");
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    MemorySize: 128,
+    Runtime: "python3.8",
+    Tags: [
+      {
+        Key: "CostCenter",
+        Value: "2014",
+      },
+      {
+        Key: "global:foo",
+        Value: "bar",
+      },
+    ],
+  });
+});
+
+test("File based config: Bad Format", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new Configurator(stack, "./test/test-config.jso", "dev");
+  }).toThrowError("Config file must be in YAML or JSON format");
 });
 
 test("CICDPipeline with Config", () => {

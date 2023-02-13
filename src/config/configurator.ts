@@ -1,6 +1,7 @@
 import { readFileSync } from "fs";
 import * as cdk from "aws-cdk-lib";
 import * as constructs from "constructs";
+import { parse } from "yaml";
 
 interface ConfiguratorAspectProps {
   readonly propertyName: string;
@@ -35,7 +36,7 @@ class ConfiguratorAspect implements cdk.IAspect {
 export class Configurator {
   private readonly config: any;
   constructor(scope: constructs.Construct, config: string | object, environmentId: string) {
-    this.config = typeof config == "object" ? config : this.readJson(config);
+    this.config = typeof config == "object" ? config : this.readConfigFile(config);
 
     // Tags
     const tags = { ...this.config.tags, ...this.config.environments[environmentId].tags };
@@ -73,6 +74,19 @@ export class Configurator {
   readJson(path: string): object {
     const rawdata = readFileSync(path, "utf-8");
     return JSON.parse(rawdata);
+  }
+  readYaml(path: string): object {
+    const rawdata = readFileSync(path, "utf-8");
+    return parse(rawdata);
+  }
+  readConfigFile(path: string): object {
+    if (path.includes(".json")) {
+      return this.readJson(path);
+    } else if (path.includes(".yaml") || path.includes(".yml")) {
+      return this.readYaml(path);
+    } else {
+      throw TypeError("Config file must be in YAML or JSON format");
+    }
   }
   tagConstruct(scope: constructs.Construct, tags: { [key: string]: string }): void {
     if (tags) {

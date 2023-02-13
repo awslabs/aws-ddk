@@ -7151,8 +7151,22 @@ new Configurator(scope: Construct, config: string | object, environmentId: strin
 
 | **Name** | **Description** |
 | --- | --- |
+| <code><a href="#aws-ddk-core.Configurator.readConfigFile">readConfigFile</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.readJson">readJson</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.readYaml">readYaml</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.tagConstruct">tagConstruct</a></code> | *No description.* |
+
+---
+
+##### `readConfigFile` <a name="readConfigFile" id="aws-ddk-core.Configurator.readConfigFile"></a>
+
+```typescript
+public readConfigFile(path: string): object
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="aws-ddk-core.Configurator.readConfigFile.parameter.path"></a>
+
+- *Type:* string
 
 ---
 
@@ -7163,6 +7177,18 @@ public readJson(path: string): object
 ```
 
 ###### `path`<sup>Required</sup> <a name="path" id="aws-ddk-core.Configurator.readJson.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+##### `readYaml` <a name="readYaml" id="aws-ddk-core.Configurator.readYaml"></a>
+
+```typescript
+public readYaml(path: string): object
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="aws-ddk-core.Configurator.readYaml.parameter.path"></a>
 
 - *Type:* string
 
