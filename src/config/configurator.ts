@@ -16,7 +16,7 @@ class ConfiguratorAspect implements cdk.IAspect {
   private readonly resourceId: any;
 
   constructor(props: ConfiguratorAspectProps) {
-    this.resourceType = props.resourceType ?? undefined;
+    this.resourceType = props.resourceType;
     this.propertyName = props.propertyName;
     this.propertyValue = props.propertyValue;
     this.resourceId = props.resourceId;
@@ -25,8 +25,8 @@ class ConfiguratorAspect implements cdk.IAspect {
     if (this.resourceType && cdk.CfnResource.isCfnResource(node) && node.cfnResourceType == this.resourceType) {
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
-    if (this.resourceId && cdk.CfnResource.isCfnResource(node) && node.node.id == this.resourceId) {
-      console.log(`debug node id: ${node.node.id} | debug resource id: ${this.resourceId}`);
+
+    if (this.resourceId && cdk.CfnResource.isCfnResource(node)) {
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
   }
@@ -45,14 +45,24 @@ export class Configurator {
     const environment = this.config.environments[environmentId];
     for (const attribute in environment) {
       if (attribute == "resources") {
-        for (const resource in environment.resources) {
-          for (const property in environment.resources[resource]) {
-            // add resource id support here
+        for (const resourceIdentifier in environment.resources) {
+          const regexp = new RegExp("^AWS::.*::.*$");
+          var resourceIdentifierArgument;
+          if (regexp.test(resourceIdentifier)) {
+            resourceIdentifierArgument = {
+              resourceType: resourceIdentifier,
+            };
+          } else {
+            resourceIdentifierArgument = {
+              resourceId: resourceIdentifier,
+            };
+          }
+          for (const property in environment.resources[resourceIdentifier]) {
             cdk.Aspects.of(scope).add(
               new ConfiguratorAspect({
-                resourceType: resource,
                 propertyName: property,
-                propertyValue: environment.resources[resource][property],
+                propertyValue: environment.resources[resourceIdentifier][property],
+                ...resourceIdentifierArgument,
               }),
             );
           }

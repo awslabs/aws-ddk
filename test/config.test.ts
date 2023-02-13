@@ -3,6 +3,7 @@ import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as sqs from "aws-cdk-lib/aws-sqs";
 
 import { Configurator, CICDPipelineStack, DataPipeline, FirehoseToS3Stage, SqsToLambdaStage } from "../src";
 
@@ -21,7 +22,6 @@ test("Config Simple Override", () => {
       },
     },
   };
-  console.log(typeof sampleConfig);
   const stack = new cdk.Stack();
 
   new SqsToLambdaStage(stack, "Stage", {
@@ -48,29 +48,35 @@ test("Config Simple Override", () => {
   });
 });
 
-// test("Config Override By Id", () => {
-//   const sampleConfig = {
-//     environments: {
-//       dev: {
-//         account: "222222222222",
-//         region: "us-east-1",
-//         resources: {
-//           "MyBucket": {
-//             BucketName: "my-exact-bucket-name-for-this-resource",
-//           },
-//         },
-//       },
-//     },
-//   };
-//   const stack = new cdk.Stack();
-//   new s3.Bucket(stack, "MyBucket");
-//   new Configurator(stack, sampleConfig, "dev");
+test("Config Override By Id", () => {
+  const sampleConfig = {
+    environments: {
+      dev: {
+        resources: {
+          MyBucket: {
+            BucketName: "my-exact-bucket-name-for-this-resource",
+          },
+          MyQueue: {
+            KmsMasterKeyId: "alias/aws/sqs",
+          },
+        },
+      },
+    },
+  };
+  const stack = new cdk.Stack();
+  new s3.Bucket(stack, "MyBucket");
+  new sqs.Queue(stack, "MyQueue");
 
-//   const template = Template.fromStack(stack);
-//   template.hasResourceProperties("AWS::S3::Bucket", {
-//     BucketName: "my-exact-bucket-name-for-this-resource",
-//   });
-// });
+  new Configurator(stack, sampleConfig, "dev");
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::S3::Bucket", {
+    BucketName: "my-exact-bucket-name-for-this-resource",
+  });
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    KmsMasterKeyId: "alias/aws/sqs",
+  });
+});
 
 test("Different values per environment", () => {
   const sampleConfig = {
