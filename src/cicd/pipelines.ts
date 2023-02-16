@@ -7,6 +7,7 @@ import * as pipelines from "aws-cdk-lib/pipelines";
 import { Construct, IConstruct } from "constructs";
 import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from "./actions";
 import { toTitleCase } from "./utils";
+import { BaseStack } from "../base";
 
 export interface SourceActionProps {
   readonly sourceAction?: pipelines.CodePipelineSource;
@@ -76,7 +77,7 @@ export interface AdditionalPipelineProps {
   readonly synthCodeBuildDefaults?: pipelines.CodeBuildOptions;
 }
 
-export class CICDPipelineStack extends cdk.Stack {
+export class CICDPipelineStack extends BaseStack {
   readonly environmentId?: string;
   readonly pipelineName?: string;
   readonly pipelineId?: string;

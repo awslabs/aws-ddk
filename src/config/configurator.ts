@@ -1,7 +1,78 @@
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import * as cdk from "aws-cdk-lib";
 import * as constructs from "constructs";
 import { parse } from "yaml";
+
+const ddkBootstrapConfigKey = "bootstrap";
+const bootstrapPrefix = "ddk";
+const bootstrapQualifier = "hnb659fds";
+const accountId = process.env.CDK_DEFAULT_ACCOUNT;
+const region = process.env.CDK_DEFAULT_REGION;
+
+function readJson(path: string): object {
+  const rawdata = readFileSync(path, "utf-8");
+  return JSON.parse(rawdata);
+}
+function readYaml(path: string): object {
+  const rawdata = readFileSync(path, "utf-8");
+  return parse(rawdata);
+}
+function readConfigFile(path: string): object {
+  if (path.includes(".json")) {
+    return readJson(path);
+  } else if (path.includes(".yaml") || path.includes(".yml")) {
+    return readYaml(path);
+  } else {
+    throw TypeError("Config file must be in YAML or JSON format");
+  }
+}
+
+interface getStackSynthesizerProps {
+  readonly config?: string | object;
+  readonly environmentId: string;
+}
+export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
+  const configData: any = props.config
+    ? typeof props.config == "object"
+      ? props.config
+      : readConfigFile(props.config)
+    : existsSync("./ddk.json")
+    ? readConfigFile("./ddk.json")
+    : undefined;
+
+  const bootstrapConfig: any = configData
+    ? configData.ddkBootstrapConfigKey
+      ? configData.ddkBootstrapConfigKey
+      : configData.environments[props.environmentId][ddkBootstrapConfigKey]
+    : undefined;
+  if (bootstrapConfig) {
+    const qualifier = bootstrapConfig.qualifier ? bootstrapConfig.qualifier : bootstrapQualifier;
+    const prefix = bootstrapConfig.prefix ? bootstrapConfig.prefix : bootstrapPrefix;
+    return new cdk.DefaultStackSynthesizer({
+      qualifier: qualifier,
+      fileAssetsBucketName: bootstrapConfig.file_assets_bucket_name
+        ? bootstrapConfig.file_assets_bucket_name
+        : undefined,
+      bootstrapStackVersionSsmParameter: bootstrapConfig.stack_version_ssm_parameter
+        ? bootstrapConfig.stack_version_ssm_parameter
+        : undefined,
+      deployRoleArn: bootstrapConfig.deploy_role
+        ? bootstrapConfig.deploy_role
+        : `arn:aws:iam::${accountId}:role/${prefix}-${props.environmentId}-${qualifier}-deploy-${accountId}-${region}`,
+      fileAssetPublishingRoleArn: bootstrapConfig.file_publish_role
+        ? bootstrapConfig.file_publish_role
+        : `arn:aws:iam::${accountId}:role/${prefix}-${props.environmentId}-${qualifier}-file-publish-${accountId}-${region}`,
+      cloudFormationExecutionRole: bootstrapConfig.cfn_execution_role
+        ? bootstrapConfig.cfn_execution_role
+        : `arn:aws:iam::${accountId}:role/${prefix}-${props.environmentId}-${qualifier}-cfn-exec-${accountId}-${region}`,
+      lookupRoleArn: bootstrapConfig.lookup_role
+        ? bootstrapConfig.lookup_role
+        : `arn:aws:iam::${accountId}:role/${prefix}-${props.environmentId}-${qualifier}-lookup-${accountId}-${region}`,
+    });
+  } else {
+    return new cdk.DefaultStackSynthesizer();
+  }
+}
 
 interface ConfiguratorAspectProps {
   readonly propertyName: string;
@@ -36,7 +107,7 @@ class ConfiguratorAspect implements cdk.IAspect {
 export class Configurator {
   private readonly config: any;
   constructor(scope: constructs.Construct, config: string | object, environmentId: string) {
-    this.config = typeof config == "object" ? config : this.readConfigFile(config);
+    this.config = typeof config == "object" ? config : readConfigFile(config);
 
     // Tags
     const tags = { ...this.config.tags, ...this.config.environments[environmentId].tags };
@@ -69,23 +140,6 @@ export class Configurator {
           }
         }
       }
-    }
-  }
-  readJson(path: string): object {
-    const rawdata = readFileSync(path, "utf-8");
-    return JSON.parse(rawdata);
-  }
-  readYaml(path: string): object {
-    const rawdata = readFileSync(path, "utf-8");
-    return parse(rawdata);
-  }
-  readConfigFile(path: string): object {
-    if (path.includes(".json")) {
-      return this.readJson(path);
-    } else if (path.includes(".yaml") || path.includes(".yml")) {
-      return this.readYaml(path);
-    } else {
-      throw TypeError("Config file must be in YAML or JSON format");
     }
   }
   tagConstruct(scope: constructs.Construct, tags: { [key: string]: string }): void {
