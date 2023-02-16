@@ -34,6 +34,7 @@ jspm_packages/
 *.code-workspace
 .python-version
 .DS_Store
+**/*snapshot/*
 !/.projenrc.js
 /test-reports/
 junit.xml

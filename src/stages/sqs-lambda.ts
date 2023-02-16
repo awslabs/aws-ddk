@@ -58,6 +58,7 @@ export class SqsToLambdaStage extends DataStage {
         environment: {
           EVENT_SOURCE: eventSource,
           EVENT_DETAIL_TYPE: eventDetailType,
+          ...(functionProps.environment ?? {}),
         },
       });
     } else {
@@ -74,7 +75,9 @@ export class SqsToLambdaStage extends DataStage {
 
     const dlqEnabled = props.dlqEnabled ?? false;
     if (dlqEnabled == true) {
-      this.deadLetterQueue = new sqs.Queue(this, "Dead Letter Queue", {});
+      this.deadLetterQueue = new sqs.Queue(this, "Dead Letter Queue", {
+        fifo: props.sqsQueueProps?.fifo ? props.sqsQueueProps?.fifo : undefined,
+      });
     }
 
     if (props.sqsQueue) {
@@ -88,7 +91,7 @@ export class SqsToLambdaStage extends DataStage {
               maxReceiveCount: props.maxReceiveCount ?? 1,
             }
           : undefined,
-        fifo: props.sqsQueueProps?.fifo ?? false,
+        fifo: props.sqsQueueProps?.fifo ? props.sqsQueueProps?.fifo : undefined,
       });
     }
 

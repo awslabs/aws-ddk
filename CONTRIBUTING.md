@@ -43,17 +43,43 @@ GitHub provides additional document on [forking a repository](https://help.githu
 ## Setting up a test environment
 A number of unit tests are available in the `test/` directory.
 
-#### Prerequisites
+### Prerequisites
 - Make sure `npm` is installed on your machine. (`npm` installation)[https://docs.npmjs.com/downloading-and-installing-node-js-and-npm]
 - Install projen. 
 ```
 npm install projen
 ```
 
-#### Run Tests 
+### Unit Tests 
 ```
 npx projen test
 ```
+
+
+### Integration Testing 
+The integration tests leverage the [`integ-runner` CLI ](https://github.com/aws/aws-cdk/tree/main/packages/%40aws-cdk/integ-runner)
+
+#### Prequisites
+- AWS credentials must be configured in order to run integration tests.
+- Install the `integ-runner` cli.
+```
+npm install @aws-cdk/integ-runner
+```
+
+#### Usage 
+```
+integ-runner --language typescript --update-on-failed --directory integ/
+```
+
+#### Common Issues
+---
+##### **TSError: ⨯ Unable to compile TypeScript:integ.glue-transform.test.ts(3,8: error TS1259: Module '"path"' can only be default-imported using the 'esModuleInterop' flag**
+
+The following flag must be set in `compilerOptions[]` in the active `tsconfig.json` file. 
+```
+"esModuleInterop": true,
+```
+---
 
 ## Finding contributions to work on
 Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any 'help wanted' issues is a great place to start.
