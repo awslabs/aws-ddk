@@ -1,3 +1,4 @@
+import { assert } from "console";
 import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
@@ -5,7 +6,14 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 
-import { Configurator, CICDPipelineStack, DataPipeline, FirehoseToS3Stage, SqsToLambdaStage } from "../src";
+import {
+  Configurator,
+  CICDPipelineStack,
+  DataPipeline,
+  FirehoseToS3Stage,
+  SqsToLambdaStage,
+  getStackSynthesizer,
+} from "../src";
 
 test("Config Simple Override", () => {
   const sampleConfig = {
@@ -261,6 +269,33 @@ test("File based config: Bad Format", () => {
   expect(() => {
     new Configurator(stack, "./test/test-config.jso", "dev");
   }).toThrowError("Config file must be in YAML or JSON format");
+});
+
+test("File based config: None specified, default does not exist", () => {
+  const synthesizer = getStackSynthesizer({ environmentId: "dev" });
+  const expectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/cdk-bootstrap/hnb659fds/version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      synthesizer[attribute as keyof typeof synthesizer] === expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
 
 test("CICDPipeline with Config", () => {

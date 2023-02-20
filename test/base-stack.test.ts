@@ -1,10 +1,10 @@
+import { assert } from "console";
 import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 
 import { BaseStack, createDefaultPermissionsBoundary, SqsToLambdaStage } from "../src";
-//import { assert } from "console";
 
 test("Base Stack No Bootstrap Config", () => {
   const sampleConfig = {
@@ -23,21 +23,28 @@ test("Base Stack No Bootstrap Config", () => {
       runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
-  //console.log(stack.synthesizer);
 
-  // const expectedValues = {
-  //   qualifier: 'hnb659fds',
-  //   bucketName: 'cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}',
-  //   repositoryName: 'cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}',
-  //   _deployRoleArn: 'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}',
-  //   _cloudFormationExecutionRoleArn: 'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}',
-  //   fileAssetPublishingRoleArn: 'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}',
-  //   imageAssetPublishingRoleArn: 'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}',
-  //   lookupRoleArn: 'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}',
-  // }
-  // for (const attribute in expectedValues) {
-  //   assert(stack.synthesizer[attribute] === expectedValues[attribute] )
-  // }
+  const expectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
 
 test("Base Stack Global Bootstrap Minimal Config", () => {
@@ -60,7 +67,30 @@ test("Base Stack Global Bootstrap Minimal Config", () => {
       runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
-  //console.log(stack.synthesizer);
+  const expectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/cdk-bootstrap/hnb659fds/version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
 
 test("Base Stack Global Bootstrap Full Config", () => {
@@ -93,7 +123,30 @@ test("Base Stack Global Bootstrap Full Config", () => {
       runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
-  //console.log(stack.synthesizer);
+  const expectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/cdk-bootstrap/hnb659fds/version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
 
 test("Base Stack Environment Bootstrap Minimal Config", () => {
@@ -117,7 +170,26 @@ test("Base Stack Environment Bootstrap Minimal Config", () => {
       runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
-  //console.log(stack.synthesizer);
+  const expectedValues = {
+    qualifier: "abcdefgh",
+    bucketName: "cdk-abcdefgh-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-abcdefgh-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-deploy-undefined-undefined",
+    _cloudFormationExecutionRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-cfn-exec-undefined-undefined",
+    fileAssetPublishingRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-file-publish-undefined-undefined",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-abcdefgh-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-lookup-undefined-undefined",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/cdk-bootstrap/abcdefgh/version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
 
 test("Base Stack Environment Bootstrap Full Config", () => {
@@ -151,7 +223,26 @@ test("Base Stack Environment Bootstrap Full Config", () => {
       runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
-  //console.log(stack.synthesizer);
+  const expectedValues = {
+    qualifier: "abcdefgh",
+    bucketName: "cdk-abcdefgh-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-abcdefgh-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-deploy-undefined-undefined",
+    _cloudFormationExecutionRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-cfn-exec-undefined-undefined",
+    fileAssetPublishingRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-file-publish-undefined-undefined",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-abcdefgh-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn: "arn:aws:iam::undefined:role/ddk-dev-abcdefgh-lookup-undefined-undefined",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/cdk-bootstrap/abcdefgh/version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
 
 test("Base Stack Bootstrap Empty Config", () => {
@@ -172,7 +263,30 @@ test("Base Stack Bootstrap Empty Config", () => {
       runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
-  //console.log(stack.synthesizer);
+  const expectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/cdk-bootstrap/hnb659fds/version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
 
 test("Base Stack Permissions Boundary", () => {
@@ -250,4 +364,28 @@ test("Bring Your Own Stack Synthesizer", () => {
       runtime: lambda.Runtime.PYTHON_3_9,
     },
   });
+  const expectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/cdk-bootstrap/hnb659fds/version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
 });
