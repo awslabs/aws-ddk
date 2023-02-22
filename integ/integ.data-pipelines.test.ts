@@ -17,7 +17,7 @@ interface DataPipelineTestStackProps extends cdk.StackProps {
 class DataPipelineTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: DataPipelineTestStackProps) {
     super(scope, id, props);
-    const bucket = new s3.Bucket(this, "Bucket");
+    const bucket = new s3.Bucket(this, "Bucket", {removalPolicy: cdk.RemovalPolicy.DESTROY});
 
     const firehoseToS3Stage = new FirehoseToS3Stage(this, "Firehose To S3 Stage", { s3Bucket: bucket });
 
