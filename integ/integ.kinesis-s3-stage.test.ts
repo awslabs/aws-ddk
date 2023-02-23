@@ -16,7 +16,7 @@ class FirehoseToS3StageTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: FirehoseToS3StageTestStackProps) {
     super(scope, id, props);
 
-    const bucket = new s3.Bucket(this, "Bucket");
+    const bucket = new s3.Bucket(this, "Bucket", {removalPolicy: cdk.RemovalPolicy.DESTROY});
     new FirehoseToS3Stage(this, "Stage", {
       s3Bucket: bucket,
       dataStreamEnabled: props.dataStreamEnabled,

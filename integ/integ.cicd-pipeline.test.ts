@@ -17,7 +17,7 @@ class CICDPipelineTestStack extends cdk.Stack {
     const devStage = new cdk.Stage(this, "dev", { env: { account: "228197580683" } });
     const devStack = new cdk.Stack(devStage, "application-stack");
 
-    const bucket = new s3.Bucket(devStack, "Bucket");
+    const bucket = new s3.Bucket(devStack, "Bucket", {removalPolicy: cdk.RemovalPolicy.DESTROY});
     const firehoseToS3Stage = new FirehoseToS3Stage(devStack, "Firehose To S3 Stage", { s3Bucket: bucket });
 
     const sqsToLambdaStage = new SqsToLambdaStage(devStack, "SQS To Lambda Stage", {

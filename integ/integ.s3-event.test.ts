@@ -15,7 +15,7 @@ class S3EventStageTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: S3EventStageTestStackProps) {
     super(scope, id, props);
 
-    const bucket = new s3.Bucket(this, "Bucket");
+    const bucket = new s3.Bucket(this, "Bucket", {removalPolicy: cdk.RemovalPolicy.DESTROY});
     new S3EventStage(this, "Stage", {
       bucket: bucket,
       eventNames: props.eventNames,
