@@ -97,7 +97,7 @@ export class CICDPipelineStack extends BaseStack {
     this.environmentId = props.environmentId;
     this.pipelineName = props.pipelineName;
     this.pipelineId = id;
-    const config = props.configPath ? props.configPath : props.config ? props.config : "./ddk.json";
+    const config = props.configPath ?? props.config ?? "./ddk.json";
     this.config = new Configurator(this, config, this.environmentId);
   }
 
@@ -170,11 +170,7 @@ export class CICDPipelineStack extends BaseStack {
     if (this.pipeline === undefined) {
       throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
-    const manualApprovals = props.manualApprovals
-      ? props.manualApprovals
-      : this.environmentId
-      ? this.config.getEnvConfig("manual_approvals")
-      : false;
+    const manualApprovals = props.manualApprovals ?? this.config.getEnvConfig("manual_approvals") ?? false;
 
     if (manualApprovals) {
       this.pipeline?.addStage(props.stage, {
@@ -206,11 +202,7 @@ export class CICDPipelineStack extends BaseStack {
     if (this.pipeline === undefined) {
       throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
-    const manualApprovals = props.manualApprovals
-      ? props.manualApprovals
-      : this.environmentId
-      ? this.config.getEnvConfig("manual_approvals")
-      : false;
+    const manualApprovals = props.manualApprovals ?? this.config.getEnvConfig("manual_approvals") ?? false;
 
     var wave = new pipelines.Wave(props.stageId);
     if (manualApprovals) {
@@ -304,16 +296,14 @@ export class CICDPipelineStack extends BaseStack {
       throw new Error("`.buildPipeline()` needs to be called first before adding notifications to the pipeline.");
     }
 
-    const topic = this.environmentId
-      ? this.config.getEnvConfig("notifications_topic_arn")
+    const topic =
+      this.environmentId && this.config.getEnvConfig("notifications_topic_arn")
         ? sns.Topic.fromTopicArn(
             this,
             "ExecutionFailedNotifications",
             this.config.getEnvConfig("notifications_topic_arn"),
           )
-        : new sns.Topic(this, "ExecutionFailedNotifications")
-      : new sns.Topic(this, "ExecutionFailedNotifications");
-
+        : new sns.Topic(this, "ExecutionFailedNotifications");
     this.notificationRule =
       props.notificationRule ??
       new codestarnotifications.NotificationRule(this, "Notification", {
