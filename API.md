@@ -1328,6 +1328,7 @@ new CICDPipelineStack(scope: Construct, id: string, props: CICDPipelineStackProp
 | <code><a href="#aws-ddk-core.CICDPipelineStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addChecks">addChecks</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addCustomStage">addCustomStage</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addNotifications">addNotifications</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addSecurityLintStage">addSecurityLintStage</a></code> | *No description.* |
@@ -1719,6 +1720,12 @@ Convert an object, potentially containing tokens, to a JSON string.
 
 ---
 
+##### `addChecks` <a name="addChecks" id="aws-ddk-core.CICDPipelineStack.addChecks"></a>
+
+```typescript
+public addChecks(): CICDPipelineStack
+```
+
 ##### `addCustomStage` <a name="addCustomStage" id="aws-ddk-core.CICDPipelineStack.addCustomStage"></a>
 
 ```typescript
@@ -1924,6 +1931,7 @@ The construct to start the search from.
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.nestedStackParent">nestedStackParent</a></code> | <code>aws-cdk-lib.Stack</code> | If this is a nested stack, returns it's parent stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.nestedStackResource">nestedStackResource</a></code> | <code>aws-cdk-lib.CfnResource</code> | If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether termination protection is enabled for this stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.property.config">config</a></code> | <code><a href="#aws-ddk-core.Configurator">Configurator</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineId">pipelineId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
@@ -2262,6 +2270,16 @@ public readonly terminationProtection: boolean;
 - *Type:* boolean
 
 Whether termination protection is enabled for this stack.
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="aws-ddk-core.CICDPipelineStack.property.config"></a>
+
+```typescript
+public readonly config: Configurator;
+```
+
+- *Type:* <a href="#aws-ddk-core.Configurator">Configurator</a>
 
 ---
 
@@ -5470,6 +5488,8 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.config">config</a></code> | <code>object</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
 
@@ -5665,6 +5685,26 @@ public readonly terminationProtection: boolean;
 - *Default:* false
 
 Whether to enable termination protection for this stack.
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="aws-ddk-core.CICDPipelineStackProps.property.config"></a>
+
+```typescript
+public readonly config: object;
+```
+
+- *Type:* object
+
+---
+
+##### `configPath`<sup>Optional</sup> <a name="configPath" id="aws-ddk-core.CICDPipelineStackProps.property.configPath"></a>
+
+```typescript
+public readonly configPath: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -8100,7 +8140,7 @@ public readonly synthAction: CodeBuildStep;
 ```typescript
 import { Configurator } from 'aws-ddk-core'
 
-new Configurator(scope: Construct, config: string | object, environmentId: string)
+new Configurator(scope: Construct, config: string | object, environmentId?: string)
 ```
 
 | **Name** | **Type** | **Description** |
@@ -8123,7 +8163,7 @@ new Configurator(scope: Construct, config: string | object, environmentId: strin
 
 ---
 
-##### `environmentId`<sup>Required</sup> <a name="environmentId" id="aws-ddk-core.Configurator.Initializer.parameter.environmentId"></a>
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.Configurator.Initializer.parameter.environmentId"></a>
 
 - *Type:* string
 
@@ -8133,7 +8173,20 @@ new Configurator(scope: Construct, config: string | object, environmentId: strin
 
 | **Name** | **Description** |
 | --- | --- |
+| <code><a href="#aws-ddk-core.Configurator.getEnvConfig">getEnvConfig</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.tagConstruct">tagConstruct</a></code> | *No description.* |
+
+---
+
+##### `getEnvConfig` <a name="getEnvConfig" id="aws-ddk-core.Configurator.getEnvConfig"></a>
+
+```typescript
+public getEnvConfig(attribute: string): any
+```
+
+###### `attribute`<sup>Required</sup> <a name="attribute" id="aws-ddk-core.Configurator.getEnvConfig.parameter.attribute"></a>
+
+- *Type:* string
 
 ---
 
@@ -8156,6 +8209,34 @@ public tagConstruct(scope: Construct, tags: {[ key: string ]: string}): void
 ---
 
 
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.Configurator.property.config">config</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="aws-ddk-core.Configurator.property.config"></a>
+
+```typescript
+public readonly config: any;
+```
+
+- *Type:* any
+
+---
+
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.Configurator.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+---
 
 
 

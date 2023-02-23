@@ -13,6 +13,7 @@ import {
   FirehoseToS3Stage,
   SqsToLambdaStage,
   getStackSynthesizer,
+  getEnvConfig,
 } from "../src";
 
 test("Config Simple Override", () => {
@@ -358,4 +359,26 @@ test("CICDPipeline with Config", () => {
     MemorySize: 1024,
     Runtime: "python3.8",
   });
+});
+
+test("Get Env Config Method", () => {
+  const devConfig = getEnvConfig({ config: "./test/test-config.json", environmentId: "dev" });
+  const expectedDevConfig = {
+    account: "222222222222",
+    region: "us-east-1",
+    resources: {
+      "AWS::Lambda::Function": {
+        MemorySize: 128,
+        Runtime: "python3.8",
+      },
+    },
+    tags: { CostCenter: "2014" },
+  };
+  assert(devConfig === expectedDevConfig);
+});
+
+test("Get Env Config Method: Non-Existent File", () => {
+  const devConfig = getEnvConfig({ config: "./test/not-real.yaml", environmentId: "dev" });
+  const expectedDevConfig = {};
+  assert(devConfig === expectedDevConfig);
 });

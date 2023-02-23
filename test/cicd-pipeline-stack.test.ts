@@ -347,6 +347,93 @@ test("Test Pipeline with Artifact Upload", () => {
   });
 });
 
+test("Manual Approvals Stage", () => {
+  const app = new cdk.App();
+  const stage = new cdk.Stage(app, "app-stage");
+  new cdk.Stack(stage, "app-stack");
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addStage({ stageId: "dev", stage: stage, manualApprovals: true })
+    .synth();
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
+    Stages: Match.arrayWith([
+      Match.objectLike({
+        Name: "app-stage",
+        Actions: Match.arrayWith([
+          Match.objectLike({
+            Name: "PromoteToDev",
+            ActionTypeId: {
+              Category: "Approval",
+              Provider: "Manual",
+              Owner: "AWS",
+            },
+          }),
+        ]),
+      }),
+    ]),
+  });
+});
+
+test("Manual Approvals Wave", () => {
+  const app = new cdk.App();
+  const stage = new cdk.Stage(app, "app-stage");
+  new cdk.Stack(stage, "app-stack");
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addWave({ stageId: "dev", stages: [stage], manualApprovals: true })
+    .synth();
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
+    Stages: Match.arrayWith([
+      Match.objectLike({
+        Name: "dev",
+        Actions: Match.arrayWith([
+          Match.objectLike({
+            Name: "PromoteToDev",
+            ActionTypeId: {
+              Category: "Approval",
+              Provider: "Manual",
+              Owner: "AWS",
+            },
+          }),
+        ]),
+      }),
+    ]),
+  });
+});
+
+test("Pipeline With Checks", () => {
+  const app = new cdk.App();
+  const stage = new cdk.Stage(app, "app-stage");
+  new cdk.Stack(stage, "app-stack");
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addChecks()
+    .synth();
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
+    Stages: Match.arrayWith([
+      Match.objectLike({
+        Name: "SecurityLint",
+      }),
+    ]),
+  });
+  template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
+    Stages: Match.arrayWith([
+      Match.objectLike({
+        Name: "Tests",
+      }),
+    ]),
+  });
+});
+
 test("Build Pipeline with no Synth Action", () => {
   const app = new cdk.App();
   const stack = () =>
@@ -398,6 +485,18 @@ test("Add notifications without building pipeline", () => {
   const stack = () =>
     new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
       .addSynthAction()
+      .addNotifications()
+      .synth();
+  expect(stack).toThrow(
+    Error("`.buildPipeline()` needs to be called first before adding notifications to the pipeline."),
+  );
+});
+
+test("Add notifications without building pipeline", () => {
+  const app = new cdk.App();
+  const stack = () =>
+    new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+      .addSynthAction()
       .addStage({ stageId: "dev", stage: new cdk.Stage(app, "my-stack") })
       .synth()
       .addNotifications();
@@ -432,6 +531,42 @@ test("Error when running build pipeline before adding synth action", () => {
       pipelineName: "dummy-pipeline",
     }).buildPipeline();
   expect(stack).toThrow(Error("Pipeline cannot be built without a synth action."));
+});
+
+test("Error: Adding stages before 'buildPipeline()'", () => {
+  const app = new cdk.App();
+  const appStage = new cdk.Stage(app, "app", { env: { account: "000000000000" } });
+  new cdk.Stack(appStage, "AppStack");
+
+  const stack = () =>
+    new CICDPipelineStack(app, "dummy-pipeline", {
+      pipelineName: "dummy-pipeline",
+    })
+      .addSourceAction({ repositoryName: "dummy-repository" })
+      .addSynthAction()
+      .addStage({ stageId: "app", stage: appStage })
+      .buildPipeline();
+  expect(stack).toThrow(
+    Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline."),
+  );
+});
+
+test("Error: Adding waves before 'buildPipeline()'", () => {
+  const app = new cdk.App();
+  const appStage = new cdk.Stage(app, "app", { env: { account: "000000000000" } });
+  new cdk.Stack(appStage, "AppStack");
+
+  const stack = () =>
+    new CICDPipelineStack(app, "dummy-pipeline", {
+      pipelineName: "dummy-pipeline",
+    })
+      .addSourceAction({ repositoryName: "dummy-repository" })
+      .addSynthAction()
+      .addWave({ stageId: "app", stages: [appStage] })
+      .buildPipeline();
+  expect(stack).toThrow(
+    Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline."),
+  );
 });
 
 test("Test Pipeline with Artifact Upload", () => {

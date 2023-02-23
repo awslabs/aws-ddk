@@ -8,6 +8,7 @@ import { Construct, IConstruct } from "constructs";
 import { getBanditAction, getCfnNagAction, getCodeCommitSourceAction, getSynthAction, getTestsAction } from "./actions";
 import { toTitleCase } from "./utils";
 import { BaseStack } from "../base";
+import { Configurator } from "../config";
 
 export interface SourceActionProps {
   readonly sourceAction?: pipelines.CodePipelineSource;
@@ -60,6 +61,8 @@ export interface AddCustomStageProps {
 export interface CICDPipelineStackProps extends cdk.StackProps {
   readonly environmentId?: string;
   readonly pipelineName?: string;
+  readonly configPath?: string;
+  readonly config?: object;
 }
 
 export interface AdditionalPipelineProps {
@@ -81,6 +84,7 @@ export class CICDPipelineStack extends BaseStack {
   readonly environmentId?: string;
   readonly pipelineName?: string;
   readonly pipelineId?: string;
+  readonly config: Configurator;
   public notificationRule?: codestarnotifications.NotificationRule;
   public pipeline?: pipelines.CodePipeline;
   public pipelineKey?: IConstruct;
@@ -93,6 +97,8 @@ export class CICDPipelineStack extends BaseStack {
     this.environmentId = props.environmentId;
     this.pipelineName = props.pipelineName;
     this.pipelineId = id;
+    const config = props.configPath ? props.configPath : props.config ? props.config : "./ddk.json";
+    this.config = new Configurator(this, config, this.environmentId);
   }
 
   addSourceAction(props: SourceActionProps) {
@@ -164,7 +170,11 @@ export class CICDPipelineStack extends BaseStack {
     if (this.pipeline === undefined) {
       throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
-    var manualApprovals = props.manualApprovals ?? false;
+    const manualApprovals = props.manualApprovals
+      ? props.manualApprovals
+      : this.environmentId
+      ? this.config.getEnvConfig("manual_approvals")
+      : false;
 
     if (manualApprovals) {
       this.pipeline?.addStage(props.stage, {
@@ -196,7 +206,11 @@ export class CICDPipelineStack extends BaseStack {
     if (this.pipeline === undefined) {
       throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
-    const manualApprovals = props.manualApprovals ?? false; // || this._config.get_env_config(stage_id).get('manual_approvals');
+    const manualApprovals = props.manualApprovals
+      ? props.manualApprovals
+      : this.environmentId
+      ? this.config.getEnvConfig("manual_approvals")
+      : false;
 
     var wave = new pipelines.Wave(props.stageId);
     if (manualApprovals) {
@@ -287,8 +301,18 @@ export class CICDPipelineStack extends BaseStack {
     CICD pipeline
     */
     if (this.pipeline === undefined) {
-      throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
+      throw new Error("`.buildPipeline()` needs to be called first before adding notifications to the pipeline.");
     }
+
+    const topic = this.environmentId
+      ? this.config.getEnvConfig("notifications_topic_arn")
+        ? sns.Topic.fromTopicArn(
+            this,
+            "ExecutionFailedNotifications",
+            this.config.getEnvConfig("notifications_topic_arn"),
+          )
+        : new sns.Topic(this, "ExecutionFailedNotifications")
+      : new sns.Topic(this, "ExecutionFailedNotifications");
 
     this.notificationRule =
       props.notificationRule ??
@@ -296,29 +320,23 @@ export class CICDPipelineStack extends BaseStack {
         detailType: codestarnotifications.DetailType.BASIC,
         events: ["codepipeline-pipeline-pipeline-execution-failed"],
         source: this.pipeline?.pipeline,
-        targets: [new sns.Topic(this, "ExecutionFailedNotifications")], // Implement config defined topic later on
+        targets: [topic],
       });
     return this;
   }
 
-  // addChecks() {
-  //   /*
-  //   Add checks to the pipeline (e.g. linting, security, tests...).
-  //     Returns
-  //   -------
-  //   pipeline : CICDPipelineStack
-  //   CICD pipeline
-  //   */
-  //   if (this._config.get_env_config(this.environment_id).get('execute_security_lint')) {
-  //     this.add_security_lint_stage();
-  //   }
-
-  //   if (this._config.get_env_config(this.environment_id).get('execute_tests')) {
-  //     this.add_test_stage();
-  //   }
-
-  //   return this;
-  // }
+  addChecks() {
+    /*
+    Add checks to the pipeline (e.g. linting, security, tests...).
+      Returns
+    -------
+    pipeline : CICDPipelineStack
+    CICD pipeline
+    */
+    this.addSecurityLintStage({});
+    this.addTestStage({});
+    return this;
+  }
 
   addCustomStage(props: AddCustomStageProps) {
     /*

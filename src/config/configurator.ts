@@ -10,12 +10,20 @@ const accountId = process.env.CDK_DEFAULT_ACCOUNT;
 const region = process.env.CDK_DEFAULT_REGION;
 
 function readJson(path: string): object {
-  const rawdata = readFileSync(path, "utf-8");
-  return JSON.parse(rawdata);
+  try {
+    const rawdata = readFileSync(path, "utf-8");
+    return JSON.parse(rawdata);
+  } catch (err) {
+    return {};
+  }
 }
 function readYaml(path: string): object {
-  const rawdata = readFileSync(path, "utf-8");
-  return parse(rawdata);
+  try {
+    const rawdata = readFileSync(path, "utf-8");
+    return parse(rawdata);
+  } catch (err) {
+    return {};
+  }
 }
 function readConfigFile(path: string): object {
   if (path.includes(".json")) {
@@ -26,12 +34,10 @@ function readConfigFile(path: string): object {
     throw TypeError("Config file must be in YAML or JSON format");
   }
 }
-
-interface getStackSynthesizerProps {
+interface getConfigProps {
   readonly config?: string | object;
-  readonly environmentId: string;
 }
-export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
+export function getConfig(props: getConfigProps): any {
   const configData: any = props.config
     ? typeof props.config == "object"
       ? props.config
@@ -39,6 +45,24 @@ export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStack
     : existsSync("./ddk.json")
     ? readConfigFile("./ddk.json")
     : undefined;
+  return configData;
+}
+
+interface getEnvConfigProps {
+  readonly config?: string | object;
+  readonly environmentId: string;
+}
+export function getEnvConfig(props: getEnvConfigProps): any {
+  const config = getConfig({ config: props.config });
+  return config[props.environmentId];
+}
+
+interface getStackSynthesizerProps {
+  readonly config?: string | object;
+  readonly environmentId: string;
+}
+export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
+  const configData = getConfig({ config: props.config });
 
   const bootstrapConfig: any = configData
     ? configData.ddkBootstrapConfigKey
@@ -105,38 +129,42 @@ class ConfiguratorAspect implements cdk.IAspect {
 }
 
 export class Configurator {
-  private readonly config: any;
-  constructor(scope: constructs.Construct, config: string | object, environmentId: string) {
-    this.config = typeof config == "object" ? config : readConfigFile(config);
+  public readonly config: any;
+  public readonly environmentId?: string;
+  constructor(scope: constructs.Construct, config: string | object, environmentId?: string) {
+    this.config = getConfig({ config: config });
+    this.environmentId = environmentId;
 
-    // Tags
-    const tags = { ...this.config.tags, ...this.config.environments[environmentId].tags };
-    this.tagConstruct(scope, tags);
+    if (environmentId && this.config.environments) {
+      // Tags
+      const tags = { ...this.config.tags, ...this.config.environments[environmentId].tags };
+      this.tagConstruct(scope, tags);
 
-    // Environment Based
-    const environment = this.config.environments[environmentId];
-    for (const attribute in environment) {
-      if (attribute == "resources") {
-        for (const resourceIdentifier in environment.resources) {
-          const regexp = new RegExp("^AWS::.*::.*$");
-          var resourceIdentifierArgument;
-          if (regexp.test(resourceIdentifier)) {
-            resourceIdentifierArgument = {
-              resourceType: resourceIdentifier,
-            };
-          } else {
-            resourceIdentifierArgument = {
-              resourceId: resourceIdentifier,
-            };
-          }
-          for (const property in environment.resources[resourceIdentifier]) {
-            cdk.Aspects.of(scope).add(
-              new ConfiguratorAspect({
-                propertyName: property,
-                propertyValue: environment.resources[resourceIdentifier][property],
-                ...resourceIdentifierArgument,
-              }),
-            );
+      // Environment Based
+      const environment = this.config.environments[environmentId];
+      for (const attribute in environment) {
+        if (attribute == "resources") {
+          for (const resourceIdentifier in environment.resources) {
+            const regexp = new RegExp("^AWS::.*::.*$");
+            var resourceIdentifierArgument;
+            if (regexp.test(resourceIdentifier)) {
+              resourceIdentifierArgument = {
+                resourceType: resourceIdentifier,
+              };
+            } else {
+              resourceIdentifierArgument = {
+                resourceId: resourceIdentifier,
+              };
+            }
+            for (const property in environment.resources[resourceIdentifier]) {
+              cdk.Aspects.of(scope).add(
+                new ConfiguratorAspect({
+                  propertyName: property,
+                  propertyValue: environment.resources[resourceIdentifier][property],
+                  ...resourceIdentifierArgument,
+                }),
+              );
+            }
           }
         }
       }
@@ -146,5 +174,10 @@ export class Configurator {
     if (tags) {
       Object.entries(tags).forEach(([key, value]) => cdk.Tags.of(scope).add(key, value));
     }
+  }
+  getEnvConfig(attribute: string): any {
+    return this.environmentId && this.config[this.environmentId] && this.config[this.environmentId][attribute]
+      ? this.config[this.environmentId][attribute]
+      : undefined;
   }
 }
