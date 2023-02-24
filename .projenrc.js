@@ -42,7 +42,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 
 // Other Bundled dependencies
-["deepmerge@4.0.0", "ts-node"].forEach((dep) => {
+["deepmerge@4.0.0", "ts-node", "yaml"].forEach((dep) => {
   project.addBundledDeps(dep);
 });
 
