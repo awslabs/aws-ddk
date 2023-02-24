@@ -55,10 +55,9 @@
     "jsii-diff": "^1.73.0",
     "jsii-docgen": "^7.0.216",
     "jsii-pacmak": "^1.73.0",
-    "json-schema": "^0.4.0",
     "npm-check-updates": "^16",
     "prettier": "^2.8.3",
-    "projen": "^0.67.19",
+    "projen": "^0.67.64",
     "ts-jest": "^27",
     "typescript": "^4.9.4"
   },
@@ -72,11 +71,13 @@
   },
   "dependencies": {
     "deepmerge": "4.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "yaml": "^2.2.1"
   },
   "bundledDependencies": [
     "deepmerge",
-    "ts-node"
+    "ts-node",
+    "yaml"
   ],
   "keywords": [
     "cdk"
