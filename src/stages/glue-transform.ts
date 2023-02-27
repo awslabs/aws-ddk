@@ -13,6 +13,7 @@ export interface GlueTransformStageProps extends StateMachineStageProps {
   readonly jobRunArgs?: { [key: string]: any };
   readonly crawlerName?: string;
   readonly crawlerProps?: glue.CfnCrawlerProps;
+  readonly crawlerAllowFailure?: boolean;
   readonly stateMachineRetryMaxAttempts?: number;
   readonly stateMachineRetryBackoffRate?: number;
   readonly stateMachineRetryInterval?: cdk.Duration;
@@ -55,6 +56,11 @@ export class GlueTransformStage extends StateMachineStage {
       backoffRate: props.stateMachineRetryBackoffRate ?? 2,
       interval: props.stateMachineRetryInterval ?? cdk.Duration.seconds(1),
     });
+
+    const crawlerAllowFailure = props.crawlerAllowFailure ?? true;
+    if (crawlerAllowFailure) {
+      crawlObject.addCatch(successTask, { errors: ["Glue.CrawlerRunningException"] });
+    }
 
     const definition = startJobRun.next(crawlObject.next(successTask));
 

@@ -6530,6 +6530,7 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerAllowFailure">crawlerAllowFailure</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
@@ -6618,6 +6619,16 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `crawlerAllowFailure`<sup>Optional</sup> <a name="crawlerAllowFailure" id="aws-ddk-core.GlueTransformStageProps.property.crawlerAllowFailure"></a>
+
+```typescript
+public readonly crawlerAllowFailure: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

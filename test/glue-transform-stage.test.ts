@@ -112,3 +112,25 @@ test("GlueTransformStage retry settings", () => {
     },
   });
 });
+
+test("GlueTransformStage crawler allo failure settings", () => {
+  const stack = new cdk.Stack();
+
+  new GlueTransformStage(stack, "glue-transform-disallow-failure", {
+    jobName: "myJob",
+    crawlerName: "myCrawler",
+    crawlerAllowFailure: false,
+  });
+
+  new GlueTransformStage(stack, "glue-transform-allow-failure", {
+    jobName: "myJob",
+    crawlerName: "myCrawler",
+  });
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::StepFunctions::StateMachine", {
+    DefinitionString: {
+      "Fn::Join": ["", Match.arrayWith([Match.stringLikeRegexp("Catch.*ErrorEquals.*Glue.CrawlerRunningException")])],
+    },
+  });
+});
