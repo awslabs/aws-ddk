@@ -46,3 +46,35 @@ test("AthenaToSQL stage with additional properties", () => {
     StateMachineName: "dummy-statemachine",
   });
 });
+
+test("AthenaToSQL stage using 'queryStringPath'", () => {
+  const stack = new cdk.Stack();
+  new AthenaSQLStage(stack, "athena-sql", {
+    queryStringPath: "$.queryString",
+    workGroup: "primary",
+  });
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::StepFunctions::StateMachine", {
+    DefinitionString: {
+      "Fn::Join": ["", Match.arrayWith([Match.stringLikeRegexp("Parameters.*QueryString.*.queryString")])],
+    },
+  });
+});
+
+test("AthenaSQLStage missing query string property", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new AthenaSQLStage(stack, "Stage", {});
+  }).toThrowError("For this stage one of queryString or queryStringPath parameter is required");
+});
+
+test("AthenaSQLStage duplicate query string properties", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new AthenaSQLStage(stack, "Stage", {
+      queryString: "SELECT 1;",
+      queryStringPath: "$.queryString",
+    });
+  }).toThrowError("For this stage provide one of queryString or queryStringPath parameter, not both");
+});
