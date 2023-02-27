@@ -62,7 +62,7 @@ export class GlueTransformStage extends StateMachineStage {
 
   private getGlueJob(scope: Construct, id: string, props: GlueTransformStageProps): glue_alpha.IJob {
     if (props.jobName) {
-      return glue_alpha.Job.fromJobAttributes(this, "Glue Job", {
+      return glue_alpha.Job.fromJobAttributes(this, `${id} Job`, {
         jobName: props.jobName,
       });
     }
@@ -73,7 +73,7 @@ export class GlueTransformStage extends StateMachineStage {
 
     return new glue_alpha.Job(
       this,
-      "Glue Job",
+      `${id} Job`,
       assignGlueJobProps(scope, `${id} Job`, {
         ...props.jobProps,
       }),
