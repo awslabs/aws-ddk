@@ -19,9 +19,9 @@ class DataPipelineTestStack extends cdk.Stack {
     super(scope, id, props);
     const bucket = new s3.Bucket(this, "Bucket", {removalPolicy: cdk.RemovalPolicy.DESTROY});
 
-    const firehoseToS3Stage = new FirehoseToS3Stage(this, "Firehose To S3 Stage", { s3Bucket: bucket });
+    const firehoseToS3Stage = new FirehoseToS3Stage(this, `${id} Firehose To S3 Stage`, { s3Bucket: bucket });
 
-    const sqsToLambdaStage = new SqsToLambdaStage(this, "SQS To Lambda Stage 2", {
+    const sqsToLambdaStage = new SqsToLambdaStage(this, `${id} SQS To Lambda Stage`, {
       lambdaFunctionProps: {
         code: lambda.Code.fromInline("def lambda_handler(event, context): return 200"),
         handler: "lambda_function.lambda_handler",
@@ -30,7 +30,7 @@ class DataPipelineTestStack extends cdk.Stack {
       },
     });
 
-    const glueTransformStage = new GlueTransformStage(this, "Glue Transform Stage", {
+    const glueTransformStage = new GlueTransformStage(this, `${id}Glue Transform Stage`, {
       jobProps: {
         executable: glue_alpha.JobExecutable.pythonShell({
           glueVersion: glue_alpha.GlueVersion.V1_0,
@@ -41,7 +41,7 @@ class DataPipelineTestStack extends cdk.Stack {
       crawlerName: "dummy-crawler",
     })
 
-    const pipeline = new DataPipeline(this, "Pipeline", {});
+    const pipeline = new DataPipeline(this, `${id} Pipeline`, {});
 
     if (props.testWithScheduledEvent) {
       pipeline.addNotifications().addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage }).addStage({ stage: glueTransformStage, schedule: events.Schedule.rate(cdk.Duration.minutes(5))});

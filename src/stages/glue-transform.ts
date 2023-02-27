@@ -5,6 +5,7 @@ import * as glue from "aws-cdk-lib/aws-glue";
 import * as sfn from "aws-cdk-lib/aws-stepfunctions";
 import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
+import { assignGlueJobProps } from "../core/glue-defaults";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
 export interface GlueTransformStageProps extends StateMachineStageProps {
@@ -27,7 +28,7 @@ export class GlueTransformStage extends StateMachineStage {
   constructor(scope: Construct, id: string, props: GlueTransformStageProps) {
     super(scope, id, props);
 
-    const glueJob = this.getGlueJob(props);
+    const glueJob = this.getGlueJob(scope, id, props);
     const jobRunArgs = props.jobRunArgs;
     const crawlerName = this.getCrawlerName(props);
 
@@ -71,9 +72,9 @@ export class GlueTransformStage extends StateMachineStage {
     } = this.createStateMachine(definition, props));
   }
 
-  private getGlueJob(props: GlueTransformStageProps): glue_alpha.IJob {
+  private getGlueJob(scope: Construct, id: string, props: GlueTransformStageProps): glue_alpha.IJob {
     if (props.jobName) {
-      return glue_alpha.Job.fromJobAttributes(this, "Glue Job", {
+      return glue_alpha.Job.fromJobAttributes(this, `${id} Job`, {
         jobName: props.jobName,
       });
     }
@@ -82,7 +83,13 @@ export class GlueTransformStage extends StateMachineStage {
       throw TypeError("'jobName' or 'jobProps' must be set to instantiate this stage");
     }
 
-    return new glue_alpha.Job(this, "Glue Job", props.jobProps);
+    return new glue_alpha.Job(
+      this,
+      `${id} Job`,
+      assignGlueJobProps(scope, `${id} Job`, {
+        ...props.jobProps,
+      }),
+    );
   }
 
   private getCrawlerName(props: GlueTransformStageProps): string {

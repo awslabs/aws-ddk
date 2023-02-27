@@ -8,6 +8,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as sfn from "aws-cdk-lib/aws-stepfunctions";
 import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
+import { assignLambdaFunctionProps } from "../core/lambda-defaults";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
 export interface AppFlowIngestionStageProps extends StateMachineStageProps {
@@ -112,12 +113,16 @@ export class AppFlowIngestionStage extends StateMachineStage {
       description: "lambda role to check appflow flow execution status",
     });
 
-    const statusLambda = new lambda.Function(this, "Flow Execution Status Lambda", {
-      code: lambda.Code.fromAsset(path.join(__dirname, "lambda_handlers/appflow_check_flow_status/")),
-      handler: "lambda_function.lambda_handler",
-      role: statusLambdaRole,
-      runtime: lambda.Runtime.PYTHON_3_9,
-    });
+    const statusLambda = new lambda.Function(
+      this,
+      "Flow Execution Status Lambda",
+      assignLambdaFunctionProps({
+        code: lambda.Code.fromAsset(path.join(__dirname, "lambda_handlers/appflow_check_flow_status/")),
+        handler: "lambda_function.lambda_handler",
+        role: statusLambdaRole,
+        runtime: lambda.Runtime.PYTHON_3_9,
+      }),
+    );
 
     // Enable the function to get flow execution records
     statusLambda.addToRolePolicy(
