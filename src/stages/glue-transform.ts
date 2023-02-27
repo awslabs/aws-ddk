@@ -13,6 +13,10 @@ export interface GlueTransformStageProps extends StateMachineStageProps {
   readonly jobRunArgs?: { [key: string]: any };
   readonly crawlerName?: string;
   readonly crawlerProps?: glue.CfnCrawlerProps;
+  readonly crawlerAllowFailure?: boolean;
+  readonly stateMachineRetryMaxAttempts?: number;
+  readonly stateMachineRetryBackoffRate?: number;
+  readonly stateMachineRetryInterval?: cdk.Duration;
 }
 
 export class GlueTransformStage extends StateMachineStage {
@@ -46,9 +50,17 @@ export class GlueTransformStage extends StateMachineStage {
 
     const successTask = new sfn.Succeed(this, "Success");
 
-    crawlObject.addCatch(successTask, {
+    crawlObject.addRetry({
       errors: ["Glue.CrawlerRunningException"],
+      maxAttempts: props.stateMachineRetryMaxAttempts ?? 3,
+      backoffRate: props.stateMachineRetryBackoffRate ?? 2,
+      interval: props.stateMachineRetryInterval ?? cdk.Duration.seconds(1),
     });
+
+    const crawlerAllowFailure = props.crawlerAllowFailure ?? true;
+    if (crawlerAllowFailure) {
+      crawlObject.addCatch(successTask, { errors: ["Glue.CrawlerRunningException"] });
+    }
 
     const definition = startJobRun.next(crawlObject.next(successTask));
 
