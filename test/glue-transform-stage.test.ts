@@ -90,3 +90,25 @@ test("GlueTranformStage must have 'crawlerName' or 'crawlerProps' set", () => {
     });
   }).toThrowError("'crawlerName' or 'crawlerProps' must be set to instantiate this stage");
 });
+
+test("GlueTransformStage retry settings", () => {
+  const stack = new cdk.Stack();
+
+  new GlueTransformStage(stack, "glue-transform", {
+    jobName: "myJob",
+    crawlerName: "myCrawler",
+    stateMachineRetryBackoffRate: 3,
+    stateMachineRetryInterval: cdk.Duration.seconds(5),
+    stateMachineRetryMaxAttempts: 2,
+  });
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::StepFunctions::StateMachine", {
+    DefinitionString: {
+      "Fn::Join": [
+        "",
+        Match.arrayWith([Match.stringLikeRegexp('Crawl Object.*IntervalSeconds":5.*MaxAttempts":2.*BackoffRate":3')]),
+      ],
+    },
+  });
+});

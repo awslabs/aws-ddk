@@ -6535,6 +6535,9 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobProps">jobProps</a></code> | <code>@aws-cdk/aws-glue-alpha.JobProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobRunArgs">jobRunArgs</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryBackoffRate">stateMachineRetryBackoffRate</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryInterval">stateMachineRetryInterval</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryMaxAttempts">stateMachineRetryMaxAttempts</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -6665,6 +6668,36 @@ public readonly jobRunArgs: {[ key: string ]: any};
 ```
 
 - *Type:* {[ key: string ]: any}
+
+---
+
+##### `stateMachineRetryBackoffRate`<sup>Optional</sup> <a name="stateMachineRetryBackoffRate" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryBackoffRate"></a>
+
+```typescript
+public readonly stateMachineRetryBackoffRate: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stateMachineRetryInterval`<sup>Optional</sup> <a name="stateMachineRetryInterval" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryInterval"></a>
+
+```typescript
+public readonly stateMachineRetryInterval: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+
+---
+
+##### `stateMachineRetryMaxAttempts`<sup>Optional</sup> <a name="stateMachineRetryMaxAttempts" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryMaxAttempts"></a>
+
+```typescript
+public readonly stateMachineRetryMaxAttempts: number;
+```
+
+- *Type:* number
 
 ---
 
