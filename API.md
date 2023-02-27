@@ -328,6 +328,8 @@ Any object.
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.eventBridgeEventPath">eventBridgeEventPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
 ---
 
@@ -410,6 +412,26 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+---
+
+##### `eventBridgeEventPath`<sup>Optional</sup> <a name="eventBridgeEventPath" id="aws-ddk-core.AthenaSQLStage.property.eventBridgeEventPath"></a>
+
+```typescript
+public readonly eventBridgeEventPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-core.AthenaSQLStage.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
 
 ---
 
@@ -5233,12 +5255,13 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.catalogName">catalogName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.Key</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionOption">encryptionOption</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.EncryptionOption</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_s3.Location</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryStringPath">queryStringPath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.workGroup">workGroup</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -5323,16 +5346,6 @@ public readonly stateMachineName: string;
 
 ---
 
-##### `queryString`<sup>Required</sup> <a name="queryString" id="aws-ddk-core.AthenaToSQLStageProps.property.queryString"></a>
-
-```typescript
-public readonly queryString: string;
-```
-
-- *Type:* string
-
----
-
 ##### `catalogName`<sup>Optional</sup> <a name="catalogName" id="aws-ddk-core.AthenaToSQLStageProps.property.catalogName"></a>
 
 ```typescript
@@ -5380,6 +5393,26 @@ public readonly outputLocation: Location;
 ```
 
 - *Type:* aws-cdk-lib.aws_s3.Location
+
+---
+
+##### `queryString`<sup>Optional</sup> <a name="queryString" id="aws-ddk-core.AthenaToSQLStageProps.property.queryString"></a>
+
+```typescript
+public readonly queryString: string;
+```
+
+- *Type:* string
+
+---
+
+##### `queryStringPath`<sup>Optional</sup> <a name="queryStringPath" id="aws-ddk-core.AthenaToSQLStageProps.property.queryStringPath"></a>
+
+```typescript
+public readonly queryStringPath: string;
+```
+
+- *Type:* string
 
 ---
 
