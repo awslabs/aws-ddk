@@ -24,16 +24,18 @@ export class GlueTransformStage extends StateMachineStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
   readonly stateMachine: sfn.StateMachine;
+  readonly glueJob: glue_alpha.IJob;
+  readonly crawlerName: string;
 
   constructor(scope: Construct, id: string, props: GlueTransformStageProps) {
     super(scope, id, props);
 
-    const glueJob = this.getGlueJob(scope, id, props);
+    this.glueJob = this.getGlueJob(scope, id, props);
     const jobRunArgs = props.jobRunArgs;
-    const crawlerName = this.getCrawlerName(props);
+    this.crawlerName = this.getCrawlerName(props);
 
     const startJobRun = new tasks.GlueStartJobRun(this, "Start Job Run", {
-      glueJobName: glueJob.jobName,
+      glueJobName: this.glueJob.jobName,
       integrationPattern: sfn.IntegrationPattern.RUN_JOB,
       arguments: jobRunArgs ? sfn.TaskInput.fromObject(jobRunArgs) : undefined,
       resultPath: sfn.JsonPath.DISCARD,
@@ -44,9 +46,9 @@ export class GlueTransformStage extends StateMachineStage {
       service: "glue",
       action: "startCrawler",
       parameters: {
-        Name: crawlerName,
+        Name: this.crawlerName,
       },
-      iamResources: [`arn:${stack.partition}:glue:${stack.region}:${stack.account}:crawler/${crawlerName}`],
+      iamResources: [`arn:${stack.partition}:glue:${stack.region}:${stack.account}:crawler/${this.crawlerName}`],
     });
 
     const successTask = new sfn.Succeed(this, "Success");
