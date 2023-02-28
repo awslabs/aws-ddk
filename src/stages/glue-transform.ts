@@ -24,16 +24,20 @@ export class GlueTransformStage extends StateMachineStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
   readonly stateMachine: sfn.StateMachine;
+  readonly glueJob: glue_alpha.IJob;
+  readonly crawler?: glue.CfnCrawler;
 
   constructor(scope: Construct, id: string, props: GlueTransformStageProps) {
     super(scope, id, props);
 
-    const glueJob = this.getGlueJob(scope, id, props);
+    this.glueJob = this.getGlueJob(scope, id, props);
     const jobRunArgs = props.jobRunArgs;
-    const crawlerName = this.getCrawlerName(props);
+
+    this.crawler = props.crawlerName ? undefined : this.getCrawler(props);
+    const crawlerName = this.crawler ? this.crawler.ref : props.crawlerName;
 
     const startJobRun = new tasks.GlueStartJobRun(this, "Start Job Run", {
-      glueJobName: glueJob.jobName,
+      glueJobName: this.glueJob.jobName,
       integrationPattern: sfn.IntegrationPattern.RUN_JOB,
       arguments: jobRunArgs ? sfn.TaskInput.fromObject(jobRunArgs) : undefined,
       resultPath: sfn.JsonPath.DISCARD,
@@ -92,16 +96,12 @@ export class GlueTransformStage extends StateMachineStage {
     );
   }
 
-  private getCrawlerName(props: GlueTransformStageProps): string {
-    if (props.crawlerName) {
-      return props.crawlerName;
-    }
-
+  private getCrawler(props: GlueTransformStageProps): glue.CfnCrawler {
     if (!props.crawlerProps) {
       throw TypeError("'crawlerName' or 'crawlerProps' must be set to instantiate this stage");
     }
 
     const crawler = new glue.CfnCrawler(this, "Crawler", props.crawlerProps);
-    return crawler.ref;
+    return crawler;
   }
 }

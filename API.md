@@ -3427,6 +3427,8 @@ Any object.
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.glueJob">glueJob</a></code> | <code>@aws-cdk/aws-glue-alpha.IJob</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.crawler">crawler</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawler</code> | *No description.* |
 
 ---
 
@@ -3509,6 +3511,26 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+---
+
+##### `glueJob`<sup>Required</sup> <a name="glueJob" id="aws-ddk-core.GlueTransformStage.property.glueJob"></a>
+
+```typescript
+public readonly glueJob: IJob;
+```
+
+- *Type:* @aws-cdk/aws-glue-alpha.IJob
+
+---
+
+##### `crawler`<sup>Optional</sup> <a name="crawler" id="aws-ddk-core.GlueTransformStage.property.crawler"></a>
+
+```typescript
+public readonly crawler: CfnCrawler;
+```
+
+- *Type:* aws-cdk-lib.aws_glue.CfnCrawler
 
 ---
 
