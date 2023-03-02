@@ -54,7 +54,6 @@ npm install projen
 npx projen test
 ```
 
-
 ### Integration Testing 
 The integration tests leverage the [`integ-runner` CLI ](https://github.com/aws/aws-cdk/tree/main/packages/%40aws-cdk/integ-runner)
 
