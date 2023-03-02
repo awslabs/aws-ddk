@@ -4,8 +4,8 @@ import * as events from "aws-cdk-lib/aws-events";
 import * as kinesis from "aws-cdk-lib/aws-kinesis";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
-import { assignDestinationsS3BucketProps } from "../core/kinesis-firehose-defaults";
-import { assignS3BucketProps } from "../core/s3-defaults";
+import { FirehoseDestinationsDefaults } from "../core/kinesis-firehose-defaults";
+import { S3Defaults } from "../core/s3-defaults";
 import { DataStage, DataStageProps } from "../pipelines/stage";
 
 export interface FirehoseToS3StageProps extends DataStageProps {
@@ -34,7 +34,7 @@ export class FirehoseToS3Stage extends DataStage {
     if (props.s3Bucket) {
       this.bucket = props.s3Bucket;
     } else if (props.s3BucketProps) {
-      const bucketProps = assignS3BucketProps({
+      const bucketProps = S3Defaults.bucketProps({
         ...props.s3BucketProps,
         eventBridgeEnabled: true,
       });
@@ -48,7 +48,7 @@ export class FirehoseToS3Stage extends DataStage {
       this.dataStream = new kinesis.Stream(this, "Data Stream", {});
     }
 
-    const destinationsBucketProps = assignDestinationsS3BucketProps({
+    const destinationsBucketProps = FirehoseDestinationsDefaults.s3Props({
       ...props.kinesisFirehoseDestinationsS3BucketProps,
       dataOutputPrefix: props.dataOutputPrefix,
     });

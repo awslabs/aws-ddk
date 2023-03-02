@@ -8232,6 +8232,199 @@ public readonly synthAction: CodeBuildStep;
 
 ## Classes <a name="Classes" id="Classes"></a>
 
+### CICDActions <a name="CICDActions" id="aws-ddk-core.CICDActions"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.CICDActions.Initializer"></a>
+
+```typescript
+import { CICDActions } from 'aws-ddk-core'
+
+new CICDActions()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.CICDActions.getBanditAction">getBanditAction</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDActions.getCfnNagAction">getCfnNagAction</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDActions.getCodeArtifactPublishAction">getCodeArtifactPublishAction</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDActions.getCodeCommitSourceAction">getCodeCommitSourceAction</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDActions.getSynthAction">getSynthAction</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDActions.getTestsAction">getTestsAction</a></code> | *No description.* |
+
+---
+
+##### `getBanditAction` <a name="getBanditAction" id="aws-ddk-core.CICDActions.getBanditAction"></a>
+
+```typescript
+import { CICDActions } from 'aws-ddk-core'
+
+CICDActions.getBanditAction(codePipelineSource: CodePipelineSource, stageName?: string)
+```
+
+###### `codePipelineSource`<sup>Required</sup> <a name="codePipelineSource" id="aws-ddk-core.CICDActions.getBanditAction.parameter.codePipelineSource"></a>
+
+- *Type:* aws-cdk-lib.pipelines.CodePipelineSource
+
+---
+
+###### `stageName`<sup>Optional</sup> <a name="stageName" id="aws-ddk-core.CICDActions.getBanditAction.parameter.stageName"></a>
+
+- *Type:* string
+
+---
+
+##### `getCfnNagAction` <a name="getCfnNagAction" id="aws-ddk-core.CICDActions.getCfnNagAction"></a>
+
+```typescript
+import { CICDActions } from 'aws-ddk-core'
+
+CICDActions.getCfnNagAction(fileSetProducer: IFileSetProducer, stageName?: string)
+```
+
+###### `fileSetProducer`<sup>Required</sup> <a name="fileSetProducer" id="aws-ddk-core.CICDActions.getCfnNagAction.parameter.fileSetProducer"></a>
+
+- *Type:* aws-cdk-lib.pipelines.IFileSetProducer
+
+---
+
+###### `stageName`<sup>Optional</sup> <a name="stageName" id="aws-ddk-core.CICDActions.getCfnNagAction.parameter.stageName"></a>
+
+- *Type:* string
+
+---
+
+##### `getCodeArtifactPublishAction` <a name="getCodeArtifactPublishAction" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction"></a>
+
+```typescript
+import { CICDActions } from 'aws-ddk-core'
+
+CICDActions.getCodeArtifactPublishAction(partition: string, region: string, account: string, codeartifactRepository: string, codeartifactDomain: string, codeartifactDomainOwner: string, codePipelineSource?: CodePipelineSource, rolePolicyStatements?: PolicyStatement[])
+```
+
+###### `partition`<sup>Required</sup> <a name="partition" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.partition"></a>
+
+- *Type:* string
+
+---
+
+###### `region`<sup>Required</sup> <a name="region" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.region"></a>
+
+- *Type:* string
+
+---
+
+###### `account`<sup>Required</sup> <a name="account" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.account"></a>
+
+- *Type:* string
+
+---
+
+###### `codeartifactRepository`<sup>Required</sup> <a name="codeartifactRepository" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.codeartifactRepository"></a>
+
+- *Type:* string
+
+---
+
+###### `codeartifactDomain`<sup>Required</sup> <a name="codeartifactDomain" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.codeartifactDomain"></a>
+
+- *Type:* string
+
+---
+
+###### `codeartifactDomainOwner`<sup>Required</sup> <a name="codeartifactDomainOwner" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.codeartifactDomainOwner"></a>
+
+- *Type:* string
+
+---
+
+###### `codePipelineSource`<sup>Optional</sup> <a name="codePipelineSource" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.codePipelineSource"></a>
+
+- *Type:* aws-cdk-lib.pipelines.CodePipelineSource
+
+---
+
+###### `rolePolicyStatements`<sup>Optional</sup> <a name="rolePolicyStatements" id="aws-ddk-core.CICDActions.getCodeArtifactPublishAction.parameter.rolePolicyStatements"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+##### `getCodeCommitSourceAction` <a name="getCodeCommitSourceAction" id="aws-ddk-core.CICDActions.getCodeCommitSourceAction"></a>
+
+```typescript
+import { CICDActions } from 'aws-ddk-core'
+
+CICDActions.getCodeCommitSourceAction(scope: Construct, props: CodeCommitSourceActionProps)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.CICDActions.getCodeCommitSourceAction.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDActions.getCodeCommitSourceAction.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.CodeCommitSourceActionProps">CodeCommitSourceActionProps</a>
+
+---
+
+##### `getSynthAction` <a name="getSynthAction" id="aws-ddk-core.CICDActions.getSynthAction"></a>
+
+```typescript
+import { CICDActions } from 'aws-ddk-core'
+
+CICDActions.getSynthAction(props: GetSynthActionProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDActions.getSynthAction.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.GetSynthActionProps">GetSynthActionProps</a>
+
+---
+
+##### `getTestsAction` <a name="getTestsAction" id="aws-ddk-core.CICDActions.getTestsAction"></a>
+
+```typescript
+import { CICDActions } from 'aws-ddk-core'
+
+CICDActions.getTestsAction(fileSetProducer: IFileSetProducer, commands?: string[], installCommands?: string[], stageName?: string)
+```
+
+###### `fileSetProducer`<sup>Required</sup> <a name="fileSetProducer" id="aws-ddk-core.CICDActions.getTestsAction.parameter.fileSetProducer"></a>
+
+- *Type:* aws-cdk-lib.pipelines.IFileSetProducer
+
+---
+
+###### `commands`<sup>Optional</sup> <a name="commands" id="aws-ddk-core.CICDActions.getTestsAction.parameter.commands"></a>
+
+- *Type:* string[]
+
+---
+
+###### `installCommands`<sup>Optional</sup> <a name="installCommands" id="aws-ddk-core.CICDActions.getTestsAction.parameter.installCommands"></a>
+
+- *Type:* string[]
+
+---
+
+###### `stageName`<sup>Optional</sup> <a name="stageName" id="aws-ddk-core.CICDActions.getTestsAction.parameter.stageName"></a>
+
+- *Type:* string
+
+---
+
+
+
 ### Configurator <a name="Configurator" id="aws-ddk-core.Configurator"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.Configurator.Initializer"></a>
@@ -8336,6 +8529,258 @@ public readonly environmentId: string;
 - *Type:* string
 
 ---
+
+
+### FirehoseDestinationsDefaults <a name="FirehoseDestinationsDefaults" id="aws-ddk-core.FirehoseDestinationsDefaults"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.FirehoseDestinationsDefaults.Initializer"></a>
+
+```typescript
+import { FirehoseDestinationsDefaults } from 'aws-ddk-core'
+
+new FirehoseDestinationsDefaults()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.FirehoseDestinationsDefaults.s3Props">s3Props</a></code> | *No description.* |
+
+---
+
+##### `s3Props` <a name="s3Props" id="aws-ddk-core.FirehoseDestinationsDefaults.s3Props"></a>
+
+```typescript
+import { FirehoseDestinationsDefaults } from 'aws-ddk-core'
+
+FirehoseDestinationsDefaults.s3Props(props: S3BucketProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseDestinationsDefaults.s3Props.parameter.props"></a>
+
+- *Type:* @aws-cdk/aws-kinesisfirehose-destinations-alpha.S3BucketProps
+
+---
+
+
+
+### GlueDefaults <a name="GlueDefaults" id="aws-ddk-core.GlueDefaults"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.GlueDefaults.Initializer"></a>
+
+```typescript
+import { GlueDefaults } from 'aws-ddk-core'
+
+new GlueDefaults()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.GlueDefaults.jobProps">jobProps</a></code> | *No description.* |
+
+---
+
+##### `jobProps` <a name="jobProps" id="aws-ddk-core.GlueDefaults.jobProps"></a>
+
+```typescript
+import { GlueDefaults } from 'aws-ddk-core'
+
+GlueDefaults.jobProps(scope: Construct, id: string, props: JobProps)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.GlueDefaults.jobProps.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.GlueDefaults.jobProps.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueDefaults.jobProps.parameter.props"></a>
+
+- *Type:* @aws-cdk/aws-glue-alpha.JobProps
+
+---
+
+
+
+### KmsDefaults <a name="KmsDefaults" id="aws-ddk-core.KmsDefaults"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.KmsDefaults.Initializer"></a>
+
+```typescript
+import { KmsDefaults } from 'aws-ddk-core'
+
+new KmsDefaults()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.KmsDefaults.keyProps">keyProps</a></code> | *No description.* |
+
+---
+
+##### `keyProps` <a name="keyProps" id="aws-ddk-core.KmsDefaults.keyProps"></a>
+
+```typescript
+import { KmsDefaults } from 'aws-ddk-core'
+
+KmsDefaults.keyProps(props: KeyProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.KmsDefaults.keyProps.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_kms.KeyProps
+
+---
+
+
+
+### LambdaDefaults <a name="LambdaDefaults" id="aws-ddk-core.LambdaDefaults"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.LambdaDefaults.Initializer"></a>
+
+```typescript
+import { LambdaDefaults } from 'aws-ddk-core'
+
+new LambdaDefaults()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.LambdaDefaults.functionProps">functionProps</a></code> | *No description.* |
+
+---
+
+##### `functionProps` <a name="functionProps" id="aws-ddk-core.LambdaDefaults.functionProps"></a>
+
+```typescript
+import { LambdaDefaults } from 'aws-ddk-core'
+
+LambdaDefaults.functionProps(props: FunctionProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.LambdaDefaults.functionProps.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.FunctionProps
+
+---
+
+
+
+### S3Defaults <a name="S3Defaults" id="aws-ddk-core.S3Defaults"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.S3Defaults.Initializer"></a>
+
+```typescript
+import { S3Defaults } from 'aws-ddk-core'
+
+new S3Defaults()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.S3Defaults.bucketProps">bucketProps</a></code> | *No description.* |
+
+---
+
+##### `bucketProps` <a name="bucketProps" id="aws-ddk-core.S3Defaults.bucketProps"></a>
+
+```typescript
+import { S3Defaults } from 'aws-ddk-core'
+
+S3Defaults.bucketProps(props: BucketProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.S3Defaults.bucketProps.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_s3.BucketProps
+
+---
+
+
+
+### SnsDefaults <a name="SnsDefaults" id="aws-ddk-core.SnsDefaults"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.SnsDefaults.Initializer"></a>
+
+```typescript
+import { SnsDefaults } from 'aws-ddk-core'
+
+new SnsDefaults()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.SnsDefaults.secureSnsTopicPolicy">secureSnsTopicPolicy</a></code> | *No description.* |
+
+---
+
+##### `secureSnsTopicPolicy` <a name="secureSnsTopicPolicy" id="aws-ddk-core.SnsDefaults.secureSnsTopicPolicy"></a>
+
+```typescript
+import { SnsDefaults } from 'aws-ddk-core'
+
+SnsDefaults.secureSnsTopicPolicy(topic: ITopic)
+```
+
+###### `topic`<sup>Required</sup> <a name="topic" id="aws-ddk-core.SnsDefaults.secureSnsTopicPolicy.parameter.topic"></a>
+
+- *Type:* aws-cdk-lib.aws_sns.ITopic
+
+---
+
 
 
 

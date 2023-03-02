@@ -7,7 +7,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as sfn from "aws-cdk-lib/aws-stepfunctions";
 import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
-import { assignLambdaFunctionProps } from "../core/lambda-defaults";
+import { LambdaDefaults } from "../core/lambda-defaults";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
 export interface AppFlowIngestionStageProps extends StateMachineStageProps {
@@ -115,7 +115,7 @@ export class AppFlowIngestionStage extends StateMachineStage {
     const statusLambda = new lambda.Function(
       this,
       "Flow Execution Status Lambda",
-      assignLambdaFunctionProps({
+      LambdaDefaults.functionProps({
         code: lambda.Code.fromInline(`
           # Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
           #

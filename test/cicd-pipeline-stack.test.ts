@@ -5,13 +5,7 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import { ShellStep } from "aws-cdk-lib/pipelines";
-import {
-  CICDPipelineStack,
-  DataPipeline,
-  FirehoseToS3Stage,
-  getCodeArtifactPublishAction,
-  SqsToLambdaStage,
-} from "../src";
+import { CICDPipelineStack, DataPipeline, FirehoseToS3Stage, CICDActions, SqsToLambdaStage } from "../src";
 
 test("Basic CICDPipeline", () => {
   const app = new cdk.App();
@@ -315,7 +309,7 @@ test("Test Pipeline with Artifact Upload", () => {
     .addCustomStage({
       stageName: "PublishToCodeArtifact",
       steps: [
-        getCodeArtifactPublishAction(
+        CICDActions.getCodeArtifactPublishAction(
           "aws",
           app.region ?? "us-east-1",
           app.account ?? "111111111111",
@@ -578,7 +572,7 @@ test("Test Pipeline with Artifact Upload", () => {
     .addCustomStage({
       stageName: "PublishToCodeArtifact",
       steps: [
-        getCodeArtifactPublishAction(
+        CICDActions.getCodeArtifactPublishAction(
           "aws",
           app.region ?? "us-east-1",
           app.account ?? "111111111111",
