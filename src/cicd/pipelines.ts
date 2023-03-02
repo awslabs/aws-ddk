@@ -147,7 +147,7 @@ export class CICDPipelineStack extends BaseStack {
     if (this.pipeline === undefined) {
       throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
-    const manualApprovals = props.manualApprovals ?? this.config.getEnvConfig("manual_approvals") ?? false;
+    const manualApprovals = props.manualApprovals ?? this.config.getConfigAttribute("manual_approvals") ?? false;
 
     if (manualApprovals) {
       this.pipeline?.addStage(props.stage, {
@@ -164,7 +164,7 @@ export class CICDPipelineStack extends BaseStack {
     if (this.pipeline === undefined) {
       throw new Error("`.buildPipeline()` needs to be called first before adding application stages to the pipeline.");
     }
-    const manualApprovals = props.manualApprovals ?? this.config.getEnvConfig("manual_approvals") ?? false;
+    const manualApprovals = props.manualApprovals ?? this.config.getConfigAttribute("manual_approvals") ?? false;
 
     var wave = new pipelines.Wave(props.stageId);
     if (manualApprovals) {
@@ -219,11 +219,11 @@ export class CICDPipelineStack extends BaseStack {
     }
 
     const topic =
-      this.environmentId && this.config.getEnvConfig("notifications_topic_arn")
+      this.environmentId && this.config.getConfigAttribute("notifications_topic_arn")
         ? sns.Topic.fromTopicArn(
             this,
             "ExecutionFailedNotifications",
-            this.config.getEnvConfig("notifications_topic_arn"),
+            this.config.getConfigAttribute("notifications_topic_arn"),
           )
         : new sns.Topic(this, "ExecutionFailedNotifications");
     this.notificationRule =
