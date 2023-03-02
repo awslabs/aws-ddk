@@ -7,7 +7,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_event_sources from "aws-cdk-lib/aws-lambda-event-sources";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
-import { assignLambdaFunctionProps } from "../core/lambda-defaults";
+import { LambdaDefaults } from "../core/lambda-defaults";
 import { DataStage, DataStageProps } from "../pipelines/stage";
 
 export interface SqsToLambdaStageFunctionProps extends lambda.FunctionProps {
@@ -51,7 +51,7 @@ export class SqsToLambdaStage extends DataStage {
       this.function = new lambda.Function(
         this,
         "Process Function",
-        assignLambdaFunctionProps({
+        LambdaDefaults.functionProps({
           code: functionProps.code,
           runtime: functionProps.runtime,
           handler: functionProps.handler,

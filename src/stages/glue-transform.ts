@@ -5,7 +5,7 @@ import * as glue from "aws-cdk-lib/aws-glue";
 import * as sfn from "aws-cdk-lib/aws-stepfunctions";
 import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
-import { assignGlueJobProps } from "../core/glue-defaults";
+import { GlueDefaults } from "../core/glue-defaults";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
 export interface GlueTransformStageProps extends StateMachineStageProps {
@@ -90,7 +90,7 @@ export class GlueTransformStage extends StateMachineStage {
     return new glue_alpha.Job(
       this,
       `${id} Job`,
-      assignGlueJobProps(scope, `${id} Job`, {
+      GlueDefaults.jobProps(scope, `${id} Job`, {
         ...props.jobProps,
       }),
     );
