@@ -48,15 +48,6 @@ export function getConfig(props: getConfigProps): any {
   return configData;
 }
 
-interface getEnvConfigProps {
-  readonly config?: string | object;
-  readonly environmentId: string;
-}
-export function getEnvConfig(props: getEnvConfigProps): any {
-  const config = getConfig({ config: props.config });
-  return config[props.environmentId];
-}
-
 interface getStackSynthesizerProps {
   readonly config?: string | object;
   readonly environmentId: string;
@@ -128,7 +119,15 @@ class ConfiguratorAspect implements cdk.IAspect {
   }
 }
 
+export interface GetEnvConfigProps {
+  readonly configPath: string;
+  readonly environmentId: string;
+}
+
 export class Configurator {
+  public static getEnvConfig(props: GetEnvConfigProps): any {
+    return getConfig({ config: props.configPath })[props.environmentId];
+  }
   public readonly config: any;
   public readonly environmentId?: string;
   constructor(scope: constructs.Construct, config: string | object, environmentId?: string) {
@@ -175,7 +174,7 @@ export class Configurator {
       Object.entries(tags).forEach(([key, value]) => cdk.Tags.of(scope).add(key, value));
     }
   }
-  getEnvConfig(attribute: string): any {
+  getConfigAttribute(attribute: string): any {
     return this.environmentId && this.config[this.environmentId] && this.config[this.environmentId][attribute]
       ? this.config[this.environmentId][attribute]
       : undefined;

@@ -13,7 +13,6 @@ import {
   FirehoseToS3Stage,
   SqsToLambdaStage,
   getStackSynthesizer,
-  getEnvConfig,
 } from "../src";
 
 test("Config Simple Override", () => {
@@ -361,24 +360,49 @@ test("CICDPipeline with Config", () => {
   });
 });
 
-test("Get Env Config Method", () => {
-  const devConfig = getEnvConfig({ config: "./test/test-config.json", environmentId: "dev" });
-  const expectedDevConfig = {
-    account: "222222222222",
-    region: "us-east-1",
-    resources: {
-      "AWS::Lambda::Function": {
-        MemorySize: 128,
-        Runtime: "python3.8",
-      },
-    },
-    tags: { CostCenter: "2014" },
-  };
-  assert(devConfig === expectedDevConfig);
+test("Get Env Config Attribute", () => {
+  const app = new cdk.App();
+  const config = new Configurator(app, "./test/test-config.json", "dev");
+  assert(config.getConfigAttribute("account") === "222222222222");
 });
 
-test("Get Env Config Method: Non-Existent File", () => {
-  const devConfig = getEnvConfig({ config: "./test/not-real.yaml", environmentId: "dev" });
+test("Get Config : Non-Existent File", () => {
+  const app = new cdk.App();
+  const config = new Configurator(app, "./test/not-real.yaml", "dev");
   const expectedDevConfig = {};
-  assert(devConfig === expectedDevConfig);
+  assert(config.getConfigAttribute("foo") === expectedDevConfig);
+});
+
+test("Get Env Config Static Method", () => {
+  const config = Configurator.getEnvConfig({ configPath: "./test/test-config.yaml", environmentId: "dev" });
+  const expectedDevConfig = {
+    tags: {
+      "global:foo": "bar",
+    },
+    environments: {
+      dev: {
+        account: "222222222222",
+        region: "us-east-1",
+        resources: {
+          "AWS::Lambda::Function": {
+            MemorySize: 128,
+            Runtime: "python3.8",
+          },
+        },
+        tags: { CostCenter: "2014" },
+      },
+      prod: {
+        account: "222222222222",
+        region: "us-east-1",
+        resources: {
+          "AWS::Lambda::Function": {
+            MemorySize: 1024,
+            Runtime: "python3.8",
+          },
+        },
+        tags: { CostCenter: "2015" },
+      },
+    },
+  };
+  assert(config === expectedDevConfig);
 });

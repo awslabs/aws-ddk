@@ -6436,6 +6436,45 @@ public readonly s3BucketProps: BucketProps;
 
 ---
 
+### GetEnvConfigProps <a name="GetEnvConfigProps" id="aws-ddk-core.GetEnvConfigProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.GetEnvConfigProps.Initializer"></a>
+
+```typescript
+import { GetEnvConfigProps } from 'aws-ddk-core'
+
+const getEnvConfigProps: GetEnvConfigProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetEnvConfigProps.property.configPath"></a>
+
+```typescript
+public readonly configPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="aws-ddk-core.GetEnvConfigProps.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+---
+
 ### GetSynthActionProps <a name="GetSynthActionProps" id="aws-ddk-core.GetSynthActionProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.GetSynthActionProps.Initializer"></a>
@@ -8465,18 +8504,18 @@ new Configurator(scope: Construct, config: string | object, environmentId?: stri
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#aws-ddk-core.Configurator.getEnvConfig">getEnvConfig</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.getConfigAttribute">getConfigAttribute</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.tagConstruct">tagConstruct</a></code> | *No description.* |
 
 ---
 
-##### `getEnvConfig` <a name="getEnvConfig" id="aws-ddk-core.Configurator.getEnvConfig"></a>
+##### `getConfigAttribute` <a name="getConfigAttribute" id="aws-ddk-core.Configurator.getConfigAttribute"></a>
 
 ```typescript
-public getEnvConfig(attribute: string): any
+public getConfigAttribute(attribute: string): any
 ```
 
-###### `attribute`<sup>Required</sup> <a name="attribute" id="aws-ddk-core.Configurator.getEnvConfig.parameter.attribute"></a>
+###### `attribute`<sup>Required</sup> <a name="attribute" id="aws-ddk-core.Configurator.getConfigAttribute.parameter.attribute"></a>
 
 - *Type:* string
 
@@ -8500,6 +8539,27 @@ public tagConstruct(scope: Construct, tags: {[ key: string ]: string}): void
 
 ---
 
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.Configurator.getEnvConfig">getEnvConfig</a></code> | *No description.* |
+
+---
+
+##### `getEnvConfig` <a name="getEnvConfig" id="aws-ddk-core.Configurator.getEnvConfig"></a>
+
+```typescript
+import { Configurator } from 'aws-ddk-core'
+
+Configurator.getEnvConfig(props: GetEnvConfigProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getEnvConfig.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.GetEnvConfigProps">GetEnvConfigProps</a>
+
+---
 
 #### Properties <a name="Properties" id="Properties"></a>
 
