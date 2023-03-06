@@ -12,6 +12,7 @@ import {
   DataPipeline,
   FirehoseToS3Stage,
   SqsToLambdaStage,
+  getConfig,
   getStackSynthesizer,
 } from "../src";
 
@@ -371,6 +372,11 @@ test("Get Config : Non-Existent File", () => {
   const config = new Configurator(app, "./test/not-real.yaml", "dev");
   const expectedDevConfig = {};
   assert(config.getConfigAttribute("foo") === expectedDevConfig);
+});
+
+test("Get Env Config", () => {
+  assert(getConfig({ config: "./test/test-config.json" }).environments.dev.account === "222222222222");
+  assert(getConfig({}) === undefined);
 });
 
 test("Get Env Config Static Method", () => {
