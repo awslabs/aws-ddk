@@ -175,8 +175,8 @@ export class Configurator {
     }
   }
   getConfigAttribute(attribute: string): any {
-    return this.environmentId && this.config[this.environmentId] && this.config[this.environmentId][attribute]
-      ? this.config[this.environmentId][attribute]
+    return this.environmentId && this.config.environments && this.config.environments[this.environmentId][attribute]
+      ? this.config.environments[this.environmentId][attribute]
       : undefined;
   }
 }
