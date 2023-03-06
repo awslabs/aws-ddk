@@ -10,7 +10,7 @@ export class GlueDefaults {
       maxRetries: 1,
       timeout: cdk.Duration.hours(10),
       securityConfiguration: new glue.SecurityConfiguration(scope, id, {
-        securityConfigurationName: `${id}-security-config`,
+        securityConfigurationName: `${id.replace(/\s/g, "")}-security-config`,
         s3Encryption: {
           mode: glue.S3EncryptionMode.S3_MANAGED,
         },
