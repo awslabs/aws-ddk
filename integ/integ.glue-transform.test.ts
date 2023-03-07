@@ -18,28 +18,31 @@ interface GlueTransformStageTestStackProps extends StateMachineStageProps {
 }
 
 class GlueTransformStageTestStack extends cdk.Stack {
+  readonly job: glue_alpha.IJob;
   constructor(scope: Construct, id: string, props: GlueTransformStageTestStackProps) {
     super(scope, id, props);
 
-    new GlueTransformStage(this, "Stage", {
+    const stage = new GlueTransformStage(this, "Stage", {
       ...props,
     });
+    this.job = stage.glueJob
   }
 }
 
 const app = new cdk.App();
-new integration.IntegTest(app, "Glue Tranform Stage Integration Tests", {
+const stack = new GlueTransformStageTestStack(app, "GlueTransformBasic", {
+  jobProps: {
+    executable: glue_alpha.JobExecutable.pythonShell({
+      glueVersion: glue_alpha.GlueVersion.V1_0,
+      pythonVersion: glue_alpha.PythonVersion.THREE,
+      script: glue_alpha.Code.fromAsset(path.join(__dirname, "/src/glue_script.py")),
+    })
+  },
+  crawlerName: "dummy-crawler",
+});
+const integTest = new integration.IntegTest(app, "Glue Transform Stage Integration Tests", {
     testCases: [
-      new GlueTransformStageTestStack(app, "GlueTransformBasic", {
-        jobProps: {
-          executable: glue_alpha.JobExecutable.pythonShell({
-            glueVersion: glue_alpha.GlueVersion.V1_0,
-            pythonVersion: glue_alpha.PythonVersion.THREE,
-            script: glue_alpha.Code.fromAsset(path.join(__dirname, "/src/glue_script.py")),
-          })
-        },
-        crawlerName: "dummy-crawler",
-      }),
+      stack
     ],
     diffAssets: true,
     stackUpdateWorkflow: true,
@@ -56,4 +59,8 @@ new integration.IntegTest(app, "Glue Tranform Stage Integration Tests", {
         },
       },
     },
+});
+
+integTest.assertions.awsApiCall("Glue", "startJobRun", {
+  JobName: stack.job.jobName,
 });
