@@ -102,7 +102,7 @@ export abstract class StateMachineStage extends DataStage {
       evaluationPeriods: props.stateMachineFailedExecutionsAlarmEvaluationPeriods,
     });
 
-    const stateMachineInput = props.stateMachineInput ?? {};
+    const stateMachineInput = props.stateMachineInput;
     const eventPattern = {
       source: ["aws.states"],
       detailType: ["Step Functions Execution Status Change"],
