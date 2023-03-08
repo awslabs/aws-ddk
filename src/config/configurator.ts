@@ -58,7 +58,10 @@ export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStack
   const bootstrapConfig: any = configData
     ? configData.ddkBootstrapConfigKey
       ? configData.ddkBootstrapConfigKey
-      : configData.environments[props.environmentId][ddkBootstrapConfigKey]
+      : props.environmentId in configData.environments &&
+        ddkBootstrapConfigKey in configData.environments[props.environmentId]
+      ? configData.environments[props.environmentId][ddkBootstrapConfigKey]
+      : undefined
     : undefined;
   if (bootstrapConfig) {
     const qualifier = bootstrapConfig.qualifier ? bootstrapConfig.qualifier : bootstrapQualifier;
