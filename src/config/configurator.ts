@@ -9,23 +9,36 @@ const bootstrapQualifier = "hnb659fds";
 const accountId = process.env.CDK_DEFAULT_ACCOUNT;
 const region = process.env.CDK_DEFAULT_REGION;
 
-function readJson(path: string): object {
+export interface StageConfiguration {
+  account?: string;
+  region?: string;
+  resources?: { [key: string]: object };
+  tags?: { [key: string]: string };
+}
+
+export interface Configuration {
+  environments: { [id: string]: StageConfiguration };
+  tags?: { [key: string]: string };
+  ddkBootstrapConfigKey?: string;
+}
+
+function readJson(path: string): Configuration {
   try {
     const rawdata = readFileSync(path, "utf-8");
     return JSON.parse(rawdata);
   } catch (err) {
-    return {};
+    return { environments: {} };
   }
 }
-function readYaml(path: string): object {
+function readYaml(path: string): Configuration {
   try {
     const rawdata = readFileSync(path, "utf-8");
     return parse(rawdata);
   } catch (err) {
-    return {};
+    return { environments: {} };
   }
 }
-function readConfigFile(path: string): object {
+function readConfigFile(path: string): Configuration {
   if (path.includes(".json")) {
     return readJson(path);
   } else if (path.includes(".yaml") || path.includes(".yml")) {
@@ -35,21 +48,26 @@ function readConfigFile(path: string): object {
   }
 }
 interface getConfigProps {
-  readonly config?: string | object;
+  readonly config?: string | Configuration;
 }
-export function getConfig(props: getConfigProps): any {
-  const configData: any = props.config
-    ? typeof props.config == "object"
-      ? props.config
-      : readConfigFile(props.config)
-    : existsSync("./ddk.json")
-    ? readConfigFile("./ddk.json")
-    : undefined;
-  return configData;
+export function getConfig(props: getConfigProps): Configuration | undefined {
+  if (props.config) {
+    if (typeof props.config == "string") {
+      return readConfigFile(props.config);
+    } else {
+      return props.config;
+    }
+  } else {
+    const path = "./ddk.json";
+    if (existsSync(path)) {
+      return readConfigFile(path);
+    }
+    return undefined;
+  }
 }
 
 interface getStackSynthesizerProps {
-  readonly config?: string | object;
+  readonly config?: string | Configuration;
   readonly environmentId: string;
 }
 export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
@@ -128,13 +146,20 @@ export interface GetEnvConfigProps {
 }
 
 export class Configurator {
-  public static getEnvConfig(props: GetEnvConfigProps): any {
-    return getConfig({ config: props.configPath })[props.environmentId];
+  public static getEnvConfig(props: GetEnvConfigProps): StageConfiguration | undefined {
+    const config = getConfig({ config: props.configPath });
+    if (config) {
+      return config.environments[props.environmentId];
+    }
+    return undefined;
+    // return getConfig({ config: props.configPath })[props.environmentId];
   }
-  public readonly config: any;
+
+  public readonly config: Configuration;
   public readonly environmentId?: string;
-  constructor(scope: constructs.Construct, config: string | object, environmentId?: string) {
-    this.config = getConfig({ config: config });
+
+  constructor(scope: constructs.Construct, config: string | Configuration, environmentId?: string) {
+    this.config = getConfig({ config: config }) ?? { environments: {} };
     this.environmentId = environmentId;
 
     if (environmentId && this.config.environments) {
