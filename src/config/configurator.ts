@@ -129,7 +129,8 @@ export interface GetEnvConfigProps {
 
 export class Configurator {
   public static getEnvConfig(props: GetEnvConfigProps): any {
-    return getConfig({ config: props.configPath })[props.environmentId];
+    const config = getConfig({ config: props.configPath });
+    return config.environments ? config.environments[props.environmentId] : undefined;
   }
   public readonly config: any;
   public readonly environmentId?: string;
