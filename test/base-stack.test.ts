@@ -389,3 +389,13 @@ test("Bring Your Own Stack Synthesizer", () => {
     );
   }
 });
+
+test("Additional Stack Props", () => {
+  const app = new cdk.App();
+
+  new BaseStack(app, "my-stack", {
+    environmentId: "dev",
+    description: "My Description",
+    stackName: "MyStack",
+  });
+});
