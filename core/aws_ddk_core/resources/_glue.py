@@ -53,6 +53,7 @@ class GlueFactory:
         description: Optional[str] = None,
         role: Optional[IRole] = None,
         security_configuration: Optional[glue.ISecurityConfiguration] = None,
+        security_configuration_name: Optional[str] = None,
         timeout: Optional[cdk.Duration] = None,
         worker_count: Optional[int] = None,
         worker_type: Optional[glue.WorkerType] = None,
@@ -89,6 +90,8 @@ class GlueFactory:
             The execution role of the Glue job
         security_configuration : Optional[ISecurityConfiguration]
             The security configuration of the Glue job. If None, a default configuration is used
+        security_configuration_name : Optional[str]
+            The name for the default security configuration. Ignored if a custom security_configuration is passed.
         timeout : Optional[Duration]
             The job execution time (in seconds) after which Glue terminates the job.
             `aws_cdk.Duration.seconds(3600)` by default.
@@ -136,10 +139,12 @@ class GlueFactory:
         return glue.Job(scope, id, **job_config_props)
 
     @staticmethod
-    def _get_security_config(scope: Construct, id: str) -> glue.SecurityConfiguration:
+    def _get_security_config(
+        scope: Construct, id: str, security_configuration_name: Optional[str] = None
+    ) -> glue.SecurityConfiguration:
         return glue.SecurityConfiguration(
             scope,
             f"{id}-security-config",
-            security_configuration_name=f"{id}-security-config",
+            security_configuration_name=security_configuration_name or f"{id}-security-config",
             s3_encryption=glue.S3Encryption(mode=glue.S3EncryptionMode.S3_MANAGED),
         )
