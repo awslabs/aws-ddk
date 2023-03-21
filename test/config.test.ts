@@ -383,33 +383,15 @@ test("Get Env Config Static Method", () => {
   const config = Configurator.getEnvConfig({ configPath: "./test/test-config.yaml", environmentId: "dev" });
   const nullConfig = Configurator.getEnvConfig({ configPath: "./ddk.json", environmentId: "dev" });
   const expectedDevConfig = {
-    tags: {
-      "global:foo": "bar",
-    },
-    environments: {
-      dev: {
-        account: "222222222222",
-        region: "us-east-1",
-        resources: {
-          "AWS::Lambda::Function": {
-            MemorySize: 128,
-            Runtime: "python3.8",
-          },
-        },
-        tags: { CostCenter: "2014" },
-      },
-      prod: {
-        account: "222222222222",
-        region: "us-east-1",
-        resources: {
-          "AWS::Lambda::Function": {
-            MemorySize: 1024,
-            Runtime: "python3.8",
-          },
-        },
-        tags: { CostCenter: "2015" },
+    account: "222222222222",
+    region: "us-east-1",
+    resources: {
+      "AWS::Lambda::Function": {
+        MemorySize: 128,
+        Runtime: "python3.8",
       },
     },
+    tags: { CostCenter: "2014" },
   };
   assert(config === expectedDevConfig);
   assert(nullConfig === undefined);
