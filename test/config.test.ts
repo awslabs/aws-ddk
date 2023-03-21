@@ -381,6 +381,7 @@ test("Get Env Config", () => {
 
 test("Get Env Config Static Method", () => {
   const config = Configurator.getEnvConfig({ configPath: "./test/test-config.yaml", environmentId: "dev" });
+  const nullConfig = Configurator.getEnvConfig({ configPath: "./ddk.json", environmentId: "dev" });
   const expectedDevConfig = {
     tags: {
       "global:foo": "bar",
@@ -411,4 +412,5 @@ test("Get Env Config Static Method", () => {
     },
   };
   assert(config === expectedDevConfig);
+  assert(nullConfig === undefined);
 });
