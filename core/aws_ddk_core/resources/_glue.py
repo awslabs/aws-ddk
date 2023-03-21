@@ -133,7 +133,10 @@ class GlueFactory:
             if value is not None:
                 job_config_props[key] = value
         # Otherwise use defaults
-        job_config_props.setdefault("security_configuration", GlueFactory._get_security_config(scope, id))
+        if not job_config_props.get("security_configuration", None):
+            job_config_props["security_configuration"] = GlueFactory._get_security_config(
+                scope, id, security_configuration_name
+            )
 
         _logger.debug(f"job_config_props: {job_config_props}")
         return glue.Job(scope, id, **job_config_props)
