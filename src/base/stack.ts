@@ -3,10 +3,8 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 import { getStackSynthesizer } from "../config";
 
-export interface BaseStackProps {
-  readonly terminationProtection?: boolean | undefined;
+export interface BaseStackProps extends cdk.StackProps {
   readonly permissionsBoundaryArn?: string;
-  readonly synthesizer?: cdk.IStackSynthesizer;
   readonly environmentId?: string;
   readonly config?: string | object;
 }
@@ -20,7 +18,7 @@ export class BaseStack extends cdk.Stack {
       ? props.synthesizer
       : getStackSynthesizer({ environmentId: environmentId, config: props.config });
 
-    super(scope, id, { synthesizer: synthesizer, terminationProtection: props.terminationProtection });
+    super(scope, id, { synthesizer: synthesizer, terminationProtection: props.terminationProtection, env: props.env });
 
     if (props.permissionsBoundaryArn) {
       iam.PermissionsBoundary.of(scope).apply(

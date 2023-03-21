@@ -7,7 +7,7 @@ import * as pipelines from "aws-cdk-lib/pipelines";
 import { Construct, IConstruct } from "constructs";
 import { CICDActions } from "./actions";
 import { toTitleCase } from "./utils";
-import { BaseStack } from "../base";
+import { BaseStack, BaseStackProps } from "../base";
 import { Configurator } from "../config";
 
 export interface SourceActionProps {
@@ -58,11 +58,8 @@ export interface AddCustomStageProps {
   readonly steps: pipelines.Step[];
 }
 
-export interface CICDPipelineStackProps extends cdk.StackProps {
-  readonly environmentId?: string;
+export interface CICDPipelineStackProps extends BaseStackProps {
   readonly pipelineName?: string;
-  readonly configPath?: string;
-  readonly config?: object;
 }
 
 export interface AdditionalPipelineProps {
@@ -97,7 +94,7 @@ export class CICDPipelineStack extends BaseStack {
     this.environmentId = props.environmentId;
     this.pipelineName = props.pipelineName;
     this.pipelineId = id;
-    const config = props.configPath ?? props.config ?? "./ddk.json";
+    const config = props.config ?? "./ddk.json";
     this.config = new Configurator(this, config, this.environmentId);
   }
 
