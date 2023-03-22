@@ -107,6 +107,9 @@ test("Basic CICDPipeline", () => {
   template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
     Name: "dummy-pipeline",
   });
+  template.hasResourceProperties("AWS::KMS::Key", {
+    EnableKeyRotation: true,
+  });
 });
 
 test("CICDPipeline with manual approval set", () => {

@@ -2,9 +2,10 @@ import * as cdk from "aws-cdk-lib";
 import * as codepipeline from "aws-cdk-lib/aws-codepipeline";
 import * as codestarnotifications from "aws-cdk-lib/aws-codestarnotifications";
 import * as iam from "aws-cdk-lib/aws-iam";
+import * as kms from "aws-cdk-lib/aws-kms";
 import * as sns from "aws-cdk-lib/aws-sns";
 import * as pipelines from "aws-cdk-lib/pipelines";
-import { Construct, IConstruct } from "constructs";
+import { Construct } from "constructs";
 import { CICDActions } from "./actions";
 import { toTitleCase } from "./utils";
 import { BaseStack, BaseStackProps } from "../base";
@@ -86,7 +87,7 @@ export class CICDPipelineStack extends BaseStack {
   readonly cdkLanguage: string;
   public notificationRule?: codestarnotifications.NotificationRule;
   public pipeline?: pipelines.CodePipeline;
-  public pipelineKey?: IConstruct;
+  public pipelineKey?: kms.CfnKey;
   public sourceAction?: pipelines.CodePipelineSource;
   public synthAction?: pipelines.CodeBuildStep;
 
@@ -260,11 +261,9 @@ export class CICDPipelineStack extends BaseStack {
 
   synth() {
     this.pipeline?.buildPipeline();
-    this.pipelineKey = this.pipeline?.pipeline.artifactBucket.encryptionKey?.node.defaultChild ?? undefined;
+    this.pipelineKey = this.pipeline?.pipeline.artifactBucket.encryptionKey?.node.defaultChild as kms.CfnKey;
+    this.pipelineKey.addPropertyOverride("EnableKeyRotation", true);
 
-    // if (this.pipelineKey) {
-    //   this.pipelineKey = true;
-    // }
     return this;
   }
 }
