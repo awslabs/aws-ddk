@@ -60,6 +60,7 @@ export interface AddCustomStageProps {
 
 export interface CICDPipelineStackProps extends BaseStackProps {
   readonly pipelineName?: string;
+  readonly cdkLanguage?: string;
 }
 
 export interface AdditionalPipelineProps {
@@ -82,6 +83,7 @@ export class CICDPipelineStack extends BaseStack {
   readonly pipelineName?: string;
   readonly pipelineId?: string;
   readonly config: Configurator;
+  readonly cdkLanguage: string;
   public notificationRule?: codestarnotifications.NotificationRule;
   public pipeline?: pipelines.CodePipeline;
   public pipelineKey?: IConstruct;
@@ -96,6 +98,7 @@ export class CICDPipelineStack extends BaseStack {
     this.pipelineId = id;
     const config = props.config ?? "./ddk.json";
     this.config = new Configurator(this, config, this.environmentId);
+    this.cdkLanguage = props.cdkLanguage ?? "typescript";
   }
 
   addSourceAction(props: SourceActionProps) {
@@ -123,6 +126,11 @@ export class CICDPipelineStack extends BaseStack {
   }
 
   addSynthAction(props: SynthActionProps = {}) {
+    const languageInstallCommand: any = {
+      typescript: "npm install",
+      python: "pip install -r requirements.txt",
+    };
+
     this.synthAction =
       props.synthAction ||
       CICDActions.getSynthAction({
@@ -135,7 +143,9 @@ export class CICDPipelineStack extends BaseStack {
         codeartifactRepository: props.codeartifactRepository,
         codeartifactDomain: props.codeartifactDomain,
         codeartifactDomainOwner: props.codeartifactDomainOwner,
-        additionalInstallCommands: props.additionalInstallCommands,
+        additionalInstallCommands: props.additionalInstallCommands
+          ? [languageInstallCommand[this.cdkLanguage]].concat(props.additionalInstallCommands)
+          : [languageInstallCommand[this.cdkLanguage]],
       });
     return this;
   }

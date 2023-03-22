@@ -1953,6 +1953,7 @@ The construct to start the search from.
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.nestedStackParent">nestedStackParent</a></code> | <code>aws-cdk-lib.Stack</code> | If this is a nested stack, returns it's parent stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.nestedStackResource">nestedStackResource</a></code> | <code>aws-cdk-lib.CfnResource</code> | If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether termination protection is enabled for this stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.property.cdkLanguage">cdkLanguage</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.config">config</a></code> | <code><a href="#aws-ddk-core.Configurator">Configurator</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.property.pipelineId">pipelineId</a></code> | <code>string</code> | *No description.* |
@@ -2292,6 +2293,16 @@ public readonly terminationProtection: boolean;
 - *Type:* boolean
 
 Whether termination protection is enabled for this stack.
+
+---
+
+##### `cdkLanguage`<sup>Required</sup> <a name="cdkLanguage" id="aws-ddk-core.CICDPipelineStack.property.cdkLanguage"></a>
+
+```typescript
+public readonly cdkLanguage: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -5726,6 +5737,7 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.config">config</a></code> | <code>string \| object</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.cdkLanguage">cdkLanguage</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -5947,6 +5959,16 @@ public readonly environmentId: string;
 
 ```typescript
 public readonly permissionsBoundaryArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `cdkLanguage`<sup>Optional</sup> <a name="cdkLanguage" id="aws-ddk-core.CICDPipelineStackProps.property.cdkLanguage"></a>
+
+```typescript
+public readonly cdkLanguage: string;
 ```
 
 - *Type:* string
