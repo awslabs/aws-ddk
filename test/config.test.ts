@@ -75,6 +75,7 @@ test("Config Override By Id", () => {
   const stack = new cdk.Stack();
   new s3.Bucket(stack, "MyBucket");
   new sqs.Queue(stack, "MyQueue");
+  new sqs.Queue(stack, "MyUnencryptedQueue");
 
   new Configurator(stack, sampleConfig, "dev");
 
@@ -85,6 +86,7 @@ test("Config Override By Id", () => {
   template.hasResourceProperties("AWS::SQS::Queue", {
     KmsMasterKeyId: "alias/aws/sqs",
   });
+  template.hasResourceProperties("AWS::SQS::Queue", {});
 });
 
 test("Different values per environment", () => {
