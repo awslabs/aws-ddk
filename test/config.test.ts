@@ -1,7 +1,7 @@
 import { assert } from "console";
 import path from "path";
 import * as cdk from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as sqs from "aws-cdk-lib/aws-sqs";
@@ -82,9 +82,11 @@ test("Config Override By Id", () => {
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::S3::Bucket", {
     BucketName: "my-exact-bucket-name-for-this-resource",
+    KmsMasterKeyId: Match.absent(),
   });
   template.hasResourceProperties("AWS::SQS::Queue", {
     KmsMasterKeyId: "alias/aws/sqs",
+    BucketName: Match.absent(),
   });
   template.hasResourceProperties("AWS::SQS::Queue", {});
 });
