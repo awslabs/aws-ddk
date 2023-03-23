@@ -116,7 +116,9 @@ class ConfiguratorAspect implements cdk.IAspect {
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
 
-    if (this.resourceId && cdk.CfnResource.isCfnResource(node)) {
+    const nodePathItemRegex = new RegExp(`^(.*\/)?(${this.resourceId})(\/.*)?$`);
+
+    if (this.resourceId && cdk.CfnResource.isCfnResource(node) && nodePathItemRegex.test(node.node.path)) {
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
   }

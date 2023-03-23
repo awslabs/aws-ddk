@@ -1,10 +1,11 @@
 import { assert } from "console";
 import path from "path";
 import * as cdk from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as sqs from "aws-cdk-lib/aws-sqs";
+import { Construct } from "constructs";
 
 import {
   Configurator,
@@ -58,12 +59,21 @@ test("Config Simple Override", () => {
 });
 
 test("Config Override By Id", () => {
+  class NestedStack extends cdk.Stack {
+    constructor(scope: Construct, id: string) {
+      super(scope, id);
+      new s3.Bucket(this, "AVeryLongBucketNameInsideANestedStack");
+    }
+  }
   const sampleConfig = {
     environments: {
       dev: {
         resources: {
           MyBucket: {
             BucketName: "my-exact-bucket-name-for-this-resource",
+          },
+          AVeryLongBucketNameInsideANestedStack: {
+            BucketName: "override-bucket-name",
           },
           MyQueue: {
             KmsMasterKeyId: "alias/aws/sqs",
@@ -75,15 +85,25 @@ test("Config Override By Id", () => {
   const stack = new cdk.Stack();
   new s3.Bucket(stack, "MyBucket");
   new sqs.Queue(stack, "MyQueue");
-
+  new sqs.Queue(stack, "MyUnencryptedQueue");
   new Configurator(stack, sampleConfig, "dev");
-
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::S3::Bucket", {
     BucketName: "my-exact-bucket-name-for-this-resource",
   });
   template.hasResourceProperties("AWS::SQS::Queue", {
     KmsMasterKeyId: "alias/aws/sqs",
+  });
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    KmsMasterKeyId: Match.absent(),
+  });
+
+  const app = new cdk.App();
+  const nestedStack = new NestedStack(app, "PlaceholderWithExcessivelyLongNameABCDEFGHIJFKLMNOPQRSTUVXXYZ");
+  new Configurator(nestedStack, sampleConfig, "dev");
+  const nestedTemplate = Template.fromStack(nestedStack);
+  nestedTemplate.hasResourceProperties("AWS::S3::Bucket", {
+    BucketName: "override-bucket-name",
   });
 });
 
