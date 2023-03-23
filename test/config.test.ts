@@ -82,13 +82,13 @@ test("Config Override By Id", () => {
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::S3::Bucket", {
     BucketName: "my-exact-bucket-name-for-this-resource",
-    KmsMasterKeyId: Match.absent(),
   });
   template.hasResourceProperties("AWS::SQS::Queue", {
     KmsMasterKeyId: "alias/aws/sqs",
-    BucketName: Match.absent(),
   });
-  template.hasResourceProperties("AWS::SQS::Queue", {});
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    KmsMasterKeyId: Match.absent(),
+  });
 });
 
 test("Different values per environment", () => {
