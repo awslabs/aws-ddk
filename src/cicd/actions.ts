@@ -51,7 +51,7 @@ export class CICDActions {
     installCommands = [
       `npm install -g aws-cdk@${props.cdkVersion ? props.cdkVersion : "latest"}`,
       "npm install || true",
-      "pip install -r requirements.txt || true",
+      "pip install -r requirements.txt",
     ];
 
     // if (all([codeArtifactRepository, codeArtifactDomain, codeArtifactDomainOwner])) {
