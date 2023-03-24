@@ -2,9 +2,10 @@ import * as cdk from "aws-cdk-lib";
 import * as codepipeline from "aws-cdk-lib/aws-codepipeline";
 import * as codestarnotifications from "aws-cdk-lib/aws-codestarnotifications";
 import * as iam from "aws-cdk-lib/aws-iam";
+import * as kms from "aws-cdk-lib/aws-kms";
 import * as sns from "aws-cdk-lib/aws-sns";
 import * as pipelines from "aws-cdk-lib/pipelines";
-import { Construct, IConstruct } from "constructs";
+import { Construct } from "constructs";
 import { CICDActions } from "./actions";
 import { toTitleCase } from "./utils";
 import { BaseStack, BaseStackProps } from "../base";
@@ -60,6 +61,7 @@ export interface AddCustomStageProps {
 
 export interface CICDPipelineStackProps extends BaseStackProps {
   readonly pipelineName?: string;
+  readonly cdkLanguage?: string;
 }
 
 export interface AdditionalPipelineProps {
@@ -82,9 +84,10 @@ export class CICDPipelineStack extends BaseStack {
   readonly pipelineName?: string;
   readonly pipelineId?: string;
   readonly config: Configurator;
+  readonly cdkLanguage: string;
   public notificationRule?: codestarnotifications.NotificationRule;
   public pipeline?: pipelines.CodePipeline;
-  public pipelineKey?: IConstruct;
+  public pipelineKey?: kms.CfnKey;
   public sourceAction?: pipelines.CodePipelineSource;
   public synthAction?: pipelines.CodeBuildStep;
 
@@ -96,6 +99,7 @@ export class CICDPipelineStack extends BaseStack {
     this.pipelineId = id;
     const config = props.config ?? "./ddk.json";
     this.config = new Configurator(this, config, this.environmentId);
+    this.cdkLanguage = props.cdkLanguage ?? "typescript";
   }
 
   addSourceAction(props: SourceActionProps) {
@@ -123,6 +127,11 @@ export class CICDPipelineStack extends BaseStack {
   }
 
   addSynthAction(props: SynthActionProps = {}) {
+    const languageInstallCommand: any = {
+      typescript: "npm install",
+      python: "pip install -r requirements.txt",
+    };
+
     this.synthAction =
       props.synthAction ||
       CICDActions.getSynthAction({
@@ -135,7 +144,9 @@ export class CICDPipelineStack extends BaseStack {
         codeartifactRepository: props.codeartifactRepository,
         codeartifactDomain: props.codeartifactDomain,
         codeartifactDomainOwner: props.codeartifactDomainOwner,
-        additionalInstallCommands: props.additionalInstallCommands,
+        additionalInstallCommands: props.additionalInstallCommands
+          ? [languageInstallCommand[this.cdkLanguage]].concat(props.additionalInstallCommands)
+          : [languageInstallCommand[this.cdkLanguage]],
       });
     return this;
   }
@@ -250,11 +261,9 @@ export class CICDPipelineStack extends BaseStack {
 
   synth() {
     this.pipeline?.buildPipeline();
-    this.pipelineKey = this.pipeline?.pipeline.artifactBucket.encryptionKey?.node.defaultChild ?? undefined;
+    this.pipelineKey = this.pipeline?.pipeline.artifactBucket.encryptionKey?.node.defaultChild as kms.CfnKey;
+    this.pipelineKey.addPropertyOverride("EnableKeyRotation", true);
 
-    // if (this.pipelineKey) {
-    //   this.pipelineKey = true;
-    // }
     return this;
   }
 }
