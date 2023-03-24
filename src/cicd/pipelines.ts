@@ -127,6 +127,11 @@ export class CICDPipelineStack extends BaseStack {
   }
 
   addSynthAction(props: SynthActionProps = {}) {
+    const languageInstallCommand: any = {
+      typescript: "npm install",
+      python: "pip install -r requirements.txt",
+    };
+
     this.synthAction =
       props.synthAction ||
       CICDActions.getSynthAction({
@@ -139,7 +144,9 @@ export class CICDPipelineStack extends BaseStack {
         codeartifactRepository: props.codeartifactRepository,
         codeartifactDomain: props.codeartifactDomain,
         codeartifactDomainOwner: props.codeartifactDomainOwner,
-        additionalInstallCommands: props.additionalInstallCommands,
+        additionalInstallCommands: props.additionalInstallCommands
+          ? [languageInstallCommand[this.cdkLanguage]].concat(props.additionalInstallCommands)
+          : [languageInstallCommand[this.cdkLanguage]],
       });
     return this;
   }
