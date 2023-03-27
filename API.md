@@ -3546,6 +3546,223 @@ public readonly crawler: CfnCrawler;
 ---
 
 
+### RedshiftDataApiStage <a name="RedshiftDataApiStage" id="aws-ddk-core.RedshiftDataApiStage"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.RedshiftDataApiStage.Initializer"></a>
+
+```typescript
+import { RedshiftDataApiStage } from 'aws-ddk-core'
+
+new RedshiftDataApiStage(scope: Construct, id: string, props: RedshiftDataApiStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps">RedshiftDataApiStageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.RedshiftDataApiStageProps">RedshiftDataApiStageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.addAlarm">addAlarm</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.RedshiftDataApiStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.RedshiftDataApiStage.addAlarm"></a>
+
+```typescript
+public addAlarm(id: string, props: AlarmProps): DataStage
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.RedshiftDataApiStage.addAlarm.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.RedshiftDataApiStage.addAlarm.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.RedshiftDataApiStage.isConstruct"></a>
+
+```typescript
+import { RedshiftDataApiStage } from 'aws-ddk-core'
+
+RedshiftDataApiStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.RedshiftDataApiStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.eventBridgeEventPath">eventBridgeEventPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.RedshiftDataApiStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.RedshiftDataApiStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.RedshiftDataApiStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.RedshiftDataApiStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.RedshiftDataApiStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+---
+
+##### `alarmsEnabled`<sup>Required</sup> <a name="alarmsEnabled" id="aws-ddk-core.RedshiftDataApiStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.RedshiftDataApiStage.property.cloudwatchAlarms"></a>
+
+```typescript
+public readonly cloudwatchAlarms: Alarm[];
+```
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+---
+
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.RedshiftDataApiStage.property.stateMachine"></a>
+
+```typescript
+public readonly stateMachine: StateMachine;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+---
+
+##### `eventBridgeEventPath`<sup>Optional</sup> <a name="eventBridgeEventPath" id="aws-ddk-core.RedshiftDataApiStage.property.eventBridgeEventPath"></a>
+
+```typescript
+public readonly eventBridgeEventPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-core.RedshiftDataApiStage.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+
 ### S3EventStage <a name="S3EventStage" id="aws-ddk-core.S3EventStage"></a>
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.S3EventStage.Initializer"></a>
@@ -7055,6 +7272,166 @@ public readonly qualifier: string;
 ```
 
 - *Type:* string
+
+---
+
+### RedshiftDataApiStageProps <a name="RedshiftDataApiStageProps" id="aws-ddk-core.RedshiftDataApiStageProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.RedshiftDataApiStageProps.Initializer"></a>
+
+```typescript
+import { RedshiftDataApiStageProps } from 'aws-ddk-core'
+
+const redshiftDataApiStageProps: RedshiftDataApiStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.redshiftClusterIdentifier">redshiftClusterIdentifier</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.sqlStatements">sqlStatements</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.databaseUser">databaseUser</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.pollingTime">pollingTime</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.RedshiftDataApiStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.RedshiftDataApiStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `additionalRolePolicyStatements`<sup>Optional</sup> <a name="additionalRolePolicyStatements" id="aws-ddk-core.RedshiftDataApiStageProps.property.additionalRolePolicyStatements"></a>
+
+```typescript
+public readonly additionalRolePolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.RedshiftDataApiStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `stateMachineFailedExecutionsAlarmEvaluationPeriods`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmEvaluationPeriods" id="aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stateMachineFailedExecutionsAlarmThreshold`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmThreshold" id="aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmThreshold"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmThreshold: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `redshiftClusterIdentifier`<sup>Required</sup> <a name="redshiftClusterIdentifier" id="aws-ddk-core.RedshiftDataApiStageProps.property.redshiftClusterIdentifier"></a>
+
+```typescript
+public readonly redshiftClusterIdentifier: string;
+```
+
+- *Type:* string
+
+---
+
+##### `sqlStatements`<sup>Required</sup> <a name="sqlStatements" id="aws-ddk-core.RedshiftDataApiStageProps.property.sqlStatements"></a>
+
+```typescript
+public readonly sqlStatements: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `databaseName`<sup>Optional</sup> <a name="databaseName" id="aws-ddk-core.RedshiftDataApiStageProps.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `databaseUser`<sup>Optional</sup> <a name="databaseUser" id="aws-ddk-core.RedshiftDataApiStageProps.property.databaseUser"></a>
+
+```typescript
+public readonly databaseUser: string;
+```
+
+- *Type:* string
+
+---
+
+##### `pollingTime`<sup>Optional</sup> <a name="pollingTime" id="aws-ddk-core.RedshiftDataApiStageProps.property.pollingTime"></a>
+
+```typescript
+public readonly pollingTime: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
 
 ---
 
