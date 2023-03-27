@@ -66,6 +66,9 @@ test("Config Override Stage By Id", () => {
           "Process Function": {
             MemorySize: 1024,
           },
+          "Stage/Queue": {
+            VisibilityTimeout: 300,
+          },
         },
       },
     },
@@ -85,12 +88,24 @@ test("Config Override Stage By Id", () => {
     },
   });
 
+  new SqsToLambdaStage(stack, "Stage2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
+    },
+  });
+
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 1024,
   });
   template.hasResourceProperties("AWS::SQS::Queue", {
     MemorySize: Match.absent(),
+    VisibilityTimeout: 300,
+  });
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    VisibilityTimeout: 120,
   });
 });
 
