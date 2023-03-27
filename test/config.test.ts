@@ -58,6 +58,42 @@ test("Config Simple Override", () => {
   });
 });
 
+test("Config Override Stage By Id", () => {
+  const sampleConfig = {
+    environments: {
+      dev: {
+        resources: {
+          "Process Function": {
+            MemorySize: 1024,
+          },
+        },
+      },
+    },
+  };
+  const stack = new cdk.Stack();
+  new Configurator(stack, sampleConfig, "dev");
+
+  new SqsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
+      ],
+    },
+  });
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    MemorySize: 1024,
+  });
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    MemorySize: Match.absent(),
+  });
+});
+
 test("Config Override By Id", () => {
   class NestedStack extends cdk.Stack {
     constructor(scope: Construct, id: string) {
