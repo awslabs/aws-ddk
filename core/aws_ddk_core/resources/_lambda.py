@@ -185,7 +185,7 @@ class LambdaFactory:
         # Create the function
         fn: lmb.IFunction = lmb.Function(scope, id, **function_construct_props)
         # Add IAM permissions
-        if "vpc" in function_construct_props:
+        if function_construct_props["vpc"]:
             LambdaFactory.add_vpc_permissions(fn)
         return fn
 
