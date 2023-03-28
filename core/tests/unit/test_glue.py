@@ -22,9 +22,9 @@ def test_glue_job_security_config_default_args(test_stack: BaseStack) -> None:
     )
 
     environment_id = "dev"
-    job1 = GlueFactory.job(
+    GlueFactory.job(
         test_stack,
-        id=f"job-1",
+        id="job-1",
         environment_id=environment_id,
         job_name=f"myproject-{environment_id}-job1",
         executable=glue_job_details,
@@ -53,9 +53,9 @@ def test_glue_job_security_config_with_custom_name(test_stack: BaseStack) -> Non
     )
 
     environment_id = "dev"
-    job1 = GlueFactory.job(
+    GlueFactory.job(
         test_stack,
-        id=f"job-1",
+        id="job-1",
         environment_id=environment_id,
         job_name=f"myproject-{environment_id}-job1",
         executable=glue_job_details,
@@ -86,15 +86,15 @@ def test_glue_job_security_config_custom(test_stack: BaseStack) -> None:
 
     security_config = SecurityConfiguration(
         test_stack,
-        f"security-config",
+        "security-config",
         security_configuration_name="my-custom-security-config-name",
         s3_encryption=S3Encryption(mode=S3EncryptionMode.KMS),
     )
 
     environment_id = "dev"
-    job1 = GlueFactory.job(
+    GlueFactory.job(
         test_stack,
-        id=f"job-1",
+        id="job-1",
         environment_id=environment_id,
         job_name=f"myproject-{environment_id}-job1",
         executable=glue_job_details,
