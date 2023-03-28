@@ -1,10 +1,11 @@
 import { assert } from "console";
 import path from "path";
 import * as cdk from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as sqs from "aws-cdk-lib/aws-sqs";
+import { Construct } from "constructs";
 
 import {
   Configurator,
@@ -57,13 +58,73 @@ test("Config Simple Override", () => {
   });
 });
 
+test("Config Override Stage By Id", () => {
+  const sampleConfig = {
+    environments: {
+      dev: {
+        resources: {
+          "Process Function": {
+            MemorySize: 1024,
+          },
+          "Stage/Queue": {
+            VisibilityTimeout: 300,
+          },
+        },
+      },
+    },
+  };
+  const stack = new cdk.Stack();
+  new Configurator(stack, sampleConfig, "dev");
+
+  new SqsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
+      ],
+    },
+  });
+
+  new SqsToLambdaStage(stack, "Stage2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_9,
+    },
+  });
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    MemorySize: 1024,
+  });
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    MemorySize: Match.absent(),
+    VisibilityTimeout: 300,
+  });
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    VisibilityTimeout: 120,
+  });
+});
+
 test("Config Override By Id", () => {
+  class NestedStack extends cdk.Stack {
+    constructor(scope: Construct, id: string) {
+      super(scope, id);
+      new s3.Bucket(this, "AVeryLongBucketNameInsideANestedStack");
+    }
+  }
   const sampleConfig = {
     environments: {
       dev: {
         resources: {
           MyBucket: {
             BucketName: "my-exact-bucket-name-for-this-resource",
+          },
+          AVeryLongBucketNameInsideANestedStack: {
+            BucketName: "override-bucket-name",
           },
           MyQueue: {
             KmsMasterKeyId: "alias/aws/sqs",
@@ -75,15 +136,25 @@ test("Config Override By Id", () => {
   const stack = new cdk.Stack();
   new s3.Bucket(stack, "MyBucket");
   new sqs.Queue(stack, "MyQueue");
-
+  new sqs.Queue(stack, "MyUnencryptedQueue");
   new Configurator(stack, sampleConfig, "dev");
-
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::S3::Bucket", {
     BucketName: "my-exact-bucket-name-for-this-resource",
   });
   template.hasResourceProperties("AWS::SQS::Queue", {
     KmsMasterKeyId: "alias/aws/sqs",
+  });
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    KmsMasterKeyId: Match.absent(),
+  });
+
+  const app = new cdk.App();
+  const nestedStack = new NestedStack(app, "PlaceholderWithExcessivelyLongNameABCDEFGHIJFKLMNOPQRSTUVXXYZ");
+  new Configurator(nestedStack, sampleConfig, "dev");
+  const nestedTemplate = Template.fromStack(nestedStack);
+  nestedTemplate.hasResourceProperties("AWS::S3::Bucket", {
+    BucketName: "override-bucket-name",
   });
 });
 
@@ -381,34 +452,18 @@ test("Get Env Config", () => {
 
 test("Get Env Config Static Method", () => {
   const config = Configurator.getEnvConfig({ configPath: "./test/test-config.yaml", environmentId: "dev" });
+  const nullConfig = Configurator.getEnvConfig({ configPath: "./ddk.json", environmentId: "dev" });
   const expectedDevConfig = {
-    tags: {
-      "global:foo": "bar",
-    },
-    environments: {
-      dev: {
-        account: "222222222222",
-        region: "us-east-1",
-        resources: {
-          "AWS::Lambda::Function": {
-            MemorySize: 128,
-            Runtime: "python3.8",
-          },
-        },
-        tags: { CostCenter: "2014" },
-      },
-      prod: {
-        account: "222222222222",
-        region: "us-east-1",
-        resources: {
-          "AWS::Lambda::Function": {
-            MemorySize: 1024,
-            Runtime: "python3.8",
-          },
-        },
-        tags: { CostCenter: "2015" },
+    account: "222222222222",
+    region: "us-east-1",
+    resources: {
+      "AWS::Lambda::Function": {
+        MemorySize: 128,
+        Runtime: "python3.8",
       },
     },
+    tags: { CostCenter: "2014" },
   };
   assert(config === expectedDevConfig);
+  assert(nullConfig === undefined);
 });

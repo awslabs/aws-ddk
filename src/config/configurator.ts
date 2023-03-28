@@ -134,7 +134,9 @@ class ConfiguratorAspect implements cdk.IAspect {
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
 
-    if (this.resourceId && cdk.CfnResource.isCfnResource(node)) {
+    const nodePathItemRegex = new RegExp(`^(.*\/)?(${this.resourceId}\/Resource)(\/.*)?$`);
+
+    if (this.resourceId && cdk.CfnResource.isCfnResource(node) && nodePathItemRegex.test(node.node.path)) {
       node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
   }
@@ -148,11 +150,10 @@ export interface GetEnvConfigProps {
 export class Configurator {
   public static getEnvConfig(props: GetEnvConfigProps): StageConfiguration | undefined {
     const config = getConfig({ config: props.configPath });
-    if (config) {
+    if (config && config.environments) {
       return config.environments[props.environmentId];
     }
     return undefined;
-    // return getConfig({ config: props.configPath })[props.environmentId];
   }
 
   public readonly config: Configuration;

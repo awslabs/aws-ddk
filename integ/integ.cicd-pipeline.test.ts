@@ -1,9 +1,7 @@
-import path from "path";
 import * as integration from "@aws-cdk/integ-tests-alpha";
 import * as cdk from "aws-cdk-lib";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
-import * as glue_alpha from "@aws-cdk/aws-glue-alpha";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
@@ -14,7 +12,7 @@ interface CICDPipelineTestStackProps extends cdk.StackProps {}
 class CICDPipelineTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: CICDPipelineTestStackProps) {
     super(scope, id, props);
-    const devStage = new cdk.Stage(this, "dev", { env: { account: "228197580683" } });
+    const devStage = new cdk.Stage(this, "dev");
     const devStack = new cdk.Stack(devStage, "application-stack");
 
     const bucket = new s3.Bucket(devStack, "Bucket", {removalPolicy: cdk.RemovalPolicy.DESTROY});
@@ -33,7 +31,7 @@ class CICDPipelineTestStack extends cdk.Stack {
 
     pipeline.addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage });
 
-    new CICDPipelineStack(this, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    new CICDPipelineStack(this, "dummy-pipeline", { environmentId: "cicd", pipelineName: "dummy-pipeline" })
       .addSourceAction({ repositoryName: "dummy-repository" })
       .addSynthAction()
       .buildPipeline()

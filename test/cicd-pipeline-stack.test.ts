@@ -107,6 +107,9 @@ test("Basic CICDPipeline", () => {
   template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
     Name: "dummy-pipeline",
   });
+  template.hasResourceProperties("AWS::KMS::Key", {
+    EnableKeyRotation: true,
+  });
 });
 
 test("CICDPipeline with manual approval set", () => {
@@ -613,4 +616,31 @@ test("Test Pipeline with Artifact Upload", () => {
     .addNotifications();
 
   Template.fromStack(stack);
+});
+
+test("CICDPipeline with different environments", () => {
+  const app = new cdk.App();
+
+  const stageA = new cdk.Stage(app, "foo", { env: { account: "000000000000", region: "us-east-1" } });
+  const stackA = new cdk.Stack(stageA, "application-stack");
+  new s3.Bucket(stackA, "BucketA");
+
+  const stageB = new cdk.Stage(app, "bar", { env: { account: "111111111111", region: "us-east-1" } });
+  const stackB = new cdk.Stack(stageB, "application-stack");
+  new s3.Bucket(stackB, "BucketB");
+
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", {
+    env: { region: "us-east-1" },
+    environmentId: "dev",
+    pipelineName: "dummy-pipeline",
+  })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addStage({ stageId: "a", stage: stageA })
+    .addStage({ stageId: "b", stage: stageB })
+    .synth();
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::CodePipeline::Pipeline", 1);
 });
