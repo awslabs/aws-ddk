@@ -12,13 +12,15 @@ const region = process.env.CDK_DEFAULT_REGION;
 export interface StageConfiguration {
   account?: string;
   region?: string;
-  resources?: { [key: string]: object };
+  resources?: { [key: string]: any };
   tags?: { [key: string]: string };
+  bootstrap?: { [key: string]: string };
 }
 
 export interface Configuration {
   environments: { [id: string]: StageConfiguration };
   tags?: { [key: string]: string };
+  bootstrap?: { [key: string]: string };
   ddkBootstrapConfigKey?: string;
 }
 
