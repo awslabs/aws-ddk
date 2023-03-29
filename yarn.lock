@@ -11,9 +11,9 @@
     "@jridgewell/trace-mapping" "^0.3.9"
 
 "@aws-cdk/asset-awscli-v1@^2.2.49":
-  version "2.2.52"
-  resolved "https://registry.npmjs.org/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.52.tgz"
-  integrity sha512-9dBPrvByWrUOcs5Rjwv08FWSummo1Uk/EgE3dCFDqvIqlSTudEmu6TGU3zrs00rfcAjqDv6gBuSttzG5f9tfdQ==
+  version "2.2.122"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.122.tgz#d80dd44dc7d4ae12f42f44ee44b0bb8ac9c5d67e"
+  integrity sha512-SgftgtNpuLyBh8iYP+IaliVVvn4u8E6h6wakLrzycIeb3aiy6kusLH+AtQ0N1o3OYKMjr2IzuNLJaMLQfLX9PA==
 
 "@aws-cdk/asset-kubectl-v20@^2.1.1":
   version "2.1.1"
@@ -21,28 +21,28 @@
   integrity sha512-U1ntiX8XiMRRRH5J1IdC+1t5CE89015cwyt5U63Cpk0GnMlN5+h9WsWMlKlPXZR4rdq/m806JRlBMRpBUB2Dhw==
 
 "@aws-cdk/asset-node-proxy-agent-v5@^2.0.38":
-  version "2.0.42"
-  resolved "https://registry.npmjs.org/@aws-cdk/asset-node-proxy-agent-v5/-/asset-node-proxy-agent-v5-2.0.42.tgz"
-  integrity sha512-PxvP1UU2xa4k3Ea78DxAYY8ADvwWZ/nPu+xsjQLsT+MP+aB3RZ3pGc/fNlH7Rg56Zyb/j3GSdihAy4Oi5xa+TQ==
+  version "2.0.99"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-node-proxy-agent-v5/-/asset-node-proxy-agent-v5-2.0.99.tgz#dad2c6b6a54ffe968b0290eb5c4ab154c775ef22"
+  integrity sha512-Z4JY9HZBwAyry7Tjhstxi5CJEDW5gpa7rkXBsXH2sf5f7NrVSJWVCI8fSiLppfxl+T4QKV1xU/s3I8XcS8jw7w==
 
 "@aws-cdk/aws-glue-alpha@2.62.2-alpha.0":
   version "2.62.2-alpha.0"
-  resolved "https://registry.npmjs.org/@aws-cdk/aws-glue-alpha/-/aws-glue-alpha-2.62.2-alpha.0.tgz"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-glue-alpha/-/aws-glue-alpha-2.62.2-alpha.0.tgz#8a3f6073d40e36b849ee9e536bcdab5d131edde8"
   integrity sha512-cUWxoalxBBRJdTDpKkkyLEZae0eBQASTZcIguR1VVfq4g7MX2OIpwWkR5FjcivXbuTxYO5k/rZkfeeDC/i3vPA==
 
 "@aws-cdk/aws-kinesisfirehose-alpha@2.62.2-alpha.0":
   version "2.62.2-alpha.0"
-  resolved "https://registry.npmjs.org/@aws-cdk/aws-kinesisfirehose-alpha/-/aws-kinesisfirehose-alpha-2.62.2-alpha.0.tgz"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-kinesisfirehose-alpha/-/aws-kinesisfirehose-alpha-2.62.2-alpha.0.tgz#9385d9f73f9c8fc96aaa2cb0f4de1ba43800ac0f"
   integrity sha512-dxVnxw2BMJ9QCwTxQaaYuR9mKwAG1G2GP1yRv67/JYPpHRIFv+3ILq0W99FuKUg34TlkMl0xOLNBKkJLAsJrpg==
 
 "@aws-cdk/aws-kinesisfirehose-destinations-alpha@2.62.2-alpha.0":
   version "2.62.2-alpha.0"
-  resolved "https://registry.npmjs.org/@aws-cdk/aws-kinesisfirehose-destinations-alpha/-/aws-kinesisfirehose-destinations-alpha-2.62.2-alpha.0.tgz"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-kinesisfirehose-destinations-alpha/-/aws-kinesisfirehose-destinations-alpha-2.62.2-alpha.0.tgz#4be2031bc0cc65a7405baae213eb689555028d4a"
   integrity sha512-WlKc/XhcV5hFS+2IEFq5Y9aW26V8JDY+EI1/LVPiOETLi2yg20tmH4zSclPKJrecWsb/ToZAV1xzs8fjsubunA==
 
 "@aws-cdk/integ-tests-alpha@2.62.2-alpha.0":
   version "2.62.2-alpha.0"
-  resolved "https://registry.npmjs.org/@aws-cdk/integ-tests-alpha/-/integ-tests-alpha-2.62.2-alpha.0.tgz"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/integ-tests-alpha/-/integ-tests-alpha-2.62.2-alpha.0.tgz#36eb9de0e7424232fed5f526543e5c05801b758a"
   integrity sha512-98L8QK5So2WX2db0CzO6M8Cxtrd1XNxnTZEVsldDoN6JOLwCmjWgb6DZGFcADIRJpTpDqTis8ik7Mr7EkCWzSQ==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.18.6":
@@ -1278,7 +1278,7 @@ available-typed-arrays@^1.0.5:
 
 aws-cdk-lib@2.62.2:
   version "2.62.2"
-  resolved "https://registry.npmjs.org/aws-cdk-lib/-/aws-cdk-lib-2.62.2.tgz"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.62.2.tgz#520d93af6c593381e92e8dc9a768fa770fa3223c"
   integrity sha512-ynyoEFQckICFJzbUd89pWjol3GGbxRF05E8BCPEyy++vLHJZdqaJxRL4REl4lrdznnkb1kvxtBSGg4cOkR4o3w==
   dependencies:
     "@aws-cdk/asset-awscli-v1" "^2.2.49"
@@ -4123,7 +4123,7 @@ minimist@>=1.2.2, minimist@^1.2.0, minimist@^1.2.6:
 
 minimist@^1.2.3:
   version "1.2.8"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
+  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
 minipass-collect@^1.0.2:

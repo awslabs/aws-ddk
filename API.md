@@ -9170,14 +9170,14 @@ public readonly environmentId: string;
 ---
 
 
-### FirehoseDestinationsDefaults <a name="FirehoseDestinationsDefaults" id="aws-ddk-core.FirehoseDestinationsDefaults"></a>
+### GlueFactory <a name="GlueFactory" id="aws-ddk-core.GlueFactory"></a>
 
-#### Initializers <a name="Initializers" id="aws-ddk-core.FirehoseDestinationsDefaults.Initializer"></a>
+#### Initializers <a name="Initializers" id="aws-ddk-core.GlueFactory.Initializer"></a>
 
 ```typescript
-import { FirehoseDestinationsDefaults } from 'aws-ddk-core'
+import { GlueFactory } from 'aws-ddk-core'
 
-new FirehoseDestinationsDefaults()
+new GlueFactory()
 ```
 
 | **Name** | **Type** | **Description** |
@@ -9190,71 +9190,31 @@ new FirehoseDestinationsDefaults()
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#aws-ddk-core.FirehoseDestinationsDefaults.s3Props">s3Props</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueFactory.job">job</a></code> | *No description.* |
 
 ---
 
-##### `s3Props` <a name="s3Props" id="aws-ddk-core.FirehoseDestinationsDefaults.s3Props"></a>
+##### `job` <a name="job" id="aws-ddk-core.GlueFactory.job"></a>
 
 ```typescript
-import { FirehoseDestinationsDefaults } from 'aws-ddk-core'
+import { GlueFactory } from 'aws-ddk-core'
 
-FirehoseDestinationsDefaults.s3Props(props: S3BucketProps)
+GlueFactory.job(scope: Construct, id: string, props: JobProps)
 ```
 
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseDestinationsDefaults.s3Props.parameter.props"></a>
-
-- *Type:* @aws-cdk/aws-kinesisfirehose-destinations-alpha.S3BucketProps
-
----
-
-
-
-### GlueDefaults <a name="GlueDefaults" id="aws-ddk-core.GlueDefaults"></a>
-
-#### Initializers <a name="Initializers" id="aws-ddk-core.GlueDefaults.Initializer"></a>
-
-```typescript
-import { GlueDefaults } from 'aws-ddk-core'
-
-new GlueDefaults()
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-
----
-
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#aws-ddk-core.GlueDefaults.jobProps">jobProps</a></code> | *No description.* |
-
----
-
-##### `jobProps` <a name="jobProps" id="aws-ddk-core.GlueDefaults.jobProps"></a>
-
-```typescript
-import { GlueDefaults } from 'aws-ddk-core'
-
-GlueDefaults.jobProps(scope: Construct, id: string, props: JobProps)
-```
-
-###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.GlueDefaults.jobProps.parameter.scope"></a>
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.GlueFactory.job.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
 ---
 
-###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.GlueDefaults.jobProps.parameter.id"></a>
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.GlueFactory.job.parameter.id"></a>
 
 - *Type:* string
 
 ---
 
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueDefaults.jobProps.parameter.props"></a>
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueFactory.job.parameter.props"></a>
 
 - *Type:* @aws-cdk/aws-glue-alpha.JobProps
 
@@ -9262,14 +9222,14 @@ GlueDefaults.jobProps(scope: Construct, id: string, props: JobProps)
 
 
 
-### KmsDefaults <a name="KmsDefaults" id="aws-ddk-core.KmsDefaults"></a>
+### KmsFactory <a name="KmsFactory" id="aws-ddk-core.KmsFactory"></a>
 
-#### Initializers <a name="Initializers" id="aws-ddk-core.KmsDefaults.Initializer"></a>
+#### Initializers <a name="Initializers" id="aws-ddk-core.KmsFactory.Initializer"></a>
 
 ```typescript
-import { KmsDefaults } from 'aws-ddk-core'
+import { KmsFactory } from 'aws-ddk-core'
 
-new KmsDefaults()
+new KmsFactory()
 ```
 
 | **Name** | **Type** | **Description** |
@@ -9282,19 +9242,31 @@ new KmsDefaults()
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#aws-ddk-core.KmsDefaults.keyProps">keyProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.KmsFactory.key">key</a></code> | *No description.* |
 
 ---
 
-##### `keyProps` <a name="keyProps" id="aws-ddk-core.KmsDefaults.keyProps"></a>
+##### `key` <a name="key" id="aws-ddk-core.KmsFactory.key"></a>
 
 ```typescript
-import { KmsDefaults } from 'aws-ddk-core'
+import { KmsFactory } from 'aws-ddk-core'
 
-KmsDefaults.keyProps(props: KeyProps)
+KmsFactory.key(scope: Construct, id: string, props: KeyProps)
 ```
 
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.KmsDefaults.keyProps.parameter.props"></a>
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.KmsFactory.key.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.KmsFactory.key.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.KmsFactory.key.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_kms.KeyProps
 
@@ -9302,14 +9274,14 @@ KmsDefaults.keyProps(props: KeyProps)
 
 
 
-### LambdaDefaults <a name="LambdaDefaults" id="aws-ddk-core.LambdaDefaults"></a>
+### S3Factory <a name="S3Factory" id="aws-ddk-core.S3Factory"></a>
 
-#### Initializers <a name="Initializers" id="aws-ddk-core.LambdaDefaults.Initializer"></a>
+#### Initializers <a name="Initializers" id="aws-ddk-core.S3Factory.Initializer"></a>
 
 ```typescript
-import { LambdaDefaults } from 'aws-ddk-core'
+import { S3Factory } from 'aws-ddk-core'
 
-new LambdaDefaults()
+new S3Factory()
 ```
 
 | **Name** | **Type** | **Description** |
@@ -9322,59 +9294,31 @@ new LambdaDefaults()
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#aws-ddk-core.LambdaDefaults.functionProps">functionProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.S3Factory.bucket">bucket</a></code> | *No description.* |
 
 ---
 
-##### `functionProps` <a name="functionProps" id="aws-ddk-core.LambdaDefaults.functionProps"></a>
+##### `bucket` <a name="bucket" id="aws-ddk-core.S3Factory.bucket"></a>
 
 ```typescript
-import { LambdaDefaults } from 'aws-ddk-core'
+import { S3Factory } from 'aws-ddk-core'
 
-LambdaDefaults.functionProps(props: FunctionProps)
+S3Factory.bucket(scope: Construct, id: string, props: BucketProps)
 ```
 
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.LambdaDefaults.functionProps.parameter.props"></a>
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.S3Factory.bucket.parameter.scope"></a>
 
-- *Type:* aws-cdk-lib.aws_lambda.FunctionProps
+- *Type:* constructs.Construct
 
 ---
 
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.S3Factory.bucket.parameter.id"></a>
 
-
-### S3Defaults <a name="S3Defaults" id="aws-ddk-core.S3Defaults"></a>
-
-#### Initializers <a name="Initializers" id="aws-ddk-core.S3Defaults.Initializer"></a>
-
-```typescript
-import { S3Defaults } from 'aws-ddk-core'
-
-new S3Defaults()
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
+- *Type:* string
 
 ---
 
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#aws-ddk-core.S3Defaults.bucketProps">bucketProps</a></code> | *No description.* |
-
----
-
-##### `bucketProps` <a name="bucketProps" id="aws-ddk-core.S3Defaults.bucketProps"></a>
-
-```typescript
-import { S3Defaults } from 'aws-ddk-core'
-
-S3Defaults.bucketProps(props: BucketProps)
-```
-
-###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.S3Defaults.bucketProps.parameter.props"></a>
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.S3Factory.bucket.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_s3.BucketProps
 
@@ -9382,14 +9326,14 @@ S3Defaults.bucketProps(props: BucketProps)
 
 
 
-### SnsDefaults <a name="SnsDefaults" id="aws-ddk-core.SnsDefaults"></a>
+### SnsFactory <a name="SnsFactory" id="aws-ddk-core.SnsFactory"></a>
 
-#### Initializers <a name="Initializers" id="aws-ddk-core.SnsDefaults.Initializer"></a>
+#### Initializers <a name="Initializers" id="aws-ddk-core.SnsFactory.Initializer"></a>
 
 ```typescript
-import { SnsDefaults } from 'aws-ddk-core'
+import { SnsFactory } from 'aws-ddk-core'
 
-new SnsDefaults()
+new SnsFactory()
 ```
 
 | **Name** | **Type** | **Description** |
@@ -9402,19 +9346,19 @@ new SnsDefaults()
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#aws-ddk-core.SnsDefaults.secureSnsTopicPolicy">secureSnsTopicPolicy</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsFactory.secureSnsTopicPolicy">secureSnsTopicPolicy</a></code> | *No description.* |
 
 ---
 
-##### `secureSnsTopicPolicy` <a name="secureSnsTopicPolicy" id="aws-ddk-core.SnsDefaults.secureSnsTopicPolicy"></a>
+##### `secureSnsTopicPolicy` <a name="secureSnsTopicPolicy" id="aws-ddk-core.SnsFactory.secureSnsTopicPolicy"></a>
 
 ```typescript
-import { SnsDefaults } from 'aws-ddk-core'
+import { SnsFactory } from 'aws-ddk-core'
 
-SnsDefaults.secureSnsTopicPolicy(topic: ITopic)
+SnsFactory.secureSnsTopicPolicy(topic: ITopic)
 ```
 
-###### `topic`<sup>Required</sup> <a name="topic" id="aws-ddk-core.SnsDefaults.secureSnsTopicPolicy.parameter.topic"></a>
+###### `topic`<sup>Required</sup> <a name="topic" id="aws-ddk-core.SnsFactory.secureSnsTopicPolicy.parameter.topic"></a>
 
 - *Type:* aws-cdk-lib.aws_sns.ITopic
 

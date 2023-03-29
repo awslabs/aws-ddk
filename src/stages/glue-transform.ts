@@ -5,7 +5,7 @@ import * as glue from "aws-cdk-lib/aws-glue";
 import * as sfn from "aws-cdk-lib/aws-stepfunctions";
 import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
-import { GlueDefaults } from "../core/glue-defaults";
+import { GlueFactory } from "../core/glue-factory";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
 export interface GlueTransformStageProps extends StateMachineStageProps {
@@ -87,13 +87,9 @@ export class GlueTransformStage extends StateMachineStage {
       throw TypeError("'jobName' or 'jobProps' must be set to instantiate this stage");
     }
 
-    return new glue_alpha.Job(
-      this,
-      `${id} Job`,
-      GlueDefaults.jobProps(scope, `${id} Job`, {
-        ...props.jobProps,
-      }),
-    );
+    return GlueFactory.job(scope, `${id} Job`, {
+      ...props.jobProps,
+    });
   }
 
   private getCrawler(props: GlueTransformStageProps): glue.CfnCrawler {
