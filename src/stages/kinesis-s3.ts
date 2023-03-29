@@ -35,13 +35,10 @@ export class FirehoseToS3Stage extends DataStage {
     if (props.s3Bucket) {
       this.bucket = props.s3Bucket;
     } else if (props.s3BucketProps) {
-      const bucketProps = overrideProps(
-        {
-          eventBridgeEnabled: true,
-        },
-        props.s3BucketProps,
-      );
-      this.bucket = S3Factory.bucket(this, "Stage Bucket", bucketProps);
+      this.bucket = S3Factory.bucket(this, "Stage Bucket", {
+        ...props.s3BucketProps,
+        eventBridgeEnabled: true,
+      });
     } else {
       throw TypeError("'s3Bucket' or 's3BucketProps' must be set to instantiate this stage");
     }
@@ -53,12 +50,14 @@ export class FirehoseToS3Stage extends DataStage {
 
     const destinationsBucketProps = overrideProps(
       {
-        dataOutputPrefix: props.dataOutputPrefix,
         compression: destinations.Compression.GZIP,
         bufferingInterval: cdk.Duration.seconds(300),
         bufferingSize: cdk.Size.mebibytes(5),
       },
-      props.kinesisFirehoseDestinationsS3BucketProps ?? {},
+      {
+        ...(props.kinesisFirehoseDestinationsS3BucketProps ?? {}),
+        dataOutputPrefix: props.dataOutputPrefix,
+      },
     );
     this.deliveryStream = new firehose.DeliveryStream(this, "Delivery Stream", {
       destinations: [new destinations.S3Bucket(this.bucket, destinationsBucketProps)],
