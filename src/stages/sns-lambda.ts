@@ -5,7 +5,7 @@ import * as subscriptions from "aws-cdk-lib/aws-sns-subscriptions";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
 import { SqsToLambdaStage, SqsToLambdaStageProps } from "./sqs-lambda";
-import { SnsDefaults } from "../core/sns-defaults";
+import { SnsFactory } from "../core/sns-factory";
 
 export interface SnsToLambdaStageProps extends SqsToLambdaStageProps {
   readonly snsTopic?: sns.ITopic;
@@ -32,7 +32,7 @@ export class SnsSqsToLambdaStage extends SqsToLambdaStage {
       throw TypeError("FIFO SNS Topics are unsupported for Lambda Triggers");
     }
     if (!props.disableDefaultTopicPolicy) {
-      SnsDefaults.secureSnsTopicPolicy(this.topic);
+      SnsFactory.secureSnsTopicPolicy(this.topic);
     }
 
     this.topic.addSubscription(

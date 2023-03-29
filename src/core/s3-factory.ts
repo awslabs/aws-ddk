@@ -1,9 +1,10 @@
 import * as cdk from "aws-cdk-lib";
 import * as s3 from "aws-cdk-lib/aws-s3";
-import { overrideProps } from "../core/utils";
+import { Construct } from "constructs";
+import { overrideProps } from "./utils";
 
-export class S3Defaults {
-  public static bucketProps(props: s3.BucketProps): s3.BucketProps {
+export class S3Factory {
+  public static bucket(scope: Construct, id: string, props: s3.BucketProps): s3.Bucket {
     const defaultProps: Partial<s3.BucketProps> = {
       encryption: s3.BucketEncryption.S3_MANAGED,
       versioned: false,
@@ -13,6 +14,7 @@ export class S3Defaults {
       eventBridgeEnabled: false,
     };
 
-    return overrideProps(defaultProps, props);
+    const mergedProps = overrideProps(defaultProps, props);
+    return new s3.Bucket(scope, id, mergedProps);
   }
 }
