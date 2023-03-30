@@ -1,6 +1,6 @@
 const { awscdk, javascript, DependencyType } = require("projen");
 
-const CDK_VERSION = "2.62.2";
+const CDK_VERSION = "2.71.0";
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: "AWS Professional Services",
@@ -8,6 +8,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   cdkVersion: CDK_VERSION,
   defaultReleaseBranch: "main",
+  //releaseTrigger: project.releaseTrigger.manual(),
   release: false,
   name: "aws-ddk-core",
   description: "AWS DataOps Development Kit",
