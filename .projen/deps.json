@@ -2,22 +2,22 @@
   "dependencies": [
     {
       "name": "@aws-cdk/aws-glue-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/integ-tests-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "build"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "name": "@types/node",
-      "version": "^14",
+      "version": "^16",
       "type": "build"
     },
     {
@@ -42,7 +42,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.62.2",
+      "version": "2.71.0",
       "type": "build"
     },
     {
@@ -77,16 +77,12 @@
     },
     {
       "name": "jest-junit",
-      "version": "^13",
+      "version": "^15",
       "type": "build"
     },
     {
       "name": "jest",
       "version": "^27",
-      "type": "build"
-    },
-    {
-      "name": "jsii",
       "type": "build"
     },
     {
@@ -99,6 +95,11 @@
     },
     {
       "name": "jsii-pacmak",
+      "type": "build"
+    },
+    {
+      "name": "jsii",
+      "version": "1.x",
       "type": "build"
     },
     {
@@ -138,22 +139,22 @@
     },
     {
       "name": "@aws-cdk/aws-glue-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "devenv"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "devenv"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "devenv"
     },
     {
       "name": "@aws-cdk/integ-tests-alpha",
-      "version": "2.62.2-alpha.0",
+      "version": "2.71.0-alpha.0",
       "type": "devenv"
     },
     {
@@ -168,27 +169,27 @@
     },
     {
       "name": "@aws-cdk/aws-glue-alpha",
-      "version": "^2.62.2-alpha.0",
+      "version": "^2.71.0-alpha.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-alpha",
-      "version": "^2.62.2-alpha.0",
+      "version": "^2.71.0-alpha.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-kinesisfirehose-destinations-alpha",
-      "version": "^2.62.2-alpha.0",
+      "version": "^2.71.0-alpha.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/integ-tests-alpha",
-      "version": "^2.62.2-alpha.0",
+      "version": "^2.71.0-alpha.0",
       "type": "peer"
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.62.2",
+      "version": "^2.71.0",
       "type": "peer"
     },
     {
