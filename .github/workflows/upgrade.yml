@@ -16,6 +16,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
@@ -31,8 +35,6 @@ jobs:
         with:
           name: .repo.patch
           path: .repo.patch
-    container:
-      image: jsii/superchain:1-buster-slim-node14
   pr:
     name: Create Pull Request
     needs: upgrade
