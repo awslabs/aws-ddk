@@ -40,8 +40,10 @@ jspm_packages/
 junit.xml
 /coverage/
 !/.github/workflows/build.yml
+/dist/changelog.md
+/dist/version.txt
 !/.mergify.yml
-!/.github/workflows/upgrade.yml
+!/.github/workflows/upgrade-typescript-conversion.yml
 !/.github/pull_request_template.md
 !/.prettierignore
 !/.prettierrc.json

@@ -24,6 +24,23 @@
         }
       ]
     },
+    "bump": {
+      "name": "bump",
+      "description": "Bumps version based on latest git tag and generates a changelog entry",
+      "env": {
+        "OUTFILE": "package.json",
+        "CHANGELOG": "dist/changelog.md",
+        "BUMPFILE": "dist/version.txt",
+        "RELEASETAG": "dist/releasetag.txt",
+        "RELEASE_TAG_PREFIX": ""
+      },
+      "steps": [
+        {
+          "builtin": "release/bump-version"
+        }
+      ],
+      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+    },
     "clobber": {
       "name": "clobber",
       "description": "hard resets to HEAD of origin and cleans the local repo",
@@ -169,6 +186,57 @@
       "name": "pre-compile",
       "description": "Prepare the project for compilation"
     },
+    "publish:git:typescript-conversion": {
+      "name": "publish:git:typescript-conversion",
+      "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
+      "env": {
+        "CHANGELOG": "dist/changelog.md",
+        "RELEASE_TAG_FILE": "dist/releasetag.txt",
+        "PROJECT_CHANGELOG_FILE": "CHANGELOG.md",
+        "VERSION_FILE": "dist/version.txt"
+      },
+      "steps": [
+        {
+          "builtin": "release/update-changelog"
+        },
+        {
+          "builtin": "release/tag-version"
+        },
+        {
+          "exec": "git push --follow-tags origin typescript-conversion"
+        }
+      ],
+      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+    },
+    "release:typescript-conversion": {
+      "name": "release:typescript-conversion",
+      "description": "Prepare a release from \"typescript-conversion\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MAJOR": "1",
+        "PRERELEASE": "beta"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        },
+        {
+          "spawn": "publish:git:typescript-conversion"
+        }
+      ]
+    },
     "test": {
       "name": "test",
       "description": "Run tests",
@@ -188,6 +256,22 @@
       "steps": [
         {
           "exec": "jest --watch"
+        }
+      ]
+    },
+    "unbump": {
+      "name": "unbump",
+      "description": "Restores version to 0.0.0",
+      "env": {
+        "OUTFILE": "package.json",
+        "CHANGELOG": "dist/changelog.md",
+        "BUMPFILE": "dist/version.txt",
+        "RELEASETAG": "dist/releasetag.txt",
+        "RELEASE_TAG_PREFIX": ""
+      },
+      "steps": [
+        {
+          "builtin": "release/reset-version"
         }
       ]
     },
