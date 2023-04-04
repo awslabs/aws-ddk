@@ -214,6 +214,7 @@ test("SQSToLambdaStage additional properties", () => {
     maxReceiveCount: 2,
     dlqEnabled: true,
     sqsQueueProps: {
+      queueName: "dummy-queue.fifo",
       fifo: true,
       visibilityTimeout: cdk.Duration.minutes(5),
     },
@@ -228,5 +229,6 @@ test("SQSToLambdaStage additional properties", () => {
   template.resourceCountIs("AWS::SQS::Queue", 2);
   template.hasResourceProperties("AWS::SQS::Queue", {
     VisibilityTimeout: 300,
+    QueueName: "dummy-queue.fifo",
   });
 });

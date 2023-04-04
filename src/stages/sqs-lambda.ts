@@ -88,7 +88,7 @@ export class SqsToLambdaStage extends DataStage {
             }
           : undefined,
         fifo: props.sqsQueueProps?.fifo ? props.sqsQueueProps?.fifo : undefined,
-        ...props.sqsQueueProps
+        ...props.sqsQueueProps,
       });
     }
 
