@@ -48,18 +48,14 @@ export class SqsToLambdaStage extends DataStage {
       const functionProps: SqsToLambdaStageFunctionProps = props.lambdaFunctionProps;
 
       this.function = new lambda.Function(this, "Process Function", {
-        code: functionProps.code,
-        runtime: functionProps.runtime,
-        handler: functionProps.handler,
         timeout: functionProps.timeout ?? cdk.Duration.seconds(120),
         memorySize: functionProps.memorySize ?? 256,
-        layers: functionProps.layers,
-        role: functionProps.role,
         environment: {
           EVENT_SOURCE: eventSource,
           EVENT_DETAIL_TYPE: eventDetailType,
           ...(functionProps.environment ?? {}),
         },
+        ...functionProps,
       });
     } else {
       throw TypeError("'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage");

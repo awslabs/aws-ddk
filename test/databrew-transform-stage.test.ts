@@ -24,7 +24,7 @@ test("DataBrew Transfrom stage creates State Machine & Alarm", () => {
     Namespace: "AWS/States",
     Period: 300,
     Statistic: "Sum",
-    Threshold: 5,
+    Threshold: 1,
   });
 });
 
@@ -107,4 +107,39 @@ test("DataBrew Transform must have 'jobType' if 'createJob' is enabled or no exi
       createJob: true,
     });
   }).toThrowError("if 'jobType' is a required property when creating a new DataBrew job");
+});
+
+test("DataBrew Transfrom stage additional properties", () => {
+  const stack = new cdk.Stack();
+
+  new DataBrewTransformStage(stack, "databrew-transform", {
+    jobName: "dummy-job",
+    jobType: "PROFILE",
+    createJob: true,
+    maxCapacity: 2,
+    maxRetries: 2,
+    encryptionMode: "SSE-S3",
+  });
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::DataBrew::Job", {
+    Name: "dummy-job",
+    Type: "PROFILE",
+    MaxCapacity: 2,
+    MaxRetries: 2,
+  });
+  template.hasResourceProperties("AWS::StepFunctions::StateMachine", {
+    DefinitionString: {
+      "Fn::Join": ["", Match.arrayWith([Match.stringLikeRegexp("Start DataBrew Job")])],
+    },
+  });
+  template.hasResourceProperties("AWS::CloudWatch::Alarm", {
+    ComparisonOperator: "GreaterThanThreshold",
+    EvaluationPeriods: 1,
+    MetricName: "ExecutionsFailed",
+    Namespace: "AWS/States",
+    Period: 300,
+    Statistic: "Sum",
+    Threshold: 1,
+  });
 });

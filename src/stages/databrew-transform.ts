@@ -1,3 +1,4 @@
+import * as cdk from "aws-cdk-lib";
 import * as databrew from "aws-cdk-lib/aws-databrew";
 import * as events from "aws-cdk-lib/aws-events";
 import * as iam from "aws-cdk-lib/aws-iam";
@@ -12,9 +13,23 @@ export interface DataBrewTransformStageProps extends StateMachineStageProps {
   readonly jobRoleArn?: string;
   readonly jobType?: string;
   readonly datasetName?: string;
-  readonly recipe?: databrew.CfnJob.RecipeProperty;
-  readonly outputs?: databrew.CfnJob.OutputProperty[];
   readonly createJob?: boolean;
+  readonly dataCatalogOutputs?: databrew.CfnJob.DataCatalogOutputProperty[];
+  readonly databaseOutputs?: databrew.CfnJob.DatabaseOutputProperty[];
+  readonly encryptionKeyArn?: string;
+  readonly encryptionMode?: string;
+  readonly jobSample?: databrew.CfnJob.JobSampleProperty;
+  readonly logSubscription?: string;
+  readonly maxCapacity?: number;
+  readonly maxRetries?: number;
+  readonly outputLocation?: databrew.CfnJob.OutputLocationProperty;
+  readonly outputs?: databrew.CfnJob.OutputProperty[];
+  readonly profileConfiguration?: databrew.CfnJob.ProfileConfigurationProperty;
+  readonly projectName?: string;
+  readonly recipe?: databrew.CfnJob.RecipeProperty;
+  readonly tags?: cdk.CfnTag[];
+  readonly timeout?: number;
+  readonly validationConfigurations?: databrew.CfnJob.ValidationConfigurationProperty[];
 }
 
 export class DataBrewTransformStage extends StateMachineStage {
@@ -28,21 +43,34 @@ export class DataBrewTransformStage extends StateMachineStage {
   constructor(scope: Construct, id: string, props: DataBrewTransformStageProps) {
     super(scope, id, props);
 
-    const { jobName, jobRoleArn, jobType, datasetName, recipe, outputs, createJob } = props;
-    this.jobName = jobName ? jobName : `${id}-job`;
-    this.createJob = jobName && !createJob ? false : true;
+    this.jobName = props.jobName ? props.jobName : `${id}-job`;
+    this.createJob = props.jobName && !props.createJob ? false : true;
 
     if (this.createJob) {
-      if (!jobType) {
+      if (!props.jobType) {
         throw new Error("if 'jobType' is a required property when creating a new DataBrew job");
       }
       this.job = new databrew.CfnJob(this, "DataBrew Job", {
         name: this.jobName,
-        roleArn: jobRoleArn ? jobRoleArn : this.createDefaultDataBrewJobRole().roleArn,
-        type: jobType,
-        datasetName: datasetName,
-        recipe: recipe,
-        outputs: outputs,
+        roleArn: props.jobRoleArn ? props.jobRoleArn : this.createDefaultDataBrewJobRole().roleArn,
+        type: props.jobType,
+        datasetName: props.datasetName,
+        dataCatalogOutputs: props.dataCatalogOutputs,
+        databaseOutputs: props.databaseOutputs,
+        encryptionKeyArn: props.encryptionKeyArn,
+        encryptionMode: props.encryptionMode,
+        jobSample: props.jobSample,
+        logSubscription: props.logSubscription,
+        maxCapacity: props.maxCapacity,
+        maxRetries: props.maxRetries,
+        outputLocation: props.outputLocation,
+        outputs: props.outputs,
+        profileConfiguration: props.profileConfiguration,
+        projectName: props.projectName,
+        recipe: props.recipe,
+        tags: props.tags,
+        timeout: props.timeout,
+        validationConfigurations: props.validationConfigurations,
       });
     }
     const startJobRun = new tasks.GlueDataBrewStartJobRun(this, "Start DataBrew Job", {

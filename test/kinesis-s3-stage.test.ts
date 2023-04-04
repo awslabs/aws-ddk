@@ -51,7 +51,7 @@ test("FirehoseToS3Stage creates Firehose DeliveryStream and S3 Bucket", () => {
 
   template.hasResourceProperties("AWS::CloudWatch::Alarm", {
     MetricName: "DeliveryToS3.DataFreshness",
-    Threshold: 5,
+    Threshold: 1,
     EvaluationPeriods: 1,
     Dimensions: Match.arrayWith([
       Match.objectLike({

@@ -53,7 +53,7 @@ export abstract class DataStage extends Stage {
         new cloudwatch.Alarm(this, id, {
           metric: props.metric,
           comparisonOperator: props.comparisonOperator ?? cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
-          threshold: props.threshold ?? 5,
+          threshold: props.threshold ?? 1,
           evaluationPeriods: props.evaluationPeriods ?? 1,
         }),
       );

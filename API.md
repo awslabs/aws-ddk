@@ -878,6 +878,7 @@ Convert an object, potentially containing tokens, to a JSON string.
 | <code><a href="#aws-ddk-core.BaseStack.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#aws-ddk-core.BaseStack.isStack">isStack</a></code> | Return whether the given object is a Stack. |
 | <code><a href="#aws-ddk-core.BaseStack.of">of</a></code> | Looks up the first stack scope in which `construct` is defined. |
+| <code><a href="#aws-ddk-core.BaseStack.createDefaultPermissionsBoundary">createDefaultPermissionsBoundary</a></code> | *No description.* |
 
 ---
 
@@ -934,6 +935,32 @@ Fails if there is no stack up the tree.
 - *Type:* constructs.IConstruct
 
 The construct to start the search from.
+
+---
+
+##### `createDefaultPermissionsBoundary` <a name="createDefaultPermissionsBoundary" id="aws-ddk-core.BaseStack.createDefaultPermissionsBoundary"></a>
+
+```typescript
+import { BaseStack } from 'aws-ddk-core'
+
+BaseStack.createDefaultPermissionsBoundary(scope: Construct, id: string, props: PermissionsBoundaryProps)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.BaseStack.createDefaultPermissionsBoundary.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.BaseStack.createDefaultPermissionsBoundary.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.BaseStack.createDefaultPermissionsBoundary.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.PermissionsBoundaryProps">PermissionsBoundaryProps</a>
 
 ---
 
@@ -1869,6 +1896,7 @@ public synth(): CICDPipelineStack
 | <code><a href="#aws-ddk-core.CICDPipelineStack.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.isStack">isStack</a></code> | Return whether the given object is a Stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.of">of</a></code> | Looks up the first stack scope in which `construct` is defined. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.createDefaultPermissionsBoundary">createDefaultPermissionsBoundary</a></code> | *No description.* |
 
 ---
 
@@ -1925,6 +1953,32 @@ Fails if there is no stack up the tree.
 - *Type:* constructs.IConstruct
 
 The construct to start the search from.
+
+---
+
+##### `createDefaultPermissionsBoundary` <a name="createDefaultPermissionsBoundary" id="aws-ddk-core.CICDPipelineStack.createDefaultPermissionsBoundary"></a>
+
+```typescript
+import { CICDPipelineStack } from 'aws-ddk-core'
+
+CICDPipelineStack.createDefaultPermissionsBoundary(scope: Construct, id: string, props: PermissionsBoundaryProps)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.CICDPipelineStack.createDefaultPermissionsBoundary.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.CICDPipelineStack.createDefaultPermissionsBoundary.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.createDefaultPermissionsBoundary.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.PermissionsBoundaryProps">PermissionsBoundaryProps</a>
 
 ---
 
@@ -6430,12 +6484,26 @@ const dataBrewTransformStageProps: DataBrewTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.databaseOutputs">databaseOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DatabaseOutputProperty[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.dataCatalogOutputs">dataCatalogOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DataCatalogOutputProperty[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.datasetName">datasetName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.encryptionKeyArn">encryptionKeyArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.encryptionMode">encryptionMode</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobRoleArn">jobRoleArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobSample">jobSample</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.JobSampleProperty</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobType">jobType</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.logSubscription">logSubscription</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.maxCapacity">maxCapacity</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.maxRetries">maxRetries</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.OutputLocationProperty</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.outputs">outputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.OutputProperty[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.profileConfiguration">profileConfiguration</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.ProfileConfigurationProperty</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.projectName">projectName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.recipe">recipe</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.RecipeProperty</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.tags">tags</a></code> | <code>aws-cdk-lib.CfnTag[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.timeout">timeout</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.validationConfigurations">validationConfigurations</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.ValidationConfigurationProperty[]</code> | *No description.* |
 
 ---
 
@@ -6529,10 +6597,50 @@ public readonly createJob: boolean;
 
 ---
 
+##### `databaseOutputs`<sup>Optional</sup> <a name="databaseOutputs" id="aws-ddk-core.DataBrewTransformStageProps.property.databaseOutputs"></a>
+
+```typescript
+public readonly databaseOutputs: DatabaseOutputProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.DatabaseOutputProperty[]
+
+---
+
+##### `dataCatalogOutputs`<sup>Optional</sup> <a name="dataCatalogOutputs" id="aws-ddk-core.DataBrewTransformStageProps.property.dataCatalogOutputs"></a>
+
+```typescript
+public readonly dataCatalogOutputs: DataCatalogOutputProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.DataCatalogOutputProperty[]
+
+---
+
 ##### `datasetName`<sup>Optional</sup> <a name="datasetName" id="aws-ddk-core.DataBrewTransformStageProps.property.datasetName"></a>
 
 ```typescript
 public readonly datasetName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `encryptionKeyArn`<sup>Optional</sup> <a name="encryptionKeyArn" id="aws-ddk-core.DataBrewTransformStageProps.property.encryptionKeyArn"></a>
+
+```typescript
+public readonly encryptionKeyArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `encryptionMode`<sup>Optional</sup> <a name="encryptionMode" id="aws-ddk-core.DataBrewTransformStageProps.property.encryptionMode"></a>
+
+```typescript
+public readonly encryptionMode: string;
 ```
 
 - *Type:* string
@@ -6559,6 +6667,16 @@ public readonly jobRoleArn: string;
 
 ---
 
+##### `jobSample`<sup>Optional</sup> <a name="jobSample" id="aws-ddk-core.DataBrewTransformStageProps.property.jobSample"></a>
+
+```typescript
+public readonly jobSample: JobSampleProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.JobSampleProperty
+
+---
+
 ##### `jobType`<sup>Optional</sup> <a name="jobType" id="aws-ddk-core.DataBrewTransformStageProps.property.jobType"></a>
 
 ```typescript
@@ -6566,6 +6684,46 @@ public readonly jobType: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `logSubscription`<sup>Optional</sup> <a name="logSubscription" id="aws-ddk-core.DataBrewTransformStageProps.property.logSubscription"></a>
+
+```typescript
+public readonly logSubscription: string;
+```
+
+- *Type:* string
+
+---
+
+##### `maxCapacity`<sup>Optional</sup> <a name="maxCapacity" id="aws-ddk-core.DataBrewTransformStageProps.property.maxCapacity"></a>
+
+```typescript
+public readonly maxCapacity: number;
+```
+
+- *Type:* number
+
+---
+
+##### `maxRetries`<sup>Optional</sup> <a name="maxRetries" id="aws-ddk-core.DataBrewTransformStageProps.property.maxRetries"></a>
+
+```typescript
+public readonly maxRetries: number;
+```
+
+- *Type:* number
+
+---
+
+##### `outputLocation`<sup>Optional</sup> <a name="outputLocation" id="aws-ddk-core.DataBrewTransformStageProps.property.outputLocation"></a>
+
+```typescript
+public readonly outputLocation: OutputLocationProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.OutputLocationProperty
 
 ---
 
@@ -6579,6 +6737,26 @@ public readonly outputs: OutputProperty[];
 
 ---
 
+##### `profileConfiguration`<sup>Optional</sup> <a name="profileConfiguration" id="aws-ddk-core.DataBrewTransformStageProps.property.profileConfiguration"></a>
+
+```typescript
+public readonly profileConfiguration: ProfileConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.ProfileConfigurationProperty
+
+---
+
+##### `projectName`<sup>Optional</sup> <a name="projectName" id="aws-ddk-core.DataBrewTransformStageProps.property.projectName"></a>
+
+```typescript
+public readonly projectName: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `recipe`<sup>Optional</sup> <a name="recipe" id="aws-ddk-core.DataBrewTransformStageProps.property.recipe"></a>
 
 ```typescript
@@ -6586,6 +6764,36 @@ public readonly recipe: RecipeProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.RecipeProperty
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.DataBrewTransformStageProps.property.tags"></a>
+
+```typescript
+public readonly tags: CfnTag[];
+```
+
+- *Type:* aws-cdk-lib.CfnTag[]
+
+---
+
+##### `timeout`<sup>Optional</sup> <a name="timeout" id="aws-ddk-core.DataBrewTransformStageProps.property.timeout"></a>
+
+```typescript
+public readonly timeout: number;
+```
+
+- *Type:* number
+
+---
+
+##### `validationConfigurations`<sup>Optional</sup> <a name="validationConfigurations" id="aws-ddk-core.DataBrewTransformStageProps.property.validationConfigurations"></a>
+
+```typescript
+public readonly validationConfigurations: ValidationConfigurationProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_databrew.CfnJob.ValidationConfigurationProperty[]
 
 ---
 
@@ -7018,6 +7226,45 @@ public readonly rolePolicyStatements: PolicyStatement[];
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+---
+
+### GetTagsProps <a name="GetTagsProps" id="aws-ddk-core.GetTagsProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.GetTagsProps.Initializer"></a>
+
+```typescript
+import { GetTagsProps } from 'aws-ddk-core'
+
+const getTagsProps: GetTagsProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.GetTagsProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetTagsProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetTagsProps.property.configPath"></a>
+
+```typescript
+public readonly configPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.GetTagsProps.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -9137,6 +9384,7 @@ public tagConstruct(scope: Construct, tags: {[ key: string ]: string}): void
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.Configurator.getEnvConfig">getEnvConfig</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.getTags">getTags</a></code> | *No description.* |
 
 ---
 
@@ -9151,6 +9399,20 @@ Configurator.getEnvConfig(props: GetEnvConfigProps)
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getEnvConfig.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.GetEnvConfigProps">GetEnvConfigProps</a>
+
+---
+
+##### `getTags` <a name="getTags" id="aws-ddk-core.Configurator.getTags"></a>
+
+```typescript
+import { Configurator } from 'aws-ddk-core'
+
+Configurator.getTags(props: GetTagsProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getTags.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.GetTagsProps">GetTagsProps</a>
 
 ---
 
