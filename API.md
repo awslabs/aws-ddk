@@ -7398,12 +7398,15 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerAllowFailure">crawlerAllowFailure</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerRole">crawlerRole</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobProps">jobProps</a></code> | <code>@aws-cdk/aws-glue-alpha.JobProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobRunArgs">jobRunArgs</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryBackoffRate">stateMachineRetryBackoffRate</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryInterval">stateMachineRetryInterval</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryMaxAttempts">stateMachineRetryMaxAttempts</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawler.TargetsProperty</code> | *No description.* |
 
 ---
 
@@ -7517,6 +7520,26 @@ public readonly crawlerProps: CfnCrawlerProps;
 
 ---
 
+##### `crawlerRole`<sup>Optional</sup> <a name="crawlerRole" id="aws-ddk-core.GlueTransformStageProps.property.crawlerRole"></a>
+
+```typescript
+public readonly crawlerRole: string;
+```
+
+- *Type:* string
+
+---
+
+##### `databaseName`<sup>Optional</sup> <a name="databaseName" id="aws-ddk-core.GlueTransformStageProps.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `jobName`<sup>Optional</sup> <a name="jobName" id="aws-ddk-core.GlueTransformStageProps.property.jobName"></a>
 
 ```typescript
@@ -7574,6 +7597,16 @@ public readonly stateMachineRetryMaxAttempts: number;
 ```
 
 - *Type:* number
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.GlueTransformStageProps.property.targets"></a>
+
+```typescript
+public readonly targets: TargetsProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_glue.CfnCrawler.TargetsProperty
 
 ---
 
