@@ -181,3 +181,46 @@ test("DataPipeline with skip rule", () => {
   const template = Template.fromStack(stack);
   template.resourceCountIs("AWS::Events::Rule", 0);
 });
+
+test("DataPipeline Rule Name", () => {
+  const stack = new cdk.Stack();
+
+  const bucket = new s3.Bucket(stack, "Bucket");
+
+  const firehoseToS3Stage = new FirehoseToS3Stage(stack, "Firehose To S3 Stage", { s3Bucket: bucket });
+
+  const sqsToLambdaStage = new SqsToLambdaStage(stack, "SQS To Lambda Stage 2", {
+    lambdaFunctionProps: {
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      memorySize: 512,
+      runtime: lambda.Runtime.PYTHON_3_9,
+      layers: [
+        lambda.LayerVersion.fromLayerVersionArn(stack, "Layer", "arn:aws:lambda:us-east-1:222222222222:layer:dummy:1"),
+      ],
+    },
+  });
+
+  const pipeline = new DataPipeline(stack, "Pipeline", {});
+
+  pipeline.addStage({ stage: firehoseToS3Stage }).addStage({ stage: sqsToLambdaStage, ruleName: "foobar" });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs("AWS::Events::Rule", 1);
+  template.hasResourceProperties("AWS::Events::Rule", {
+    State: "ENABLED",
+    Name: "foobar",
+    EventPattern: Match.objectLike({
+      "detail-type": firehoseToS3Stage.eventPattern?.detailType,
+      source: firehoseToS3Stage.eventPattern?.source,
+    }),
+    Targets: Match.arrayEquals([
+      Match.objectLike({
+        Arn: {
+          "Fn::GetAtt": [stack.resolve((sqsToLambdaStage.queue.node.defaultChild as cdk.CfnElement).logicalId), "Arn"],
+        },
+      }),
+    ]),
+  });
+});

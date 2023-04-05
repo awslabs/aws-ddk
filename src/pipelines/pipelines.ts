@@ -48,7 +48,7 @@ export class DataPipeline extends Construct {
     const skipRule = props.skipRule ?? false;
 
     if (props.overrideRule) {
-      this.addRule({ overrideRule: props.overrideRule, schedule: props.schedule });
+      this.addRule({ overrideRule: props.overrideRule, schedule: props.schedule, ruleName: props.ruleName });
     } else if (this.previousStage && skipRule === false) {
       if (stage.targets === undefined) {
         throw new Error(
@@ -61,6 +61,7 @@ export class DataPipeline extends Construct {
         eventPattern: this.previousStage?.eventPattern,
         eventTargets: stage.targets,
         schedule: props.schedule,
+        ruleName: props.ruleName,
       });
     }
 
