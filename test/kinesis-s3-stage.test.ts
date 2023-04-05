@@ -1,6 +1,9 @@
+import * as firehose from "@aws-cdk/aws-kinesisfirehose-alpha";
+import * as destinations from "@aws-cdk/aws-kinesisfirehose-destinations-alpha";
 import * as cdk from "aws-cdk-lib";
 import { Size } from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
+import * as kinesis from "aws-cdk-lib/aws-kinesis";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 import { FirehoseToS3Stage } from "../src";
@@ -93,6 +96,48 @@ test("FirehoseToS3Stage uses S3 Bucket and creates Kinesis DataStream", () => {
     MetricName: "DeliveryToS3.DataFreshness",
     Threshold: 10,
   });
+});
+
+test("FirehoseToS3Stage uses existing S3 Bucket and Kinesis DataStream", () => {
+  const stack = new cdk.Stack();
+
+  const stage = new FirehoseToS3Stage(stack, "Stage", {
+    s3Bucket: new Bucket(stack, "Bucket"),
+    dataStream: new kinesis.Stream(stack, "Stream"),
+    deliveryStreamDataFreshnessErrorsAlarmThreshold: 10,
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs("AWS::S3::Bucket", 1);
+  template.resourceCountIs("AWS::Kinesis::Stream", 1);
+
+  template.hasResourceProperties("AWS::KinesisFirehose::DeliveryStream", {
+    KinesisStreamSourceConfiguration: Match.objectLike({
+      KinesisStreamARN: Match.objectLike({
+        "Fn::GetAtt": Match.arrayWith([
+          stack.resolve((stage.dataStream?.node.defaultChild as cdk.CfnElement).logicalId),
+          "Arn",
+        ]),
+      }),
+    }),
+  });
+});
+
+test("FirehoseToS3Stage uses existing S3 Bucket and Firehose DeliveryStream", () => {
+  const stack = new cdk.Stack();
+  const s3Bucket = new Bucket(stack, "Bucket");
+  new FirehoseToS3Stage(stack, "Stage", {
+    s3Bucket: s3Bucket,
+    firehoseDeliveryStream: new firehose.DeliveryStream(stack, "DeliveryStream", {
+      destinations: [new destinations.S3Bucket(s3Bucket, {})],
+    }),
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs("AWS::S3::Bucket", 1);
+  template.resourceCountIs("AWS::KinesisFirehose::DeliveryStream", 1);
 });
 
 test("FirehoseToS3Stage uses dataOutputPrefix in Firehose DeliveryStream", () => {

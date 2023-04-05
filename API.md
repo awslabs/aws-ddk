@@ -6886,6 +6886,89 @@ public readonly alarmsEnabled: boolean;
 
 ---
 
+### DeliveryStreamProps <a name="DeliveryStreamProps" id="aws-ddk-core.DeliveryStreamProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.DeliveryStreamProps.Initializer"></a>
+
+```typescript
+import { DeliveryStreamProps } from 'aws-ddk-core'
+
+const deliveryStreamProps: DeliveryStreamProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.deliveryStreamName">deliveryStreamName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.destinations">destinations</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.IDestination[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.encryption">encryption</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.StreamEncryption</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.sourceStream">sourceStream</a></code> | <code>aws-cdk-lib.aws_kinesis.IStream</code> | *No description.* |
+
+---
+
+##### `deliveryStreamName`<sup>Optional</sup> <a name="deliveryStreamName" id="aws-ddk-core.DeliveryStreamProps.property.deliveryStreamName"></a>
+
+```typescript
+public readonly deliveryStreamName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `destinations`<sup>Optional</sup> <a name="destinations" id="aws-ddk-core.DeliveryStreamProps.property.destinations"></a>
+
+```typescript
+public readonly destinations: IDestination[];
+```
+
+- *Type:* @aws-cdk/aws-kinesisfirehose-alpha.IDestination[]
+
+---
+
+##### `encryption`<sup>Optional</sup> <a name="encryption" id="aws-ddk-core.DeliveryStreamProps.property.encryption"></a>
+
+```typescript
+public readonly encryption: StreamEncryption;
+```
+
+- *Type:* @aws-cdk/aws-kinesisfirehose-alpha.StreamEncryption
+
+---
+
+##### `encryptionKey`<sup>Optional</sup> <a name="encryptionKey" id="aws-ddk-core.DeliveryStreamProps.property.encryptionKey"></a>
+
+```typescript
+public readonly encryptionKey: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="aws-ddk-core.DeliveryStreamProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+---
+
+##### `sourceStream`<sup>Optional</sup> <a name="sourceStream" id="aws-ddk-core.DeliveryStreamProps.property.sourceStream"></a>
+
+```typescript
+public readonly sourceStream: IStream;
+```
+
+- *Type:* aws-cdk-lib.aws_kinesis.IStream
+
+---
+
 ### EventStageProps <a name="EventStageProps" id="aws-ddk-core.EventStageProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.EventStageProps.Initializer"></a>
@@ -6943,10 +7026,12 @@ const firehoseToS3StageProps: FirehoseToS3StageProps = { ... }
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataOutputPrefix">dataOutputPrefix</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled">dataStreamEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsAlarmThreshold">deliveryStreamDataFreshnessErrorsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsEvaluationPeriods">deliveryStreamDataFreshnessErrorsEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps">firehoseDeliveryStreamProps</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStreamProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStream">firehoseDeliveryStream</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps">firehoseDeliveryStreamProps</a></code> | <code><a href="#aws-ddk-core.DeliveryStreamProps">DeliveryStreamProps</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.kinesisFirehoseDestinationsS3BucketProps">kinesisFirehoseDestinationsS3BucketProps</a></code> | <code>@aws-cdk/aws-kinesisfirehose-destinations-alpha.S3BucketProps</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3BucketProps">s3BucketProps</a></code> | <code>aws-cdk-lib.aws_s3.BucketProps</code> | *No description.* |
@@ -6993,6 +7078,16 @@ public readonly dataOutputPrefix: string;
 
 ---
 
+##### `dataStream`<sup>Optional</sup> <a name="dataStream" id="aws-ddk-core.FirehoseToS3StageProps.property.dataStream"></a>
+
+```typescript
+public readonly dataStream: Stream;
+```
+
+- *Type:* aws-cdk-lib.aws_kinesis.Stream
+
+---
+
 ##### `dataStreamEnabled`<sup>Optional</sup> <a name="dataStreamEnabled" id="aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled"></a>
 
 ```typescript
@@ -7023,13 +7118,23 @@ public readonly deliveryStreamDataFreshnessErrorsEvaluationPeriods: number;
 
 ---
 
+##### `firehoseDeliveryStream`<sup>Optional</sup> <a name="firehoseDeliveryStream" id="aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStream"></a>
+
+```typescript
+public readonly firehoseDeliveryStream: DeliveryStream;
+```
+
+- *Type:* @aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream
+
+---
+
 ##### `firehoseDeliveryStreamProps`<sup>Optional</sup> <a name="firehoseDeliveryStreamProps" id="aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps"></a>
 
 ```typescript
 public readonly firehoseDeliveryStreamProps: DeliveryStreamProps;
 ```
 
-- *Type:* @aws-cdk/aws-kinesisfirehose-alpha.DeliveryStreamProps
+- *Type:* <a href="#aws-ddk-core.DeliveryStreamProps">DeliveryStreamProps</a>
 
 ---
 
