@@ -16,7 +16,11 @@ export interface PermissionsBoundaryProps {
 }
 
 export class BaseStack extends cdk.Stack {
-  public static createDefaultPermissionsBoundary(scope: Construct, id: string, props: PermissionsBoundaryProps) {
+  public static createDefaultPermissionsBoundary(
+    scope: Construct,
+    id: string,
+    props: PermissionsBoundaryProps,
+  ): iam.IManagedPolicy {
     const prefix = props.prefix ?? "ddk";
     const environmentId = props.environmentId ?? "dev";
     const qualifier = props.environmentId ?? "hnb659fds";
