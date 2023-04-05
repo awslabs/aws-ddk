@@ -110,6 +110,7 @@ export class GlueTransformStage extends StateMachineStage {
       role: role,
       databaseName: props.databaseName,
       targets: targets,
+      ...props.crawlerProps,
     });
     return crawler;
   }
