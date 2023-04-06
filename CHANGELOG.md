@@ -1,11 +1,4 @@
 
-## [1.0.0-beta.1](https://github.com/awslabs/aws-ddk/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2023-04-06)
-
-
-### Bug Fixes
-
-* Beta Testing Fixes ([#296](https://github.com/awslabs/aws-ddk/issues/296)) ([e1db71c](https://github.com/awslabs/aws-ddk/commit/e1db71c3bf9c7d3dfe503153f0a101cc8f44777e))
-
 ## 1.0.0-beta.0 (2023-03-31)
 
 
