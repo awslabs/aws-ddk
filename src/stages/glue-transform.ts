@@ -13,6 +13,9 @@ export interface GlueTransformStageProps extends StateMachineStageProps {
   readonly jobProps?: glue_alpha.JobProps;
   readonly jobRunArgs?: { [key: string]: any };
   readonly crawlerName?: string;
+  readonly crawlerRole?: string;
+  readonly databaseName?: string;
+  readonly targets?: glue.CfnCrawler.TargetsProperty;
   readonly crawlerProps?: glue.CfnCrawlerProps;
   readonly crawlerAllowFailure?: boolean;
   readonly stateMachineRetryMaxAttempts?: number;
@@ -93,11 +96,22 @@ export class GlueTransformStage extends StateMachineStage {
   }
 
   private getCrawler(props: GlueTransformStageProps): glue.CfnCrawler {
-    if (!props.crawlerProps) {
-      throw TypeError("'crawlerName' or 'crawlerProps' must be set to instantiate this stage");
+    const role = props.crawlerRole ?? props.crawlerProps?.role;
+    if (!role) {
+      throw TypeError("Crawler Role must be set either by 'crawlerRole' or 'crawlerProps.role");
     }
 
-    const crawler = new glue.CfnCrawler(this, "Crawler", props.crawlerProps);
+    const targets = props.targets ?? props.crawlerProps?.targets;
+    if (!targets) {
+      throw TypeError("Crawler Targets must be set either by 'targets' or 'crawlerProps.targets");
+    }
+
+    const crawler = new glue.CfnCrawler(this, "Crawler", {
+      role: role,
+      databaseName: props.databaseName,
+      targets: targets,
+      ...props.crawlerProps,
+    });
     return crawler;
   }
 }

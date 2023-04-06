@@ -129,10 +129,25 @@ export interface GetEnvConfigProps {
   readonly environmentId: string;
 }
 
+export interface GetTagsProps {
+  readonly configPath: string;
+  readonly environmentId?: string;
+}
+
 export class Configurator {
   public static getEnvConfig(props: GetEnvConfigProps): any {
     const config = getConfig({ config: props.configPath });
     return config.environments ? config.environments[props.environmentId] : undefined;
+  }
+  public static getTags(props: GetTagsProps): any {
+    const config = getConfig({ config: props.configPath });
+    return props.environmentId
+      ? config.environments
+        ? config.environments[props.environmentId].tags
+        : {}
+      : config.tags
+      ? config.tags
+      : {};
   }
   public readonly config: any;
   public readonly environmentId?: string;

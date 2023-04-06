@@ -4,7 +4,7 @@ import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 
-import { BaseStack, createDefaultPermissionsBoundary, SqsToLambdaStage } from "../src";
+import { BaseStack, SqsToLambdaStage } from "../src";
 
 test("Base Stack No Bootstrap Config", () => {
   const sampleConfig = {
@@ -310,7 +310,11 @@ test("Base Stack Permissions Boundary", () => {
 test("Test Permissions Boundary Creation and Usage in BaseStack", () => {
   const app = new cdk.App();
   const bootstrapStack = new cdk.Stack(app, "my-bootstrap-stack");
-  const permissionsBoundary = createDefaultPermissionsBoundary(bootstrapStack, "DDK Default Permissions Boundary", {});
+  const permissionsBoundary = BaseStack.createDefaultPermissionsBoundary(
+    bootstrapStack,
+    "DDK Default Permissions Boundary",
+    {},
+  );
   const stack = new BaseStack(app, "my-stack", {
     environmentId: "dev",
     permissionsBoundaryArn: permissionsBoundary.managedPolicyArn,
@@ -337,7 +341,7 @@ test("Test Permissions Boundary Creation and Usage in BaseStack", () => {
 test("Permissions Boundary Creation Full", () => {
   const app = new cdk.App();
   const bootstrapStack = new cdk.Stack(app, "my-bootstrap-stack");
-  createDefaultPermissionsBoundary(bootstrapStack, "DDK Default Permissions Boundary", {
+  BaseStack.createDefaultPermissionsBoundary(bootstrapStack, "DDK Default Permissions Boundary", {
     prefix: "custom",
     environmentId: "stage",
     qualifier: "abcdefgh",

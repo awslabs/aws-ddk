@@ -2,21 +2,33 @@ import * as firehose from "@aws-cdk/aws-kinesisfirehose-alpha";
 import * as destinations from "@aws-cdk/aws-kinesisfirehose-destinations-alpha";
 import * as cdk from "aws-cdk-lib";
 import * as events from "aws-cdk-lib/aws-events";
+import * as iam from "aws-cdk-lib/aws-iam";
 import * as kinesis from "aws-cdk-lib/aws-kinesis";
+import * as kms from "aws-cdk-lib/aws-kms";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { overrideProps } from "../core";
 import { S3Factory } from "../core/s3-factory";
 import { DataStage, DataStageProps } from "../pipelines/stage";
 
+export interface DeliveryStreamProps {
+  readonly destinations?: firehose.IDestination[];
+  readonly deliveryStreamName?: string;
+  readonly encryption?: firehose.StreamEncryption;
+  readonly encryptionKey?: kms.IKey;
+  readonly role?: iam.IRole;
+  readonly sourceStream?: kinesis.IStream;
+}
+
 export interface FirehoseToS3StageProps extends DataStageProps {
   readonly s3Bucket?: s3.IBucket;
   readonly s3BucketProps?: s3.BucketProps;
-  readonly firehoseDeliveryStreamProps?: firehose.DeliveryStreamProps;
+  readonly firehoseDeliveryStream?: firehose.DeliveryStream;
+  readonly firehoseDeliveryStreamProps?: DeliveryStreamProps;
   readonly kinesisFirehoseDestinationsS3BucketProps?: destinations.S3BucketProps;
-
   readonly dataOutputPrefix?: string;
   readonly dataStreamEnabled?: boolean;
+  readonly dataStream?: kinesis.Stream;
   readonly deliveryStreamDataFreshnessErrorsAlarmThreshold?: number;
   readonly deliveryStreamDataFreshnessErrorsEvaluationPeriods?: number;
 }
@@ -43,9 +55,10 @@ export class FirehoseToS3Stage extends DataStage {
       throw TypeError("'s3Bucket' or 's3BucketProps' must be set to instantiate this stage");
     }
 
-    const dataStreamEnabled = props.dataStreamEnabled ?? false;
-    if (dataStreamEnabled == true) {
+    if (props.dataStreamEnabled == true && !props.dataStream) {
       this.dataStream = new kinesis.Stream(this, "Data Stream", {});
+    } else if (props.dataStreamEnabled != false && props.dataStream) {
+      this.dataStream = props.dataStream;
     }
 
     const destinationsBucketProps = overrideProps(
@@ -59,11 +72,13 @@ export class FirehoseToS3Stage extends DataStage {
         dataOutputPrefix: props.dataOutputPrefix,
       },
     );
-    this.deliveryStream = new firehose.DeliveryStream(this, "Delivery Stream", {
-      destinations: [new destinations.S3Bucket(this.bucket, destinationsBucketProps)],
-      sourceStream: this.dataStream,
-      ...props.firehoseDeliveryStreamProps,
-    });
+    this.deliveryStream = props.firehoseDeliveryStream
+      ? props.firehoseDeliveryStream
+      : new firehose.DeliveryStream(this, "Delivery Stream", {
+          destinations: [new destinations.S3Bucket(this.bucket, destinationsBucketProps)],
+          sourceStream: this.dataStream,
+          ...props.firehoseDeliveryStreamProps,
+        });
     const dataOutputPrefix: string = destinationsBucketProps.dataOutputPrefix;
 
     this.addAlarm("Data Freshness Errors", {

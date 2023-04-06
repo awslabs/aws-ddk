@@ -467,3 +467,12 @@ test("Get Env Config Static Method", () => {
   assert(config === expectedDevConfig);
   assert(nullConfig === undefined);
 });
+
+test("Get Tags", () => {
+  const devTags = Configurator.getTags({ configPath: "./test/test-config.yaml", environmentId: "dev" });
+  const prodTags = Configurator.getTags({ configPath: "./test/test-config.yaml", environmentId: "prod" });
+  const globalTags = Configurator.getTags({ configPath: "./test/test-config.yaml" });
+  assert(devTags.CostCenter === "2014");
+  assert(prodTags.CostCenter === "2015");
+  assert(globalTags["global:foo"] === "bar");
+});
