@@ -34,7 +34,7 @@ function readConfigFile(path: string): object {
     throw TypeError("Config file must be in YAML or JSON format");
   }
 }
-function setRemovalPolicy(value: any, node: cdk.CfnResource): void {
+function setRemovalPolicy(value: string, node: cdk.CfnResource): void {
   if (value.toLowerCase() == "destroy") {
     node.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
   } else if (value.toLowerCase() == "retain") {
