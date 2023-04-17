@@ -7,7 +7,6 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_event_sources from "aws-cdk-lib/aws-lambda-event-sources";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
-import { LambdaDefaults } from "../core/lambda-defaults";
 import { DataStage, DataStageProps } from "../pipelines/stage";
 
 export interface SqsToLambdaStageFunctionProps extends lambda.FunctionProps {
@@ -48,24 +47,16 @@ export class SqsToLambdaStage extends DataStage {
     } else if (props.lambdaFunctionProps) {
       const functionProps: SqsToLambdaStageFunctionProps = props.lambdaFunctionProps;
 
-      this.function = new lambda.Function(
-        this,
-        "Process Function",
-        LambdaDefaults.functionProps({
-          code: functionProps.code,
-          runtime: functionProps.runtime,
-          handler: functionProps.handler,
-          timeout: functionProps.timeout,
-          memorySize: functionProps.memorySize,
-          layers: functionProps.layers,
-          role: functionProps.role,
-          environment: {
-            EVENT_SOURCE: eventSource,
-            EVENT_DETAIL_TYPE: eventDetailType,
-            ...(functionProps.environment ?? {}),
-          },
-        }),
-      );
+      this.function = new lambda.Function(this, "Process Function", {
+        timeout: functionProps.timeout ?? cdk.Duration.seconds(120),
+        memorySize: functionProps.memorySize ?? 256,
+        environment: {
+          EVENT_SOURCE: eventSource,
+          EVENT_DETAIL_TYPE: eventDetailType,
+          ...(functionProps.environment ?? {}),
+        },
+        ...functionProps,
+      });
     } else {
       throw TypeError("'lambdaFunction' or 'lambdaFunctionProps' must be set to instantiate this stage");
     }
@@ -97,6 +88,7 @@ export class SqsToLambdaStage extends DataStage {
             }
           : undefined,
         fifo: props.sqsQueueProps?.fifo ? props.sqsQueueProps?.fifo : undefined,
+        ...props.sqsQueueProps,
       });
     }
 

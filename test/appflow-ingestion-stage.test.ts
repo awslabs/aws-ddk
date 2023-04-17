@@ -34,7 +34,7 @@ test("AppFlow Ingestion stage creates State Machine, Lambda & Alarm", () => {
     Namespace: "AWS/States",
     Period: 300,
     Statistic: "Sum",
-    Threshold: 5,
+    Threshold: 1,
   });
 });
 

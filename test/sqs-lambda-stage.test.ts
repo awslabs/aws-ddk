@@ -205,6 +205,7 @@ test("SQSToLambdaStage additional properties", () => {
 
   new SqsToLambdaStage(stack, "Stage", {
     lambdaFunctionProps: {
+      functionName: "dummy-function",
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
       runtime: lambda.Runtime.PYTHON_3_8,
@@ -213,6 +214,7 @@ test("SQSToLambdaStage additional properties", () => {
     maxReceiveCount: 2,
     dlqEnabled: true,
     sqsQueueProps: {
+      queueName: "dummy-queue.fifo",
       fifo: true,
       visibilityTimeout: cdk.Duration.minutes(5),
     },
@@ -222,9 +224,11 @@ test("SQSToLambdaStage additional properties", () => {
 
   template.hasResourceProperties("AWS::Lambda::Function", {
     Runtime: "python3.8",
+    FunctionName: "dummy-function",
   });
   template.resourceCountIs("AWS::SQS::Queue", 2);
   template.hasResourceProperties("AWS::SQS::Queue", {
     VisibilityTimeout: 300,
+    QueueName: "dummy-queue.fifo",
   });
 });

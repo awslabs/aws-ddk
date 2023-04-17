@@ -75,6 +75,31 @@ test("GlueTransformStage stage creates Glue Crawler", () => {
   });
 });
 
+test("GlueTransformStage stage creates Glue Crawler 2", () => {
+  const stack = new cdk.Stack();
+
+  new GlueTransformStage(stack, "glue-transform", {
+    jobName: "myJob",
+    crawlerRole: "role",
+    targets: {
+      s3Targets: [
+        {
+          path: "s3://my-bucket/crawl-path",
+        },
+      ],
+    },
+  });
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::Glue::Job", 0);
+  template.hasResourceProperties("AWS::Glue::Crawler", {
+    Role: "role",
+    Targets: {
+      S3Targets: [{ Path: "s3://my-bucket/crawl-path" }],
+    },
+  });
+});
+
 test("GlueTranformStage must have 'jobName' or 'jobProps' set", () => {
   const stack = new cdk.Stack();
   expect(() => {
@@ -82,13 +107,23 @@ test("GlueTranformStage must have 'jobName' or 'jobProps' set", () => {
   }).toThrowError("'jobName' or 'jobProps' must be set to instantiate this stage");
 });
 
-test("GlueTranformStage must have 'crawlerName' or 'crawlerProps' set", () => {
+test("GlueTranformStage must set crawler role ", () => {
   const stack = new cdk.Stack();
   expect(() => {
     new GlueTransformStage(stack, "Stage", {
       jobName: "myJob",
     });
-  }).toThrowError("'crawlerName' or 'crawlerProps' must be set to instantiate this stage");
+  }).toThrowError("Crawler Role must be set either by 'crawlerRole' or 'crawlerProps.role");
+});
+
+test("GlueTranformStage must set crawler targets", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new GlueTransformStage(stack, "Stage", {
+      jobName: "myJob",
+      crawlerRole: "arn:aws:iam::role/dummy-role",
+    });
+  }).toThrowError("Crawler Targets must be set either by 'targets' or 'crawlerProps.targets");
 });
 
 test("GlueTransformStage retry settings", () => {
