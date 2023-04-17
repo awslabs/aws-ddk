@@ -48,6 +48,18 @@ export function getConfig(props: getConfigProps): any {
   return configData;
 }
 
+export function getEnvironment(config: object | string, environmentId?: string): any {
+  const configData = getConfig({ config: config });
+  return configData.environments && environmentId
+    ? {
+        env: {
+          account: configData.environments[environmentId].account,
+          region: configData.environments[environmentId].region,
+        },
+      }
+    : { env: { account: configData.account, region: configData.region } };
+}
+
 interface getStackSynthesizerProps {
   readonly config?: string | object;
   readonly environmentId: string;
@@ -148,6 +160,17 @@ export class Configurator {
       : config.tags
       ? config.tags
       : {};
+  }
+  public static getEnvironment(props: GetEnvConfigProps): any {
+    const config = getConfig({ config: props.configPath });
+    return config.environments
+      ? {
+          env: {
+            account: config.environments[props.environmentId].account,
+            region: config.environments[props.environmentId].region,
+          },
+        }
+      : undefined;
   }
   public readonly config: any;
   public readonly environmentId?: string;
