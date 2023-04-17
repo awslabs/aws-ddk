@@ -9,7 +9,7 @@ const bootstrapQualifier = "hnb659fds";
 const accountId = process.env.CDK_DEFAULT_ACCOUNT;
 const region = process.env.CDK_DEFAULT_REGION;
 
-export interface StageConfiguration {
+export interface EnvironmentConfiguration {
   readonly account?: string;
   readonly region?: string;
   readonly resources?: { [key: string]: any };
@@ -18,7 +18,7 @@ export interface StageConfiguration {
 }
 
 export interface Configuration {
-  readonly environments: { [id: string]: StageConfiguration };
+  readonly environments: { [id: string]: EnvironmentConfiguration };
   readonly account?: string;
   readonly region?: string;
   readonly tags?: { [key: string]: string };
@@ -208,7 +208,7 @@ export interface GetEnvironmentProps {
 }
 
 export class Configurator {
-  public static getEnvConfig(props: GetEnvConfigProps): StageConfiguration {
+  public static getEnvConfig(props: GetEnvConfigProps): EnvironmentConfiguration {
     const config = getConfig({ config: props.configPath });
 
     if (!config || !config.environments) {

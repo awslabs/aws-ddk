@@ -6425,7 +6425,7 @@ const configuration: Configuration = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.Configuration.property.environments">environments</a></code> | <code>{[ key: string ]: <a href="#aws-ddk-core.StageConfiguration">StageConfiguration</a>}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.environments">environments</a></code> | <code>{[ key: string ]: <a href="#aws-ddk-core.EnvironmentConfiguration">EnvironmentConfiguration</a>}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.account">account</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.ddkBootstrapConfigKey">ddkBootstrapConfigKey</a></code> | <code>string</code> | *No description.* |
@@ -6437,10 +6437,10 @@ const configuration: Configuration = { ... }
 ##### `environments`<sup>Required</sup> <a name="environments" id="aws-ddk-core.Configuration.property.environments"></a>
 
 ```typescript
-public readonly environments: {[ key: string ]: StageConfiguration};
+public readonly environments: {[ key: string ]: EnvironmentConfiguration};
 ```
 
-- *Type:* {[ key: string ]: <a href="#aws-ddk-core.StageConfiguration">StageConfiguration</a>}
+- *Type:* {[ key: string ]: <a href="#aws-ddk-core.EnvironmentConfiguration">EnvironmentConfiguration</a>}
 
 ---
 
@@ -7049,6 +7049,78 @@ public readonly sourceStream: IStream;
 ```
 
 - *Type:* aws-cdk-lib.aws_kinesis.IStream
+
+---
+
+### EnvironmentConfiguration <a name="EnvironmentConfiguration" id="aws-ddk-core.EnvironmentConfiguration"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.EnvironmentConfiguration.Initializer"></a>
+
+```typescript
+import { EnvironmentConfiguration } from 'aws-ddk-core'
+
+const environmentConfiguration: EnvironmentConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.account">account</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.region">region</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.resources">resources</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.EnvironmentConfiguration.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+---
+
+##### `bootstrap`<sup>Optional</sup> <a name="bootstrap" id="aws-ddk-core.EnvironmentConfiguration.property.bootstrap"></a>
+
+```typescript
+public readonly bootstrap: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.EnvironmentConfiguration.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+---
+
+##### `resources`<sup>Optional</sup> <a name="resources" id="aws-ddk-core.EnvironmentConfiguration.property.resources"></a>
+
+```typescript
+public readonly resources: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.EnvironmentConfiguration.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
 
 ---
 
@@ -9167,78 +9239,6 @@ public readonly sqsQueueProps: QueueProps;
 ```
 
 - *Type:* aws-cdk-lib.aws_sqs.QueueProps
-
----
-
-### StageConfiguration <a name="StageConfiguration" id="aws-ddk-core.StageConfiguration"></a>
-
-#### Initializer <a name="Initializer" id="aws-ddk-core.StageConfiguration.Initializer"></a>
-
-```typescript
-import { StageConfiguration } from 'aws-ddk-core'
-
-const stageConfiguration: StageConfiguration = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#aws-ddk-core.StageConfiguration.property.account">account</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StageConfiguration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StageConfiguration.property.region">region</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StageConfiguration.property.resources">resources</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StageConfiguration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
-
----
-
-##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.StageConfiguration.property.account"></a>
-
-```typescript
-public readonly account: string;
-```
-
-- *Type:* string
-
----
-
-##### `bootstrap`<sup>Optional</sup> <a name="bootstrap" id="aws-ddk-core.StageConfiguration.property.bootstrap"></a>
-
-```typescript
-public readonly bootstrap: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: string}
-
----
-
-##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.StageConfiguration.property.region"></a>
-
-```typescript
-public readonly region: string;
-```
-
-- *Type:* string
-
----
-
-##### `resources`<sup>Optional</sup> <a name="resources" id="aws-ddk-core.StageConfiguration.property.resources"></a>
-
-```typescript
-public readonly resources: {[ key: string ]: any};
-```
-
-- *Type:* {[ key: string ]: any}
-
----
-
-##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.StageConfiguration.property.tags"></a>
-
-```typescript
-public readonly tags: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: string}
 
 ---
 
