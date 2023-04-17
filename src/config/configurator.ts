@@ -10,18 +10,18 @@ const accountId = process.env.CDK_DEFAULT_ACCOUNT;
 const region = process.env.CDK_DEFAULT_REGION;
 
 export interface StageConfiguration {
-  account?: string;
-  region?: string;
-  resources?: { [key: string]: any };
-  tags?: { [key: string]: string };
-  bootstrap?: { [key: string]: string };
+  readonly account?: string;
+  readonly region?: string;
+  readonly resources?: { [key: string]: any };
+  readonly tags?: { [key: string]: string };
+  readonly bootstrap?: { [key: string]: string };
 }
 
 export interface Configuration {
-  environments: { [id: string]: StageConfiguration };
-  tags?: { [key: string]: string };
-  bootstrap?: { [key: string]: string };
-  ddkBootstrapConfigKey?: string;
+  readonly environments: { [id: string]: StageConfiguration };
+  readonly tags?: { [key: string]: string };
+  readonly bootstrap?: { [key: string]: string };
+  readonly ddkBootstrapConfigKey?: string;
 }
 
 function readJson(path: string): Configuration {
@@ -49,10 +49,12 @@ function readConfigFile(path: string): Configuration {
     throw TypeError("Config file must be in YAML or JSON format");
   }
 }
+
 interface getConfigProps {
   readonly config?: string | Configuration;
 }
-export function getConfig(props: getConfigProps): Configuration | undefined {
+
+export function getConfig(props: getConfigProps): Configuration | null {
   if (props.config) {
     if (typeof props.config == "string") {
       return readConfigFile(props.config);
@@ -64,7 +66,7 @@ export function getConfig(props: getConfigProps): Configuration | undefined {
     if (existsSync(path)) {
       return readConfigFile(path);
     }
-    return undefined;
+    return null;
   }
 }
 
@@ -72,6 +74,7 @@ interface getStackSynthesizerProps {
   readonly config?: string | Configuration;
   readonly environmentId: string;
 }
+
 export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
   const configData = getConfig({ config: props.config });
 
@@ -155,23 +158,34 @@ export interface GetTagsProps {
 }
 
 export class Configurator {
-  public static getEnvConfig(props: GetEnvConfigProps): StageConfiguration | undefined {
+  public static getEnvConfig(props: GetEnvConfigProps): StageConfiguration {
     const config = getConfig({ config: props.configPath });
-    if (config && config.environments) {
-      return config.environments[props.environmentId];
+
+    if (!config || !config.environments) {
+      throw TypeError("Config not defined.");
     }
-    return undefined;
+
+    return config.environments[props.environmentId];
   }
-  public static getTags(props: GetTagsProps): any {
+
+  public static getTags(props: GetTagsProps): { [key: string]: string } {
     const config = getConfig({ config: props.configPath });
-    return props.environmentId
-      ? config.environments
-        ? config.environments[props.environmentId].tags
-        : {}
-      : config.tags
-      ? config.tags
-      : {};
+
+    if (!config || !config.environments) {
+      throw TypeError("Config not defined.");
+    }
+
+    if (props.environmentId && config.environments) {
+      return config.environments[props.environmentId].tags ?? {};
+    }
+
+    if (config.tags) {
+      return config.tags;
+    }
+
+    return {};
   }
+
   public readonly config: Configuration;
   public readonly environmentId?: string;
 
@@ -181,7 +195,10 @@ export class Configurator {
 
     if (environmentId && this.config.environments) {
       // Tags
-      const tags = { ...this.config.tags, ...this.config.environments[environmentId].tags };
+      const tags = {
+        ...this.config.tags,
+        ...(this.config.environments[environmentId]?.tags ?? {}),
+      };
       this.tagConstruct(scope, tags);
 
       // Environment Based
@@ -220,8 +237,14 @@ export class Configurator {
     }
   }
   getConfigAttribute(attribute: string): any {
-    return this.environmentId && this.config.environments && this.config.environments[this.environmentId][attribute]
-      ? this.config.environments[this.environmentId][attribute]
-      : undefined;
+    if (!this.environmentId) return null;
+    if (!this.config.environments) return null;
+
+    const stageConfig = this.config.environments[this.environmentId] as { [key: string]: any };
+
+    if (!stageConfig) return null;
+    if (!(attribute in stageConfig)) return null;
+
+    return stageConfig[attribute];
   }
 }

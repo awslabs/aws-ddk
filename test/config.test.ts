@@ -446,7 +446,7 @@ test("Get Config : Non-Existent File", () => {
 });
 
 test("Get Env Config", () => {
-  assert(getConfig({ config: "./test/test-config.json" }).environments.dev.account === "222222222222");
+  assert(getConfig({ config: "./test/test-config.json" })?.environments.dev.account === "222222222222");
   assert(getConfig({}) === undefined);
 });
 
