@@ -447,7 +447,7 @@ test("Get Config : Non-Existent File", () => {
 });
 
 test("Get Env Config", () => {
-  assert(getConfig({ config: "./test/test-config.json" }).environments.dev.account === "222222222222");
+  assert(getConfig({ config: "./test/test-config.json" })?.environments.dev.account === "222222222222");
   assert(getConfig({}) === undefined);
 });
 
@@ -467,7 +467,9 @@ test("Get Environment", () => {
   assert(Configurator.getEnvironment({ configPath: "./test/test-config.json" }).region === "us-east-1");
   const app = new cdk.App();
   new cdk.Stack(app, "MyTestStack", {
-    ...getEnvironment("./test/test-config.json"),
+    env: {
+      ...getEnvironment("./test/test-config.json"),
+    },
   });
 });
 

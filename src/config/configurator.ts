@@ -9,23 +9,40 @@ const bootstrapQualifier = "hnb659fds";
 const accountId = process.env.CDK_DEFAULT_ACCOUNT;
 const region = process.env.CDK_DEFAULT_REGION;
 
-function readJson(path: string): object {
+export interface EnvironmentConfiguration {
+  readonly account?: string;
+  readonly region?: string;
+  readonly resources?: { [key: string]: any };
+  readonly tags?: { [key: string]: string };
+  readonly bootstrap?: { [key: string]: string };
+}
+
+export interface Configuration {
+  readonly environments: { [id: string]: EnvironmentConfiguration };
+  readonly account?: string;
+  readonly region?: string;
+  readonly tags?: { [key: string]: string };
+  readonly bootstrap?: { [key: string]: string };
+  readonly ddkBootstrapConfigKey?: string;
+}
+
+function readJson(path: string): Configuration {
   try {
     const rawdata = readFileSync(path, "utf-8");
     return JSON.parse(rawdata);
   } catch (err) {
-    return {};
+    return { environments: {} };
   }
 }
-function readYaml(path: string): object {
+function readYaml(path: string): Configuration {
   try {
     const rawdata = readFileSync(path, "utf-8");
     return parse(rawdata);
   } catch (err) {
-    return {};
+    return { environments: {} };
   }
 }
-function readConfigFile(path: string): object {
+function readConfigFile(path: string): Configuration {
   if (path.includes(".json")) {
     return readJson(path);
   } else if (path.includes(".yaml") || path.includes(".yml")) {
@@ -46,35 +63,55 @@ function setRemovalPolicy(value: string, node: cdk.CfnResource): void {
   }
 }
 interface getConfigProps {
-  readonly config?: string | object;
-}
-export function getConfig(props: getConfigProps): any {
-  const configData: any = props.config
-    ? typeof props.config == "object"
-      ? props.config
-      : readConfigFile(props.config)
-    : existsSync("./ddk.json")
-    ? readConfigFile("./ddk.json")
-    : undefined;
-  return configData;
+  readonly config?: string | Configuration;
 }
 
-export function getEnvironment(config: object | string, environmentId?: string): any {
+export function getConfig(props: getConfigProps): Configuration | null {
+  if (props.config) {
+    if (typeof props.config == "string") {
+      return readConfigFile(props.config);
+    } else {
+      return props.config;
+    }
+  } else {
+    const path = "./ddk.json";
+    if (existsSync(path)) {
+      return readConfigFile(path);
+    }
+    return null;
+  }
+}
+
+export interface EnvironmentResult {
+  readonly account?: string;
+  readonly region?: string;
+}
+
+export function getEnvironment(config: Configuration | string, environmentId?: string): EnvironmentResult {
   const configData = getConfig({ config: config });
-  return configData.environments && environmentId
-    ? {
-        env: {
-          account: configData.environments[environmentId].account,
-          region: configData.environments[environmentId].region,
-        },
-      }
-    : { env: { account: configData.account, region: configData.region } };
+
+  if (!configData) {
+    throw TypeError("Config not defined.");
+  }
+
+  if (configData?.environments && environmentId) {
+    return {
+      account: configData.environments[environmentId].account,
+      region: configData.environments[environmentId].region,
+    };
+  }
+
+  return {
+    account: configData.account,
+    region: configData.region,
+  };
 }
 
 interface getStackSynthesizerProps {
-  readonly config?: string | object;
+  readonly config?: string | Configuration;
   readonly environmentId: string;
 }
+
 export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
   const configData = getConfig({ config: props.config });
 
@@ -171,45 +208,67 @@ export interface GetEnvironmentProps {
 }
 
 export class Configurator {
-  public static getEnvConfig(props: GetEnvConfigProps): any {
+  public static getEnvConfig(props: GetEnvConfigProps): EnvironmentConfiguration {
     const config = getConfig({ config: props.configPath });
-    return config.environments ? config.environments[props.environmentId] : undefined;
+
+    if (!config || !config.environments) {
+      throw TypeError("Config not defined.");
+    }
+
+    return config.environments[props.environmentId];
   }
-  public static getTags(props: GetTagsProps): any {
+
+  public static getTags(props: GetTagsProps): { [key: string]: string } {
     const config = getConfig({ config: props.configPath });
-    return props.environmentId
-      ? config.environments
-        ? config.environments[props.environmentId].tags
-        : {}
-      : config.tags
-      ? config.tags
-      : {};
+
+    if (!config || !config.environments) {
+      throw TypeError("Config not defined.");
+    }
+
+    if (props.environmentId && config.environments) {
+      return config.environments[props.environmentId].tags ?? {};
+    }
+
+    if (config.tags) {
+      return config.tags;
+    }
+
+    return {};
   }
-  public static getEnvironment(props: GetEnvironmentProps): any {
+
+  public static getEnvironment(props: GetEnvironmentProps): EnvironmentResult {
     const config = getConfig({ config: props.configPath });
-    return config.environments && props.environmentId
-      ? {
-          env: {
-            account: config.environments[props.environmentId].account,
-            region: config.environments[props.environmentId].region,
-          },
-        }
-      : {
-          env: {
-            account: config.account,
-            region: config.region,
-          },
-        };
+
+    if (!config) {
+      throw TypeError("Config not defined.");
+    }
+
+    if (config.environments && props.environmentId) {
+      return {
+        account: config.environments[props.environmentId].account,
+        region: config.environments[props.environmentId].region,
+      };
+    }
+
+    return {
+      account: config.account,
+      region: config.region,
+    };
   }
-  public readonly config: any;
+
+  public readonly config: Configuration;
   public readonly environmentId?: string;
-  constructor(scope: constructs.Construct, config: string | object, environmentId?: string) {
-    this.config = getConfig({ config: config });
+
+  constructor(scope: constructs.Construct, config: string | Configuration, environmentId?: string) {
+    this.config = getConfig({ config: config }) ?? { environments: {} };
     this.environmentId = environmentId;
 
     if (environmentId && this.config.environments) {
       // Tags
-      const tags = { ...this.config.tags, ...this.config.environments[environmentId].tags };
+      const tags = {
+        ...this.config.tags,
+        ...(this.config.environments[environmentId]?.tags ?? {}),
+      };
       this.tagConstruct(scope, tags);
 
       // Environment Based
@@ -248,8 +307,14 @@ export class Configurator {
     }
   }
   getConfigAttribute(attribute: string): any {
-    return this.environmentId && this.config.environments && this.config.environments[this.environmentId][attribute]
-      ? this.config.environments[this.environmentId][attribute]
-      : undefined;
+    if (!this.environmentId) return null;
+    if (!this.config.environments) return null;
+
+    const stageConfig = this.config.environments[this.environmentId] as { [key: string]: any };
+
+    if (!stageConfig) return null;
+    if (!(attribute in stageConfig)) return null;
+
+    return stageConfig[attribute];
   }
 }

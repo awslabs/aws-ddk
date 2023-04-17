@@ -5753,7 +5753,7 @@ const baseStackProps: BaseStackProps = { ... }
 | <code><a href="#aws-ddk-core.BaseStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
-| <code><a href="#aws-ddk-core.BaseStackProps.property.config">config</a></code> | <code>string \| object</code> | *No description.* |
+| <code><a href="#aws-ddk-core.BaseStackProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | *No description.* |
 
@@ -5955,10 +5955,10 @@ Whether to enable termination protection for this stack.
 ##### `config`<sup>Optional</sup> <a name="config" id="aws-ddk-core.BaseStackProps.property.config"></a>
 
 ```typescript
-public readonly config: string | object;
+public readonly config: string | Configuration;
 ```
 
-- *Type:* string | object
+- *Type:* string | <a href="#aws-ddk-core.Configuration">Configuration</a>
 
 ---
 
@@ -6005,7 +6005,7 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
-| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.config">config</a></code> | <code>string \| object</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.cdkLanguage">cdkLanguage</a></code> | <code>string</code> | *No description.* |
@@ -6209,10 +6209,10 @@ Whether to enable termination protection for this stack.
 ##### `config`<sup>Optional</sup> <a name="config" id="aws-ddk-core.CICDPipelineStackProps.property.config"></a>
 
 ```typescript
-public readonly config: string | object;
+public readonly config: string | Configuration;
 ```
 
-- *Type:* string | object
+- *Type:* string | <a href="#aws-ddk-core.Configuration">Configuration</a>
 
 ---
 
@@ -6408,6 +6408,89 @@ public readonly props: ConnectionSourceOptions;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.ConnectionSourceOptions
+
+---
+
+### Configuration <a name="Configuration" id="aws-ddk-core.Configuration"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.Configuration.Initializer"></a>
+
+```typescript
+import { Configuration } from 'aws-ddk-core'
+
+const configuration: Configuration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.Configuration.property.environments">environments</a></code> | <code>{[ key: string ]: <a href="#aws-ddk-core.EnvironmentConfiguration">EnvironmentConfiguration</a>}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.account">account</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.ddkBootstrapConfigKey">ddkBootstrapConfigKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.region">region</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+
+---
+
+##### `environments`<sup>Required</sup> <a name="environments" id="aws-ddk-core.Configuration.property.environments"></a>
+
+```typescript
+public readonly environments: {[ key: string ]: EnvironmentConfiguration};
+```
+
+- *Type:* {[ key: string ]: <a href="#aws-ddk-core.EnvironmentConfiguration">EnvironmentConfiguration</a>}
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.Configuration.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+---
+
+##### `bootstrap`<sup>Optional</sup> <a name="bootstrap" id="aws-ddk-core.Configuration.property.bootstrap"></a>
+
+```typescript
+public readonly bootstrap: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+##### `ddkBootstrapConfigKey`<sup>Optional</sup> <a name="ddkBootstrapConfigKey" id="aws-ddk-core.Configuration.property.ddkBootstrapConfigKey"></a>
+
+```typescript
+public readonly ddkBootstrapConfigKey: string;
+```
+
+- *Type:* string
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.Configuration.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.Configuration.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
 
 ---
 
@@ -6966,6 +7049,117 @@ public readonly sourceStream: IStream;
 ```
 
 - *Type:* aws-cdk-lib.aws_kinesis.IStream
+
+---
+
+### EnvironmentConfiguration <a name="EnvironmentConfiguration" id="aws-ddk-core.EnvironmentConfiguration"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.EnvironmentConfiguration.Initializer"></a>
+
+```typescript
+import { EnvironmentConfiguration } from 'aws-ddk-core'
+
+const environmentConfiguration: EnvironmentConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.account">account</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.region">region</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.resources">resources</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.EnvironmentConfiguration.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+---
+
+##### `bootstrap`<sup>Optional</sup> <a name="bootstrap" id="aws-ddk-core.EnvironmentConfiguration.property.bootstrap"></a>
+
+```typescript
+public readonly bootstrap: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.EnvironmentConfiguration.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+---
+
+##### `resources`<sup>Optional</sup> <a name="resources" id="aws-ddk-core.EnvironmentConfiguration.property.resources"></a>
+
+```typescript
+public readonly resources: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.EnvironmentConfiguration.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+### EnvironmentResult <a name="EnvironmentResult" id="aws-ddk-core.EnvironmentResult"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.EnvironmentResult.Initializer"></a>
+
+```typescript
+import { EnvironmentResult } from 'aws-ddk-core'
+
+const environmentResult: EnvironmentResult = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.EnvironmentResult.property.account">account</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentResult.property.region">region</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.EnvironmentResult.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.EnvironmentResult.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -9488,13 +9682,13 @@ CICDActions.getTestsAction(fileSetProducer: IFileSetProducer, commands?: string[
 ```typescript
 import { Configurator } from 'aws-ddk-core'
 
-new Configurator(scope: Construct, config: string | object, environmentId?: string)
+new Configurator(scope: Construct, config: string | Configuration, environmentId?: string)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.config">config</a></code> | <code>string \| object</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.Initializer.parameter.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -9507,7 +9701,7 @@ new Configurator(scope: Construct, config: string | object, environmentId?: stri
 
 ##### `config`<sup>Required</sup> <a name="config" id="aws-ddk-core.Configurator.Initializer.parameter.config"></a>
 
-- *Type:* string | object
+- *Type:* string | <a href="#aws-ddk-core.Configuration">Configuration</a>
 
 ---
 
@@ -9612,7 +9806,7 @@ Configurator.getTags(props: GetTagsProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.Configurator.property.config">config</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.property.config">config</a></code> | <code><a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -9620,10 +9814,10 @@ Configurator.getTags(props: GetTagsProps)
 ##### `config`<sup>Required</sup> <a name="config" id="aws-ddk-core.Configurator.property.config"></a>
 
 ```typescript
-public readonly config: any;
+public readonly config: Configuration;
 ```
 
-- *Type:* any
+- *Type:* <a href="#aws-ddk-core.Configuration">Configuration</a>
 
 ---
 

@@ -1,12 +1,12 @@
 import * as cdk from "aws-cdk-lib";
 import * as iam from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
-import { getStackSynthesizer } from "../config";
+import { Configuration, getStackSynthesizer } from "../config";
 
 export interface BaseStackProps extends cdk.StackProps {
   readonly permissionsBoundaryArn?: string;
   readonly environmentId?: string;
-  readonly config?: string | object;
+  readonly config?: string | Configuration;
 }
 
 export interface PermissionsBoundaryProps {
