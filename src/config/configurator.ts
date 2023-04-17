@@ -51,7 +51,17 @@ function readConfigFile(path: string): Configuration {
     throw TypeError("Config file must be in YAML or JSON format");
   }
 }
-
+function setRemovalPolicy(value: string, node: cdk.CfnResource): void {
+  if (value.toLowerCase() == "destroy") {
+    node.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
+  } else if (value.toLowerCase() == "retain") {
+    node.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN);
+  } else if (value.toLowerCase() == "snapshot") {
+    node.applyRemovalPolicy(cdk.RemovalPolicy.SNAPSHOT);
+  } else {
+    throw new Error(`${value} is not a valid removal policy type. Must be one of ['DESTROY', 'RETAIN', & 'SNAPSHOT']`);
+  }
+}
 interface getConfigProps {
   readonly config?: string | Configuration;
 }
@@ -163,13 +173,21 @@ class ConfiguratorAspect implements cdk.IAspect {
   }
   public visit(node: constructs.IConstruct): void {
     if (this.resourceType && cdk.CfnResource.isCfnResource(node) && node.cfnResourceType == this.resourceType) {
-      node.addPropertyOverride(this.propertyName, this.propertyValue);
+      if (this.propertyName == "RemovalPolicy") {
+        setRemovalPolicy(this.propertyValue, node);
+      } else {
+        node.addPropertyOverride(this.propertyName, this.propertyValue);
+      }
     }
 
     const nodePathItemRegex = new RegExp(`^(.*\/)?(${this.resourceId}\/Resource)(\/.*)?$`);
 
     if (this.resourceId && cdk.CfnResource.isCfnResource(node) && nodePathItemRegex.test(node.node.path)) {
-      node.addPropertyOverride(this.propertyName, this.propertyValue);
+      if (this.propertyName == "RemovalPolicy") {
+        setRemovalPolicy(this.propertyValue, node);
+      } else {
+        node.addPropertyOverride(this.propertyName, this.propertyValue);
+      }
     }
   }
 }

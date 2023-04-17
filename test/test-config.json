@@ -12,6 +12,9 @@
         "AWS::Lambda::Function": {
           "MemorySize": 128,
           "Runtime": "python3.8"
+        },
+        "AWS::S3::Bucket": {
+          "RemovalPolicy": "DESTROY"
         }
       },
       "tags": {"CostCenter": "2014"}

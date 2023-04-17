@@ -499,3 +499,64 @@ test("Get Tags", () => {
   assert(prodTags.CostCenter === "2015");
   assert(globalTags["global:foo"] === "bar");
 });
+
+test("Config Removal Policy", () => {
+  const sampleConfig = {
+    environments: {
+      dev: {
+        resources: {
+          MyBucket: {
+            RemovalPolicy: cdk.RemovalPolicy.DESTROY,
+          },
+          MyOtherBucket: {
+            RemovalPolicy: cdk.RemovalPolicy.RETAIN,
+          },
+        },
+      },
+    },
+  };
+  const stack = new cdk.Stack();
+  new s3.Bucket(stack, "MyBucket");
+  new s3.Bucket(stack, "MyOtherBucket");
+  new Configurator(stack, sampleConfig, "dev");
+  const template = Template.fromStack(stack);
+  template.hasResource("AWS::S3::Bucket", {
+    DeletionPolicy: "Delete",
+    UpdateReplacePolicy: "Delete",
+  });
+  template.hasResource("AWS::S3::Bucket", {
+    DeletionPolicy: "Retain",
+    UpdateReplacePolicy: "Retain",
+  });
+});
+
+test("Config Removal Policy Invalid", () => {
+  const sampleConfig = {
+    environments: {
+      dev: {
+        resources: {
+          MyBucket: {
+            RemovalPolicy: "foobar",
+          },
+        },
+      },
+    },
+  };
+  const stack = new cdk.Stack();
+  new s3.Bucket(stack, "MyBucket");
+  new Configurator(stack, sampleConfig, "dev");
+  expect(() => {
+    Template.fromStack(stack);
+  }).toThrowError("foobar is not a valid removal policy type. Must be one of ['DESTROY', 'RETAIN', & 'SNAPSHOT']");
+});
+
+test("Config Removal Policy JSON Config", () => {
+  const stack = new cdk.Stack();
+  new s3.Bucket(stack, "MyBucket");
+  new Configurator(stack, "./test/test-config.json", "dev");
+  const template = Template.fromStack(stack);
+  template.hasResource("AWS::S3::Bucket", {
+    DeletionPolicy: "Delete",
+    UpdateReplacePolicy: "Delete",
+  });
+});
