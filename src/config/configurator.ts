@@ -126,8 +126,9 @@ class ConfiguratorAspect implements cdk.IAspect {
     if (this.resourceType && cdk.CfnResource.isCfnResource(node) && node.cfnResourceType == this.resourceType) {
       if (this.propertyName == "RemovalPolicy") {
         setRemovalPolicy(this.propertyValue, node);
+      } else {
+        node.addPropertyOverride(this.propertyName, this.propertyValue);
       }
-      node.addPropertyOverride(this.propertyName, this.propertyValue);
     }
 
     const nodePathItemRegex = new RegExp(`^(.*\/)?(${this.resourceId}\/Resource)(\/.*)?$`);

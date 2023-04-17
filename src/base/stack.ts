@@ -97,7 +97,7 @@ export class BaseStack extends cdk.Stack {
       ? props.synthesizer
       : getStackSynthesizer({ environmentId: environmentId, config: props.config });
 
-    super(scope, id, { synthesizer: synthesizer, analyticsReporting: true, ...props });
+    super(scope, id, { synthesizer: synthesizer, ...props });
 
     if (props.permissionsBoundaryArn) {
       iam.PermissionsBoundary.of(scope).apply(
