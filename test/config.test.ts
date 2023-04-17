@@ -456,6 +456,15 @@ test("Get Environment", () => {
   assert(getEnvironment("./test/test-config.json", "dev").region === "us-east-1");
   assert(getEnvironment("./test/test-config.json").account === "111111111111");
   assert(getEnvironment("./test/test-config.json").region === "us-east-1");
+  assert(
+    Configurator.getEnvironment({ configPath: "./test/test-config.json", environmentId: "dev" }).account ===
+      "222222222222",
+  );
+  assert(
+    Configurator.getEnvironment({ configPath: "./test/test-config.json", environmentId: "dev" }).region === "us-east-1",
+  );
+  assert(Configurator.getEnvironment({ configPath: "./test/test-config.json" }).account === "111111111111");
+  assert(Configurator.getEnvironment({ configPath: "./test/test-config.json" }).region === "us-east-1");
   const app = new cdk.App();
   new cdk.Stack(app, "MyTestStack", {
     ...getEnvironment("./test/test-config.json"),

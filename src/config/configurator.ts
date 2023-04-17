@@ -146,6 +146,11 @@ export interface GetTagsProps {
   readonly environmentId?: string;
 }
 
+export interface GetEnvironmentProps {
+  readonly configPath: string;
+  readonly environmentId?: string;
+}
+
 export class Configurator {
   public static getEnvConfig(props: GetEnvConfigProps): any {
     const config = getConfig({ config: props.configPath });
@@ -161,16 +166,21 @@ export class Configurator {
       ? config.tags
       : {};
   }
-  public static getEnvironment(props: GetEnvConfigProps): any {
+  public static getEnvironment(props: GetEnvironmentProps): any {
     const config = getConfig({ config: props.configPath });
-    return config.environments
+    return config.environments && props.environmentId
       ? {
           env: {
             account: config.environments[props.environmentId].account,
             region: config.environments[props.environmentId].region,
           },
         }
-      : undefined;
+      : {
+          env: {
+            account: config.account,
+            region: config.region,
+          },
+        };
   }
   public readonly config: any;
   public readonly environmentId?: string;
