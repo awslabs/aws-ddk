@@ -6426,8 +6426,10 @@ const configuration: Configuration = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.Configuration.property.environments">environments</a></code> | <code>{[ key: string ]: <a href="#aws-ddk-core.StageConfiguration">StageConfiguration</a>}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.account">account</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.ddkBootstrapConfigKey">ddkBootstrapConfigKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 
 ---
@@ -6439,6 +6441,16 @@ public readonly environments: {[ key: string ]: StageConfiguration};
 ```
 
 - *Type:* {[ key: string ]: <a href="#aws-ddk-core.StageConfiguration">StageConfiguration</a>}
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.Configuration.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -6456,6 +6468,16 @@ public readonly bootstrap: {[ key: string ]: string};
 
 ```typescript
 public readonly ddkBootstrapConfigKey: string;
+```
+
+- *Type:* string
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.Configuration.property.region"></a>
+
+```typescript
+public readonly region: string;
 ```
 
 - *Type:* string
@@ -7030,6 +7052,45 @@ public readonly sourceStream: IStream;
 
 ---
 
+### EnvironmentResult <a name="EnvironmentResult" id="aws-ddk-core.EnvironmentResult"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.EnvironmentResult.Initializer"></a>
+
+```typescript
+import { EnvironmentResult } from 'aws-ddk-core'
+
+const environmentResult: EnvironmentResult = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.EnvironmentResult.property.account">account</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentResult.property.region">region</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.EnvironmentResult.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.EnvironmentResult.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+---
+
 ### EventStageProps <a name="EventStageProps" id="aws-ddk-core.EventStageProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.EventStageProps.Initializer"></a>
@@ -7259,6 +7320,45 @@ public readonly configPath: string;
 ---
 
 ##### `environmentId`<sup>Required</sup> <a name="environmentId" id="aws-ddk-core.GetEnvConfigProps.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+---
+
+### GetEnvironmentProps <a name="GetEnvironmentProps" id="aws-ddk-core.GetEnvironmentProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.GetEnvironmentProps.Initializer"></a>
+
+```typescript
+import { GetEnvironmentProps } from 'aws-ddk-core'
+
+const getEnvironmentProps: GetEnvironmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetEnvironmentProps.property.configPath"></a>
+
+```typescript
+public readonly configPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.GetEnvironmentProps.property.environmentId"></a>
 
 ```typescript
 public readonly environmentId: string;
@@ -9655,6 +9755,7 @@ public tagConstruct(scope: Construct, tags: {[ key: string ]: string}): void
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.Configurator.getEnvConfig">getEnvConfig</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.getEnvironment">getEnvironment</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.getTags">getTags</a></code> | *No description.* |
 
 ---
@@ -9670,6 +9771,20 @@ Configurator.getEnvConfig(props: GetEnvConfigProps)
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getEnvConfig.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.GetEnvConfigProps">GetEnvConfigProps</a>
+
+---
+
+##### `getEnvironment` <a name="getEnvironment" id="aws-ddk-core.Configurator.getEnvironment"></a>
+
+```typescript
+import { Configurator } from 'aws-ddk-core'
+
+Configurator.getEnvironment(props: GetEnvironmentProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getEnvironment.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.GetEnvironmentProps">GetEnvironmentProps</a>
 
 ---
 

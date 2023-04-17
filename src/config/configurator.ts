@@ -19,6 +19,8 @@ export interface StageConfiguration {
 
 export interface Configuration {
   readonly environments: { [id: string]: StageConfiguration };
+  readonly account?: string;
+  readonly region?: string;
   readonly tags?: { [key: string]: string };
   readonly bootstrap?: { [key: string]: string };
   readonly ddkBootstrapConfigKey?: string;
@@ -68,6 +70,31 @@ export function getConfig(props: getConfigProps): Configuration | null {
     }
     return null;
   }
+}
+
+export interface EnvironmentResult {
+  readonly account?: string;
+  readonly region?: string;
+}
+
+export function getEnvironment(config: Configuration | string, environmentId?: string): EnvironmentResult {
+  const configData = getConfig({ config: config });
+
+  if (!configData) {
+    throw TypeError("Config not defined.");
+  }
+
+  if (configData?.environments && environmentId) {
+    return {
+      account: configData.environments[environmentId].account,
+      region: configData.environments[environmentId].region,
+    };
+  }
+
+  return {
+    account: configData.account,
+    region: configData.region,
+  };
 }
 
 interface getStackSynthesizerProps {
@@ -157,6 +184,11 @@ export interface GetTagsProps {
   readonly environmentId?: string;
 }
 
+export interface GetEnvironmentProps {
+  readonly configPath: string;
+  readonly environmentId?: string;
+}
+
 export class Configurator {
   public static getEnvConfig(props: GetEnvConfigProps): StageConfiguration {
     const config = getConfig({ config: props.configPath });
@@ -184,6 +216,26 @@ export class Configurator {
     }
 
     return {};
+  }
+
+  public static getEnvironment(props: GetEnvironmentProps): EnvironmentResult {
+    const config = getConfig({ config: props.configPath });
+
+    if (!config) {
+      throw TypeError("Config not defined.");
+    }
+
+    if (config.environments && props.environmentId) {
+      return {
+        account: config.environments[props.environmentId].account,
+        region: config.environments[props.environmentId].region,
+      };
+    }
+
+    return {
+      account: config.account,
+      region: config.region,
+    };
   }
 
   public readonly config: Configuration;
