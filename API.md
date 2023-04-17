@@ -7207,6 +7207,45 @@ public readonly environmentId: string;
 
 ---
 
+### GetEnvironmentProps <a name="GetEnvironmentProps" id="aws-ddk-core.GetEnvironmentProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.GetEnvironmentProps.Initializer"></a>
+
+```typescript
+import { GetEnvironmentProps } from 'aws-ddk-core'
+
+const getEnvironmentProps: GetEnvironmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetEnvironmentProps.property.configPath"></a>
+
+```typescript
+public readonly configPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.GetEnvironmentProps.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+---
+
 ### GetSynthActionProps <a name="GetSynthActionProps" id="aws-ddk-core.GetSynthActionProps"></a>
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.GetSynthActionProps.Initializer"></a>
@@ -9522,6 +9561,7 @@ public tagConstruct(scope: Construct, tags: {[ key: string ]: string}): void
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.Configurator.getEnvConfig">getEnvConfig</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configurator.getEnvironment">getEnvironment</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.getTags">getTags</a></code> | *No description.* |
 
 ---
@@ -9537,6 +9577,20 @@ Configurator.getEnvConfig(props: GetEnvConfigProps)
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getEnvConfig.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.GetEnvConfigProps">GetEnvConfigProps</a>
+
+---
+
+##### `getEnvironment` <a name="getEnvironment" id="aws-ddk-core.Configurator.getEnvironment"></a>
+
+```typescript
+import { Configurator } from 'aws-ddk-core'
+
+Configurator.getEnvironment(props: GetEnvironmentProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getEnvironment.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.GetEnvironmentProps">GetEnvironmentProps</a>
 
 ---
 
