@@ -7,17 +7,47 @@ import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
+/**
+ * Properties for `AthenaSQLStage`.
+ */
 export interface AthenaToSQLStageProps extends StateMachineStageProps {
+  /**
+   * SQL query that will be started.
+   */
   readonly queryString?: string;
+  /**
+   * dynamic path in statemachine for SQL query to be started.
+   */
   readonly queryStringPath?: string;
+  /**
+   * Athena workgroup name.
+   */
   readonly workGroup?: string;
+  /**
+   * Catalog name.
+   */
   readonly catalogName?: string;
+  /**
+   * Database name.
+   */
   readonly databaseName?: string;
+  /**
+   * Output S3 location
+   */
   readonly outputLocation?: s3.Location;
-  readonly encryptionOption?: tasks.EncryptionOption;
+  /**
+   * Encryption KMS key.
+   */
   readonly encryptionKey?: kms.Key;
+  /**
+   * Encryption configuration.
+   */
+  readonly encryptionOption?: tasks.EncryptionOption;
 }
 
+/**
+ * Stage that contains a step function that execute Athena SQL query.
+ */
 export class AthenaSQLStage extends StateMachineStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
@@ -25,6 +55,12 @@ export class AthenaSQLStage extends StateMachineStage {
   readonly stateMachineInput?: { [key: string]: any };
   readonly eventBridgeEventPath?: string;
 
+  /**
+   * Constructs `AthenaSQLStage`.
+   * @param scope Scope within which this construct is defined.
+   * @param id Identifier of the stage.
+   * @param props Properties for the stage.
+   */
   constructor(scope: Construct, id: string, props: AthenaToSQLStageProps) {
     super(scope, id, props);
 
