@@ -633,6 +633,10 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 ### BaseStack <a name="BaseStack" id="aws-ddk-core.BaseStack"></a>
 
+Base Stack to inherit from.
+
+Includes configurable termination protection, synthesizer, permissions boundary and tags.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.BaseStack.Initializer"></a>
 
 ```typescript
@@ -643,9 +647,9 @@ new BaseStack(scope: Construct, id: string, props: BaseStackProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.BaseStack.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.BaseStack.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.BaseStack.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.BaseStackProps">BaseStackProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.BaseStack.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.BaseStack.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stack. |
+| <code><a href="#aws-ddk-core.BaseStack.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.BaseStackProps">BaseStackProps</a></code> | Stack properties. |
 
 ---
 
@@ -653,17 +657,23 @@ new BaseStack(scope: Construct, id: string, props: BaseStackProps)
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.BaseStack.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stack.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.BaseStack.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.BaseStackProps">BaseStackProps</a>
+
+Stack properties.
 
 ---
 
@@ -6051,6 +6061,8 @@ public readonly workGroup: string;
 
 ### BaseStackProps <a name="BaseStackProps" id="aws-ddk-core.BaseStackProps"></a>
 
+Properties of `BaseStack`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.BaseStackProps.Initializer"></a>
 
 ```typescript
@@ -6072,9 +6084,9 @@ const baseStackProps: BaseStackProps = { ... }
 | <code><a href="#aws-ddk-core.BaseStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
-| <code><a href="#aws-ddk-core.BaseStackProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.BaseStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.BaseStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.BaseStackProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | Configuration or path to file which contains the configuration. |
+| <code><a href="#aws-ddk-core.BaseStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | Identifier of the environment. |
+| <code><a href="#aws-ddk-core.BaseStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | ARN of the permissions boundary managed policy. |
 
 ---
 
@@ -6279,6 +6291,8 @@ public readonly config: string | Configuration;
 
 - *Type:* string | <a href="#aws-ddk-core.Configuration">Configuration</a>
 
+Configuration or path to file which contains the configuration.
+
 ---
 
 ##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.BaseStackProps.property.environmentId"></a>
@@ -6288,6 +6302,9 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+- *Default:* "dev"
+
+Identifier of the environment.
 
 ---
 
@@ -6298,6 +6315,8 @@ public readonly permissionsBoundaryArn: string;
 ```
 
 - *Type:* string
+
+ARN of the permissions boundary managed policy.
 
 ---
 
@@ -6326,9 +6345,9 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
-| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | Configuration or path to file which contains the configuration. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | Identifier of the environment. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | ARN of the permissions boundary managed policy. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.cdkLanguage">cdkLanguage</a></code> | <code>string</code> | Language of the CDK construct definitions. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.pipelineName">pipelineName</a></code> | <code>string</code> | Name of the pipeline. |
 
@@ -6535,6 +6554,8 @@ public readonly config: string | Configuration;
 
 - *Type:* string | <a href="#aws-ddk-core.Configuration">Configuration</a>
 
+Configuration or path to file which contains the configuration.
+
 ---
 
 ##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.CICDPipelineStackProps.property.environmentId"></a>
@@ -6544,6 +6565,9 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+- *Default:* "dev"
+
+Identifier of the environment.
 
 ---
 
@@ -6554,6 +6578,8 @@ public readonly permissionsBoundaryArn: string;
 ```
 
 - *Type:* string
+
+ARN of the permissions boundary managed policy.
 
 ---
 
