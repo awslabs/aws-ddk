@@ -199,6 +199,10 @@ This project is licensed under the Apache-2.0 License.
 
 ### AppFlowIngestionStage <a name="AppFlowIngestionStage" id="aws-ddk-core.AppFlowIngestionStage"></a>
 
+Stage that contains a step function that runs an AppFlow flow ingestion.
+
+If the AppFlow flow name is not supplied, then the flow is created.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.AppFlowIngestionStage.Initializer"></a>
 
 ```typescript
@@ -209,9 +213,9 @@ new AppFlowIngestionStage(scope: Construct, id: string, props: AppFlowIngestionS
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps">AppFlowIngestionStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps">AppFlowIngestionStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -219,17 +223,23 @@ new AppFlowIngestionStage(scope: Construct, id: string, props: AppFlowIngestionS
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.AppFlowIngestionStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AppFlowIngestionStageProps">AppFlowIngestionStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -238,7 +248,7 @@ new AppFlowIngestionStage(scope: Construct, id: string, props: AppFlowIngestionS
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -256,15 +266,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.AppFlowIngestionStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.AppFlowIngestionStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -299,13 +315,13 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.flowName">flowName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStage.property.flowObject">flowObject</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService</code> | *No description.* |
 
@@ -331,6 +347,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.AppFlowIngestionStage.property.eventPattern"></a>
@@ -340,6 +358,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -351,6 +374,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.AppFlowIngestionStage.property.targets"></a>
@@ -360,6 +385,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -371,6 +400,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.AppFlowIngestionStage.property.cloudwatchAlarms"></a>
@@ -381,6 +412,8 @@ public readonly cloudwatchAlarms: Alarm[];
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
+List of CloudWatch Alarms linked to the stage.
+
 ---
 
 ##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.AppFlowIngestionStage.property.stateMachine"></a>
@@ -390,6 +423,8 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
 
 ---
 
@@ -455,7 +490,7 @@ new AthenaSQLStage(scope: Construct, id: string, props: AthenaToSQLStageProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -473,15 +508,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.AthenaSQLStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.AthenaSQLStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -516,13 +557,13 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.eventBridgeEventPath">eventBridgeEventPath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaSQLStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
@@ -548,6 +589,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.AthenaSQLStage.property.eventPattern"></a>
@@ -557,6 +600,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -568,6 +616,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.AthenaSQLStage.property.targets"></a>
@@ -577,6 +627,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -588,6 +642,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.AthenaSQLStage.property.cloudwatchAlarms"></a>
@@ -598,6 +654,8 @@ public readonly cloudwatchAlarms: Alarm[];
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
+List of CloudWatch Alarms linked to the stage.
+
 ---
 
 ##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.AthenaSQLStage.property.stateMachine"></a>
@@ -607,6 +665,8 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
 
 ---
 
@@ -2725,7 +2785,7 @@ new DataBrewTransformStage(scope: Construct, id: string, props: DataBrewTransfor
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.DataBrewTransformStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -2743,15 +2803,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.DataBrewTransformStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.DataBrewTransformStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -2786,13 +2852,13 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.DataBrewTransformStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStage.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStage.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStage.property.job">job</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob</code> | *No description.* |
@@ -2819,6 +2885,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.DataBrewTransformStage.property.eventPattern"></a>
@@ -2828,6 +2896,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -2839,6 +2912,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.DataBrewTransformStage.property.targets"></a>
@@ -2848,6 +2923,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -2859,6 +2938,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.DataBrewTransformStage.property.cloudwatchAlarms"></a>
@@ -2869,6 +2950,8 @@ public readonly cloudwatchAlarms: Alarm[];
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
+List of CloudWatch Alarms linked to the stage.
+
 ---
 
 ##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.DataBrewTransformStage.property.stateMachine"></a>
@@ -2878,6 +2961,8 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
 
 ---
 
@@ -3074,6 +3159,30 @@ public readonly name: string;
 
 ### DataStage <a name="DataStage" id="aws-ddk-core.DataStage"></a>
 
+Class that represents a data stage within a data pipeline.
+
+To create a DataStage, inherit from this class, add infrastructure required by the stage,
+and implement `eventPatterns` and `targets` properties.
+
+*Example*
+
+```typescript
+class MyStage extends DataStage:
+  readonly queue: sqs.Queue;
+
+  constructor(scope: Construct, id: string, props: MyStageProps) {
+     super(scope, id, props);
+
+     this.queue = sqs.Queue(this, "Queue");
+
+     this.eventPatterns = {
+       detail_type: ["my-detail-type"],
+     };
+     this.targets = [new events_targets.SqsQueue(this.queue)];
+  }
+```
+
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.DataStage.Initializer"></a>
 
 ```typescript
@@ -3084,9 +3193,9 @@ new DataStage(scope: Construct, id: string, props: DataStageProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.DataStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.DataStageProps">DataStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.DataStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.DataStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.DataStageProps">DataStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -3094,17 +3203,23 @@ new DataStage(scope: Construct, id: string, props: DataStageProps)
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.DataStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.DataStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.DataStageProps">DataStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -3113,7 +3228,7 @@ new DataStage(scope: Construct, id: string, props: DataStageProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.DataStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.DataStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -3131,15 +3246,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.DataStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.DataStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -3174,12 +3295,12 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.DataStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.DataStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.DataStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.DataStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.DataStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.DataStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.DataStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
 
 ---
 
@@ -3203,6 +3324,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.DataStage.property.eventPattern"></a>
@@ -3212,6 +3335,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -3223,6 +3351,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.DataStage.property.targets"></a>
@@ -3232,6 +3362,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -3243,6 +3377,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.DataStage.property.cloudwatchAlarms"></a>
@@ -3253,10 +3389,35 @@ public readonly cloudwatchAlarms: Alarm[];
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
+List of CloudWatch Alarms linked to the stage.
+
 ---
 
 
 ### EventStage <a name="EventStage" id="aws-ddk-core.EventStage"></a>
+
+Class that represents an event stage within a data pipeline.
+
+To create an EventStage, inherit from this class, add infrastructure required by the stage,
+and implement the `eventPattern` property.
+
+The `targets` property will be set to null.
+
+*Example*
+
+```typescript
+class MyStage extends EventStage:
+  constructor(scope: Construct, id: string, props: MyStageProps) {
+     super(scope, id, props);
+
+     this.eventPatterns = {
+       source: ["aws.s3"],
+       detail: props.detail,
+       detail_type: props.detail_type,
+     };
+  }
+```
+
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.EventStage.Initializer"></a>
 
@@ -3268,9 +3429,9 @@ new EventStage(scope: Construct, id: string, props: EventStageProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.EventStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EventStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EventStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.EventStageProps">EventStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.EventStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.EventStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.EventStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.EventStageProps">EventStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -3278,17 +3439,23 @@ new EventStage(scope: Construct, id: string, props: EventStageProps)
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.EventStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.EventStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.EventStageProps">EventStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -3339,10 +3506,10 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.EventStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.EventStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EventStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EventStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EventStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EventStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.EventStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.EventStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.EventStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
 
 ---
 
@@ -3366,6 +3533,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.EventStage.property.eventPattern"></a>
@@ -3375,6 +3544,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -3386,6 +3560,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.EventStage.property.targets"></a>
@@ -3395,6 +3571,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -3440,7 +3620,7 @@ new FirehoseToS3Stage(scope: Construct, id: string, props: FirehoseToS3StageProp
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -3458,15 +3638,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.FirehoseToS3Stage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseToS3Stage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -3501,12 +3687,12 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.deliveryStream">deliveryStream</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3Stage.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | *No description.* |
@@ -3533,6 +3719,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.FirehoseToS3Stage.property.eventPattern"></a>
@@ -3542,6 +3730,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -3553,6 +3746,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.FirehoseToS3Stage.property.targets"></a>
@@ -3562,6 +3757,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -3573,6 +3772,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.FirehoseToS3Stage.property.cloudwatchAlarms"></a>
@@ -3582,6 +3783,8 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+List of CloudWatch Alarms linked to the stage.
 
 ---
 
@@ -3657,7 +3860,7 @@ new GlueTransformStage(scope: Construct, id: string, props: GlueTransformStagePr
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.GlueTransformStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.GlueTransformStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -3675,15 +3878,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.GlueTransformStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueTransformStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -3718,13 +3927,13 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.glueJob">glueJob</a></code> | <code>@aws-cdk/aws-glue-alpha.IJob</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.crawler">crawler</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawler</code> | *No description.* |
 
@@ -3750,6 +3959,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.GlueTransformStage.property.eventPattern"></a>
@@ -3759,6 +3970,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -3770,6 +3986,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.GlueTransformStage.property.targets"></a>
@@ -3779,6 +3997,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -3790,6 +4012,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms"></a>
@@ -3800,6 +4024,8 @@ public readonly cloudwatchAlarms: Alarm[];
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
+List of CloudWatch Alarms linked to the stage.
+
 ---
 
 ##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.GlueTransformStage.property.stateMachine"></a>
@@ -3809,6 +4035,8 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
 
 ---
 
@@ -3874,7 +4102,7 @@ new RedshiftDataApiStage(scope: Construct, id: string, props: RedshiftDataApiSta
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -3892,15 +4120,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.RedshiftDataApiStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.RedshiftDataApiStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -3935,13 +4169,13 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.eventBridgeEventPath">eventBridgeEventPath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStage.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 
@@ -3967,6 +4201,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.RedshiftDataApiStage.property.eventPattern"></a>
@@ -3976,6 +4212,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -3987,6 +4228,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.RedshiftDataApiStage.property.targets"></a>
@@ -3996,6 +4239,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -4007,6 +4254,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.RedshiftDataApiStage.property.cloudwatchAlarms"></a>
@@ -4017,6 +4266,8 @@ public readonly cloudwatchAlarms: Alarm[];
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
+List of CloudWatch Alarms linked to the stage.
+
 ---
 
 ##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.RedshiftDataApiStage.property.stateMachine"></a>
@@ -4026,6 +4277,8 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
 
 ---
 
@@ -4133,10 +4386,10 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.S3EventStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.S3EventStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.S3EventStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.S3EventStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.S3EventStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.S3EventStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
 
 ---
 
@@ -4160,6 +4413,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.S3EventStage.property.eventPattern"></a>
@@ -4169,6 +4424,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -4180,6 +4440,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.S3EventStage.property.targets"></a>
@@ -4189,6 +4451,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -4234,7 +4500,7 @@ new SnsSqsToLambdaStage(scope: Construct, id: string, props: SnsToLambdaStagePro
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -4252,15 +4518,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.SnsSqsToLambdaStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.SnsSqsToLambdaStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -4295,12 +4567,12 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
 | <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.queue">queue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.Queue</code> | *No description.* |
@@ -4329,6 +4601,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.SnsSqsToLambdaStage.property.eventPattern"></a>
@@ -4338,6 +4612,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -4349,6 +4628,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.SnsSqsToLambdaStage.property.targets"></a>
@@ -4358,6 +4639,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -4369,6 +4654,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.SnsSqsToLambdaStage.property.cloudwatchAlarms"></a>
@@ -4378,6 +4665,8 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+List of CloudWatch Alarms linked to the stage.
 
 ---
 
@@ -4473,7 +4762,7 @@ new SqsToLambdaStage(scope: Construct, id: string, props: SqsToLambdaStageProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -4491,15 +4780,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.SqsToLambdaStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.SqsToLambdaStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -4534,12 +4829,12 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.queue">queue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStage.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.Queue</code> | *No description.* |
@@ -4566,6 +4861,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.SqsToLambdaStage.property.eventPattern"></a>
@@ -4575,6 +4872,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -4586,6 +4888,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.SqsToLambdaStage.property.targets"></a>
@@ -4595,6 +4899,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -4606,6 +4914,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.SqsToLambdaStage.property.cloudwatchAlarms"></a>
@@ -4615,6 +4925,8 @@ public readonly cloudwatchAlarms: Alarm[];
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+List of CloudWatch Alarms linked to the stage.
 
 ---
 
@@ -4651,6 +4963,8 @@ public readonly deadLetterQueue: Queue;
 
 ### Stage <a name="Stage" id="aws-ddk-core.Stage"></a>
 
+Abstract class representing a stage.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.Stage.Initializer"></a>
 
 ```typescript
@@ -4661,9 +4975,9 @@ new Stage(scope: Construct, id: string, props: StageProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.Stage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Stage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Stage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.StageProps">StageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.Stage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.Stage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.Stage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.StageProps">StageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -4671,17 +4985,23 @@ new Stage(scope: Construct, id: string, props: StageProps)
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.Stage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Stage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.StageProps">StageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -4732,10 +5052,10 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.Stage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.Stage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Stage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Stage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Stage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Stage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.Stage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.Stage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.Stage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
 
 ---
 
@@ -4759,6 +5079,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.Stage.property.eventPattern"></a>
@@ -4768,6 +5090,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -4779,6 +5106,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.Stage.property.targets"></a>
@@ -4789,10 +5118,16 @@ public readonly targets: IRuleTarget[];
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
 
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
+
 ---
 
 
 ### StateMachineStage <a name="StateMachineStage" id="aws-ddk-core.StateMachineStage"></a>
+
+DataStage with helper methods to simplify StateMachine stages creation.
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.StateMachineStage.Initializer"></a>
 
@@ -4804,9 +5139,9 @@ new StateMachineStage(scope: Construct, id: string, props: StateMachineStageProp
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.StateMachineStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.StateMachineStageProps">StateMachineStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.StateMachineStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.StateMachineStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.StateMachineStageProps">StateMachineStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -4814,17 +5149,23 @@ new StateMachineStage(scope: Construct, id: string, props: StateMachineStageProp
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.StateMachineStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.StateMachineStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.StateMachineStageProps">StateMachineStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -4833,7 +5174,7 @@ new StateMachineStage(scope: Construct, id: string, props: StateMachineStageProp
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#aws-ddk-core.StateMachineStage.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#aws-ddk-core.StateMachineStage.addAlarm">addAlarm</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.StateMachineStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
 
 ---
 
@@ -4851,15 +5192,21 @@ Returns a string representation of this construct.
 public addAlarm(id: string, props: AlarmProps): DataStage
 ```
 
+Add a CloudWatch alarm for the DataStage.
+
 ###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.StateMachineStage.addAlarm.parameter.id"></a>
 
 - *Type:* string
+
+Identifier of the CloudWatch Alarm.
 
 ---
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.StateMachineStage.addAlarm.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
 
 ---
 
@@ -4894,13 +5241,13 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.StateMachineStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | *No description.* |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
 
 ---
 
@@ -4924,6 +5271,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.StateMachineStage.property.eventPattern"></a>
@@ -4933,6 +5282,11 @@ public readonly eventPattern: EventPattern;
 ```
 
 - *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
 
 ---
 
@@ -4944,6 +5298,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.StateMachineStage.property.targets"></a>
@@ -4953,6 +5309,10 @@ public readonly targets: IRuleTarget[];
 ```
 
 - *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
 
 ---
 
@@ -4964,6 +5324,8 @@ public readonly alarmsEnabled: boolean;
 
 - *Type:* boolean
 
+Flag indicating whether the alarms are enabled for this stage.
+
 ---
 
 ##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.StateMachineStage.property.cloudwatchAlarms"></a>
@@ -4974,6 +5336,8 @@ public readonly cloudwatchAlarms: Alarm[];
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
 
+List of CloudWatch Alarms linked to the stage.
+
 ---
 
 ##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.StateMachineStage.property.stateMachine"></a>
@@ -4983,6 +5347,8 @@ public readonly stateMachine: StateMachine;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
 
 ---
 
@@ -5644,6 +6010,8 @@ Name of the stage.
 
 ### AlarmProps <a name="AlarmProps" id="aws-ddk-core.AlarmProps"></a>
 
+Properties for the alarm being added to the DataStage.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.AlarmProps.Initializer"></a>
 
 ```typescript
@@ -5656,10 +6024,10 @@ const alarmProps: AlarmProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AlarmProps.property.metric">metric</a></code> | <code>aws-cdk-lib.aws_cloudwatch.IMetric</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AlarmProps.property.comparisonOperator">comparisonOperator</a></code> | <code>aws-cdk-lib.aws_cloudwatch.ComparisonOperator</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AlarmProps.property.evaluationPeriods">evaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AlarmProps.property.threshold">threshold</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AlarmProps.property.metric">metric</a></code> | <code>aws-cdk-lib.aws_cloudwatch.IMetric</code> | Metric to use for creating the stage's CloudWatch Alarm. |
+| <code><a href="#aws-ddk-core.AlarmProps.property.comparisonOperator">comparisonOperator</a></code> | <code>aws-cdk-lib.aws_cloudwatch.ComparisonOperator</code> | Comparison operator to use for alarm. |
+| <code><a href="#aws-ddk-core.AlarmProps.property.evaluationPeriods">evaluationPeriods</a></code> | <code>number</code> | The value against which the specified alarm statistic is compared. |
+| <code><a href="#aws-ddk-core.AlarmProps.property.threshold">threshold</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 
 ---
 
@@ -5671,6 +6039,8 @@ public readonly metric: IMetric;
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.IMetric
 
+Metric to use for creating the stage's CloudWatch Alarm.
+
 ---
 
 ##### `comparisonOperator`<sup>Optional</sup> <a name="comparisonOperator" id="aws-ddk-core.AlarmProps.property.comparisonOperator"></a>
@@ -5680,6 +6050,9 @@ public readonly comparisonOperator: ComparisonOperator;
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.ComparisonOperator
+- *Default:* GREATER_THAN_THRESHOLD
+
+Comparison operator to use for alarm.
 
 ---
 
@@ -5690,6 +6063,9 @@ public readonly evaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 5
+
+The value against which the specified alarm statistic is compared.
 
 ---
 
@@ -5700,10 +6076,15 @@ public readonly threshold: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
 ### AppFlowIngestionStageProps <a name="AppFlowIngestionStageProps" id="aws-ddk-core.AppFlowIngestionStageProps"></a>
+
+Properties of the AppFlow Ingestion stage.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.AppFlowIngestionStageProps.Initializer"></a>
 
@@ -5717,19 +6098,19 @@ const appFlowIngestionStageProps: AppFlowIngestionStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.destinationFlowConfig">destinationFlowConfig</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.DestinationFlowConfigProperty</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowExecutionStatusCheckPeriod">flowExecutionStatusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowName">flowName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowTasks">flowTasks</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.TaskProperty[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.sourceFlowConfig">sourceFlowConfig</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.SourceFlowConfigProperty</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.destinationFlowConfig">destinationFlowConfig</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.DestinationFlowConfigProperty</code> | The flow `appflow.CfnFlow.DestinationFlowConfigProperty` properties. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowExecutionStatusCheckPeriod">flowExecutionStatusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | Time to wait between flow execution status checks. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowName">flowName</a></code> | <code>string</code> | Name of the AppFlow flow to run. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.flowTasks">flowTasks</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.TaskProperty[]</code> | The flow tasks properties. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.sourceFlowConfig">sourceFlowConfig</a></code> | <code>aws-cdk-lib.aws_appflow.CfnFlow.SourceFlowConfigProperty</code> | The flow `appflow.CfnFlow.SourceFlowConfigProperty` properties. |
 
 ---
 
@@ -5741,6 +6122,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.AppFlowIngestionStageProps.property.name"></a>
@@ -5750,6 +6133,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -5761,6 +6146,8 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
+Additional IAM policy statements to add to the state machine role.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.AppFlowIngestionStageProps.property.alarmsEnabled"></a>
@@ -5770,6 +6157,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
 
 ---
 
@@ -5780,6 +6170,9 @@ public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
@@ -5790,6 +6183,9 @@ public readonly stateMachineFailedExecutionsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
 
 ---
 
@@ -5801,6 +6197,8 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+Input of the state machine.
+
 ---
 
 ##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineName"></a>
@@ -5810,6 +6208,8 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
+
+Name of the state machine.
 
 ---
 
@@ -5821,6 +6221,8 @@ public readonly destinationFlowConfig: DestinationFlowConfigProperty;
 
 - *Type:* aws-cdk-lib.aws_appflow.CfnFlow.DestinationFlowConfigProperty
 
+The flow `appflow.CfnFlow.DestinationFlowConfigProperty` properties.
+
 ---
 
 ##### `flowExecutionStatusCheckPeriod`<sup>Optional</sup> <a name="flowExecutionStatusCheckPeriod" id="aws-ddk-core.AppFlowIngestionStageProps.property.flowExecutionStatusCheckPeriod"></a>
@@ -5830,6 +6232,9 @@ public readonly flowExecutionStatusCheckPeriod: Duration;
 ```
 
 - *Type:* aws-cdk-lib.Duration
+- *Default:* aws_cdk.Duration.seconds(15)
+
+Time to wait between flow execution status checks.
 
 ---
 
@@ -5841,6 +6246,10 @@ public readonly flowName: string;
 
 - *Type:* string
 
+Name of the AppFlow flow to run.
+
+If None, an AppFlow flow is created.
+
 ---
 
 ##### `flowTasks`<sup>Optional</sup> <a name="flowTasks" id="aws-ddk-core.AppFlowIngestionStageProps.property.flowTasks"></a>
@@ -5851,6 +6260,8 @@ public readonly flowTasks: TaskProperty[];
 
 - *Type:* aws-cdk-lib.aws_appflow.CfnFlow.TaskProperty[]
 
+The flow tasks properties.
+
 ---
 
 ##### `sourceFlowConfig`<sup>Optional</sup> <a name="sourceFlowConfig" id="aws-ddk-core.AppFlowIngestionStageProps.property.sourceFlowConfig"></a>
@@ -5860,6 +6271,8 @@ public readonly sourceFlowConfig: SourceFlowConfigProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_appflow.CfnFlow.SourceFlowConfigProperty
+
+The flow `appflow.CfnFlow.SourceFlowConfigProperty` properties.
 
 ---
 
@@ -5877,14 +6290,14 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.catalogName">catalogName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.Key</code> | *No description.* |
@@ -5904,6 +6317,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.AthenaToSQLStageProps.property.name"></a>
@@ -5913,6 +6328,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -5924,6 +6341,8 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
+Additional IAM policy statements to add to the state machine role.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.AthenaToSQLStageProps.property.alarmsEnabled"></a>
@@ -5933,6 +6352,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
 
 ---
 
@@ -5943,6 +6365,9 @@ public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
@@ -5953,6 +6378,9 @@ public readonly stateMachineFailedExecutionsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
 
 ---
 
@@ -5964,6 +6392,8 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+Input of the state machine.
+
 ---
 
 ##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName"></a>
@@ -5973,6 +6403,8 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
+
+Name of the state machine.
 
 ---
 
@@ -6907,14 +7339,14 @@ const dataBrewTransformStageProps: DataBrewTransformStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.databaseOutputs">databaseOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DatabaseOutputProperty[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.dataCatalogOutputs">dataCatalogOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DataCatalogOutputProperty[]</code> | *No description.* |
@@ -6947,6 +7379,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.DataBrewTransformStageProps.property.name"></a>
@@ -6956,6 +7390,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -6967,6 +7403,8 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
+Additional IAM policy statements to add to the state machine role.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.DataBrewTransformStageProps.property.alarmsEnabled"></a>
@@ -6976,6 +7414,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
 
 ---
 
@@ -6986,6 +7427,9 @@ public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
@@ -6996,6 +7440,9 @@ public readonly stateMachineFailedExecutionsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
 
 ---
 
@@ -7007,6 +7454,8 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+Input of the state machine.
+
 ---
 
 ##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName"></a>
@@ -7016,6 +7465,8 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
+
+Name of the state machine.
 
 ---
 
@@ -7270,6 +7721,8 @@ public readonly name: string;
 
 ### DataStageProps <a name="DataStageProps" id="aws-ddk-core.DataStageProps"></a>
 
+Properties for the `DataStage`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.DataStageProps.Initializer"></a>
 
 ```typescript
@@ -7282,9 +7735,9 @@ const dataStageProps: DataStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.DataStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.DataStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.DataStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in a DataStage. |
 
 ---
 
@@ -7296,6 +7749,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.DataStageProps.property.name"></a>
@@ -7306,6 +7761,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.DataStageProps.property.alarmsEnabled"></a>
@@ -7315,6 +7772,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in a DataStage.
 
 ---
 
@@ -7514,6 +7974,8 @@ public readonly region: string;
 
 ### EventStageProps <a name="EventStageProps" id="aws-ddk-core.EventStageProps"></a>
 
+Properties for the event stage.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.EventStageProps.Initializer"></a>
 
 ```typescript
@@ -7526,8 +7988,8 @@ const eventStageProps: EventStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.EventStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EventStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EventStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.EventStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 
 ---
 
@@ -7539,6 +8001,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.EventStageProps.property.name"></a>
@@ -7548,6 +8012,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -7565,9 +8031,9 @@ const firehoseToS3StageProps: FirehoseToS3StageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in a DataStage. |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataOutputPrefix">dataOutputPrefix</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | *No description.* |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled">dataStreamEnabled</a></code> | <code>boolean</code> | *No description.* |
@@ -7589,6 +8055,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.FirehoseToS3StageProps.property.name"></a>
@@ -7599,6 +8067,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.FirehoseToS3StageProps.property.alarmsEnabled"></a>
@@ -7608,6 +8078,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in a DataStage.
 
 ---
 
@@ -7969,14 +8442,14 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerAllowFailure">crawlerAllowFailure</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | *No description.* |
@@ -8000,6 +8473,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.GlueTransformStageProps.property.name"></a>
@@ -8009,6 +8484,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -8020,6 +8497,8 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
+Additional IAM policy statements to add to the state machine role.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.GlueTransformStageProps.property.alarmsEnabled"></a>
@@ -8029,6 +8508,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
 
 ---
 
@@ -8039,6 +8521,9 @@ public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
@@ -8049,6 +8534,9 @@ public readonly stateMachineFailedExecutionsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
 
 ---
 
@@ -8060,6 +8548,8 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+Input of the state machine.
+
 ---
 
 ##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineName"></a>
@@ -8069,6 +8559,8 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
+
+Name of the state machine.
 
 ---
 
@@ -8256,14 +8748,14 @@ const redshiftDataApiStageProps: RedshiftDataApiStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.redshiftClusterIdentifier">redshiftClusterIdentifier</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.sqlStatements">sqlStatements</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
@@ -8280,6 +8772,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.RedshiftDataApiStageProps.property.name"></a>
@@ -8289,6 +8783,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -8300,6 +8796,8 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
+Additional IAM policy statements to add to the state machine role.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.RedshiftDataApiStageProps.property.alarmsEnabled"></a>
@@ -8309,6 +8807,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
 
 ---
 
@@ -8319,6 +8820,9 @@ public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
@@ -8329,6 +8833,9 @@ public readonly stateMachineFailedExecutionsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
 
 ---
 
@@ -8340,6 +8847,8 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+Input of the state machine.
+
 ---
 
 ##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineName"></a>
@@ -8349,6 +8858,8 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
+
+Name of the state machine.
 
 ---
 
@@ -8416,8 +8927,8 @@ const s3EventStageProps: S3EventStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.S3EventStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.S3EventStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.S3EventStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket \| aws-cdk-lib.aws_s3.IBucket[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.eventNames">eventNames</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.keyPrefix">keyPrefix</a></code> | <code>string \| string[]</code> | *No description.* |
@@ -8432,6 +8943,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.S3EventStageProps.property.name"></a>
@@ -8441,6 +8954,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -8488,9 +9003,9 @@ const snsToLambdaStageProps: SnsToLambdaStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in a DataStage. |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
@@ -8517,6 +9032,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.SnsToLambdaStageProps.property.name"></a>
@@ -8527,6 +9044,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.SnsToLambdaStageProps.property.alarmsEnabled"></a>
@@ -8536,6 +9055,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in a DataStage.
 
 ---
 
@@ -9464,9 +9986,9 @@ const sqsToLambdaStageProps: SqsToLambdaStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in a DataStage. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
@@ -9487,6 +10009,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.SqsToLambdaStageProps.property.name"></a>
@@ -9497,6 +10021,8 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.SqsToLambdaStageProps.property.alarmsEnabled"></a>
@@ -9506,6 +10032,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in a DataStage.
 
 ---
 
@@ -9601,6 +10130,8 @@ public readonly sqsQueueProps: QueueProps;
 
 ### StageProps <a name="StageProps" id="aws-ddk-core.StageProps"></a>
 
+Properties for the base abstract stage.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.StageProps.Initializer"></a>
 
 ```typescript
@@ -9613,8 +10144,8 @@ const stageProps: StageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.StageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.StageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.StageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 
 ---
 
@@ -9626,6 +10157,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.StageProps.property.name"></a>
@@ -9636,9 +10169,13 @@ public readonly name: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ### StateMachineStageProps <a name="StateMachineStageProps" id="aws-ddk-core.StateMachineStageProps"></a>
+
+Properties of a state machine stage.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.StateMachineStageProps.Initializer"></a>
 
@@ -9652,14 +10189,14 @@ const stateMachineStageProps: StateMachineStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
 
 ---
 
@@ -9671,6 +10208,8 @@ public readonly description: string;
 
 - *Type:* string
 
+Description of the stage.
+
 ---
 
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.StateMachineStageProps.property.name"></a>
@@ -9680,6 +10219,8 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -9691,6 +10232,8 @@ public readonly additionalRolePolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
+Additional IAM policy statements to add to the state machine role.
+
 ---
 
 ##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.StateMachineStageProps.property.alarmsEnabled"></a>
@@ -9700,6 +10243,9 @@ public readonly alarmsEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
 
 ---
 
@@ -9710,6 +10256,9 @@ public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
@@ -9720,6 +10269,9 @@ public readonly stateMachineFailedExecutionsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
 
 ---
 
@@ -9731,6 +10283,8 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+Input of the state machine.
+
 ---
 
 ##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.StateMachineStageProps.property.stateMachineName"></a>
@@ -9740,6 +10294,8 @@ public readonly stateMachineName: string;
 ```
 
 - *Type:* string
+
+Name of the state machine.
 
 ---
 

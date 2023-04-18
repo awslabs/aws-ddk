@@ -9,14 +9,37 @@ import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
+/**
+ * Properties of the AppFlow Ingestion stage.
+ */
 export interface AppFlowIngestionStageProps extends StateMachineStageProps {
+  /**
+   * Name of the AppFlow flow to run. If None, an AppFlow flow is created.
+   */
   readonly flowName?: string;
+  /**
+   * Time to wait between flow execution status checks.
+   * @default aws_cdk.Duration.seconds(15)
+   */
   readonly flowExecutionStatusCheckPeriod?: Duration;
+  /**
+   * The flow `appflow.CfnFlow.DestinationFlowConfigProperty` properties.
+   */
   readonly destinationFlowConfig?: appflow.CfnFlow.DestinationFlowConfigProperty;
+  /**
+   * The flow `appflow.CfnFlow.SourceFlowConfigProperty` properties.
+   */
   readonly sourceFlowConfig?: appflow.CfnFlow.SourceFlowConfigProperty;
+  /**
+   * The flow tasks properties.
+   */
   readonly flowTasks?: appflow.CfnFlow.TaskProperty[];
 }
 
+/**
+ * Stage that contains a step function that runs an AppFlow flow ingestion.
+ * If the AppFlow flow name is not supplied, then the flow is created.
+ */
 export class AppFlowIngestionStage extends StateMachineStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
@@ -24,6 +47,12 @@ export class AppFlowIngestionStage extends StateMachineStage {
   readonly flowObject: tasks.CallAwsService;
   readonly flowName: string;
 
+  /**
+   * Constructs AppFlowIngestionStage.
+   * @param scope Scope within which this construct is defined.
+   * @param id Identifier of the stage.
+   * @param props Properties for the stage.
+   */
   constructor(scope: Construct, id: string, props: AppFlowIngestionStageProps) {
     super(scope, id, props);
 
