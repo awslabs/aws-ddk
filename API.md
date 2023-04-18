@@ -1325,6 +1325,33 @@ Whether termination protection is enabled for this stack.
 
 ### CICDPipelineStack <a name="CICDPipelineStack" id="aws-ddk-core.CICDPipelineStack"></a>
 
+Create a stack that contains DDK Continuous Integration and Delivery (CI/CD) pipeline.
+
+The pipeline is based on
+[CDK self-mutating pipeline](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html)
+but includes several DDK-specific features, including:
+
+- Ability to configure some properties via JSON config e.g. manual approvals for application stages
+- Defaults for source/synth - CodeCommit & cdk synth, with ability to override them
+- Ability to connect to private artifactory to pull artifacts from at synth
+- Security best practices - ensures pipeline buckets block non-SSL, and are KMS-encrypted with rotated keys
+- Builder interface to avoid chunky constructor methods
+
+The user should be able to reuse the pipeline in multiple DDK applications hoping to save LOC.
+
+Example:
+
+```typescript
+const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+  .addSourceAction({ repositoryName: "dummy-repository" })
+  .addSynthAction()
+  .buildPipeline()
+  .add_checks()
+  .addStage({ stageId: "dev", stage: devStage, manualApprovals: true })
+  .synth()
+  .add_notifications();
+```
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.CICDPipelineStack.Initializer"></a>
 
 ```typescript
@@ -1335,9 +1362,9 @@ new CICDPipelineStack(scope: Construct, id: string, props: CICDPipelineStackProp
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.CICDPipelineStackProps">CICDPipelineStackProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Parent of this stack, usually an `App` or a `Stage`, but could be any construct. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.id">id</a></code> | <code>string</code> | The construct ID of this stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.CICDPipelineStackProps">CICDPipelineStackProps</a></code> | Stack properties. |
 
 ---
 
@@ -1345,17 +1372,27 @@ new CICDPipelineStack(scope: Construct, id: string, props: CICDPipelineStackProp
 
 - *Type:* constructs.Construct
 
+Parent of this stack, usually an `App` or a `Stage`, but could be any construct.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+The construct ID of this stack.
+
+If `stackName` is not explicitly
+defined, this id (and any parent IDs) will be used to determine the
+physical ID of the stack.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.CICDPipelineStackProps">CICDPipelineStackProps</a>
+
+Stack properties.
 
 ---
 
@@ -1377,17 +1414,17 @@ new CICDPipelineStack(scope: Construct, id: string, props: CICDPipelineStackProp
 | <code><a href="#aws-ddk-core.CICDPipelineStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addChecks">addChecks</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addCustomStage">addCustomStage</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addNotifications">addNotifications</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addSecurityLintStage">addSecurityLintStage</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addSourceAction">addSourceAction</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addStage">addStage</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addSynthAction">addSynthAction</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addTestStage">addTestStage</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addWave">addWave</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addChecks">addChecks</a></code> | Add checks to the pipeline (e.g. linting, security, tests...). |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addCustomStage">addCustomStage</a></code> | Add custom stage to the pipeline. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addNotifications">addNotifications</a></code> | Add pipeline notifications. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addSecurityLintStage">addSecurityLintStage</a></code> | Add linting - cfn-nag, and bandit. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addSourceAction">addSourceAction</a></code> | Add source action. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addStage">addStage</a></code> | Add application stage to the CICD pipeline. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addSynthAction">addSynthAction</a></code> | Add synth action. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addTestStage">addTestStage</a></code> | Add test - e.g. pytest. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addWave">addWave</a></code> | Add multiple application stages in parallel to the CICD pipeline. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.buildPipeline">buildPipeline</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.synth">synth</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.synth">synth</a></code> | Synthesize the pipeline. |
 
 ---
 
@@ -1775,15 +1812,21 @@ Convert an object, potentially containing tokens, to a JSON string.
 public addChecks(): CICDPipelineStack
 ```
 
+Add checks to the pipeline (e.g. linting, security, tests...).
+
 ##### `addCustomStage` <a name="addCustomStage" id="aws-ddk-core.CICDPipelineStack.addCustomStage"></a>
 
 ```typescript
 public addCustomStage(props: AddCustomStageProps): CICDPipelineStack
 ```
 
+Add custom stage to the pipeline.
+
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addCustomStage.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AddCustomStageProps">AddCustomStageProps</a>
+
+Properties for adding a custom stage.
 
 ---
 
@@ -1793,9 +1836,15 @@ public addCustomStage(props: AddCustomStageProps): CICDPipelineStack
 public addNotifications(props?: AddNotificationsProps): CICDPipelineStack
 ```
 
+Add pipeline notifications.
+
+Create notification rule that sends events to the specified SNS topic.
+
 ###### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addNotifications.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AddNotificationsProps">AddNotificationsProps</a>
+
+Notification properties.
 
 ---
 
@@ -1805,9 +1854,13 @@ public addNotifications(props?: AddNotificationsProps): CICDPipelineStack
 public addSecurityLintStage(props: AddSecurityLintStageProps): CICDPipelineStack
 ```
 
+Add linting - cfn-nag, and bandit.
+
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addSecurityLintStage.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AddSecurityLintStageProps">AddSecurityLintStageProps</a>
+
+Security lint properties.
 
 ---
 
@@ -1817,9 +1870,13 @@ public addSecurityLintStage(props: AddSecurityLintStageProps): CICDPipelineStack
 public addSourceAction(props: SourceActionProps): CICDPipelineStack
 ```
 
+Add source action.
+
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addSourceAction.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.SourceActionProps">SourceActionProps</a>
+
+Source action properties.
 
 ---
 
@@ -1829,9 +1886,15 @@ public addSourceAction(props: SourceActionProps): CICDPipelineStack
 public addStage(props: AddApplicationStageProps): CICDPipelineStack
 ```
 
+Add application stage to the CICD pipeline.
+
+This stage deploys your application infrastructure.
+
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addStage.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AddApplicationStageProps">AddApplicationStageProps</a>
+
+Application stage properties.
 
 ---
 
@@ -1841,9 +1904,15 @@ public addStage(props: AddApplicationStageProps): CICDPipelineStack
 public addSynthAction(props?: SynthActionProps): CICDPipelineStack
 ```
 
+Add synth action.
+
+During synth can connect and pull artifacts from a private artifactory.
+
 ###### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addSynthAction.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.SynthActionProps">SynthActionProps</a>
+
+Synth action properties.
 
 ---
 
@@ -1853,9 +1922,13 @@ public addSynthAction(props?: SynthActionProps): CICDPipelineStack
 public addTestStage(props: AddTestStageProps): CICDPipelineStack
 ```
 
+Add test - e.g. pytest.
+
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addTestStage.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AddTestStageProps">AddTestStageProps</a>
+
+Test stage properties.
 
 ---
 
@@ -1865,9 +1938,13 @@ public addTestStage(props: AddTestStageProps): CICDPipelineStack
 public addWave(props: AddApplicationWaveProps): CICDPipelineStack
 ```
 
+Add multiple application stages in parallel to the CICD pipeline.
+
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.addWave.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AddApplicationWaveProps">AddApplicationWaveProps</a>
+
+Application wave properties.
 
 ---
 
@@ -1888,6 +1965,8 @@ public buildPipeline(props?: AdditionalPipelineProps): CICDPipelineStack
 ```typescript
 public synth(): CICDPipelineStack
 ```
+
+Synthesize the pipeline.
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -4758,6 +4837,8 @@ public readonly stateMachine: StateMachine;
 
 ### AddApplicationStageProps <a name="AddApplicationStageProps" id="aws-ddk-core.AddApplicationStageProps"></a>
 
+Properties for adding an application stage.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddApplicationStageProps.Initializer"></a>
 
 ```typescript
@@ -4770,9 +4851,9 @@ const addApplicationStageProps: AddApplicationStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AddApplicationStageProps.property.stage">stage</a></code> | <code>aws-cdk-lib.Stage</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddApplicationStageProps.property.stageId">stageId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddApplicationStageProps.property.manualApprovals">manualApprovals</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddApplicationStageProps.property.stage">stage</a></code> | <code>aws-cdk-lib.Stage</code> | Application stage instance. |
+| <code><a href="#aws-ddk-core.AddApplicationStageProps.property.stageId">stageId</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.AddApplicationStageProps.property.manualApprovals">manualApprovals</a></code> | <code>boolean</code> | Configure manual approvals. |
 
 ---
 
@@ -4784,6 +4865,8 @@ public readonly stage: Stage;
 
 - *Type:* aws-cdk-lib.Stage
 
+Application stage instance.
+
 ---
 
 ##### `stageId`<sup>Required</sup> <a name="stageId" id="aws-ddk-core.AddApplicationStageProps.property.stageId"></a>
@@ -4793,6 +4876,8 @@ public readonly stageId: string;
 ```
 
 - *Type:* string
+
+Identifier of the stage.
 
 ---
 
@@ -4804,9 +4889,15 @@ public readonly manualApprovals: boolean;
 
 - *Type:* boolean
 
+Configure manual approvals.
+
+False by default.
+
 ---
 
 ### AddApplicationWaveProps <a name="AddApplicationWaveProps" id="aws-ddk-core.AddApplicationWaveProps"></a>
+
+Properties for adding an application wave.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddApplicationWaveProps.Initializer"></a>
 
@@ -4820,9 +4911,9 @@ const addApplicationWaveProps: AddApplicationWaveProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stageId">stageId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stages">stages</a></code> | <code>aws-cdk-lib.Stage[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.manualApprovals">manualApprovals</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stageId">stageId</a></code> | <code>string</code> | Identifier of the wave. |
+| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.stages">stages</a></code> | <code>aws-cdk-lib.Stage[]</code> | Application stage instance. |
+| <code><a href="#aws-ddk-core.AddApplicationWaveProps.property.manualApprovals">manualApprovals</a></code> | <code>boolean</code> | Configure manual approvals. |
 
 ---
 
@@ -4834,6 +4925,8 @@ public readonly stageId: string;
 
 - *Type:* string
 
+Identifier of the wave.
+
 ---
 
 ##### `stages`<sup>Required</sup> <a name="stages" id="aws-ddk-core.AddApplicationWaveProps.property.stages"></a>
@@ -4843,6 +4936,8 @@ public readonly stages: Stage[];
 ```
 
 - *Type:* aws-cdk-lib.Stage[]
+
+Application stage instance.
 
 ---
 
@@ -4854,9 +4949,15 @@ public readonly manualApprovals: boolean;
 
 - *Type:* boolean
 
+Configure manual approvals.
+
+False by default.
+
 ---
 
 ### AddCustomStageProps <a name="AddCustomStageProps" id="aws-ddk-core.AddCustomStageProps"></a>
+
+Properties for adding a custom stage.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddCustomStageProps.Initializer"></a>
 
@@ -4870,8 +4971,8 @@ const addCustomStageProps: AddCustomStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AddCustomStageProps.property.stageName">stageName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddCustomStageProps.property.steps">steps</a></code> | <code>aws-cdk-lib.pipelines.Step[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddCustomStageProps.property.stageName">stageName</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.AddCustomStageProps.property.steps">steps</a></code> | <code>aws-cdk-lib.pipelines.Step[]</code> | Steps to add to this stage. List of Step objects. |
 
 ---
 
@@ -4883,6 +4984,8 @@ public readonly stageName: string;
 
 - *Type:* string
 
+Name of the stage.
+
 ---
 
 ##### `steps`<sup>Required</sup> <a name="steps" id="aws-ddk-core.AddCustomStageProps.property.steps"></a>
@@ -4892,6 +4995,11 @@ public readonly steps: Step[];
 ```
 
 - *Type:* aws-cdk-lib.pipelines.Step[]
+
+Steps to add to this stage. List of Step objects.
+
+See [Documentation on aws_cdk.pipelines.Step](https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/Step.html)
+for more detail.
 
 ---
 
@@ -5046,6 +5154,8 @@ public readonly synthCodeBuildDefaults: CodeBuildOptions;
 
 ### AddNotificationsProps <a name="AddNotificationsProps" id="aws-ddk-core.AddNotificationsProps"></a>
 
+Properties for adding notifications.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddNotificationsProps.Initializer"></a>
 
 ```typescript
@@ -5058,7 +5168,7 @@ const addNotificationsProps: AddNotificationsProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AddNotificationsProps.property.notificationRule">notificationRule</a></code> | <code>aws-cdk-lib.aws_codestarnotifications.NotificationRule</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddNotificationsProps.property.notificationRule">notificationRule</a></code> | <code>aws-cdk-lib.aws_codestarnotifications.NotificationRule</code> | Override notification rule. |
 
 ---
 
@@ -5069,6 +5179,8 @@ public readonly notificationRule: NotificationRule;
 ```
 
 - *Type:* aws-cdk-lib.aws_codestarnotifications.NotificationRule
+
+Override notification rule.
 
 ---
 
@@ -5157,6 +5269,8 @@ public readonly schedule: Schedule;
 
 ### AddSecurityLintStageProps <a name="AddSecurityLintStageProps" id="aws-ddk-core.AddSecurityLintStageProps"></a>
 
+Properties for adding a security lint stage.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddSecurityLintStageProps.Initializer"></a>
 
 ```typescript
@@ -5169,8 +5283,8 @@ const addSecurityLintStageProps: AddSecurityLintStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AddSecurityLintStageProps.property.cloudAssemblyFileSet">cloudAssemblyFileSet</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddSecurityLintStageProps.property.stageName">stageName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddSecurityLintStageProps.property.cloudAssemblyFileSet">cloudAssemblyFileSet</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | Cloud assembly file set producer. |
+| <code><a href="#aws-ddk-core.AddSecurityLintStageProps.property.stageName">stageName</a></code> | <code>string</code> | Name of the stage. |
 
 ---
 
@@ -5182,6 +5296,8 @@ public readonly cloudAssemblyFileSet: IFileSetProducer;
 
 - *Type:* aws-cdk-lib.pipelines.IFileSetProducer
 
+Cloud assembly file set producer.
+
 ---
 
 ##### `stageName`<sup>Optional</sup> <a name="stageName" id="aws-ddk-core.AddSecurityLintStageProps.property.stageName"></a>
@@ -5191,6 +5307,8 @@ public readonly stageName: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -5268,6 +5386,8 @@ public readonly skipRule: boolean;
 
 ### AddTestStageProps <a name="AddTestStageProps" id="aws-ddk-core.AddTestStageProps"></a>
 
+Properties for adding a test stage.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.AddTestStageProps.Initializer"></a>
 
 ```typescript
@@ -5280,9 +5400,9 @@ const addTestStageProps: AddTestStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AddTestStageProps.property.cloudAssemblyFileSet">cloudAssemblyFileSet</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddTestStageProps.property.commands">commands</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AddTestStageProps.property.stageName">stageName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AddTestStageProps.property.cloudAssemblyFileSet">cloudAssemblyFileSet</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | Cloud assembly file set. |
+| <code><a href="#aws-ddk-core.AddTestStageProps.property.commands">commands</a></code> | <code>string[]</code> | Additional commands to run in the test. |
+| <code><a href="#aws-ddk-core.AddTestStageProps.property.stageName">stageName</a></code> | <code>string</code> | Name of the stage. |
 
 ---
 
@@ -5294,6 +5414,8 @@ public readonly cloudAssemblyFileSet: IFileSetProducer;
 
 - *Type:* aws-cdk-lib.pipelines.IFileSetProducer
 
+Cloud assembly file set.
+
 ---
 
 ##### `commands`<sup>Optional</sup> <a name="commands" id="aws-ddk-core.AddTestStageProps.property.commands"></a>
@@ -5304,6 +5426,10 @@ public readonly commands: string[];
 
 - *Type:* string[]
 
+Additional commands to run in the test.
+
+Defaults to `./test.sh` otherwise.
+
 ---
 
 ##### `stageName`<sup>Optional</sup> <a name="stageName" id="aws-ddk-core.AddTestStageProps.property.stageName"></a>
@@ -5313,6 +5439,8 @@ public readonly stageName: string;
 ```
 
 - *Type:* string
+
+Name of the stage.
 
 ---
 
@@ -6008,8 +6136,8 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundaryArn">permissionsBoundaryArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.cdkLanguage">cdkLanguage</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.pipelineName">pipelineName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.cdkLanguage">cdkLanguage</a></code> | <code>string</code> | Language of the CDK construct definitions. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.pipelineName">pipelineName</a></code> | <code>string</code> | Name of the pipeline. |
 
 ---
 
@@ -6244,6 +6372,10 @@ public readonly cdkLanguage: string;
 
 - *Type:* string
 
+Language of the CDK construct definitions.
+
+Default: `typescript`
+
 ---
 
 ##### `pipelineName`<sup>Optional</sup> <a name="pipelineName" id="aws-ddk-core.CICDPipelineStackProps.property.pipelineName"></a>
@@ -6253,6 +6385,8 @@ public readonly pipelineName: string;
 ```
 
 - *Type:* string
+
+Name of the pipeline.
 
 ---
 
@@ -8342,6 +8476,8 @@ public readonly snsTopicProps: TopicProps;
 
 ### SourceActionProps <a name="SourceActionProps" id="aws-ddk-core.SourceActionProps"></a>
 
+Properties for the source action.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.SourceActionProps.Initializer"></a>
 
 ```typescript
@@ -8354,9 +8490,9 @@ const sourceActionProps: SourceActionProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.SourceActionProps.property.repositoryName">repositoryName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SourceActionProps.property.branch">branch</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SourceActionProps.property.sourceAction">sourceAction</a></code> | <code>aws-cdk-lib.pipelines.CodePipelineSource</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SourceActionProps.property.repositoryName">repositoryName</a></code> | <code>string</code> | Name of the SCM repository. |
+| <code><a href="#aws-ddk-core.SourceActionProps.property.branch">branch</a></code> | <code>string</code> | Branch of the SCM repository. |
+| <code><a href="#aws-ddk-core.SourceActionProps.property.sourceAction">sourceAction</a></code> | <code>aws-cdk-lib.pipelines.CodePipelineSource</code> | Override source action. |
 
 ---
 
@@ -8368,6 +8504,8 @@ public readonly repositoryName: string;
 
 - *Type:* string
 
+Name of the SCM repository.
+
 ---
 
 ##### `branch`<sup>Optional</sup> <a name="branch" id="aws-ddk-core.SourceActionProps.property.branch"></a>
@@ -8378,6 +8516,8 @@ public readonly branch: string;
 
 - *Type:* string
 
+Branch of the SCM repository.
+
 ---
 
 ##### `sourceAction`<sup>Optional</sup> <a name="sourceAction" id="aws-ddk-core.SourceActionProps.property.sourceAction"></a>
@@ -8387,6 +8527,8 @@ public readonly sourceAction: CodePipelineSource;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.CodePipelineSource
+
+Override source action.
 
 ---
 
@@ -9388,6 +9530,8 @@ public readonly stateMachineName: string;
 
 ### SynthActionProps <a name="SynthActionProps" id="aws-ddk-core.SynthActionProps"></a>
 
+Properties for the synth action.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.SynthActionProps.Initializer"></a>
 
 ```typescript
@@ -9400,13 +9544,13 @@ const synthActionProps: SynthActionProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.SynthActionProps.property.additionalInstallCommands">additionalInstallCommands</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SynthActionProps.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomain">codeartifactDomain</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactRepository">codeartifactRepository</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SynthActionProps.property.rolePolicyStatements">rolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SynthActionProps.property.synthAction">synthAction</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildStep</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.additionalInstallCommands">additionalInstallCommands</a></code> | <code>string[]</code> | Additional install commands. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | CDK versio to use during the synth action. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomain">codeartifactDomain</a></code> | <code>string</code> | Name of the CodeArtifact domain. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | CodeArtifact domain owner account. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactRepository">codeartifactRepository</a></code> | <code>string</code> | Name of the CodeArtifact repository to pull artifacts from. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.rolePolicyStatements">rolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policies to add to the synth action role. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.synthAction">synthAction</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildStep</code> | Override synth action. |
 
 ---
 
@@ -9418,6 +9562,8 @@ public readonly additionalInstallCommands: string[];
 
 - *Type:* string[]
 
+Additional install commands.
+
 ---
 
 ##### `cdkVersion`<sup>Optional</sup> <a name="cdkVersion" id="aws-ddk-core.SynthActionProps.property.cdkVersion"></a>
@@ -9427,6 +9573,10 @@ public readonly cdkVersion: string;
 ```
 
 - *Type:* string
+
+CDK versio to use during the synth action.
+
+Default: `latest`.
 
 ---
 
@@ -9438,6 +9588,8 @@ public readonly codeartifactDomain: string;
 
 - *Type:* string
 
+Name of the CodeArtifact domain.
+
 ---
 
 ##### `codeartifactDomainOwner`<sup>Optional</sup> <a name="codeartifactDomainOwner" id="aws-ddk-core.SynthActionProps.property.codeartifactDomainOwner"></a>
@@ -9447,6 +9599,8 @@ public readonly codeartifactDomainOwner: string;
 ```
 
 - *Type:* string
+
+CodeArtifact domain owner account.
 
 ---
 
@@ -9458,6 +9612,8 @@ public readonly codeartifactRepository: string;
 
 - *Type:* string
 
+Name of the CodeArtifact repository to pull artifacts from.
+
 ---
 
 ##### `rolePolicyStatements`<sup>Optional</sup> <a name="rolePolicyStatements" id="aws-ddk-core.SynthActionProps.property.rolePolicyStatements"></a>
@@ -9468,6 +9624,8 @@ public readonly rolePolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
+Additional policies to add to the synth action role.
+
 ---
 
 ##### `synthAction`<sup>Optional</sup> <a name="synthAction" id="aws-ddk-core.SynthActionProps.property.synthAction"></a>
@@ -9477,6 +9635,8 @@ public readonly synthAction: CodeBuildStep;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.CodeBuildStep
+
+Override synth action.
 
 ---
 

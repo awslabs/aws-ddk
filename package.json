@@ -3,7 +3,7 @@
   "description": "AWS DataOps Development Kit",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/aws-ddk"
+    "url": "https://github.com/awslabs/aws-ddk/tree/typescript-conversion"
   },
   "scripts": {
     "build": "npx projen build",

@@ -14,7 +14,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseTrigger: release.ReleaseTrigger.manual(),
   name: "aws-ddk-core",
   description: "AWS DataOps Development Kit",
-  repositoryUrl: "https://github.com/awslabs/aws-ddk",
+  repositoryUrl: "https://github.com/awslabs/aws-ddk/tree/typescript-conversion",
 
   // Artifact config: Python
   publishToPypi: {
