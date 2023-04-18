@@ -8,21 +8,70 @@ import { Construct } from "constructs";
 import { GlueFactory } from "../core/glue-factory";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
+/**
+ * Properties for `GlueTransformStage`.
+ */
 export interface GlueTransformStageProps extends StateMachineStageProps {
+  /**
+   * The name of a preexisting Glue job to run. If None, a Glue job is created.
+   */
   readonly jobName?: string;
+  /**
+   * Additional Glue job properties. For complete list of properties refer to CDK Documentation
+   * @link https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-glue-alpha.Job.html
+   */
   readonly jobProps?: glue_alpha.JobProps;
+  /**
+   * The input arguments to the Glue job.
+   */
   readonly jobRunArgs?: { [key: string]: any };
+  /**
+   * The name of a preexisting Glue crawler to run. If None, a Glue crawler is created.
+   */
   readonly crawlerName?: string;
+  /**
+   * The crawler execution role.
+   */
   readonly crawlerRole?: string;
+  /**
+   * The name of the database in which the crawler's output is stored.
+   */
   readonly databaseName?: string;
+  /**
+   * A collection of targets to crawl.
+   */
   readonly targets?: glue.CfnCrawler.TargetsProperty;
+  /**
+   * Properties for the Glue Crawler.
+   * @link https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_glue.CfnCrawler.html
+   */
   readonly crawlerProps?: glue.CfnCrawlerProps;
+  /**
+   * Argument to allow stepfunction success for crawler failures/execption like Glue.CrawlerRunningException.
+   * @default true
+   */
   readonly crawlerAllowFailure?: boolean;
+  /**
+   * How many times to retry this particular error.
+   * @default 3
+   */
   readonly stateMachineRetryMaxAttempts?: number;
+  /**
+   * Multiplication for how much longer the wait interval gets on every retry.
+   * @default 2
+   */
   readonly stateMachineRetryBackoffRate?: number;
+  /**
+   * How many seconds to wait initially before retrying.
+   * @default cdk.Duration.seconds(1)
+   */
   readonly stateMachineRetryInterval?: cdk.Duration;
 }
 
+/**
+ * Stage that contains a step function that runs Glue job, and a Glue crawler afterwards.
+ * If the Glue job or crawler names are not supplied, then they are created.
+ */
 export class GlueTransformStage extends StateMachineStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
@@ -30,6 +79,12 @@ export class GlueTransformStage extends StateMachineStage {
   readonly glueJob: glue_alpha.IJob;
   readonly crawler?: glue.CfnCrawler;
 
+  /**
+   * Constructs `GlueTransformStage`.
+   * @param scope Scope within which this construct is defined.
+   * @param id Identifier of the stage.
+   * @param props Properties for the stage.
+   */
   constructor(scope: Construct, id: string, props: GlueTransformStageProps) {
     super(scope, id, props);
 

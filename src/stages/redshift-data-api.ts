@@ -6,14 +6,41 @@ import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
 import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
 
+/**
+ * Properties for `RedshiftDataApiStage`.
+ */
 export interface RedshiftDataApiStageProps extends StateMachineStageProps {
+  /**
+   * Identifier of the Redshift cluster.
+   */
   readonly redshiftClusterIdentifier: string;
+  /**
+   * List of SQL statements to execute.
+   */
   readonly sqlStatements: string[];
+  /**
+   * Name of the database in Redshift.
+   *
+   * @default "dev"
+   */
   readonly databaseName?: string;
+  /**
+   * Database user.
+   *
+   * @default "awsuser"
+   */
   readonly databaseUser?: string;
+  /**
+   * Waiting time between checking whether the statements have finished executing.
+   *
+   * @default cdk.Duration.seconds(15)
+   */
   readonly pollingTime?: cdk.Duration;
 }
 
+/**
+ * Stage that contains a step function that executes Redshift Data API statements.
+ */
 export class RedshiftDataApiStage extends StateMachineStage {
   readonly targets?: events.IRuleTarget[];
   readonly eventPattern?: events.EventPattern;
@@ -21,6 +48,12 @@ export class RedshiftDataApiStage extends StateMachineStage {
   readonly stateMachineInput?: { [key: string]: any };
   readonly eventBridgeEventPath?: string;
 
+  /**
+   * Constructs `RedshiftDataApiStage`.
+   * @param scope Scope within which this construct is defined.
+   * @param id Identifier of the stage.
+   * @param props Properties for the stage.
+   */
   constructor(scope: Construct, id: string, props: RedshiftDataApiStageProps) {
     super(scope, id, props);
 

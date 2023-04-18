@@ -451,6 +451,8 @@ public readonly flowObject: CallAwsService;
 
 ### AthenaSQLStage <a name="AthenaSQLStage" id="aws-ddk-core.AthenaSQLStage"></a>
 
+Stage that contains a step function that execute Athena SQL query.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.AthenaSQLStage.Initializer"></a>
 
 ```typescript
@@ -461,9 +463,9 @@ new AthenaSQLStage(scope: Construct, id: string, props: AthenaToSQLStageProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaSQLStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.AthenaToSQLStageProps">AthenaToSQLStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.AthenaSQLStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.AthenaToSQLStageProps">AthenaToSQLStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -471,17 +473,23 @@ new AthenaSQLStage(scope: Construct, id: string, props: AthenaToSQLStageProps)
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.AthenaSQLStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.AthenaSQLStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AthenaToSQLStageProps">AthenaToSQLStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -2746,6 +2754,8 @@ public readonly synthAction: CodeBuildStep;
 
 ### DataBrewTransformStage <a name="DataBrewTransformStage" id="aws-ddk-core.DataBrewTransformStage"></a>
 
+Stage that contains a step function that runs DataBrew job.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.DataBrewTransformStage.Initializer"></a>
 
 ```typescript
@@ -2756,9 +2766,9 @@ new DataBrewTransformStage(scope: Construct, id: string, props: DataBrewTransfor
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.DataBrewTransformStageProps">DataBrewTransformStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.DataBrewTransformStageProps">DataBrewTransformStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -2766,17 +2776,23 @@ new DataBrewTransformStage(scope: Construct, id: string, props: DataBrewTransfor
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.DataBrewTransformStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.DataBrewTransformStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.DataBrewTransformStageProps">DataBrewTransformStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -3581,6 +3597,8 @@ Targets are used by Event Rules to describe what should be invoked when a rule m
 
 ### FirehoseToS3Stage <a name="FirehoseToS3Stage" id="aws-ddk-core.FirehoseToS3Stage"></a>
 
+DDK Kinesis Firehose Delivery stream to S3 stage, with an optional Kinesis Data Stream.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.FirehoseToS3Stage.Initializer"></a>
 
 ```typescript
@@ -3591,9 +3609,9 @@ new FirehoseToS3Stage(scope: Construct, id: string, props: FirehoseToS3StageProp
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.FirehoseToS3StageProps">FirehoseToS3StageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.FirehoseToS3StageProps">FirehoseToS3StageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -3601,17 +3619,23 @@ new FirehoseToS3Stage(scope: Construct, id: string, props: FirehoseToS3StageProp
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.FirehoseToS3Stage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.FirehoseToS3StageProps">FirehoseToS3StageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -3821,6 +3845,10 @@ public readonly dataStream: Stream;
 
 ### GlueTransformStage <a name="GlueTransformStage" id="aws-ddk-core.GlueTransformStage"></a>
 
+Stage that contains a step function that runs Glue job, and a Glue crawler afterwards.
+
+If the Glue job or crawler names are not supplied, then they are created.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.GlueTransformStage.Initializer"></a>
 
 ```typescript
@@ -3831,9 +3859,9 @@ new GlueTransformStage(scope: Construct, id: string, props: GlueTransformStagePr
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.GlueTransformStageProps">GlueTransformStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.GlueTransformStageProps">GlueTransformStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -3841,17 +3869,23 @@ new GlueTransformStage(scope: Construct, id: string, props: GlueTransformStagePr
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.GlueTransformStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueTransformStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.GlueTransformStageProps">GlueTransformStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -4063,6 +4097,8 @@ public readonly crawler: CfnCrawler;
 
 ### RedshiftDataApiStage <a name="RedshiftDataApiStage" id="aws-ddk-core.RedshiftDataApiStage"></a>
 
+Stage that contains a step function that executes Redshift Data API statements.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.RedshiftDataApiStage.Initializer"></a>
 
 ```typescript
@@ -4073,9 +4109,9 @@ new RedshiftDataApiStage(scope: Construct, id: string, props: RedshiftDataApiSta
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps">RedshiftDataApiStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps">RedshiftDataApiStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -4083,17 +4119,23 @@ new RedshiftDataApiStage(scope: Construct, id: string, props: RedshiftDataApiSta
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.RedshiftDataApiStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.RedshiftDataApiStageProps">RedshiftDataApiStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -4305,6 +4347,10 @@ public readonly stateMachineInput: {[ key: string ]: any};
 
 ### S3EventStage <a name="S3EventStage" id="aws-ddk-core.S3EventStage"></a>
 
+Stage implements an S3 event pattern based on event names, a bucket name and optional key prefix.
+
+Amazon EventBridge notifications must be enabled on the bucket in order to use this construct.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.S3EventStage.Initializer"></a>
 
 ```typescript
@@ -4315,9 +4361,9 @@ new S3EventStage(scope: Construct, id: string, props: S3EventStageProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.S3EventStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.S3EventStageProps">S3EventStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.S3EventStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.S3EventStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.S3EventStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.S3EventStageProps">S3EventStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -4325,17 +4371,23 @@ new S3EventStage(scope: Construct, id: string, props: S3EventStageProps)
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.S3EventStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.S3EventStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.S3EventStageProps">S3EventStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -4461,6 +4513,8 @@ Targets are used by Event Rules to describe what should be invoked when a rule m
 
 ### SnsSqsToLambdaStage <a name="SnsSqsToLambdaStage" id="aws-ddk-core.SnsSqsToLambdaStage"></a>
 
+Stage implements an SNS Topic connected to an Amazon SQS queue and an AWS Lambda function, with an optional DLQ.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.SnsSqsToLambdaStage.Initializer"></a>
 
 ```typescript
@@ -4471,9 +4525,9 @@ new SnsSqsToLambdaStage(scope: Construct, id: string, props: SnsToLambdaStagePro
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.SnsToLambdaStageProps">SnsToLambdaStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.SnsToLambdaStageProps">SnsToLambdaStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -4481,17 +4535,23 @@ new SnsSqsToLambdaStage(scope: Construct, id: string, props: SnsToLambdaStagePro
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.SnsSqsToLambdaStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.SnsToLambdaStageProps">SnsToLambdaStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -4723,6 +4783,8 @@ public readonly snsDeadLetterQueue: Queue;
 
 ### SqsToLambdaStage <a name="SqsToLambdaStage" id="aws-ddk-core.SqsToLambdaStage"></a>
 
+Stage implements an Amazon SQS queue connected to an AWS Lambda function, with an optional DLQ.
+
 #### Initializers <a name="Initializers" id="aws-ddk-core.SqsToLambdaStage.Initializer"></a>
 
 ```typescript
@@ -4733,9 +4795,9 @@ new SqsToLambdaStage(scope: Construct, id: string, props: SqsToLambdaStageProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageProps">SqsToLambdaStageProps</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageProps">SqsToLambdaStageProps</a></code> | Properties for the stage. |
 
 ---
 
@@ -4743,17 +4805,23 @@ new SqsToLambdaStage(scope: Construct, id: string, props: SqsToLambdaStageProps)
 
 - *Type:* constructs.Construct
 
+Scope within which this construct is defined.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.SqsToLambdaStage.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+Identifier of the stage.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.SqsToLambdaStage.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.SqsToLambdaStageProps">SqsToLambdaStageProps</a>
+
+Properties for the stage.
 
 ---
 
@@ -6278,6 +6346,8 @@ The flow `appflow.CfnFlow.SourceFlowConfigProperty` properties.
 
 ### AthenaToSQLStageProps <a name="AthenaToSQLStageProps" id="aws-ddk-core.AthenaToSQLStageProps"></a>
 
+Properties for `AthenaSQLStage`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.AthenaToSQLStageProps.Initializer"></a>
 
 ```typescript
@@ -6298,14 +6368,14 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.catalogName">catalogName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.Key</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionOption">encryptionOption</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.EncryptionOption</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_s3.Location</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryStringPath">queryStringPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.workGroup">workGroup</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.catalogName">catalogName</a></code> | <code>string</code> | Catalog name. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | Database name. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.Key</code> | Encryption KMS key. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionOption">encryptionOption</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.EncryptionOption</code> | Encryption configuration. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_s3.Location</code> | Output S3 location. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | SQL query that will be started. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryStringPath">queryStringPath</a></code> | <code>string</code> | dynamic path in statemachine for SQL query to be started. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.workGroup">workGroup</a></code> | <code>string</code> | Athena workgroup name. |
 
 ---
 
@@ -6416,6 +6486,8 @@ public readonly catalogName: string;
 
 - *Type:* string
 
+Catalog name.
+
 ---
 
 ##### `databaseName`<sup>Optional</sup> <a name="databaseName" id="aws-ddk-core.AthenaToSQLStageProps.property.databaseName"></a>
@@ -6425,6 +6497,8 @@ public readonly databaseName: string;
 ```
 
 - *Type:* string
+
+Database name.
 
 ---
 
@@ -6436,6 +6510,8 @@ public readonly encryptionKey: Key;
 
 - *Type:* aws-cdk-lib.aws_kms.Key
 
+Encryption KMS key.
+
 ---
 
 ##### `encryptionOption`<sup>Optional</sup> <a name="encryptionOption" id="aws-ddk-core.AthenaToSQLStageProps.property.encryptionOption"></a>
@@ -6445,6 +6521,8 @@ public readonly encryptionOption: EncryptionOption;
 ```
 
 - *Type:* aws-cdk-lib.aws_stepfunctions_tasks.EncryptionOption
+
+Encryption configuration.
 
 ---
 
@@ -6456,6 +6534,8 @@ public readonly outputLocation: Location;
 
 - *Type:* aws-cdk-lib.aws_s3.Location
 
+Output S3 location.
+
 ---
 
 ##### `queryString`<sup>Optional</sup> <a name="queryString" id="aws-ddk-core.AthenaToSQLStageProps.property.queryString"></a>
@@ -6465,6 +6545,8 @@ public readonly queryString: string;
 ```
 
 - *Type:* string
+
+SQL query that will be started.
 
 ---
 
@@ -6476,6 +6558,8 @@ public readonly queryStringPath: string;
 
 - *Type:* string
 
+dynamic path in statemachine for SQL query to be started.
+
 ---
 
 ##### `workGroup`<sup>Optional</sup> <a name="workGroup" id="aws-ddk-core.AthenaToSQLStageProps.property.workGroup"></a>
@@ -6485,6 +6569,8 @@ public readonly workGroup: string;
 ```
 
 - *Type:* string
+
+Athena workgroup name.
 
 ---
 
@@ -7327,6 +7413,8 @@ public readonly targets: IRuleTarget[];
 
 ### DataBrewTransformStageProps <a name="DataBrewTransformStageProps" id="aws-ddk-core.DataBrewTransformStageProps"></a>
 
+Properties for `DataBrewTransformStage`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.DataBrewTransformStageProps.Initializer"></a>
 
 ```typescript
@@ -7347,27 +7435,27 @@ const dataBrewTransformStageProps: DataBrewTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.createJob">createJob</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.databaseOutputs">databaseOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DatabaseOutputProperty[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.dataCatalogOutputs">dataCatalogOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DataCatalogOutputProperty[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.datasetName">datasetName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.encryptionKeyArn">encryptionKeyArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.encryptionMode">encryptionMode</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobRoleArn">jobRoleArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobSample">jobSample</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.JobSampleProperty</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobType">jobType</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.logSubscription">logSubscription</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.maxCapacity">maxCapacity</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.maxRetries">maxRetries</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.OutputLocationProperty</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.outputs">outputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.OutputProperty[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.profileConfiguration">profileConfiguration</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.ProfileConfigurationProperty</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.projectName">projectName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.recipe">recipe</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.RecipeProperty</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.tags">tags</a></code> | <code>aws-cdk-lib.CfnTag[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.timeout">timeout</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.validationConfigurations">validationConfigurations</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.ValidationConfigurationProperty[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.createJob">createJob</a></code> | <code>boolean</code> | Whether to create the DataBrew job or not. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.databaseOutputs">databaseOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DatabaseOutputProperty[]</code> | Represents a list of JDBC database output objects which defines the output destination for a DataBrew recipe job to write into. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.dataCatalogOutputs">dataCatalogOutputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.DataCatalogOutputProperty[]</code> | One or more artifacts that represent the AWS Glue Data Catalog output from running the job. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.datasetName">datasetName</a></code> | <code>string</code> | The name of the dataset to use for the job. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.encryptionKeyArn">encryptionKeyArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of an encryption key that is used to protect the job output. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.encryptionMode">encryptionMode</a></code> | <code>string</code> | The encryption mode for the job, which can be one of the following:. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | The name of a preexisting DataBrew job to run. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobRoleArn">jobRoleArn</a></code> | <code>string</code> | The Arn of the job execution role. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobSample">jobSample</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.JobSampleProperty</code> | A sample configuration for profile jobs only, which determines the number of rows on which the profile job is run. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.jobType">jobType</a></code> | <code>string</code> | The type of job to run. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.logSubscription">logSubscription</a></code> | <code>string</code> | The current status of Amazon CloudWatch logging for the job. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.maxCapacity">maxCapacity</a></code> | <code>number</code> | The maximum number of nodes that can be consumed when the job processes data. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.maxRetries">maxRetries</a></code> | <code>number</code> | The maximum number of times to retry the job after a job run fails. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.OutputLocationProperty</code> | `AWS::DataBrew::Job.OutputLocation`. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.outputs">outputs</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.OutputProperty[]</code> | The output properties for the job. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.profileConfiguration">profileConfiguration</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.ProfileConfigurationProperty</code> | Configuration for profile jobs. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.projectName">projectName</a></code> | <code>string</code> | The name of the project that the job is associated with. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.recipe">recipe</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.RecipeProperty</code> | The recipe to be used by the DataBrew job which is a series of data transformation steps. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.tags">tags</a></code> | <code>aws-cdk-lib.CfnTag[]</code> | Metadata tags that have been applied to the job. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.timeout">timeout</a></code> | <code>number</code> | The job's timeout in minutes. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.validationConfigurations">validationConfigurations</a></code> | <code>aws-cdk-lib.aws_databrew.CfnJob.ValidationConfigurationProperty[]</code> | List of validation configurations that are applied to the profile job. |
 
 ---
 
@@ -7478,6 +7566,8 @@ public readonly createJob: boolean;
 
 - *Type:* boolean
 
+Whether to create the DataBrew job or not.
+
 ---
 
 ##### `databaseOutputs`<sup>Optional</sup> <a name="databaseOutputs" id="aws-ddk-core.DataBrewTransformStageProps.property.databaseOutputs"></a>
@@ -7487,6 +7577,10 @@ public readonly databaseOutputs: DatabaseOutputProperty[];
 ```
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.DatabaseOutputProperty[]
+
+Represents a list of JDBC database output objects which defines the output destination for a DataBrew recipe job to write into.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-databaseoutputs](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-databaseoutputs)
 
 ---
 
@@ -7498,6 +7592,10 @@ public readonly dataCatalogOutputs: DataCatalogOutputProperty[];
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.DataCatalogOutputProperty[]
 
+One or more artifacts that represent the AWS Glue Data Catalog output from running the job.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-datacatalogoutputs](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-datacatalogoutputs)
+
 ---
 
 ##### `datasetName`<sup>Optional</sup> <a name="datasetName" id="aws-ddk-core.DataBrewTransformStageProps.property.datasetName"></a>
@@ -7507,6 +7605,8 @@ public readonly datasetName: string;
 ```
 
 - *Type:* string
+
+The name of the dataset to use for the job.
 
 ---
 
@@ -7518,6 +7618,12 @@ public readonly encryptionKeyArn: string;
 
 - *Type:* string
 
+The Amazon Resource Name (ARN) of an encryption key that is used to protect the job output.
+
+For more information, see [Encrypting data written by DataBrew jobs](https://docs.aws.amazon.com/databrew/latest/dg/encryption-security-configuration.html)
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-encryptionkeyarn](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-encryptionkeyarn)
+
 ---
 
 ##### `encryptionMode`<sup>Optional</sup> <a name="encryptionMode" id="aws-ddk-core.DataBrewTransformStageProps.property.encryptionMode"></a>
@@ -7527,6 +7633,13 @@ public readonly encryptionMode: string;
 ```
 
 - *Type:* string
+
+The encryption mode for the job, which can be one of the following:.
+
+`SSE-KMS` - Server-side encryption with keys managed by AWS KMS .
+- `SSE-S3` - Server-side encryption with keys managed by Amazon S3.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-encryptionmode](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-encryptionmode)
 
 ---
 
@@ -7538,6 +7651,10 @@ public readonly jobName: string;
 
 - *Type:* string
 
+The name of a preexisting DataBrew job to run.
+
+If None, a DataBrew job is created.
+
 ---
 
 ##### `jobRoleArn`<sup>Optional</sup> <a name="jobRoleArn" id="aws-ddk-core.DataBrewTransformStageProps.property.jobRoleArn"></a>
@@ -7547,6 +7664,10 @@ public readonly jobRoleArn: string;
 ```
 
 - *Type:* string
+
+The Arn of the job execution role.
+
+Required if job_name is None.
 
 ---
 
@@ -7558,6 +7679,12 @@ public readonly jobSample: JobSampleProperty;
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.JobSampleProperty
 
+A sample configuration for profile jobs only, which determines the number of rows on which the profile job is run.
+
+If a `JobSample` value isn't provided, the default value is used. The default value is CUSTOM_ROWS for the mode parameter and 20,000 for the size parameter.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-jobsample](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-jobsample)
+
 ---
 
 ##### `jobType`<sup>Optional</sup> <a name="jobType" id="aws-ddk-core.DataBrewTransformStageProps.property.jobType"></a>
@@ -7567,6 +7694,10 @@ public readonly jobType: string;
 ```
 
 - *Type:* string
+
+The type of job to run.
+
+Required if job_name is None.
 
 ---
 
@@ -7578,6 +7709,10 @@ public readonly logSubscription: string;
 
 - *Type:* string
 
+The current status of Amazon CloudWatch logging for the job.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-logsubscription](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-logsubscription)
+
 ---
 
 ##### `maxCapacity`<sup>Optional</sup> <a name="maxCapacity" id="aws-ddk-core.DataBrewTransformStageProps.property.maxCapacity"></a>
@@ -7587,6 +7722,10 @@ public readonly maxCapacity: number;
 ```
 
 - *Type:* number
+
+The maximum number of nodes that can be consumed when the job processes data.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-maxcapacity](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-maxcapacity)
 
 ---
 
@@ -7598,6 +7737,10 @@ public readonly maxRetries: number;
 
 - *Type:* number
 
+The maximum number of times to retry the job after a job run fails.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-maxretries](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-maxretries)
+
 ---
 
 ##### `outputLocation`<sup>Optional</sup> <a name="outputLocation" id="aws-ddk-core.DataBrewTransformStageProps.property.outputLocation"></a>
@@ -7607,6 +7750,10 @@ public readonly outputLocation: OutputLocationProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.OutputLocationProperty
+
+`AWS::DataBrew::Job.OutputLocation`.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-outputlocation](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-outputlocation)
 
 ---
 
@@ -7618,6 +7765,8 @@ public readonly outputs: OutputProperty[];
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.OutputProperty[]
 
+The output properties for the job.
+
 ---
 
 ##### `profileConfiguration`<sup>Optional</sup> <a name="profileConfiguration" id="aws-ddk-core.DataBrewTransformStageProps.property.profileConfiguration"></a>
@@ -7627,6 +7776,12 @@ public readonly profileConfiguration: ProfileConfigurationProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.ProfileConfigurationProperty
+
+Configuration for profile jobs.
+
+Configuration can be used to select columns, do evaluations, and override default parameters of evaluations. When configuration is undefined, the profile job will apply default settings to all supported columns.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-profileconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-profileconfiguration)
 
 ---
 
@@ -7638,6 +7793,10 @@ public readonly projectName: string;
 
 - *Type:* string
 
+The name of the project that the job is associated with.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-projectname](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-projectname)
+
 ---
 
 ##### `recipe`<sup>Optional</sup> <a name="recipe" id="aws-ddk-core.DataBrewTransformStageProps.property.recipe"></a>
@@ -7647,6 +7806,10 @@ public readonly recipe: RecipeProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.RecipeProperty
+
+The recipe to be used by the DataBrew job which is a series of data transformation steps.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-recipe](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-recipe)
 
 ---
 
@@ -7658,6 +7821,10 @@ public readonly tags: CfnTag[];
 
 - *Type:* aws-cdk-lib.CfnTag[]
 
+Metadata tags that have been applied to the job.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-tags](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-tags)
+
 ---
 
 ##### `timeout`<sup>Optional</sup> <a name="timeout" id="aws-ddk-core.DataBrewTransformStageProps.property.timeout"></a>
@@ -7668,6 +7835,12 @@ public readonly timeout: number;
 
 - *Type:* number
 
+The job's timeout in minutes.
+
+A job that attempts to run longer than this timeout period ends with a status of `TIMEOUT` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-timeout](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-timeout)
+
 ---
 
 ##### `validationConfigurations`<sup>Optional</sup> <a name="validationConfigurations" id="aws-ddk-core.DataBrewTransformStageProps.property.validationConfigurations"></a>
@@ -7677,6 +7850,10 @@ public readonly validationConfigurations: ValidationConfigurationProperty[];
 ```
 
 - *Type:* aws-cdk-lib.aws_databrew.CfnJob.ValidationConfigurationProperty[]
+
+List of validation configurations that are applied to the profile job.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-validationconfigurations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html#cfn-databrew-job-validationconfigurations)
 
 ---
 
@@ -7780,6 +7957,8 @@ Enable/Disable all alarms in a DataStage.
 
 ### DeliveryStreamProps <a name="DeliveryStreamProps" id="aws-ddk-core.DeliveryStreamProps"></a>
 
+Properties of the Firehose Delivery stream to be created.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.DeliveryStreamProps.Initializer"></a>
 
 ```typescript
@@ -7792,12 +7971,12 @@ const deliveryStreamProps: DeliveryStreamProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.deliveryStreamName">deliveryStreamName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.destinations">destinations</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.IDestination[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.encryption">encryption</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.StreamEncryption</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
-| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.sourceStream">sourceStream</a></code> | <code>aws-cdk-lib.aws_kinesis.IStream</code> | *No description.* |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.deliveryStreamName">deliveryStreamName</a></code> | <code>string</code> | A name for the delivery stream. |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.destinations">destinations</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.IDestination[]</code> | The destinations that this delivery stream will deliver data to. |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.encryption">encryption</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.StreamEncryption</code> | Indicates the type of customer master key (CMK) to use for server-side encryption, if any. |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | Customer managed key to server-side encrypt data in the stream. |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role associated with this delivery stream. |
+| <code><a href="#aws-ddk-core.DeliveryStreamProps.property.sourceStream">sourceStream</a></code> | <code>aws-cdk-lib.aws_kinesis.IStream</code> | The Kinesis data stream to use as a source for this delivery stream. |
 
 ---
 
@@ -7808,6 +7987,9 @@ public readonly deliveryStreamName: string;
 ```
 
 - *Type:* string
+- *Default:* a name is generated by CloudFormation.
+
+A name for the delivery stream.
 
 ---
 
@@ -7819,6 +8001,10 @@ public readonly destinations: IDestination[];
 
 - *Type:* @aws-cdk/aws-kinesisfirehose-alpha.IDestination[]
 
+The destinations that this delivery stream will deliver data to.
+
+Only a singleton array is supported at this time.
+
 ---
 
 ##### `encryption`<sup>Optional</sup> <a name="encryption" id="aws-ddk-core.DeliveryStreamProps.property.encryption"></a>
@@ -7828,6 +8014,9 @@ public readonly encryption: StreamEncryption;
 ```
 
 - *Type:* @aws-cdk/aws-kinesisfirehose-alpha.StreamEncryption
+- *Default:* StreamEncryption.UNENCRYPTED - unless `encryptionKey` is provided, in which case this will be implicitly set to `StreamEncryption.CUSTOMER_MANAGED`
+
+Indicates the type of customer master key (CMK) to use for server-side encryption, if any.
 
 ---
 
@@ -7838,6 +8027,9 @@ public readonly encryptionKey: IKey;
 ```
 
 - *Type:* aws-cdk-lib.aws_kms.IKey
+- *Default:* no KMS key will be used; if `encryption` is set to `CUSTOMER_MANAGED`, a KMS key will be created for you
+
+Customer managed key to server-side encrypt data in the stream.
 
 ---
 
@@ -7848,6 +8040,11 @@ public readonly role: IRole;
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* a role will be created with default permissions.
+
+The IAM role associated with this delivery stream.
+
+Assumed by Kinesis Data Firehose to read from sources and encrypt data server-side.
 
 ---
 
@@ -7858,6 +8055,9 @@ public readonly sourceStream: IStream;
 ```
 
 - *Type:* aws-cdk-lib.aws_kinesis.IStream
+- *Default:* data must be written to the delivery stream via a direct put.
+
+The Kinesis data stream to use as a source for this delivery stream.
 
 ---
 
@@ -8019,6 +8219,8 @@ Name of the stage.
 
 ### FirehoseToS3StageProps <a name="FirehoseToS3StageProps" id="aws-ddk-core.FirehoseToS3StageProps"></a>
 
+Properties for `FirehoseToS3Stage`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.FirehoseToS3StageProps.Initializer"></a>
 
 ```typescript
@@ -8034,16 +8236,16 @@ const firehoseToS3StageProps: FirehoseToS3StageProps = { ... }
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in a DataStage. |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataOutputPrefix">dataOutputPrefix</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled">dataStreamEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsAlarmThreshold">deliveryStreamDataFreshnessErrorsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsEvaluationPeriods">deliveryStreamDataFreshnessErrorsEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStream">firehoseDeliveryStream</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps">firehoseDeliveryStreamProps</a></code> | <code><a href="#aws-ddk-core.DeliveryStreamProps">DeliveryStreamProps</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.kinesisFirehoseDestinationsS3BucketProps">kinesisFirehoseDestinationsS3BucketProps</a></code> | <code>@aws-cdk/aws-kinesisfirehose-destinations-alpha.S3BucketProps</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
-| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3BucketProps">s3BucketProps</a></code> | <code>aws-cdk-lib.aws_s3.BucketProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataOutputPrefix">dataOutputPrefix</a></code> | <code>string</code> | A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStream">dataStream</a></code> | <code>aws-cdk-lib.aws_kinesis.Stream</code> | Preexisting Kinesis Data Stream to use in stage before Delivery Stream. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled">dataStreamEnabled</a></code> | <code>boolean</code> | Add Kinesis Data Stream to front Firehose Delivery. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsAlarmThreshold">deliveryStreamDataFreshnessErrorsAlarmThreshold</a></code> | <code>number</code> | Threshold for Cloudwatch Alarm created for this stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.deliveryStreamDataFreshnessErrorsEvaluationPeriods">deliveryStreamDataFreshnessErrorsEvaluationPeriods</a></code> | <code>number</code> | Evaluation period value for Cloudwatch alarm created for this stage. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStream">firehoseDeliveryStream</a></code> | <code>@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream</code> | Firehose Delivery stream. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps">firehoseDeliveryStreamProps</a></code> | <code><a href="#aws-ddk-core.DeliveryStreamProps">DeliveryStreamProps</a></code> | Properties of the Firehose Delivery stream to be created. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.kinesisFirehoseDestinationsS3BucketProps">kinesisFirehoseDestinationsS3BucketProps</a></code> | <code>@aws-cdk/aws-kinesisfirehose-destinations-alpha.S3BucketProps</code> | Props for defining an S3 destination of a Kinesis Data Firehose delivery stream. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | Preexisting S3 Bucket to use as a destination for the Firehose Stream. |
+| <code><a href="#aws-ddk-core.FirehoseToS3StageProps.property.s3BucketProps">s3BucketProps</a></code> | <code>aws-cdk-lib.aws_s3.BucketProps</code> | Properties of the S3 Bucket to be created as a delivery destination. |
 
 ---
 
@@ -8091,6 +8293,11 @@ public readonly dataOutputPrefix: string;
 ```
 
 - *Type:* string
+- *Default:* “YYYY/MM/DD/HH”
+
+A prefix that Kinesis Data Firehose evaluates and adds to records before writing them to S3.
+
+This prefix appears immediately following the bucket name.
 
 ---
 
@@ -8102,6 +8309,12 @@ public readonly dataStream: Stream;
 
 - *Type:* aws-cdk-lib.aws_kinesis.Stream
 
+Preexisting Kinesis Data Stream to use in stage before Delivery Stream.
+
+Setting this parameter will override any creation of Kinesis Data Streams
+in this stage.
+The `dataStreamEnabled` parameter will have no effect.
+
 ---
 
 ##### `dataStreamEnabled`<sup>Optional</sup> <a name="dataStreamEnabled" id="aws-ddk-core.FirehoseToS3StageProps.property.dataStreamEnabled"></a>
@@ -8111,6 +8324,9 @@ public readonly dataStreamEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
+
+Add Kinesis Data Stream to front Firehose Delivery.
 
 ---
 
@@ -8121,6 +8337,9 @@ public readonly deliveryStreamDataFreshnessErrorsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 900
+
+Threshold for Cloudwatch Alarm created for this stage.
 
 ---
 
@@ -8131,6 +8350,9 @@ public readonly deliveryStreamDataFreshnessErrorsEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+Evaluation period value for Cloudwatch alarm created for this stage.
 
 ---
 
@@ -8142,6 +8364,10 @@ public readonly firehoseDeliveryStream: DeliveryStream;
 
 - *Type:* @aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream
 
+Firehose Delivery stream.
+
+If no stram is provided, a new one is created.
+
 ---
 
 ##### `firehoseDeliveryStreamProps`<sup>Optional</sup> <a name="firehoseDeliveryStreamProps" id="aws-ddk-core.FirehoseToS3StageProps.property.firehoseDeliveryStreamProps"></a>
@@ -8151,6 +8377,8 @@ public readonly firehoseDeliveryStreamProps: DeliveryStreamProps;
 ```
 
 - *Type:* <a href="#aws-ddk-core.DeliveryStreamProps">DeliveryStreamProps</a>
+
+Properties of the Firehose Delivery stream to be created.
 
 ---
 
@@ -8162,6 +8390,8 @@ public readonly kinesisFirehoseDestinationsS3BucketProps: S3BucketProps;
 
 - *Type:* @aws-cdk/aws-kinesisfirehose-destinations-alpha.S3BucketProps
 
+Props for defining an S3 destination of a Kinesis Data Firehose delivery stream.
+
 ---
 
 ##### `s3Bucket`<sup>Optional</sup> <a name="s3Bucket" id="aws-ddk-core.FirehoseToS3StageProps.property.s3Bucket"></a>
@@ -8172,6 +8402,13 @@ public readonly s3Bucket: IBucket;
 
 - *Type:* aws-cdk-lib.aws_s3.IBucket
 
+Preexisting S3 Bucket to use as a destination for the Firehose Stream.
+
+If no bucket is provided, a new one is created.
+
+Amazon EventBridge notifications must be enabled on the bucket in order
+for this stage to produce events after its completion.
+
 ---
 
 ##### `s3BucketProps`<sup>Optional</sup> <a name="s3BucketProps" id="aws-ddk-core.FirehoseToS3StageProps.property.s3BucketProps"></a>
@@ -8181,6 +8418,11 @@ public readonly s3BucketProps: BucketProps;
 ```
 
 - *Type:* aws-cdk-lib.aws_s3.BucketProps
+
+Properties of the S3 Bucket to be created as a delivery destination.
+
+Amazon EventBridge notifications must be enabled on the bucket in order
+for this stage to produce events after its completion.
 
 ---
 
@@ -8430,6 +8672,8 @@ public readonly environmentId: string;
 
 ### GlueTransformStageProps <a name="GlueTransformStageProps" id="aws-ddk-core.GlueTransformStageProps"></a>
 
+Properties for `GlueTransformStage`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.GlueTransformStageProps.Initializer"></a>
 
 ```typescript
@@ -8450,18 +8694,18 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerAllowFailure">crawlerAllowFailure</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerRole">crawlerRole</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobProps">jobProps</a></code> | <code>@aws-cdk/aws-glue-alpha.JobProps</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobRunArgs">jobRunArgs</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryBackoffRate">stateMachineRetryBackoffRate</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryInterval">stateMachineRetryInterval</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryMaxAttempts">stateMachineRetryMaxAttempts</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawler.TargetsProperty</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerAllowFailure">crawlerAllowFailure</a></code> | <code>boolean</code> | Argument to allow stepfunction success for crawler failures/execption like Glue.CrawlerRunningException. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerName">crawlerName</a></code> | <code>string</code> | The name of a preexisting Glue crawler to run. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerProps">crawlerProps</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawlerProps</code> | Properties for the Glue Crawler. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerRole">crawlerRole</a></code> | <code>string</code> | The crawler execution role. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | The name of the database in which the crawler's output is stored. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | The name of a preexisting Glue job to run. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobProps">jobProps</a></code> | <code>@aws-cdk/aws-glue-alpha.JobProps</code> | Additional Glue job properties. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobRunArgs">jobRunArgs</a></code> | <code>{[ key: string ]: any}</code> | The input arguments to the Glue job. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryBackoffRate">stateMachineRetryBackoffRate</a></code> | <code>number</code> | Multiplication for how much longer the wait interval gets on every retry. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryInterval">stateMachineRetryInterval</a></code> | <code>aws-cdk-lib.Duration</code> | How many seconds to wait initially before retrying. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryMaxAttempts">stateMachineRetryMaxAttempts</a></code> | <code>number</code> | How many times to retry this particular error. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawler.TargetsProperty</code> | A collection of targets to crawl. |
 
 ---
 
@@ -8571,6 +8815,9 @@ public readonly crawlerAllowFailure: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Argument to allow stepfunction success for crawler failures/execption like Glue.CrawlerRunningException.
 
 ---
 
@@ -8582,6 +8829,10 @@ public readonly crawlerName: string;
 
 - *Type:* string
 
+The name of a preexisting Glue crawler to run.
+
+If None, a Glue crawler is created.
+
 ---
 
 ##### `crawlerProps`<sup>Optional</sup> <a name="crawlerProps" id="aws-ddk-core.GlueTransformStageProps.property.crawlerProps"></a>
@@ -8591,6 +8842,10 @@ public readonly crawlerProps: CfnCrawlerProps;
 ```
 
 - *Type:* aws-cdk-lib.aws_glue.CfnCrawlerProps
+
+Properties for the Glue Crawler.
+
+> [https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_glue.CfnCrawler.html](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_glue.CfnCrawler.html)
 
 ---
 
@@ -8602,6 +8857,8 @@ public readonly crawlerRole: string;
 
 - *Type:* string
 
+The crawler execution role.
+
 ---
 
 ##### `databaseName`<sup>Optional</sup> <a name="databaseName" id="aws-ddk-core.GlueTransformStageProps.property.databaseName"></a>
@@ -8611,6 +8868,8 @@ public readonly databaseName: string;
 ```
 
 - *Type:* string
+
+The name of the database in which the crawler's output is stored.
 
 ---
 
@@ -8622,6 +8881,10 @@ public readonly jobName: string;
 
 - *Type:* string
 
+The name of a preexisting Glue job to run.
+
+If None, a Glue job is created.
+
 ---
 
 ##### `jobProps`<sup>Optional</sup> <a name="jobProps" id="aws-ddk-core.GlueTransformStageProps.property.jobProps"></a>
@@ -8631,6 +8894,12 @@ public readonly jobProps: JobProps;
 ```
 
 - *Type:* @aws-cdk/aws-glue-alpha.JobProps
+
+Additional Glue job properties.
+
+For complete list of properties refer to CDK Documentation
+
+> [https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-glue-alpha.Job.html](https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-glue-alpha.Job.html)
 
 ---
 
@@ -8642,6 +8911,8 @@ public readonly jobRunArgs: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+The input arguments to the Glue job.
+
 ---
 
 ##### `stateMachineRetryBackoffRate`<sup>Optional</sup> <a name="stateMachineRetryBackoffRate" id="aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryBackoffRate"></a>
@@ -8651,6 +8922,9 @@ public readonly stateMachineRetryBackoffRate: number;
 ```
 
 - *Type:* number
+- *Default:* 2
+
+Multiplication for how much longer the wait interval gets on every retry.
 
 ---
 
@@ -8661,6 +8935,9 @@ public readonly stateMachineRetryInterval: Duration;
 ```
 
 - *Type:* aws-cdk-lib.Duration
+- *Default:* cdk.Duration.seconds(1)
+
+How many seconds to wait initially before retrying.
 
 ---
 
@@ -8671,6 +8948,9 @@ public readonly stateMachineRetryMaxAttempts: number;
 ```
 
 - *Type:* number
+- *Default:* 3
+
+How many times to retry this particular error.
 
 ---
 
@@ -8681,6 +8961,8 @@ public readonly targets: TargetsProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_glue.CfnCrawler.TargetsProperty
+
+A collection of targets to crawl.
 
 ---
 
@@ -8736,6 +9018,8 @@ public readonly qualifier: string;
 
 ### RedshiftDataApiStageProps <a name="RedshiftDataApiStageProps" id="aws-ddk-core.RedshiftDataApiStageProps"></a>
 
+Properties for `RedshiftDataApiStage`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.RedshiftDataApiStageProps.Initializer"></a>
 
 ```typescript
@@ -8756,11 +9040,11 @@ const redshiftDataApiStageProps: RedshiftDataApiStageProps = { ... }
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.redshiftClusterIdentifier">redshiftClusterIdentifier</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.sqlStatements">sqlStatements</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.databaseUser">databaseUser</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.pollingTime">pollingTime</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.redshiftClusterIdentifier">redshiftClusterIdentifier</a></code> | <code>string</code> | Identifier of the Redshift cluster. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.sqlStatements">sqlStatements</a></code> | <code>string[]</code> | List of SQL statements to execute. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | Name of the database in Redshift. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.databaseUser">databaseUser</a></code> | <code>string</code> | Database user. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.pollingTime">pollingTime</a></code> | <code>aws-cdk-lib.Duration</code> | Waiting time between checking whether the statements have finished executing. |
 
 ---
 
@@ -8871,6 +9155,8 @@ public readonly redshiftClusterIdentifier: string;
 
 - *Type:* string
 
+Identifier of the Redshift cluster.
+
 ---
 
 ##### `sqlStatements`<sup>Required</sup> <a name="sqlStatements" id="aws-ddk-core.RedshiftDataApiStageProps.property.sqlStatements"></a>
@@ -8881,6 +9167,8 @@ public readonly sqlStatements: string[];
 
 - *Type:* string[]
 
+List of SQL statements to execute.
+
 ---
 
 ##### `databaseName`<sup>Optional</sup> <a name="databaseName" id="aws-ddk-core.RedshiftDataApiStageProps.property.databaseName"></a>
@@ -8890,6 +9178,9 @@ public readonly databaseName: string;
 ```
 
 - *Type:* string
+- *Default:* "dev"
+
+Name of the database in Redshift.
 
 ---
 
@@ -8900,6 +9191,9 @@ public readonly databaseUser: string;
 ```
 
 - *Type:* string
+- *Default:* "awsuser"
+
+Database user.
 
 ---
 
@@ -8910,10 +9204,15 @@ public readonly pollingTime: Duration;
 ```
 
 - *Type:* aws-cdk-lib.Duration
+- *Default:* cdk.Duration.seconds(15)
+
+Waiting time between checking whether the statements have finished executing.
 
 ---
 
 ### S3EventStageProps <a name="S3EventStageProps" id="aws-ddk-core.S3EventStageProps"></a>
+
+Properties for `S3EventStage`.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.S3EventStageProps.Initializer"></a>
 
@@ -8929,9 +9228,9 @@ const s3EventStageProps: S3EventStageProps = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
 | <code><a href="#aws-ddk-core.S3EventStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
-| <code><a href="#aws-ddk-core.S3EventStageProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket \| aws-cdk-lib.aws_s3.IBucket[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStageProps.property.eventNames">eventNames</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.S3EventStageProps.property.keyPrefix">keyPrefix</a></code> | <code>string \| string[]</code> | *No description.* |
+| <code><a href="#aws-ddk-core.S3EventStageProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket \| aws-cdk-lib.aws_s3.IBucket[]</code> | S3 Bucket or list of buckets. |
+| <code><a href="#aws-ddk-core.S3EventStageProps.property.eventNames">eventNames</a></code> | <code>string[]</code> | The list of events to capture, for example: ["Object Created"]. |
+| <code><a href="#aws-ddk-core.S3EventStageProps.property.keyPrefix">keyPrefix</a></code> | <code>string \| string[]</code> | The S3 prefix or list of prefixes. |
 
 ---
 
@@ -8967,6 +9266,10 @@ public readonly bucket: IBucket | IBucket[];
 
 - *Type:* aws-cdk-lib.aws_s3.IBucket | aws-cdk-lib.aws_s3.IBucket[]
 
+S3 Bucket or list of buckets.
+
+Amazon EventBridge notifications must be enabled on the bucket in order to use this construct.
+
 ---
 
 ##### `eventNames`<sup>Required</sup> <a name="eventNames" id="aws-ddk-core.S3EventStageProps.property.eventNames"></a>
@@ -8976,6 +9279,10 @@ public readonly eventNames: string[];
 ```
 
 - *Type:* string[]
+
+The list of events to capture, for example: ["Object Created"].
+
+> [https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html)
 
 ---
 
@@ -8987,9 +9294,15 @@ public readonly keyPrefix: string | string[];
 
 - *Type:* string | string[]
 
+The S3 prefix or list of prefixes.
+
+Capture root level prefix ("/") by default.
+
 ---
 
 ### SnsToLambdaStageProps <a name="SnsToLambdaStageProps" id="aws-ddk-core.SnsToLambdaStageProps"></a>
+
+Properties for `SnsSqsToLambdaStage`.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.SnsToLambdaStageProps.Initializer"></a>
 
@@ -9006,21 +9319,21 @@ const snsToLambdaStageProps: SnsToLambdaStageProps = { ... }
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in a DataStage. |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.maxBatchingWindow">maxBatchingWindow</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.maxReceiveCount">maxReceiveCount</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.messageGroupId">messageGroupId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.sqsQueue">sqsQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code>aws-cdk-lib.aws_sqs.QueueProps</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.disableDefaultTopicPolicy">disableDefaultTopicPolicy</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.filterPolicy">filterPolicy</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_sns.SubscriptionFilter}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.rawMessageDelivery">rawMessageDelivery</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsDlqEnabled">snsDlqEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsTopicProps">snsTopicProps</a></code> | <code>aws-cdk-lib.aws_sns.TopicProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | The maximum number of records retrieved from the event source at the function invocation time. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | Determines if DLQ is enabled. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | Preexisting Lambda Function to use in stage. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a></code> | Properties for the Lambda Function that will be created by this construct (if `lambdaFunction` is not provided). |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.maxBatchingWindow">maxBatchingWindow</a></code> | <code>aws-cdk-lib.Duration</code> | The maximum amount of time to gather records before invoking the function. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.maxReceiveCount">maxReceiveCount</a></code> | <code>number</code> | The number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.messageGroupId">messageGroupId</a></code> | <code>string</code> | Message Group ID for messages sent to this queue. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.sqsQueue">sqsQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | Preexisting SQS Queue to use in stage. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code>aws-cdk-lib.aws_sqs.QueueProps</code> | Properties for the SQS Queue that will be created by this construct (if `sqsQueue` is not provided). |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.disableDefaultTopicPolicy">disableDefaultTopicPolicy</a></code> | <code>boolean</code> | Whether to disable the default topic policy generated by SnsFactory. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.filterPolicy">filterPolicy</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_sns.SubscriptionFilter}</code> | The filter policy. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.rawMessageDelivery">rawMessageDelivery</a></code> | <code>boolean</code> | The message to the queue is the same as it was sent to the topic. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsDlqEnabled">snsDlqEnabled</a></code> | <code>boolean</code> | Queue to be used as dead letter queue. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | Preexisting SNS Topic to use in stage. |
+| <code><a href="#aws-ddk-core.SnsToLambdaStageProps.property.snsTopicProps">snsTopicProps</a></code> | <code>aws-cdk-lib.aws_sns.TopicProps</code> | Properties for the SNS Topic that will be created by this construct (if `snsTopic` is not provided). |
 
 ---
 
@@ -9068,6 +9381,9 @@ public readonly batchSize: number;
 ```
 
 - *Type:* number
+- *Default:* 10
+
+The maximum number of records retrieved from the event source at the function invocation time.
 
 ---
 
@@ -9078,6 +9394,9 @@ public readonly dlqEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
+
+Determines if DLQ is enabled.
 
 ---
 
@@ -9089,6 +9408,10 @@ public readonly lambdaFunction: IFunction;
 
 - *Type:* aws-cdk-lib.aws_lambda.IFunction
 
+Preexisting Lambda Function to use in stage.
+
+If not provided, a new function will be created.
+
 ---
 
 ##### `lambdaFunctionProps`<sup>Optional</sup> <a name="lambdaFunctionProps" id="aws-ddk-core.SnsToLambdaStageProps.property.lambdaFunctionProps"></a>
@@ -9098,6 +9421,8 @@ public readonly lambdaFunctionProps: SqsToLambdaStageFunctionProps;
 ```
 
 - *Type:* <a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a>
+
+Properties for the Lambda Function that will be created by this construct (if `lambdaFunction` is not provided).
 
 ---
 
@@ -9109,6 +9434,11 @@ public readonly maxBatchingWindow: Duration;
 
 - *Type:* aws-cdk-lib.Duration
 
+The maximum amount of time to gather records before invoking the function.
+
+Valid Range: Minimum value of 0 minutes, maximum value of 5 minutes.
+Default: - no batching window.
+
 ---
 
 ##### `maxReceiveCount`<sup>Optional</sup> <a name="maxReceiveCount" id="aws-ddk-core.SnsToLambdaStageProps.property.maxReceiveCount"></a>
@@ -9118,6 +9448,9 @@ public readonly maxReceiveCount: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue.
 
 ---
 
@@ -9129,6 +9462,10 @@ public readonly messageGroupId: string;
 
 - *Type:* string
 
+Message Group ID for messages sent to this queue.
+
+Required for FIFO queues.
+
 ---
 
 ##### `sqsQueue`<sup>Optional</sup> <a name="sqsQueue" id="aws-ddk-core.SnsToLambdaStageProps.property.sqsQueue"></a>
@@ -9138,6 +9475,10 @@ public readonly sqsQueue: IQueue;
 ```
 
 - *Type:* aws-cdk-lib.aws_sqs.IQueue
+
+Preexisting SQS Queue to use in stage.
+
+If not provided, a new queue will be created.
 
 ---
 
@@ -9149,6 +9490,8 @@ public readonly sqsQueueProps: QueueProps;
 
 - *Type:* aws-cdk-lib.aws_sqs.QueueProps
 
+Properties for the SQS Queue that will be created by this construct (if `sqsQueue` is not provided).
+
 ---
 
 ##### `disableDefaultTopicPolicy`<sup>Optional</sup> <a name="disableDefaultTopicPolicy" id="aws-ddk-core.SnsToLambdaStageProps.property.disableDefaultTopicPolicy"></a>
@@ -9158,6 +9501,11 @@ public readonly disableDefaultTopicPolicy: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
+
+Whether to disable the default topic policy generated by SnsFactory.
+
+> [SnsFactory.secureSnsTopicPolicy *](SnsFactory.secureSnsTopicPolicy *)
 
 ---
 
@@ -9168,6 +9516,9 @@ public readonly filterPolicy: {[ key: string ]: SubscriptionFilter};
 ```
 
 - *Type:* {[ key: string ]: aws-cdk-lib.aws_sns.SubscriptionFilter}
+- *Default:* all messages are delivered
+
+The filter policy.
 
 ---
 
@@ -9178,6 +9529,11 @@ public readonly rawMessageDelivery: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
+
+The message to the queue is the same as it was sent to the topic.
+
+If false, the message will be wrapped in an SNS envelope.
 
 ---
 
@@ -9188,6 +9544,11 @@ public readonly snsDlqEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* No dead letter queue enabled.
+
+Queue to be used as dead letter queue.
+
+If not passed no dead letter queue is enabled.
 
 ---
 
@@ -9199,6 +9560,10 @@ public readonly snsTopic: ITopic;
 
 - *Type:* aws-cdk-lib.aws_sns.ITopic
 
+Preexisting SNS Topic to use in stage.
+
+If not provided, a new one will be created.
+
 ---
 
 ##### `snsTopicProps`<sup>Optional</sup> <a name="snsTopicProps" id="aws-ddk-core.SnsToLambdaStageProps.property.snsTopicProps"></a>
@@ -9208,6 +9573,8 @@ public readonly snsTopicProps: TopicProps;
 ```
 
 - *Type:* aws-cdk-lib.aws_sns.TopicProps
+
+Properties for the SNS Topic that will be created by this construct (if `snsTopic` is not provided).
 
 ---
 
@@ -9271,6 +9638,8 @@ Override source action.
 
 ### SqsToLambdaStageFunctionProps <a name="SqsToLambdaStageFunctionProps" id="aws-ddk-core.SqsToLambdaStageFunctionProps"></a>
 
+Properties for the Lambda Function created by `SqsToLambdaStage`.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.SqsToLambdaStageFunctionProps.Initializer"></a>
 
 ```typescript
@@ -9323,9 +9692,9 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.code">code</a></code> | <code>aws-cdk-lib.aws_lambda.Code</code> | The source code of your Lambda function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.handler">handler</a></code> | <code>string</code> | The name of the method within your code that Lambda calls to execute your function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.runtime">runtime</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime</code> | The runtime environment for the Lambda function that you are uploading. |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsAlarmThreshold">errorsAlarmThreshold</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsComparisonOperator">errorsComparisonOperator</a></code> | <code>aws-cdk-lib.aws_cloudwatch.ComparisonOperator</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsEvaluationPeriods">errorsEvaluationPeriods</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsAlarmThreshold">errorsAlarmThreshold</a></code> | <code>number</code> | Amount of errored function invocations before triggering CloudWatch alarm. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsComparisonOperator">errorsComparisonOperator</a></code> | <code>aws-cdk-lib.aws_cloudwatch.ComparisonOperator</code> | Comparison operator for evaluating alarms. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.errorsEvaluationPeriods">errorsEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 
 ---
 
@@ -9949,6 +10318,9 @@ public readonly errorsAlarmThreshold: number;
 ```
 
 - *Type:* number
+- *Default:* 5
+
+Amount of errored function invocations before triggering CloudWatch alarm.
 
 ---
 
@@ -9959,6 +10331,9 @@ public readonly errorsComparisonOperator: ComparisonOperator;
 ```
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.ComparisonOperator
+- *Default:* cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD
+
+Comparison operator for evaluating alarms.
 
 ---
 
@@ -9969,10 +10344,15 @@ public readonly errorsEvaluationPeriods: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
 
 ---
 
 ### SqsToLambdaStageProps <a name="SqsToLambdaStageProps" id="aws-ddk-core.SqsToLambdaStageProps"></a>
+
+Properties for `SqsToLambdaStage`.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.SqsToLambdaStageProps.Initializer"></a>
 
@@ -9989,15 +10369,15 @@ const sqsToLambdaStageProps: SqsToLambdaStageProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in a DataStage. |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a></code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.maxBatchingWindow">maxBatchingWindow</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.maxReceiveCount">maxReceiveCount</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.messageGroupId">messageGroupId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueue">sqsQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | *No description.* |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code>aws-cdk-lib.aws_sqs.QueueProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.batchSize">batchSize</a></code> | <code>number</code> | The maximum number of records retrieved from the event source at the function invocation time. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.dlqEnabled">dlqEnabled</a></code> | <code>boolean</code> | Determines if DLQ is enabled. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | Preexisting Lambda Function to use in stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a></code> | Properties for the Lambda Function that will be created by this construct (if `lambdaFunction` is not provided). |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.maxBatchingWindow">maxBatchingWindow</a></code> | <code>aws-cdk-lib.Duration</code> | The maximum amount of time to gather records before invoking the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.maxReceiveCount">maxReceiveCount</a></code> | <code>number</code> | The number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.messageGroupId">messageGroupId</a></code> | <code>string</code> | Message Group ID for messages sent to this queue. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueue">sqsQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | Preexisting SQS Queue to use in stage. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageProps.property.sqsQueueProps">sqsQueueProps</a></code> | <code>aws-cdk-lib.aws_sqs.QueueProps</code> | Properties for the SQS Queue that will be created by this construct (if `sqsQueue` is not provided). |
 
 ---
 
@@ -10045,6 +10425,9 @@ public readonly batchSize: number;
 ```
 
 - *Type:* number
+- *Default:* 10
+
+The maximum number of records retrieved from the event source at the function invocation time.
 
 ---
 
@@ -10055,6 +10438,9 @@ public readonly dlqEnabled: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
+
+Determines if DLQ is enabled.
 
 ---
 
@@ -10066,6 +10452,10 @@ public readonly lambdaFunction: IFunction;
 
 - *Type:* aws-cdk-lib.aws_lambda.IFunction
 
+Preexisting Lambda Function to use in stage.
+
+If not provided, a new function will be created.
+
 ---
 
 ##### `lambdaFunctionProps`<sup>Optional</sup> <a name="lambdaFunctionProps" id="aws-ddk-core.SqsToLambdaStageProps.property.lambdaFunctionProps"></a>
@@ -10075,6 +10465,8 @@ public readonly lambdaFunctionProps: SqsToLambdaStageFunctionProps;
 ```
 
 - *Type:* <a href="#aws-ddk-core.SqsToLambdaStageFunctionProps">SqsToLambdaStageFunctionProps</a>
+
+Properties for the Lambda Function that will be created by this construct (if `lambdaFunction` is not provided).
 
 ---
 
@@ -10086,6 +10478,11 @@ public readonly maxBatchingWindow: Duration;
 
 - *Type:* aws-cdk-lib.Duration
 
+The maximum amount of time to gather records before invoking the function.
+
+Valid Range: Minimum value of 0 minutes, maximum value of 5 minutes.
+Default: - no batching window.
+
 ---
 
 ##### `maxReceiveCount`<sup>Optional</sup> <a name="maxReceiveCount" id="aws-ddk-core.SqsToLambdaStageProps.property.maxReceiveCount"></a>
@@ -10095,6 +10492,9 @@ public readonly maxReceiveCount: number;
 ```
 
 - *Type:* number
+- *Default:* 1
+
+The number of times a message can be unsuccessfully dequeued before being moved to the dead-letter queue.
 
 ---
 
@@ -10106,6 +10506,10 @@ public readonly messageGroupId: string;
 
 - *Type:* string
 
+Message Group ID for messages sent to this queue.
+
+Required for FIFO queues.
+
 ---
 
 ##### `sqsQueue`<sup>Optional</sup> <a name="sqsQueue" id="aws-ddk-core.SqsToLambdaStageProps.property.sqsQueue"></a>
@@ -10116,6 +10520,10 @@ public readonly sqsQueue: IQueue;
 
 - *Type:* aws-cdk-lib.aws_sqs.IQueue
 
+Preexisting SQS Queue to use in stage.
+
+If not provided, a new queue will be created.
+
 ---
 
 ##### `sqsQueueProps`<sup>Optional</sup> <a name="sqsQueueProps" id="aws-ddk-core.SqsToLambdaStageProps.property.sqsQueueProps"></a>
@@ -10125,6 +10533,8 @@ public readonly sqsQueueProps: QueueProps;
 ```
 
 - *Type:* aws-cdk-lib.aws_sqs.QueueProps
+
+Properties for the SQS Queue that will be created by this construct (if `sqsQueue` is not provided).
 
 ---
 
