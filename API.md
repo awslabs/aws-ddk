@@ -1618,7 +1618,7 @@ Stack properties.
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addSynthAction">addSynthAction</a></code> | Add synth action. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addTestStage">addTestStage</a></code> | Add test - e.g. pytest. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addWave">addWave</a></code> | Add multiple application stages in parallel to the CICD pipeline. |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.buildPipeline">buildPipeline</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.buildPipeline">buildPipeline</a></code> | Build the pipeline structure. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.synth">synth</a></code> | Synthesize the pipeline. |
 
 ---
@@ -2149,9 +2149,13 @@ Application wave properties.
 public buildPipeline(props?: AdditionalPipelineProps): CICDPipelineStack
 ```
 
+Build the pipeline structure.
+
 ###### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.CICDPipelineStack.buildPipeline.parameter.props"></a>
 
 - *Type:* <a href="#aws-ddk-core.AdditionalPipelineProps">AdditionalPipelineProps</a>
+
+Additional pipeline properties.
 
 ---
 
@@ -5200,6 +5204,8 @@ for more detail.
 
 ### AdditionalPipelineProps <a name="AdditionalPipelineProps" id="aws-ddk-core.AdditionalPipelineProps"></a>
 
+Additional properties for building the CodePipeline.
+
 #### Initializer <a name="Initializer" id="aws-ddk-core.AdditionalPipelineProps.Initializer"></a>
 
 ```typescript
@@ -5212,18 +5218,18 @@ const additionalPipelineProps: AdditionalPipelineProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.assetPublishingCodeBuildDefaults">assetPublishingCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.cliVersion">cliVersion</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.codeBuildDefaults">codeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.codePipeline">codePipeline</a></code> | <code>aws-cdk-lib.aws_codepipeline.Pipeline</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerCredentials">dockerCredentials</a></code> | <code>aws-cdk-lib.pipelines.DockerCredential[]</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSelfMutation">dockerEnabledForSelfMutation</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSynth">dockerEnabledForSynth</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.publishAssetsInParallel">publishAssetsInParallel</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.reuseCrossRegionSupportStacks">reuseCrossRegionSupportStacks</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.selfMutation">selfMutation</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.selfMutationCodeBuildDefaults">selfMutationCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.synthCodeBuildDefaults">synthCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.assetPublishingCodeBuildDefaults">assetPublishingCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | Additional customizations to apply to the asset publishing CodeBuild projects. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.cliVersion">cliVersion</a></code> | <code>string</code> | CDK CLI version to use in self-mutation and asset publishing steps. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.codeBuildDefaults">codeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | Customize the CodeBuild projects created for this pipeline. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.codePipeline">codePipeline</a></code> | <code>aws-cdk-lib.aws_codepipeline.Pipeline</code> | An existing Pipeline to be reused and built upon. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerCredentials">dockerCredentials</a></code> | <code>aws-cdk-lib.pipelines.DockerCredential[]</code> | A list of credentials used to authenticate to Docker registries. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSelfMutation">dockerEnabledForSelfMutation</a></code> | <code>boolean</code> | Enable Docker for the self-mutate step. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.dockerEnabledForSynth">dockerEnabledForSynth</a></code> | <code>boolean</code> | Enable Docker for the 'synth' step. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.publishAssetsInParallel">publishAssetsInParallel</a></code> | <code>boolean</code> | Publish assets in multiple CodeBuild projects. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.reuseCrossRegionSupportStacks">reuseCrossRegionSupportStacks</a></code> | <code>boolean</code> | Reuse the same cross region support stack for all pipelines in the App. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.selfMutation">selfMutation</a></code> | <code>boolean</code> | Whether the pipeline will update itself. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.selfMutationCodeBuildDefaults">selfMutationCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | Additional customizations to apply to the self mutation CodeBuild projects. |
+| <code><a href="#aws-ddk-core.AdditionalPipelineProps.property.synthCodeBuildDefaults">synthCodeBuildDefaults</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildOptions</code> | Additional customizations to apply to the synthesize CodeBuild projects. |
 
 ---
 
@@ -5234,6 +5240,9 @@ public readonly assetPublishingCodeBuildDefaults: CodeBuildOptions;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+- *Default:* Only `codeBuildDefaults` are applied
+
+Additional customizations to apply to the asset publishing CodeBuild projects.
 
 ---
 
@@ -5244,6 +5253,9 @@ public readonly cliVersion: string;
 ```
 
 - *Type:* string
+- *Default:* latest version
+
+CDK CLI version to use in self-mutation and asset publishing steps.
 
 ---
 
@@ -5254,6 +5266,9 @@ public readonly codeBuildDefaults: CodeBuildOptions;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+- *Default:* All projects run non-privileged build, SMALL instance, LinuxBuildImage.STANDARD_6_0
+
+Customize the CodeBuild projects created for this pipeline.
 
 ---
 
@@ -5264,6 +5279,9 @@ public readonly codePipeline: Pipeline;
 ```
 
 - *Type:* aws-cdk-lib.aws_codepipeline.Pipeline
+- *Default:* a new underlying pipeline is created.
+
+An existing Pipeline to be reused and built upon.
 
 ---
 
@@ -5274,6 +5292,11 @@ public readonly dockerCredentials: DockerCredential[];
 ```
 
 - *Type:* aws-cdk-lib.pipelines.DockerCredential[]
+- *Default:* []
+
+A list of credentials used to authenticate to Docker registries.
+
+Specify any credentials necessary within the pipeline to build, synth, update, or publish assets.
 
 ---
 
@@ -5284,6 +5307,9 @@ public readonly dockerEnabledForSelfMutation: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
+
+Enable Docker for the self-mutate step.
 
 ---
 
@@ -5294,6 +5320,9 @@ public readonly dockerEnabledForSynth: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
+
+Enable Docker for the 'synth' step.
 
 ---
 
@@ -5304,6 +5333,9 @@ public readonly publishAssetsInParallel: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Publish assets in multiple CodeBuild projects.
 
 ---
 
@@ -5314,6 +5346,9 @@ public readonly reuseCrossRegionSupportStacks: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true (Use the same support stack for all pipelines in App)
+
+Reuse the same cross region support stack for all pipelines in the App.
 
 ---
 
@@ -5324,6 +5359,16 @@ public readonly selfMutation: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
+
+Whether the pipeline will update itself.
+
+This needs to be set to `true` to allow the pipeline to reconfigure
+itself when assets or stages are being added to it, and `true` is the
+recommended setting.
+
+You can temporarily set this to `false` while you are iterating
+on the pipeline itself and prefer to deploy changes using `cdk deploy`.
 
 ---
 
@@ -5334,6 +5379,9 @@ public readonly selfMutationCodeBuildDefaults: CodeBuildOptions;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+- *Default:* Only `codeBuildDefaults` are applied
+
+Additional customizations to apply to the self mutation CodeBuild projects.
 
 ---
 
@@ -5344,6 +5392,9 @@ public readonly synthCodeBuildDefaults: CodeBuildOptions;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.CodeBuildOptions
+- *Default:* Only `codeBuildDefaults` are applied
+
+Additional customizations to apply to the synthesize CodeBuild projects.
 
 ---
 
@@ -6306,6 +6357,8 @@ public readonly permissionsBoundaryArn: string;
 ---
 
 ### CICDPipelineStackProps <a name="CICDPipelineStackProps" id="aws-ddk-core.CICDPipelineStackProps"></a>
+
+CICD Pipeline Stack properties.
 
 #### Initializer <a name="Initializer" id="aws-ddk-core.CICDPipelineStackProps.Initializer"></a>
 

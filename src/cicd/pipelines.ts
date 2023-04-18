@@ -161,6 +161,9 @@ export interface AddCustomStageProps {
   readonly steps: pipelines.Step[];
 }
 
+/**
+ * CICD Pipeline Stack properties.
+ */
 export interface CICDPipelineStackProps extends BaseStackProps {
   /**
    * Name of the pipeline.
@@ -174,18 +177,91 @@ export interface CICDPipelineStackProps extends BaseStackProps {
   readonly cdkLanguage?: string;
 }
 
+/**
+ * Additional properties for building the CodePipeline.
+ */
 export interface AdditionalPipelineProps {
+  /**
+   * Additional customizations to apply to the asset publishing CodeBuild projects
+   *
+   * @default - Only `codeBuildDefaults` are applied
+   */
   readonly assetPublishingCodeBuildDefaults?: pipelines.CodeBuildOptions;
+  /**
+   * CDK CLI version to use in self-mutation and asset publishing steps
+   *
+   * @default latest version
+   */
   readonly cliVersion?: string;
+  /**
+   * Customize the CodeBuild projects created for this pipeline
+   *
+   * @default - All projects run non-privileged build, SMALL instance, LinuxBuildImage.STANDARD_6_0
+   */
   readonly codeBuildDefaults?: pipelines.CodeBuildOptions;
+  /**
+   * An existing Pipeline to be reused and built upon.
+   *
+   * @default - a new underlying pipeline is created.
+   */
   readonly codePipeline?: codepipeline.Pipeline;
+  /**
+   * A list of credentials used to authenticate to Docker registries.
+   *
+   * Specify any credentials necessary within the pipeline to build, synth, update, or publish assets.
+   *
+   * @default []
+   */
   readonly dockerCredentials?: pipelines.DockerCredential[];
+  /**
+   * Enable Docker for the self-mutate step
+   *
+   * @default false
+   */
   readonly dockerEnabledForSelfMutation?: boolean;
+  /**
+   * Enable Docker for the 'synth' step
+   *
+   * @default false
+   */
   readonly dockerEnabledForSynth?: boolean;
+  /**
+   * Publish assets in multiple CodeBuild projects
+
+   *
+   * @default true
+   */
   readonly publishAssetsInParallel?: boolean;
+  /**
+   * Reuse the same cross region support stack for all pipelines in the App.
+   *
+   * @default - true (Use the same support stack for all pipelines in App)
+   */
   readonly reuseCrossRegionSupportStacks?: boolean;
+  /**
+   * Whether the pipeline will update itself
+   *
+   * This needs to be set to `true` to allow the pipeline to reconfigure
+   * itself when assets or stages are being added to it, and `true` is the
+   * recommended setting.
+   *
+   * You can temporarily set this to `false` while you are iterating
+   * on the pipeline itself and prefer to deploy changes using `cdk deploy`.
+   *
+   * @default true
+   */
   readonly selfMutation?: boolean;
+  /**
+   * Additional customizations to apply to the self mutation CodeBuild projects
+   *
+   * @default - Only `codeBuildDefaults` are applied
+   */
   readonly selfMutationCodeBuildDefaults?: pipelines.CodeBuildOptions;
+  /**
+   * Additional customizations to apply to the synthesize CodeBuild projects
+   *
+   * @default - Only `codeBuildDefaults` are applied
+   */
   readonly synthCodeBuildDefaults?: pipelines.CodeBuildOptions;
 }
 
@@ -269,6 +345,11 @@ export class CICDPipelineStack extends BaseStack {
     return this;
   }
 
+  /**
+   * Build the pipeline structure.
+   * @param props Additional pipeline properties.
+   * @returns reference to this pipeline.
+   */
   buildPipeline(props: AdditionalPipelineProps = {}) {
     if (this.synthAction === undefined) {
       throw new Error("Pipeline cannot be built without a synth action.");
