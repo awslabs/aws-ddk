@@ -3,7 +3,7 @@
   "description": "AWS DataOps Development Kit",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/aws-ddk"
+    "url": "https://github.com/awslabs/aws-ddk/tree/typescript-conversion"
   },
   "scripts": {
     "build": "npx projen build",
@@ -55,10 +55,10 @@
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^27",
     "jest-junit": "^13",
-    "jsii": "1.x",
-    "jsii-diff": "^1.73.0",
-    "jsii-docgen": "^7.0.216",
-    "jsii-pacmak": "^1.73.0",
+    "jsii": "^5.0.6",
+    "jsii-diff": "^1.80.0",
+    "jsii-docgen": "^7.2.1",
+    "jsii-pacmak": "^1.80.0",
     "npm-check-updates": "^16",
     "prettier": "^2.8.3",
     "projen": "^0.67.64",

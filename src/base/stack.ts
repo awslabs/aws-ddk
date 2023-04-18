@@ -3,9 +3,23 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 import { Configuration, getStackSynthesizer } from "../config";
 
+/**
+ * Properties of `BaseStack`.
+ */
 export interface BaseStackProps extends cdk.StackProps {
+  /**
+   * ARN of the permissions boundary managed policy.
+   */
   readonly permissionsBoundaryArn?: string;
+  /**
+   * Identifier of the environment.
+   *
+   * @default "dev"
+   */
   readonly environmentId?: string;
+  /**
+   * Configuration or path to file which contains the configuration.
+   */
   readonly config?: string | Configuration;
 }
 
@@ -15,6 +29,11 @@ export interface PermissionsBoundaryProps {
   readonly qualifier?: string;
 }
 
+/**
+ * Base Stack to inherit from.
+ *
+ * Includes configurable termination protection, synthesizer, permissions boundary and tags.
+ */
 export class BaseStack extends cdk.Stack {
   public static createDefaultPermissionsBoundary(
     scope: Construct,
@@ -89,8 +108,16 @@ export class BaseStack extends cdk.Stack {
       description: "AWS-DDK: Deny dangerous actions that could escalate privilege or cause security incident",
     });
   }
-  readonly terminationProtection?: boolean | undefined;
 
+  /**
+   * Create a stack.
+   *
+   * Includes termination protection settings, multi-level (application, environment,
+   * and stack-level) tags, and permissions boundary.
+   * @param scope Scope within which this construct is defined.
+   * @param id Identifier of the stack.
+   * @param props Stack properties.
+   */
   constructor(scope: Construct, id: string, props: BaseStackProps) {
     const environmentId = props.environmentId ? props.environmentId : "dev";
     const synthesizer = props.synthesizer
@@ -104,5 +131,27 @@ export class BaseStack extends cdk.Stack {
         iam.ManagedPolicy.fromManagedPolicyArn(this, "Permissions Boundary", props.permissionsBoundaryArn),
       );
     }
+  }
+
+  /**
+   * Create a CloudFormation Export for a string value
+   *
+   * Returns a string representing the corresponding `Fn.importValue()`
+   * expression for this Export. You can control the name for the export by
+   * passing the `name` option.
+   *
+   * If you don't supply a value for `name`, the value you're exporting must be
+   * a Resource attribute (for example: `bucket.bucketName`) and it will be
+   * given the same name as the automatic cross-stack reference that would be created
+   * if you used the attribute in another Stack.
+   *
+   * One of the uses for this method is to *remove* the relationship between
+   * two Stacks established by automatic cross-stack references. It will
+   * temporarily ensure that the CloudFormation Export still exists while you
+   * remove the reference from the consuming stack. After that, you can remove
+   * the resource and the manual export.
+   */
+  exportValue(exportedValue: any, options?: cdk.ExportValueOptions): string {
+    return super.exportValue(exportedValue, options);
   }
 }
