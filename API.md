@@ -833,34 +833,6 @@ temporarily ensure that the CloudFormation Export still exists while you
 remove the reference from the consuming stack. After that, you can remove
 the resource and the manual export.
 
-## Example
-
-Here is how the process works. Let's say there are two stacks,
-`producerStack` and `consumerStack`, and `producerStack` has a bucket
-called `bucket`, which is referenced by `consumerStack` (perhaps because
-an AWS Lambda Function writes into it, or something like that).
-
-It is not safe to remove `producerStack.bucket` because as the bucket is being
-deleted, `consumerStack` might still be using it.
-
-Instead, the process takes two deployments:
-
-### Deployment 1: break the relationship
-
-- Make sure `consumerStack` no longer references `bucket.bucketName` (maybe the consumer
-   stack now uses its own bucket, or it writes to an AWS DynamoDB table, or maybe you just
-   remove the Lambda Function altogether).
-- In the `ProducerStack` class, call `this.exportValue(this.bucket.bucketName)`. This
-   will make sure the CloudFormation Export continues to exist while the relationship
-   between the two stacks is being broken.
-- Deploy (this will effectively only change the `consumerStack`, but it's safe to deploy both).
-
-### Deployment 2: remove the bucket resource
-
-- You are now free to remove the `bucket` resource from `producerStack`.
-- Don't forget to remove the `exportValue()` call as well.
-- Deploy again (this time only the `producerStack` will be changed -- the bucket will be deleted).
-
 ###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="aws-ddk-core.BaseStack.exportValue.parameter.exportedValue"></a>
 
 - *Type:* any
@@ -1534,18 +1506,19 @@ but includes several DDK-specific features, including:
 
 The user should be able to reuse the pipeline in multiple DDK applications hoping to save LOC.
 
-Example:
+*Example*
 
 ```typescript
 const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
- .addSourceAction({ repositoryName: "dummy-repository" })
- .addSynthAction()
- .buildPipeline()
- .add_checks()
- .addStage({ stageId: "dev", stage: devStage, manualApprovals: true })
- .synth()
- .add_notifications();
+  .addSourceAction({ repositoryName: "dummy-repository" })
+  .addSynthAction()
+  .buildPipeline()
+  .add_checks()
+  .addStage({ stageId: "dev", stage: devStage, manualApprovals: true })
+  .synth()
+  .add_notifications();
 ```
+
 
 #### Initializers <a name="Initializers" id="aws-ddk-core.CICDPipelineStack.Initializer"></a>
 
@@ -1767,34 +1740,6 @@ two Stacks established by automatic cross-stack references. It will
 temporarily ensure that the CloudFormation Export still exists while you
 remove the reference from the consuming stack. After that, you can remove
 the resource and the manual export.
-
-## Example
-
-Here is how the process works. Let's say there are two stacks,
-`producerStack` and `consumerStack`, and `producerStack` has a bucket
-called `bucket`, which is referenced by `consumerStack` (perhaps because
-an AWS Lambda Function writes into it, or something like that).
-
-It is not safe to remove `producerStack.bucket` because as the bucket is being
-deleted, `consumerStack` might still be using it.
-
-Instead, the process takes two deployments:
-
-### Deployment 1: break the relationship
-
-- Make sure `consumerStack` no longer references `bucket.bucketName` (maybe the consumer
-   stack now uses its own bucket, or it writes to an AWS DynamoDB table, or maybe you just
-   remove the Lambda Function altogether).
-- In the `ProducerStack` class, call `this.exportValue(this.bucket.bucketName)`. This
-   will make sure the CloudFormation Export continues to exist while the relationship
-   between the two stacks is being broken.
-- Deploy (this will effectively only change the `consumerStack`, but it's safe to deploy both).
-
-### Deployment 2: remove the bucket resource
-
-- You are now free to remove the `bucket` resource from `producerStack`.
-- Don't forget to remove the `exportValue()` call as well.
-- Deploy again (this time only the `producerStack` will be changed -- the bucket will be deleted).
 
 ###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="aws-ddk-core.CICDPipelineStack.exportValue.parameter.exportedValue"></a>
 

@@ -280,9 +280,7 @@ export interface AdditionalPipelineProps {
 
   The user should be able to reuse the pipeline in multiple DDK applications hoping to save LOC.
 
-  Example:
-
-  ```typescript
+  @example
   const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
     .addSourceAction({ repositoryName: "dummy-repository" })
     .addSynthAction()
@@ -291,7 +289,6 @@ export interface AdditionalPipelineProps {
     .addStage({ stageId: "dev", stage: devStage, manualApprovals: true })
     .synth()
     .add_notifications();
-  ```
  */
 export class CICDPipelineStack extends BaseStack {
   readonly environmentId?: string;
