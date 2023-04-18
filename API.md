@@ -5042,10 +5042,9 @@ public readonly manualApprovals: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
 
 Configure manual approvals.
-
-False by default.
 
 ---
 
@@ -5102,10 +5101,9 @@ public readonly manualApprovals: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* false
 
 Configure manual approvals.
-
-False by default.
 
 ---
 
@@ -5626,10 +5624,9 @@ public readonly commands: string[];
 ```
 
 - *Type:* string[]
+- *Default:* "./test.sh"
 
 Additional commands to run in the test.
-
-Defaults to `./test.sh` otherwise.
 
 ---
 
@@ -6590,10 +6587,9 @@ public readonly cdkLanguage: string;
 ```
 
 - *Type:* string
+- *Default:* "typescript"
 
 Language of the CDK construct definitions.
-
-Default: `typescript`
 
 ---
 
@@ -9792,10 +9788,9 @@ public readonly cdkVersion: string;
 ```
 
 - *Type:* string
+- *Default:* "latest"
 
 CDK versio to use during the synth action.
-
-Default: `latest`.
 
 ---
 

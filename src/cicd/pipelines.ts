@@ -36,7 +36,7 @@ export interface SynthActionProps {
   /**
    * CDK versio to use during the synth action.
    *
-   * Default: `latest`.
+   * @default "latest"
    */
   readonly cdkVersion?: string;
   /**
@@ -78,7 +78,8 @@ export interface AddApplicationStageProps {
    */
   readonly stage: cdk.Stage;
   /**
-   * Configure manual approvals. False by default.
+   * Configure manual approvals.
+   * @default false
    */
   readonly manualApprovals?: boolean;
 }
@@ -96,7 +97,8 @@ export interface AddApplicationWaveProps {
    */
   readonly stages: cdk.Stage[];
   /**
-   * Configure manual approvals. False by default.
+   * Configure manual approvals.
+   * @default false
    */
   readonly manualApprovals?: boolean;
 }
@@ -129,7 +131,7 @@ export interface AddTestStageProps {
   readonly cloudAssemblyFileSet?: pipelines.IFileSetProducer;
   /**
    * Additional commands to run in the test.
-   * Defaults to `./test.sh` otherwise.
+   * @default "./test.sh"
    */
   readonly commands?: string[];
 }
@@ -172,7 +174,7 @@ export interface CICDPipelineStackProps extends BaseStackProps {
   /**
    * Language of the CDK construct definitions.
    *
-   * Default: `typescript`
+   * @default "typescript"
    */
   readonly cdkLanguage?: string;
 }
