@@ -1,0 +1,19 @@
+<ul class="how-to-header">
+{% for c in site.data.how-to-categories %}
+    <li>{{c.name}}
+    <ul>
+{% assign allPages = site.pages | sort: "order" %}
+{% for p in allPages %}
+  {% assign pageVersion = p.dir | split: "/" %}
+  {% if pageVersion[1] == "release" and pageVersion[2] == version[2] and p.tags contains "how-to" and  p.category == c.category %}
+      <li>
+        <a href="{{ p.url | relative_url }}">
+            {{ p.title }}
+        </a>
+      </li>
+   {% endif %}
+{% endfor %}
+</ul>
+</li>
+{% endfor %}
+</ul>
