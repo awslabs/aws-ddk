@@ -29,6 +29,16 @@ twitter_username: jekyllrb
 github_username:  jekyll
 workshop_url: https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US
 constructs_hub_url: https://constructs.dev/packages/aws-ddk-core/
+legacy_versions:
+- 0.1.0
+- 0.2.0
+- 0.3.0
+- 0.4.0
+- 0.5.1
+- 0.6.0
+- 0.6.1
+- 0.6.2
+- stable # remove after 1.0.0 release
 
 # Build settings
 remote_theme: pages-themes/cayman@v0.2.0
