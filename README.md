@@ -63,7 +63,7 @@ ddk_bucket.grant_read_write(sqs_lambda_stage.function)
 ```
 
 First, we import the required resources from the aws_ddk_core library, including the two stage constructs: 
-[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/FirehoseToS3Stage), and 
+[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/FirehoseToS3Stage) and 
 [SqsToLambdaStage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/SqsToLambdaStage). 
 These two classes are then instantiated and the delivery stream is configured with the S3 prefix (raw/). 
 Finally, the DDK DataPipeline construct is used to chain these two stages together into a data pipeline.
