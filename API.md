@@ -18,12 +18,12 @@ take a look at [examples](https://github.com/aws-samples/aws-ddk-examples).
 
 ### Build Data Pipelines
 
-One of the core features of DDK is ability to create Data Pipelines. A DDK [DataPipeline](https://awslabs.github.io/aws-ddk/release/stable/api/core/stubs/aws_ddk_core.pipelines.DataPipeline.html) 
-is a chained series of stages. It automatically “wires” the stages together using 
+One of the core features of DDK is ability to create Data Pipelines. A DDK [DataPipeline](https://awslabs.github.io/aws-ddk/release/stable/api/core/stubs/aws_ddk_core.pipelines.DataPipeline.html)
+is a chained series of stages. It automatically “wires” the stages together using
 [AWS EventBridge Rules](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html) .
 
-DDK comes with a library of stages, however users can also create their own based on their use cases, 
-and are encouraged to share them with the community. 
+DDK comes with a library of stages, however users can also create their own based on their use cases,
+and are encouraged to share them with the community.
 
 Let's take a look at an example below:
 
@@ -62,13 +62,13 @@ ddk_bucket.grant_read_write(sqs_lambda_stage.function)
 ...
 ```
 
-First, we import the required resources from the aws_ddk_core library, including the two stage constructs: 
-[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/FirehoseToS3Stage) and 
-[SqsToLambdaStage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/SqsToLambdaStage). 
-These two classes are then instantiated and the delivery stream is configured with the S3 prefix (raw/). 
+First, we import the required resources from the aws_ddk_core library, including the two stage constructs:
+[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/FirehoseToS3Stage) and
+[SqsToLambdaStage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/SqsToLambdaStage).
+These two classes are then instantiated and the delivery stream is configured with the S3 prefix (raw/).
 Finally, the DDK DataPipeline construct is used to chain these two stages together into a data pipeline.
 
-Complete source code of the data pipeline above can be found in 
+Complete source code of the data pipeline above can be found in
 [AWS DDK Examples - Basic Data Pipeline](https://github.com/aws-samples/aws-ddk-examples/tree/main/basic-data-pipeline)
 
 
