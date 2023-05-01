@@ -17,7 +17,11 @@
           "RemovalPolicy": "DESTROY"
         }
       },
-      "tags": {"CostCenter": "2014"}
+      "tags": {"CostCenter": "2014"},
+      "props": {
+        "my_unique_config_property": "foobar"
+      },
+      "unsupported_property": "barfoo"
     },
     "prod": {
       "account": "222222222222",
