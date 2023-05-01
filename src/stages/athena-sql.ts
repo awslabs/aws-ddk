@@ -12,13 +12,18 @@ import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
  */
 export interface AthenaToSQLStageProps extends StateMachineStageProps {
   /**
-   * SQL query that will be started.
+   * SQL queries that will be started.
    */
-  readonly queryString?: string;
+  readonly queryString?: Array<string>;
   /**
    * dynamic path in statemachine for SQL query to be started.
    */
   readonly queryStringPath?: string;
+  /**
+   * flag to determine parallel or sequential execution
+   * @default false
+   */
+  readonly parallel?: boolean;
   /**
    * Athena workgroup name.
    */
@@ -65,19 +70,56 @@ export class AthenaSQLStage extends StateMachineStage {
     super(scope, id, props);
 
     this.stateMachineInput = props.stateMachineInput;
-    const encryptionOption = props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED;
-    const encryptionKey = props.encryptionKey;
 
     if (props.queryString && props.queryStringPath) {
       throw TypeError("For this stage provide one of queryString or queryStringPath parameter, not both");
     }
-
     const queryStringInput = props.queryStringPath ? sfn.JsonPath.stringAt(props.queryStringPath) : props.queryString;
     if (!queryStringInput) {
       throw TypeError("For this stage one of queryString or queryStringPath parameter is required");
     }
 
-    const startQueryExec = new tasks.AthenaStartQueryExecution(this, "Start Query Exec", {
+    var cnt = 0;
+    if (props.queryString) {
+      if (props.parallel) {
+        var athenaQueryExec: any = new sfn.Parallel(this, "All Jobs");
+        for (var query of queryStringInput) {
+          const addStep = this.getAthenaStartQueryExecutionStep(query, props, cnt);
+          var athenaQueryExec = athenaQueryExec.branch(addStep);
+          cnt = cnt + 1;
+        }
+      } else {
+        var athenaQueryExec: any = undefined;
+        for (var query of queryStringInput) {
+          const addStep = this.getAthenaStartQueryExecutionStep(query, props, cnt);
+          var athenaQueryExec = athenaQueryExec ? athenaQueryExec.next(addStep) : addStep;
+          cnt = cnt + 1;
+        }
+      }
+    } else {
+      var athenaQueryExec: any = this.getAthenaStartQueryExecutionStep(queryStringInput, props, cnt);
+    }
+
+    const definition = athenaQueryExec.next(new sfn.Succeed(this, "Success"));
+
+    ({ eventPattern: this.eventPattern, stateMachine: this.stateMachine } = this.createStateMachine(definition, props));
+    this.targets = [
+      new eventsTargets.SfnStateMachine(this.stateMachine, {
+        input: props.queryString
+          ? events.RuleTargetInput.fromObject(this.stateMachineInput)
+          : events.RuleTargetInput.fromEventPath("$.detail"),
+      }),
+    ];
+  }
+
+  private getAthenaStartQueryExecutionStep(
+    queryStringInput: any,
+    props: AthenaToSQLStageProps,
+    cnt: number,
+  ): tasks.AthenaStartQueryExecution {
+    const encryptionOption = props.encryptionOption ?? tasks.EncryptionOption.S3_MANAGED;
+    const encryptionKey = props.encryptionKey;
+    const startQueryExec = new tasks.AthenaStartQueryExecution(this, `Query Exec ${cnt}`, {
       queryString: queryStringInput,
       integrationPattern: sfn.IntegrationPattern.RUN_JOB,
       queryExecutionContext: {
@@ -94,15 +136,6 @@ export class AthenaSQLStage extends StateMachineStage {
       workGroup: props.workGroup,
     });
 
-    const definition = startQueryExec.next(new sfn.Succeed(this, "Success"));
-
-    ({ eventPattern: this.eventPattern, stateMachine: this.stateMachine } = this.createStateMachine(definition, props));
-    this.targets = [
-      new eventsTargets.SfnStateMachine(this.stateMachine, {
-        input: props.queryString
-          ? events.RuleTargetInput.fromObject(this.stateMachineInput)
-          : events.RuleTargetInput.fromEventPath("$.detail"),
-      }),
-    ];
+    return startQueryExec;
   }
 }
