@@ -82,12 +82,7 @@ export function getConfig(props: getConfigProps): Configuration | null {
   }
 }
 
-export interface EnvironmentResult {
-  readonly account?: string;
-  readonly region?: string;
-}
-
-export function getEnvironment(config: Configuration | string, environmentId?: string): EnvironmentResult {
+export function getEnvironment(config: Configuration | string, environmentId?: string): cdk.Environment {
   const configData = getConfig({ config: config });
 
   if (!configData) {
@@ -236,7 +231,7 @@ export class Configurator {
     return {};
   }
 
-  public static getEnvironment(props: GetEnvironmentProps): EnvironmentResult {
+  public static getEnvironment(props: GetEnvironmentProps): cdk.Environment {
     const config = getConfig({ config: props.configPath });
 
     if (!config) {
