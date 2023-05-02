@@ -15,6 +15,7 @@ export interface EnvironmentConfiguration {
   readonly resources?: { [key: string]: any };
   readonly tags?: { [key: string]: string };
   readonly bootstrap?: { [key: string]: string };
+  readonly props?: { [key: string]: string };
 }
 
 export interface Configuration {
@@ -24,6 +25,7 @@ export interface Configuration {
   readonly tags?: { [key: string]: string };
   readonly bootstrap?: { [key: string]: string };
   readonly ddkBootstrapConfigKey?: string;
+  readonly props?: { [key: string]: string };
 }
 
 function readJson(path: string): Configuration {
@@ -62,11 +64,11 @@ function setRemovalPolicy(value: string, node: cdk.CfnResource): void {
     throw new Error(`${value} is not a valid removal policy type. Must be one of ['DESTROY', 'RETAIN', & 'SNAPSHOT']`);
   }
 }
-interface getConfigProps {
+export interface GetConfigProps {
   readonly config?: string | Configuration;
 }
 
-export function getConfig(props: getConfigProps): Configuration | null {
+export function getConfig(props: GetConfigProps): Configuration | null {
   if (props.config) {
     if (typeof props.config == "string") {
       return readConfigFile(props.config);
@@ -181,7 +183,6 @@ class ConfiguratorAspect implements cdk.IAspect {
     }
 
     const nodePathItemRegex = new RegExp(`^(.*\/)?(${this.resourceId}\/Resource)(\/.*)?$`);
-
     if (this.resourceId && cdk.CfnResource.isCfnResource(node) && nodePathItemRegex.test(node.node.path)) {
       if (this.propertyName == "RemovalPolicy") {
         setRemovalPolicy(this.propertyValue, node);
@@ -254,6 +255,22 @@ export class Configurator {
       account: config.account,
       region: config.region,
     };
+  }
+
+  public static getConfig(props: GetConfigProps): Configuration | undefined {
+    if (props.config) {
+      if (typeof props.config == "string") {
+        return readConfigFile(props.config);
+      } else {
+        return props.config;
+      }
+    } else {
+      const path = "./ddk.json";
+      if (existsSync(path)) {
+        return readConfigFile(path);
+      }
+      return undefined;
+    }
   }
 
   public readonly config: Configuration;
