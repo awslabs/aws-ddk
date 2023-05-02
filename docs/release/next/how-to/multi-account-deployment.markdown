@@ -10,7 +10,7 @@ category: Advanced
 In some cases, resources must be created across multiple accounts to support environment or logical separation. The following guide demonstrates how a DDK application is deployed to multiple environments in their own AWS accounts.
 
 ## Enabling Accounts for Cross-Account Access
-`ddk bootstrap` allows us to setup cross-account access for a DDK account.
+`cdk bootstrap` allows us to setup cross-account access for your AWS accounts.
 
 Let's say we have three AWS accounts.
 - **111111111111**: A centralized account for CI/CD pipelines.
@@ -20,14 +20,14 @@ Let's say we have three AWS accounts.
 ### Bootstrap Accounts
 We'll need to bootstrap each environment. 
 
-- **[cicd]**: `ddk bootstrap -e cicd -p ${CICD_AWS_PROFILE}`
-- **[dev]**: `ddk bootstrap -e dev -p ${DEV_AWS_PROFILE} -a 111111111111`
-- **[test]**: `ddk bootstrap -e test -p ${TEST_AWS_PROFILE} -a 111111111111`
+- **[cicd]**: `cdk bootstrap -p ${CICD_AWS_PROFILE}`
+- **[dev]**: `cdk bootstrap -p ${DEV_AWS_PROFILE} --trust 111111111111 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess`
+- **[test]**: `cdk bootstrap -e test -p ${TEST_AWS_PROFILE} --trust 111111111111 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess`
 
-The `dev` & `test` environments are bootstrapped with `-a 111111111111` to setup the required cross account access for the `cicd` account to manage resources within them.
+The `dev` & `test` environments are bootstrapped with `--trust 111111111111 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess` to setup the required cross account access for the `cicd` account to manage resources within them.
 
-## Configuration
-`ddk.json` must be configured with all your accounts.
+## [Optional] Configuration
+A preferred solution is to store environment configuration in a file e.g. `ddk.json`.
 
 ```json
 {
