@@ -6373,7 +6373,8 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.Key</code> | Encryption KMS key. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionOption">encryptionOption</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.EncryptionOption</code> | Encryption configuration. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_s3.Location</code> | Output S3 location. |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | SQL query that will be started. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.parallel">parallel</a></code> | <code>boolean</code> | flag to determine parallel or sequential execution. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string[]</code> | SQL queries that will be started. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryStringPath">queryStringPath</a></code> | <code>string</code> | dynamic path in statemachine for SQL query to be started. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.workGroup">workGroup</a></code> | <code>string</code> | Athena workgroup name. |
 
@@ -6538,15 +6539,28 @@ Output S3 location.
 
 ---
 
+##### `parallel`<sup>Optional</sup> <a name="parallel" id="aws-ddk-core.AthenaToSQLStageProps.property.parallel"></a>
+
+```typescript
+public readonly parallel: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+flag to determine parallel or sequential execution.
+
+---
+
 ##### `queryString`<sup>Optional</sup> <a name="queryString" id="aws-ddk-core.AthenaToSQLStageProps.property.queryString"></a>
 
 ```typescript
-public readonly queryString: string;
+public readonly queryString: string[];
 ```
 
-- *Type:* string
+- *Type:* string[]
 
-SQL query that will be started.
+SQL queries that will be started.
 
 ---
 
