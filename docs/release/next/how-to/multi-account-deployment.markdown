@@ -55,6 +55,61 @@ A preferred solution is to store environment configuration in a file e.g. `ddk.j
 ```
 
 {% tabs example %}
+{% tab example typescript %}
+You can now build a CI/CD pipeline to instantiate your application in both environments.
+
+```javascript
+import * as cdk from "aws-cdk-lib";
+import { CICDPipelineStack, Configurator } from "aws-ddk-core";
+import { Construct } from "constructs";
+
+export class ApplicationStage extends cdk.Stage {
+  constructor(
+    scope: Construct,
+    id: string,
+    environmentId: string,
+    props?: cdk.StageProps
+  ) {
+    super(scope, `Ddk${environmentId}Application`, props ?? {});
+    new cdk.Stack(this, `DataPipeline${environmentId}`);
+  }
+}
+
+const app = new cdk.App();
+
+new CICDPipelineStack(app, "DdkCodePipeline", {
+  environmentId: "cicd",
+  pipelineName: "ddk-application-pipeline",
+  env: Configurator.getEnvironment({
+    configPath: "./ddk.json",
+    environmentId: "cicd",
+  }),
+})
+  .addSourceAction({ repositoryName: "ddk-repository" })
+  .addSynthAction()
+  .buildPipeline()
+  .addStage({
+    stageId: "dev",
+    stage: new ApplicationStage(app, "dev stage", "dev", {
+      env: Configurator.getEnvironment({
+        configPath: "./ddk.json",
+        environmentId: "dev",
+      }),
+    }),
+  })
+  .addStage({
+    stageId: "test",
+    stage: new ApplicationStage(app, "test stage", "test", {
+      env: Configurator.getEnvironment({
+        configPath: "./ddk.json",
+        environmentId: "test",
+      }),
+    }),
+  })
+  .synth();
+
+```
+{% endtab %}
 {% tab example python %}
 `app.py` for example can now build a CI/CD pipeline to instantiate your application in both environments.
 
@@ -121,14 +176,16 @@ app.synth()
 
 We then push this infrastructure as code into a newly created CodeCommit repository named `ddk-repository`:
 ```
-ddk create-repository ddk-repository
+aws codecommit create-repository --repository-name ddk-repository
+git init
+git remote add origin https://git-codecommit.${AWS_REGION}.amazonaws.com/v1/repos/ddk-repository
 git add .
 git commit -m "Initial commit"
 git push --set-upstream origin main
 ```
 
 ## Deployment 
-Running `ddk deploy` provisions the pipeline in your AWS account. The aforementioned CI/CD pipeline is [self-mutating](https://aws.amazon.com/blogs/developer/cdk-pipelines-continuous-delivery-for-aws-cdk-applications/), meaning we only need to run cdk deploy one time to get the pipeline started. After that, the pipeline automatically updates itself if code is committed to the source code repository.
+Running `cdk deploy` provisions the pipeline in your AWS account. The aforementioned CI/CD pipeline is [self-mutating](https://aws.amazon.com/blogs/developer/cdk-pipelines-continuous-delivery-for-aws-cdk-applications/), meaning we only need to run cdk deploy one time to get the pipeline started. After that, the pipeline automatically updates itself if code is committed to the source code repository.
 
 You should now have two deployment stages in your CodePipeline for each environment.
 ![Pipeline](/aws-ddk/img/multi-account-pipeline.png)
