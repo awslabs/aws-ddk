@@ -3,6 +3,7 @@ import path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as redshift from "aws-cdk-lib/aws-redshift";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
@@ -511,6 +512,9 @@ test("Config Removal Policy", () => {
           MyOtherBucket: {
             RemovalPolicy: cdk.RemovalPolicy.RETAIN,
           },
+          "AWS::Redshift::Cluster": {
+            RemovalPolicy: cdk.RemovalPolicy.SNAPSHOT,
+          },
         },
       },
     },
@@ -518,6 +522,13 @@ test("Config Removal Policy", () => {
   const stack = new cdk.Stack();
   new s3.Bucket(stack, "MyBucket");
   new s3.Bucket(stack, "MyOtherBucket");
+  new redshift.CfnCluster(stack, "MyRedshiftCluster", {
+    clusterType: "single-node",
+    dbName: "dummy",
+    masterUsername: "dummyadmin",
+    masterUserPassword: "dummypassword",
+    nodeType: "ds2.xlarge",
+  });
   new Configurator(stack, sampleConfig, "dev");
   const template = Template.fromStack(stack);
   template.hasResource("AWS::S3::Bucket", {
@@ -527,6 +538,10 @@ test("Config Removal Policy", () => {
   template.hasResource("AWS::S3::Bucket", {
     DeletionPolicy: "Retain",
     UpdateReplacePolicy: "Retain",
+  });
+  template.hasResource("AWS::Redshift::Cluster", {
+    DeletionPolicy: "Snapshot",
+    UpdateReplacePolicy: "Snapshot",
   });
 });
 
@@ -559,4 +574,9 @@ test("Config Removal Policy JSON Config", () => {
     DeletionPolicy: "Delete",
     UpdateReplacePolicy: "Delete",
   });
+});
+
+test("Configurator getConfig properties", () => {
+  const myConfig = Configurator.getEnvConfig({ configPath: "./test/test-config.json", environmentId: "dev" });
+  assert(myConfig.props?.my_unique_config_property == "foobar");
 });

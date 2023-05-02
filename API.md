@@ -6273,7 +6273,8 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.Key</code> | Encryption KMS key. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.encryptionOption">encryptionOption</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.EncryptionOption</code> | Encryption configuration. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.outputLocation">outputLocation</a></code> | <code>aws-cdk-lib.aws_s3.Location</code> | Output S3 location. |
-| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string</code> | SQL query that will be started. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.parallel">parallel</a></code> | <code>boolean</code> | flag to determine parallel or sequential execution. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryString">queryString</a></code> | <code>string[]</code> | SQL queries that will be started. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.queryStringPath">queryStringPath</a></code> | <code>string</code> | dynamic path in statemachine for SQL query to be started. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.workGroup">workGroup</a></code> | <code>string</code> | Athena workgroup name. |
 
@@ -6438,15 +6439,28 @@ Output S3 location.
 
 ---
 
+##### `parallel`<sup>Optional</sup> <a name="parallel" id="aws-ddk-core.AthenaToSQLStageProps.property.parallel"></a>
+
+```typescript
+public readonly parallel: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+flag to determine parallel or sequential execution.
+
+---
+
 ##### `queryString`<sup>Optional</sup> <a name="queryString" id="aws-ddk-core.AthenaToSQLStageProps.property.queryString"></a>
 
 ```typescript
-public readonly queryString: string;
+public readonly queryString: string[];
 ```
 
-- *Type:* string
+- *Type:* string[]
 
-SQL query that will be started.
+SQL queries that will be started.
 
 ---
 
@@ -7196,6 +7210,7 @@ const configuration: Configuration = { ... }
 | <code><a href="#aws-ddk-core.Configuration.property.account">account</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.ddkBootstrapConfigKey">ddkBootstrapConfigKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.props">props</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 
@@ -7238,6 +7253,16 @@ public readonly ddkBootstrapConfigKey: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.Configuration.property.props"></a>
+
+```typescript
+public readonly props: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
 
 ---
 
@@ -7977,6 +8002,7 @@ const environmentConfiguration: EnvironmentConfiguration = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.account">account</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.props">props</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.resources">resources</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
@@ -7997,6 +8023,16 @@ public readonly account: string;
 
 ```typescript
 public readonly bootstrap: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.EnvironmentConfiguration.property.props"></a>
+
+```typescript
+public readonly props: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: string}
@@ -8030,45 +8066,6 @@ public readonly tags: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: string}
-
----
-
-### EnvironmentResult <a name="EnvironmentResult" id="aws-ddk-core.EnvironmentResult"></a>
-
-#### Initializer <a name="Initializer" id="aws-ddk-core.EnvironmentResult.Initializer"></a>
-
-```typescript
-import { EnvironmentResult } from 'aws-ddk-core'
-
-const environmentResult: EnvironmentResult = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#aws-ddk-core.EnvironmentResult.property.account">account</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EnvironmentResult.property.region">region</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.EnvironmentResult.property.account"></a>
-
-```typescript
-public readonly account: string;
-```
-
-- *Type:* string
-
----
-
-##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.EnvironmentResult.property.region"></a>
-
-```typescript
-public readonly region: string;
-```
-
-- *Type:* string
 
 ---
 
@@ -8323,6 +8320,34 @@ Properties of the S3 Bucket to be created as a delivery destination.
 
 Amazon EventBridge notifications must be enabled on the bucket in order
 for this stage to produce events after its completion.
+
+---
+
+### GetConfigProps <a name="GetConfigProps" id="aws-ddk-core.GetConfigProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.GetConfigProps.Initializer"></a>
+
+```typescript
+import { GetConfigProps } from 'aws-ddk-core'
+
+const getConfigProps: GetConfigProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.GetConfigProps.property.config">config</a></code> | <code>string \| <a href="#aws-ddk-core.Configuration">Configuration</a></code> | *No description.* |
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="aws-ddk-core.GetConfigProps.property.config"></a>
+
+```typescript
+public readonly config: string | Configuration;
+```
+
+- *Type:* string | <a href="#aws-ddk-core.Configuration">Configuration</a>
 
 ---
 
@@ -10994,9 +11019,24 @@ public tagConstruct(scope: Construct, tags: {[ key: string ]: string}): void
 
 | **Name** | **Description** |
 | --- | --- |
+| <code><a href="#aws-ddk-core.Configurator.getConfig">getConfig</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.getEnvConfig">getEnvConfig</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.getEnvironment">getEnvironment</a></code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configurator.getTags">getTags</a></code> | *No description.* |
+
+---
+
+##### `getConfig` <a name="getConfig" id="aws-ddk-core.Configurator.getConfig"></a>
+
+```typescript
+import { Configurator } from 'aws-ddk-core'
+
+Configurator.getConfig(props: GetConfigProps)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.Configurator.getConfig.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.GetConfigProps">GetConfigProps</a>
 
 ---
 
