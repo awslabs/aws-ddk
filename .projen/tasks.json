@@ -304,19 +304,19 @@
           "exec": "yarn upgrade npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --dep dev --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,deepmerge'"
+          "exec": "npm-check-updates --dep dev --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,jsii,deepmerge'"
         },
         {
-          "exec": "npm-check-updates --dep optional --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,deepmerge'"
+          "exec": "npm-check-updates --dep optional --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,jsii,deepmerge'"
         },
         {
-          "exec": "npm-check-updates --dep peer --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,deepmerge'"
+          "exec": "npm-check-updates --dep peer --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,jsii,deepmerge'"
         },
         {
-          "exec": "npm-check-updates --dep prod --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,deepmerge'"
+          "exec": "npm-check-updates --dep prod --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,jsii,deepmerge'"
         },
         {
-          "exec": "npm-check-updates --dep bundle --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,deepmerge'"
+          "exec": "npm-check-updates --dep bundle --upgrade --target=minor --reject='@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha,aws-cdk-lib,constructs,jsii,deepmerge'"
         },
         {
           "exec": "yarn install --check-files"
