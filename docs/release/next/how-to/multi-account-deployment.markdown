@@ -54,16 +54,13 @@ A preferred solution is to store environment configuration in a file e.g. `ddk.j
 }
 ```
 
+{% tabs example %}
+{% tab example python %}
 `app.py` for example can now build a CI/CD pipeline to instantiate your application in both environments.
 
 ```python
-#!/usr/bin/env python3
-
 import aws_cdk as cdk
-from aws_ddk_core.cicd import CICDPipelineStack
-from ddk_app.ddk_app_stack import DDKApplicationStack
-from aws_ddk_core.config import Config
-
+from aws_ddk_core import CICDPipelineStack, Configurator
 
 app = cdk.App()
 
@@ -76,27 +73,51 @@ class ApplicationStage(cdk.Stage):
         **kwargs,
     ) -> None:
         super().__init__(scope, f"Ddk{environment_id.title()}Application", **kwargs)
-        DDKApplicationStack(self, "DataPipeline", environment_id)
+        cdk.Stack(self, "DataPipeline")
 
 
-config = Config()
 (
     CICDPipelineStack(
         app,
         id="DdkCodePipeline",
         environment_id="cicd",
         pipeline_name="ddk-application-pipeline",
+        env=Configurator.get_environment(
+            config_path="./ddk.json", environment_id="cicd"
+        ),
     )
     .add_source_action(repository_name="ddk-repository")
     .add_synth_action()
-    .build()
-    .add_stage("dev", ApplicationStage(app, "dev", env=config.get_env("dev")))
-    .add_stage("test", ApplicationStage(app, "test", env=config.get_env("test")))
+    .build_pipeline()
+    .add_stage(
+        stage_id="dev",
+        stage=ApplicationStage(
+            app,
+            "dev",
+            env=Configurator.get_environment(
+                config_path="./ddk.json", environment_id="dev"
+            ),
+        ),
+    )
+    .add_stage(
+        stage_id="test",
+        stage=ApplicationStage(
+            app,
+            "test",
+            env=Configurator.get_environment(
+                config_path="./ddk.json", environment_id="test"
+            ),
+        ),
+    )
     .synth()
 )
 
 app.synth()
 ```
+
+{% endtab %}
+
+{% endtabs %}
 
 We then push this infrastructure as code into a newly created CodeCommit repository named `ddk-repository`:
 ```
