@@ -8155,45 +8155,6 @@ public readonly tags: {[ key: string ]: string};
 
 ---
 
-### EnvironmentResult <a name="EnvironmentResult" id="aws-ddk-core.EnvironmentResult"></a>
-
-#### Initializer <a name="Initializer" id="aws-ddk-core.EnvironmentResult.Initializer"></a>
-
-```typescript
-import { EnvironmentResult } from 'aws-ddk-core'
-
-const environmentResult: EnvironmentResult = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#aws-ddk-core.EnvironmentResult.property.account">account</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EnvironmentResult.property.region">region</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `account`<sup>Optional</sup> <a name="account" id="aws-ddk-core.EnvironmentResult.property.account"></a>
-
-```typescript
-public readonly account: string;
-```
-
-- *Type:* string
-
----
-
-##### `region`<sup>Optional</sup> <a name="region" id="aws-ddk-core.EnvironmentResult.property.region"></a>
-
-```typescript
-public readonly region: string;
-```
-
-- *Type:* string
-
----
-
 ### EventStageProps <a name="EventStageProps" id="aws-ddk-core.EventStageProps"></a>
 
 Properties for the event stage.
