@@ -98,7 +98,6 @@ print(stack.synthesizer)
 app.synth()
 ```
 {% endtab %}
-{% endtabs %}
-
 3. Run `cdk synth` and validate the stack is using the correct roles.
-[Console.log](screenshot)
+![Console.log](/aws-ddk/img/stack-synthesizer.png)
+{% endtabs %}
