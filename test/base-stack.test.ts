@@ -394,6 +394,40 @@ test("Bring Your Own Stack Synthesizer", () => {
   }
 });
 
+test("Use Only Prefix to Default to DDK roles", () => {
+  const app = new cdk.App();
+
+  const stack = new BaseStack(app, "my-stack", {
+    environmentId: "dev",
+    config: "./test/test-config.json",
+  });
+
+  const expectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "ddk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ddk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ddk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ddk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ddk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}",
+    lookupRoleArn:
+      "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ddk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/ddk/dev/hnb659fds/bootstrap-version",
+  };
+  for (const attribute in expectedValues) {
+    assert(
+      stack.synthesizer[attribute as keyof typeof stack.synthesizer] ===
+        expectedValues[attribute as keyof typeof expectedValues],
+    );
+  }
+});
+
 test("Additional Stack Props", () => {
   const app = new cdk.App();
 

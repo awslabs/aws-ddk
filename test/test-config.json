@@ -21,7 +21,10 @@
       "props": {
         "my_unique_config_property": "foobar"
       },
-      "unsupported_property": "barfoo"
+      "unsupported_property": "barfoo",
+      "bootstrap": {
+        "prefix": "ddk"
+      }
     },
     "prod": {
       "account": "222222222222",

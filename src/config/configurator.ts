@@ -127,10 +127,10 @@ export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStack
       qualifier: qualifier,
       fileAssetsBucketName: bootstrapConfig.file_assets_bucket_name
         ? bootstrapConfig.file_assets_bucket_name
-        : undefined,
+        : `${prefix}-${props.environmentId}-${qualifier}-assets-${accountId}-${region}`,
       bootstrapStackVersionSsmParameter: bootstrapConfig.stack_version_ssm_parameter
         ? bootstrapConfig.stack_version_ssm_parameter
-        : undefined,
+        : `/${prefix}/${props.environmentId}/${qualifier}/bootstrap-version`,
       deployRoleArn: bootstrapConfig.deploy_role
         ? bootstrapConfig.deploy_role
         : `arn:aws:iam::${accountId}:role/${prefix}-${props.environmentId}-${qualifier}-deploy-${accountId}-${region}`,
