@@ -33,31 +33,27 @@ Let's take a look at an example below:
 firehose_s3_stage = FirehoseToS3Stage(
     self,
     "ddk-firehose-s3",
-    s3_bucket=ddk_bucket,
+    bucket=ddk_bucket,
     data_output_prefix="raw/",
 )
 sqs_lambda_stage = SqsToLambdaStage(
     scope=self,
     id="ddk-sqs-lambda",
-    lambda_function_props={
-        "code": Code.from_asset("./lambda"),
-        "handler": "index.lambda_handler",
-        "layers": [
-            LayerVersion.from_layer_version_arn(
-                self,
-                "ddk-lambda-layer-wrangler",
-                f"arn:aws:lambda:{self.region}:336392948345:layer:AWSDataWrangler-Python39:2",
-            )
-        ],
-        "runtime": Runtime.PYTHON_3_9,
-    },
+    code=Code.from_asset("./lambda"),
+    handler="index.lambda_handler",
+    layers=[
+        LayerVersion.from_layer_version_arn(
+            self,
+            "ddk-lambda-layer-wrangler",
+            f"arn:aws:lambda:{self.region}:336392948345:layer:AWSSDKPandas-Python39:1",
+        )
+    ]
 )
-ddk_bucket.grant_read_write(sqs_lambda_stage.function)
 
 (
-    DataPipeline(self, id="ddk-pipeline")
-    .add_stage(stage = firehose_s3_stage)
-    .add_stage(stage = sqs_lambda_stage)
+    DataPipeline(scope=self, id="ddk-pipeline")
+    .add_stage(firehose_s3_stage)
+    .add_stage(sqs_lambda_stage)
 )
 ...
 ```
