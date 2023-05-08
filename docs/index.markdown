@@ -1,5 +1,12 @@
-# AWS DataOps Development Kit (DDK)
-![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/build.yml/badge.svg)
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: home
+homePage: true
+---
+
+## Overview
 
 The AWS DataOps Development Kit is an open source development framework for customers that build data workflows and modern data architecture on AWS.
 
@@ -11,10 +18,20 @@ The **DDK Core** is a library of CDK constructs that you can use to build data w
 
 You can compose constructs from the DDK Core into a **DDK App**.  Your DDK App can also add contain constructs from the CDK Framework or the [AWS Construct Library](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html).
 
-## Overview
-
 For a detailed walk-through, check out our [Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US) or
 take a look at [examples](https://github.com/aws-samples/aws-ddk-examples).
+
+## Install
+
+You can install or update the AWS DDK library from the following:
+- [PyPi](https://pypi.org/project/aws-ddk-core/)
+```shell
+pip install aws-ddk-core
+```
+- [NPM](https://www.npmjs.com/package/aws-ddk-core)
+```shell
+npm install aws-ddk-core
+```
 
 ### Build Data Pipelines
 
@@ -59,33 +76,10 @@ sqs_lambda_stage = SqsToLambdaStage(
 ```
 
 First, we import the required resources from the aws_ddk_core library, including the two stage constructs: 
-[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/FirehoseToS3Stage) and 
+[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/FirehoseToS3Stage), and 
 [SqsToLambdaStage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/SqsToLambdaStage). 
 These two classes are then instantiated and the delivery stream is configured with the S3 prefix (raw/). 
 Finally, the DDK DataPipeline construct is used to chain these two stages together into a data pipeline.
 
 Complete source code of the data pipeline above can be found in 
 [AWS DDK Examples - Basic Data Pipeline](https://github.com/aws-samples/aws-ddk-examples/tree/main/basic-data-pipeline)
-
-
-### Official Resources
-- [Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US)
-- [Documentation](https://awslabs.github.io/aws-ddk/)
-- [API Reference](https://awslabs.github.io/aws-ddk/release/stable/api/index)
-- [Examples](https://github.com/aws-samples/aws-ddk-examples/)
-
-## Getting Help
-
-The best way to interact with our team is through GitHub.  You can open an issue and choose from one of our templates for bug reports, feature requests, or documentation issues.  If you have a feature request, don't forget you can search existing issues and upvote or comment on existing issues before creating a new one.
-
-## Contributing
-
-We welcome community contributions and pull requests.  Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details on how to set up a development
-environment and submit code.
-
-## Other Ways to Support
-
-One way you can support our project is by letting others know that your organisation uses the DDK.  If you would like us to include your company's name and/or logo in this README file, please raise a 'Support the DDK' issue.  Note that by raising a this issue (and related pull request), you are granting AWS permission to use your company’s name (and logo) for the limited purpose described here and you are confirming that you have authority to grant such permission.
-
-## License
-This project is licensed under the Apache-2.0 License.
