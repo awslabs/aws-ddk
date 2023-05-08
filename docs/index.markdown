@@ -47,24 +47,22 @@ Let's take a look at an example below:
 ```python
 ...
 
-firehose_s3_stage = KinesisToS3Stage(
+firehose_s3_stage = FirehoseToS3Stage(
     self,
     "ddk-firehose-s3",
-    environment_id=environment_id,
     bucket=ddk_bucket,
     data_output_prefix="raw/",
 )
 sqs_lambda_stage = SqsToLambdaStage(
     scope=self,
     id="ddk-sqs-lambda",
-    environment_id=environment_id,
     code=Code.from_asset("./lambda"),
     handler="index.lambda_handler",
     layers=[
         LayerVersion.from_layer_version_arn(
             self,
             "ddk-lambda-layer-wrangler",
-            f"arn:aws:lambda:{self.region}:336392948345:layer:AWSDataWrangler-Python39:2",
+            f"arn:aws:lambda:{self.region}:336392948345:layer:AWSSDKPandas-Python39:1",
         )
     ]
 )
