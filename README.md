@@ -17,18 +17,6 @@ category: Advanced
 - After the front matter, add your how-to guide to the file
 
 # How to Release
-## 1) Build the API Documentation
-- The API documentation is generated from the code base using sphinx-build.
-- Set ${root} to be the root of the main branch of the ddk
-- Set ${releaseVersion} to be the version of the next release
-
-```shell
-cd ./docs/source
-pip install -r requirements.txt
-sphinx-apidoc -f -o ./cli ${root}/cli/aws_ddk
-sphinx-apidoc -f -o ./core ${root}/core/aws_ddk_core
-sphinx-build -b html -D release=${releaseVersion} . ../release/next/api
-```
 
 ## 2) Copy the directory
 - Snapshot the `next` directory by creating a copy to a new directory under `release`
@@ -53,6 +41,3 @@ cd docs
 bundle install 
 bundle exec jekyll serve
 ```
-
-## Automated Release
-The documentation release process can be automated by using `./bin/build_docs.sh`. This workflow is implemented as a Github Action in this repo.

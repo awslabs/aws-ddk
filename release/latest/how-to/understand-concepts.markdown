@@ -16,7 +16,7 @@ Based on the [AWS CDK](https://github.com/aws/aws-cdk),  it offers high-level ab
 
 To make DataOps on AWS easy!  We want customers to focus on writing code that adds business value, whether that is a data transformation, cleaning data to train a model, or creating a report.  We believe that orchestrating pipelines, creating infrastructure, and creating the DevOps behind that infrastructure is undifferentiated heavy lifting and should be done as easily as possible using a robust framework.
 
-## What are the Advantages of using the AWS DDK over the AWS CDK?
+## What are the Advantages of using the AWS DDK in CDK Applications?
 
 When building DataOps projects on AWS, there are three main advantages of using the AWS DDK.  First, it allows you to think at a higher level than infrastructure.  For example, you may need to build a pipeline to process a JSON file by removing some attributes and joining to another file.  With CDK , you'd need to think about creating an S3 bucket to land the input file, creating an AWS Lambda function for the simple transformation, creating an AWS Glue job to join the files, and creating the wiring to orchestrate the process.  With AWS DDK you can simply create a pipeline, dropping in the stages you need to process your data.  You can focus creating the transformation and join logic, rather than the infrastructure.
 
