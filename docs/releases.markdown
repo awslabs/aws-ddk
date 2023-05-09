@@ -15,5 +15,3 @@ Find the documentation for all releases of AWS DDK
   </li>
 {% endfor %}
 </ul>
-
-You can also view the [documentation](release/next/index) for the next version of the AWS DDK.
