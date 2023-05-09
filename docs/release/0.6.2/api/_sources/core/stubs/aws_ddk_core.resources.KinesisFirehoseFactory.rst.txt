@@ -1,0 +1,25 @@
+﻿aws\_ddk\_core.resources.KinesisFirehoseFactory
+===============================================
+
+.. currentmodule:: aws_ddk_core.resources
+
+.. autoclass:: KinesisFirehoseFactory
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~KinesisFirehoseFactory.__init__
+      ~KinesisFirehoseFactory.delivery_stream
+      ~KinesisFirehoseFactory.s3_destination
+   
+   
+
+   
+   
+   

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>DDK Configuration | AWS DataOps Development Kit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="DDK Configuration" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<meta property="og:description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<link rel="canonical" href="http://localhost:4000/aws-ddk/release/0.6.0/how-to/ddk-configuration.html" />
+<meta property="og:url" content="http://localhost:4000/aws-ddk/release/0.6.0/how-to/ddk-configuration.html" />
+<meta property="og:site_name" content="AWS DataOps Development Kit" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="DDK Configuration" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"An open source development framework to help you build data workflows and modern data architecture on AWS.","headline":"DDK Configuration","url":"http://localhost:4000/aws-ddk/release/0.6.0/how-to/ddk-configuration.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/style.css?v=592b83d3cf940177ea012ba7775b677cf187e4d3">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/custom.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <link rel="shortcut icon" type="/aws-ddk/image/png" href="/aws-ddk/favicon.ico">
+</head>
+<body>
+
+<section>
+    <div class="menu-background menu-background-berry">
+        <section class="menu-bar">
+            <div>
+                <nav role="navigation">
+                    <ul>
+                        <li><a class="nav-title" href="/aws-ddk/">AWS DDK</a></li>
+                        <li><a class="nav-item"  href="https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US" aria-haspopup="true">Workshop</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to" aria-haspopup="true">How To</a>
+                        <li><a class="nav-item"  href="/aws-ddk/release/latest/api" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">API Documentation</i></a>
+                    </ul>
+                </nav>
+            </div>
+
+        </section>
+    </div>
+
+    
+    <div class="default-content default-content-margin-top" >
+        <div class="main-content">
+            <div>
+    <div>
+        <a href="../">← Index</a>
+    </div>
+        <h2 id="purpose">Purpose</h2>
+<p>DDK promotes a <a href="https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development">trunk based</a> development approach where small changes are frequently applied to the <code class="language-plaintext highlighter-rouge">main</code> branch.
+As a result, this core branch is the one source of truth and the same infrastructure as code is used across multiple environments. However, there is often a need to apply distinct configuration
+to different environments (i.e. <code class="language-plaintext highlighter-rouge">dev</code>, <code class="language-plaintext highlighter-rouge">qa</code>, <code class="language-plaintext highlighter-rouge">prd</code>…). This How-To guide describes how this can be achieved in the DDK.</p>
+
+<h2 id="configuration">Configuration</h2>
+<p>DDK Core supports environment specific configuration with the usage of the <code class="language-plaintext highlighter-rouge">ddk.json</code> file. You can leverage it to apply different configurations to each of your DDK environments.</p>
+
+<h3 id="example">Example</h3>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"dev"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"222222222222"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ddk-bucket"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"versioned"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nl">"removal_policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"destroy"</span><span class="p">},</span><span class="w">
+                </span><span class="nl">"ddk-sqs-lambda-function"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"memory_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">},</span><span class="w">
+                </span><span class="nl">"ddk-sqs-lambda-queue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"retention_period"</span><span class="p">:</span><span class="w"> </span><span class="mi">5040</span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"CostCenter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1984"</span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"prod"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333333333333"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ddk-bucket"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"versioned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nl">"removal_policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"retain"</span><span class="p">},</span><span class="w">
+                </span><span class="nl">"ddk-sqs-lambda-function"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"memory_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="p">},</span><span class="w">
+                </span><span class="nl">"ddk-sqs-lambda-queue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"retention_period"</span><span class="p">:</span><span class="w"> </span><span class="mi">10080</span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"CostCenter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>For instance, based on the above configuration, the DDK Lambda function resource with id <code class="language-plaintext highlighter-rouge">ddk-sqs-lambda-function</code> has a memory size of <code class="language-plaintext highlighter-rouge">128</code> Mb in in the <code class="language-plaintext highlighter-rouge">dev</code> environment compared to <code class="language-plaintext highlighter-rouge">512</code> in the <code class="language-plaintext highlighter-rouge">prod</code> environment.</p>
+
+<h2 id="implementation">Implementation</h2>
+<p>Most DDK constructs can be configured via <code class="language-plaintext highlighter-rouge">ddk.json</code>. For example, the DDK <a href="https://github.com/awslabs/aws-ddk/blob/main/core/aws_ddk_core/base/stack.py"><code class="language-plaintext highlighter-rouge">BaseStack</code></a> class allows the following parameters:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prefix: str
+qualifier: str
+termination_protection: str
+tags: Dict[str, str]
+</code></pre></div></div>
+<p>If the construct supports environment configuration, it will be listed in the documentation under <strong><em>Supported DDK Environment Configuration</em></strong>. See the <a href="https://awslabs.github.io/aws-ddk/release/stable/api/core/aws_ddk_core.html">API Documentation</a> for a list of DDK constructs.</p>
+
+<h2 id="resource-specific-configuration">Resource Specific Configuration</h2>
+<p>Resource specific configuration can be set in <code class="language-plaintext highlighter-rouge">ddk.json</code> within the <code class="language-plaintext highlighter-rouge">resources{}</code> object of any given environment. For example given a configuration:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"444444444444"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ddk-glue-transform-job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="nl">"worker_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>Any underlying CDK resource matching the id: “<em>ddk-glue-transform-job</em>” would be passed the properties “<em>timeout</em>” and “<em>worker_count</em>” in the <code class="language-plaintext highlighter-rouge">test</code> environment.</p>
+
+<h3 id="property-precedence">Property Precedence</h3>
+<p>Explicit properties will always take precedence over config values.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># A DDK resource is configured with an explicit property 'shard_count'
+</span><span class="n">data_stream</span> <span class="o">=</span> <span class="n">KinesisStreamsFactory</span><span class="p">.</span><span class="n">data_stream</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s">"example-data-stream"</span><span class="p">,</span> <span class="n">environment_id</span><span class="o">=</span><span class="n">environment_id</span><span class="p">,</span> <span class="n">shard_count</span><span class="o">=</span><span class="mi">10</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>The above Kinesis Data Stream will be created with value ‘<em>shard_count=10</em>’ even if <em>ddk.json</em> has a different value</p>
+
+<p>This configuration value would be overridden</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3333333333333"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"example-data-stream"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"shard_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">},</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+</div>
+
+        </div>
+    </div>
+    
+
+</section>
+<section class="main-content">
+    <hr>
+    <div class="footer-content">
+        <div>©2022 Amazon Web Services</div>
+        <div>An <a href="https://aws.amazon.com/professional-services/">AWS Professional Services</a> open source initiative | aws-proserve-opensource@amazon.com</div>
+
+    </div>
+</section>
+
+
+<script src="/aws-ddk/assets/js/tabs.js"></script>
+</body>
+</html>

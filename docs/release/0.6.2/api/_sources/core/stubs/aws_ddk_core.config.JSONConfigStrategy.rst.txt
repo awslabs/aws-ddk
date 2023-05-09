@@ -1,0 +1,24 @@
+﻿aws\_ddk\_core.config.JSONConfigStrategy
+========================================
+
+.. currentmodule:: aws_ddk_core.config
+
+.. autoclass:: JSONConfigStrategy
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~JSONConfigStrategy.__init__
+      ~JSONConfigStrategy.get_config
+   
+   
+
+   
+   
+   

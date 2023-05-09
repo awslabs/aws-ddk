@@ -1,0 +1,25 @@
+- name: 0.1.0
+  root: 0.1.0
+- name: 0.2.0
+  root: 0.2.0
+- name: stable
+  root: stable
+- name: latest
+  root: latest
+- name: 0.3.0
+  root: 0.3.0
+
+- name: 0.4.0
+  root: 0.4.0
+
+- name: 0.5.1
+  root: 0.5.1
+
+- name: 0.6.0
+  root: 0.6.0
+
+- name: 0.6.1
+  root: 0.6.1
+
+- name: 0.6.2
+  root: 0.6.2

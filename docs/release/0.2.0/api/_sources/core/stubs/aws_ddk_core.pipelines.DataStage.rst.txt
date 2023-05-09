@@ -1,0 +1,33 @@
+﻿aws\_ddk\_core.pipelines.DataStage
+==================================
+
+.. currentmodule:: aws_ddk_core.pipelines
+
+.. autoclass:: DataStage
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DataStage.__init__
+      ~DataStage.get_event_pattern
+      ~DataStage.get_targets
+      ~DataStage.is_construct
+      ~DataStage.to_string
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~DataStage.node
+   
+   

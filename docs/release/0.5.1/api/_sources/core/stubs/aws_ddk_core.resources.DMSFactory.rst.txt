@@ -1,0 +1,27 @@
+﻿aws\_ddk\_core.resources.DMSFactory
+===================================
+
+.. currentmodule:: aws_ddk_core.resources
+
+.. autoclass:: DMSFactory
+   :members:
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DMSFactory.__init__
+      ~DMSFactory.endpoint
+      ~DMSFactory.endpoint_settings_s3
+      ~DMSFactory.replication_instance
+      ~DMSFactory.replication_task
+   
+   
+
+   
+   
+   
