@@ -12,32 +12,17 @@ jobs:
   docs-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
       - name: Checkout 🛎️
-        uses: actions/checkout@v2
-      - name: Checkout gh pages 🛎️
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          path: gh-pages
+        uses: actions/checkout@v3
       - name: Set Version ➕
         run: |
           if [ -z ${{ github.event.inputs.version }} ]; then echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV; else echo "RELEASE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV; fi
       - name: Release 🌱
         run: |
-          cp gh-pages/_data/versions.yaml docs/_data/versions.yaml
           cd docs
-          ./bin/build_docs.sh $RELEASE_VERSION
-          [[ $RELEASE_VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]] && ./bin/build_docs.sh stable
-      - name: Deploy 🚀
-        uses: peaceiris/actions-gh-pages@v3
+          cp -r release/latest/ release/${RELEASE_VERSION} 
+          [[ $RELEASE_VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]] && cp -r release/latest/ release/stable
+      - name: Commit & Push changes
+        uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs
-          keep_files: true
-          enable_jekyll: true
-          exclude_assets: '.github,docs/_data/versions.yaml'
-      
