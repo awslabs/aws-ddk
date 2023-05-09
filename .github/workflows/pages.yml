@@ -12,14 +12,6 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Release 🌱
-        run: |
-          cd docs
-          ./bin/build_docs.sh latest
-      - name: Commit & Push changes
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
       # Use GitHub Actions' cache to cache dependencies on servers
       - uses: actions/cache@v3
         with:
