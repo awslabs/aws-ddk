@@ -19,10 +19,12 @@ jobs:
           if [ -z ${{ github.event.inputs.version }} ]; then echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV; else echo "RELEASE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV; fi
       - name: Release 🌱
         run: |
+          VERSION=${RELEASE_VERSION#"v"}
+          echo $VERSION to be released...
           cd docs
           cp -r release/latest/ release/${RELEASE_VERSION} 
           [[ $RELEASE_VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]] && cp -r release/latest/ release/stable
-      - name: Commit & Push changes
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Commit & Push changes
+      #   uses: actions-js/push@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
