@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Checkout gh pages 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: gh-pages
           path: gh-pages
@@ -22,11 +22,25 @@ jobs:
           cp gh-pages/_data/versions.yaml docs/_data/versions.yaml
           cd docs
           ./bin/build_docs.sh latest
-      - name: Deploy 🚀
-        uses: peaceiris/actions-gh-pages@v3
+      # Use GitHub Actions' cache to cache dependencies on servers
+      - uses: actions/cache@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs
-          keep_files: true
-          enable_jekyll: true
-          exclude_assets: '.github,docs/_data/versions.yaml'
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      # Use GitHub Deploy Action to build and deploy to Github
+      - uses: jeffreytse/jekyll-deploy-action@v0.4.0
+        with:
+          provider: 'github'
+          token: ${{ secrets.GITHUB_TOKEN }} # It's your Personal Access Token(PAT)
+          repository: ''             # Default is current repository
+          branch: 'gh-pages'         # Default is gh-pages for github provider
+          jekyll_src: './'           # Default is root directory
+          jekyll_cfg: '_config.yml'  # Default is _config.yml
+          jekyll_baseurl: ''         # Default is according to _config.yml
+          bundler_ver: '>=0'         # Default is latest bundler version
+          cname: ''                  # Default is to not use a cname
+          actor: ''                  # Default is the GITHUB_ACTOR
+          pre_build_commands: ''     # Installing additional dependencies (Arch Linux)
