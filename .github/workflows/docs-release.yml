@@ -23,7 +23,7 @@ jobs:
           echo $VERSION to be released...
           cd docs
           cp -r release/latest/ release/${RELEASE_VERSION} 
-          if [[ $RELEASE_VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]] then cp -r release/latest/ release/stable; else echo "Not marking version as stable"
+          if [[ $RELEASE_VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]]; then cp -r release/latest/ release/stable; else echo "Not marking version as stable"
           git status
       # - name: Commit & Push changes
       #   uses: actions-js/push@master
