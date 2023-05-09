@@ -12,16 +12,14 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Checkout gh pages 🛎️
-        uses: actions/checkout@v3
-        with:
-          ref: gh-pages
-          path: gh-pages
       - name: Release 🌱
         run: |
-          cp gh-pages/_data/versions.yaml docs/_data/versions.yaml
           cd docs
           ./bin/build_docs.sh latest
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       # Use GitHub Actions' cache to cache dependencies on servers
       - uses: actions/cache@v3
         with:
@@ -36,8 +34,8 @@ jobs:
           provider: 'github'
           token: ${{ secrets.GITHUB_TOKEN }} # It's your Personal Access Token(PAT)
           repository: ''             # Default is current repository
-          branch: 'pages-test'         # Default is gh-pages for github provider
-          jekyll_src: './docs'           # Default is root directory
+          branch: 'pages-test'       # Default is gh-pages for github provider
+          jekyll_src: './docs'       # Default is root directory
           jekyll_cfg: '_config.yml'  # Default is _config.yml
           jekyll_baseurl: ''         # Default is according to _config.yml
           bundler_ver: '>=0'         # Default is latest bundler version
