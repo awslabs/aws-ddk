@@ -18,6 +18,3 @@
   root: stable
 - name: latest
   root: latest
-
-- name: 1.0.0-beta.1
-  root: 1.0.0-beta.1
