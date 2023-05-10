@@ -3,6 +3,7 @@ on:
   push:
     tags:        
       - '*.*.*'
+
   workflow_dispatch:
     inputs:
       version:
@@ -28,5 +29,5 @@ jobs:
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.DOCUMENTATION_UPDATE_TOKEN }}
           branch: typescript-conversion
