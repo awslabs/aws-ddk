@@ -26,7 +26,7 @@ jobs:
           provider: 'github'
           token: ${{ secrets.GITHUB_TOKEN }} 
           repository: ''             # Default is current repository
-          branch: 'pages-test'       # Default is gh-pages for github provider
+          branch: 'ddk-pages'       # Default is gh-pages for github provider
           jekyll_src: './docs'       # Default is root directory
           jekyll_cfg: '_config.yml'  # Default is _config.yml
           jekyll_baseurl: ''         # Default is according to _config.yml
