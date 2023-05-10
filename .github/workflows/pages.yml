@@ -24,7 +24,7 @@ jobs:
       - uses: jeffreytse/jekyll-deploy-action@v0.4.0
         with:
           provider: 'github'
-          token: ${{ secrets.GITHUB_TOKEN }} # It's your Personal Access Token(PAT)
+          token: ${{ secrets.GITHUB_TOKEN }} 
           repository: ''             # Default is current repository
           branch: 'pages-test'       # Default is gh-pages for github provider
           jekyll_src: './docs'       # Default is root directory
