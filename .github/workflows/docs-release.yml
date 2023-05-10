@@ -25,7 +25,7 @@ jobs:
           cp -r release/latest/ release/${RELEASE_VERSION} 
           if [[ $RELEASE_VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]]; then cp -r release/latest/ release/stable; else echo "Not marking version as stable"; fi
           git status
-      # - name: Commit & Push changes
-      #   uses: actions-js/push@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
