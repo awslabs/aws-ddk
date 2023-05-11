@@ -34,7 +34,7 @@ export class SNSStage extends DataStage {
   
   constructor(scope: Construct, id: string) {
     super(scope, id, {});
-    this.topic = new sns.Topic(this, `${id}-topic`)
+    this.topic = new sns.Topic(this, "SNS Topic")
     this.eventPattern = {
       detailType: [`${id}-event-type`],
     }
@@ -56,10 +56,10 @@ export class DDKApplicationStack extends BaseStack {
   
   constructor(scope: Construct, id: string, props?: BaseStackProps) {
     super(scope, id, props ?? {});
-    const ddkBucket = S3Factory.bucket(this, "ddk-bucket", {})
+    const ddkBucket = S3Factory.bucket(this, "Bucket", {})
     const s3EventStage = new S3EventStage(
       this,
-      "ddk-s3-event",
+      "S3 Event Stage",
       {
         eventNames: ["Object Created"],
         bucket: ddkBucket,
@@ -67,17 +67,19 @@ export class DDKApplicationStack extends BaseStack {
       }
     )
     const snsStage = new SNSStage(
-      this, "ddk-sns"
+      this, "SNS Stage"
     )
     new DataPipeline(
-      this, "ddk-pipeline", {}
+      this, "DDK Pipeline", {}
     ).addStage({stage: s3EventStage}).addStage({stage: snsStage})
   }
 
 }
 
 const app = new cdk.App();
-new DDKApplicationStack(app, "test-stack")
+new DDKApplicationStack(app, "CustomStageStack");
+
+app.synth();
 
 ```
 
@@ -113,7 +115,7 @@ class SNSStage(DataStage):
         self._event_detail_type: str = f"{id}-event-type"
 
         # create topic
-        self._topic = Topic(self, f"{id}-topic")
+        self._topic = Topic(self, f"SNS Topic")
 
     @property
     def topic(self) -> ITopic:
@@ -149,8 +151,6 @@ from constructs import Construct
 
 from ddk_app.sns import SNSStage  # import my class I built above
 
-app = cdk.App()
-
 
 class DDKApplicationStack(BaseStack):
     def __init__(self, scope: Construct, id: str, **kwargs: Any) -> None:
@@ -159,13 +159,13 @@ class DDKApplicationStack(BaseStack):
         # create my bucket
         ddk_bucket = S3Factory.bucket(
             self,
-            "ddk-bucket",
+            "Bucket",
         )
 
         # create an S3 Event Stage based off the class available from `aws_ddk_core.stages`
         s3_event_stage = S3EventStage(
             scope=self,
-            id="ddk-s3-event",
+            id="S3 Event Stage",
             event_names=["Object Created"],
             bucket=ddk_bucket,
             key_prefix="raw",
@@ -174,19 +174,20 @@ class DDKApplicationStack(BaseStack):
         # instantiate my sns stage class
         sns_stage = SNSStage(
             scope=self,
-            id="ddk-sns",
+            id="SNS Stage",
         )
 
         # construct my DataPipeline
         (
-            DataPipeline(scope=self, id="ddk-pipeline")
+            DataPipeline(scope=self, id="DDK Pipeline")
             .add_stage(stage=s3_event_stage)
             .add_stage(stage=sns_stage)
         )
 
 
-DDKApplicationStack(app, "test-stack")
+app = cdk.App()
 
+DDKApplicationStack(app, "CustomStageStack")
 
 app.synth()
 
