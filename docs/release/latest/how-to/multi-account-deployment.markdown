@@ -59,28 +59,27 @@ A preferred solution is to store environment configuration in a file e.g. `ddk.j
 You can now build a CI/CD pipeline to instantiate your application in both environments.
 
 ```javascript
-import * as cdk from "aws-cdk-lib";
-import { CICDPipelineStack, Configurator } from "aws-ddk-core";
+import * as cdk from 'aws-cdk-lib';
+import * as ddk from "aws-ddk-core";
 import { Construct } from "constructs";
 
 export class ApplicationStage extends cdk.Stage {
   constructor(
     scope: Construct,
     id: string,
-    environmentId: string,
     props?: cdk.StageProps
   ) {
-    super(scope, `Ddk${environmentId}Application`, props ?? {});
-    new cdk.Stack(this, `DataPipeline${environmentId}`);
+    super(scope, id, props ?? {});
+    new cdk.Stack(this, "DataPipeline");
   }
 }
 
 const app = new cdk.App();
 
-new CICDPipelineStack(app, "DdkCodePipeline", {
+new ddk.CICDPipelineStack(app, "DDKCodePipeline", {
   environmentId: "cicd",
   pipelineName: "ddk-application-pipeline",
-  env: Configurator.getEnvironment({
+  env: ddk.Configurator.getEnvironment({
     configPath: "./ddk.json",
     environmentId: "cicd",
   }),
@@ -90,8 +89,8 @@ new CICDPipelineStack(app, "DdkCodePipeline", {
   .buildPipeline()
   .addStage({
     stageId: "dev",
-    stage: new ApplicationStage(app, "dev stage", "dev", {
-      env: Configurator.getEnvironment({
+    stage: new ApplicationStage(app, "DevStage", {
+      env: ddk.Configurator.getEnvironment({
         configPath: "./ddk.json",
         environmentId: "dev",
       }),
@@ -99,8 +98,8 @@ new CICDPipelineStack(app, "DdkCodePipeline", {
   })
   .addStage({
     stageId: "test",
-    stage: new ApplicationStage(app, "test stage", "test", {
-      env: Configurator.getEnvironment({
+    stage: new ApplicationStage(app, "TestStage", {
+      env: ddk.Configurator.getEnvironment({
         configPath: "./ddk.json",
         environmentId: "test",
       }),
@@ -108,6 +107,7 @@ new CICDPipelineStack(app, "DdkCodePipeline", {
   })
   .synth();
 
+app.synth();
 ```
 {% endtab %}
 {% tab example python %}
@@ -115,29 +115,29 @@ new CICDPipelineStack(app, "DdkCodePipeline", {
 
 ```python
 import aws_cdk as cdk
-from aws_ddk_core import CICDPipelineStack, Configurator
-
-app = cdk.App()
+import aws_ddk_core as ddk
 
 
 class ApplicationStage(cdk.Stage):
     def __init__(
         self,
         scope,
-        environment_id: str,
+        id: str,
         **kwargs,
     ) -> None:
-        super().__init__(scope, f"Ddk{environment_id.title()}Application", **kwargs)
+        super().__init__(scope, id, **kwargs)
         cdk.Stack(self, "DataPipeline")
 
 
+app = cdk.App()
+
 (
-    CICDPipelineStack(
+    ddk.CICDPipelineStack(
         app,
-        id="DdkCodePipeline",
+        id="DDKCodePipeline",
         environment_id="cicd",
         pipeline_name="ddk-application-pipeline",
-        env=Configurator.get_environment(
+        env=ddk.Configurator.get_environment(
             config_path="./ddk.json", environment_id="cicd"
         ),
     )
@@ -148,8 +148,8 @@ class ApplicationStage(cdk.Stage):
         stage_id="dev",
         stage=ApplicationStage(
             app,
-            "dev",
-            env=Configurator.get_environment(
+            "DevStage",
+            env=ddk.Configurator.get_environment(
                 config_path="./ddk.json", environment_id="dev"
             ),
         ),
@@ -158,8 +158,8 @@ class ApplicationStage(cdk.Stage):
         stage_id="test",
         stage=ApplicationStage(
             app,
-            "test",
-            env=Configurator.get_environment(
+            "TestStage",
+            env=ddk.Configurator.get_environment(
                 config_path="./ddk.json", environment_id="test"
             ),
         ),
@@ -188,6 +188,7 @@ git push --set-upstream origin main
 Running `cdk deploy` provisions the pipeline in your AWS account. The aforementioned CI/CD pipeline is [self-mutating](https://aws.amazon.com/blogs/developer/cdk-pipelines-continuous-delivery-for-aws-cdk-applications/), meaning we only need to run cdk deploy one time to get the pipeline started. After that, the pipeline automatically updates itself if code is committed to the source code repository.
 
 You should now have two deployment stages in your CodePipeline for each environment.
+
 ![Pipeline](/aws-ddk/img/multi-account-pipeline.png)
 ![Pipeline Stages](/aws-ddk/img/multi-account-stages.png)
 
