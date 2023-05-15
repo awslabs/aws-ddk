@@ -10,7 +10,7 @@ import { AthenaSQLStage } from "../src";
 import { StateMachineStageProps } from "../src/pipelines/stage";
 
 interface AthenaSqlStageTestStackProps extends StateMachineStageProps {
-  readonly queryString: string;
+  readonly queryString: string[];
   readonly workGroup?: string;
   readonly catalogName?: string;
   readonly databaseName?: string;
@@ -33,7 +33,7 @@ const app = new cdk.App();
 new integration.IntegTest(app, "AthenaSQL Stage Integration Tests", {
     testCases: [
       new AthenaSqlStageTestStack(app, "GlueTransformBasic", {
-        queryString: "SELECT 1",
+        queryString: ["SELECT 1"],
         workGroup: "primary",
       }),
     ],
