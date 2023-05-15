@@ -6,6 +6,12 @@ layout: home
 homePage: true
 ---
 
+---
+
+>#### We have recently upgraded to `1.0.0` of the DDK library. See the [upgrade guide](/aws-ddk/release/latest/how-to/upgrade-guide.html) for more details. 
+
+---
+
 ## Overview
 
 The AWS DataOps Development Kit is an open source development framework for customers that build data workflows and modern data architecture on AWS.
