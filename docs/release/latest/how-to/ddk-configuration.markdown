@@ -119,6 +119,7 @@ new ExampleStack(app, "dev");
 // Prod Stack
 new ExampleStack(app, "prod");
 ```
+{% endtab %}
 {% tab language python %}
 ```python
 import aws_cdk as cdk
@@ -160,9 +161,7 @@ ExampleStack(app, "prod")
 
 app.synth()
 
-
 ```
-{% endtab %}
 {% endtab %}
 {% endtabs %}
 
@@ -195,7 +194,7 @@ We can see that `VisibilityTimeout` has been updated as well as both the global 
 
 
 ## Resource Specific Configuration
-Resource specific configuration can be set in `Configurator` within the `resources{}` object of any given environment. For example given a configuration: 
+Resource specific configuration can be set in `Configurator` within the `resources` object of any given environment. For example given a configuration: 
 ```json
 {
     "environments": {
@@ -203,7 +202,7 @@ Resource specific configuration can be set in `Configurator` within the `resourc
             "account": "444444444444",
             "region": "us-east-1",
             "resources": {
-                "ddk-glue-transform-job": {"timeout": 300, "worker_count": 2},
+                "ddk-glue-transform-job": {"timeout": 300, "worker_count": 2}
             }
         }
     }
@@ -220,7 +219,7 @@ All resources of a given type e.g. `AWS::Lambda::Function` can be configured as 
             "region": "us-east-1",
             "resources": {
                 "AWS::Lambda::Function": {
-                    "MemorySize": 512,
+                    "MemorySize": 512
                 }
             },
         }
