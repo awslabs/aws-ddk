@@ -8,7 +8,7 @@ category: Advanced
 
 # Bootstrapping
 
-The AWS CDK requires some resources to be provisioned before deploying stacks into an account (i.e. IAM Roles, S3 Bucket for Assets). This is reffered to as [bootstrapping](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html). 
+The AWS CDK requires some resources to be provisioned before deploying stacks into an account (i.e. IAM Roles, S3 Bucket for Assets). This is referred to as [bootstrapping](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html). 
 
 ## DDK Bootstrap Cases
 The following are possible ways of bootstrapping an AWS account for DDK apps.
