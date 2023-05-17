@@ -232,7 +232,7 @@
       "env": {
         "RELEASE": "true",
         "MAJOR": "1",
-        "PRERELEASE": "beta"
+        "PRERELEASE": "rc"
       },
       "steps": [
         {

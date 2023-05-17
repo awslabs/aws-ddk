@@ -9,7 +9,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: CDK_VERSION,
   defaultReleaseBranch: "typescript-conversion",
   majorVersion: 1,
-  prerelease: "beta",
+  prerelease: "rc",
   publishDryRun: true,
   releaseTrigger: release.ReleaseTrigger.manual(),
   name: "aws-ddk-core",
