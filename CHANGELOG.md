@@ -1,4 +1,19 @@
 
+## [1.0.0-rc.0](https://github.com/awslabs/aws-ddk/compare/v1.0.0-beta.1...v1.0.0-rc.0) (2023-05-17)
+
+
+### Features
+
+* Add documentation for the stages ([#311](https://github.com/awslabs/aws-ddk/issues/311)) ([2c8e3eb](https://github.com/awslabs/aws-ddk/commit/2c8e3eb358c383f2cdc05c02ced963f2e3339b95))
+* Updating AthenaSQL stage to handle multiple queries ([#317](https://github.com/awslabs/aws-ddk/issues/317)) ([0259ace](https://github.com/awslabs/aws-ddk/commit/0259aceead1b331a08339deb2cfe48ec8644ad7b))
+
+
+### Bug Fixes
+
+* athena integration test ([#326](https://github.com/awslabs/aws-ddk/issues/326)) ([bcb9940](https://github.com/awslabs/aws-ddk/commit/bcb9940ddea178af1319040d5be875d80d5aea04))
+* Configurator missing legacy ddk bootstrap values ([#319](https://github.com/awslabs/aws-ddk/issues/319)) ([300f0fc](https://github.com/awslabs/aws-ddk/commit/300f0fcf1a2881a578af1887733a645bb3dbc749))
+* Fix documentation structure & add docs for `BaseStack` and `CICDPipelineStack` ([#310](https://github.com/awslabs/aws-ddk/issues/310)) ([11d5a1e](https://github.com/awslabs/aws-ddk/commit/11d5a1e55882841b11e075a5a4fd4fb3fe9cba03))
+
 ## [1.0.0-beta.1](https://github.com/awslabs/aws-ddk/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2023-04-17)
 
 
