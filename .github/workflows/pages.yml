@@ -19,10 +19,9 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-      - name: Install dependencies
-        run: git config http.postBuffer 524288000
       # Use GitHub Deploy Action to build and deploy to Github
-      - uses: jeffreytse/jekyll-deploy-action@v0.4.0
+      - name: DDK Docs Build
+        uses: malachi-constant/jekyll-deploy-action@0.1.0
         with:
           provider: 'github'
           token: ${{ secrets.DOCUMENTATION_UPDATE_TOKEN }} 
