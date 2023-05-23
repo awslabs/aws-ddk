@@ -28,7 +28,7 @@ url: "https://github.com/awslabs/aws-ddk" # the base hostname & protocol for you
 twitter_username: jekyllrb
 github_username:  jekyll
 workshop_url: https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US
-sdlf_workshop_url: REPLACEME
+sdlf_workshop_url: https://catalog.us-east-1.prod.workshops.aws/workshops/28010662-4e98-48a7-a8ea-9e42aafa85f7/en-US
 constructs_hub_url: https://constructs.dev/packages/aws-ddk-core/
 legacy_versions:
 - 0.1.0
