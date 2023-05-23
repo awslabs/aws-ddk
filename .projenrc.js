@@ -53,5 +53,4 @@ project.eslint.addRules({
   "prettier/prettier": ["error", { singleQuote: false }],
 });
 
-
 project.synth();
