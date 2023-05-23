@@ -1,0 +1,11 @@
+{
+    "environment_id": "dev",
+    "directory_name": "ddk_app",
+    "package_name": "ddk_app",
+    "stack_file_name": "ddk_app_stack",
+    "stack_name": "DdkApplicationStack",
+    "ddk_version": "0.6.2",
+    "python_executable": "python3",
+    "cdk_version_constraint": "2.54.0",
+    "constructs_version_constraint": ">=10.0.0,<11.0.0"
+}

@@ -1,0 +1,12 @@
+{
+    "cdk_version": "{{cookiecutter.cdk_version_constraint}}",
+    "environments": {
+        "{{cookiecutter.environment_id}}": {
+            "account": "222222222222",
+            "region": "us-east-1",
+            "resources": {
+                "ddk-bucket": {"versioned": false, "removal_policy": "destroy"}
+            }
+        }
+    }
+}

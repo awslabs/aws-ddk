@@ -18,14 +18,14 @@ category: Advanced
 
 # How to Release
 
-## 2) Copy the directory
+## 1) Copy the directory
 - Snapshot the `next` directory by creating a copy to a new directory under `release`
 
 ```shell
 cp -R ./release/next/ ./release/${releaseVersion}
 ```
 
-## 3) Update the config file
+## 2) Update the config file
 
 - Edit `_data\versions.yaml` adding a new entry to the end of the array.
 

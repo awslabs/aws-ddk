@@ -1,0 +1,14 @@
+name: Keep Backlogged Issues Open
+on:
+  issues:
+    types: [ labeled ]
+
+jobs:
+  unlabel-issue:
+    if: ${{ github.event.label.name == 'backlog' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: unlabel-issues
+        uses: andymckay/labeler@master
+        with:
+          remove-labels: "closing-soon"
