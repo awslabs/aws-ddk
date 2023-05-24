@@ -7,14 +7,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorAddress: "aws-proserve-orion-dev@amazon.com",
 
   cdkVersion: CDK_VERSION,
-  defaultReleaseBranch: "typescript-conversion",
+  defaultReleaseBranch: "main",
   majorVersion: 1,
-  prerelease: "rc",
   publishDryRun: true,
   releaseTrigger: release.ReleaseTrigger.manual(),
   name: "aws-ddk-core",
   description: "AWS DataOps Development Kit",
-  repositoryUrl: "https://github.com/awslabs/aws-ddk/tree/typescript-conversion",
+  repositoryUrl: "https://github.com/awslabs/aws-ddk/tree/main",
 
   // Artifact config: Python
   publishToPypi: {
