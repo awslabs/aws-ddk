@@ -33,4 +33,4 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.DOCUMENTATION_UPDATE_TOKEN }}
-          branch: typescript-conversion
+          branch: main
