@@ -1,5 +1,12 @@
 # AWS DataOps Development Kit (DDK)
 ![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/build.yml/badge.svg)
+[![pypi downloads](https://static.pepy.tech/personalized-badge/aws-ddk-core?period=total&units=international_system&left_color=black&right_color=orange&left_text="pypi downloads")](https://pepy.tech/project/aws-ddk-core)
+
+##### Packages 🗳️ 
+- [npm](https://www.npmjs.com/package/aws-ddk-core/v/1.0.0)
+- [pypi](https://pypi.org/project/aws-ddk-core/1.0.0/)
+
+---
 
 The AWS DataOps Development Kit is an open source development framework for customers that build data workflows and modern data architecture on AWS.
 
