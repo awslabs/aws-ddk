@@ -41,7 +41,7 @@ npm install aws-ddk-core
 
 ### Build Data Pipelines
 
-One of the core features of DDK is ability to create Data Pipelines. A DDK [DataPipeline](https://awslabs.github.io/aws-ddk/release/stable/api/core/stubs/aws_ddk_core.pipelines.DataPipeline.html) 
+One of the core features of DDK is ability to create Data Pipelines. A DDK [DataPipeline](https://constructs.dev/packages/aws-ddk-core/v/1.0.0/api/DataPipeline) 
 is a chained series of stages. It automatically “wires” the stages together using 
 [AWS EventBridge Rules](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html) .
 
