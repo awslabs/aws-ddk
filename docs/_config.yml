@@ -39,8 +39,6 @@ legacy_versions:
 - 0.6.0
 - 0.6.1
 - 0.6.2
-- stable # remove after 1.0.0 release
-stable_version: 0.6.2
 
 # Build settings
 remote_theme: pages-themes/cayman@v0.2.0

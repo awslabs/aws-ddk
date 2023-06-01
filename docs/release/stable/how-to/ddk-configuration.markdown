@@ -1,5 +1,5 @@
 ---
-title: DDK Configuration
+title: DDK Configurator
 layout: how-to
 tags: how-to
 order: 3
@@ -12,50 +12,189 @@ As a result, this core branch is the one source of truth and the same infrastruc
 to different environments (i.e. `dev`, `qa`, `prd`...). This How-To guide describes how this can be achieved in the DDK.
 
 ## Configuration
-DDK Core supports environment specific configuration with the usage of the `ddk.json` file. You can leverage it to apply different configurations to each of your DDK environments.
+DDK Core offers a construct: [Configurator](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/Configurator?lang=typescript) which can be used to manage configuration across several DDK environments. **Note: This is a completely optional construct and users should feel free to build their own configuration mechanisms when necessary.**
 
 ### Example
+In this example we will begin by creating a configuration file.
+```shell
+touch ddk.json
+```
+And updating it to include the following JSON data.
+
 ```json
 {
-    "environments": {
-        "dev": {
-            "account": "222222222222",
-            "region": "us-east-1",
-            "resources": {
-                "ddk-bucket": {"versioned": false, "removal_policy": "destroy"},
-                "ddk-sqs-lambda-function": {"memory_size": 128},
-                "ddk-sqs-lambda-queue": {"retention_period": 5040}
-            },
-            "tags": {"CostCenter": "1984"}
+  "tags": {
+    "Global:Tag:foo": "bar"
+  },
+  "account": "111111111111",
+  "region": "us-east-1",
+  "environments": {
+    "dev": {
+      "account": "222222222222",
+      "region": "us-east-1",
+      "resources": {
+        "AWS::Lambda::Function": {
+          "MemorySize": 128,
+          "Runtime": "python3.9"
         },
-        "prod": {
-            "account": "333333333333",
-            "region": "us-east-1",
-            "resources": {
-                "ddk-bucket": {"versioned": true, "removal_policy": "retain"},
-                "ddk-sqs-lambda-function": {"memory_size": 512},
-                "ddk-sqs-lambda-queue": {"retention_period": 10080}
-            },
-            "tags": {"CostCenter": "2014"}
+        "devStage/Queue": {
+          "VisibilityTimeout": 180
+        },
+        "AWS::S3::Bucket": {
+          "RemovalPolicy": "DESTROY"
         }
+      },
+      "tags": {"CostCenter": "2014"},
+      "props": {
+        "special_prop": "foobar"
+      }
+    },
+    "prod": {
+      "account": "222222222222",
+      "region": "us-east-1",
+      "resources": {
+        "AWS::Lambda::Function": {
+          "MemorySize": 1024,
+          "Runtime": "python3.9"
+        }
+      },
+      "tags": {"CostCenter": "2015"}
     }
+  }
 }
 ```
 
-For instance, based on the above configuration, the DDK Lambda function resource with id `ddk-sqs-lambda-function` has a memory size of `128` Mb in in the `dev` environment compared to `512` in the `prod` environment.
+Let's breakdown what's included in this configuration file.
 
-## Implementation
-Most DDK constructs can be configured via `ddk.json`. For example, the DDK [`BaseStack`](https://github.com/awslabs/aws-ddk/blob/main/core/aws_ddk_core/base/stack.py) class allows the following parameters:
+- A tag `"Global:Tag:foo": "bar"` is defined globally which will be applied to any scope Configurator is used on regardless of environment.
+- `account` & `region` are defined globally which can be accessed from `Configurator.getEnvironment()` to be used where a [`cdk.Environment`](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.Environment.html) is applicable.
+- `environments` is an object that includes configuration for any environments we would like to use. In this case there is one for `dev` and one for `prod`.
+- We include `account` & `region` in the environment which can be accessed to be used where a [`cdk.Environment`](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.Environment.html) is applicable.
+- The `resources` block contains any property overrides you would like to set. In this case we are overriding `MemorySize` & `Runtime` in our Lambda Functions, setting `VisibilityTimeout` for our SQS queue in `dev` and setting `DESTROY` removal policy for our S3 Bucket in `dev`. This will be explained in more detail [below](#resource-specific-configuration). 
+
+Next let's create a CDK file using Configurator to control resources in our stacks.
+{% tabs language %}
+{% tab language typescript %}
+```javascript
+import * as cdk from "aws-cdk-lib";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import {
+  BaseStack,
+  Configurator,
+  DataPipeline,
+  S3EventStage,
+  SqsToLambdaStage,
+} from "aws-ddk-core";
+import { Construct } from "constructs";
+
+const app = new cdk.App();
+
+class ExampleStack extends BaseStack {
+  constructor(scope: Construct, environment: string) {
+    super(scope, `${environment}Resources`, {});
+    const s3Stage = new S3EventStage(this, `MyEventBucket${environment}`, {
+      bucket: new s3.Bucket(this, `MyBucket${environment}`),
+      eventNames: ["Object Created"],
+    });
+    const sqsToLambdaStage = new SqsToLambdaStage(this, `${environment}Stage`, {
+      lambdaFunctionProps: {
+        code: lambda.Code.fromInline(
+          "def lambda_handler(event, context): pass;"
+        ),
+        handler: "lambda_function.lambda_handler",
+        runtime: lambda.Runtime.PYTHON_3_8,
+      },
+    });
+    new DataPipeline(this, `${environment}DataPipeline`, {})
+      .addStage({ stage: s3Stage })
+      .addStage({ stage: sqsToLambdaStage });
+    new Configurator(this, "./ddk.json", environment);
+  }
+}
+
+// Dev Stack
+new ExampleStack(app, "dev");
+
+// Prod Stack
+new ExampleStack(app, "prod");
 ```
-prefix: str
-qualifier: str
-termination_protection: str
-tags: Dict[str, str]
+{% endtab %}
+{% tab language python %}
+```python
+import aws_cdk as cdk
+import aws_cdk.aws_lambda as lmbda
+import aws_cdk.aws_s3 as s3
+from aws_ddk_core import BaseStack, Configurator, DataPipeline,S3EventStage,SqsToLambdaStage
+from constructs import Construct
+
+
+app = cdk.App()
+
+class ExampleStack(BaseStack):
+    def __init__(
+        self,
+        scope: Construct,
+        environment: str,
+    ) -> None:
+        super().__init__(scope, f"{environment}Resources")
+        s3_stage = S3EventStage(self, f"MyEventBucket{environment}", bucket=s3.Bucket(self, f"MyBucket{environment}"), event_names=["Object Created"])
+        sqs_to_lambda_stage = SqsToLambdaStage(
+          self, 
+          id=f"{environment}Stage", 
+          lambda_function_props={
+            "code": lmbda.Code.from_inline(
+              "def lambda_handler(event, context): pass;"
+            ),
+            "handler": "lambda_function.lambda_handler",
+            "runtime": lmbda.Runtime.PYTHON_3_8,
+          },
+        )
+        DataPipeline(self, id=f"{environment}DataPipeline").add_stage(stage=s3_stage).add_stage(stage=sqs_to_lambda_stage)
+        Configurator(scope=self, config="./ddk.json", environment_id=environment)
+
+# Dev Stack
+ExampleStack(app, "dev")
+
+# Prod Stack
+ExampleStack(app, "prod")
+
+app.synth()
+
 ```
-If the construct supports environment configuration, it will be listed in the documentation under ***Supported DDK Environment Configuration***. See the [API Documentation](https://awslabs.github.io/aws-ddk/release/stable/api/core/aws_ddk_core.html) for a list of DDK constructs.
+{% endtab %}
+{% endtabs %}
+
+Now let's synthesize our templates to examine `Configurator` in action.
+
+```shell
+cdk synth devResources
+cdk synth prodResources
+```
+
+If we take a look at the SQS Queue in `devResources`
+
+```yaml
+devStageQueue44060536:
+    Type: AWS::SQS::Queue
+    Properties:
+      Tags:
+        - Key: CostCenter
+          Value: "2014"
+        - Key: Global:Tag:foo
+          Value: bar
+      VisibilityTimeout: 180
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: devResources/devStage/Queue/Resource
+```
+
+We can see that `VisibilityTimeout` has been updated as well as both the global tag and environment tag have been added to the resource. The same should follow for the other resources called out by the configuration.
+
 
 ## Resource Specific Configuration
-Resource specific configuration can be set in `ddk.json` within the `resources{}` object of any given environment. For example given a configuration: 
+Resource specific configuration can be set in `Configurator` within the `resources` object of any given environment. For example given a configuration: 
 ```json
 {
     "environments": {
@@ -63,7 +202,7 @@ Resource specific configuration can be set in `ddk.json` within the `resources{}
             "account": "444444444444",
             "region": "us-east-1",
             "resources": {
-                "ddk-glue-transform-job": {"timeout": 300, "worker_count": 2},
+                "ddk-glue-transform-job": {"timeout": 300, "worker_count": 2}
             }
         }
     }
@@ -71,27 +210,18 @@ Resource specific configuration can be set in `ddk.json` within the `resources{}
 ```
 Any underlying CDK resource matching the id: "*ddk-glue-transform-job*" would be passed the properties "*timeout*" and "*worker_count*" in the `test` environment.
 
-### Property Precedence
-Explicit properties will always take precedence over config values. 
-
-```python
-# A DDK resource is configured with an explicit property 'shard_count'
-data_stream = KinesisStreamsFactory.data_stream(
-    self, id=f"example-data-stream", environment_id=environment_id, shard_count=10
-)
-```
-The above Kinesis Data Stream will be created with value '*shard_count=10*' even if *ddk.json* has a different value
-
-This configuration value would be overridden
+All resources of a given type e.g. `AWS::Lambda::Function` can be configured as well, but this will override properties for any resource matching that type within a following scope **Configurator** has been applied to. For example:
 ```json
 {
     "environments": {
         "test": {
-            "account": "3333333333333",
+            "account": "444444444444",
             "region": "us-east-1",
             "resources": {
-                "example-data-stream": {"shard_count": 5},
-            }
+                "AWS::Lambda::Function": {
+                    "MemorySize": 512
+                }
+            },
         }
     }
 }
