@@ -5819,8 +5819,21 @@ const addSecurityLintStageProps: AddSecurityLintStageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#aws-ddk-core.AddSecurityLintStageProps.property.cfnNagFailBuild">cfnNagFailBuild</a></code> | <code>boolean</code> | Fail Codepipeline Build Action on failed results from CfnNag scan. |
 | <code><a href="#aws-ddk-core.AddSecurityLintStageProps.property.cloudAssemblyFileSet">cloudAssemblyFileSet</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | Cloud assembly file set producer. |
 | <code><a href="#aws-ddk-core.AddSecurityLintStageProps.property.stageName">stageName</a></code> | <code>string</code> | Name of the stage. |
+
+---
+
+##### `cfnNagFailBuild`<sup>Optional</sup> <a name="cfnNagFailBuild" id="aws-ddk-core.AddSecurityLintStageProps.property.cfnNagFailBuild"></a>
+
+```typescript
+public readonly cfnNagFailBuild: boolean;
+```
+
+- *Type:* boolean
+
+Fail Codepipeline Build Action on failed results from CfnNag scan.
 
 ---
 
@@ -10804,7 +10817,7 @@ CICDActions.getBanditAction(codePipelineSource: CodePipelineSource, stageName?: 
 ```typescript
 import { CICDActions } from 'aws-ddk-core'
 
-CICDActions.getCfnNagAction(fileSetProducer: IFileSetProducer, stageName?: string)
+CICDActions.getCfnNagAction(fileSetProducer: IFileSetProducer, stageName?: string, failBuild?: boolean)
 ```
 
 ###### `fileSetProducer`<sup>Required</sup> <a name="fileSetProducer" id="aws-ddk-core.CICDActions.getCfnNagAction.parameter.fileSetProducer"></a>
@@ -10816,6 +10829,12 @@ CICDActions.getCfnNagAction(fileSetProducer: IFileSetProducer, stageName?: strin
 ###### `stageName`<sup>Optional</sup> <a name="stageName" id="aws-ddk-core.CICDActions.getCfnNagAction.parameter.stageName"></a>
 
 - *Type:* string
+
+---
+
+###### `failBuild`<sup>Optional</sup> <a name="failBuild" id="aws-ddk-core.CICDActions.getCfnNagAction.parameter.failBuild"></a>
+
+- *Type:* boolean
 
 ---
 

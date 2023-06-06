@@ -71,13 +71,17 @@ export class CICDActions {
   public static getCfnNagAction(
     fileSetProducer: pipelines.IFileSetProducer,
     stageName: string = "CFNNag",
+    failBuild?: boolean,
   ): pipelines.ShellStep {
     return new pipelines.ShellStep(stageName, {
       input: fileSetProducer,
       installCommands: ["gem install cfn-nag"],
+      env: {
+        FAIL_BUILD: failBuild ? "true" : "false",
+      },
       commands: [
-        'fnames=$(find ./ -type f -name "*.template.json")',
-        "for f in $fnames; do cfn_nag_scan --input-path $f; done",
+        'cfn_nag_scan --input-path ./ && scan_result="SUCCESS" || echo scan_result="FAILED"',
+        'if [[ "$FAIL_BUILD" = "true" && "$scan_result" = "FAILED" ]]; then printf "\n\nFailing pipeline as possible insecure configurations were detected\n\n" && exit 1; fi',
       ],
     });
   }
