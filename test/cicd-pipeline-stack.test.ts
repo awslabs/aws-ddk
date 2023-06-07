@@ -219,6 +219,60 @@ test("CICD Pipeline with Security Checks", () => {
   });
 });
 
+test("CICD Pipeline with Cfn Nag Action Set to Fail", () => {
+  const app = new cdk.App();
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction()
+    .buildPipeline()
+    .addSecurityLintStage({ cfnNagFailBuild: true })
+    .synth();
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::CodeBuild::Project", {
+    Artifacts: {
+      Type: "CODEPIPELINE",
+    },
+    Environment: {
+      ComputeType: "BUILD_GENERAL1_SMALL",
+      Image: "aws/codebuild/standard:6.0",
+      ImagePullCredentialsType: "CODEBUILD",
+      PrivilegedMode: false,
+      Type: "LINUX_CONTAINER",
+      EnvironmentVariables: [
+        {
+          Name: "FAIL_BUILD",
+          Type: "PLAINTEXT",
+          Value: "true",
+        },
+      ],
+    },
+  });
+  template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
+    Stages: Match.arrayWith([
+      Match.objectLike({
+        Name: "SecurityLint",
+        Actions: Match.arrayWith([
+          Match.objectLike({
+            Name: "Bandit",
+            ActionTypeId: {
+              Category: "Build",
+              Provider: "CodeBuild",
+            },
+          }),
+          Match.objectLike({
+            Name: "CFNNag",
+            ActionTypeId: {
+              Category: "Build",
+              Provider: "CodeBuild",
+            },
+          }),
+        ]),
+      }),
+    ]),
+  });
+});
+
 test("CICD Pipeline with Custom Stage", () => {
   const app = new cdk.App();
   const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })

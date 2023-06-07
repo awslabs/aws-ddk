@@ -115,6 +115,10 @@ export interface AddSecurityLintStageProps {
    * Cloud assembly file set producer.
    */
   readonly cloudAssemblyFileSet?: pipelines.IFileSetProducer;
+  /**
+   * Fail Codepipeline Build Action on failed results from CfnNag scan.
+   */
+  readonly cfnNagFailBuild?: boolean;
 }
 
 /**
@@ -455,7 +459,10 @@ export class CICDPipelineStack extends BaseStack {
     var cloudAssemblyFileSet = props.cloudAssemblyFileSet ?? this.pipeline?.cloudAssemblyFileSet;
 
     this.pipeline?.addWave(stageName, {
-      post: [CICDActions.getCfnNagAction(cloudAssemblyFileSet), CICDActions.getBanditAction(this.sourceAction)],
+      post: [
+        CICDActions.getCfnNagAction(cloudAssemblyFileSet, "CFNNag", props.cfnNagFailBuild),
+        CICDActions.getBanditAction(this.sourceAction),
+      ],
     });
 
     return this;
