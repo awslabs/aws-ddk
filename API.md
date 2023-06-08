@@ -100,6 +100,251 @@ This project is licensed under the Apache-2.0 License.
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### AirflowDataPipeline <a name="AirflowDataPipeline" id="aws-ddk-core.AirflowDataPipeline"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.AirflowDataPipeline.Initializer"></a>
+
+```typescript
+import { AirflowDataPipeline } from 'aws-ddk-core'
+
+new AirflowDataPipeline(scope: Construct, id: string, props: AirflowPipelineProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.AirflowPipelineProps">AirflowPipelineProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.AirflowDataPipeline.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.AirflowDataPipeline.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.AirflowDataPipeline.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AirflowPipelineProps">AirflowPipelineProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.createVpc">createVpc</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.AirflowDataPipeline.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `createVpc` <a name="createVpc" id="aws-ddk-core.AirflowDataPipeline.createVpc"></a>
+
+```typescript
+public createVpc(scope: Construct, environmentName: string, vpcCidr: string): IVpc
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.AirflowDataPipeline.createVpc.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `environmentName`<sup>Required</sup> <a name="environmentName" id="aws-ddk-core.AirflowDataPipeline.createVpc.parameter.environmentName"></a>
+
+- *Type:* string
+
+---
+
+###### `vpcCidr`<sup>Required</sup> <a name="vpcCidr" id="aws-ddk-core.AirflowDataPipeline.createVpc.parameter.vpcCidr"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.AirflowDataPipeline.isConstruct"></a>
+
+```typescript
+import { AirflowDataPipeline } from 'aws-ddk-core'
+
+AirflowDataPipeline.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.AirflowDataPipeline.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.environmentName">environmentName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.maxWorkerNodes">maxWorkerNodes</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.mwaaEnvironment">mwaaEnvironment</a></code> | <code>aws-cdk-lib.aws_mwaa.CfnEnvironment</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.schedulerLogsLevel">schedulerLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.taskLogsLevel">taskLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.AirflowDataPipeline.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `dagProcessingLogs`<sup>Required</sup> <a name="dagProcessingLogs" id="aws-ddk-core.AirflowDataPipeline.property.dagProcessingLogs"></a>
+
+```typescript
+public readonly dagProcessingLogs: string;
+```
+
+- *Type:* string
+
+---
+
+##### `dagS3Path`<sup>Required</sup> <a name="dagS3Path" id="aws-ddk-core.AirflowDataPipeline.property.dagS3Path"></a>
+
+```typescript
+public readonly dagS3Path: string;
+```
+
+- *Type:* string
+
+---
+
+##### `environmentName`<sup>Required</sup> <a name="environmentName" id="aws-ddk-core.AirflowDataPipeline.property.environmentName"></a>
+
+```typescript
+public readonly environmentName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `maxWorkerNodes`<sup>Required</sup> <a name="maxWorkerNodes" id="aws-ddk-core.AirflowDataPipeline.property.maxWorkerNodes"></a>
+
+```typescript
+public readonly maxWorkerNodes: number;
+```
+
+- *Type:* number
+
+---
+
+##### `mwaaEnvironment`<sup>Required</sup> <a name="mwaaEnvironment" id="aws-ddk-core.AirflowDataPipeline.property.mwaaEnvironment"></a>
+
+```typescript
+public readonly mwaaEnvironment: CfnEnvironment;
+```
+
+- *Type:* aws-cdk-lib.aws_mwaa.CfnEnvironment
+
+---
+
+##### `s3Bucket`<sup>Required</sup> <a name="s3Bucket" id="aws-ddk-core.AirflowDataPipeline.property.s3Bucket"></a>
+
+```typescript
+public readonly s3Bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `schedulerLogsLevel`<sup>Required</sup> <a name="schedulerLogsLevel" id="aws-ddk-core.AirflowDataPipeline.property.schedulerLogsLevel"></a>
+
+```typescript
+public readonly schedulerLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `taskLogsLevel`<sup>Required</sup> <a name="taskLogsLevel" id="aws-ddk-core.AirflowDataPipeline.property.taskLogsLevel"></a>
+
+```typescript
+public readonly taskLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="aws-ddk-core.AirflowDataPipeline.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `webserverLogsLevel`<sup>Required</sup> <a name="webserverLogsLevel" id="aws-ddk-core.AirflowDataPipeline.property.webserverLogsLevel"></a>
+
+```typescript
+public readonly webserverLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `workerLogsLevel`<sup>Required</sup> <a name="workerLogsLevel" id="aws-ddk-core.AirflowDataPipeline.property.workerLogsLevel"></a>
+
+```typescript
+public readonly workerLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### AppFlowIngestionStage <a name="AppFlowIngestionStage" id="aws-ddk-core.AppFlowIngestionStage"></a>
 
 Stage that contains a step function that runs an AppFlow flow ingestion.
@@ -5989,6 +6234,168 @@ public readonly stageName: string;
 - *Type:* string
 
 Name of the stage.
+
+---
+
+### AirflowPipelineProps <a name="AirflowPipelineProps" id="aws-ddk-core.AirflowPipelineProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.AirflowPipelineProps.Initializer"></a>
+
+```typescript
+import { AirflowPipelineProps } from 'aws-ddk-core'
+
+const airflowPipelineProps: AirflowPipelineProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | Log level for DagProcessing. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | Path to dags folder in s3 bucket. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.environmentName">environmentName</a></code> | <code>string</code> | An environment name that is prefixed to resource names. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.maxWorkerNodes">maxWorkerNodes</a></code> | <code>number</code> | The maximum number of workers that can run in the environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | S3 Bucket. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.schedulerLogsLevel">schedulerLogsLevel</a></code> | <code>string</code> | Log level for SchedulerLogs. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.taskLogsLevel">taskLogsLevel</a></code> | <code>string</code> | Log level for TaskLogs. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.vpcCidr">vpcCidr</a></code> | <code>string</code> | The IP range (CIDR notation) for this VPC. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.vpcId">vpcId</a></code> | <code>string</code> | Existing vpc id. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | Log level for WebserverLogs. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | Log level for WorkerLogs. |
+
+---
+
+##### `dagProcessingLogs`<sup>Optional</sup> <a name="dagProcessingLogs" id="aws-ddk-core.AirflowPipelineProps.property.dagProcessingLogs"></a>
+
+```typescript
+public readonly dagProcessingLogs: string;
+```
+
+- *Type:* string
+
+Log level for DagProcessing.
+
+---
+
+##### `dagS3Path`<sup>Optional</sup> <a name="dagS3Path" id="aws-ddk-core.AirflowPipelineProps.property.dagS3Path"></a>
+
+```typescript
+public readonly dagS3Path: string;
+```
+
+- *Type:* string
+
+Path to dags folder in s3 bucket.
+
+Default: 'dags'
+
+---
+
+##### `environmentName`<sup>Optional</sup> <a name="environmentName" id="aws-ddk-core.AirflowPipelineProps.property.environmentName"></a>
+
+```typescript
+public readonly environmentName: string;
+```
+
+- *Type:* string
+
+An environment name that is prefixed to resource names.
+
+---
+
+##### `maxWorkerNodes`<sup>Optional</sup> <a name="maxWorkerNodes" id="aws-ddk-core.AirflowPipelineProps.property.maxWorkerNodes"></a>
+
+```typescript
+public readonly maxWorkerNodes: number;
+```
+
+- *Type:* number
+
+The maximum number of workers that can run in the environment.
+
+---
+
+##### `s3Bucket`<sup>Optional</sup> <a name="s3Bucket" id="aws-ddk-core.AirflowPipelineProps.property.s3Bucket"></a>
+
+```typescript
+public readonly s3Bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+S3 Bucket.
+
+---
+
+##### `schedulerLogsLevel`<sup>Optional</sup> <a name="schedulerLogsLevel" id="aws-ddk-core.AirflowPipelineProps.property.schedulerLogsLevel"></a>
+
+```typescript
+public readonly schedulerLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for SchedulerLogs.
+
+---
+
+##### `taskLogsLevel`<sup>Optional</sup> <a name="taskLogsLevel" id="aws-ddk-core.AirflowPipelineProps.property.taskLogsLevel"></a>
+
+```typescript
+public readonly taskLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for TaskLogs.
+
+---
+
+##### `vpcCidr`<sup>Optional</sup> <a name="vpcCidr" id="aws-ddk-core.AirflowPipelineProps.property.vpcCidr"></a>
+
+```typescript
+public readonly vpcCidr: string;
+```
+
+- *Type:* string
+
+The IP range (CIDR notation) for this VPC.
+
+---
+
+##### `vpcId`<sup>Optional</sup> <a name="vpcId" id="aws-ddk-core.AirflowPipelineProps.property.vpcId"></a>
+
+```typescript
+public readonly vpcId: string;
+```
+
+- *Type:* string
+
+Existing vpc id.
+
+---
+
+##### `webserverLogsLevel`<sup>Optional</sup> <a name="webserverLogsLevel" id="aws-ddk-core.AirflowPipelineProps.property.webserverLogsLevel"></a>
+
+```typescript
+public readonly webserverLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for WebserverLogs.
+
+---
+
+##### `workerLogsLevel`<sup>Optional</sup> <a name="workerLogsLevel" id="aws-ddk-core.AirflowPipelineProps.property.workerLogsLevel"></a>
+
+```typescript
+public readonly workerLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for WorkerLogs.
 
 ---
 

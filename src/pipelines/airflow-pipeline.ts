@@ -48,6 +48,10 @@ export interface AirflowPipelineProps {
    * S3 Bucket
    */
   readonly s3Bucket?: s3.IBucket;
+  /**
+   * Path to dags folder in s3 bucket. Default: 'dags'
+   */
+  readonly dagS3Path?: string;
 }
 
 export class AirflowDataPipeline extends Construct {
@@ -61,6 +65,7 @@ export class AirflowDataPipeline extends Construct {
   readonly vpc: ec2.IVpc;
   readonly s3Bucket: s3.IBucket;
   readonly mwaaEnvironment: mwaa.CfnEnvironment;
+  readonly dagS3Path: string;
 
   constructor(scope: Construct, id: string, props: AirflowPipelineProps) {
     super(scope, id);
@@ -72,6 +77,7 @@ export class AirflowDataPipeline extends Construct {
     this.taskLogsLevel = props.taskLogsLevel ?? "INFO";
     this.workerLogsLevel = props.workerLogsLevel ?? "INFO";
     this.webserverLogsLevel = props.webserverLogsLevel ?? "INFO";
+    this.dagS3Path = props.dagS3Path ?? "dags";
 
     if (props.vpcId) {
       this.vpc = ec2.Vpc.fromLookup(scope, "VPC", { vpcId: props.vpcId });
@@ -175,16 +181,16 @@ export class AirflowDataPipeline extends Construct {
     );
 
     this.mwaaEnvironment = new mwaa.CfnEnvironment(this, "MWAA Environment", {
-      name: `${props.environmentName}`,
+      name: this.environmentName,
       sourceBucketArn: this.s3Bucket.bucketArn,
       executionRoleArn: mwaaExecutionRole.roleArn,
-      dagS3Path: "dags",
+      dagS3Path: this.dagS3Path,
       networkConfiguration: {
         securityGroupIds: [securityGroup.securityGroupId],
         subnetIds: [this.vpc.privateSubnets.toString()],
       },
       webserverAccessMode: "PUBLIC_ONLY",
-      maxWorkers: props.maxWorkerNodes,
+      maxWorkers: this.maxWorkerNodes,
       loggingConfiguration: {
         dagProcessingLogs: {
           enabled: true,
@@ -211,11 +217,11 @@ export class AirflowDataPipeline extends Construct {
   }
   createVpc(scope: Construct, environmentName: string, vpcCidr: string): ec2.IVpc {
     const resourceName = `${environmentName}-MWAA`;
-    const vpcCIDRMask = +vpcCidr.split("/");
+    const vpcCIDRMask = +vpcCidr.split("/")[1];
     if (vpcCIDRMask > 20 || vpcCIDRMask < 16) {
       throw new Error("Vpc Cidr Range must of size >=16 and <=20");
     }
-    const subnetCIDRMask = vpcCIDRMask + 8;
+    const subnetCIDRMask = vpcCIDRMask + 4;
     const vpc = new ec2.Vpc(scope, "Vpc", {
       ipAddresses: ec2.IpAddresses.cidr(vpcCidr),
       enableDnsSupport: true,
@@ -223,22 +229,12 @@ export class AirflowDataPipeline extends Construct {
       vpcName: resourceName,
       subnetConfiguration: [
         {
-          name: "Public Subnet 1",
+          name: "Public",
           subnetType: ec2.SubnetType.PUBLIC,
           cidrMask: subnetCIDRMask,
         },
         {
-          name: "Public Subnet 2",
-          subnetType: ec2.SubnetType.PUBLIC,
-          cidrMask: subnetCIDRMask,
-        },
-        {
-          name: "Private Subnet 1",
-          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
-          cidrMask: subnetCIDRMask,
-        },
-        {
-          name: "Private Subnet 2",
+          name: "Private",
           subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
           cidrMask: subnetCIDRMask,
         },
