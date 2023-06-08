@@ -7,7 +7,7 @@ import { Construct } from "constructs";
 
 import { S3Factory } from "../core/s3-factory";
 
-export interface AppflowPipelineProps {
+export interface AirflowPipelineProps {
   /**
    * An environment name that is prefixed to resource names
    */
@@ -50,7 +50,7 @@ export interface AppflowPipelineProps {
   readonly s3Bucket?: s3.IBucket;
 }
 
-export class AppflowDataPipeline extends Construct {
+export class AirflowDataPipeline extends Construct {
   readonly environmentName: string;
   readonly maxWorkerNodes: number;
   readonly dagProcessingLogs: string;
@@ -62,7 +62,7 @@ export class AppflowDataPipeline extends Construct {
   readonly s3Bucket: s3.IBucket;
   readonly mwaaEnvironment: mwaa.CfnEnvironment;
 
-  constructor(scope: Construct, id: string, props: AppflowPipelineProps) {
+  constructor(scope: Construct, id: string, props: AirflowPipelineProps) {
     super(scope, id);
 
     this.environmentName = props.environmentName ?? "MWAAEnvironment";
