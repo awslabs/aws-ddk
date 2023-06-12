@@ -84,6 +84,7 @@ test("AirflowDataPipeline All Settings", () => {
     workerLogsLevel: "ERROR",
     webserverLogsLevel: "ERROR",
     dagS3Path: "foobar",
+    dagFiles: ["./test/dags/"],
   });
 
   const template = Template.fromStack(stack);

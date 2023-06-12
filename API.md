@@ -6251,6 +6251,7 @@ const airflowPipelineProps: AirflowPipelineProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagFiles">dagFiles</a></code> | <code>string[]</code> | File(s) to be uploaded to dags location in s3 bucket. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | Log level for DagProcessing. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | Path to dags folder in s3 bucket. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.environmentName">environmentName</a></code> | <code>string</code> | An environment name that is prefixed to resource names. |
@@ -6262,6 +6263,18 @@ const airflowPipelineProps: AirflowPipelineProps = { ... }
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.vpcId">vpcId</a></code> | <code>string</code> | Existing vpc id. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | Log level for WebserverLogs. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | Log level for WorkerLogs. |
+
+---
+
+##### `dagFiles`<sup>Optional</sup> <a name="dagFiles" id="aws-ddk-core.AirflowPipelineProps.property.dagFiles"></a>
+
+```typescript
+public readonly dagFiles: string[];
+```
+
+- *Type:* string[]
+
+File(s) to be uploaded to dags location in s3 bucket.
 
 ---
 

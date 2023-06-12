@@ -3,6 +3,7 @@ import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as mwaa from "aws-cdk-lib/aws-mwaa";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
 
 import { S3Factory } from "../core/s3-factory";
@@ -52,6 +53,10 @@ export interface AirflowPipelineProps {
    * Path to dags folder in s3 bucket. Default: 'dags'
    */
   readonly dagS3Path?: string;
+  /**
+   * File(s) to be uploaded to dags location in s3 bucket.
+   */
+  readonly dagFiles?: string[];
 }
 
 export class AirflowDataPipeline extends Construct {
@@ -99,6 +104,18 @@ export class AirflowDataPipeline extends Construct {
     } else {
       this.s3Bucket = S3Factory.bucket(this, "Environment Bucket", {
         versioned: true,
+      });
+    }
+
+    if (props.dagFiles) {
+      var sources: s3deploy.ISource[] = [];
+      props.dagFiles.forEach((location) => {
+        sources.push(s3deploy.Source.asset(location));
+      });
+      new s3deploy.BucketDeployment(this, "DeployWebsite", {
+        sources: sources,
+        destinationBucket: this.s3Bucket,
+        destinationKeyPrefix: this.dagS3Path,
       });
     }
 
