@@ -40,6 +40,8 @@ __Configurator uses the [DefaultStackSynthesizer](https://docs.aws.amazon.com/cd
 ```json
 "environments": {
   "dev": {
+    "account": "000000000000",
+    "region": "us-west-2",
     "bootstrap": {
       "qualifier": "abcdefgh",
       "bucket_name": "ddk-abcdefgh-assets-000000000000-us-west-2",
@@ -55,6 +57,8 @@ __Configurator uses the [DefaultStackSynthesizer](https://docs.aws.amazon.com/cd
 ```
 
 The stack synthesizer will be created for your app using all values specified in `Configurator()` and resort to default `cdk bootstrap` values when not explicitly set.
+
+**Note**: The values for `account` and `region` will be default to `CDK_DEFAULT_ACCOUNT` and `CDK_DEFAULT_REGION` if not explicitly set in the environment config.
 
 
 
