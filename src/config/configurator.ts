@@ -189,17 +189,35 @@ class ConfiguratorAspect implements cdk.IAspect {
 }
 
 export interface GetEnvConfigProps {
-  readonly configPath: string;
+  /**
+   * Relative path to config file. Defaults to './ddk.json'
+   */
+  readonly configPath?: string;
+  /**
+   * Environment identifier
+   */
   readonly environmentId: string;
 }
 
 export interface GetTagsProps {
+  /**
+   * Relative path to config file. Defaults to './ddk.json'
+   */
   readonly configPath: string;
+  /**
+   * Environment identifier
+   */
   readonly environmentId?: string;
 }
 
 export interface GetEnvironmentProps {
+  /**
+   * Relative path to config file. Defaults to './ddk.json'
+   */
   readonly configPath: string;
+  /**
+   * Environment identifier.
+   */
   readonly environmentId?: string;
 }
 

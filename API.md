@@ -8788,18 +8788,8 @@ const getEnvConfigProps: GetEnvConfigProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetEnvConfigProps.property.configPath"></a>
-
-```typescript
-public readonly configPath: string;
-```
-
-- *Type:* string
+| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.environmentId">environmentId</a></code> | <code>string</code> | Environment identifier. |
+| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.configPath">configPath</a></code> | <code>string</code> | Relative path to config file. |
 
 ---
 
@@ -8810,6 +8800,22 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+
+Environment identifier.
+
+---
+
+##### `configPath`<sup>Optional</sup> <a name="configPath" id="aws-ddk-core.GetEnvConfigProps.property.configPath"></a>
+
+```typescript
+public readonly configPath: string;
+```
+
+- *Type:* string
+
+Relative path to config file.
+
+Defaults to './ddk.json'
 
 ---
 
@@ -8827,8 +8833,8 @@ const getEnvironmentProps: GetEnvironmentProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.configPath">configPath</a></code> | <code>string</code> | Relative path to config file. |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.environmentId">environmentId</a></code> | <code>string</code> | Environment identifier. |
 
 ---
 
@@ -8840,6 +8846,10 @@ public readonly configPath: string;
 
 - *Type:* string
 
+Relative path to config file.
+
+Defaults to './ddk.json'
+
 ---
 
 ##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.GetEnvironmentProps.property.environmentId"></a>
@@ -8849,6 +8859,8 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+
+Environment identifier.
 
 ---
 
@@ -8993,8 +9005,8 @@ const getTagsProps: GetTagsProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GetTagsProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GetTagsProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetTagsProps.property.configPath">configPath</a></code> | <code>string</code> | Relative path to config file. |
+| <code><a href="#aws-ddk-core.GetTagsProps.property.environmentId">environmentId</a></code> | <code>string</code> | Environment identifier. |
 
 ---
 
@@ -9006,6 +9018,10 @@ public readonly configPath: string;
 
 - *Type:* string
 
+Relative path to config file.
+
+Defaults to './ddk.json'
+
 ---
 
 ##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.GetTagsProps.property.environmentId"></a>
@@ -9015,6 +9031,8 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+
+Environment identifier.
 
 ---
 
