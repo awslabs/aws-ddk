@@ -6,8 +6,8 @@ import { parse } from "yaml";
 const ddkBootstrapConfigKey = "bootstrap";
 const bootstrapPrefix = "ddk";
 const bootstrapQualifier = "hnb659fds";
-const accountId = process.env.CDK_DEFAULT_ACCOUNT;
-const region = process.env.CDK_DEFAULT_REGION;
+const defaultAccountId = process.env.CDK_DEFAULT_ACCOUNT;
+const defaultRegion = process.env.CDK_DEFAULT_REGION;
 
 export interface EnvironmentConfiguration {
   readonly account?: string;
@@ -111,6 +111,12 @@ interface getStackSynthesizerProps {
 
 export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
   const configData = getConfig({ config: props.config });
+
+  const accountId =
+    configData && props.environmentId ? configData.environments[props.environmentId].account : defaultAccountId;
+
+  const region =
+    configData && props.environmentId ? configData.environments[props.environmentId].region : defaultRegion;
 
   const bootstrapConfig: any = configData
     ? configData.ddkBootstrapConfigKey
