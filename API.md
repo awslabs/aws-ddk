@@ -6251,6 +6251,7 @@ const airflowPipelineProps: AirflowPipelineProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additiona policy statements to add to the airflow execution role. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagFiles">dagFiles</a></code> | <code>string[]</code> | File(s) to be uploaded to dags location in s3 bucket. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | Log level for DagProcessing. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | Path to dags folder in s3 bucket. |
@@ -6263,6 +6264,18 @@ const airflowPipelineProps: AirflowPipelineProps = { ... }
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.vpcId">vpcId</a></code> | <code>string</code> | Existing vpc id. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | Log level for WebserverLogs. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | Log level for WorkerLogs. |
+
+---
+
+##### `additionalPolicyStatements`<sup>Optional</sup> <a name="additionalPolicyStatements" id="aws-ddk-core.AirflowPipelineProps.property.additionalPolicyStatements"></a>
+
+```typescript
+public readonly additionalPolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+Additiona policy statements to add to the airflow execution role.
 
 ---
 
