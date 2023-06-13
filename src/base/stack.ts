@@ -42,7 +42,7 @@ export class BaseStack extends cdk.Stack {
   ): iam.IManagedPolicy {
     const prefix = props.prefix ?? "ddk";
     const environmentId = props.environmentId ?? "dev";
-    const qualifier = props.environmentId ?? "hnb659fds";
+    const qualifier = props.qualifier ?? "hnb659fds";
 
     const policyStatements = [
       new iam.PolicyStatement({
@@ -119,10 +119,11 @@ export class BaseStack extends cdk.Stack {
    * @param props Stack properties.
    */
   constructor(scope: Construct, id: string, props: BaseStackProps) {
-    const environmentId = props.environmentId ? props.environmentId : "dev";
     const synthesizer = props.synthesizer
       ? props.synthesizer
-      : getStackSynthesizer({ environmentId: environmentId, config: props.config });
+      : props.environmentId
+      ? getStackSynthesizer({ environmentId: props.environmentId, config: props.config })
+      : undefined;
 
     super(scope, id, { synthesizer: synthesizer, ...props });
 
