@@ -1,4 +1,14 @@
 
+### [1.0.1](https://github.com/awslabs/aws-ddk/compare/v1.0.0...v1.0.1) (2023-06-13)
+
+
+### Bug Fixes
+
+* account/region determination in getStackSynthesizer ([#347](https://github.com/awslabs/aws-ddk/issues/347)) ([34dbe7e](https://github.com/awslabs/aws-ddk/commit/34dbe7ef339b29eb371b5af7912a3eb180771b2c))
+* Adding failBuild parameter ([#337](https://github.com/awslabs/aws-ddk/issues/337)) ([a5c3264](https://github.com/awslabs/aws-ddk/commit/a5c3264dbdfebb2d0574ef486e597ff4d07bfa47))
+* make 'configPath' optional ([#343](https://github.com/awslabs/aws-ddk/issues/343)) ([689c795](https://github.com/awslabs/aws-ddk/commit/689c79596c2d33d2d98d7b9c7c628d0c835f8ab1))
+* removing default environment id from get stack synthesizer method ([#352](https://github.com/awslabs/aws-ddk/issues/352)) ([0fe3827](https://github.com/awslabs/aws-ddk/commit/0fe382733aff874a91f0741ddc5db0b6d8b97ded))
+
 ## [1.0.0-rc.0](https://github.com/awslabs/aws-ddk/compare/v1.0.0-beta.1...v1.0.0-rc.0) (2023-05-17)
 
 
