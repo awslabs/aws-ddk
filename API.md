@@ -210,8 +210,6 @@ Any object.
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.environmentName">environmentName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.maxWorkerNodes">maxWorkerNodes</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.mwaaEnvironment">mwaaEnvironment</a></code> | <code>aws-cdk-lib.aws_mwaa.CfnEnvironment</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.schedulerLogsLevel">schedulerLogsLevel</a></code> | <code>string</code> | *No description.* |
@@ -251,26 +249,6 @@ public readonly dagS3Path: string;
 ```
 
 - *Type:* string
-
----
-
-##### `environmentName`<sup>Required</sup> <a name="environmentName" id="aws-ddk-core.AirflowDataPipeline.property.environmentName"></a>
-
-```typescript
-public readonly environmentName: string;
-```
-
-- *Type:* string
-
----
-
-##### `maxWorkerNodes`<sup>Required</sup> <a name="maxWorkerNodes" id="aws-ddk-core.AirflowDataPipeline.property.maxWorkerNodes"></a>
-
-```typescript
-public readonly maxWorkerNodes: number;
-```
-
-- *Type:* number
 
 ---
 
@@ -6251,12 +6229,29 @@ const airflowPipelineProps: AirflowPipelineProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.name">name</a></code> | <code>string</code> | The name of your Amazon MWAA environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.airflowConfigurationOptions">airflowConfigurationOptions</a></code> | <code>any</code> | A list of key-value pairs containing the Airflow configuration options for your environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.airflowVersion">airflowVersion</a></code> | <code>string</code> | The version of Apache Airflow to use for the environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | The relative path to the DAGs folder on your Amazon S3 bucket. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.environmentClass">environmentClass</a></code> | <code>string</code> | The environment class type. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the execution role in IAM that allows MWAA to access AWS resources in your environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.kmsKey">kmsKey</a></code> | <code>string</code> | The AWS Key Management Service (KMS) key to encrypt and decrypt the data in your environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code>aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty \| aws-cdk-lib.IResolvable</code> | The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` . |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.maxWorkers">maxWorkers</a></code> | <code>number</code> | The maximum number of workers that you want to run in your environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.minWorkers">minWorkers</a></code> | <code>number</code> | The minimum number of workers that you want to run in your environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty \| aws-cdk-lib.IResolvable</code> | The VPC networking components used to secure and enable network traffic between the AWS resources for your environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.pluginsS3ObjectVersion">pluginsS3ObjectVersion</a></code> | <code>string</code> | The version of the plugins.zip file on your Amazon S3 bucket. To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) . |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.pluginsS3Path">pluginsS3Path</a></code> | <code>string</code> | The relative path to the `plugins.zip` file on your Amazon S3 bucket. For example, `plugins.zip` . To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) . |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.requirementsS3ObjectVersion">requirementsS3ObjectVersion</a></code> | <code>string</code> | The version of the requirements.txt file on your Amazon S3 bucket. To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) . |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.requirementsS3Path">requirementsS3Path</a></code> | <code>string</code> | The relative path to the `requirements.txt` file on your Amazon S3 bucket. For example, `requirements.txt` . To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) . |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.schedulers">schedulers</a></code> | <code>number</code> | The number of schedulers that you want to run in your environment. Valid values:. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.sourceBucketArn">sourceBucketArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the Amazon S3 bucket where your DAG code and supporting files are stored. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.tags">tags</a></code> | <code>any</code> | The key-value tag pairs associated to your environment. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.webserverAccessMode">webserverAccessMode</a></code> | <code>string</code> | The Apache Airflow *Web server* access mode. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.weeklyMaintenanceWindowStart">weeklyMaintenanceWindowStart</a></code> | <code>string</code> | The day and time of the week to start weekly maintenance updates of your environment in the following format: `DAY:HH:MM` . |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additiona policy statements to add to the airflow execution role. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagFiles">dagFiles</a></code> | <code>string[]</code> | File(s) to be uploaded to dags location in s3 bucket. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | Log level for DagProcessing. |
-| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | Path to dags folder in s3 bucket. |
-| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.environmentName">environmentName</a></code> | <code>string</code> | An environment name that is prefixed to resource names. |
-| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.maxWorkerNodes">maxWorkerNodes</a></code> | <code>number</code> | The maximum number of workers that can run in the environment. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | S3 Bucket. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.schedulerLogsLevel">schedulerLogsLevel</a></code> | <code>string</code> | Log level for SchedulerLogs. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.taskLogsLevel">taskLogsLevel</a></code> | <code>string</code> | Log level for TaskLogs. |
@@ -6264,6 +6259,317 @@ const airflowPipelineProps: AirflowPipelineProps = { ... }
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.vpcId">vpcId</a></code> | <code>string</code> | Existing vpc id. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | Log level for WebserverLogs. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | Log level for WorkerLogs. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="aws-ddk-core.AirflowPipelineProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of your Amazon MWAA environment.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-name](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-name)
+
+---
+
+##### `airflowConfigurationOptions`<sup>Optional</sup> <a name="airflowConfigurationOptions" id="aws-ddk-core.AirflowPipelineProps.property.airflowConfigurationOptions"></a>
+
+```typescript
+public readonly airflowConfigurationOptions: any;
+```
+
+- *Type:* any
+
+A list of key-value pairs containing the Airflow configuration options for your environment.
+
+For example, `core.default_timezone: utc` . To learn more, see [Apache Airflow configuration options](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-env-variables.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowconfigurationoptions](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowconfigurationoptions)
+
+---
+
+##### `airflowVersion`<sup>Optional</sup> <a name="airflowVersion" id="aws-ddk-core.AirflowPipelineProps.property.airflowVersion"></a>
+
+```typescript
+public readonly airflowVersion: string;
+```
+
+- *Type:* string
+
+The version of Apache Airflow to use for the environment.
+
+If no value is specified, defaults to the latest version. Valid values: `2.0.2` , `1.10.12` , `2.2.2` , and `2.4.3` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion)
+
+---
+
+##### `dagS3Path`<sup>Optional</sup> <a name="dagS3Path" id="aws-ddk-core.AirflowPipelineProps.property.dagS3Path"></a>
+
+```typescript
+public readonly dagS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the DAGs folder on your Amazon S3 bucket.
+
+For example, `dags` . To learn more, see [Adding or updating DAGs](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-folder.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-dags3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-dags3path)
+
+---
+
+##### `environmentClass`<sup>Optional</sup> <a name="environmentClass" id="aws-ddk-core.AirflowPipelineProps.property.environmentClass"></a>
+
+```typescript
+public readonly environmentClass: string;
+```
+
+- *Type:* string
+
+The environment class type.
+
+Valid values: `mw1.small` , `mw1.medium` , `mw1.large` . To learn more, see [Amazon MWAA environment class](https://docs.aws.amazon.com/mwaa/latest/userguide/environment-class.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-environmentclass](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-environmentclass)
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="aws-ddk-core.AirflowPipelineProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+
+The Amazon Resource Name (ARN) of the execution role in IAM that allows MWAA to access AWS resources in your environment.
+
+For example, `arn:aws:iam::123456789:role/my-execution-role` . To learn more, see [Amazon MWAA Execution role](https://docs.aws.amazon.com/mwaa/latest/userguide/mwaa-create-role.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-executionrolearn](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-executionrolearn)
+
+---
+
+##### `kmsKey`<sup>Optional</sup> <a name="kmsKey" id="aws-ddk-core.AirflowPipelineProps.property.kmsKey"></a>
+
+```typescript
+public readonly kmsKey: string;
+```
+
+- *Type:* string
+
+The AWS Key Management Service (KMS) key to encrypt and decrypt the data in your environment.
+
+You can use an AWS KMS key managed by MWAA, or a customer-managed KMS key (advanced).
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-kmskey](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-kmskey)
+
+---
+
+##### `loggingConfiguration`<sup>Optional</sup> <a name="loggingConfiguration" id="aws-ddk-core.AirflowPipelineProps.property.loggingConfiguration"></a>
+
+```typescript
+public readonly loggingConfiguration: LoggingConfigurationProperty | IResolvable;
+```
+
+- *Type:* aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty | aws-cdk-lib.IResolvable
+
+The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-loggingconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-loggingconfiguration)
+
+---
+
+##### `maxWorkers`<sup>Optional</sup> <a name="maxWorkers" id="aws-ddk-core.AirflowPipelineProps.property.maxWorkers"></a>
+
+```typescript
+public readonly maxWorkers: number;
+```
+
+- *Type:* number
+
+The maximum number of workers that you want to run in your environment.
+
+MWAA scales the number of Apache Airflow workers up to the number you specify in the `MaxWorkers` field. For example, `20` . When there are no more tasks running, and no more in the queue, MWAA disposes of the extra workers leaving the one worker that is included with your environment, or the number you specify in `MinWorkers` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxworkers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxworkers)
+
+---
+
+##### `minWorkers`<sup>Optional</sup> <a name="minWorkers" id="aws-ddk-core.AirflowPipelineProps.property.minWorkers"></a>
+
+```typescript
+public readonly minWorkers: number;
+```
+
+- *Type:* number
+
+The minimum number of workers that you want to run in your environment.
+
+MWAA scales the number of Apache Airflow workers up to the number you specify in the `MaxWorkers` field. When there are no more tasks running, and no more in the queue, MWAA disposes of the extra workers leaving the worker count you specify in the `MinWorkers` field. For example, `2` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-minworkers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-minworkers)
+
+---
+
+##### `networkConfiguration`<sup>Optional</sup> <a name="networkConfiguration" id="aws-ddk-core.AirflowPipelineProps.property.networkConfiguration"></a>
+
+```typescript
+public readonly networkConfiguration: NetworkConfigurationProperty | IResolvable;
+```
+
+- *Type:* aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty | aws-cdk-lib.IResolvable
+
+The VPC networking components used to secure and enable network traffic between the AWS resources for your environment.
+
+To learn more, see [About networking on Amazon MWAA](https://docs.aws.amazon.com/mwaa/latest/userguide/networking-about.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-networkconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-networkconfiguration)
+
+---
+
+##### `pluginsS3ObjectVersion`<sup>Optional</sup> <a name="pluginsS3ObjectVersion" id="aws-ddk-core.AirflowPipelineProps.property.pluginsS3ObjectVersion"></a>
+
+```typescript
+public readonly pluginsS3ObjectVersion: string;
+```
+
+- *Type:* string
+
+The version of the plugins.zip file on your Amazon S3 bucket. To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3objectversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3objectversion)
+
+---
+
+##### `pluginsS3Path`<sup>Optional</sup> <a name="pluginsS3Path" id="aws-ddk-core.AirflowPipelineProps.property.pluginsS3Path"></a>
+
+```typescript
+public readonly pluginsS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the `plugins.zip` file on your Amazon S3 bucket. For example, `plugins.zip` . To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3path)
+
+---
+
+##### `requirementsS3ObjectVersion`<sup>Optional</sup> <a name="requirementsS3ObjectVersion" id="aws-ddk-core.AirflowPipelineProps.property.requirementsS3ObjectVersion"></a>
+
+```typescript
+public readonly requirementsS3ObjectVersion: string;
+```
+
+- *Type:* string
+
+The version of the requirements.txt file on your Amazon S3 bucket. To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3objectversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3objectversion)
+
+---
+
+##### `requirementsS3Path`<sup>Optional</sup> <a name="requirementsS3Path" id="aws-ddk-core.AirflowPipelineProps.property.requirementsS3Path"></a>
+
+```typescript
+public readonly requirementsS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the `requirements.txt` file on your Amazon S3 bucket. For example, `requirements.txt` . To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3path)
+
+---
+
+##### `schedulers`<sup>Optional</sup> <a name="schedulers" id="aws-ddk-core.AirflowPipelineProps.property.schedulers"></a>
+
+```typescript
+public readonly schedulers: number;
+```
+
+- *Type:* number
+
+The number of schedulers that you want to run in your environment. Valid values:.
+
+*v2* - Accepts between 2 to 5. Defaults to 2.
+- *v1* - Accepts 1.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-schedulers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-schedulers)
+
+---
+
+##### `sourceBucketArn`<sup>Optional</sup> <a name="sourceBucketArn" id="aws-ddk-core.AirflowPipelineProps.property.sourceBucketArn"></a>
+
+```typescript
+public readonly sourceBucketArn: string;
+```
+
+- *Type:* string
+
+The Amazon Resource Name (ARN) of the Amazon S3 bucket where your DAG code and supporting files are stored.
+
+For example, `arn:aws:s3:::my-airflow-bucket-unique-name` . To learn more, see [Create an Amazon S3 bucket for Amazon MWAA](https://docs.aws.amazon.com/mwaa/latest/userguide/mwaa-s3-bucket.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-sourcebucketarn](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-sourcebucketarn)
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.AirflowPipelineProps.property.tags"></a>
+
+```typescript
+public readonly tags: any;
+```
+
+- *Type:* any
+
+The key-value tag pairs associated to your environment.
+
+For example, `"Environment": "Staging"` . To learn more, see [Tagging](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-tags](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-tags)
+
+---
+
+##### `webserverAccessMode`<sup>Optional</sup> <a name="webserverAccessMode" id="aws-ddk-core.AirflowPipelineProps.property.webserverAccessMode"></a>
+
+```typescript
+public readonly webserverAccessMode: string;
+```
+
+- *Type:* string
+
+The Apache Airflow *Web server* access mode.
+
+To learn more, see [Apache Airflow access modes](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-networking.html) . Valid values: `PRIVATE_ONLY` or `PUBLIC_ONLY` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-webserveraccessmode](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-webserveraccessmode)
+
+---
+
+##### `weeklyMaintenanceWindowStart`<sup>Optional</sup> <a name="weeklyMaintenanceWindowStart" id="aws-ddk-core.AirflowPipelineProps.property.weeklyMaintenanceWindowStart"></a>
+
+```typescript
+public readonly weeklyMaintenanceWindowStart: string;
+```
+
+- *Type:* string
+
+The day and time of the week to start weekly maintenance updates of your environment in the following format: `DAY:HH:MM` .
+
+For example: `TUE:03:30` . You can specify a start time in 30 minute increments only. Supported input includes the following:
+
+- MON|TUE|WED|THU|FRI|SAT|SUN:([01]\\d|2[0-3]):(00|30)
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-weeklymaintenancewindowstart](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-weeklymaintenancewindowstart)
 
 ---
 
@@ -6300,44 +6606,6 @@ public readonly dagProcessingLogs: string;
 - *Type:* string
 
 Log level for DagProcessing.
-
----
-
-##### `dagS3Path`<sup>Optional</sup> <a name="dagS3Path" id="aws-ddk-core.AirflowPipelineProps.property.dagS3Path"></a>
-
-```typescript
-public readonly dagS3Path: string;
-```
-
-- *Type:* string
-
-Path to dags folder in s3 bucket.
-
-Default: 'dags'
-
----
-
-##### `environmentName`<sup>Optional</sup> <a name="environmentName" id="aws-ddk-core.AirflowPipelineProps.property.environmentName"></a>
-
-```typescript
-public readonly environmentName: string;
-```
-
-- *Type:* string
-
-An environment name that is prefixed to resource names.
-
----
-
-##### `maxWorkerNodes`<sup>Optional</sup> <a name="maxWorkerNodes" id="aws-ddk-core.AirflowPipelineProps.property.maxWorkerNodes"></a>
-
-```typescript
-public readonly maxWorkerNodes: number;
-```
-
-- *Type:* number
-
-The maximum number of workers that can run in the environment.
 
 ---
 

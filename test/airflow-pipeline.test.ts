@@ -9,12 +9,12 @@ test("AirflowDataPipeline Basic", () => {
   const stack = new cdk.Stack();
 
   new AirflowDataPipeline(stack, "airflow-pipeline", {
+    name: "MWAAEnvironment",
     vpcCidr: "10.44.0.0/16",
   });
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::MWAA::Environment", {
     Name: "MWAAEnvironment",
-    MaxWorkers: 2,
   });
   template.resourceCountIs("AWS::IAM::Role", 1);
   template.hasResourceProperties("AWS::S3::Bucket", {});
@@ -37,6 +37,7 @@ test("AirflowDataPipeline Existing Vpc & Bucket", () => {
     },
   });
   new AirflowDataPipeline(stack, "airflow-pipeline", {
+    name: "MWAAEnvironment",
     vpcId: "vpc-01234567",
     s3Bucket: new s3.Bucket(stack, "my-dummy-bucket", {}),
   });
@@ -50,7 +51,7 @@ test("AirflowDataPipeline Existing Vpc & Bucket", () => {
 test("Vpc Cidr or Id must be provided", () => {
   const stack = new cdk.Stack();
   expect(() => {
-    new AirflowDataPipeline(stack, "Stage", {});
+    new AirflowDataPipeline(stack, "Stage", { name: "MWAAEnvironment" });
   }).toThrowError("One of 'vpcId' or 'vpcCidr' must be provided");
 });
 
@@ -58,6 +59,7 @@ test("Invalid Vpc Cidr: Too Large", () => {
   const stack = new cdk.Stack();
   expect(() => {
     new AirflowDataPipeline(stack, "Stage", {
+      name: "MWAAEnvironment",
       vpcCidr: "10.0.0.0/15",
     });
   }).toThrowError("Vpc Cidr Range must of size >=16 and <=20");
@@ -67,6 +69,7 @@ test("Invalid Vpc Cidr: Too Small", () => {
   const stack = new cdk.Stack();
   expect(() => {
     new AirflowDataPipeline(stack, "Stage", {
+      name: "MWAAEnvironment",
       vpcCidr: "10.0.0.0/21",
     });
   }).toThrowError("Vpc Cidr Range must of size >=16 and <=20");
@@ -77,8 +80,8 @@ test("AirflowDataPipeline All Settings", () => {
 
   new AirflowDataPipeline(stack, "airflow-pipeline", {
     vpcCidr: "10.44.0.0/16",
-    environmentName: "my-environment",
-    maxWorkerNodes: 5,
+    name: "my-environment",
+    maxWorkers: 5,
     dagProcessingLogs: "ERROR",
     schedulerLogsLevel: "ERROR",
     taskLogsLevel: "ERROR",

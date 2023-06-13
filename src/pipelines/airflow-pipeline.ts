@@ -8,15 +8,7 @@ import { Construct } from "constructs";
 
 import { S3Factory } from "../core/s3-factory";
 
-export interface AirflowPipelineProps {
-  /**
-   * An environment name that is prefixed to resource names
-   */
-  readonly environmentName?: string;
-  /**
-   * The maximum number of workers that can run in the environment
-   */
-  readonly maxWorkerNodes?: number;
+export interface AirflowPipelineProps extends mwaa.CfnEnvironmentProps {
   /**
    * Log level for DagProcessing
    */
@@ -50,10 +42,6 @@ export interface AirflowPipelineProps {
    */
   readonly s3Bucket?: s3.IBucket;
   /**
-   * Path to dags folder in s3 bucket. Default: 'dags'
-   */
-  readonly dagS3Path?: string;
-  /**
    * File(s) to be uploaded to dags location in s3 bucket.
    */
   readonly dagFiles?: string[];
@@ -64,8 +52,6 @@ export interface AirflowPipelineProps {
 }
 
 export class AirflowDataPipeline extends Construct {
-  readonly environmentName: string;
-  readonly maxWorkerNodes: number;
   readonly dagProcessingLogs: string;
   readonly schedulerLogsLevel: string;
   readonly taskLogsLevel: string;
@@ -79,8 +65,6 @@ export class AirflowDataPipeline extends Construct {
   constructor(scope: Construct, id: string, props: AirflowPipelineProps) {
     super(scope, id);
 
-    this.environmentName = props.environmentName ?? "MWAAEnvironment";
-    this.maxWorkerNodes = props.maxWorkerNodes ?? 2;
     this.dagProcessingLogs = props.dagProcessingLogs ?? "INFO";
     this.schedulerLogsLevel = props.schedulerLogsLevel ?? "INFO";
     this.taskLogsLevel = props.taskLogsLevel ?? "INFO";
@@ -91,13 +75,13 @@ export class AirflowDataPipeline extends Construct {
     if (props.vpcId) {
       this.vpc = ec2.Vpc.fromLookup(scope, "VPC", { vpcId: props.vpcId });
     } else if (props.vpcCidr) {
-      this.vpc = this.createVpc(scope, this.environmentName, props.vpcCidr);
+      this.vpc = this.createVpc(scope, props.name, props.vpcCidr);
     } else {
       throw new Error("One of 'vpcId' or 'vpcCidr' must be provided");
     }
 
-    const securityGroup = new ec2.SecurityGroup(scope, `${props.environmentName} Security Group`, {
-      securityGroupName: `${props.environmentName} Security Group`,
+    const securityGroup = new ec2.SecurityGroup(scope, `${props.name} Security Group`, {
+      securityGroupName: `${props.name} Security Group`,
       description: "Security group with a self-referencing inbound rule.",
       vpc: this.vpc,
     });
@@ -136,9 +120,7 @@ export class AirflowDataPipeline extends Construct {
           new iam.PolicyStatement({
             actions: ["airflow:PublishMetrics"],
             resources: [
-              `arn:aws:airflow:${cdk.Stack.of(scope).region}:${cdk.Stack.of(scope).account}:environment/${
-                props.environmentName
-              }`,
+              `arn:aws:airflow:${cdk.Stack.of(scope).region}:${cdk.Stack.of(scope).account}:environment/${props.name}`,
             ],
           }),
           new iam.PolicyStatement({
@@ -208,7 +190,6 @@ export class AirflowDataPipeline extends Construct {
     }
 
     this.mwaaEnvironment = new mwaa.CfnEnvironment(this, "MWAA Environment", {
-      name: this.environmentName,
       sourceBucketArn: this.s3Bucket.bucketArn,
       executionRoleArn: mwaaExecutionRole.roleArn,
       dagS3Path: this.dagS3Path,
@@ -217,7 +198,6 @@ export class AirflowDataPipeline extends Construct {
         subnetIds: [this.vpc.privateSubnets.toString()],
       },
       webserverAccessMode: "PUBLIC_ONLY",
-      maxWorkers: this.maxWorkerNodes,
       loggingConfiguration: {
         dagProcessingLogs: {
           enabled: true,
@@ -240,6 +220,7 @@ export class AirflowDataPipeline extends Construct {
           logLevel: props.workerLogsLevel,
         },
       },
+      ...props,
     });
   }
   createVpc(scope: Construct, environmentName: string, vpcCidr: string): ec2.IVpc {

@@ -13,8 +13,8 @@ class AirflowDataPipelineTestStack extends cdk.Stack {
 
     new AirflowDataPipeline(this, "airflow-pipeline", {
       vpcCidr: "10.55.0.0/16",
-      environmentName: "integ-test",
-      maxWorkerNodes: 5,
+      name: "integ-test",
+      maxWorkers: 5,
       dagFiles: ["./integ/dags/"],
     });
   }
