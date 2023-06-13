@@ -57,6 +57,10 @@ export interface AirflowPipelineProps {
    * File(s) to be uploaded to dags location in s3 bucket.
    */
   readonly dagFiles?: string[];
+  /**
+   * Additiona policy statements to add to the airflow execution role
+   */
+  readonly additionalPolicyStatements?: iam.PolicyStatement[];
 }
 
 export class AirflowDataPipeline extends Construct {
@@ -196,6 +200,12 @@ export class AirflowDataPipeline extends Construct {
         ],
       }),
     );
+
+    if (props.additionalPolicyStatements) {
+      props.additionalPolicyStatements.forEach((statement) => {
+        mwaaExecutionRole.addToPolicy(statement);
+      });
+    }
 
     this.mwaaEnvironment = new mwaa.CfnEnvironment(this, "MWAA Environment", {
       name: this.environmentName,
