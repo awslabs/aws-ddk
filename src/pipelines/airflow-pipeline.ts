@@ -46,7 +46,15 @@ export interface AirflowPipelineProps extends mwaa.CfnEnvironmentProps {
    */
   readonly dagFiles?: string[];
   /**
-   * Additiona policy statements to add to the airflow execution role
+   * Requirements file to be uploaded to plugin path in S3. 'requirementsS3Path' must be specified as well.
+   */
+  readonly requirementsFile?: string;
+  /**
+   * Plugin file to be uploaded to plugin path in S3. 'pluginsS3Path' must be specified as well.
+   */
+  readonly pluginFile?: string;
+  /**
+   * Additional policy statements to add to the airflow execution role
    */
   readonly additionalPolicyStatements?: iam.PolicyStatement[];
 }
@@ -61,6 +69,7 @@ export class AirflowDataPipeline extends Construct {
   readonly s3Bucket: s3.IBucket;
   readonly mwaaEnvironment: mwaa.CfnEnvironment;
   readonly dagS3Path: string;
+  readonly pluginFile?: s3deploy.BucketDeployment;
 
   constructor(scope: Construct, id: string, props: AirflowPipelineProps) {
     super(scope, id);
@@ -100,11 +109,39 @@ export class AirflowDataPipeline extends Construct {
       props.dagFiles.forEach((location) => {
         sources.push(s3deploy.Source.asset(location));
       });
-      new s3deploy.BucketDeployment(this, "DeployWebsite", {
+      new s3deploy.BucketDeployment(this, "Deploy Dag Files", {
         sources: sources,
         destinationBucket: this.s3Bucket,
         destinationKeyPrefix: this.dagS3Path,
       });
+    }
+
+    if (props.pluginFile) {
+      if (props.pluginsS3Path) {
+        this.pluginFile = new s3deploy.BucketDeployment(this, "Deploy Plugin File", {
+          sources: [s3deploy.Source.asset(props.pluginFile)],
+          destinationBucket: this.s3Bucket,
+          destinationKeyPrefix: props.pluginsS3Path,
+        });
+      } else {
+        throw new Error("'pluginsS3Path' must be specified if a 'pluginFile' is specified.");
+      }
+    }
+
+    if (props.requirementsFile) {
+      if (props.requirementsS3Path) {
+        this.pluginFile = new s3deploy.BucketDeployment(this, "Deploy Requirements File", {
+          sources: [
+            s3deploy.Source.asset(props.requirementsFile.split("/").slice(0, -1).join("/"), {
+              exclude: ["**", `!${props.requirementsFile.split("/")[-1]}`],
+            }),
+          ],
+          destinationBucket: this.s3Bucket,
+          destinationKeyPrefix: props.requirementsS3Path,
+        });
+      } else {
+        throw new Error("'requirementsS3Path' must be specified if a 'requirementsFile' is specified.");
+      }
     }
 
     const mwaaExecutionRole = new iam.Role(scope, "MWAA Execution Role", {

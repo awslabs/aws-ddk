@@ -75,6 +75,40 @@ test("Invalid Vpc Cidr: Too Small", () => {
   }).toThrowError("Vpc Cidr Range must of size >=16 and <=20");
 });
 
+test("Plugin Path not specified", () => {
+  const app = new cdk.App();
+  const stack = new cdk.Stack(app, "dummy-stack", {
+    env: {
+      account: "123456789012",
+      region: "us-east-1",
+    },
+  });
+  expect(() => {
+    new AirflowDataPipeline(stack, "Stage", {
+      name: "MWAAEnvironment",
+      vpcId: "vpc-xxxxxx",
+      pluginFile: "./test/mwaa/plugins/plugins.zip",
+    });
+  }).toThrowError("'pluginsS3Path' must be specified if a 'pluginFile' is specified.");
+});
+
+test("Requirements Path not specified", () => {
+  const app = new cdk.App();
+  const stack = new cdk.Stack(app, "dummy-stack", {
+    env: {
+      account: "123456789012",
+      region: "us-east-1",
+    },
+  });
+  expect(() => {
+    new AirflowDataPipeline(stack, "Stage", {
+      name: "MWAAEnvironment",
+      vpcId: "vpc-xxxxxx",
+      requirementsFile: "./test/mwaa/requirements.txt",
+    });
+  }).toThrowError("'requirementsS3Path' must be specified if a 'requirementsFile' is specified.");
+});
+
 test("AirflowDataPipeline All Settings", () => {
   const stack = new cdk.Stack();
 
@@ -88,7 +122,11 @@ test("AirflowDataPipeline All Settings", () => {
     workerLogsLevel: "ERROR",
     webserverLogsLevel: "ERROR",
     dagS3Path: "foobar",
-    dagFiles: ["./test/dags/"],
+    dagFiles: ["./test/mwaa/dags/"],
+    pluginFile: "./test/mwaa/plugins/plugins.zip",
+    pluginsS3Path: "plugins/plugins.zip",
+    requirementsFile: "./test/mwaa/requirements.txt",
+    requirementsS3Path: "requirements.txt",
     additionalPolicyStatements: [
       new iam.PolicyStatement({
         actions: ["airflow:CreateCliToken"],

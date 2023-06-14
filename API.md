@@ -217,6 +217,7 @@ Any object.
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.AirflowDataPipeline.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.AirflowDataPipeline.property.pluginFile">pluginFile</a></code> | <code>aws-cdk-lib.aws_s3_deployment.BucketDeployment</code> | *No description.* |
 
 ---
 
@@ -319,6 +320,16 @@ public readonly workerLogsLevel: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `pluginFile`<sup>Optional</sup> <a name="pluginFile" id="aws-ddk-core.AirflowDataPipeline.property.pluginFile"></a>
+
+```typescript
+public readonly pluginFile: BucketDeployment;
+```
+
+- *Type:* aws-cdk-lib.aws_s3_deployment.BucketDeployment
 
 ---
 
@@ -6249,9 +6260,11 @@ const airflowPipelineProps: AirflowPipelineProps = { ... }
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.tags">tags</a></code> | <code>any</code> | The key-value tag pairs associated to your environment. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.webserverAccessMode">webserverAccessMode</a></code> | <code>string</code> | The Apache Airflow *Web server* access mode. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.weeklyMaintenanceWindowStart">weeklyMaintenanceWindowStart</a></code> | <code>string</code> | The day and time of the week to start weekly maintenance updates of your environment in the following format: `DAY:HH:MM` . |
-| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additiona policy statements to add to the airflow execution role. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policy statements to add to the airflow execution role. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagFiles">dagFiles</a></code> | <code>string[]</code> | File(s) to be uploaded to dags location in s3 bucket. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | Log level for DagProcessing. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.pluginFile">pluginFile</a></code> | <code>string</code> | Plugin file to be uploaded to plugin path in S3. |
+| <code><a href="#aws-ddk-core.AirflowPipelineProps.property.requirementsFile">requirementsFile</a></code> | <code>string</code> | Requirements file to be uploaded to plugin path in S3. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | S3 Bucket. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.schedulerLogsLevel">schedulerLogsLevel</a></code> | <code>string</code> | Log level for SchedulerLogs. |
 | <code><a href="#aws-ddk-core.AirflowPipelineProps.property.taskLogsLevel">taskLogsLevel</a></code> | <code>string</code> | Log level for TaskLogs. |
@@ -6581,7 +6594,7 @@ public readonly additionalPolicyStatements: PolicyStatement[];
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
 
-Additiona policy statements to add to the airflow execution role.
+Additional policy statements to add to the airflow execution role.
 
 ---
 
@@ -6606,6 +6619,34 @@ public readonly dagProcessingLogs: string;
 - *Type:* string
 
 Log level for DagProcessing.
+
+---
+
+##### `pluginFile`<sup>Optional</sup> <a name="pluginFile" id="aws-ddk-core.AirflowPipelineProps.property.pluginFile"></a>
+
+```typescript
+public readonly pluginFile: string;
+```
+
+- *Type:* string
+
+Plugin file to be uploaded to plugin path in S3.
+
+'pluginsS3Path' must be specified as well.
+
+---
+
+##### `requirementsFile`<sup>Optional</sup> <a name="requirementsFile" id="aws-ddk-core.AirflowPipelineProps.property.requirementsFile"></a>
+
+```typescript
+public readonly requirementsFile: string;
+```
+
+- *Type:* string
+
+Requirements file to be uploaded to plugin path in S3.
+
+'requirementsS3Path' must be specified as well.
 
 ---
 
