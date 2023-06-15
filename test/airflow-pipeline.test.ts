@@ -1,5 +1,5 @@
 import * as cdk from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as s3 from "aws-cdk-lib/aws-s3";
 
@@ -15,6 +15,10 @@ test("AirflowDataPipeline Basic", () => {
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::MWAA::Environment", {
     Name: "MWAAEnvironment",
+    NetworkConfiguration: {
+      SecurityGroupIds: Match.anyValue(),
+      SubnetIds: [Match.anyValue(), Match.anyValue()],
+    },
   });
   template.resourceCountIs("AWS::IAM::Role", 1);
   template.hasResourceProperties("AWS::S3::Bucket", {});

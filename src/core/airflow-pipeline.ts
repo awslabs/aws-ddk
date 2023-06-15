@@ -6,7 +6,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
 
-import { S3Factory } from "../core/s3-factory";
+import { S3Factory } from "./s3-factory";
 
 export interface AirflowPipelineProps extends mwaa.CfnEnvironmentProps {
   /**
@@ -208,13 +208,11 @@ export class AirflowDataPipeline extends Construct {
           new iam.PolicyStatement({
             actions: ["kms:Decrypt", "kms:DescribeKey", "kms:GenerateDataKey*", "kms:Encrypt"],
             notResources: [`arn:aws:kms:*:${cdk.Stack.of(scope).account}:key/*`],
-            conditions: [
-              {
-                StringLike: {
-                  "kms:ViaService": [`sqs.${cdk.Stack.of(scope).region}.amazonaws.com`],
-                },
+            conditions: {
+              StringLike: {
+                "kms:ViaService": [`sqs.${cdk.Stack.of(scope).region}.amazonaws.com`],
               },
-            ],
+            },
           }),
         ],
       }),
@@ -232,29 +230,29 @@ export class AirflowDataPipeline extends Construct {
       dagS3Path: this.dagS3Path,
       networkConfiguration: {
         securityGroupIds: [securityGroup.securityGroupId],
-        subnetIds: [this.vpc.privateSubnets.toString()],
+        subnetIds: this.vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }).subnetIds,
       },
       webserverAccessMode: "PUBLIC_ONLY",
       loggingConfiguration: {
         dagProcessingLogs: {
           enabled: true,
-          logLevel: props.dagProcessingLogs,
+          logLevel: this.dagProcessingLogs,
         },
         schedulerLogs: {
           enabled: true,
-          logLevel: props.schedulerLogsLevel,
+          logLevel: this.schedulerLogsLevel,
         },
         taskLogs: {
           enabled: true,
-          logLevel: props.taskLogsLevel,
+          logLevel: this.taskLogsLevel,
         },
         webserverLogs: {
           enabled: true,
-          logLevel: props.webserverLogsLevel,
+          logLevel: this.webserverLogsLevel,
         },
         workerLogs: {
           enabled: false,
-          logLevel: props.workerLogsLevel,
+          logLevel: this.workerLogsLevel,
         },
       },
       ...props,
