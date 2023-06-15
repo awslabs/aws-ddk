@@ -209,6 +209,7 @@ test("SQSToLambdaStage additional properties", () => {
       code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
       handler: "commons.handlers.lambda_handler",
       runtime: lambda.Runtime.PYTHON_3_8,
+      timeout: cdk.Duration.minutes(8),
     },
     messageGroupId: "dummy-group",
     maxReceiveCount: 2,
@@ -225,10 +226,39 @@ test("SQSToLambdaStage additional properties", () => {
   template.hasResourceProperties("AWS::Lambda::Function", {
     Runtime: "python3.8",
     FunctionName: "dummy-function",
+    Timeout: 480,
   });
   template.resourceCountIs("AWS::SQS::Queue", 2);
   template.hasResourceProperties("AWS::SQS::Queue", {
     VisibilityTimeout: 300,
     QueueName: "dummy-queue.fifo",
+  });
+});
+
+test("SQSToLambdaStage DLQ No FIFO", () => {
+  const stack = new cdk.Stack();
+
+  new SqsToLambdaStage(stack, "Stage", {
+    lambdaFunctionProps: {
+      functionName: "dummy-function",
+      code: lambda.Code.fromAsset(path.join(__dirname, "/../src/")),
+      handler: "commons.handlers.lambda_handler",
+      runtime: lambda.Runtime.PYTHON_3_8,
+    },
+    messageGroupId: "dummy-group",
+    maxReceiveCount: 2,
+    dlqEnabled: true,
+    sqsQueueProps: {
+      queueName: "dummy-queue",
+      visibilityTimeout: cdk.Duration.minutes(5),
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.resourceCountIs("AWS::SQS::Queue", 2);
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    VisibilityTimeout: 300,
+    QueueName: "dummy-queue",
   });
 });
