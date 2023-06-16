@@ -3,12 +3,12 @@ import { Match, Template } from "aws-cdk-lib/assertions";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as s3 from "aws-cdk-lib/aws-s3";
 
-import { AirflowDataPipeline } from "../src";
+import { MWAAEnvironment } from "../src";
 
-test("AirflowDataPipeline Basic", () => {
+test("MWAAEnvironment Basic", () => {
   const stack = new cdk.Stack();
 
-  new AirflowDataPipeline(stack, "airflow-pipeline", {
+  new MWAAEnvironment(stack, "MWAA-environment", {
     name: "MWAAEnvironment",
     vpcCidr: "10.44.0.0/16",
   });
@@ -32,7 +32,7 @@ test("AirflowDataPipeline Basic", () => {
   template.resourceCountIs("AWS::EC2::VPCGatewayAttachment", 1);
 });
 
-test("AirflowDataPipeline Existing Vpc & Bucket", () => {
+test("MWAAEnvironment Existing Vpc & Bucket", () => {
   const app = new cdk.App();
   const stack = new cdk.Stack(app, "dummy-stack", {
     env: {
@@ -40,7 +40,7 @@ test("AirflowDataPipeline Existing Vpc & Bucket", () => {
       region: "us-east-1",
     },
   });
-  new AirflowDataPipeline(stack, "airflow-pipeline", {
+  new MWAAEnvironment(stack, "MWAA-pipeline", {
     name: "MWAAEnvironment",
     vpcId: "vpc-01234567",
     s3Bucket: new s3.Bucket(stack, "my-dummy-bucket", {}),
@@ -55,14 +55,14 @@ test("AirflowDataPipeline Existing Vpc & Bucket", () => {
 test("Vpc Cidr or Id must be provided", () => {
   const stack = new cdk.Stack();
   expect(() => {
-    new AirflowDataPipeline(stack, "Stage", { name: "MWAAEnvironment" });
+    new MWAAEnvironment(stack, "Stage", { name: "MWAAEnvironment" });
   }).toThrowError("One of 'vpcId' or 'vpcCidr' must be provided");
 });
 
 test("Invalid Vpc Cidr: Too Large", () => {
   const stack = new cdk.Stack();
   expect(() => {
-    new AirflowDataPipeline(stack, "Stage", {
+    new MWAAEnvironment(stack, "Stage", {
       name: "MWAAEnvironment",
       vpcCidr: "10.0.0.0/15",
     });
@@ -72,7 +72,7 @@ test("Invalid Vpc Cidr: Too Large", () => {
 test("Invalid Vpc Cidr: Too Small", () => {
   const stack = new cdk.Stack();
   expect(() => {
-    new AirflowDataPipeline(stack, "Stage", {
+    new MWAAEnvironment(stack, "Stage", {
       name: "MWAAEnvironment",
       vpcCidr: "10.0.0.0/21",
     });
@@ -88,7 +88,7 @@ test("Plugin Path not specified", () => {
     },
   });
   expect(() => {
-    new AirflowDataPipeline(stack, "Stage", {
+    new MWAAEnvironment(stack, "Stage", {
       name: "MWAAEnvironment",
       vpcId: "vpc-xxxxxx",
       pluginFile: "./test/mwaa/plugins/plugins.zip",
@@ -105,7 +105,7 @@ test("Requirements Path not specified", () => {
     },
   });
   expect(() => {
-    new AirflowDataPipeline(stack, "Stage", {
+    new MWAAEnvironment(stack, "Stage", {
       name: "MWAAEnvironment",
       vpcId: "vpc-xxxxxx",
       requirementsFile: "./test/mwaa/requirements.txt",
@@ -113,10 +113,10 @@ test("Requirements Path not specified", () => {
   }).toThrowError("'requirementsS3Path' must be specified if a 'requirementsFile' is specified.");
 });
 
-test("AirflowDataPipeline All Settings", () => {
+test("MWAAEnvironment All Settings", () => {
   const stack = new cdk.Stack();
 
-  new AirflowDataPipeline(stack, "airflow-pipeline", {
+  new MWAAEnvironment(stack, "MWAA-pipeline", {
     vpcCidr: "10.44.0.0/16",
     name: "my-environment",
     maxWorkers: 5,
@@ -133,7 +133,7 @@ test("AirflowDataPipeline All Settings", () => {
     requirementsS3Path: "requirements.txt",
     additionalPolicyStatements: [
       new iam.PolicyStatement({
-        actions: ["airflow:CreateCliToken"],
+        actions: ["MWAA:CreateCliToken"],
         resources: ["*"],
       }),
     ],

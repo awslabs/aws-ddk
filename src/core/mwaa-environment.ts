@@ -8,7 +8,7 @@ import { Construct } from "constructs";
 
 import { S3Factory } from "./s3-factory";
 
-export interface AirflowPipelineProps extends mwaa.CfnEnvironmentProps {
+export interface MWAAEnvironmentProps extends mwaa.CfnEnvironmentProps {
   /**
    * Log level for DagProcessing
    */
@@ -59,7 +59,7 @@ export interface AirflowPipelineProps extends mwaa.CfnEnvironmentProps {
   readonly additionalPolicyStatements?: iam.PolicyStatement[];
 }
 
-export class AirflowDataPipeline extends Construct {
+export class MWAAEnvironment extends Construct {
   readonly dagProcessingLogs: string;
   readonly schedulerLogsLevel: string;
   readonly taskLogsLevel: string;
@@ -71,7 +71,7 @@ export class AirflowDataPipeline extends Construct {
   readonly dagS3Path: string;
   readonly pluginFile?: s3deploy.BucketDeployment;
 
-  constructor(scope: Construct, id: string, props: AirflowPipelineProps) {
+  constructor(scope: Construct, id: string, props: MWAAEnvironmentProps) {
     super(scope, id);
 
     this.dagProcessingLogs = props.dagProcessingLogs ?? "INFO";
