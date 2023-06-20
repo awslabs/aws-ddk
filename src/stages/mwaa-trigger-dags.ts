@@ -50,29 +50,31 @@ export class MWAATriggerDagsStage extends StateMachineStage {
     super(scope, id, props);
 
     this.mwaaEnvironmentName = props.mwaaEnvironmentName;
-    const waitTask = new sfn.Wait(this, "Wait Before Checking Status", {
-      time: sfn.WaitTime.duration(props.statusCheckPeriod ?? cdk.Duration.seconds(15)),
-    });
 
     const lambdas = this.buildLambdas();
 
     const definition = new sfn.Parallel(this, "Parallel States");
     for (const dag in props.dags) {
+      const dagId = props.dags[dag];
+      const waitTask = new sfn.Wait(this, `Wait Before Checking ${dagId} Status`, {
+        time: sfn.WaitTime.duration(props.statusCheckPeriod ?? cdk.Duration.seconds(15)),
+      });
       definition.branch(
-        new tasks.LambdaInvoke(this, `Trigger Dag ${dag}`, {
+        new tasks.LambdaInvoke(this, `Trigger Dag ${dagId}`, {
           lambdaFunction: lambdas.triggerLambda,
-          payload: sfn.TaskInput.fromObject({ "dag_id": dag }),
+          payload: sfn.TaskInput.fromObject({ dag_id: dagId }),
         })
-          .next(waitTask).next(
-            new tasks.LambdaInvoke(this, `Get Dag ${dag} Execution Status`, {
+          .next(waitTask)
+          .next(
+            new tasks.LambdaInvoke(this, `Get Dag ${dagId} Execution Status`, {
               lambdaFunction: lambdas.statusLambda,
-              payload: sfn.TaskInput.fromObject({ "dag_id": dag }),
+              payload: sfn.TaskInput.fromObject({ dag_id: dagId }),
             }).next(
-              new sfn.Choice(this, `Check ${dag} Execution Status`)
-                .when(sfn.Condition.stringEquals("$.state", "success"), new sfn.Succeed(this, `${dag} success`))
+              new sfn.Choice(this, `Check ${dagId} Execution Status`)
+                .when(sfn.Condition.stringEquals("$.state", "success"), new sfn.Succeed(this, `${dagId} success`))
                 .when(
                   sfn.Condition.stringEquals("$.state", "failed"),
-                  new sfn.Fail(this, `${dag} failure`, { error: "DagExecutionFailed" }),
+                  new sfn.Fail(this, `${dagId} failure`, { error: "DagExecutionFailed" }),
                 )
                 .otherwise(waitTask),
             ),

@@ -20,8 +20,25 @@ test("MWAA Trigger Dags Stage Basic", () => {
   });
 });
 
-
 test("MWAA Trigger Dags Stage More Options", () => {
   const stack = new cdk.Stack();
-  new MWAATriggerDagsStage(stack, "MWAA Stage", { mwaaEnvironmentName: "dummyenv", dags: ["foo", "bar"], statusCheckPeriod: cdk.Duration.minutes(1)});
+  new MWAATriggerDagsStage(stack, "MWAA Stage", {
+    mwaaEnvironmentName: "dummyenv",
+    dags: ["foo", "bar"],
+    statusCheckPeriod: cdk.Duration.minutes(1),
+  });
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::StepFunctions::StateMachine", {
+    DefinitionString: {
+      "Fn::Join": [
+        "",
+        Match.arrayWith([
+          Match.stringLikeRegexp("Trigger Dag foo"),
+          Match.stringLikeRegexp("Get Dag foo Execution Status"),
+          Match.stringLikeRegexp("Trigger Dag bar"),
+          Match.stringLikeRegexp("Get Dag bar Execution Status"),
+        ]),
+      ],
+    },
+  });
 });
