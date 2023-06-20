@@ -18,7 +18,11 @@ export interface MWAATriggerDagsStageProps extends StateMachineStageProps {
   /**
    * Name of dag(s) to trigger.
    */
-  readonly dags: string[];
+  readonly dags?: string[];
+  /**
+   * Path to array of dag id's to check.
+   */
+  readonly dagPath?: string;
   /**
    * Time to wait between execution status checks.
    * @default aws_cdk.Duration.seconds(15)
@@ -50,37 +54,42 @@ export class MWAATriggerDagsStage extends StateMachineStage {
     super(scope, id, props);
 
     this.mwaaEnvironmentName = props.mwaaEnvironmentName;
-
+    if (props.dags && props.dagPath) {
+      throw TypeError("For this stage provide one of 'dags' or 'dagPath' parameter, not both");
+    }
+    const dagIds = props.dagPath ? sfn.JsonPath.stringAt(props.dagPath) : props.dags;
+    if (!dagIds) {
+      throw TypeError("For this stage one of 'dags' or 'dagPath' parameter is required");
+    }
     const lambdas = this.buildLambdas();
 
     const definition = new sfn.Parallel(this, "Parallel States");
-    for (const dag in props.dags) {
-      const dagId = props.dags[dag];
-      const waitTask = new sfn.Wait(this, `Wait Before Checking ${dagId} Status`, {
-        time: sfn.WaitTime.duration(props.statusCheckPeriod ?? cdk.Duration.seconds(15)),
-      });
-      definition.branch(
-        new tasks.LambdaInvoke(this, `Trigger Dag ${dagId}`, {
-          lambdaFunction: lambdas.triggerLambda,
-          payload: sfn.TaskInput.fromObject({ dag_id: dagId }),
-        })
-          .next(waitTask)
-          .next(
-            new tasks.LambdaInvoke(this, `Get Dag ${dagId} Execution Status`, {
-              lambdaFunction: lambdas.statusLambda,
-              payload: sfn.TaskInput.fromObject({ dag_id: dagId }),
-            }).next(
-              new sfn.Choice(this, `Check ${dagId} Execution Status`)
-                .when(sfn.Condition.stringEquals("$.Payload", "success"), new sfn.Succeed(this, `${dagId} success`))
-                .when(
-                  sfn.Condition.stringEquals("$.Payload", "failed"),
-                  new sfn.Fail(this, `${dagId} failure`, { error: "DagExecutionFailed" }),
-                )
-                .otherwise(waitTask),
-            ),
+    const waitTask = new sfn.Wait(this, "Wait Before Checking Status", {
+      time: sfn.WaitTime.duration(props.statusCheckPeriod ?? cdk.Duration.seconds(15)),
+    });
+    definition.branch(
+      new tasks.LambdaInvoke(this, "Trigger Dag", {
+        lambdaFunction: lambdas.triggerLambda,
+        payload: sfn.TaskInput.fromObject({ dag_ids: dagIds }),
+        resultPath: sfn.JsonPath.DISCARD,
+      })
+        .next(waitTask)
+        .next(
+          new tasks.LambdaInvoke(this, "Get Dag Execution Status", {
+            lambdaFunction: lambdas.statusLambda,
+            payload: sfn.TaskInput.fromObject({ dag_ids: dagIds }),
+            resultPath: "$.result",
+          }).next(
+            new sfn.Choice(this, `Check Execution Status`)
+              .when(sfn.Condition.stringEquals("$.result.Payload", "success"), new sfn.Succeed(this, "Success"))
+              .when(
+                sfn.Condition.stringEquals("$.result.Payload", "failed"),
+                new sfn.Fail(this, "Failure", { error: "DagExecutionFailed" }),
+              )
+              .otherwise(waitTask),
           ),
-      );
-    }
+        ),
+    );
 
     ({
       eventPattern: this.eventPattern,
@@ -146,8 +155,6 @@ def lambda_handler(event, context):
     mwaa_cli_token = client.create_cli_token(
         Name=mwaa_env_name
     )
-
-    dag_id = event['dag_id']
     
     conn = http.client.HTTPSConnection(mwaa_cli_token['WebServerHostname'])
     headers = {
@@ -155,7 +162,8 @@ def lambda_handler(event, context):
       'Content-Type': 'text/plain'
     }
 
-    run_api_call(conn, f"dags trigger {dag_id}", headers)
+    for dag_id in event['dag_ids']:
+      run_api_call(conn, f"dags trigger {dag_id}", headers)
         `),
       handler: "index.lambda_handler",
       role: lambdaRole,
@@ -207,18 +215,25 @@ def lambda_handler(event, context):
         Name=mwaa_env_name
     )
   
-    dag_id = event['dag_id']
-
     conn = http.client.HTTPSConnection(mwaa_cli_token['WebServerHostname'])
     headers = {
       'Authorization': 'Bearer ' + mwaa_cli_token['CliToken'],
       'Content-Type': 'text/plain'
     }
 
-    results = json.loads(run_api_call(conn, f"dags list-runs -d {dag_id} -o json -s {execution_date}", headers))
-    for result in results:
-        return result['state']
-        break
+    dag_results = []
+    for dag_id in event['dag_ids']:
+      results = json.loads(run_api_call(conn, f"dags list-runs -d {dag_id} -o json -s {execution_date}", headers))
+      for result in results:
+          dag_results.append(result['state'])
+          break
+    
+    if "running" in dag_results:
+        return "running"
+    elif "failed" in dag_results:
+        return "failed"
+    else:
+        return "success"
         `),
       handler: "index.lambda_handler",
       role: lambdaRole,

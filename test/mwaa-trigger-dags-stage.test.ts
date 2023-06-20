@@ -11,10 +11,7 @@ test("MWAA Trigger Dags Stage Basic", () => {
     DefinitionString: {
       "Fn::Join": [
         "",
-        Match.arrayWith([
-          Match.stringLikeRegexp("Trigger Dag dummy"),
-          Match.stringLikeRegexp("Get Dag dummy Execution Status"),
-        ]),
+        Match.arrayWith([Match.stringLikeRegexp("Trigger Dag"), Match.stringLikeRegexp("Get Dag Execution Status")]),
       ],
     },
   });
@@ -32,13 +29,42 @@ test("MWAA Trigger Dags Stage More Options", () => {
     DefinitionString: {
       "Fn::Join": [
         "",
-        Match.arrayWith([
-          Match.stringLikeRegexp("Trigger Dag foo"),
-          Match.stringLikeRegexp("Get Dag foo Execution Status"),
-          Match.stringLikeRegexp("Trigger Dag bar"),
-          Match.stringLikeRegexp("Get Dag bar Execution Status"),
-        ]),
+        Match.arrayWith([Match.stringLikeRegexp("Trigger Dag"), Match.stringLikeRegexp("Get Dag Execution Status")]),
       ],
     },
   });
+});
+
+test("MWAA Trigger Dags Path", () => {
+  const stack = new cdk.Stack();
+  new MWAATriggerDagsStage(stack, "MWAA Stage", {
+    mwaaEnvironmentName: "dummyenv",
+    dagPath: "$.dag_ids",
+  });
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::StepFunctions::StateMachine", {
+    DefinitionString: {
+      "Fn::Join": ["", Match.arrayWith([Match.stringLikeRegexp(".*dag_ids")])],
+    },
+  });
+});
+
+test("MWAATriggerDags missing dags property", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new MWAATriggerDagsStage(stack, "Stage", {
+      mwaaEnvironmentName: "dummyenv",
+    });
+  }).toThrowError("For this stage one of 'dags' or 'dagPath' parameter is required");
+});
+
+test("MWAATriggerDags duplicate dags properties", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new MWAATriggerDagsStage(stack, "Stage", {
+      mwaaEnvironmentName: "dummyenv",
+      dags: ["foo"],
+      dagPath: "$.dags",
+    });
+  }).toThrowError("For this stage provide one of 'dags' or 'dagPath' parameter, not both");
 });

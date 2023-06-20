@@ -10041,8 +10041,9 @@ const mWAATriggerDagsStageProps: MWAATriggerDagsStageProps = { ... }
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
-| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.dags">dags</a></code> | <code>string[]</code> | Name of dag(s) to trigger. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.mwaaEnvironmentName">mwaaEnvironmentName</a></code> | <code>string</code> | Name of airflow environment. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.dagPath">dagPath</a></code> | <code>string</code> | Path to array of dag id's to check. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.dags">dags</a></code> | <code>string[]</code> | Name of dag(s) to trigger. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.statusCheckPeriod">statusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | Time to wait between execution status checks. |
 
 ---
@@ -10146,18 +10147,6 @@ Name of the state machine.
 
 ---
 
-##### `dags`<sup>Required</sup> <a name="dags" id="aws-ddk-core.MWAATriggerDagsStageProps.property.dags"></a>
-
-```typescript
-public readonly dags: string[];
-```
-
-- *Type:* string[]
-
-Name of dag(s) to trigger.
-
----
-
 ##### `mwaaEnvironmentName`<sup>Required</sup> <a name="mwaaEnvironmentName" id="aws-ddk-core.MWAATriggerDagsStageProps.property.mwaaEnvironmentName"></a>
 
 ```typescript
@@ -10167,6 +10156,30 @@ public readonly mwaaEnvironmentName: string;
 - *Type:* string
 
 Name of airflow environment.
+
+---
+
+##### `dagPath`<sup>Optional</sup> <a name="dagPath" id="aws-ddk-core.MWAATriggerDagsStageProps.property.dagPath"></a>
+
+```typescript
+public readonly dagPath: string;
+```
+
+- *Type:* string
+
+Path to array of dag id's to check.
+
+---
+
+##### `dags`<sup>Optional</sup> <a name="dags" id="aws-ddk-core.MWAATriggerDagsStageProps.property.dags"></a>
+
+```typescript
+public readonly dags: string[];
+```
+
+- *Type:* string[]
+
+Name of dag(s) to trigger.
 
 ---
 
