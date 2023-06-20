@@ -666,6 +666,7 @@ Stack properties.
 | <code><a href="#aws-ddk-core.BaseStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
 | <code><a href="#aws-ddk-core.BaseStack.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
 | <code><a href="#aws-ddk-core.BaseStack.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
+| <code><a href="#aws-ddk-core.BaseStack.toYamlString">toYamlString</a></code> | Convert an object, potentially containing tokens, to a YAML string. |
 
 ---
 
@@ -842,7 +843,7 @@ into the generated ARN at the location that component corresponds to.
 
 The ARN will be formatted as follows:
 
-   arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
+  arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
 
 The required ARN pieces that are omitted will be taken from the stack that
 the 'scope' is attached to. If all ARN pieces are supplied, the supplied scope
@@ -1019,6 +1020,20 @@ Convert an object, potentially containing tokens, to a JSON string.
 
 ---
 
+##### `toYamlString` <a name="toYamlString" id="aws-ddk-core.BaseStack.toYamlString"></a>
+
+```typescript
+public toYamlString(obj: any): string
+```
+
+Convert an object, potentially containing tokens, to a YAML string.
+
+###### `obj`<sup>Required</sup> <a name="obj" id="aws-ddk-core.BaseStack.toYamlString.parameter.obj"></a>
+
+- *Type:* any
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -1165,10 +1180,10 @@ The AWS account into which this stack will be deployed.
 This value is resolved according to the following rules:
 
 1. The value provided to `env.account` when the stack is defined. This can
-    either be a concrete account (e.g. `585695031111`) or the
-    `Aws.ACCOUNT_ID` token.
+   either be a concrete account (e.g. `585695031111`) or the
+   `Aws.ACCOUNT_ID` token.
 3. `Aws.ACCOUNT_ID`, which represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::AccountId" }` encoded as a string token.
+   `{ "Ref": "AWS::AccountId" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -1313,10 +1328,10 @@ The AWS region into which this stack will be deployed (e.g. `us-west-2`).
 This value is resolved according to the following rules:
 
 1. The value provided to `env.region` when the stack is defined. This can
-    either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
-    token.
+   either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
+   token.
 3. `Aws.REGION`, which is represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::Region" }` encoded as a string token.
+   `{ "Ref": "AWS::Region" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -1563,6 +1578,7 @@ Stack properties.
 | <code><a href="#aws-ddk-core.CICDPipelineStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.toYamlString">toYamlString</a></code> | Convert an object, potentially containing tokens, to a YAML string. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addChecks">addChecks</a></code> | Add checks to the pipeline (e.g. linting, security, tests...). |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addCustomStage">addCustomStage</a></code> | Add custom stage to the pipeline. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addNotifications">addNotifications</a></code> | Add pipeline notifications. |
@@ -1750,7 +1766,7 @@ into the generated ARN at the location that component corresponds to.
 
 The ARN will be formatted as follows:
 
-   arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
+  arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
 
 The required ARN pieces that are omitted will be taken from the stack that
 the 'scope' is attached to. If all ARN pieces are supplied, the supplied scope
@@ -1924,6 +1940,20 @@ Convert an object, potentially containing tokens, to a JSON string.
 ###### `space`<sup>Optional</sup> <a name="space" id="aws-ddk-core.CICDPipelineStack.toJsonString.parameter.space"></a>
 
 - *Type:* number
+
+---
+
+##### `toYamlString` <a name="toYamlString" id="aws-ddk-core.CICDPipelineStack.toYamlString"></a>
+
+```typescript
+public toYamlString(obj: any): string
+```
+
+Convert an object, potentially containing tokens, to a YAML string.
+
+###### `obj`<sup>Required</sup> <a name="obj" id="aws-ddk-core.CICDPipelineStack.toYamlString.parameter.obj"></a>
+
+- *Type:* any
 
 ---
 
@@ -2249,10 +2279,10 @@ The AWS account into which this stack will be deployed.
 This value is resolved according to the following rules:
 
 1. The value provided to `env.account` when the stack is defined. This can
-    either be a concrete account (e.g. `585695031111`) or the
-    `Aws.ACCOUNT_ID` token.
+   either be a concrete account (e.g. `585695031111`) or the
+   `Aws.ACCOUNT_ID` token.
 3. `Aws.ACCOUNT_ID`, which represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::AccountId" }` encoded as a string token.
+   `{ "Ref": "AWS::AccountId" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -2397,10 +2427,10 @@ The AWS region into which this stack will be deployed (e.g. `us-west-2`).
 This value is resolved according to the following rules:
 
 1. The value provided to `env.region` when the stack is defined. This can
-    either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
-    token.
+   either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
+   token.
 3. `Aws.REGION`, which is represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::Region" }` encoded as a string token.
+   `{ "Ref": "AWS::Region" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -9180,16 +9210,18 @@ const mWAAEnvironmentProps: MWAAEnvironmentProps = { ... }
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.environmentClass">environmentClass</a></code> | <code>string</code> | The environment class type. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the execution role in IAM that allows MWAA to access AWS resources in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.kmsKey">kmsKey</a></code> | <code>string</code> | The AWS Key Management Service (KMS) key to encrypt and decrypt the data in your environment. |
-| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code>aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty \| aws-cdk-lib.IResolvable</code> | The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty</code> | The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.maxWorkers">maxWorkers</a></code> | <code>number</code> | The maximum number of workers that you want to run in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.minWorkers">minWorkers</a></code> | <code>number</code> | The minimum number of workers that you want to run in your environment. |
-| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty \| aws-cdk-lib.IResolvable</code> | The VPC networking components used to secure and enable network traffic between the AWS resources for your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty</code> | The VPC networking components used to secure and enable network traffic between the AWS resources for your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.pluginsS3ObjectVersion">pluginsS3ObjectVersion</a></code> | <code>string</code> | The version of the plugins.zip file on your Amazon S3 bucket. To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.pluginsS3Path">pluginsS3Path</a></code> | <code>string</code> | The relative path to the `plugins.zip` file on your Amazon S3 bucket. For example, `plugins.zip` . To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.requirementsS3ObjectVersion">requirementsS3ObjectVersion</a></code> | <code>string</code> | The version of the requirements.txt file on your Amazon S3 bucket. To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.requirementsS3Path">requirementsS3Path</a></code> | <code>string</code> | The relative path to the `requirements.txt` file on your Amazon S3 bucket. For example, `requirements.txt` . To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.schedulers">schedulers</a></code> | <code>number</code> | The number of schedulers that you want to run in your environment. Valid values:. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.sourceBucketArn">sourceBucketArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the Amazon S3 bucket where your DAG code and supporting files are stored. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3ObjectVersion">startupScriptS3ObjectVersion</a></code> | <code>string</code> | The version of the startup shell script in your Amazon S3 bucket. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3Path">startupScriptS3Path</a></code> | <code>string</code> | The relative path to the startup shell script in your Amazon S3 bucket. For example, `s3://mwaa-environment/startup.sh` . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.tags">tags</a></code> | <code>any</code> | The key-value tag pairs associated to your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.webserverAccessMode">webserverAccessMode</a></code> | <code>string</code> | The Apache Airflow *Web server* access mode. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.weeklyMaintenanceWindowStart">weeklyMaintenanceWindowStart</a></code> | <code>string</code> | The day and time of the week to start weekly maintenance updates of your environment in the following format: `DAY:HH:MM` . |
@@ -9248,7 +9280,9 @@ public readonly airflowVersion: string;
 
 The version of Apache Airflow to use for the environment.
 
-If no value is specified, defaults to the latest version. Valid values: `2.0.2` , `1.10.12` , `2.2.2` , and `2.4.3` .
+If no value is specified, defaults to the latest version.
+
+*Allowed Values* : `2.0.2` | `1.10.12` | `2.2.2` | `2.4.3` | `2.5.1` (latest)
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion)
 
@@ -9321,10 +9355,10 @@ You can use an AWS KMS key managed by MWAA, or a customer-managed KMS key (advan
 ##### `loggingConfiguration`<sup>Optional</sup> <a name="loggingConfiguration" id="aws-ddk-core.MWAAEnvironmentProps.property.loggingConfiguration"></a>
 
 ```typescript
-public readonly loggingConfiguration: LoggingConfigurationProperty | IResolvable;
+public readonly loggingConfiguration: IResolvable | LoggingConfigurationProperty;
 ```
 
-- *Type:* aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty | aws-cdk-lib.IResolvable
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty
 
 The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` .
 
@@ -9367,10 +9401,10 @@ MWAA scales the number of Apache Airflow workers up to the number you specify in
 ##### `networkConfiguration`<sup>Optional</sup> <a name="networkConfiguration" id="aws-ddk-core.MWAAEnvironmentProps.property.networkConfiguration"></a>
 
 ```typescript
-public readonly networkConfiguration: NetworkConfigurationProperty | IResolvable;
+public readonly networkConfiguration: IResolvable | NetworkConfigurationProperty;
 ```
 
-- *Type:* aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty | aws-cdk-lib.IResolvable
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty
 
 The VPC networking components used to secure and enable network traffic between the AWS resources for your environment.
 
@@ -9466,6 +9500,44 @@ The Amazon Resource Name (ARN) of the Amazon S3 bucket where your DAG code and s
 For example, `arn:aws:s3:::my-airflow-bucket-unique-name` . To learn more, see [Create an Amazon S3 bucket for Amazon MWAA](https://docs.aws.amazon.com/mwaa/latest/userguide/mwaa-s3-bucket.html) .
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-sourcebucketarn](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-sourcebucketarn)
+
+---
+
+##### `startupScriptS3ObjectVersion`<sup>Optional</sup> <a name="startupScriptS3ObjectVersion" id="aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3ObjectVersion"></a>
+
+```typescript
+public readonly startupScriptS3ObjectVersion: string;
+```
+
+- *Type:* string
+
+The version of the startup shell script in your Amazon S3 bucket.
+
+You must specify the [version ID](https://docs.aws.amazon.com/AmazonS3/latest/userguide/versioning-workflows.html) that Amazon S3 assigns to the file every time you update the script.
+
+Version IDs are Unicode, UTF-8 encoded, URL-ready, opaque strings that are no more than 1,024 bytes long. The following is an example:
+
+`3sL4kqtJlcpXroDTDmJ+rmSpXd3dIbrHY+MTRCxf3vjVBH40Nr8X8gdRQBpUMLUo`
+
+For more information, see [Using a startup script](https://docs.aws.amazon.com/mwaa/latest/userguide/using-startup-script.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3objectversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3objectversion)
+
+---
+
+##### `startupScriptS3Path`<sup>Optional</sup> <a name="startupScriptS3Path" id="aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3Path"></a>
+
+```typescript
+public readonly startupScriptS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the startup shell script in your Amazon S3 bucket. For example, `s3://mwaa-environment/startup.sh` .
+
+Amazon MWAA runs the script as your environment starts, and before running the Apache Airflow process. You can use this script to install dependencies, modify Apache Airflow configuration options, and set environment variables. For more information, see [Using a startup script](https://docs.aws.amazon.com/mwaa/latest/userguide/using-startup-script.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3path)
 
 ---
 
