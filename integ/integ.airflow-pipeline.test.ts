@@ -3,15 +3,15 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { AirflowDataPipeline } from "../src";
+import { MWAAEnvironment } from "../src";
 
-interface AirflowDataPipelineTestStackProps extends cdk.StackProps {}
+interface MWAAEnvironmentTestStackProps extends cdk.StackProps {}
 
-class AirflowDataPipelineTestStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props: AirflowDataPipelineTestStackProps) {
+class MWAAEnvironmentTestStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: MWAAEnvironmentTestStackProps) {
     super(scope, id, props);
 
-    new AirflowDataPipeline(this, "airflow-pipeline", {
+    new MWAAEnvironment(this, "airflow-pipeline", {
       vpcCidr: "10.55.0.0/16",
       name: "integ-test",
       maxWorkers: 5,
@@ -21,9 +21,9 @@ class AirflowDataPipelineTestStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new integration.IntegTest(app, "Airflow Data Pipeline Stack Integration Tests", {
+new integration.IntegTest(app, "Airflow Environment Stack Integration Tests", {
     testCases: [
-      new AirflowDataPipelineTestStack(app, "AirflowDataPipeline", {}),
+      new MWAAEnvironmentTestStack(app, "AirflowEnvironment", {}),
     ],
     diffAssets: true,
     stackUpdateWorkflow: true,
