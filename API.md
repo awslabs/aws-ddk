@@ -4262,6 +4262,245 @@ public readonly pluginFile: BucketDeployment;
 ---
 
 
+### MWAATriggerDagsStage <a name="MWAATriggerDagsStage" id="aws-ddk-core.MWAATriggerDagsStage"></a>
+
+Stage that contains a step function that runs a Managed Apache Airflow (MWAA) dag or set of dags .
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.MWAATriggerDagsStage.Initializer"></a>
+
+```typescript
+import { MWAATriggerDagsStage } from 'aws-ddk-core'
+
+new MWAATriggerDagsStage(scope: Construct, id: string, props: MWAATriggerDagsStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps">MWAATriggerDagsStageProps</a></code> | Properties for the stage. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+Scope within which this construct is defined.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+Identifier of the stage.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.MWAATriggerDagsStageProps">MWAATriggerDagsStageProps</a>
+
+Properties for the stage.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.MWAATriggerDagsStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.MWAATriggerDagsStage.addAlarm"></a>
+
+```typescript
+public addAlarm(id: string, props: AlarmProps): DataStage
+```
+
+Add a CloudWatch alarm for the DataStage.
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.MWAATriggerDagsStage.addAlarm.parameter.id"></a>
+
+- *Type:* string
+
+Identifier of the CloudWatch Alarm.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.MWAATriggerDagsStage.addAlarm.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.MWAATriggerDagsStage.isConstruct"></a>
+
+```typescript
+import { MWAATriggerDagsStage } from 'aws-ddk-core'
+
+MWAATriggerDagsStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.MWAATriggerDagsStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.mwaaEnvironmentName">mwaaEnvironmentName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.MWAATriggerDagsStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.MWAATriggerDagsStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Description of the stage.
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.MWAATriggerDagsStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.MWAATriggerDagsStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the stage.
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.MWAATriggerDagsStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
+
+---
+
+##### `alarmsEnabled`<sup>Required</sup> <a name="alarmsEnabled" id="aws-ddk-core.MWAATriggerDagsStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+Flag indicating whether the alarms are enabled for this stage.
+
+---
+
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.MWAATriggerDagsStage.property.cloudwatchAlarms"></a>
+
+```typescript
+public readonly cloudwatchAlarms: Alarm[];
+```
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+List of CloudWatch Alarms linked to the stage.
+
+---
+
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.MWAATriggerDagsStage.property.stateMachine"></a>
+
+```typescript
+public readonly stateMachine: StateMachine;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
+
+---
+
+##### `mwaaEnvironmentName`<sup>Required</sup> <a name="mwaaEnvironmentName" id="aws-ddk-core.MWAATriggerDagsStage.property.mwaaEnvironmentName"></a>
+
+```typescript
+public readonly mwaaEnvironmentName: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### RedshiftDataApiStage <a name="RedshiftDataApiStage" id="aws-ddk-core.RedshiftDataApiStage"></a>
 
 Stage that contains a step function that executes Redshift Data API statements.
@@ -9736,6 +9975,224 @@ public readonly workerLogsLevel: string;
 - *Type:* string
 
 Log level for WorkerLogs.
+
+---
+
+### MWAALambdasResult <a name="MWAALambdasResult" id="aws-ddk-core.MWAALambdasResult"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.MWAALambdasResult.Initializer"></a>
+
+```typescript
+import { MWAALambdasResult } from 'aws-ddk-core'
+
+const mWAALambdasResult: MWAALambdasResult = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAALambdasResult.property.statusLambda">statusLambda</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAALambdasResult.property.triggerLambda">triggerLambda</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
+
+---
+
+##### `statusLambda`<sup>Required</sup> <a name="statusLambda" id="aws-ddk-core.MWAALambdasResult.property.statusLambda"></a>
+
+```typescript
+public readonly statusLambda: Function;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Function
+
+---
+
+##### `triggerLambda`<sup>Required</sup> <a name="triggerLambda" id="aws-ddk-core.MWAALambdasResult.property.triggerLambda"></a>
+
+```typescript
+public readonly triggerLambda: Function;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Function
+
+---
+
+### MWAATriggerDagsStageProps <a name="MWAATriggerDagsStageProps" id="aws-ddk-core.MWAATriggerDagsStageProps"></a>
+
+Properties of the MWAA Trigger Dags stage.
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.MWAATriggerDagsStageProps.Initializer"></a>
+
+```typescript
+import { MWAATriggerDagsStageProps } from 'aws-ddk-core'
+
+const mWAATriggerDagsStageProps: MWAATriggerDagsStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.mwaaEnvironmentName">mwaaEnvironmentName</a></code> | <code>string</code> | Name of airflow environment. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.dagPath">dagPath</a></code> | <code>string</code> | Path to array of dag id's to check. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.dags">dags</a></code> | <code>string[]</code> | Name of dag(s) to trigger. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.statusCheckPeriod">statusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | Time to wait between execution status checks. |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.MWAATriggerDagsStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Description of the stage.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.MWAATriggerDagsStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the stage.
+
+---
+
+##### `additionalRolePolicyStatements`<sup>Optional</sup> <a name="additionalRolePolicyStatements" id="aws-ddk-core.MWAATriggerDagsStageProps.property.additionalRolePolicyStatements"></a>
+
+```typescript
+public readonly additionalRolePolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+Additional IAM policy statements to add to the state machine role.
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.MWAATriggerDagsStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
+
+---
+
+##### `stateMachineFailedExecutionsAlarmEvaluationPeriods`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmEvaluationPeriods" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
+```
+
+- *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
+
+---
+
+##### `stateMachineFailedExecutionsAlarmThreshold`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmThreshold" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmThreshold"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmThreshold: number;
+```
+
+- *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+Input of the state machine.
+
+---
+
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
+
+Name of the state machine.
+
+---
+
+##### `mwaaEnvironmentName`<sup>Required</sup> <a name="mwaaEnvironmentName" id="aws-ddk-core.MWAATriggerDagsStageProps.property.mwaaEnvironmentName"></a>
+
+```typescript
+public readonly mwaaEnvironmentName: string;
+```
+
+- *Type:* string
+
+Name of airflow environment.
+
+---
+
+##### `dagPath`<sup>Optional</sup> <a name="dagPath" id="aws-ddk-core.MWAATriggerDagsStageProps.property.dagPath"></a>
+
+```typescript
+public readonly dagPath: string;
+```
+
+- *Type:* string
+
+Path to array of dag id's to check.
+
+---
+
+##### `dags`<sup>Optional</sup> <a name="dags" id="aws-ddk-core.MWAATriggerDagsStageProps.property.dags"></a>
+
+```typescript
+public readonly dags: string[];
+```
+
+- *Type:* string[]
+
+Name of dag(s) to trigger.
+
+---
+
+##### `statusCheckPeriod`<sup>Optional</sup> <a name="statusCheckPeriod" id="aws-ddk-core.MWAATriggerDagsStageProps.property.statusCheckPeriod"></a>
+
+```typescript
+public readonly statusCheckPeriod: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* aws_cdk.Duration.seconds(15)
+
+Time to wait between execution status checks.
 
 ---
 
