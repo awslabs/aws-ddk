@@ -6,8 +6,8 @@ import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { AthenaSQLStage } from "../src";
-import { StateMachineStageProps } from "../src/pipelines/stage";
+import { AthenaSQLStage } from "../../src";
+import { StateMachineStageProps } from "../../src/pipelines/stage";
 
 interface AthenaSqlStageTestStackProps extends StateMachineStageProps {
   readonly queryString: string[];

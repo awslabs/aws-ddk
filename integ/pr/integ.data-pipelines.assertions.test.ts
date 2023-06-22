@@ -7,7 +7,7 @@ import { Construct } from "constructs";
 import path from "path";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import * as ddk from "../src";
+import * as ddk from "../../src";
 
 const INPUT_KEY = "data.json";
 

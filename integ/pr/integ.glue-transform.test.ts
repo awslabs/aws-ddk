@@ -6,8 +6,8 @@ import * as glue from "aws-cdk-lib/aws-glue";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { GlueTransformStage } from "../src";
-import { StateMachineStageProps } from "../src/pipelines/stage";
+import { GlueTransformStage } from "../../src";
+import { StateMachineStageProps } from "../../src/pipelines/stage";
 
 interface GlueTransformStageTestStackProps extends StateMachineStageProps {
   readonly jobName?: string;

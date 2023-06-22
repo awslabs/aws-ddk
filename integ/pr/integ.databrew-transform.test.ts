@@ -4,8 +4,8 @@ import * as databrew from "aws-cdk-lib/aws-databrew";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { DataBrewTransformStage } from "../src";
-import { StateMachineStageProps } from "../src/pipelines/stage";
+import { DataBrewTransformStage } from "../../src";
+import { StateMachineStageProps } from "../../src/pipelines/stage";
 
 interface DataBrewTransformStageTestStackProps extends StateMachineStageProps {
   readonly jobName?: string;

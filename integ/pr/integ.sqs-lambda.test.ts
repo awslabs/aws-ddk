@@ -6,7 +6,7 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { SqsToLambdaStage } from "../src";
+import { SqsToLambdaStage } from "../../src";
 
 interface SqsToLambdaStageFunctionProps extends lambda.FunctionProps {
   readonly errorsAlarmThreshold?: number;

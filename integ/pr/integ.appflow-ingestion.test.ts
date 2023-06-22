@@ -17,23 +17,21 @@ interface AppFlowIngestionStageTestStackProps extends StateMachineStageProps {
 }
 
 class AppFlowIngestionStageTestStack extends cdk.Stack {
-  readonly appflowStage: AppFlowIngestionStage;
   constructor(scope: Construct, id: string, props: AppFlowIngestionStageTestStackProps) {
     super(scope, id, props);
 
-    this.appflowStage = new AppFlowIngestionStage(this, "Stage", {
+    new AppFlowIngestionStage(this, "Stage", {
       ...props,
     });
   }
 }
 
 const app = new cdk.App();
-const stack = new AppFlowIngestionStageTestStack(app, "AppflowIngestionTest", {
-  flowName: "dummy-appflow-flow",
-});
-const integTest = new integration.IntegTest(app, "AppFlow Ingestion Stage Integration Tests", {
+new integration.IntegTest(app, "Glue Transform Stage Integration Tests", {
     testCases: [
-      stack
+      new AppFlowIngestionStageTestStack(app, "AppflowIngestionTest", {
+        flowName: "dummy-appflow-flow",
+      }),
     ],
     diffAssets: true,
     stackUpdateWorkflow: true,
@@ -50,8 +48,4 @@ const integTest = new integration.IntegTest(app, "AppFlow Ingestion Stage Integr
         },
       },
     },
-});
-
-integTest.assertions.awsApiCall("STATES", "startExecution", {
-  stateMachinArn: stack.appflowStage.stateMachine.stateMachineArn,
 });

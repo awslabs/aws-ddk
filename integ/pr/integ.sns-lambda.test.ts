@@ -6,7 +6,7 @@ import * as sns from "aws-cdk-lib/aws-sns";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { SnsSqsToLambdaStage } from "../src";
+import { SnsSqsToLambdaStage } from "../../src";
 
 interface SnsSqsToLambdaStageFunctionProps extends lambda.FunctionProps {
   readonly errorsAlarmThreshold?: number;

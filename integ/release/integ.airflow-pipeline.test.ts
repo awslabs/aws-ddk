@@ -3,7 +3,7 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { MWAAEnvironment } from "../src";
+import { MWAAEnvironment } from "../../src";
 
 interface MWAAEnvironmentTestStackProps extends cdk.StackProps {}
 
