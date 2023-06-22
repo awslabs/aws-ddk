@@ -8,7 +8,7 @@ import * as glue_alpha from "@aws-cdk/aws-glue-alpha";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { DataPipeline, GlueTransformStage, FirehoseToS3Stage, SqsToLambdaStage } from "../src";
+import { DataPipeline, GlueTransformStage, FirehoseToS3Stage, SqsToLambdaStage } from "../../src";
 
 interface DataPipelineTestStackProps extends cdk.StackProps {
   readonly testWithScheduledEvent?: boolean;

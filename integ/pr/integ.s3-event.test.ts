@@ -4,7 +4,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { S3EventStage } from "../src";
+import { S3EventStage } from "../../src";
 
 interface S3EventStageTestStackProps extends cdk.StackProps {
   readonly eventNames: string[];

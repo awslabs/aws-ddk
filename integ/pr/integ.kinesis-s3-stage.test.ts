@@ -4,7 +4,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { FirehoseToS3Stage } from "../src";
+import { FirehoseToS3Stage } from "../../src";
 
 interface FirehoseToS3StageTestStackProps extends cdk.StackProps {
   readonly enforceSSL?: boolean;

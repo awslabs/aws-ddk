@@ -5,7 +5,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { CICDPipelineStack, DataPipeline, FirehoseToS3Stage, SqsToLambdaStage } from "../src";
+import { CICDPipelineStack, DataPipeline, FirehoseToS3Stage, SqsToLambdaStage } from "../../src";
 
 interface CICDPipelineTestStackProps extends cdk.StackProps {}
 

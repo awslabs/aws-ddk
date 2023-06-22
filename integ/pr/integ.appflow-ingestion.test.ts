@@ -5,8 +5,8 @@ import * as appflow from "aws-cdk-lib/aws-appflow";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { AppFlowIngestionStage } from "../src";
-import { StateMachineStageProps } from "../src/pipelines/stage";
+import { AppFlowIngestionStage } from "../../src";
+import { StateMachineStageProps } from "../../src/pipelines/stage";
 
 interface AppFlowIngestionStageTestStackProps extends StateMachineStageProps {
   readonly flowName?: string;
