@@ -1,3 +1,4 @@
+export * from "./mwaa-environment";
 export * from "./glue-factory";
 export * from "./kms-factory";
 export * from "./s3-factory";

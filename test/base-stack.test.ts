@@ -428,6 +428,87 @@ test("Use Only Prefix to Default to DDK roles", () => {
   }
 });
 
+test("Legacy Bootstraps in different regions", () => {
+  const app = new cdk.App();
+
+  const config = {
+    environments: {
+      dev: {
+        bootstrap: {
+          prefix: "ddk",
+        },
+        account: "222222222222",
+        region: "us-east-1",
+      },
+      prod: {
+        bootstrap: {
+          prefix: "ddk",
+        },
+        account: "222222222222",
+        region: "us-west-2",
+      },
+    },
+  };
+
+  const devStack = new BaseStack(app, "my-dev-stack", {
+    environmentId: "dev",
+    stackName: "MyDevStack",
+    config: config,
+  });
+
+  const prodStack = new BaseStack(app, "my-prod-stack", {
+    environmentId: "prod",
+    stackName: "MyProdStack",
+    config: config,
+  });
+
+  const devExpectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "ddk-dev-hnb659fds-assets-222222222222-us-east-1",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn: "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-deploy-role-222222222222-us-east-1",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-cfn-exec-role-222222222222-us-east-1",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-file-publishing-role-222222222222-us-east-1",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-image-publishing-role-222222222222-us-east-1",
+    lookupRoleArn: "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-lookup-role-222222222222-us-east-1",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/ddk/dev/hnb659fds/bootstrap-version",
+  };
+
+  const prodExpectedValues = {
+    qualifier: "hnb659fds",
+    bucketName: "ddk-dev-hnb659fds-assets-222222222222-us-west-2",
+    repositoryName: "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+    _deployRoleArn: "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-deploy-role-222222222222-us-west-2",
+    _cloudFormationExecutionRoleArn:
+      "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-cfn-exec-role-222222222222-us-west-2",
+    fileAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-file-publishing-role-222222222222-us-west-2",
+    imageAssetPublishingRoleArn:
+      "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-image-publishing-role-222222222222-us-west-2",
+    lookupRoleArn: "arn:${AWS::Partition}:iam::222222222222:role/ddk-dev-hnb659fds-lookup-role-222222222222-us-west-2",
+    bucketPrefix: "",
+    dockerTagPrefix: "",
+    bootstrapStackVersionSsmParameter: "/ddk/dev/hnb659fds/bootstrap-version",
+  };
+  for (const attribute in devExpectedValues) {
+    assert(
+      devStack.synthesizer[attribute as keyof typeof devStack.synthesizer] ===
+        devExpectedValues[attribute as keyof typeof devExpectedValues],
+    );
+  }
+  for (const attribute in prodExpectedValues) {
+    assert(
+      prodStack.synthesizer[attribute as keyof typeof prodStack.synthesizer] ===
+        prodExpectedValues[attribute as keyof typeof prodExpectedValues],
+    );
+  }
+});
+
 test("Additional Stack Props", () => {
   const app = new cdk.App();
 

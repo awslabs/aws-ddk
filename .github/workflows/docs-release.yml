@@ -26,7 +26,7 @@ jobs:
           echo $VERSION to be released...
           cd docs
           cp -r release/latest/ release/${VERSION} 
-          if [[ $VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]]; then cp -r release/latest/ release/stable; else echo "Not marking version as stable"; fi
+          if [[ $VERSION =~ ^[[:digit:]]\.[[:digit:]]\.[[:digit:]]$ ]]; then cp -r release/latest/* release/stable; else echo "Not marking version as stable"; fi
           if grep -Fq "$VERSION" _data/versions.yaml; then echo "version: ${VERSION} already exists in versions.yaml"; else echo "version: ${VERSION} does not exist in versions.yaml and will be added" && echo -e "\n- name: ${VERSION}\n  root: ${VERSION}" >> _data/versions.yaml; fi
           git status
       - name: Commit & Push changes

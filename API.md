@@ -66,8 +66,8 @@ sqs_lambda_stage = SqsToLambdaStage(
 ```
 
 First, we import the required resources from the aws_ddk_core library, including the two stage constructs:
-[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0/api/FirehoseToS3Stage) and
-[SqsToLambdaStage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.0/api/SqsToLambdaStage).
+[FirehoseToS3Stage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.1/api/FirehoseToS3Stage) and
+[SqsToLambdaStage()](https://constructs.dev/packages/aws-ddk-core/v/1.0.1/api/SqsToLambdaStage).
 These two classes are then instantiated and the delivery stream is configured with the S3 prefix (raw/).
 Finally, the DDK DataPipeline construct is used to chain these two stages together into a data pipeline.
 
@@ -666,6 +666,7 @@ Stack properties.
 | <code><a href="#aws-ddk-core.BaseStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
 | <code><a href="#aws-ddk-core.BaseStack.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
 | <code><a href="#aws-ddk-core.BaseStack.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
+| <code><a href="#aws-ddk-core.BaseStack.toYamlString">toYamlString</a></code> | Convert an object, potentially containing tokens, to a YAML string. |
 
 ---
 
@@ -842,7 +843,7 @@ into the generated ARN at the location that component corresponds to.
 
 The ARN will be formatted as follows:
 
-   arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
+  arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
 
 The required ARN pieces that are omitted will be taken from the stack that
 the 'scope' is attached to. If all ARN pieces are supplied, the supplied scope
@@ -1019,6 +1020,20 @@ Convert an object, potentially containing tokens, to a JSON string.
 
 ---
 
+##### `toYamlString` <a name="toYamlString" id="aws-ddk-core.BaseStack.toYamlString"></a>
+
+```typescript
+public toYamlString(obj: any): string
+```
+
+Convert an object, potentially containing tokens, to a YAML string.
+
+###### `obj`<sup>Required</sup> <a name="obj" id="aws-ddk-core.BaseStack.toYamlString.parameter.obj"></a>
+
+- *Type:* any
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -1165,10 +1180,10 @@ The AWS account into which this stack will be deployed.
 This value is resolved according to the following rules:
 
 1. The value provided to `env.account` when the stack is defined. This can
-    either be a concrete account (e.g. `585695031111`) or the
-    `Aws.ACCOUNT_ID` token.
+   either be a concrete account (e.g. `585695031111`) or the
+   `Aws.ACCOUNT_ID` token.
 3. `Aws.ACCOUNT_ID`, which represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::AccountId" }` encoded as a string token.
+   `{ "Ref": "AWS::AccountId" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -1313,10 +1328,10 @@ The AWS region into which this stack will be deployed (e.g. `us-west-2`).
 This value is resolved according to the following rules:
 
 1. The value provided to `env.region` when the stack is defined. This can
-    either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
-    token.
+   either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
+   token.
 3. `Aws.REGION`, which is represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::Region" }` encoded as a string token.
+   `{ "Ref": "AWS::Region" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -1563,6 +1578,7 @@ Stack properties.
 | <code><a href="#aws-ddk-core.CICDPipelineStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.toYamlString">toYamlString</a></code> | Convert an object, potentially containing tokens, to a YAML string. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addChecks">addChecks</a></code> | Add checks to the pipeline (e.g. linting, security, tests...). |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addCustomStage">addCustomStage</a></code> | Add custom stage to the pipeline. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addNotifications">addNotifications</a></code> | Add pipeline notifications. |
@@ -1750,7 +1766,7 @@ into the generated ARN at the location that component corresponds to.
 
 The ARN will be formatted as follows:
 
-   arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
+  arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
 
 The required ARN pieces that are omitted will be taken from the stack that
 the 'scope' is attached to. If all ARN pieces are supplied, the supplied scope
@@ -1924,6 +1940,20 @@ Convert an object, potentially containing tokens, to a JSON string.
 ###### `space`<sup>Optional</sup> <a name="space" id="aws-ddk-core.CICDPipelineStack.toJsonString.parameter.space"></a>
 
 - *Type:* number
+
+---
+
+##### `toYamlString` <a name="toYamlString" id="aws-ddk-core.CICDPipelineStack.toYamlString"></a>
+
+```typescript
+public toYamlString(obj: any): string
+```
+
+Convert an object, potentially containing tokens, to a YAML string.
+
+###### `obj`<sup>Required</sup> <a name="obj" id="aws-ddk-core.CICDPipelineStack.toYamlString.parameter.obj"></a>
+
+- *Type:* any
 
 ---
 
@@ -2249,10 +2279,10 @@ The AWS account into which this stack will be deployed.
 This value is resolved according to the following rules:
 
 1. The value provided to `env.account` when the stack is defined. This can
-    either be a concrete account (e.g. `585695031111`) or the
-    `Aws.ACCOUNT_ID` token.
+   either be a concrete account (e.g. `585695031111`) or the
+   `Aws.ACCOUNT_ID` token.
 3. `Aws.ACCOUNT_ID`, which represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::AccountId" }` encoded as a string token.
+   `{ "Ref": "AWS::AccountId" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -2397,10 +2427,10 @@ The AWS region into which this stack will be deployed (e.g. `us-west-2`).
 This value is resolved according to the following rules:
 
 1. The value provided to `env.region` when the stack is defined. This can
-    either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
-    token.
+   either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
+   token.
 3. `Aws.REGION`, which is represents the CloudFormation intrinsic reference
-    `{ "Ref": "AWS::Region" }` encoded as a string token.
+   `{ "Ref": "AWS::Region" }` encoded as a string token.
 
 Preferably, you should use the return value as an opaque string and not
 attempt to parse it to implement your logic. If you do, you must first
@@ -3994,6 +4024,479 @@ public readonly crawler: CfnCrawler;
 ```
 
 - *Type:* aws-cdk-lib.aws_glue.CfnCrawler
+
+---
+
+
+### MWAAEnvironment <a name="MWAAEnvironment" id="aws-ddk-core.MWAAEnvironment"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.MWAAEnvironment.Initializer"></a>
+
+```typescript
+import { MWAAEnvironment } from 'aws-ddk-core'
+
+new MWAAEnvironment(scope: Construct, id: string, props: MWAAEnvironmentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.MWAAEnvironmentProps">MWAAEnvironmentProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.MWAAEnvironment.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.MWAAEnvironment.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.MWAAEnvironment.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.MWAAEnvironmentProps">MWAAEnvironmentProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.createVpc">createVpc</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.MWAAEnvironment.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `createVpc` <a name="createVpc" id="aws-ddk-core.MWAAEnvironment.createVpc"></a>
+
+```typescript
+public createVpc(scope: Construct, environmentName: string, vpcCidr: string): IVpc
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.MWAAEnvironment.createVpc.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `environmentName`<sup>Required</sup> <a name="environmentName" id="aws-ddk-core.MWAAEnvironment.createVpc.parameter.environmentName"></a>
+
+- *Type:* string
+
+---
+
+###### `vpcCidr`<sup>Required</sup> <a name="vpcCidr" id="aws-ddk-core.MWAAEnvironment.createVpc.parameter.vpcCidr"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.MWAAEnvironment.isConstruct"></a>
+
+```typescript
+import { MWAAEnvironment } from 'aws-ddk-core'
+
+MWAAEnvironment.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.MWAAEnvironment.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.mwaaEnvironment">mwaaEnvironment</a></code> | <code>aws-cdk-lib.aws_mwaa.CfnEnvironment</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.schedulerLogsLevel">schedulerLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.taskLogsLevel">taskLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAAEnvironment.property.pluginFile">pluginFile</a></code> | <code>aws-cdk-lib.aws_s3_deployment.BucketDeployment</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.MWAAEnvironment.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `dagProcessingLogs`<sup>Required</sup> <a name="dagProcessingLogs" id="aws-ddk-core.MWAAEnvironment.property.dagProcessingLogs"></a>
+
+```typescript
+public readonly dagProcessingLogs: string;
+```
+
+- *Type:* string
+
+---
+
+##### `dagS3Path`<sup>Required</sup> <a name="dagS3Path" id="aws-ddk-core.MWAAEnvironment.property.dagS3Path"></a>
+
+```typescript
+public readonly dagS3Path: string;
+```
+
+- *Type:* string
+
+---
+
+##### `mwaaEnvironment`<sup>Required</sup> <a name="mwaaEnvironment" id="aws-ddk-core.MWAAEnvironment.property.mwaaEnvironment"></a>
+
+```typescript
+public readonly mwaaEnvironment: CfnEnvironment;
+```
+
+- *Type:* aws-cdk-lib.aws_mwaa.CfnEnvironment
+
+---
+
+##### `s3Bucket`<sup>Required</sup> <a name="s3Bucket" id="aws-ddk-core.MWAAEnvironment.property.s3Bucket"></a>
+
+```typescript
+public readonly s3Bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `schedulerLogsLevel`<sup>Required</sup> <a name="schedulerLogsLevel" id="aws-ddk-core.MWAAEnvironment.property.schedulerLogsLevel"></a>
+
+```typescript
+public readonly schedulerLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `taskLogsLevel`<sup>Required</sup> <a name="taskLogsLevel" id="aws-ddk-core.MWAAEnvironment.property.taskLogsLevel"></a>
+
+```typescript
+public readonly taskLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="aws-ddk-core.MWAAEnvironment.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `webserverLogsLevel`<sup>Required</sup> <a name="webserverLogsLevel" id="aws-ddk-core.MWAAEnvironment.property.webserverLogsLevel"></a>
+
+```typescript
+public readonly webserverLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `workerLogsLevel`<sup>Required</sup> <a name="workerLogsLevel" id="aws-ddk-core.MWAAEnvironment.property.workerLogsLevel"></a>
+
+```typescript
+public readonly workerLogsLevel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `pluginFile`<sup>Optional</sup> <a name="pluginFile" id="aws-ddk-core.MWAAEnvironment.property.pluginFile"></a>
+
+```typescript
+public readonly pluginFile: BucketDeployment;
+```
+
+- *Type:* aws-cdk-lib.aws_s3_deployment.BucketDeployment
+
+---
+
+
+### MWAATriggerDagsStage <a name="MWAATriggerDagsStage" id="aws-ddk-core.MWAATriggerDagsStage"></a>
+
+Stage that contains a step function that runs a Managed Apache Airflow (MWAA) dag or set of dags .
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.MWAATriggerDagsStage.Initializer"></a>
+
+```typescript
+import { MWAATriggerDagsStage } from 'aws-ddk-core'
+
+new MWAATriggerDagsStage(scope: Construct, id: string, props: MWAATriggerDagsStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | Scope within which this construct is defined. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.id">id</a></code> | <code>string</code> | Identifier of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps">MWAATriggerDagsStageProps</a></code> | Properties for the stage. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+Scope within which this construct is defined.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+Identifier of the stage.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.MWAATriggerDagsStage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.MWAATriggerDagsStageProps">MWAATriggerDagsStageProps</a>
+
+Properties for the stage.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.addAlarm">addAlarm</a></code> | Add a CloudWatch alarm for the DataStage. |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.MWAATriggerDagsStage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAlarm` <a name="addAlarm" id="aws-ddk-core.MWAATriggerDagsStage.addAlarm"></a>
+
+```typescript
+public addAlarm(id: string, props: AlarmProps): DataStage
+```
+
+Add a CloudWatch alarm for the DataStage.
+
+###### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.MWAATriggerDagsStage.addAlarm.parameter.id"></a>
+
+- *Type:* string
+
+Identifier of the CloudWatch Alarm.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.MWAATriggerDagsStage.addAlarm.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.AlarmProps">AlarmProps</a>
+
+Properties for the alarm.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.MWAATriggerDagsStage.isConstruct"></a>
+
+```typescript
+import { MWAATriggerDagsStage } from 'aws-ddk-core'
+
+MWAATriggerDagsStage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.MWAATriggerDagsStage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.eventPattern">eventPattern</a></code> | <code>aws-cdk-lib.aws_events.EventPattern</code> | Output event pattern of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_events.IRuleTarget[]</code> | Input targets for the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStage.property.mwaaEnvironmentName">mwaaEnvironmentName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.MWAATriggerDagsStage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.MWAATriggerDagsStage.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Description of the stage.
+
+---
+
+##### `eventPattern`<sup>Optional</sup> <a name="eventPattern" id="aws-ddk-core.MWAATriggerDagsStage.property.eventPattern"></a>
+
+```typescript
+public readonly eventPattern: EventPattern;
+```
+
+- *Type:* aws-cdk-lib.aws_events.EventPattern
+
+Output event pattern of the stage.
+
+Event pattern describes the structure of output event(s) produced by this stage.
+Event Rules use event patterns to select events and route them to targets.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.MWAATriggerDagsStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the stage.
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="aws-ddk-core.MWAATriggerDagsStage.property.targets"></a>
+
+```typescript
+public readonly targets: IRuleTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_events.IRuleTarget[]
+
+Input targets for the stage.
+
+Targets are used by Event Rules to describe what should be invoked when a rule matches an event.
+
+---
+
+##### `alarmsEnabled`<sup>Required</sup> <a name="alarmsEnabled" id="aws-ddk-core.MWAATriggerDagsStage.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+
+Flag indicating whether the alarms are enabled for this stage.
+
+---
+
+##### `cloudwatchAlarms`<sup>Required</sup> <a name="cloudwatchAlarms" id="aws-ddk-core.MWAATriggerDagsStage.property.cloudwatchAlarms"></a>
+
+```typescript
+public readonly cloudwatchAlarms: Alarm[];
+```
+
+- *Type:* aws-cdk-lib.aws_cloudwatch.Alarm[]
+
+List of CloudWatch Alarms linked to the stage.
+
+---
+
+##### `stateMachine`<sup>Required</sup> <a name="stateMachine" id="aws-ddk-core.MWAATriggerDagsStage.property.stateMachine"></a>
+
+```typescript
+public readonly stateMachine: StateMachine;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.StateMachine
+
+State machine.
+
+---
+
+##### `mwaaEnvironmentName`<sup>Required</sup> <a name="mwaaEnvironmentName" id="aws-ddk-core.MWAATriggerDagsStage.property.mwaaEnvironmentName"></a>
+
+```typescript
+public readonly mwaaEnvironmentName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -8381,18 +8884,8 @@ const getEnvConfigProps: GetEnvConfigProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetEnvConfigProps.property.configPath"></a>
-
-```typescript
-public readonly configPath: string;
-```
-
-- *Type:* string
+| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.environmentId">environmentId</a></code> | <code>string</code> | Environment identifier. |
+| <code><a href="#aws-ddk-core.GetEnvConfigProps.property.configPath">configPath</a></code> | <code>string</code> | Relative path to config file. |
 
 ---
 
@@ -8403,6 +8896,22 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+
+Environment identifier.
+
+---
+
+##### `configPath`<sup>Optional</sup> <a name="configPath" id="aws-ddk-core.GetEnvConfigProps.property.configPath"></a>
+
+```typescript
+public readonly configPath: string;
+```
+
+- *Type:* string
+
+Relative path to config file.
+
+Defaults to './ddk.json'
 
 ---
 
@@ -8420,8 +8929,8 @@ const getEnvironmentProps: GetEnvironmentProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.configPath">configPath</a></code> | <code>string</code> | Relative path to config file. |
+| <code><a href="#aws-ddk-core.GetEnvironmentProps.property.environmentId">environmentId</a></code> | <code>string</code> | Environment identifier. |
 
 ---
 
@@ -8433,6 +8942,10 @@ public readonly configPath: string;
 
 - *Type:* string
 
+Relative path to config file.
+
+Defaults to './ddk.json'
+
 ---
 
 ##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.GetEnvironmentProps.property.environmentId"></a>
@@ -8442,6 +8955,8 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+
+Environment identifier.
 
 ---
 
@@ -8586,8 +9101,8 @@ const getTagsProps: GetTagsProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.GetTagsProps.property.configPath">configPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.GetTagsProps.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetTagsProps.property.configPath">configPath</a></code> | <code>string</code> | Relative path to config file. |
+| <code><a href="#aws-ddk-core.GetTagsProps.property.environmentId">environmentId</a></code> | <code>string</code> | Environment identifier. |
 
 ---
 
@@ -8599,6 +9114,10 @@ public readonly configPath: string;
 
 - *Type:* string
 
+Relative path to config file.
+
+Defaults to './ddk.json'
+
 ---
 
 ##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="aws-ddk-core.GetTagsProps.property.environmentId"></a>
@@ -8608,6 +9127,8 @@ public readonly environmentId: string;
 ```
 
 - *Type:* string
+
+Environment identifier.
 
 ---
 
@@ -8904,6 +9425,774 @@ public readonly targets: TargetsProperty;
 - *Type:* aws-cdk-lib.aws_glue.CfnCrawler.TargetsProperty
 
 A collection of targets to crawl.
+
+---
+
+### MWAAEnvironmentProps <a name="MWAAEnvironmentProps" id="aws-ddk-core.MWAAEnvironmentProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.MWAAEnvironmentProps.Initializer"></a>
+
+```typescript
+import { MWAAEnvironmentProps } from 'aws-ddk-core'
+
+const mWAAEnvironmentProps: MWAAEnvironmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.name">name</a></code> | <code>string</code> | The name of your Amazon MWAA environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.airflowConfigurationOptions">airflowConfigurationOptions</a></code> | <code>any</code> | A list of key-value pairs containing the Airflow configuration options for your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.airflowVersion">airflowVersion</a></code> | <code>string</code> | The version of Apache Airflow to use for the environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | The relative path to the DAGs folder on your Amazon S3 bucket. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.environmentClass">environmentClass</a></code> | <code>string</code> | The environment class type. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the execution role in IAM that allows MWAA to access AWS resources in your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.kmsKey">kmsKey</a></code> | <code>string</code> | The AWS Key Management Service (KMS) key to encrypt and decrypt the data in your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty</code> | The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.maxWorkers">maxWorkers</a></code> | <code>number</code> | The maximum number of workers that you want to run in your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.minWorkers">minWorkers</a></code> | <code>number</code> | The minimum number of workers that you want to run in your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty</code> | The VPC networking components used to secure and enable network traffic between the AWS resources for your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.pluginsS3ObjectVersion">pluginsS3ObjectVersion</a></code> | <code>string</code> | The version of the plugins.zip file on your Amazon S3 bucket. To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.pluginsS3Path">pluginsS3Path</a></code> | <code>string</code> | The relative path to the `plugins.zip` file on your Amazon S3 bucket. For example, `plugins.zip` . To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.requirementsS3ObjectVersion">requirementsS3ObjectVersion</a></code> | <code>string</code> | The version of the requirements.txt file on your Amazon S3 bucket. To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.requirementsS3Path">requirementsS3Path</a></code> | <code>string</code> | The relative path to the `requirements.txt` file on your Amazon S3 bucket. For example, `requirements.txt` . To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.schedulers">schedulers</a></code> | <code>number</code> | The number of schedulers that you want to run in your environment. Valid values:. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.sourceBucketArn">sourceBucketArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the Amazon S3 bucket where your DAG code and supporting files are stored. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3ObjectVersion">startupScriptS3ObjectVersion</a></code> | <code>string</code> | The version of the startup shell script in your Amazon S3 bucket. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3Path">startupScriptS3Path</a></code> | <code>string</code> | The relative path to the startup shell script in your Amazon S3 bucket. For example, `s3://mwaa-environment/startup.sh` . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.tags">tags</a></code> | <code>any</code> | The key-value tag pairs associated to your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.webserverAccessMode">webserverAccessMode</a></code> | <code>string</code> | The Apache Airflow *Web server* access mode. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.weeklyMaintenanceWindowStart">weeklyMaintenanceWindowStart</a></code> | <code>string</code> | The day and time of the week to start weekly maintenance updates of your environment in the following format: `DAY:HH:MM` . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policy statements to add to the airflow execution role. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.dagFiles">dagFiles</a></code> | <code>string[]</code> | File(s) to be uploaded to dags location in s3 bucket. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.dagProcessingLogs">dagProcessingLogs</a></code> | <code>string</code> | Log level for DagProcessing. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.pluginFile">pluginFile</a></code> | <code>string</code> | Plugin file to be uploaded to plugin path in S3. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.requirementsFile">requirementsFile</a></code> | <code>string</code> | Requirements file to be uploaded to plugin path in S3. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | S3 Bucket. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.schedulerLogsLevel">schedulerLogsLevel</a></code> | <code>string</code> | Log level for SchedulerLogs. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.taskLogsLevel">taskLogsLevel</a></code> | <code>string</code> | Log level for TaskLogs. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.vpcCidr">vpcCidr</a></code> | <code>string</code> | The IP range (CIDR notation) for this VPC. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.vpcId">vpcId</a></code> | <code>string</code> | Existing vpc id. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.webserverLogsLevel">webserverLogsLevel</a></code> | <code>string</code> | Log level for WebserverLogs. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.workerLogsLevel">workerLogsLevel</a></code> | <code>string</code> | Log level for WorkerLogs. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="aws-ddk-core.MWAAEnvironmentProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of your Amazon MWAA environment.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-name](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-name)
+
+---
+
+##### `airflowConfigurationOptions`<sup>Optional</sup> <a name="airflowConfigurationOptions" id="aws-ddk-core.MWAAEnvironmentProps.property.airflowConfigurationOptions"></a>
+
+```typescript
+public readonly airflowConfigurationOptions: any;
+```
+
+- *Type:* any
+
+A list of key-value pairs containing the Airflow configuration options for your environment.
+
+For example, `core.default_timezone: utc` . To learn more, see [Apache Airflow configuration options](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-env-variables.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowconfigurationoptions](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowconfigurationoptions)
+
+---
+
+##### `airflowVersion`<sup>Optional</sup> <a name="airflowVersion" id="aws-ddk-core.MWAAEnvironmentProps.property.airflowVersion"></a>
+
+```typescript
+public readonly airflowVersion: string;
+```
+
+- *Type:* string
+
+The version of Apache Airflow to use for the environment.
+
+If no value is specified, defaults to the latest version.
+
+*Allowed Values* : `2.0.2` | `1.10.12` | `2.2.2` | `2.4.3` | `2.5.1` (latest)
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion)
+
+---
+
+##### `dagS3Path`<sup>Optional</sup> <a name="dagS3Path" id="aws-ddk-core.MWAAEnvironmentProps.property.dagS3Path"></a>
+
+```typescript
+public readonly dagS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the DAGs folder on your Amazon S3 bucket.
+
+For example, `dags` . To learn more, see [Adding or updating DAGs](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-folder.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-dags3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-dags3path)
+
+---
+
+##### `environmentClass`<sup>Optional</sup> <a name="environmentClass" id="aws-ddk-core.MWAAEnvironmentProps.property.environmentClass"></a>
+
+```typescript
+public readonly environmentClass: string;
+```
+
+- *Type:* string
+
+The environment class type.
+
+Valid values: `mw1.small` , `mw1.medium` , `mw1.large` . To learn more, see [Amazon MWAA environment class](https://docs.aws.amazon.com/mwaa/latest/userguide/environment-class.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-environmentclass](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-environmentclass)
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="aws-ddk-core.MWAAEnvironmentProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+
+The Amazon Resource Name (ARN) of the execution role in IAM that allows MWAA to access AWS resources in your environment.
+
+For example, `arn:aws:iam::123456789:role/my-execution-role` . To learn more, see [Amazon MWAA Execution role](https://docs.aws.amazon.com/mwaa/latest/userguide/mwaa-create-role.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-executionrolearn](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-executionrolearn)
+
+---
+
+##### `kmsKey`<sup>Optional</sup> <a name="kmsKey" id="aws-ddk-core.MWAAEnvironmentProps.property.kmsKey"></a>
+
+```typescript
+public readonly kmsKey: string;
+```
+
+- *Type:* string
+
+The AWS Key Management Service (KMS) key to encrypt and decrypt the data in your environment.
+
+You can use an AWS KMS key managed by MWAA, or a customer-managed KMS key (advanced).
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-kmskey](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-kmskey)
+
+---
+
+##### `loggingConfiguration`<sup>Optional</sup> <a name="loggingConfiguration" id="aws-ddk-core.MWAAEnvironmentProps.property.loggingConfiguration"></a>
+
+```typescript
+public readonly loggingConfiguration: IResolvable | LoggingConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty
+
+The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-loggingconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-loggingconfiguration)
+
+---
+
+##### `maxWorkers`<sup>Optional</sup> <a name="maxWorkers" id="aws-ddk-core.MWAAEnvironmentProps.property.maxWorkers"></a>
+
+```typescript
+public readonly maxWorkers: number;
+```
+
+- *Type:* number
+
+The maximum number of workers that you want to run in your environment.
+
+MWAA scales the number of Apache Airflow workers up to the number you specify in the `MaxWorkers` field. For example, `20` . When there are no more tasks running, and no more in the queue, MWAA disposes of the extra workers leaving the one worker that is included with your environment, or the number you specify in `MinWorkers` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxworkers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxworkers)
+
+---
+
+##### `minWorkers`<sup>Optional</sup> <a name="minWorkers" id="aws-ddk-core.MWAAEnvironmentProps.property.minWorkers"></a>
+
+```typescript
+public readonly minWorkers: number;
+```
+
+- *Type:* number
+
+The minimum number of workers that you want to run in your environment.
+
+MWAA scales the number of Apache Airflow workers up to the number you specify in the `MaxWorkers` field. When there are no more tasks running, and no more in the queue, MWAA disposes of the extra workers leaving the worker count you specify in the `MinWorkers` field. For example, `2` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-minworkers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-minworkers)
+
+---
+
+##### `networkConfiguration`<sup>Optional</sup> <a name="networkConfiguration" id="aws-ddk-core.MWAAEnvironmentProps.property.networkConfiguration"></a>
+
+```typescript
+public readonly networkConfiguration: IResolvable | NetworkConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty
+
+The VPC networking components used to secure and enable network traffic between the AWS resources for your environment.
+
+To learn more, see [About networking on Amazon MWAA](https://docs.aws.amazon.com/mwaa/latest/userguide/networking-about.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-networkconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-networkconfiguration)
+
+---
+
+##### `pluginsS3ObjectVersion`<sup>Optional</sup> <a name="pluginsS3ObjectVersion" id="aws-ddk-core.MWAAEnvironmentProps.property.pluginsS3ObjectVersion"></a>
+
+```typescript
+public readonly pluginsS3ObjectVersion: string;
+```
+
+- *Type:* string
+
+The version of the plugins.zip file on your Amazon S3 bucket. To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3objectversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3objectversion)
+
+---
+
+##### `pluginsS3Path`<sup>Optional</sup> <a name="pluginsS3Path" id="aws-ddk-core.MWAAEnvironmentProps.property.pluginsS3Path"></a>
+
+```typescript
+public readonly pluginsS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the `plugins.zip` file on your Amazon S3 bucket. For example, `plugins.zip` . To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-pluginss3path)
+
+---
+
+##### `requirementsS3ObjectVersion`<sup>Optional</sup> <a name="requirementsS3ObjectVersion" id="aws-ddk-core.MWAAEnvironmentProps.property.requirementsS3ObjectVersion"></a>
+
+```typescript
+public readonly requirementsS3ObjectVersion: string;
+```
+
+- *Type:* string
+
+The version of the requirements.txt file on your Amazon S3 bucket. To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3objectversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3objectversion)
+
+---
+
+##### `requirementsS3Path`<sup>Optional</sup> <a name="requirementsS3Path" id="aws-ddk-core.MWAAEnvironmentProps.property.requirementsS3Path"></a>
+
+```typescript
+public readonly requirementsS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the `requirements.txt` file on your Amazon S3 bucket. For example, `requirements.txt` . To learn more, see [Installing Python dependencies](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-requirementss3path)
+
+---
+
+##### `schedulers`<sup>Optional</sup> <a name="schedulers" id="aws-ddk-core.MWAAEnvironmentProps.property.schedulers"></a>
+
+```typescript
+public readonly schedulers: number;
+```
+
+- *Type:* number
+
+The number of schedulers that you want to run in your environment. Valid values:.
+
+*v2* - Accepts between 2 to 5. Defaults to 2.
+- *v1* - Accepts 1.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-schedulers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-schedulers)
+
+---
+
+##### `sourceBucketArn`<sup>Optional</sup> <a name="sourceBucketArn" id="aws-ddk-core.MWAAEnvironmentProps.property.sourceBucketArn"></a>
+
+```typescript
+public readonly sourceBucketArn: string;
+```
+
+- *Type:* string
+
+The Amazon Resource Name (ARN) of the Amazon S3 bucket where your DAG code and supporting files are stored.
+
+For example, `arn:aws:s3:::my-airflow-bucket-unique-name` . To learn more, see [Create an Amazon S3 bucket for Amazon MWAA](https://docs.aws.amazon.com/mwaa/latest/userguide/mwaa-s3-bucket.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-sourcebucketarn](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-sourcebucketarn)
+
+---
+
+##### `startupScriptS3ObjectVersion`<sup>Optional</sup> <a name="startupScriptS3ObjectVersion" id="aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3ObjectVersion"></a>
+
+```typescript
+public readonly startupScriptS3ObjectVersion: string;
+```
+
+- *Type:* string
+
+The version of the startup shell script in your Amazon S3 bucket.
+
+You must specify the [version ID](https://docs.aws.amazon.com/AmazonS3/latest/userguide/versioning-workflows.html) that Amazon S3 assigns to the file every time you update the script.
+
+Version IDs are Unicode, UTF-8 encoded, URL-ready, opaque strings that are no more than 1,024 bytes long. The following is an example:
+
+`3sL4kqtJlcpXroDTDmJ+rmSpXd3dIbrHY+MTRCxf3vjVBH40Nr8X8gdRQBpUMLUo`
+
+For more information, see [Using a startup script](https://docs.aws.amazon.com/mwaa/latest/userguide/using-startup-script.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3objectversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3objectversion)
+
+---
+
+##### `startupScriptS3Path`<sup>Optional</sup> <a name="startupScriptS3Path" id="aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3Path"></a>
+
+```typescript
+public readonly startupScriptS3Path: string;
+```
+
+- *Type:* string
+
+The relative path to the startup shell script in your Amazon S3 bucket. For example, `s3://mwaa-environment/startup.sh` .
+
+Amazon MWAA runs the script as your environment starts, and before running the Apache Airflow process. You can use this script to install dependencies, modify Apache Airflow configuration options, and set environment variables. For more information, see [Using a startup script](https://docs.aws.amazon.com/mwaa/latest/userguide/using-startup-script.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-startupscripts3path)
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.MWAAEnvironmentProps.property.tags"></a>
+
+```typescript
+public readonly tags: any;
+```
+
+- *Type:* any
+
+The key-value tag pairs associated to your environment.
+
+For example, `"Environment": "Staging"` . To learn more, see [Tagging](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-tags](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-tags)
+
+---
+
+##### `webserverAccessMode`<sup>Optional</sup> <a name="webserverAccessMode" id="aws-ddk-core.MWAAEnvironmentProps.property.webserverAccessMode"></a>
+
+```typescript
+public readonly webserverAccessMode: string;
+```
+
+- *Type:* string
+
+The Apache Airflow *Web server* access mode.
+
+To learn more, see [Apache Airflow access modes](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-networking.html) . Valid values: `PRIVATE_ONLY` or `PUBLIC_ONLY` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-webserveraccessmode](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-webserveraccessmode)
+
+---
+
+##### `weeklyMaintenanceWindowStart`<sup>Optional</sup> <a name="weeklyMaintenanceWindowStart" id="aws-ddk-core.MWAAEnvironmentProps.property.weeklyMaintenanceWindowStart"></a>
+
+```typescript
+public readonly weeklyMaintenanceWindowStart: string;
+```
+
+- *Type:* string
+
+The day and time of the week to start weekly maintenance updates of your environment in the following format: `DAY:HH:MM` .
+
+For example: `TUE:03:30` . You can specify a start time in 30 minute increments only. Supported input includes the following:
+
+- MON|TUE|WED|THU|FRI|SAT|SUN:([01]\\d|2[0-3]):(00|30)
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-weeklymaintenancewindowstart](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-weeklymaintenancewindowstart)
+
+---
+
+##### `additionalPolicyStatements`<sup>Optional</sup> <a name="additionalPolicyStatements" id="aws-ddk-core.MWAAEnvironmentProps.property.additionalPolicyStatements"></a>
+
+```typescript
+public readonly additionalPolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+Additional policy statements to add to the airflow execution role.
+
+---
+
+##### `dagFiles`<sup>Optional</sup> <a name="dagFiles" id="aws-ddk-core.MWAAEnvironmentProps.property.dagFiles"></a>
+
+```typescript
+public readonly dagFiles: string[];
+```
+
+- *Type:* string[]
+
+File(s) to be uploaded to dags location in s3 bucket.
+
+---
+
+##### `dagProcessingLogs`<sup>Optional</sup> <a name="dagProcessingLogs" id="aws-ddk-core.MWAAEnvironmentProps.property.dagProcessingLogs"></a>
+
+```typescript
+public readonly dagProcessingLogs: string;
+```
+
+- *Type:* string
+
+Log level for DagProcessing.
+
+---
+
+##### `pluginFile`<sup>Optional</sup> <a name="pluginFile" id="aws-ddk-core.MWAAEnvironmentProps.property.pluginFile"></a>
+
+```typescript
+public readonly pluginFile: string;
+```
+
+- *Type:* string
+
+Plugin file to be uploaded to plugin path in S3.
+
+'pluginsS3Path' must be specified as well.
+
+---
+
+##### `requirementsFile`<sup>Optional</sup> <a name="requirementsFile" id="aws-ddk-core.MWAAEnvironmentProps.property.requirementsFile"></a>
+
+```typescript
+public readonly requirementsFile: string;
+```
+
+- *Type:* string
+
+Requirements file to be uploaded to plugin path in S3.
+
+'requirementsS3Path' must be specified as well.
+
+---
+
+##### `s3Bucket`<sup>Optional</sup> <a name="s3Bucket" id="aws-ddk-core.MWAAEnvironmentProps.property.s3Bucket"></a>
+
+```typescript
+public readonly s3Bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+S3 Bucket.
+
+---
+
+##### `schedulerLogsLevel`<sup>Optional</sup> <a name="schedulerLogsLevel" id="aws-ddk-core.MWAAEnvironmentProps.property.schedulerLogsLevel"></a>
+
+```typescript
+public readonly schedulerLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for SchedulerLogs.
+
+---
+
+##### `taskLogsLevel`<sup>Optional</sup> <a name="taskLogsLevel" id="aws-ddk-core.MWAAEnvironmentProps.property.taskLogsLevel"></a>
+
+```typescript
+public readonly taskLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for TaskLogs.
+
+---
+
+##### `vpcCidr`<sup>Optional</sup> <a name="vpcCidr" id="aws-ddk-core.MWAAEnvironmentProps.property.vpcCidr"></a>
+
+```typescript
+public readonly vpcCidr: string;
+```
+
+- *Type:* string
+
+The IP range (CIDR notation) for this VPC.
+
+---
+
+##### `vpcId`<sup>Optional</sup> <a name="vpcId" id="aws-ddk-core.MWAAEnvironmentProps.property.vpcId"></a>
+
+```typescript
+public readonly vpcId: string;
+```
+
+- *Type:* string
+
+Existing vpc id.
+
+---
+
+##### `webserverLogsLevel`<sup>Optional</sup> <a name="webserverLogsLevel" id="aws-ddk-core.MWAAEnvironmentProps.property.webserverLogsLevel"></a>
+
+```typescript
+public readonly webserverLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for WebserverLogs.
+
+---
+
+##### `workerLogsLevel`<sup>Optional</sup> <a name="workerLogsLevel" id="aws-ddk-core.MWAAEnvironmentProps.property.workerLogsLevel"></a>
+
+```typescript
+public readonly workerLogsLevel: string;
+```
+
+- *Type:* string
+
+Log level for WorkerLogs.
+
+---
+
+### MWAALambdasResult <a name="MWAALambdasResult" id="aws-ddk-core.MWAALambdasResult"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.MWAALambdasResult.Initializer"></a>
+
+```typescript
+import { MWAALambdasResult } from 'aws-ddk-core'
+
+const mWAALambdasResult: MWAALambdasResult = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAALambdasResult.property.statusLambda">statusLambda</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
+| <code><a href="#aws-ddk-core.MWAALambdasResult.property.triggerLambda">triggerLambda</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
+
+---
+
+##### `statusLambda`<sup>Required</sup> <a name="statusLambda" id="aws-ddk-core.MWAALambdasResult.property.statusLambda"></a>
+
+```typescript
+public readonly statusLambda: Function;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Function
+
+---
+
+##### `triggerLambda`<sup>Required</sup> <a name="triggerLambda" id="aws-ddk-core.MWAALambdasResult.property.triggerLambda"></a>
+
+```typescript
+public readonly triggerLambda: Function;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Function
+
+---
+
+### MWAATriggerDagsStageProps <a name="MWAATriggerDagsStageProps" id="aws-ddk-core.MWAATriggerDagsStageProps"></a>
+
+Properties of the MWAA Trigger Dags stage.
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.MWAATriggerDagsStageProps.Initializer"></a>
+
+```typescript
+import { MWAATriggerDagsStageProps } from 'aws-ddk-core'
+
+const mWAATriggerDagsStageProps: MWAATriggerDagsStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.description">description</a></code> | <code>string</code> | Description of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.mwaaEnvironmentName">mwaaEnvironmentName</a></code> | <code>string</code> | Name of airflow environment. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.dagPath">dagPath</a></code> | <code>string</code> | Path to array of dag id's to check. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.dags">dags</a></code> | <code>string[]</code> | Name of dag(s) to trigger. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.statusCheckPeriod">statusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | Time to wait between execution status checks. |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="aws-ddk-core.MWAATriggerDagsStageProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Description of the stage.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.MWAATriggerDagsStageProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the stage.
+
+---
+
+##### `additionalRolePolicyStatements`<sup>Optional</sup> <a name="additionalRolePolicyStatements" id="aws-ddk-core.MWAATriggerDagsStageProps.property.additionalRolePolicyStatements"></a>
+
+```typescript
+public readonly additionalRolePolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+Additional IAM policy statements to add to the state machine role.
+
+---
+
+##### `alarmsEnabled`<sup>Optional</sup> <a name="alarmsEnabled" id="aws-ddk-core.MWAATriggerDagsStageProps.property.alarmsEnabled"></a>
+
+```typescript
+public readonly alarmsEnabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Enable/Disable all alarms in the stage.
+
+---
+
+##### `stateMachineFailedExecutionsAlarmEvaluationPeriods`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmEvaluationPeriods" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmEvaluationPeriods: number;
+```
+
+- *Type:* number
+- *Default:* 1
+
+The number of periods over which data is compared to the specified threshold.
+
+---
+
+##### `stateMachineFailedExecutionsAlarmThreshold`<sup>Optional</sup> <a name="stateMachineFailedExecutionsAlarmThreshold" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmThreshold"></a>
+
+```typescript
+public readonly stateMachineFailedExecutionsAlarmThreshold: number;
+```
+
+- *Type:* number
+- *Default:* 1
+
+The number of failed state machine executions before triggering CW alarm.
+
+---
+
+##### `stateMachineInput`<sup>Optional</sup> <a name="stateMachineInput" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineInput"></a>
+
+```typescript
+public readonly stateMachineInput: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+Input of the state machine.
+
+---
+
+##### `stateMachineName`<sup>Optional</sup> <a name="stateMachineName" id="aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineName"></a>
+
+```typescript
+public readonly stateMachineName: string;
+```
+
+- *Type:* string
+
+Name of the state machine.
+
+---
+
+##### `mwaaEnvironmentName`<sup>Required</sup> <a name="mwaaEnvironmentName" id="aws-ddk-core.MWAATriggerDagsStageProps.property.mwaaEnvironmentName"></a>
+
+```typescript
+public readonly mwaaEnvironmentName: string;
+```
+
+- *Type:* string
+
+Name of airflow environment.
+
+---
+
+##### `dagPath`<sup>Optional</sup> <a name="dagPath" id="aws-ddk-core.MWAATriggerDagsStageProps.property.dagPath"></a>
+
+```typescript
+public readonly dagPath: string;
+```
+
+- *Type:* string
+
+Path to array of dag id's to check.
+
+---
+
+##### `dags`<sup>Optional</sup> <a name="dags" id="aws-ddk-core.MWAATriggerDagsStageProps.property.dags"></a>
+
+```typescript
+public readonly dags: string[];
+```
+
+- *Type:* string[]
+
+Name of dag(s) to trigger.
+
+---
+
+##### `statusCheckPeriod`<sup>Optional</sup> <a name="statusCheckPeriod" id="aws-ddk-core.MWAATriggerDagsStageProps.property.statusCheckPeriod"></a>
+
+```typescript
+public readonly statusCheckPeriod: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* aws_cdk.Duration.seconds(15)
+
+Time to wait between execution status checks.
 
 ---
 
