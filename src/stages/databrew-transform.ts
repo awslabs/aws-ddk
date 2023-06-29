@@ -192,7 +192,7 @@ export class DataBrewTransformStage extends StateMachineStage {
       eventPattern: this.eventPattern,
       targets: this.targets,
       stateMachine: this.stateMachine,
-    } = this.createStateMachine(definition, props));
+    } = this.createStateMachine({definition: definition, ...props}));
   }
 
   private createDefaultDataBrewJobRole(): iam.Role {

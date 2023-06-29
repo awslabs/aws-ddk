@@ -7029,6 +7029,7 @@ const baseStackProps: BaseStackProps = { ... }
 | <code><a href="#aws-ddk-core.BaseStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#aws-ddk-core.BaseStackProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
@@ -7182,6 +7183,23 @@ Name to deploy the stack with.
 
 ---
 
+##### `suppressTemplateIndentation`<sup>Optional</sup> <a name="suppressTemplateIndentation" id="aws-ddk-core.BaseStackProps.property.suppressTemplateIndentation"></a>
+
+```typescript
+public readonly suppressTemplateIndentation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* the value of `@aws-cdk/core:suppressTemplateIndentation`, or `false` if that is not set.
+
+Enable this flag to suppress indentation in generated CloudFormation templates.
+
+If not specified, the value of the `@aws-cdk/core:suppressTemplateIndentation`
+context key will be used. If that is not specified, then the
+default value `false` will be used.
+
+---
+
 ##### `synthesizer`<sup>Optional</sup> <a name="synthesizer" id="aws-ddk-core.BaseStackProps.property.synthesizer"></a>
 
 ```typescript
@@ -7290,6 +7308,7 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
@@ -7442,6 +7461,23 @@ public readonly stackName: string;
 - *Default:* Derived from construct path.
 
 Name to deploy the stack with.
+
+---
+
+##### `suppressTemplateIndentation`<sup>Optional</sup> <a name="suppressTemplateIndentation" id="aws-ddk-core.CICDPipelineStackProps.property.suppressTemplateIndentation"></a>
+
+```typescript
+public readonly suppressTemplateIndentation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* the value of `@aws-cdk/core:suppressTemplateIndentation`, or `false` if that is not set.
+
+Enable this flag to suppress indentation in generated CloudFormation templates.
+
+If not specified, the value of the `@aws-cdk/core:suppressTemplateIndentation`
+context key will be used. If that is not specified, then the
+default value `false` will be used.
 
 ---
 
@@ -10909,6 +10945,7 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRetryOptions">logRetentionRetryOptions</a></code> | <code>aws-cdk-lib.aws_lambda.LogRetentionRetryOptions</code> | When log retention is specified, a custom resource attempts to create the CloudWatch log group. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRole">logRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role for the Lambda function associated with the custom resource that sets the retention policy. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.memorySize">memorySize</a></code> | <code>number</code> | The amount of memory, in MB, that is allocated to your Lambda function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.paramsAndSecrets">paramsAndSecrets</a></code> | <code>aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion</code> | Specify the configuration of Parameters and Secrets Extension. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profiling">profiling</a></code> | <code>boolean</code> | Enable profiling. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profilingGroup">profilingGroup</a></code> | <code>aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup</code> | Profiling Group. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.reservedConcurrentExecutions">reservedConcurrentExecutions</a></code> | <code>number</code> | The maximum of concurrent executions you want to reserve for the function. |
@@ -11323,6 +11360,21 @@ The amount of memory, in MB, that is allocated to your Lambda function.
 Lambda uses this value to proportionally allocate the amount of CPU
 power. For more information, see Resource Model in the AWS Lambda
 Developer Guide.
+
+---
+
+##### `paramsAndSecrets`<sup>Optional</sup> <a name="paramsAndSecrets" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.paramsAndSecrets"></a>
+
+```typescript
+public readonly paramsAndSecrets: ParamsAndSecretsLayerVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion
+- *Default:* No Parameters and Secrets Extension
+
+Specify the configuration of Parameters and Secrets Extension.
+
+> [https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html](https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html)
 
 ---
 

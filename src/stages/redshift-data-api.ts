@@ -102,7 +102,7 @@ export class RedshiftDataApiStage extends StateMachineStage {
           .otherwise(wait),
       );
 
-    ({ eventPattern: this.eventPattern, stateMachine: this.stateMachine } = this.createStateMachine(definition, props));
+    ({ eventPattern: this.eventPattern, stateMachine: this.stateMachine } = this.createStateMachine({definition: definition, ...props}));
     this.stateMachine.addToRolePolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
