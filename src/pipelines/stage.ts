@@ -163,10 +163,40 @@ export abstract class DataStage extends Stage {
   }
 }
 
+function getDefinitionBody(definition?: sfn.IChainable | string, definitionFile?: string): sfn.DefinitionBody {
+  if (definition && definitionFile) {
+    throw new Error("Only one of 'definition' or 'definitionFile' should be provided.");
+  }
+  if (!definition && !definitionFile) {
+    throw new Error("One of 'definition' or 'definitionFile' must be provided.");
+  }
+
+  if (definitionFile) {
+    return sfn.DefinitionBody.fromFile(definitionFile, {});
+  } else {
+    if (typeof definition == "string") {
+      return sfn.DefinitionBody.fromString(definition);
+    }
+    if (definition) {
+      return sfn.DefinitionBody.fromChainable(definition);
+    }
+  }
+  throw new Error("Not able to create a definition body.");
+}
+
 /**
  * Properties of a state machine stage.
  */
 export interface StateMachineStageProps extends StageProps {
+  /**
+   * Steps for the state machine.
+   * Can either be provided as 'sfn.IChainable' or a JSON string.
+   */
+  readonly definition?: sfn.IChainable | string;
+  /**
+   * File containing a JSON definition for the state machine.
+   */
+  readonly definitionFile?: string;
   /**
    * Input of the state machine.
    */
@@ -223,13 +253,12 @@ export abstract class StateMachineStage extends DataStage {
 
   /**
    * Constructs a state machine from the definition.
-   * @param definition Steps for the state machine.
    * @param props State machine stage properties.
    * @returns Dictionary with event pattern, targets and state machine construct.
    */
-  protected createStateMachine(definition: sfn.IChainable, props: StateMachineStageProps): CreateStateMachineResult {
+  protected createStateMachine(props: StateMachineStageProps): CreateStateMachineResult {
     const stateMachine = new sfn.StateMachine(this, "State Machine", {
-      definition: definition,
+      definitionBody: getDefinitionBody(props.definition, props.definitionFile),
       stateMachineName: props.stateMachineName,
     });
 

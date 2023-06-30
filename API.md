@@ -6589,6 +6589,8 @@ const appFlowIngestionStageProps: AppFlowIngestionStageProps = { ... }
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.definition">definition</a></code> | <code>string \| aws-cdk-lib.aws_stepfunctions.IChainable</code> | Steps for the state machine. |
+| <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.definitionFile">definitionFile</a></code> | <code>string</code> | File containing a JSON definition for the state machine. |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.AppFlowIngestionStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
@@ -6647,6 +6649,32 @@ public readonly alarmsEnabled: boolean;
 - *Default:* true
 
 Enable/Disable all alarms in the stage.
+
+---
+
+##### `definition`<sup>Optional</sup> <a name="definition" id="aws-ddk-core.AppFlowIngestionStageProps.property.definition"></a>
+
+```typescript
+public readonly definition: string | IChainable;
+```
+
+- *Type:* string | aws-cdk-lib.aws_stepfunctions.IChainable
+
+Steps for the state machine.
+
+Can either be provided as 'sfn.IChainable' or a JSON string.
+
+---
+
+##### `definitionFile`<sup>Optional</sup> <a name="definitionFile" id="aws-ddk-core.AppFlowIngestionStageProps.property.definitionFile"></a>
+
+```typescript
+public readonly definitionFile: string;
+```
+
+- *Type:* string
+
+File containing a JSON definition for the state machine.
 
 ---
 
@@ -6783,6 +6811,8 @@ const athenaToSQLStageProps: AthenaToSQLStageProps = { ... }
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.definition">definition</a></code> | <code>string \| aws-cdk-lib.aws_stepfunctions.IChainable</code> | Steps for the state machine. |
+| <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.definitionFile">definitionFile</a></code> | <code>string</code> | File containing a JSON definition for the state machine. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.AthenaToSQLStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
@@ -6845,6 +6875,32 @@ public readonly alarmsEnabled: boolean;
 - *Default:* true
 
 Enable/Disable all alarms in the stage.
+
+---
+
+##### `definition`<sup>Optional</sup> <a name="definition" id="aws-ddk-core.AthenaToSQLStageProps.property.definition"></a>
+
+```typescript
+public readonly definition: string | IChainable;
+```
+
+- *Type:* string | aws-cdk-lib.aws_stepfunctions.IChainable
+
+Steps for the state machine.
+
+Can either be provided as 'sfn.IChainable' or a JSON string.
+
+---
+
+##### `definitionFile`<sup>Optional</sup> <a name="definitionFile" id="aws-ddk-core.AthenaToSQLStageProps.property.definitionFile"></a>
+
+```typescript
+public readonly definitionFile: string;
+```
+
+- *Type:* string
+
+File containing a JSON definition for the state machine.
 
 ---
 
@@ -7029,6 +7085,7 @@ const baseStackProps: BaseStackProps = { ... }
 | <code><a href="#aws-ddk-core.BaseStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#aws-ddk-core.BaseStackProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
@@ -7182,6 +7239,23 @@ Name to deploy the stack with.
 
 ---
 
+##### `suppressTemplateIndentation`<sup>Optional</sup> <a name="suppressTemplateIndentation" id="aws-ddk-core.BaseStackProps.property.suppressTemplateIndentation"></a>
+
+```typescript
+public readonly suppressTemplateIndentation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* the value of `@aws-cdk/core:suppressTemplateIndentation`, or `false` if that is not set.
+
+Enable this flag to suppress indentation in generated CloudFormation templates.
+
+If not specified, the value of the `@aws-cdk/core:suppressTemplateIndentation`
+context key will be used. If that is not specified, then the
+default value `false` will be used.
+
+---
+
 ##### `synthesizer`<sup>Optional</sup> <a name="synthesizer" id="aws-ddk-core.BaseStackProps.property.synthesizer"></a>
 
 ```typescript
@@ -7290,6 +7364,7 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
@@ -7442,6 +7517,23 @@ public readonly stackName: string;
 - *Default:* Derived from construct path.
 
 Name to deploy the stack with.
+
+---
+
+##### `suppressTemplateIndentation`<sup>Optional</sup> <a name="suppressTemplateIndentation" id="aws-ddk-core.CICDPipelineStackProps.property.suppressTemplateIndentation"></a>
+
+```typescript
+public readonly suppressTemplateIndentation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* the value of `@aws-cdk/core:suppressTemplateIndentation`, or `false` if that is not set.
+
+Enable this flag to suppress indentation in generated CloudFormation templates.
+
+If not specified, the value of the `@aws-cdk/core:suppressTemplateIndentation`
+context key will be used. If that is not specified, then the
+default value `false` will be used.
 
 ---
 
@@ -7875,6 +7967,8 @@ const dataBrewTransformStageProps: DataBrewTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.definition">definition</a></code> | <code>string \| aws-cdk-lib.aws_stepfunctions.IChainable</code> | Steps for the state machine. |
+| <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.definitionFile">definitionFile</a></code> | <code>string</code> | File containing a JSON definition for the state machine. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.DataBrewTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
@@ -7949,6 +8043,32 @@ public readonly alarmsEnabled: boolean;
 - *Default:* true
 
 Enable/Disable all alarms in the stage.
+
+---
+
+##### `definition`<sup>Optional</sup> <a name="definition" id="aws-ddk-core.DataBrewTransformStageProps.property.definition"></a>
+
+```typescript
+public readonly definition: string | IChainable;
+```
+
+- *Type:* string | aws-cdk-lib.aws_stepfunctions.IChainable
+
+Steps for the state machine.
+
+Can either be provided as 'sfn.IChainable' or a JSON string.
+
+---
+
+##### `definitionFile`<sup>Optional</sup> <a name="definitionFile" id="aws-ddk-core.DataBrewTransformStageProps.property.definitionFile"></a>
+
+```typescript
+public readonly definitionFile: string;
+```
+
+- *Type:* string
+
+File containing a JSON definition for the state machine.
 
 ---
 
@@ -9152,6 +9272,8 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.definition">definition</a></code> | <code>string \| aws-cdk-lib.aws_stepfunctions.IChainable</code> | Steps for the state machine. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.definitionFile">definitionFile</a></code> | <code>string</code> | File containing a JSON definition for the state machine. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
@@ -9217,6 +9339,32 @@ public readonly alarmsEnabled: boolean;
 - *Default:* true
 
 Enable/Disable all alarms in the stage.
+
+---
+
+##### `definition`<sup>Optional</sup> <a name="definition" id="aws-ddk-core.GlueTransformStageProps.property.definition"></a>
+
+```typescript
+public readonly definition: string | IChainable;
+```
+
+- *Type:* string | aws-cdk-lib.aws_stepfunctions.IChainable
+
+Steps for the state machine.
+
+Can either be provided as 'sfn.IChainable' or a JSON string.
+
+---
+
+##### `definitionFile`<sup>Optional</sup> <a name="definitionFile" id="aws-ddk-core.GlueTransformStageProps.property.definitionFile"></a>
+
+```typescript
+public readonly definitionFile: string;
+```
+
+- *Type:* string
+
+File containing a JSON definition for the state machine.
 
 ---
 
@@ -10037,6 +10185,8 @@ const mWAATriggerDagsStageProps: MWAATriggerDagsStageProps = { ... }
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.definition">definition</a></code> | <code>string \| aws-cdk-lib.aws_stepfunctions.IChainable</code> | Steps for the state machine. |
+| <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.definitionFile">definitionFile</a></code> | <code>string</code> | File containing a JSON definition for the state machine. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.MWAATriggerDagsStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
@@ -10094,6 +10244,32 @@ public readonly alarmsEnabled: boolean;
 - *Default:* true
 
 Enable/Disable all alarms in the stage.
+
+---
+
+##### `definition`<sup>Optional</sup> <a name="definition" id="aws-ddk-core.MWAATriggerDagsStageProps.property.definition"></a>
+
+```typescript
+public readonly definition: string | IChainable;
+```
+
+- *Type:* string | aws-cdk-lib.aws_stepfunctions.IChainable
+
+Steps for the state machine.
+
+Can either be provided as 'sfn.IChainable' or a JSON string.
+
+---
+
+##### `definitionFile`<sup>Optional</sup> <a name="definitionFile" id="aws-ddk-core.MWAATriggerDagsStageProps.property.definitionFile"></a>
+
+```typescript
+public readonly definitionFile: string;
+```
+
+- *Type:* string
+
+File containing a JSON definition for the state machine.
 
 ---
 
@@ -10266,6 +10442,8 @@ const redshiftDataApiStageProps: RedshiftDataApiStageProps = { ... }
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.definition">definition</a></code> | <code>string \| aws-cdk-lib.aws_stepfunctions.IChainable</code> | Steps for the state machine. |
+| <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.definitionFile">definitionFile</a></code> | <code>string</code> | File containing a JSON definition for the state machine. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.RedshiftDataApiStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
@@ -10324,6 +10502,32 @@ public readonly alarmsEnabled: boolean;
 - *Default:* true
 
 Enable/Disable all alarms in the stage.
+
+---
+
+##### `definition`<sup>Optional</sup> <a name="definition" id="aws-ddk-core.RedshiftDataApiStageProps.property.definition"></a>
+
+```typescript
+public readonly definition: string | IChainable;
+```
+
+- *Type:* string | aws-cdk-lib.aws_stepfunctions.IChainable
+
+Steps for the state machine.
+
+Can either be provided as 'sfn.IChainable' or a JSON string.
+
+---
+
+##### `definitionFile`<sup>Optional</sup> <a name="definitionFile" id="aws-ddk-core.RedshiftDataApiStageProps.property.definitionFile"></a>
+
+```typescript
+public readonly definitionFile: string;
+```
+
+- *Type:* string
+
+File containing a JSON definition for the state machine.
 
 ---
 
@@ -10909,6 +11113,7 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRetryOptions">logRetentionRetryOptions</a></code> | <code>aws-cdk-lib.aws_lambda.LogRetentionRetryOptions</code> | When log retention is specified, a custom resource attempts to create the CloudWatch log group. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRole">logRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role for the Lambda function associated with the custom resource that sets the retention policy. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.memorySize">memorySize</a></code> | <code>number</code> | The amount of memory, in MB, that is allocated to your Lambda function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.paramsAndSecrets">paramsAndSecrets</a></code> | <code>aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion</code> | Specify the configuration of Parameters and Secrets Extension. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profiling">profiling</a></code> | <code>boolean</code> | Enable profiling. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profilingGroup">profilingGroup</a></code> | <code>aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup</code> | Profiling Group. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.reservedConcurrentExecutions">reservedConcurrentExecutions</a></code> | <code>number</code> | The maximum of concurrent executions you want to reserve for the function. |
@@ -11323,6 +11528,21 @@ The amount of memory, in MB, that is allocated to your Lambda function.
 Lambda uses this value to proportionally allocate the amount of CPU
 power. For more information, see Resource Model in the AWS Lambda
 Developer Guide.
+
+---
+
+##### `paramsAndSecrets`<sup>Optional</sup> <a name="paramsAndSecrets" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.paramsAndSecrets"></a>
+
+```typescript
+public readonly paramsAndSecrets: ParamsAndSecretsLayerVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion
+- *Default:* No Parameters and Secrets Extension
+
+Specify the configuration of Parameters and Secrets Extension.
+
+> [https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html](https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html)
 
 ---
 
@@ -11833,6 +12053,8 @@ const stateMachineStageProps: StateMachineStageProps = { ... }
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.name">name</a></code> | <code>string</code> | Name of the stage. |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.additionalRolePolicyStatements">additionalRolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional IAM policy statements to add to the state machine role. |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Enable/Disable all alarms in the stage. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.definition">definition</a></code> | <code>string \| aws-cdk-lib.aws_stepfunctions.IChainable</code> | Steps for the state machine. |
+| <code><a href="#aws-ddk-core.StateMachineStageProps.property.definitionFile">definitionFile</a></code> | <code>string</code> | File containing a JSON definition for the state machine. |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmEvaluationPeriods">stateMachineFailedExecutionsAlarmEvaluationPeriods</a></code> | <code>number</code> | The number of periods over which data is compared to the specified threshold. |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.StateMachineStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
@@ -11886,6 +12108,32 @@ public readonly alarmsEnabled: boolean;
 - *Default:* true
 
 Enable/Disable all alarms in the stage.
+
+---
+
+##### `definition`<sup>Optional</sup> <a name="definition" id="aws-ddk-core.StateMachineStageProps.property.definition"></a>
+
+```typescript
+public readonly definition: string | IChainable;
+```
+
+- *Type:* string | aws-cdk-lib.aws_stepfunctions.IChainable
+
+Steps for the state machine.
+
+Can either be provided as 'sfn.IChainable' or a JSON string.
+
+---
+
+##### `definitionFile`<sup>Optional</sup> <a name="definitionFile" id="aws-ddk-core.StateMachineStageProps.property.definitionFile"></a>
+
+```typescript
+public readonly definitionFile: string;
+```
+
+- *Type:* string
+
+File containing a JSON definition for the state machine.
 
 ---
 
