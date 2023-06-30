@@ -95,7 +95,7 @@ export class MWAATriggerDagsStage extends StateMachineStage {
       eventPattern: this.eventPattern,
       targets: this.targets,
       stateMachine: this.stateMachine,
-    } = this.createStateMachine({definition: definition, ...props}));
+    } = this.createStateMachine({ definition: definition, ...props }));
   }
 
   private buildLambdas(): MWAALambdasResult {

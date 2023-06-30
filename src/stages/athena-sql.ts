@@ -102,7 +102,10 @@ export class AthenaSQLStage extends StateMachineStage {
 
     const definition = athenaQueryExec.next(new sfn.Succeed(this, "Success"));
 
-    ({ eventPattern: this.eventPattern, stateMachine: this.stateMachine } = this.createStateMachine({definition: definition, ...props}));
+    ({ eventPattern: this.eventPattern, stateMachine: this.stateMachine } = this.createStateMachine({
+      definition: definition,
+      ...props,
+    }));
     this.targets = [
       new eventsTargets.SfnStateMachine(this.stateMachine, {
         input: props.queryString

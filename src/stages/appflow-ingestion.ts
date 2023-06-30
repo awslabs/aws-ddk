@@ -105,7 +105,7 @@ export class AppFlowIngestionStage extends StateMachineStage {
       eventPattern: this.eventPattern,
       targets: this.targets,
       stateMachine: this.stateMachine,
-    } = this.createStateMachine({definition: definition, ...props}));
+    } = this.createStateMachine({ definition: definition, ...props }));
     this.stateMachine.addToRolePolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,

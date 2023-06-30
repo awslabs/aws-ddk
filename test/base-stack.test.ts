@@ -333,7 +333,7 @@ test("Test Permissions Boundary Creation and Usage in BaseStack", () => {
   const stackTemplate = Template.fromStack(stack);
   stackTemplate.hasResourceProperties("AWS::IAM::Role", {
     PermissionsBoundary: {
-      Ref: "DDKDefaultPermissionsBoundary6721F63A",
+      "Fn::ImportValue": "my-bootstrap-stack:ExportsOutputRefDDKDefaultPermissionsBoundary6721F63A9C9C311E",
     },
   });
 });

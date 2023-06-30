@@ -1,0 +1,94 @@
+{
+  "StartAt": "random-number-generator-lambda-config",
+  "States": {
+
+
+    "random-number-generator-lambda-config": {
+      "Comment": "To configure the random-number-generator-lambda.",
+      "Type": "Pass",
+      "Result": {
+          "min": 1,
+          "max": 10
+        },
+      "ResultPath": "$",
+      "Next": "random-number-generator-lambda"
+    },
+    
+
+    "random-number-generator-lambda": {
+      "Comment": "Generate a number based on input.",
+      "Type": "Task",
+      "Resource": "${random-number-generator-lambda-aws-arn}",
+      "Next": "send-notification-if-less-than-5"
+    },
+
+
+    "send-notification-if-less-than-5": {
+      "Comment": "A choice state to decide to send out notification for <5 or trigger power of three lambda for >5.",
+      "Type": "Choice",
+      "Choices": [
+        {
+            "Variable": "$",
+            "NumericGreaterThanEquals": 5,
+            "Next": "power-of-three-lambda"
+        },
+        {
+          "Variable": "$",
+          "NumericLessThan": 5,
+          "Next": "send-multiple-notification"
+        }
+      ]
+    },
+
+
+    "power-of-three-lambda": {
+      "Comment": "Increase the input to power of 3 with customized input.",
+      "Type": "Task",
+      "Parameters" : {
+        "base.$": "$",
+        "exponent": 3
+      },
+      "Resource": "${power-of-number-lambda-aws-arn}",
+      "End": true
+    },
+
+
+    "send-multiple-notification": {
+      "Comment": "Trigger multiple notification using AWS SNS",
+      "Type": "Parallel",
+      "End": true,
+      "Branches": [
+        {
+         "StartAt": "send-sms-notification",
+         "States": {
+            "send-sms-notification": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "Message": "SMS: Random number is less than 5 $",
+                "PhoneNumber": "${valid-handphone-number}"
+              },
+              "End": true
+            }
+         }
+       },
+       {
+        "StartAt": "send-sns-topic",
+         "States": {
+           "send-sns-topic": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "Message": "Email: Random number is less than 5: $",
+                "TopicArn": "${aws-sns-topic-to-send-out-email}"
+              },
+              "End": true
+            }
+         }
+       }  
+      ]
+    }
+
+
+  }
+}
