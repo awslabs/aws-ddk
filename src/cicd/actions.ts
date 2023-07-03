@@ -15,6 +15,7 @@ export interface GetSynthActionProps {
   readonly codeartifactDomain?: string;
   readonly codeartifactDomainOwner?: string;
   readonly additionalInstallCommands?: string[];
+  readonly env?: { ["string"]: string }
 }
 
 export interface CodeCommitSourceActionProps {
@@ -65,6 +66,7 @@ export class CICDActions {
       installCommands: installCommands,
       commands: ["cdk synth"],
       rolePolicyStatements: props.rolePolicyStatements,
+      env: props.env
     });
   }
 

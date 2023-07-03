@@ -60,6 +60,10 @@ export interface SynthActionProps {
    */
   readonly synthAction?: pipelines.CodeBuildStep;
   /**
+   * Environment variables to set. 
+   */
+  readonly env?: { ["string"]: string }
+  /**
    * Additional install commands.
    */
   readonly additionalInstallCommands?: string[];
@@ -389,9 +393,11 @@ export class CICDPipelineStack extends BaseStack {
         codeartifactRepository: props.codeartifactRepository,
         codeartifactDomain: props.codeartifactDomain,
         codeartifactDomainOwner: props.codeartifactDomainOwner,
+        env: props.env,
         additionalInstallCommands: props.additionalInstallCommands
           ? [languageInstallCommand[this.cdkLanguage]].concat(props.additionalInstallCommands)
           : [languageInstallCommand[this.cdkLanguage]],
+          
       });
     return this;
   }
