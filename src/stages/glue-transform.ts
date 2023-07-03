@@ -78,6 +78,8 @@ export class GlueTransformStage extends StateMachineStage {
   readonly stateMachine: sfn.StateMachine;
   readonly glueJob: glue_alpha.IJob;
   readonly crawler?: glue.CfnCrawler;
+  readonly crawlerName?: string;
+  readonly definition: sfn.IChainable;
 
   /**
    * Constructs `GlueTransformStage`.
@@ -91,8 +93,11 @@ export class GlueTransformStage extends StateMachineStage {
     this.glueJob = this.getGlueJob(scope, id, props);
     const jobRunArgs = props.jobRunArgs;
 
-    this.crawler = props.crawlerName ? undefined : this.getCrawler(props);
-    const crawlerName = this.crawler ? this.crawler.ref : props.crawlerName;
+    // Only setup crawler if one of 'crawlerName', 'crawlerProps' or 'crawlerRole' is provided
+    if (props.crawlerName || props.crawlerProps || props.crawlerRole) {
+      this.crawler = props.crawlerName ? undefined : this.getCrawler(props);
+      this.crawlerName = this.crawler ? this.crawler.ref : props.crawlerName;
+    }
 
     const startJobRun = new tasks.GlueStartJobRun(this, "Start Job Run", {
       glueJobName: this.glueJob.jobName,
@@ -102,36 +107,37 @@ export class GlueTransformStage extends StateMachineStage {
     });
 
     const stack = cdk.Stack.of(this);
-    const crawlObject = new tasks.CallAwsService(this, "Crawl Object", {
-      service: "glue",
-      action: "startCrawler",
-      parameters: {
-        Name: crawlerName,
-      },
-      iamResources: [`arn:${stack.partition}:glue:${stack.region}:${stack.account}:crawler/${crawlerName}`],
-    });
-
     const successTask = new sfn.Succeed(this, "Success");
 
-    crawlObject.addRetry({
-      errors: ["Glue.CrawlerRunningException"],
-      maxAttempts: props.stateMachineRetryMaxAttempts ?? 3,
-      backoffRate: props.stateMachineRetryBackoffRate ?? 2,
-      interval: props.stateMachineRetryInterval ?? cdk.Duration.seconds(1),
-    });
-
-    const crawlerAllowFailure = props.crawlerAllowFailure ?? true;
-    if (crawlerAllowFailure) {
-      crawlObject.addCatch(successTask, { errors: ["Glue.CrawlerRunningException"] });
+    if (this.crawlerName) {
+      const crawlObject = new tasks.CallAwsService(this, "Crawl Object", {
+        service: "glue",
+        action: "startCrawler",
+        parameters: {
+          Name: this.crawlerName,
+        },
+        iamResources: [`arn:${stack.partition}:glue:${stack.region}:${stack.account}:crawler/${this.crawlerName}`],
+      });
+      crawlObject.addRetry({
+        errors: ["Glue.CrawlerRunningException"],
+        maxAttempts: props.stateMachineRetryMaxAttempts ?? 3,
+        backoffRate: props.stateMachineRetryBackoffRate ?? 2,
+        interval: props.stateMachineRetryInterval ?? cdk.Duration.seconds(1),
+      });
+      const crawlerAllowFailure = props.crawlerAllowFailure ?? true;
+      if (crawlerAllowFailure) {
+        crawlObject.addCatch(successTask, { errors: ["Glue.CrawlerRunningException"] });
+      }
+      this.definition = startJobRun.next(crawlObject.next(successTask));
+    } else {
+      this.definition = startJobRun.next(successTask);
     }
-
-    const definition = startJobRun.next(crawlObject.next(successTask));
 
     ({
       eventPattern: this.eventPattern,
       targets: this.targets,
       stateMachine: this.stateMachine,
-    } = this.createStateMachine({ definition: definition, ...props }));
+    } = this.createStateMachine({ definition: this.definition, ...props }));
   }
 
   private getGlueJob(scope: Construct, id: string, props: GlueTransformStageProps): glue_alpha.IJob {

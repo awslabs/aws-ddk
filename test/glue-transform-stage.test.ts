@@ -107,15 +107,6 @@ test("GlueTranformStage must have 'jobName' or 'jobProps' set", () => {
   }).toThrowError("'jobName' or 'jobProps' must be set to instantiate this stage");
 });
 
-test("GlueTranformStage must set crawler role ", () => {
-  const stack = new cdk.Stack();
-  expect(() => {
-    new GlueTransformStage(stack, "Stage", {
-      jobName: "myJob",
-    });
-  }).toThrowError("Crawler Role must be set either by 'crawlerRole' or 'crawlerProps.role");
-});
-
 test("GlueTranformStage must set crawler targets", () => {
   const stack = new cdk.Stack();
   expect(() => {
@@ -148,7 +139,7 @@ test("GlueTransformStage retry settings", () => {
   });
 });
 
-test("GlueTransformStage crawler allo failure settings", () => {
+test("GlueTransformStage crawler allow failure settings", () => {
   const stack = new cdk.Stack();
 
   new GlueTransformStage(stack, "glue-transform-disallow-failure", {
@@ -168,4 +159,15 @@ test("GlueTransformStage crawler allo failure settings", () => {
       "Fn::Join": ["", Match.arrayWith([Match.stringLikeRegexp("Catch.*ErrorEquals.*Glue.CrawlerRunningException")])],
     },
   });
+});
+
+test("GlueTransformStage no crawler", () => {
+  const stack = new cdk.Stack();
+
+  new GlueTransformStage(stack, "glue-transform-no-crawler", {
+    jobName: "myJob",
+  });
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::Glue::Crawler", 0);
 });
