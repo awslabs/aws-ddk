@@ -3901,8 +3901,10 @@ Any object.
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.definition">definition</a></code> | <code>aws-cdk-lib.aws_stepfunctions.IChainable</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.glueJob">glueJob</a></code> | <code>@aws-cdk/aws-glue-alpha.IJob</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.crawler">crawler</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawler</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -4007,6 +4009,16 @@ State machine.
 
 ---
 
+##### `definition`<sup>Required</sup> <a name="definition" id="aws-ddk-core.GlueTransformStage.property.definition"></a>
+
+```typescript
+public readonly definition: IChainable;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.IChainable
+
+---
+
 ##### `glueJob`<sup>Required</sup> <a name="glueJob" id="aws-ddk-core.GlueTransformStage.property.glueJob"></a>
 
 ```typescript
@@ -4024,6 +4036,16 @@ public readonly crawler: CfnCrawler;
 ```
 
 - *Type:* aws-cdk-lib.aws_glue.CfnCrawler
+
+---
+
+##### `crawlerName`<sup>Optional</sup> <a name="crawlerName" id="aws-ddk-core.GlueTransformStage.property.crawlerName"></a>
+
+```typescript
+public readonly crawlerName: string;
+```
+
+- *Type:* string
 
 ---
 
