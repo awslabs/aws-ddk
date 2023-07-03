@@ -563,6 +563,9 @@ test("CICDPipeline additional properties", () => {
     .addSynthAction({
       additionalInstallCommands: ["echo 'foobar'"],
       cdkVersion: "2.61.0",
+      env: {
+        FOO: "BAR",
+      },
     })
     .buildPipeline()
     .addTestStage({
