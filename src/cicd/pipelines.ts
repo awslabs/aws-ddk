@@ -52,6 +52,10 @@ export interface SynthActionProps {
    */
   readonly codeartifactDomainOwner?: string;
   /**
+   * Environment variables to set.
+   */
+  readonly env?: { [key: string]: any };
+  /**
    * Additional policies to add to the synth action role.
    */
   readonly rolePolicyStatements?: iam.PolicyStatement[];
@@ -385,6 +389,7 @@ export class CICDPipelineStack extends BaseStack {
         partition: this.partition,
         region: this.region,
         account: this.account,
+        env: props.env,
         rolePolicyStatements: props.rolePolicyStatements,
         codeartifactRepository: props.codeartifactRepository,
         codeartifactDomain: props.codeartifactDomain,
