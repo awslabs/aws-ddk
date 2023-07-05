@@ -66,7 +66,6 @@ export class CICDActions {
       installCommands: installCommands,
       commands: ["cdk synth"],
       rolePolicyStatements: props.rolePolicyStatements,
-      env: props.env
     });
   }
 
