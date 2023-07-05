@@ -3901,8 +3901,10 @@ Any object.
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.alarmsEnabled">alarmsEnabled</a></code> | <code>boolean</code> | Flag indicating whether the alarms are enabled for this stage. |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.cloudwatchAlarms">cloudwatchAlarms</a></code> | <code>aws-cdk-lib.aws_cloudwatch.Alarm[]</code> | List of CloudWatch Alarms linked to the stage. |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.stateMachine">stateMachine</a></code> | <code>aws-cdk-lib.aws_stepfunctions.StateMachine</code> | State machine. |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.definition">definition</a></code> | <code>aws-cdk-lib.aws_stepfunctions.IChainable</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.glueJob">glueJob</a></code> | <code>@aws-cdk/aws-glue-alpha.IJob</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GlueTransformStage.property.crawler">crawler</a></code> | <code>aws-cdk-lib.aws_glue.CfnCrawler</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueTransformStage.property.crawlerName">crawlerName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -4007,6 +4009,16 @@ State machine.
 
 ---
 
+##### `definition`<sup>Required</sup> <a name="definition" id="aws-ddk-core.GlueTransformStage.property.definition"></a>
+
+```typescript
+public readonly definition: IChainable;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.IChainable
+
+---
+
 ##### `glueJob`<sup>Required</sup> <a name="glueJob" id="aws-ddk-core.GlueTransformStage.property.glueJob"></a>
 
 ```typescript
@@ -4024,6 +4036,16 @@ public readonly crawler: CfnCrawler;
 ```
 
 - *Type:* aws-cdk-lib.aws_glue.CfnCrawler
+
+---
+
+##### `crawlerName`<sup>Optional</sup> <a name="crawlerName" id="aws-ddk-core.GlueTransformStage.property.crawlerName"></a>
+
+```typescript
+public readonly crawlerName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -9101,6 +9123,7 @@ const getSynthActionProps: GetSynthActionProps = { ... }
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codeartifactRepository">codeartifactRepository</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.codePipelineSource">codePipelineSource</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GetSynthActionProps.property.env">env</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.partition">partition</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.GetSynthActionProps.property.rolePolicyStatements">rolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | *No description.* |
@@ -9174,6 +9197,16 @@ public readonly codePipelineSource: IFileSetProducer;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.IFileSetProducer
+
+---
+
+##### `env`<sup>Optional</sup> <a name="env" id="aws-ddk-core.GetSynthActionProps.property.env"></a>
+
+```typescript
+public readonly env: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
 
 ---
 
@@ -12208,6 +12241,7 @@ const synthActionProps: SynthActionProps = { ... }
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomain">codeartifactDomain</a></code> | <code>string</code> | Name of the CodeArtifact domain. |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | CodeArtifact domain owner account. |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactRepository">codeartifactRepository</a></code> | <code>string</code> | Name of the CodeArtifact repository to pull artifacts from. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.env">env</a></code> | <code>{[ key: string ]: any}</code> | Environment variables to set. |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.rolePolicyStatements">rolePolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policies to add to the synth action role. |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.synthAction">synthAction</a></code> | <code>aws-cdk-lib.pipelines.CodeBuildStep</code> | Override synth action. |
 
@@ -12271,6 +12305,18 @@ public readonly codeartifactRepository: string;
 - *Type:* string
 
 Name of the CodeArtifact repository to pull artifacts from.
+
+---
+
+##### `env`<sup>Optional</sup> <a name="env" id="aws-ddk-core.SynthActionProps.property.env"></a>
+
+```typescript
+public readonly env: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+Environment variables to set.
 
 ---
 

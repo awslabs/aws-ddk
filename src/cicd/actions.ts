@@ -15,7 +15,7 @@ export interface GetSynthActionProps {
   readonly codeartifactDomain?: string;
   readonly codeartifactDomainOwner?: string;
   readonly additionalInstallCommands?: string[];
-  readonly env?: { ["string"]: string }
+  readonly env?: { [key: string]: string };
 }
 
 export interface CodeCommitSourceActionProps {

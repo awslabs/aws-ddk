@@ -1,4 +1,15 @@
 
+## [1.1.0](https://github.com/awslabs/aws-ddk/compare/v1.0.1...v1.1.0) (2023-07-05)
+
+
+### Features
+
+* adding `env` to synth action props ([#379](https://github.com/awslabs/aws-ddk/issues/379)) ([31cebd9](https://github.com/awslabs/aws-ddk/commit/31cebd9db4e7195f4c048b946de9c6ca29d93f1c))
+* Airflow Data Pipeline Construct  ([#349](https://github.com/awslabs/aws-ddk/issues/349)) ([21fb743](https://github.com/awslabs/aws-ddk/commit/21fb74368ae4d427d288f3a25f05f69f790836a7))
+* make crawler optional in `GlueTransformStage()` ([#378](https://github.com/awslabs/aws-ddk/issues/378)) ([49084a8](https://github.com/awslabs/aws-ddk/commit/49084a88b0d22bc658764590c02cb323c9abfd86))
+* MWAA Stage ([#359](https://github.com/awslabs/aws-ddk/issues/359)) ([24d9895](https://github.com/awslabs/aws-ddk/commit/24d98954951a4a83abdb78a306f2001664835825))
+* Update `StateMachineStage` to use `definitionBody` instead of deprecated `definition` ([#372](https://github.com/awslabs/aws-ddk/issues/372)) ([b0107df](https://github.com/awslabs/aws-ddk/commit/b0107dfda76cc9717ffc5921c2f3c42190aea9f4))
+
 ### [1.0.1](https://github.com/awslabs/aws-ddk/compare/v1.0.0...v1.0.1) (2023-06-13)
 
 

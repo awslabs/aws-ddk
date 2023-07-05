@@ -564,8 +564,13 @@ test("CICDPipeline additional properties", () => {
       additionalInstallCommands: ["echo 'foobar'"],
       cdkVersion: "2.61.0",
       env: {
+<<<<<<< HEAD
         "privileged": true,
       }
+=======
+        FOO: "BAR",
+      },
+>>>>>>> 5c507f9f5bca7048088ab1a730d4a7ac49527986
     })
     .buildPipeline()
     .addTestStage({
