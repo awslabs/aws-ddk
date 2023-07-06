@@ -46,6 +46,8 @@ export class EMRServerlessCluster extends Construct {
       this.vpc = ec2.Vpc.fromLookup(scope, "VPC", { vpcId: props.vpcId });
     } else if (props.vpcCidr) {
       this.vpc = this.createVpc(scope, name, props.vpcCidr);
+    } else {
+      throw new Error("One of 'vpcId' or 'vpcCidr' must be provided");
     }
 
     if (this.vpc) {
@@ -67,7 +69,7 @@ export class EMRServerlessCluster extends Construct {
     }
 
     const emrServerlessRole = new iam.Role(scope, "EMR Serverless Cluster Role", {
-      assumedBy: new iam.ServicePrincipal("emr-serveless.amazonaws.com"),
+      assumedBy: new iam.ServicePrincipal("emr-serverless.amazonaws.com"),
       path: "/service-role/",
     });
     emrServerlessRole.addManagedPolicy(
@@ -128,8 +130,7 @@ export class EMRServerlessCluster extends Construct {
       ...mergedProps,
     });
   }
-  createVpc(scope: Construct, environmentName: string, vpcCidr: string): ec2.IVpc {
-    const resourceName = `${environmentName}-MWAA`;
+  createVpc(scope: Construct, resourceName: string, vpcCidr: string): ec2.IVpc {
     const vpcCIDRMask = +vpcCidr.split("/")[1];
     if (vpcCIDRMask > 20 || vpcCIDRMask < 16) {
       throw new Error("Vpc Cidr Range must of size >=16 and <=20");

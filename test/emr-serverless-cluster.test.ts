@@ -4,22 +4,6 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 
 import { EMRServerlessCluster } from "../src";
 
-test("EMR Serverless Cluster Basic", () => {
-  const stack = new cdk.Stack();
-
-  new EMRServerlessCluster(stack, "EMR Serverless Cluster", {
-    releaseLabel: "emr-6.11.0",
-    type: "SPARK",
-  });
-  const template = Template.fromStack(stack);
-  template.hasResourceProperties("AWS::EMRServerless::Application", {
-    ReleaseLabel: "emr-6.11.0",
-    Type: "SPARK",
-  });
-  template.resourceCountIs("AWS::IAM::Role", 1);
-  template.hasResourceProperties("AWS::S3::Bucket", {});
-});
-
 test("EMR Serverless Cluster Existing Vpc & Bucket", () => {
   const app = new cdk.App();
   const stack = new cdk.Stack(app, "dummy-stack", {
@@ -55,7 +39,6 @@ test("EMR Serverless Cluster New Vpc & Bucket", () => {
     type: "SPARK",
     name: "MyEMRApp",
     vpcCidr: "10.40.0.0/16",
-    s3Bucket: new s3.Bucket(stack, "my-dummy-bucket", {}),
   });
 
   const template = Template.fromStack(stack);
@@ -76,4 +59,36 @@ test("EMR Serverless Cluster New Vpc & Bucket", () => {
   template.resourceCountIs("AWS::EC2::Route", 6);
   template.resourceCountIs("AWS::EC2::InternetGateway", 1);
   template.resourceCountIs("AWS::EC2::VPCGatewayAttachment", 1);
+  template.resourceCountIs("AWS::S3::Bucket", 1);
+});
+
+test("Vpc Cidr or Id must be provided", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new EMRServerlessCluster(stack, "Stage", { name: "EmrApp", releaseLabel: "emr-6.11.0", type: "SPARK" });
+  }).toThrowError("One of 'vpcId' or 'vpcCidr' must be provided");
+});
+
+test("Invalid Vpc Cidr: Too Large", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new EMRServerlessCluster(stack, "Stage", {
+      name: "EmrApp",
+      releaseLabel: "emr-6.11.0",
+      type: "SPARK",
+      vpcCidr: "10.0.0.0/15",
+    });
+  }).toThrowError("Vpc Cidr Range must of size >=16 and <=20");
+});
+
+test("Invalid Vpc Cidr: Too Small", () => {
+  const stack = new cdk.Stack();
+  expect(() => {
+    new EMRServerlessCluster(stack, "Stage", {
+      name: "EmrApp",
+      releaseLabel: "emr-6.11.0",
+      type: "SPARK",
+      vpcCidr: "10.0.0.0/21",
+    });
+  }).toThrowError("Vpc Cidr Range must of size >=16 and <=20");
 });

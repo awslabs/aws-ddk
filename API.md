@@ -3399,7 +3399,7 @@ Returns a string representation of this construct.
 ##### `createVpc` <a name="createVpc" id="aws-ddk-core.EMRServerlessCluster.createVpc"></a>
 
 ```typescript
-public createVpc(scope: Construct, environmentName: string, vpcCidr: string): IVpc
+public createVpc(scope: Construct, resourceName: string, vpcCidr: string): IVpc
 ```
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.EMRServerlessCluster.createVpc.parameter.scope"></a>
@@ -3408,7 +3408,7 @@ public createVpc(scope: Construct, environmentName: string, vpcCidr: string): IV
 
 ---
 
-###### `environmentName`<sup>Required</sup> <a name="environmentName" id="aws-ddk-core.EMRServerlessCluster.createVpc.parameter.environmentName"></a>
+###### `resourceName`<sup>Required</sup> <a name="resourceName" id="aws-ddk-core.EMRServerlessCluster.createVpc.parameter.resourceName"></a>
 
 - *Type:* string
 
