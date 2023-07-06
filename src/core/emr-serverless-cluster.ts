@@ -53,8 +53,8 @@ export class EMRServerlessCluster extends Construct {
     if (this.vpc) {
       this.securityGroup =
         props.securityGroup ??
-        new ec2.SecurityGroup(scope, `${props.name} Security Group`, {
-          securityGroupName: `${props.name} Security Group`,
+        new ec2.SecurityGroup(scope, "EMR Serverless Security Group", {
+          securityGroupName: `EMR Serverless Security Group`,
           description: "Security group with a self-referencing inbound rule.",
           vpc: this.vpc,
         });
