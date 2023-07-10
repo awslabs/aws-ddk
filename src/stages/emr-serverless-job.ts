@@ -10,10 +10,30 @@ import { StateMachineStage, StateMachineStageProps } from "../pipelines";
  * Properties of the EMR Serverless Job stage.
  */
 export interface EMRServerlessJobStageProps extends StateMachineStageProps {
+  /** 
+   * EMR Serverless Application Id.
+  */
   readonly applicationId: string;
+  /** 
+   * EMR Execution Role Arn.
+  */
   readonly executionRoleArn: string;
+  /**
+   * The job driver for the job run.
+   * This is a Tagged Union structure. 
+   * Only one of the following top level 
+   * keys can be set: 'sparkSubmit', 'hive'
+   */
   readonly jobDriver: { [key: string]: any };
+  /**
+   * Duration to wait between polling job status.
+   * Defaults to 30 seconds.
+   */
   readonly jobExecutionStatusCheckPeriod?: cdk.Duration;
+  /**
+   * Additional properties to pass to 'emrserverless:StartJobRun'.
+   * https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_StartJobRun.html
+   */
   readonly startJobRunProps?: { [key: string]: any };
 }
 
