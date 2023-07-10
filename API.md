@@ -8901,11 +8901,11 @@ const eMRServerlessJobStageProps: EMRServerlessJobStageProps = { ... }
 | <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.stateMachineFailedExecutionsAlarmThreshold">stateMachineFailedExecutionsAlarmThreshold</a></code> | <code>number</code> | The number of failed state machine executions before triggering CW alarm. |
 | <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.stateMachineInput">stateMachineInput</a></code> | <code>{[ key: string ]: any}</code> | Input of the state machine. |
 | <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.stateMachineName">stateMachineName</a></code> | <code>string</code> | Name of the state machine. |
-| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.applicationId">applicationId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.jobDriver">jobDriver</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.jobExecutionStatusCheckPeriod">jobExecutionStatusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.startJobRunProps">startJobRunProps</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.applicationId">applicationId</a></code> | <code>string</code> | EMR Serverless Application Id. |
+| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | EMR Execution Role Arn. |
+| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.jobDriver">jobDriver</a></code> | <code>{[ key: string ]: any}</code> | The job driver for the job run. |
+| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.jobExecutionStatusCheckPeriod">jobExecutionStatusCheckPeriod</a></code> | <code>aws-cdk-lib.Duration</code> | Duration to wait between polling job status. |
+| <code><a href="#aws-ddk-core.EMRServerlessJobStageProps.property.startJobRunProps">startJobRunProps</a></code> | <code>{[ key: string ]: any}</code> | Additional properties to pass to 'emrserverless:StartJobRun'. |
 
 ---
 
@@ -9042,6 +9042,8 @@ public readonly applicationId: string;
 
 - *Type:* string
 
+EMR Serverless Application Id.
+
 ---
 
 ##### `executionRoleArn`<sup>Required</sup> <a name="executionRoleArn" id="aws-ddk-core.EMRServerlessJobStageProps.property.executionRoleArn"></a>
@@ -9051,6 +9053,8 @@ public readonly executionRoleArn: string;
 ```
 
 - *Type:* string
+
+EMR Execution Role Arn.
 
 ---
 
@@ -9062,6 +9066,12 @@ public readonly jobDriver: {[ key: string ]: any};
 
 - *Type:* {[ key: string ]: any}
 
+The job driver for the job run.
+
+This is a Tagged Union structure. 
+Only one of the following top level 
+keys can be set: 'sparkSubmit', 'hive'
+
 ---
 
 ##### `jobExecutionStatusCheckPeriod`<sup>Optional</sup> <a name="jobExecutionStatusCheckPeriod" id="aws-ddk-core.EMRServerlessJobStageProps.property.jobExecutionStatusCheckPeriod"></a>
@@ -9072,6 +9082,10 @@ public readonly jobExecutionStatusCheckPeriod: Duration;
 
 - *Type:* aws-cdk-lib.Duration
 
+Duration to wait between polling job status.
+
+Defaults to 30 seconds.
+
 ---
 
 ##### `startJobRunProps`<sup>Optional</sup> <a name="startJobRunProps" id="aws-ddk-core.EMRServerlessJobStageProps.property.startJobRunProps"></a>
@@ -9081,6 +9095,10 @@ public readonly startJobRunProps: {[ key: string ]: any};
 ```
 
 - *Type:* {[ key: string ]: any}
+
+Additional properties to pass to 'emrserverless:StartJobRun'.
+
+https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_StartJobRun.html
 
 ---
 
