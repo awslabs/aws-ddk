@@ -33,6 +33,7 @@ export interface EMRServerlessClusterProps extends emr.CfnApplicationProps {
 export class EMRServerlessCluster extends Construct {
   readonly vpc?: ec2.IVpc;
   readonly s3Bucket: s3.IBucket;
+  readonly role: iam.Role;
   readonly emrServerlessApplication: emr.CfnApplication;
   readonly securityGroup?: ec2.SecurityGroup;
   readonly networkConfiguration: emr.CfnApplication.NetworkConfigurationProperty;
@@ -68,11 +69,11 @@ export class EMRServerlessCluster extends Construct {
       });
     }
 
-    const emrServerlessRole = new iam.Role(scope, "EMR Serverless Cluster Role", {
+    this.role = new iam.Role(scope, "EMR Serverless Cluster Role", {
       assumedBy: new iam.ServicePrincipal("emr-serverless.amazonaws.com"),
       path: "/service-role/",
     });
-    emrServerlessRole.addManagedPolicy(
+    this.role.addManagedPolicy(
       new iam.ManagedPolicy(this, "MWAA Execution Policy", {
         statements: [
           new iam.PolicyStatement({
@@ -107,7 +108,7 @@ export class EMRServerlessCluster extends Construct {
 
     if (props.additionalPolicyStatements) {
       props.additionalPolicyStatements.forEach((statement) => {
-        emrServerlessRole.addToPolicy(statement);
+        this.role.addToPolicy(statement);
       });
     }
 

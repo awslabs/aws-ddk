@@ -3453,6 +3453,7 @@ Any object.
 | <code><a href="#aws-ddk-core.EMRServerlessCluster.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#aws-ddk-core.EMRServerlessCluster.property.emrServerlessApplication">emrServerlessApplication</a></code> | <code>aws-cdk-lib.aws_emrserverless.CfnApplication</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EMRServerlessCluster.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EMRServerlessCluster.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EMRServerlessCluster.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.SecurityGroup</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EMRServerlessCluster.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
@@ -3488,6 +3489,16 @@ public readonly networkConfiguration: NetworkConfigurationProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty
+
+---
+
+##### `role`<sup>Required</sup> <a name="role" id="aws-ddk-core.EMRServerlessCluster.property.role"></a>
+
+```typescript
+public readonly role: Role;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.Role
 
 ---
 
