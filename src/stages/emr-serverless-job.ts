@@ -35,9 +35,9 @@ export class EMRServerlessJobStage extends StateMachineStage {
     super(scope, id, props);
 
     const stack = cdk.Stack.of(this);
-    const emrApplicationArn = `arn:${stack.partition}:emr-serverless:${stack.region}:${stack.account}:applications/${props.applicationId}`;
+    const emrApplicationArn = `arn:${stack.partition}:emr-serverless:${stack.region}:${stack.account}:/applications/${props.applicationId}`;
     const jobExecutionStatusWait = new sfn.Wait(this, "Wait Before Checking Job Status", {
-      time: sfn.WaitTime.duration(props.jobExecutionStatusCheckPeriod ?? Duration.seconds(15)),
+      time: sfn.WaitTime.duration(props.jobExecutionStatusCheckPeriod ?? Duration.seconds(30)),
     });
 
     const runJobTask = new tasks.CallAwsService(this, "Start Job Run", {
@@ -59,15 +59,15 @@ export class EMRServerlessJobStage extends StateMachineStage {
       resultPath: "$.JobStatus",
       iamResources: [emrApplicationArn],
       parameters: {
-        "ApplicationId.$": "$.JobInfo.ApplicationId",
-        "JobRunId.$": "$.JobInfo.JobRunId",
+        "ApplicationId.$": "$.ApplicationId",
+        "JobRunId.$": "$.JobRunId",
       },
     });
 
-    const successState = new sfn.Succeed(this, "SuccessState");
-    const failState = new sfn.Fail(this, "FailState");
+    const successState = new sfn.Succeed(this, "Success State");
+    const failState = new sfn.Fail(this, "Fail State");
     const retryChain = jobExecutionStatusWait.next(getJobTask);
-    const jobStatusChoice = new sfn.Choice(scope, "JobStatusChoice")
+    const jobStatusChoice = new sfn.Choice(scope, "Job Status Choice")
       .when(sfn.Condition.stringEquals("$.JobStatus.JobRun.State", "SUCCESS"), successState)
       .when(
         sfn.Condition.or(
@@ -90,6 +90,13 @@ export class EMRServerlessJobStage extends StateMachineStage {
         effect: iam.Effect.ALLOW,
         actions: ["emr-serverless:StartJobRun", "emr-serverless:GetJobRun"],
         resources: [emrApplicationArn, `${emrApplicationArn}/jobruns/*`],
+      }),
+    );
+    this.stateMachine.addToRolePolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: ["iam:PassRole"],
+        resources: [props.executionRoleArn],
       }),
     );
   }
