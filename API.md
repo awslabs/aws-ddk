@@ -9068,8 +9068,8 @@ public readonly jobDriver: {[ key: string ]: any};
 
 The job driver for the job run.
 
-This is a Tagged Union structure. 
-Only one of the following top level 
+This is a Tagged Union structure.
+Only one of the following top level
 keys can be set: 'sparkSubmit', 'hive'
 
 ---
