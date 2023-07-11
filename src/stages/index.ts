@@ -1,6 +1,7 @@
 export * from "./appflow-ingestion";
 export * from "./athena-sql";
 export * from "./databrew-transform";
+export * from "./emr-serverless-job";
 export * from "./glue-transform";
 export * from "./kinesis-s3";
 export * from "./mwaa-trigger-dags";
