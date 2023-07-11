@@ -1,5 +1,5 @@
 import { Duration, Stack } from 'aws-cdk-lib';
-import { Alarm, ComparisonOperator, CreateAlarmOptions, Metric, Statistic, TreatMissingData, Unit } from 'aws-cdk-lib/aws-cloudwatch';
+import { Alarm, ComparisonOperator, CreateAlarmOptions, Metric, TreatMissingData, Unit } from 'aws-cdk-lib/aws-cloudwatch';
 import * as events from 'aws-cdk-lib/aws-events';
 import * as eventsTargets from 'aws-cdk-lib/aws-events-targets';
 import { Effect, ManagedPolicy, Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
