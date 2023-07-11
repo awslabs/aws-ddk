@@ -3343,6 +3343,196 @@ List of CloudWatch Alarms linked to the stage.
 ---
 
 
+### EMRServerlessCluster <a name="EMRServerlessCluster" id="aws-ddk-core.EMRServerlessCluster"></a>
+
+#### Initializers <a name="Initializers" id="aws-ddk-core.EMRServerlessCluster.Initializer"></a>
+
+```typescript
+import { EMRServerlessCluster } from 'aws-ddk-core'
+
+new EMRServerlessCluster(scope: Construct, id: string, props: EMRServerlessClusterProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.Initializer.parameter.props">props</a></code> | <code><a href="#aws-ddk-core.EMRServerlessClusterProps">EMRServerlessClusterProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.EMRServerlessCluster.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="aws-ddk-core.EMRServerlessCluster.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.EMRServerlessCluster.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#aws-ddk-core.EMRServerlessClusterProps">EMRServerlessClusterProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.createVpc">createVpc</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="aws-ddk-core.EMRServerlessCluster.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `createVpc` <a name="createVpc" id="aws-ddk-core.EMRServerlessCluster.createVpc"></a>
+
+```typescript
+public createVpc(scope: Construct, resourceName: string, vpcCidr: string): IVpc
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.EMRServerlessCluster.createVpc.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `resourceName`<sup>Required</sup> <a name="resourceName" id="aws-ddk-core.EMRServerlessCluster.createVpc.parameter.resourceName"></a>
+
+- *Type:* string
+
+---
+
+###### `vpcCidr`<sup>Required</sup> <a name="vpcCidr" id="aws-ddk-core.EMRServerlessCluster.createVpc.parameter.vpcCidr"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="aws-ddk-core.EMRServerlessCluster.isConstruct"></a>
+
+```typescript
+import { EMRServerlessCluster } from 'aws-ddk-core'
+
+EMRServerlessCluster.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="aws-ddk-core.EMRServerlessCluster.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.emrServerlessApplication">emrServerlessApplication</a></code> | <code>aws-cdk-lib.aws_emrserverless.CfnApplication</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.SecurityGroup</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EMRServerlessCluster.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="aws-ddk-core.EMRServerlessCluster.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `emrServerlessApplication`<sup>Required</sup> <a name="emrServerlessApplication" id="aws-ddk-core.EMRServerlessCluster.property.emrServerlessApplication"></a>
+
+```typescript
+public readonly emrServerlessApplication: CfnApplication;
+```
+
+- *Type:* aws-cdk-lib.aws_emrserverless.CfnApplication
+
+---
+
+##### `networkConfiguration`<sup>Required</sup> <a name="networkConfiguration" id="aws-ddk-core.EMRServerlessCluster.property.networkConfiguration"></a>
+
+```typescript
+public readonly networkConfiguration: NetworkConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty
+
+---
+
+##### `role`<sup>Required</sup> <a name="role" id="aws-ddk-core.EMRServerlessCluster.property.role"></a>
+
+```typescript
+public readonly role: Role;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.Role
+
+---
+
+##### `s3Bucket`<sup>Required</sup> <a name="s3Bucket" id="aws-ddk-core.EMRServerlessCluster.property.s3Bucket"></a>
+
+```typescript
+public readonly s3Bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="securityGroup" id="aws-ddk-core.EMRServerlessCluster.property.securityGroup"></a>
+
+```typescript
+public readonly securityGroup: SecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SecurityGroup
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="aws-ddk-core.EMRServerlessCluster.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+
 ### EventStage <a name="EventStage" id="aws-ddk-core.EventStage"></a>
 
 Class that represents an event stage within a data pipeline.
@@ -8644,6 +8834,284 @@ public readonly sourceStream: IStream;
 - *Default:* data must be written to the delivery stream via a direct put.
 
 The Kinesis data stream to use as a source for this delivery stream.
+
+---
+
+### EMRServerlessClusterProps <a name="EMRServerlessClusterProps" id="aws-ddk-core.EMRServerlessClusterProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.EMRServerlessClusterProps.Initializer"></a>
+
+```typescript
+import { EMRServerlessClusterProps } from 'aws-ddk-core'
+
+const eMRServerlessClusterProps: EMRServerlessClusterProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.releaseLabel">releaseLabel</a></code> | <code>string</code> | The EMR release version associated with the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.type">type</a></code> | <code>string</code> | The type of application, such as Spark or Hive. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.architecture">architecture</a></code> | <code>string</code> | The CPU architecture type of the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.autoStartConfiguration">autoStartConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.AutoStartConfigurationProperty</code> | The configuration for an application to automatically start on job submission. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.autoStopConfiguration">autoStopConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.AutoStopConfigurationProperty</code> | The configuration for an application to automatically stop after a certain amount of time being idle. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.imageConfiguration">imageConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.ImageConfigurationInputProperty</code> | `AWS::EMRServerless::Application.ImageConfiguration`. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.initialCapacity">initialCapacity</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.InitialCapacityConfigKeyValuePairProperty[]</code> | The initial capacity of the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.maximumCapacity">maximumCapacity</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.MaximumAllowedResourcesProperty</code> | The maximum capacity of the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.name">name</a></code> | <code>string</code> | The name of the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty</code> | The network configuration for customer VPC connectivity for the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.tags">tags</a></code> | <code>aws-cdk-lib.CfnTag[]</code> | The tags assigned to the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.workerTypeSpecifications">workerTypeSpecifications</a></code> | <code>aws-cdk-lib.IResolvable \| {[ key: string ]: aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.WorkerTypeSpecificationInputProperty}</code> | `AWS::EMRServerless::Application.WorkerTypeSpecifications`. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policy statements to add to the emr role. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | S3 Bucket. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.SecurityGroup</code> | Security Group. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.vpcCidr">vpcCidr</a></code> | <code>string</code> | The IP range (CIDR notation) for this VPC. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.vpcId">vpcId</a></code> | <code>string</code> | Existing vpc id. |
+
+---
+
+##### `releaseLabel`<sup>Required</sup> <a name="releaseLabel" id="aws-ddk-core.EMRServerlessClusterProps.property.releaseLabel"></a>
+
+```typescript
+public readonly releaseLabel: string;
+```
+
+- *Type:* string
+
+The EMR release version associated with the application.
+
+*Minimum* : 1
+
+*Maximum* : 64
+
+*Pattern* : `^[A-Za-z0-9._/-]+$`
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-releaselabel](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-releaselabel)
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="aws-ddk-core.EMRServerlessClusterProps.property.type"></a>
+
+```typescript
+public readonly type: string;
+```
+
+- *Type:* string
+
+The type of application, such as Spark or Hive.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-type](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-type)
+
+---
+
+##### `architecture`<sup>Optional</sup> <a name="architecture" id="aws-ddk-core.EMRServerlessClusterProps.property.architecture"></a>
+
+```typescript
+public readonly architecture: string;
+```
+
+- *Type:* string
+
+The CPU architecture type of the application.
+
+Allowed values: `X86_64` or `ARM64`
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-architecture](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-architecture)
+
+---
+
+##### `autoStartConfiguration`<sup>Optional</sup> <a name="autoStartConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.autoStartConfiguration"></a>
+
+```typescript
+public readonly autoStartConfiguration: IResolvable | AutoStartConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.AutoStartConfigurationProperty
+
+The configuration for an application to automatically start on job submission.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-autostartconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-autostartconfiguration)
+
+---
+
+##### `autoStopConfiguration`<sup>Optional</sup> <a name="autoStopConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.autoStopConfiguration"></a>
+
+```typescript
+public readonly autoStopConfiguration: IResolvable | AutoStopConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.AutoStopConfigurationProperty
+
+The configuration for an application to automatically stop after a certain amount of time being idle.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-autostopconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-autostopconfiguration)
+
+---
+
+##### `imageConfiguration`<sup>Optional</sup> <a name="imageConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.imageConfiguration"></a>
+
+```typescript
+public readonly imageConfiguration: IResolvable | ImageConfigurationInputProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.ImageConfigurationInputProperty
+
+`AWS::EMRServerless::Application.ImageConfiguration`.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-imageconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-imageconfiguration)
+
+---
+
+##### `initialCapacity`<sup>Optional</sup> <a name="initialCapacity" id="aws-ddk-core.EMRServerlessClusterProps.property.initialCapacity"></a>
+
+```typescript
+public readonly initialCapacity: IResolvable | IResolvable | InitialCapacityConfigKeyValuePairProperty[];
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.InitialCapacityConfigKeyValuePairProperty[]
+
+The initial capacity of the application.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-initialcapacity](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-initialcapacity)
+
+---
+
+##### `maximumCapacity`<sup>Optional</sup> <a name="maximumCapacity" id="aws-ddk-core.EMRServerlessClusterProps.property.maximumCapacity"></a>
+
+```typescript
+public readonly maximumCapacity: IResolvable | MaximumAllowedResourcesProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.MaximumAllowedResourcesProperty
+
+The maximum capacity of the application.
+
+This is cumulative across all workers at any given point in time during the lifespan of the application is created. No new resources will be created once any one of the defined limits is hit.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-maximumcapacity](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-maximumcapacity)
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.EMRServerlessClusterProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the application.
+
+*Minimum* : 1
+
+*Maximum* : 64
+
+*Pattern* : `^[A-Za-z0-9._\\/#-]+$`
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-name](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-name)
+
+---
+
+##### `networkConfiguration`<sup>Optional</sup> <a name="networkConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.networkConfiguration"></a>
+
+```typescript
+public readonly networkConfiguration: IResolvable | NetworkConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty
+
+The network configuration for customer VPC connectivity for the application.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-networkconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-networkconfiguration)
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="aws-ddk-core.EMRServerlessClusterProps.property.tags"></a>
+
+```typescript
+public readonly tags: CfnTag[];
+```
+
+- *Type:* aws-cdk-lib.CfnTag[]
+
+The tags assigned to the application.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-tags](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-tags)
+
+---
+
+##### `workerTypeSpecifications`<sup>Optional</sup> <a name="workerTypeSpecifications" id="aws-ddk-core.EMRServerlessClusterProps.property.workerTypeSpecifications"></a>
+
+```typescript
+public readonly workerTypeSpecifications: IResolvable | {[ key: string ]: IResolvable | WorkerTypeSpecificationInputProperty};
+```
+
+- *Type:* aws-cdk-lib.IResolvable | {[ key: string ]: aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.WorkerTypeSpecificationInputProperty}
+
+`AWS::EMRServerless::Application.WorkerTypeSpecifications`.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-workertypespecifications](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-workertypespecifications)
+
+---
+
+##### `additionalPolicyStatements`<sup>Optional</sup> <a name="additionalPolicyStatements" id="aws-ddk-core.EMRServerlessClusterProps.property.additionalPolicyStatements"></a>
+
+```typescript
+public readonly additionalPolicyStatements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+Additional policy statements to add to the emr role.
+
+---
+
+##### `s3Bucket`<sup>Optional</sup> <a name="s3Bucket" id="aws-ddk-core.EMRServerlessClusterProps.property.s3Bucket"></a>
+
+```typescript
+public readonly s3Bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+S3 Bucket.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="securityGroup" id="aws-ddk-core.EMRServerlessClusterProps.property.securityGroup"></a>
+
+```typescript
+public readonly securityGroup: SecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SecurityGroup
+
+Security Group.
+
+---
+
+##### `vpcCidr`<sup>Optional</sup> <a name="vpcCidr" id="aws-ddk-core.EMRServerlessClusterProps.property.vpcCidr"></a>
+
+```typescript
+public readonly vpcCidr: string;
+```
+
+- *Type:* string
+
+The IP range (CIDR notation) for this VPC.
+
+---
+
+##### `vpcId`<sup>Optional</sup> <a name="vpcId" id="aws-ddk-core.EMRServerlessClusterProps.property.vpcId"></a>
+
+```typescript
+public readonly vpcId: string;
+```
+
+- *Type:* string
+
+Existing vpc id.
 
 ---
 
