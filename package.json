@@ -1,6 +1,6 @@
 {
   "name": "aws-ddk-core",
-  "description": "AWS DataOps Development Kit",
+  "description": "The AWS DataOps Development Kit is an open source development framework for customers that build data workflows and modern data architecture on AWS.",
   "repository": {
     "type": "git",
     "url": "https://github.com/awslabs/aws-ddk/tree/main"
@@ -90,7 +90,22 @@
     "@types/prettier": "2.6.0"
   },
   "keywords": [
-    "cdk"
+    "aws",
+    "aws-athena",
+    "aws-codepipeline",
+    "aws-emr",
+    "aws-event-bridge",
+    "aws-glue",
+    "aws-kinesisfirehose",
+    "aws-lambda",
+    "aws-mwaa",
+    "aws-redshift",
+    "aws-sns",
+    "aws-sqs",
+    "cdk",
+    "data-analytics",
+    "data-pipelines",
+    "ddk"
   ],
   "main": "lib/index.js",
   "license": "Apache-2.0",

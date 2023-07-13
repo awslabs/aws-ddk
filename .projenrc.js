@@ -5,6 +5,26 @@ const CDK_VERSION = "2.85.0";
 const project = new awscdk.AwsCdkConstructLibrary({
   author: "AWS Professional Services",
   authorAddress: "aws-proserve-orion-dev@amazon.com",
+  description:
+    "The AWS DataOps Development Kit is an open source development framework for customers that build data workflows and modern data architecture on AWS.",
+  keywords: [
+    "cdk",
+    "ddk",
+    "data-analytics",
+    "data-pipelines",
+    "aws",
+    "aws-event-bridge",
+    "aws-codepipeline",
+    "aws-mwaa",
+    "aws-emr",
+    "aws-lambda",
+    "aws-sqs",
+    "aws-glue",
+    "aws-athena",
+    "aws-redshift",
+    "aws-kinesisfirehose",
+    "aws-sns",
+  ],
 
   cdkVersion: CDK_VERSION,
   defaultReleaseBranch: "main",
@@ -12,7 +32,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   publishDryRun: true,
   releaseTrigger: release.ReleaseTrigger.manual(),
   name: "aws-ddk-core",
-  description: "AWS DataOps Development Kit",
   repositoryUrl: "https://github.com/awslabs/aws-ddk/tree/main",
 
   // Artifact config: Python
