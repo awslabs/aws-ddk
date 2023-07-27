@@ -1,4 +1,12 @@
 
+## [1.2.0](https://github.com/awslabs/aws-ddk/compare/v1.1.0...v1.2.0) (2023-07-27)
+
+
+### Features
+
+* EMR Serverless Stage ([#390](https://github.com/awslabs/aws-ddk/issues/390)) ([cfd2252](https://github.com/awslabs/aws-ddk/commit/cfd2252989b35bff8632aace10da4539f5ea8b3a))
+* New Construct `EMRServerlessCluster` ([#387](https://github.com/awslabs/aws-ddk/issues/387)) ([bf8cc36](https://github.com/awslabs/aws-ddk/commit/bf8cc3615b6b092dfb2814f5fa510d6ebbd9be38))
+
 ## [1.1.0](https://github.com/awslabs/aws-ddk/compare/v1.0.1...v1.1.0) (2023-07-05)
 
 
