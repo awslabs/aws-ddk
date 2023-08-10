@@ -15,7 +15,7 @@ export interface EnvironmentConfiguration {
   readonly resources?: { [key: string]: any };
   readonly tags?: { [key: string]: string };
   readonly bootstrap?: { [key: string]: string };
-  readonly props?: { [key: string]: string };
+  readonly props?: { [key: string]: any };
 }
 
 export interface Configuration {
@@ -25,7 +25,7 @@ export interface Configuration {
   readonly tags?: { [key: string]: string };
   readonly bootstrap?: { [key: string]: string };
   readonly ddkBootstrapConfigKey?: string;
-  readonly props?: { [key: string]: string };
+  readonly props?: { [key: string]: any };
 }
 
 function readJson(path: string): Configuration {

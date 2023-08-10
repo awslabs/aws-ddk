@@ -8261,7 +8261,7 @@ const configuration: Configuration = { ... }
 | <code><a href="#aws-ddk-core.Configuration.property.account">account</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.ddkBootstrapConfigKey">ddkBootstrapConfigKey</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-ddk-core.Configuration.property.props">props</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.Configuration.property.props">props</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.Configuration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 
@@ -8310,10 +8310,10 @@ public readonly ddkBootstrapConfigKey: string;
 ##### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.Configuration.property.props"></a>
 
 ```typescript
-public readonly props: {[ key: string ]: string};
+public readonly props: {[ key: string ]: any};
 ```
 
-- *Type:* {[ key: string ]: string}
+- *Type:* {[ key: string ]: any}
 
 ---
 
@@ -9586,7 +9586,7 @@ const environmentConfiguration: EnvironmentConfiguration = { ... }
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.account">account</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.bootstrap">bootstrap</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
-| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.props">props</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.props">props</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.resources">resources</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#aws-ddk-core.EnvironmentConfiguration.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
@@ -9616,10 +9616,10 @@ public readonly bootstrap: {[ key: string ]: string};
 ##### `props`<sup>Optional</sup> <a name="props" id="aws-ddk-core.EnvironmentConfiguration.property.props"></a>
 
 ```typescript
-public readonly props: {[ key: string ]: string};
+public readonly props: {[ key: string ]: any};
 ```
 
-- *Type:* {[ key: string ]: string}
+- *Type:* {[ key: string ]: any}
 
 ---
 
