@@ -9999,7 +9999,7 @@ const getEnvironmentProps: GetEnvironmentProps = { ... }
 
 ---
 
-##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetEnvironmentProps.property.configPath"></a>
+##### `configPath`<sup>Optional</sup> <a name="configPath" id="aws-ddk-core.GetEnvironmentProps.property.configPath"></a>
 
 ```typescript
 public readonly configPath: string;
@@ -10182,7 +10182,7 @@ const getTagsProps: GetTagsProps = { ... }
 
 ---
 
-##### `configPath`<sup>Required</sup> <a name="configPath" id="aws-ddk-core.GetTagsProps.property.configPath"></a>
+##### `configPath`<sup>Optional</sup> <a name="configPath" id="aws-ddk-core.GetTagsProps.property.configPath"></a>
 
 ```typescript
 public readonly configPath: string;

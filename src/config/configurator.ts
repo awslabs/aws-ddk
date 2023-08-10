@@ -209,7 +209,7 @@ export interface GetTagsProps {
   /**
    * Relative path to config file. Defaults to './ddk.json'
    */
-  readonly configPath: string;
+  readonly configPath?: string;
   /**
    * Environment identifier
    */
@@ -220,7 +220,7 @@ export interface GetEnvironmentProps {
   /**
    * Relative path to config file. Defaults to './ddk.json'
    */
-  readonly configPath: string;
+  readonly configPath?: string;
   /**
    * Environment identifier.
    */
@@ -239,7 +239,8 @@ export class Configurator {
   }
 
   public static getTags(props: GetTagsProps): { [key: string]: string } {
-    const config = getConfig({ config: props.configPath });
+    const configPath = props.configPath ?? "./ddk.json";
+    const config = getConfig({ config: configPath });
 
     if (!config || !config.environments) {
       throw TypeError("Config not defined.");
@@ -257,7 +258,8 @@ export class Configurator {
   }
 
   public static getEnvironment(props: GetEnvironmentProps): cdk.Environment {
-    const config = getConfig({ config: props.configPath });
+    const configPath = props.configPath ?? "./ddk.json";
+    const config = getConfig({ config: configPath });
 
     if (!config) {
       throw TypeError("Config not defined.");
