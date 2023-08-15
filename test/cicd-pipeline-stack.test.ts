@@ -701,3 +701,23 @@ test("CICDPipeline with different environments", () => {
   const template = Template.fromStack(stack);
   template.resourceCountIs("AWS::CodePipeline::Pipeline", 1);
 });
+
+test("CICDPipeline with additional cdk langauge comamnds", () => {
+  const app = new cdk.App();
+  const stack = new CICDPipelineStack(app, "dummy-pipeline", { environmentId: "dev", pipelineName: "dummy-pipeline" })
+    .addSourceAction({ repositoryName: "dummy-repository" })
+    .addSynthAction({
+      cdkLanguageCommandLineArguments: {
+        "--foo": "bar",
+        "--bar": "foo",
+      },
+    })
+    .buildPipeline()
+    .synth();
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::CodeBuild::Project", {
+    Source: {
+      BuildSpec: Match.stringLikeRegexp("npm install --foo bar --bar foo"),
+    },
+  });
+});
