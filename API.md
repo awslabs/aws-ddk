@@ -13160,6 +13160,7 @@ const synthActionProps: SynthActionProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.additionalInstallCommands">additionalInstallCommands</a></code> | <code>string[]</code> | Additional install commands. |
+| <code><a href="#aws-ddk-core.SynthActionProps.property.cdkLanguageCommandLineArguments">cdkLanguageCommandLineArguments</a></code> | <code>{[ key: string ]: string}</code> | Additional command line arguements to append to the install command of the `cdk_langauge` that is specified. |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | CDK versio to use during the synth action. |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomain">codeartifactDomain</a></code> | <code>string</code> | Name of the CodeArtifact domain. |
 | <code><a href="#aws-ddk-core.SynthActionProps.property.codeartifactDomainOwner">codeartifactDomainOwner</a></code> | <code>string</code> | CodeArtifact domain owner account. |
@@ -13179,6 +13180,19 @@ public readonly additionalInstallCommands: string[];
 - *Type:* string[]
 
 Additional install commands.
+
+---
+
+##### `cdkLanguageCommandLineArguments`<sup>Optional</sup> <a name="cdkLanguageCommandLineArguments" id="aws-ddk-core.SynthActionProps.property.cdkLanguageCommandLineArguments"></a>
+
+```typescript
+public readonly cdkLanguageCommandLineArguments: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* No command line arguments are appended
+
+Additional command line arguements to append to the install command of the `cdk_langauge` that is specified.
 
 ---
 

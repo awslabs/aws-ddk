@@ -67,6 +67,12 @@ export interface SynthActionProps {
    * Additional install commands.
    */
   readonly additionalInstallCommands?: string[];
+  /**
+   * Additional command line arguements to append to the install command of the `cdk_langauge` that is specified.
+   *
+   * @default - No command line arguments are appended
+   */
+  readonly cdkLanguageCommandLineArguments?: { [key: string]: string };
 }
 
 /**
@@ -376,10 +382,17 @@ export class CICDPipelineStack extends BaseStack {
    * @returns reference to this pipeline.
    */
   addSynthAction(props: SynthActionProps = {}) {
-    const languageInstallCommand: any = {
+    const languageInstallCommands: any = {
       typescript: "npm install",
       python: "pip install -r requirements.txt",
     };
+
+    let languageInstallCommand = languageInstallCommands[this.cdkLanguage];
+    if (props.cdkLanguageCommandLineArguments) {
+      for (const [argument, value] of Object.entries(props.cdkLanguageCommandLineArguments)) {
+        languageInstallCommand += ` ${argument} ${value}`;
+      }
+    }
 
     this.synthAction =
       props.synthAction ||
@@ -395,8 +408,8 @@ export class CICDPipelineStack extends BaseStack {
         codeartifactDomain: props.codeartifactDomain,
         codeartifactDomainOwner: props.codeartifactDomainOwner,
         additionalInstallCommands: props.additionalInstallCommands
-          ? [languageInstallCommand[this.cdkLanguage]].concat(props.additionalInstallCommands)
-          : [languageInstallCommand[this.cdkLanguage]],
+          ? [languageInstallCommand].concat(props.additionalInstallCommands)
+          : [languageInstallCommand],
       });
     return this;
   }
