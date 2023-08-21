@@ -70,7 +70,7 @@ export class MWAATriggerDagsStage extends StateMachineStage {
     definition.branch(
       new tasks.LambdaInvoke(this, "Trigger Dag", {
         lambdaFunction: lambdas.triggerLambda,
-        payload: sfn.TaskInput.fromObject({ dag_ids: dagIds }),
+        payload: sfn.TaskInput.fromObject({ dag_ids: dagIds, body: sfn.JsonPath.objectAt("$") }),
         resultPath: sfn.JsonPath.DISCARD,
       })
         .next(waitTask)
@@ -162,8 +162,9 @@ def lambda_handler(event, context):
       'Content-Type': 'text/plain'
     }
 
+    event_body = json.dumps(event["body"])
     for dag_id in event['dag_ids']:
-      run_api_call(conn, f"dags trigger {dag_id}", headers)
+      run_api_call(conn, f"dags trigger {dag_id} --conf '{event_body}'", headers)
         `),
       handler: "index.lambda_handler",
       role: lambdaRole,
