@@ -95,4 +95,4 @@ environment and submit code.
 One way you can support our project is by letting others know that your organisation uses the DDK.  If you would like us to include your company's name and/or logo in this README file, please raise a 'Support the DDK' issue.  Note that by raising a this issue (and related pull request), you are granting AWS permission to use your company’s name (and logo) for the limited purpose described here and you are confirming that you have authority to grant such permission.
 
 ## License
-This project is licensed under the Apache-2.0 License.
+This project is licensed under the Apache-2.0 License. 
