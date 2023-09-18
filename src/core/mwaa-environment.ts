@@ -144,7 +144,7 @@ export class MWAAEnvironment extends Construct {
       }
     }
 
-    const mwaaExecutionRole = new iam.Role(scope, "MWAA Execution Role", {
+    const mwaaExecutionRole = new iam.Role(scope, `${props.name} MWAA Execution Role`, {
       assumedBy: new iam.CompositePrincipal(
         new iam.ServicePrincipal("airflow.amazonaws.com"),
         new iam.ServicePrincipal("airflow-env.amazonaws.com"),
@@ -265,7 +265,7 @@ export class MWAAEnvironment extends Construct {
       throw new Error("Vpc Cidr Range must of size >=16 and <=20");
     }
     const subnetCIDRMask = vpcCIDRMask + 4;
-    const vpc = new ec2.Vpc(scope, "Vpc", {
+    const vpc = new ec2.Vpc(scope, `${resourceName} Vpc`, {
       ipAddresses: ec2.IpAddresses.cidr(vpcCidr),
       enableDnsSupport: true,
       enableDnsHostnames: true,
