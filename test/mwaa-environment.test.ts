@@ -147,3 +147,45 @@ test("MWAAEnvironment All Settings", () => {
   template.hasResourceProperties("AWS::S3::Bucket", {});
   template.hasResourceProperties("AWS::EC2::VPC", {});
 });
+
+test("Multiple MWAAEnvironment", () => {
+  const stack = new cdk.Stack();
+
+  new MWAAEnvironment(stack, "First MWAA-environment", {
+    name: "First MWAAEnvironment",
+    vpcCidr: "10.44.0.0/16",
+  });
+
+  new MWAAEnvironment(stack, "Second MWAA-environment", {
+    name: "Second MWAAEnvironment",
+    vpcCidr: "10.45.0.0/16",
+  });
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::MWAA::Environment", {
+    Name: "First MWAAEnvironment",
+    NetworkConfiguration: {
+      SecurityGroupIds: Match.anyValue(),
+      SubnetIds: [Match.anyValue(), Match.anyValue()],
+    },
+  });
+
+  template.hasResourceProperties("AWS::MWAA::Environment", {
+    Name: "Second MWAAEnvironment",
+    NetworkConfiguration: {
+      SecurityGroupIds: Match.anyValue(),
+      SubnetIds: [Match.anyValue(), Match.anyValue()],
+    },
+  });
+
+  template.resourceCountIs("AWS::IAM::Role", 2);
+  template.hasResourceProperties("AWS::S3::Bucket", {});
+  template.hasResourceProperties("AWS::EC2::VPC", {
+    CidrBlock: "10.44.0.0/16",
+  });
+  template.resourceCountIs("AWS::EC2::Subnet", 8);
+  template.resourceCountIs("AWS::EC2::NatGateway", 4);
+  template.resourceCountIs("AWS::EC2::Route", 8);
+  template.resourceCountIs("AWS::EC2::InternetGateway", 2);
+  template.resourceCountIs("AWS::EC2::VPCGatewayAttachment", 2);
+});
