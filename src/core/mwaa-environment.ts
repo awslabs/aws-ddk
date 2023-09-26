@@ -82,7 +82,7 @@ export class MWAAEnvironment extends Construct {
     this.dagS3Path = props.dagS3Path ?? "dags";
 
     if (props.vpcId) {
-      this.vpc = ec2.Vpc.fromLookup(scope, "VPC", { vpcId: props.vpcId });
+      this.vpc = ec2.Vpc.fromLookup(scope, `${props.name} VPC`, { vpcId: props.vpcId });
     } else if (props.vpcCidr) {
       this.vpc = this.createVpc(scope, props.name, props.vpcCidr);
     } else {
@@ -99,7 +99,7 @@ export class MWAAEnvironment extends Construct {
     if (props.s3Bucket) {
       this.s3Bucket = props.s3Bucket;
     } else {
-      this.s3Bucket = S3Factory.bucket(this, "Environment Bucket", {
+      this.s3Bucket = S3Factory.bucket(this, `${props.name} Environment Bucket`, {
         versioned: true,
       });
     }
@@ -109,7 +109,7 @@ export class MWAAEnvironment extends Construct {
       props.dagFiles.forEach((location) => {
         sources.push(s3deploy.Source.asset(location));
       });
-      new s3deploy.BucketDeployment(this, "Deploy Dag Files", {
+      new s3deploy.BucketDeployment(this, `${props.name} Deploy Dag Files`, {
         sources: sources,
         destinationBucket: this.s3Bucket,
         destinationKeyPrefix: this.dagS3Path,
@@ -118,7 +118,7 @@ export class MWAAEnvironment extends Construct {
 
     if (props.pluginFile) {
       if (props.pluginsS3Path) {
-        this.pluginFile = new s3deploy.BucketDeployment(this, "Deploy Plugin File", {
+        this.pluginFile = new s3deploy.BucketDeployment(this, `${props.name} Deploy Plugin File`, {
           sources: [s3deploy.Source.asset(props.pluginFile)],
           destinationBucket: this.s3Bucket,
           destinationKeyPrefix: props.pluginsS3Path,
@@ -130,7 +130,7 @@ export class MWAAEnvironment extends Construct {
 
     if (props.requirementsFile) {
       if (props.requirementsS3Path) {
-        this.pluginFile = new s3deploy.BucketDeployment(this, "Deploy Requirements File", {
+        this.pluginFile = new s3deploy.BucketDeployment(this, `${props.name} Deploy Requirements File`, {
           sources: [
             s3deploy.Source.asset(props.requirementsFile.split("/").slice(0, -1).join("/"), {
               exclude: ["**", `!${props.requirementsFile.split("/")[-1]}`],
@@ -144,7 +144,7 @@ export class MWAAEnvironment extends Construct {
       }
     }
 
-    const mwaaExecutionRole = new iam.Role(scope, "MWAA Execution Role", {
+    const mwaaExecutionRole = new iam.Role(scope, `${props.name} MWAA Execution Role`, {
       assumedBy: new iam.CompositePrincipal(
         new iam.ServicePrincipal("airflow.amazonaws.com"),
         new iam.ServicePrincipal("airflow-env.amazonaws.com"),
@@ -152,7 +152,7 @@ export class MWAAEnvironment extends Construct {
       path: "/service-role/",
     });
     mwaaExecutionRole.addManagedPolicy(
-      new iam.ManagedPolicy(this, "MWAA Execution Policy", {
+      new iam.ManagedPolicy(this, `${props.name} MWAA Execution Policy`, {
         statements: [
           new iam.PolicyStatement({
             actions: ["airflow:PublishMetrics"],
@@ -224,7 +224,7 @@ export class MWAAEnvironment extends Construct {
       });
     }
 
-    this.mwaaEnvironment = new mwaa.CfnEnvironment(this, "MWAA Environment", {
+    this.mwaaEnvironment = new mwaa.CfnEnvironment(this, `${props.name} MWAA Environment`, {
       sourceBucketArn: this.s3Bucket.bucketArn,
       executionRoleArn: mwaaExecutionRole.roleArn,
       dagS3Path: this.dagS3Path,
@@ -265,7 +265,7 @@ export class MWAAEnvironment extends Construct {
       throw new Error("Vpc Cidr Range must of size >=16 and <=20");
     }
     const subnetCIDRMask = vpcCIDRMask + 4;
-    const vpc = new ec2.Vpc(scope, "Vpc", {
+    const vpc = new ec2.Vpc(scope, `${resourceName} Vpc`, {
       ipAddresses: ec2.IpAddresses.cidr(vpcCidr),
       enableDnsSupport: true,
       enableDnsHostnames: true,
