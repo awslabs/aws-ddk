@@ -1,19 +1,4 @@
 
-### [1.3.1](https://github.com/awslabs/aws-ddk/compare/v1.3.0...v1.3.1) (2023-10-12)
-
-## [1.3.0](https://github.com/awslabs/aws-ddk/compare/v1.2.0...v1.3.0) (2023-10-12)
-
-
-### Features
-
-* Allowing 'any' in configuration props ([#419](https://github.com/awslabs/aws-ddk/issues/419)) ([a532a39](https://github.com/awslabs/aws-ddk/commit/a532a3954c0af74170964485b2858e5d7a2674f9))
-
-
-### Bug Fixes
-
-* Making 'configPath' optional in interfaces  ([#418](https://github.com/awslabs/aws-ddk/issues/418)) ([98f48f3](https://github.com/awslabs/aws-ddk/commit/98f48f376aeddc6a22dd29430dff7801a367b037))
-* update Update MWAAEnviroment to create VPC and MWAAExecutionRole with resource prefix ([#439](https://github.com/awslabs/aws-ddk/issues/439)) ([a7cdd40](https://github.com/awslabs/aws-ddk/commit/a7cdd40135c85fea18b86649ac3ee34987db7d19))
-
 ## [1.2.0](https://github.com/awslabs/aws-ddk/compare/v1.1.0...v1.2.0) (2023-07-27)
 
 
