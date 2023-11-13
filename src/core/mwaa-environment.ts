@@ -230,7 +230,10 @@ export class MWAAEnvironment extends Construct {
       dagS3Path: this.dagS3Path,
       networkConfiguration: {
         securityGroupIds: [securityGroup.securityGroupId],
-        subnetIds: this.vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }).subnetIds,
+        subnetIds: [
+          this.vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }).subnetIds[0],
+          this.vpc.selectSubnets({ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }).subnetIds[1],
+        ],
       },
       webserverAccessMode: "PUBLIC_ONLY",
       loggingConfiguration: {
