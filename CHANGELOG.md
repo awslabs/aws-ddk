@@ -1,4 +1,11 @@
 
+### [1.3.1](https://github.com/awslabs/aws-ddk/compare/v1.3.0...v1.3.1) (2023-11-14)
+
+
+### Bug Fixes
+
+* Restrict MWAA Env to Two Subnets ([#456](https://github.com/awslabs/aws-ddk/issues/456)) ([53c7541](https://github.com/awslabs/aws-ddk/commit/53c7541ec46206b452ea15e97d41644fc98c4197))
+
 ## [1.3.0](https://github.com/awslabs/aws-ddk/compare/v1.2.0...v1.3.0) (2023-10-12)
 
 
