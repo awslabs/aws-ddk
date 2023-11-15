@@ -112,12 +112,14 @@ interface getStackSynthesizerProps {
 export function getStackSynthesizer(props: getStackSynthesizerProps): cdk.IStackSynthesizer {
   const configData = getConfig({ config: props.config });
 
-  const accountId =
-    configData && props.environmentId ? configData.environments[props.environmentId].account : defaultAccountId;
-
-  const region =
-    configData && props.environmentId ? configData.environments[props.environmentId].region : defaultRegion;
-
+  try {
+    var accountId =
+      configData && props.environmentId ? configData.environments[props.environmentId].account : defaultAccountId;
+    var region =
+      configData && props.environmentId ? configData.environments[props.environmentId].region : defaultRegion;
+  } catch (err) {
+    throw TypeError("Invalid JSON/YAML supplied as Config");
+  }
   const bootstrapConfig: any = configData
     ? configData.ddkBootstrapConfigKey
       ? configData.ddkBootstrapConfigKey
