@@ -27,7 +27,7 @@ class TestSFNStage extends StateMachineStage {
 test("State Machine Stage Definition File", () => {
   const stack = new cdk.Stack();
   new TestSFNStage(stack, "MySFN", {
-    definitionFile: "./test/test-sfn-config.json",
+    definitionFile: "./test/mock_config/test-sfn-config.json",
   });
 });
 
@@ -50,7 +50,7 @@ test("SFN Redundant Definitions", () => {
   expect(() => {
     new TestSFNStage(stack, "MySFN", {
       definition: '{"StartAt":"Pass","States":{"Pass":{"Type":"Pass","End":true}}}',
-      definitionFile: "./test/test-sfn-config.json",
+      definitionFile: "./test/mock_config/test-sfn-config.json",
     });
   }).toThrowError("Only one of 'definition' or 'definitionFile' should be provided.");
 });

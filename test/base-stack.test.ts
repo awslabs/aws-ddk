@@ -399,7 +399,7 @@ test("Use Only Prefix to Default to DDK roles", () => {
 
   const stack = new BaseStack(app, "my-stack", {
     environmentId: "dev",
-    config: "./test/test-config.json",
+    config: "./test/mock_config/test-config.json",
   });
 
   const expectedValues = {
@@ -517,4 +517,16 @@ test("Additional Stack Props", () => {
     description: "My Description",
     stackName: "MyStack",
   });
+});
+
+test("Base Stack with invalid JSON", () => {
+  const app = new cdk.App();
+  expect(() => {
+    new BaseStack(app, "my-stack", {
+      environmentId: "dev",
+      description: "My Description",
+      stackName: "MyStack",
+      config: "./test/mock_config/test-config-invalid.json",
+    });
+  }).toThrowError("Invalid JSON/YAML supplied as Config");
 });

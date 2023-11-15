@@ -290,7 +290,7 @@ test("File Based Config: JSON", () => {
     },
   });
 
-  new Configurator(stack, "./test/test-config.json", "dev");
+  new Configurator(stack, "./test/mock_config/test-config.json", "dev");
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 128,
@@ -320,7 +320,7 @@ test("File Based Config: YAML", () => {
     },
   });
 
-  new Configurator(stack, "./test/test-config.yaml", "dev");
+  new Configurator(stack, "./test/mock_config/test-config.yaml", "dev");
   const template = Template.fromStack(stack);
   template.hasResourceProperties("AWS::Lambda::Function", {
     MemorySize: 128,
@@ -341,7 +341,7 @@ test("File Based Config: YAML", () => {
 test("File based config: Bad Format", () => {
   const stack = new cdk.Stack();
   expect(() => {
-    new Configurator(stack, "./test/test-config.jso", "dev");
+    new Configurator(stack, "./test/mock_config/test-config.jso", "dev");
   }).toThrowError("Config file must be in YAML or JSON format");
 });
 
@@ -378,7 +378,7 @@ test("CICDPipeline with Config", () => {
   // Dev
   const devStage = new cdk.Stage(app, "dev", { env: { account: "000000000000" } });
   const devStack = new cdk.Stack(devStage, "dev-application-stack");
-  new Configurator(devStage, "./test/test-config.json", "dev");
+  new Configurator(devStage, "./test/mock_config/test-config.json", "dev");
   const devBucket = new s3.Bucket(devStack, "Bucket");
   const devFirehoseToS3Stage = new FirehoseToS3Stage(devStack, "Firehose To S3 Stage", { s3Bucket: devBucket });
 
@@ -398,7 +398,7 @@ test("CICDPipeline with Config", () => {
   // Prod
   const prodStage = new cdk.Stage(app, "prod", { env: { account: "000000000000" } });
   const prodStack = new cdk.Stack(prodStage, "prod-application-stack");
-  new Configurator(prodStage, "./test/test-config.json", "prod");
+  new Configurator(prodStage, "./test/mock_config/test-config.json", "prod");
   const prodBucket = new s3.Bucket(prodStack, "Bucket");
   const prodFirehoseToS3Stage = new FirehoseToS3Stage(prodStack, "Firehose To S3 Stage", { s3Bucket: prodBucket });
 
@@ -436,46 +436,47 @@ test("CICDPipeline with Config", () => {
 
 test("Get Env Config Attribute", () => {
   const app = new cdk.App();
-  const config = new Configurator(app, "./test/test-config.json", "dev");
+  const config = new Configurator(app, "./test/mock_config/test-config.json", "dev");
   assert(config.getConfigAttribute("account") === "222222222222");
 });
 
 test("Get Config : Non-Existent File", () => {
   const app = new cdk.App();
-  const config = new Configurator(app, "./test/not-real.yaml", "dev");
+  const config = new Configurator(app, "./test/mock_config/not-real.yaml", "dev");
   const expectedDevConfig = {};
   assert(config.getConfigAttribute("foo") === expectedDevConfig);
 });
 
 test("Get Env Config", () => {
-  assert(getConfig({ config: "./test/test-config.json" })?.environments.dev.account === "222222222222");
+  assert(getConfig({ config: "./test/mock_config/test-config.json" })?.environments.dev.account === "222222222222");
   assert(getConfig({}) === undefined);
 });
 
 test("Get Environment", () => {
-  assert(getEnvironment("./test/test-config.json", "dev").account === "222222222222");
-  assert(getEnvironment("./test/test-config.json", "dev").region === "us-east-1");
-  assert(getEnvironment("./test/test-config.json").account === "111111111111");
-  assert(getEnvironment("./test/test-config.json").region === "us-east-1");
+  assert(getEnvironment("./test/mock_config/test-config.json", "dev").account === "222222222222");
+  assert(getEnvironment("./test/mock_config/test-config.json", "dev").region === "us-east-1");
+  assert(getEnvironment("./test/mock_config/test-config.json").account === "111111111111");
+  assert(getEnvironment("./test/mock_config/test-config.json").region === "us-east-1");
   assert(
-    Configurator.getEnvironment({ configPath: "./test/test-config.json", environmentId: "dev" }).account ===
+    Configurator.getEnvironment({ configPath: "./test/mock_config/test-config.json", environmentId: "dev" }).account ===
       "222222222222",
   );
   assert(
-    Configurator.getEnvironment({ configPath: "./test/test-config.json", environmentId: "dev" }).region === "us-east-1",
+    Configurator.getEnvironment({ configPath: "./test/mock_config/test-config.json", environmentId: "dev" }).region ===
+      "us-east-1",
   );
-  assert(Configurator.getEnvironment({ configPath: "./test/test-config.json" }).account === "111111111111");
-  assert(Configurator.getEnvironment({ configPath: "./test/test-config.json" }).region === "us-east-1");
+  assert(Configurator.getEnvironment({ configPath: "./test/mock_config/test-config.json" }).account === "111111111111");
+  assert(Configurator.getEnvironment({ configPath: "./test/mock_config/test-config.json" }).region === "us-east-1");
   const app = new cdk.App();
   new cdk.Stack(app, "MyTestStack", {
     env: {
-      ...getEnvironment("./test/test-config.json"),
+      ...getEnvironment("./test/mock_config/test-config.json"),
     },
   });
 });
 
 test("Get Env Config Static Method", () => {
-  const config = Configurator.getEnvConfig({ configPath: "./test/test-config.yaml", environmentId: "dev" });
+  const config = Configurator.getEnvConfig({ configPath: "./test/mock_config/test-config.yaml", environmentId: "dev" });
   const nullConfig = Configurator.getEnvConfig({ configPath: "./ddk.json", environmentId: "dev" });
   const expectedDevConfig = {
     account: "222222222222",
@@ -493,9 +494,9 @@ test("Get Env Config Static Method", () => {
 });
 
 test("Get Tags", () => {
-  const devTags = Configurator.getTags({ configPath: "./test/test-config.yaml", environmentId: "dev" });
-  const prodTags = Configurator.getTags({ configPath: "./test/test-config.yaml", environmentId: "prod" });
-  const globalTags = Configurator.getTags({ configPath: "./test/test-config.yaml" });
+  const devTags = Configurator.getTags({ configPath: "./test/mock_config/test-config.yaml", environmentId: "dev" });
+  const prodTags = Configurator.getTags({ configPath: "./test/mock_config/test-config.yaml", environmentId: "prod" });
+  const globalTags = Configurator.getTags({ configPath: "./test/mock_config/test-config.yaml" });
   assert(devTags.CostCenter === "2014");
   assert(prodTags.CostCenter === "2015");
   assert(globalTags["global:foo"] === "bar");
@@ -568,7 +569,7 @@ test("Config Removal Policy Invalid", () => {
 test("Config Removal Policy JSON Config", () => {
   const stack = new cdk.Stack();
   new s3.Bucket(stack, "MyBucket");
-  new Configurator(stack, "./test/test-config.json", "dev");
+  new Configurator(stack, "./test/mock_config/test-config.json", "dev");
   const template = Template.fromStack(stack);
   template.hasResource("AWS::S3::Bucket", {
     DeletionPolicy: "Delete",
@@ -577,6 +578,9 @@ test("Config Removal Policy JSON Config", () => {
 });
 
 test("Configurator getConfig properties", () => {
-  const myConfig = Configurator.getEnvConfig({ configPath: "./test/test-config.json", environmentId: "dev" });
+  const myConfig = Configurator.getEnvConfig({
+    configPath: "./test/mock_config/test-config.json",
+    environmentId: "dev",
+  });
   assert(myConfig.props?.my_unique_config_property == "foobar");
 });
