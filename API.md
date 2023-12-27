@@ -1474,7 +1474,7 @@ If this is a nested stack, this represents its `AWS::CloudFormation::Stack` reso
 
 ---
 
-##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="aws-ddk-core.BaseStack.property.terminationProtection"></a>
+##### `terminationProtection`<sup>Required</sup> <a name="terminationProtection" id="aws-ddk-core.BaseStack.property.terminationProtection"></a>
 
 ```typescript
 public readonly terminationProtection: boolean;
@@ -2573,7 +2573,7 @@ If this is a nested stack, this represents its `AWS::CloudFormation::Stack` reso
 
 ---
 
-##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="aws-ddk-core.CICDPipelineStack.property.terminationProtection"></a>
+##### `terminationProtection`<sup>Required</sup> <a name="terminationProtection" id="aws-ddk-core.CICDPipelineStack.property.terminationProtection"></a>
 
 ```typescript
 public readonly terminationProtection: boolean;
@@ -9080,18 +9080,20 @@ const eMRServerlessClusterProps: EMRServerlessClusterProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.releaseLabel">releaseLabel</a></code> | <code>string</code> | The EMR release version associated with the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.releaseLabel">releaseLabel</a></code> | <code>string</code> | The EMR release associated with the application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.type">type</a></code> | <code>string</code> | The type of application, such as Spark or Hive. |
-| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.architecture">architecture</a></code> | <code>string</code> | The CPU architecture type of the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.architecture">architecture</a></code> | <code>string</code> | The CPU architecture of an application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.autoStartConfiguration">autoStartConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.AutoStartConfigurationProperty</code> | The configuration for an application to automatically start on job submission. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.autoStopConfiguration">autoStopConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.AutoStopConfigurationProperty</code> | The configuration for an application to automatically stop after a certain amount of time being idle. |
-| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.imageConfiguration">imageConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.ImageConfigurationInputProperty</code> | `AWS::EMRServerless::Application.ImageConfiguration`. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.imageConfiguration">imageConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.ImageConfigurationInputProperty</code> | The image configuration applied to all worker types. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.initialCapacity">initialCapacity</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.InitialCapacityConfigKeyValuePairProperty[]</code> | The initial capacity of the application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.maximumCapacity">maximumCapacity</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.MaximumAllowedResourcesProperty</code> | The maximum capacity of the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.monitoringConfiguration">monitoringConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.MonitoringConfigurationProperty</code> | A configuration specification to be used when provisioning an application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.name">name</a></code> | <code>string</code> | The name of the application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty</code> | The network configuration for customer VPC connectivity for the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.runtimeConfiguration">runtimeConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.ConfigurationObjectProperty[]</code> | The [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html) specifications of an application. Each configuration consists of a classification and properties. You use this parameter when creating or updating an application. To see the runtimeConfiguration object of an application, run the [GetApplication](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_GetApplication.html) API operation. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.tags">tags</a></code> | <code>aws-cdk-lib.CfnTag[]</code> | The tags assigned to the application. |
-| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.workerTypeSpecifications">workerTypeSpecifications</a></code> | <code>aws-cdk-lib.IResolvable \| {[ key: string ]: aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.WorkerTypeSpecificationInputProperty}</code> | `AWS::EMRServerless::Application.WorkerTypeSpecifications`. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.workerTypeSpecifications">workerTypeSpecifications</a></code> | <code>aws-cdk-lib.IResolvable \| {[ key: string ]: aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.WorkerTypeSpecificationInputProperty}</code> | The specification applied to each worker type. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policy statements to add to the emr role. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.s3Bucket">s3Bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | S3 Bucket. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.SecurityGroup</code> | Security Group. |
@@ -9108,13 +9110,7 @@ public readonly releaseLabel: string;
 
 - *Type:* string
 
-The EMR release version associated with the application.
-
-*Minimum* : 1
-
-*Maximum* : 64
-
-*Pattern* : `^[A-Za-z0-9._/-]+$`
+The EMR release associated with the application.
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-releaselabel](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-releaselabel)
 
@@ -9142,9 +9138,7 @@ public readonly architecture: string;
 
 - *Type:* string
 
-The CPU architecture type of the application.
-
-Allowed values: `X86_64` or `ARM64`
+The CPU architecture of an application.
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-architecture](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-architecture)
 
@@ -9186,7 +9180,7 @@ public readonly imageConfiguration: IResolvable | ImageConfigurationInputPropert
 
 - *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.ImageConfigurationInputProperty
 
-`AWS::EMRServerless::Application.ImageConfiguration`.
+The image configuration applied to all worker types.
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-imageconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-imageconfiguration)
 
@@ -9222,6 +9216,22 @@ This is cumulative across all workers at any given point in time during the life
 
 ---
 
+##### `monitoringConfiguration`<sup>Optional</sup> <a name="monitoringConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.monitoringConfiguration"></a>
+
+```typescript
+public readonly monitoringConfiguration: IResolvable | MonitoringConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.MonitoringConfigurationProperty
+
+A configuration specification to be used when provisioning an application.
+
+A configuration consists of a classification, properties, and optional nested configurations. A classification refers to an application-specific configuration file. Properties are the settings you want to change in that file.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-monitoringconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-monitoringconfiguration)
+
+---
+
 ##### `name`<sup>Optional</sup> <a name="name" id="aws-ddk-core.EMRServerlessClusterProps.property.name"></a>
 
 ```typescript
@@ -9231,12 +9241,6 @@ public readonly name: string;
 - *Type:* string
 
 The name of the application.
-
-*Minimum* : 1
-
-*Maximum* : 64
-
-*Pattern* : `^[A-Za-z0-9._\\/#-]+$`
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-name](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-name)
 
@@ -9253,6 +9257,20 @@ public readonly networkConfiguration: IResolvable | NetworkConfigurationProperty
 The network configuration for customer VPC connectivity for the application.
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-networkconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-networkconfiguration)
+
+---
+
+##### `runtimeConfiguration`<sup>Optional</sup> <a name="runtimeConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.runtimeConfiguration"></a>
+
+```typescript
+public readonly runtimeConfiguration: IResolvable | IResolvable | ConfigurationObjectProperty[];
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.ConfigurationObjectProperty[]
+
+The [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html) specifications of an application. Each configuration consists of a classification and properties. You use this parameter when creating or updating an application. To see the runtimeConfiguration object of an application, run the [GetApplication](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_GetApplication.html) API operation.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-runtimeconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-runtimeconfiguration)
 
 ---
 
@@ -9278,7 +9296,7 @@ public readonly workerTypeSpecifications: IResolvable | {[ key: string ]: IResol
 
 - *Type:* aws-cdk-lib.IResolvable | {[ key: string ]: aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.WorkerTypeSpecificationInputProperty}
 
-`AWS::EMRServerless::Application.WorkerTypeSpecifications`.
+The specification applied to each worker type.
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-workertypespecifications](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-workertypespecifications)
 
@@ -10551,6 +10569,7 @@ const mWAAEnvironmentProps: MWAAEnvironmentProps = { ... }
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.airflowConfigurationOptions">airflowConfigurationOptions</a></code> | <code>any</code> | A list of key-value pairs containing the Airflow configuration options for your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.airflowVersion">airflowVersion</a></code> | <code>string</code> | The version of Apache Airflow to use for the environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | The relative path to the DAGs folder on your Amazon S3 bucket. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.endpointManagement">endpointManagement</a></code> | <code>string</code> | Defines whether the VPC endpoints configured for the environment are created, and managed, by the customer or by Amazon MWAA. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.environmentClass">environmentClass</a></code> | <code>string</code> | The environment class type. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the execution role in IAM that allows MWAA to access AWS resources in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.kmsKey">kmsKey</a></code> | <code>string</code> | The AWS Key Management Service (KMS) key to encrypt and decrypt the data in your environment. |
@@ -10566,7 +10585,7 @@ const mWAAEnvironmentProps: MWAAEnvironmentProps = { ... }
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.sourceBucketArn">sourceBucketArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the Amazon S3 bucket where your DAG code and supporting files are stored. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3ObjectVersion">startupScriptS3ObjectVersion</a></code> | <code>string</code> | The version of the startup shell script in your Amazon S3 bucket. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.startupScriptS3Path">startupScriptS3Path</a></code> | <code>string</code> | The relative path to the startup shell script in your Amazon S3 bucket. For example, `s3://mwaa-environment/startup.sh` . |
-| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.tags">tags</a></code> | <code>any</code> | The key-value tag pairs associated to your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.tags">tags</a></code> | <code>any</code> | The key-value tag pairs associated to your environment. For example, `"Environment": "Staging"` . To learn more, see [Tagging](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.webserverAccessMode">webserverAccessMode</a></code> | <code>string</code> | The Apache Airflow *Web server* access mode. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.weeklyMaintenanceWindowStart">weeklyMaintenanceWindowStart</a></code> | <code>string</code> | The day and time of the week to start weekly maintenance updates of your environment in the following format: `DAY:HH:MM` . |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policy statements to add to the airflow execution role. |
@@ -10626,7 +10645,9 @@ The version of Apache Airflow to use for the environment.
 
 If no value is specified, defaults to the latest version.
 
-*Allowed Values* : `2.0.2` | `1.10.12` | `2.2.2` | `2.4.3` | `2.5.1` (latest)
+If you specify a newer version number for an existing environment, the version update requires some service interruption before taking effect.
+
+*Allowed Values* : `1.10.12` | `2.0.2` | `2.2.2` | `2.4.3` | `2.5.1` | `2.6.3` | `2.7.2` (latest)
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion)
 
@@ -10645,6 +10666,22 @@ The relative path to the DAGs folder on your Amazon S3 bucket.
 For example, `dags` . To learn more, see [Adding or updating DAGs](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-folder.html) .
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-dags3path](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-dags3path)
+
+---
+
+##### `endpointManagement`<sup>Optional</sup> <a name="endpointManagement" id="aws-ddk-core.MWAAEnvironmentProps.property.endpointManagement"></a>
+
+```typescript
+public readonly endpointManagement: string;
+```
+
+- *Type:* string
+
+Defines whether the VPC endpoints configured for the environment are created, and managed, by the customer or by Amazon MWAA.
+
+If set to `SERVICE` , Amazon MWAA will create and manage the required VPC endpoints in your VPC. If set to `CUSTOMER` , you must create, and manage, the VPC endpoints in your VPC.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-endpointmanagement](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-endpointmanagement)
 
 ---
 
@@ -10893,9 +10930,9 @@ public readonly tags: any;
 
 - *Type:* any
 
-The key-value tag pairs associated to your environment.
+The key-value tag pairs associated to your environment. For example, `"Environment": "Staging"` . To learn more, see [Tagging](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) .
 
-For example, `"Environment": "Staging"` . To learn more, see [Tagging](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) .
+If you specify new tags for an existing environment, the update requires service interruption before taking effect.
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-tags](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-tags)
 
@@ -12050,6 +12087,7 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.adotInstrumentation">adotInstrumentation</a></code> | <code>aws-cdk-lib.aws_lambda.AdotInstrumentationConfig</code> | Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllOutbound">allowAllOutbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all network traffic. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowPublicSubnet">allowPublicSubnet</a></code> | <code>boolean</code> | Lambda Functions in a public subnet can NOT access the internet. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.applicationLogLevel">applicationLogLevel</a></code> | <code>string</code> | Sets the application log level for the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.architecture">architecture</a></code> | <code>aws-cdk-lib.aws_lambda.Architecture</code> | The system architectures compatible with this lambda function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.codeSigningConfig">codeSigningConfig</a></code> | <code>aws-cdk-lib.aws_lambda.ICodeSigningConfig</code> | Code signing config associated with this function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.currentVersionOptions">currentVersionOptions</a></code> | <code>aws-cdk-lib.aws_lambda.VersionOptions</code> | Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method. |
@@ -12066,6 +12104,8 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.initialPolicy">initialPolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Initial policy statements to add to the created Lambda Role. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.insightsVersion">insightsVersion</a></code> | <code>aws-cdk-lib.aws_lambda.LambdaInsightsVersion</code> | Specify the version of CloudWatch Lambda insights to use for monitoring. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | A list of layers to add to the function's execution environment. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logFormat">logFormat</a></code> | <code>string</code> | Sets the logFormat for the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | Sets the log group name for the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetention">logRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | The number of days log events are kept in CloudWatch Logs. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRetryOptions">logRetentionRetryOptions</a></code> | <code>aws-cdk-lib.aws_lambda.LogRetentionRetryOptions</code> | When log retention is specified, a custom resource attempts to create the CloudWatch log group. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRole">logRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role for the Lambda function associated with the custom resource that sets the retention policy. |
@@ -12077,6 +12117,8 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Lambda execution role. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.runtimeManagementMode">runtimeManagementMode</a></code> | <code>aws-cdk-lib.aws_lambda.RuntimeManagementMode</code> | Sets the runtime management configuration for a function's version. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The list of security groups to associate with the Lambda's network interfaces. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.snapStart">snapStart</a></code> | <code>aws-cdk-lib.aws_lambda.SnapStartConf</code> | Enable SnapStart for Lambda Function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.systemLogLevel">systemLogLevel</a></code> | <code>string</code> | Sets the system log level for the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The function execution time (in seconds) after which Lambda terminates the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.tracing">tracing</a></code> | <code>aws-cdk-lib.aws_lambda.Tracing</code> | Enable AWS X-Ray Tracing for Lambda Function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place Lambda network interfaces. |
@@ -12177,6 +12219,9 @@ Whether to allow the Lambda to send all network traffic.
 If set to false, you must individually add traffic rules to allow the
 Lambda to connect to network targets.
 
+Do not specify this property if the `securityGroups` or `securityGroup` property is set.
+Instead, configure `allowAllOutbound` directly on the security group.
+
 ---
 
 ##### `allowPublicSubnet`<sup>Optional</sup> <a name="allowPublicSubnet" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowPublicSubnet"></a>
@@ -12193,6 +12238,19 @@ Lambda Functions in a public subnet can NOT access the internet.
 Use this property to acknowledge this limitation and still place the function in a public subnet.
 
 > [https://stackoverflow.com/questions/52992085/why-cant-an-aws-lambda-function-inside-a-public-subnet-in-a-vpc-connect-to-the/52994841#52994841](https://stackoverflow.com/questions/52992085/why-cant-an-aws-lambda-function-inside-a-public-subnet-in-a-vpc-connect-to-the/52994841#52994841)
+
+---
+
+##### `applicationLogLevel`<sup>Optional</sup> <a name="applicationLogLevel" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.applicationLogLevel"></a>
+
+```typescript
+public readonly applicationLogLevel: string;
+```
+
+- *Type:* string
+- *Default:* INFO
+
+Sets the application log level for the function.
 
 ---
 
@@ -12426,6 +12484,32 @@ that can be used by multiple functions.
 
 ---
 
+##### `logFormat`<sup>Optional</sup> <a name="logFormat" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logFormat"></a>
+
+```typescript
+public readonly logFormat: string;
+```
+
+- *Type:* string
+- *Default:* Text format
+
+Sets the logFormat for the function.
+
+---
+
+##### `logGroup`<sup>Optional</sup> <a name="logGroup" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
+- *Default:* `/aws/lambda/${this.functionName}` default log group name created by Lambda
+
+Sets the log group name for the function.
+
+---
+
 ##### `logRetention`<sup>Optional</sup> <a name="logRetention" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetention"></a>
 
 ```typescript
@@ -12596,6 +12680,34 @@ public readonly securityGroups: ISecurityGroup[];
 The list of security groups to associate with the Lambda's network interfaces.
 
 Only used if 'vpc' is supplied.
+
+---
+
+##### `snapStart`<sup>Optional</sup> <a name="snapStart" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.snapStart"></a>
+
+```typescript
+public readonly snapStart: SnapStartConf;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.SnapStartConf
+- *Default:* No snapstart
+
+Enable SnapStart for Lambda Function.
+
+SnapStart is currently supported only for Java 11, 17 runtime
+
+---
+
+##### `systemLogLevel`<sup>Optional</sup> <a name="systemLogLevel" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.systemLogLevel"></a>
+
+```typescript
+public readonly systemLogLevel: string;
+```
+
+- *Type:* string
+- *Default:* INFO
+
+Sets the system log level for the function.
 
 ---
 
