@@ -16,7 +16,7 @@ Version `1.0.0` of the AWS DDK includes the following high-level changes and upd
   - [`SnsSqsToLambdaStage()`](https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/SnsSqsToLambdaStage)
 
 ## Config
-`Configurator` is the new **optional** construct used to manage config across multiple environments. While this can handle a variety of use cases we encourage users to build their own config mechanisms when it `Configurator` is not the best option. See [this how-to guide](https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html)for more on using Configurator.
+`Configurator` is the new **optional** construct used to manage config across multiple environments. While this can handle a variety of use cases we encourage users to build their own config mechanisms when it `Configurator` is not the best option. See [this how-to guide](https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html) for more on using Configurator.
 
 ## Bootstrapping
 Customers that have already bootstrapped accounts and regions using `ddk bootstrap` can easily use the same roles by following the [**Using Legacy DDK Bootstrap Roles** section of this guide](https://awslabs.github.io/aws-ddk/release/latest/how-to/custom-bootstrap.html).
