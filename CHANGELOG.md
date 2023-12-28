@@ -1,4 +1,11 @@
 
+## [1.4.0](https://github.com/awslabs/aws-ddk/compare/v1.3.1...v1.4.0) (2023-12-28)
+
+
+### Features
+
+* Adding clearer exception for invalid config ([#464](https://github.com/awslabs/aws-ddk/issues/464)) ([3a5ebf8](https://github.com/awslabs/aws-ddk/commit/3a5ebf80dfa559df0f3cbff38eb061c0edc4d3b9))
+
 ### [1.3.1](https://github.com/awslabs/aws-ddk/compare/v1.3.0...v1.3.1) (2023-11-14)
 
 
