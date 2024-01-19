@@ -1,6 +1,9 @@
 # AWS DataOps Development Kit (DDK)
 ![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/build.yml/badge.svg)
-[![Downloads](https://static.pepy.tech/personalized-badge/aws-ddk-core?period=total&units=international_system&left_color=black&right_color=orange&left_text=pypi%20downloads)](https://pepy.tech/project/aws-ddk-core)
+[![npm version](https://badge.fury.io/js/aws-ddk-core.svg)](https://badge.fury.io/js/aws-ddk-core)
+[![PyPi version](https://badge.fury.io/py/aws-ddk-core.svg)](https://badge.fury.io/py/aws-ddk-core)
+![NPM Downloads](https://img.shields.io/npm/dt/aws-ddk-core?label=npm%20downloads&color=blue)
+[![PyPi Downloads](https://static.pepy.tech/personalized-badge/aws-ddk-core?period=total&units=international_system&left_text=pypi%20downloads&left_color=gray&right_color=blue)](https://pepy.tech/project/aws-ddk-core)
 
 ##### Packages 🗳️ 
 - [NPM](https://www.npmjs.com/package/aws-ddk-core/)
