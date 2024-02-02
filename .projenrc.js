@@ -34,6 +34,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: "aws-ddk-core",
   repositoryUrl: "https://github.com/awslabs/aws-ddk/tree/main",
 
+  depsUpgradeOptions: {
+    workflowOptions: {
+      schedule: javascript.UpgradeDependenciesSchedule.WEEKLY,
+    },
+  },
+
   // Artifact config: Python
   publishToPypi: {
     distName: "aws-ddk-core",
