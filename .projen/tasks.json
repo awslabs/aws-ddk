@@ -301,7 +301,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jsii-diff,jsii-docgen,jsii-pacmak,jsii-rosetta,jsii,prettier,projen,typescript,deepmerge,ts-node,yaml,@aws-cdk/aws-glue-alpha,@aws-cdk/aws-kinesisfirehose-alpha,@aws-cdk/aws-kinesisfirehose-destinations-alpha,@aws-cdk/integ-tests-alpha"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jsii-diff,jsii-docgen,jsii-pacmak,prettier,projen,typescript,ts-node,yaml"
         },
         {
           "exec": "yarn install --check-files"
