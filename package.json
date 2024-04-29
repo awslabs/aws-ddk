@@ -60,7 +60,7 @@
     "jsii-pacmak": "^1.97.0",
     "jsii-rosetta": "1.x",
     "prettier": "^2.8.8",
-    "projen": "^0.81.1",
+    "projen": "^0.81.4",
     "standard-version": "^9",
     "ts-jest": "^27",
     "typescript": "^4.9.5"
@@ -76,7 +76,7 @@
   "dependencies": {
     "deepmerge": "4.0.0",
     "ts-node": "^10.9.2",
-    "yaml": "^2.4.1"
+    "yaml": "^2.4.2"
   },
   "bundledDependencies": [
     "deepmerge",
