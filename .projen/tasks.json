@@ -32,7 +32,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
       },
       "steps": [
         {
@@ -290,7 +291,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
       },
       "steps": [
         {
@@ -306,13 +308,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jsii-diff,jsii-docgen,jsii-pacmak,prettier,projen,typescript,ts-node,yaml"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jsii-diff,jsii-pacmak,prettier,projen,typescript,ts-node,yaml"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest-junit jest jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii prettier projen standard-version ts-jest typescript deepmerge ts-node yaml @aws-cdk/aws-glue-alpha @aws-cdk/aws-kinesisfirehose-alpha @aws-cdk/aws-kinesisfirehose-destinations-alpha @aws-cdk/integ-tests-alpha aws-cdk-lib constructs"
+          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest-junit jest jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii prettier projen ts-jest typescript deepmerge ts-node yaml @aws-cdk/aws-glue-alpha @aws-cdk/aws-kinesisfirehose-alpha @aws-cdk/aws-kinesisfirehose-destinations-alpha @aws-cdk/integ-tests-alpha aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"
