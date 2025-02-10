@@ -5,8 +5,8 @@ import * as glue from "aws-cdk-lib/aws-glue";
 import * as sfn from "aws-cdk-lib/aws-stepfunctions";
 import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
-import { GlueFactory } from "../core/glue-factory";
-import { StateMachineStage, StateMachineStageProps } from "../pipelines/stage";
+import { GlueFactory, GlueFactoryProps } from "../core";
+import { StateMachineStage, StateMachineStageProps } from "../pipelines";
 
 /**
  * Properties for `GlueTransformStage`.
@@ -20,7 +20,8 @@ export interface GlueTransformStageProps extends StateMachineStageProps {
    * Additional Glue job properties. For complete list of properties refer to CDK Documentation
    * @link https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-glue-alpha.Job.html
    */
-  readonly jobProps?: glue_alpha.JobProps;
+  readonly jobProps?: GlueFactoryProps;
+
   /**
    * The input arguments to the Glue job.
    */
@@ -104,6 +105,10 @@ export class GlueTransformStage extends StateMachineStage {
       integrationPattern: sfn.IntegrationPattern.RUN_JOB,
       arguments: jobRunArgs ? sfn.TaskInput.fromObject(jobRunArgs) : undefined,
       resultPath: sfn.JsonPath.DISCARD,
+      workerConfiguration: {
+        numberOfWorkers: 2,
+        workerTypeV2: tasks.WorkerTypeV2.G_1X,
+      },
     });
 
     const stack = cdk.Stack.of(this);
@@ -167,12 +172,11 @@ export class GlueTransformStage extends StateMachineStage {
       throw TypeError("Crawler Targets must be set either by 'targets' or 'crawlerProps.targets");
     }
 
-    const crawler = new glue.CfnCrawler(this, "Crawler", {
+    return new glue.CfnCrawler(this, "Crawler", {
       role: role,
       databaseName: props.databaseName,
       targets: targets,
       ...props.crawlerProps,
     });
-    return crawler;
   }
 }

@@ -3,10 +3,18 @@ import * as glue_alpha from "@aws-cdk/aws-glue-alpha";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import * as events from "aws-cdk-lib/aws-events";
+import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 
-import { DataPipeline, FirehoseToS3Stage, GlueTransformStage, S3EventStage, SqsToLambdaStage } from "../src";
+import {
+  DataPipeline,
+  FirehoseToS3Stage,
+  GlueJobType,
+  GlueTransformStage,
+  S3EventStage,
+  SqsToLambdaStage,
+} from "../src";
 
 test("Basic DataPipeline", () => {
   const stack = new cdk.Stack();
@@ -98,14 +106,21 @@ test("DataPipeline with Scheduled stage", () => {
     },
   });
 
-  const glueTranformStage = new GlueTransformStage(stack, "glue-transform", {
+  const glueIamRole = new iam.Role(stack, "GlueRole", {
+    assumedBy: new iam.ServicePrincipal("glue.amazonaws.com"),
+    managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSGlueServiceRole")],
+  });
+
+  const glueTransformStage = new GlueTransformStage(stack, "glue-transform", {
     jobProps: {
-      executable: glue_alpha.JobExecutable.pythonEtl({
+      glueJobType: GlueJobType.PY_SPARK_ETL_JOB,
+      glueJobProperties: {
         glueVersion: glue_alpha.GlueVersion.V3_0,
+        jobName: "myJob",
         script: glue_alpha.Code.fromBucket(s3.Bucket.fromBucketName(stack, "bucket", "my-bucket"), "my-script"),
         pythonVersion: glue_alpha.PythonVersion.THREE,
-      }),
-      jobName: "myJob",
+        role: glueIamRole,
+      },
     },
     crawlerName: "myCrawler",
   });
@@ -113,7 +128,7 @@ test("DataPipeline with Scheduled stage", () => {
   pipeline
     .addStage({ stage: firehoseToS3Stage })
     .addStage({ stage: sqsToLambdaStage })
-    .addStage({ stage: glueTranformStage, schedule: events.Schedule.rate(cdk.Duration.minutes(5)) });
+    .addStage({ stage: glueTransformStage, schedule: events.Schedule.rate(cdk.Duration.minutes(5)) });
 
   const template = Template.fromStack(stack);
 

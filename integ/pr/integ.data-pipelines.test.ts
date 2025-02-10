@@ -8,7 +8,8 @@ import * as glue_alpha from "@aws-cdk/aws-glue-alpha";
 import { Construct } from "constructs";
 import { RequireApproval } from "aws-cdk-lib/cloud-assembly-schema";
 
-import { DataPipeline, GlueTransformStage, FirehoseToS3Stage, SqsToLambdaStage } from "../../src";
+import { DataPipeline, GlueTransformStage, FirehoseToS3Stage, SqsToLambdaStage, GlueJobType } from "../../src";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 interface DataPipelineTestStackProps extends cdk.StackProps {
   readonly testWithScheduledEvent?: boolean;
@@ -30,13 +31,20 @@ class DataPipelineTestStack extends cdk.Stack {
       },
     });
 
+    const glueIamRole = new iam.Role(this, "GlueRole", {
+      assumedBy: new iam.ServicePrincipal("glue.amazonaws.com"),
+      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSGlueServiceRole")],
+    });
+
     const glueTransformStage = new GlueTransformStage(this, `${id}Glue Transform Stage`, {
       jobProps: {
-        executable: glue_alpha.JobExecutable.pythonShell({
+        glueJobType: GlueJobType.PYTHON_SHELL_JOB,
+        glueJobProperties: {
+          script: glue_alpha.Code.fromAsset(path.join(__dirname, "/src/glue_script.py")),
           glueVersion: glue_alpha.GlueVersion.V1_0,
           pythonVersion: glue_alpha.PythonVersion.THREE,
-          script: glue_alpha.Code.fromAsset(path.join(__dirname, "/src/glue_script.py")),
-        })
+          role: glueIamRole,
+        }
       },
       crawlerName: "dummy-crawler",
     })
