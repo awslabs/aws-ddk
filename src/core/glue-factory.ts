@@ -42,7 +42,6 @@ export class GlueFactory {
     };
 
     const mergedProps = overrideProps(defaultProps, props.glueJobProperties);
-    //return new glue.Job(scope, id, mergedProps);
     switch (props.glueJobType) {
       case GlueJobType.PY_SPARK_ETL_JOB:
         return new glue.PySparkEtlJob(scope, id, mergedProps);
