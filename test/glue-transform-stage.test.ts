@@ -1,9 +1,10 @@
 import * as glue_alpha from "@aws-cdk/aws-glue-alpha";
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
+import * as iam from "aws-cdk-lib/aws-iam";
 import * as s3 from "aws-cdk-lib/aws-s3";
 
-import { GlueTransformStage } from "../src";
+import { GlueJobType, GlueTransformStage } from "../src";
 
 test("GlueTransformStage stage creates State Machine", () => {
   const stack = new cdk.Stack();
@@ -29,14 +30,21 @@ test("GlueTransformStage stage creates State Machine", () => {
 test("GlueTransformStage stage creates Glue Job", () => {
   const stack = new cdk.Stack();
 
+  const glueIamRole = new iam.Role(stack, "GlueRole", {
+    assumedBy: new iam.ServicePrincipal("glue.amazonaws.com"),
+    managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSGlueServiceRole")],
+  });
+
   new GlueTransformStage(stack, "glue-transform", {
     jobProps: {
-      executable: glue_alpha.JobExecutable.pythonEtl({
-        glueVersion: glue_alpha.GlueVersion.V3_0,
+      glueJobType: GlueJobType.PY_SPARK_ETL_JOB,
+      glueJobProperties: {
         script: glue_alpha.Code.fromBucket(s3.Bucket.fromBucketName(stack, "bucket", "my-bucket"), "my-script"),
+        role: glueIamRole,
+        glueVersion: glue_alpha.GlueVersion.V3_0,
         pythonVersion: glue_alpha.PythonVersion.THREE,
-      }),
-      jobName: "myJob",
+        jobName: "myJob",
+      },
     },
     jobRunArgs: {
       foo: "bar",

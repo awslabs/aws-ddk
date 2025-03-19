@@ -168,8 +168,8 @@ export class FirehoseToS3Stage extends DataStage {
     this.deliveryStream = props.firehoseDeliveryStream
       ? props.firehoseDeliveryStream
       : new firehose.DeliveryStream(this, "Delivery Stream", {
-          destinations: [new destinations.S3Bucket(this.bucket, destinationsBucketProps)],
-          sourceStream: this.dataStream,
+          destination: new destinations.S3Bucket(this.bucket, destinationsBucketProps),
+          source: this.dataStream ? new firehose.KinesisStreamSource(this.dataStream) : undefined,
           ...props.firehoseDeliveryStreamProps,
         });
     const dataOutputPrefix: string = destinationsBucketProps.dataOutputPrefix;

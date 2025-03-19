@@ -130,7 +130,7 @@ test("FirehoseToS3Stage uses existing S3 Bucket and Firehose DeliveryStream", ()
   new FirehoseToS3Stage(stack, "Stage", {
     s3Bucket: s3Bucket,
     firehoseDeliveryStream: new firehose.DeliveryStream(stack, "DeliveryStream", {
-      destinations: [new destinations.S3Bucket(s3Bucket, {})],
+      destination: new destinations.S3Bucket(s3Bucket, {}),
     }),
   });
 

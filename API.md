@@ -556,7 +556,7 @@ Stack properties.
 | --- | --- |
 | <code><a href="#aws-ddk-core.BaseStack.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#aws-ddk-core.BaseStack.addDependency">addDependency</a></code> | Add a dependency between this stack and another stack. |
-| <code><a href="#aws-ddk-core.BaseStack.addMetadata">addMetadata</a></code> | Adds an arbitary key-value pair, with information you want to record about the stack. |
+| <code><a href="#aws-ddk-core.BaseStack.addMetadata">addMetadata</a></code> | Adds an arbitrary key-value pair, with information you want to record about the stack. |
 | <code><a href="#aws-ddk-core.BaseStack.addTransform">addTransform</a></code> | Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template. |
 | <code><a href="#aws-ddk-core.BaseStack.exportStringListValue">exportStringListValue</a></code> | Create a CloudFormation Export for a string list value. |
 | <code><a href="#aws-ddk-core.BaseStack.exportValue">exportValue</a></code> | Create a CloudFormation Export for a string value. |
@@ -609,7 +609,7 @@ app, and also supports nested stacks.
 public addMetadata(key: string, value: any): void
 ```
 
-Adds an arbitary key-value pair, with information you want to record about the stack.
+Adds an arbitrary key-value pair, with information you want to record about the stack.
 
 These get translated to the Metadata section of the generated template.
 
@@ -1468,7 +1468,7 @@ Stack properties.
 | --- | --- |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addDependency">addDependency</a></code> | Add a dependency between this stack and another stack. |
-| <code><a href="#aws-ddk-core.CICDPipelineStack.addMetadata">addMetadata</a></code> | Adds an arbitary key-value pair, with information you want to record about the stack. |
+| <code><a href="#aws-ddk-core.CICDPipelineStack.addMetadata">addMetadata</a></code> | Adds an arbitrary key-value pair, with information you want to record about the stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.addTransform">addTransform</a></code> | Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.exportStringListValue">exportStringListValue</a></code> | Create a CloudFormation Export for a string list value. |
 | <code><a href="#aws-ddk-core.CICDPipelineStack.exportValue">exportValue</a></code> | Create a CloudFormation Export for a string value. |
@@ -1532,7 +1532,7 @@ app, and also supports nested stacks.
 public addMetadata(key: string, value: any): void
 ```
 
-Adds an arbitary key-value pair, with information you want to record about the stack.
+Adds an arbitrary key-value pair, with information you want to record about the stack.
 
 These get translated to the Metadata section of the generated template.
 
@@ -7425,6 +7425,7 @@ const baseStackProps: BaseStackProps = { ... }
 | <code><a href="#aws-ddk-core.BaseStackProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#aws-ddk-core.BaseStackProps.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | SNS Topic ARNs that will receive stack events. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
 | <code><a href="#aws-ddk-core.BaseStackProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
@@ -7554,6 +7555,19 @@ new YourStack(myStage, 'Stack2');
 new MyStack(app, 'Stack1');
 ```
 
+
+##### `notificationArns`<sup>Optional</sup> <a name="notificationArns" id="aws-ddk-core.BaseStackProps.property.notificationArns"></a>
+
+```typescript
+public readonly notificationArns: string[];
+```
+
+- *Type:* string[]
+- *Default:* no notfication arns.
+
+SNS Topic ARNs that will receive stack events.
+
+---
 
 ##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="aws-ddk-core.BaseStackProps.property.permissionsBoundary"></a>
 
@@ -7704,6 +7718,7 @@ const cICDPipelineStackProps: CICDPipelineStackProps = { ... }
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | SNS Topic ARNs that will receive stack events. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
 | <code><a href="#aws-ddk-core.CICDPipelineStackProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
@@ -7835,6 +7850,19 @@ new YourStack(myStage, 'Stack2');
 new MyStack(app, 'Stack1');
 ```
 
+
+##### `notificationArns`<sup>Optional</sup> <a name="notificationArns" id="aws-ddk-core.CICDPipelineStackProps.property.notificationArns"></a>
+
+```typescript
+public readonly notificationArns: string[];
+```
+
+- *Type:* string[]
+- *Default:* no notfication arns.
+
+SNS Topic ARNs that will receive stack events.
+
+---
 
 ##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="aws-ddk-core.CICDPipelineStackProps.property.permissionsBoundary"></a>
 
@@ -8988,11 +9016,13 @@ const eMRServerlessClusterProps: EMRServerlessClusterProps = { ... }
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.autoStopConfiguration">autoStopConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.AutoStopConfigurationProperty</code> | The configuration for an application to automatically stop after a certain amount of time being idle. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.imageConfiguration">imageConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.ImageConfigurationInputProperty</code> | The image configuration applied to all worker types. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.initialCapacity">initialCapacity</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.InitialCapacityConfigKeyValuePairProperty[]</code> | The initial capacity of the application. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.interactiveConfiguration">interactiveConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.InteractiveConfigurationProperty</code> | The interactive configuration object that enables the interactive use cases for an application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.maximumCapacity">maximumCapacity</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.MaximumAllowedResourcesProperty</code> | The maximum capacity of the application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.monitoringConfiguration">monitoringConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.MonitoringConfigurationProperty</code> | A configuration specification to be used when provisioning an application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.name">name</a></code> | <code>string</code> | The name of the application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.NetworkConfigurationProperty</code> | The network configuration for customer VPC connectivity for the application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.runtimeConfiguration">runtimeConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.ConfigurationObjectProperty[]</code> | The [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html) specifications of an application. Each configuration consists of a classification and properties. You use this parameter when creating or updating an application. To see the runtimeConfiguration object of an application, run the [GetApplication](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_GetApplication.html) API operation. |
+| <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.schedulerConfiguration">schedulerConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.SchedulerConfigurationProperty</code> | The scheduler configuration for batch and streaming jobs running on this application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.tags">tags</a></code> | <code>aws-cdk-lib.CfnTag[]</code> | The tags assigned to the application. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.workerTypeSpecifications">workerTypeSpecifications</a></code> | <code>aws-cdk-lib.IResolvable \| {[ key: string ]: aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_emrserverless.CfnApplication.WorkerTypeSpecificationInputProperty}</code> | The specification applied to each worker type. |
 | <code><a href="#aws-ddk-core.EMRServerlessClusterProps.property.additionalPolicyStatements">additionalPolicyStatements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Additional policy statements to add to the emr role. |
@@ -9101,6 +9131,20 @@ The initial capacity of the application.
 
 ---
 
+##### `interactiveConfiguration`<sup>Optional</sup> <a name="interactiveConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.interactiveConfiguration"></a>
+
+```typescript
+public readonly interactiveConfiguration: IResolvable | InteractiveConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.InteractiveConfigurationProperty
+
+The interactive configuration object that enables the interactive use cases for an application.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-interactiveconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-interactiveconfiguration)
+
+---
+
 ##### `maximumCapacity`<sup>Optional</sup> <a name="maximumCapacity" id="aws-ddk-core.EMRServerlessClusterProps.property.maximumCapacity"></a>
 
 ```typescript
@@ -9172,6 +9216,22 @@ public readonly runtimeConfiguration: IResolvable | IResolvable | ConfigurationO
 The [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html) specifications of an application. Each configuration consists of a classification and properties. You use this parameter when creating or updating an application. To see the runtimeConfiguration object of an application, run the [GetApplication](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_GetApplication.html) API operation.
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-runtimeconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-runtimeconfiguration)
+
+---
+
+##### `schedulerConfiguration`<sup>Optional</sup> <a name="schedulerConfiguration" id="aws-ddk-core.EMRServerlessClusterProps.property.schedulerConfiguration"></a>
+
+```typescript
+public readonly schedulerConfiguration: IResolvable | SchedulerConfigurationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_emrserverless.CfnApplication.SchedulerConfigurationProperty
+
+The scheduler configuration for batch and streaming jobs running on this application.
+
+Supported with release labels emr-7.0.0 and above.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-schedulerconfiguration](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-schedulerconfiguration)
 
 ---
 
@@ -10128,6 +10188,45 @@ Environment identifier.
 
 ---
 
+### GlueFactoryProps <a name="GlueFactoryProps" id="aws-ddk-core.GlueFactoryProps"></a>
+
+#### Initializer <a name="Initializer" id="aws-ddk-core.GlueFactoryProps.Initializer"></a>
+
+```typescript
+import { GlueFactoryProps } from 'aws-ddk-core'
+
+const glueFactoryProps: GlueFactoryProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-ddk-core.GlueFactoryProps.property.glueJobProperties">glueJobProperties</a></code> | <code>@aws-cdk/aws-glue-alpha.PySparkEtlJobProps \| @aws-cdk/aws-glue-alpha.PythonShellJobProps \| @aws-cdk/aws-glue-alpha.PySparkStreamingJobProps \| @aws-cdk/aws-glue-alpha.PySparkFlexEtlJobProps \| @aws-cdk/aws-glue-alpha.ScalaSparkEtlJobProps \| @aws-cdk/aws-glue-alpha.ScalaSparkFlexEtlJobProps \| @aws-cdk/aws-glue-alpha.ScalaSparkStreamingJobProps</code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueFactoryProps.property.glueJobType">glueJobType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `glueJobProperties`<sup>Required</sup> <a name="glueJobProperties" id="aws-ddk-core.GlueFactoryProps.property.glueJobProperties"></a>
+
+```typescript
+public readonly glueJobProperties: PySparkEtlJobProps | PythonShellJobProps | PySparkStreamingJobProps | PySparkFlexEtlJobProps | ScalaSparkEtlJobProps | ScalaSparkFlexEtlJobProps | ScalaSparkStreamingJobProps;
+```
+
+- *Type:* @aws-cdk/aws-glue-alpha.PySparkEtlJobProps | @aws-cdk/aws-glue-alpha.PythonShellJobProps | @aws-cdk/aws-glue-alpha.PySparkStreamingJobProps | @aws-cdk/aws-glue-alpha.PySparkFlexEtlJobProps | @aws-cdk/aws-glue-alpha.ScalaSparkEtlJobProps | @aws-cdk/aws-glue-alpha.ScalaSparkFlexEtlJobProps | @aws-cdk/aws-glue-alpha.ScalaSparkStreamingJobProps
+
+---
+
+##### `glueJobType`<sup>Required</sup> <a name="glueJobType" id="aws-ddk-core.GlueFactoryProps.property.glueJobType"></a>
+
+```typescript
+public readonly glueJobType: string;
+```
+
+- *Type:* string
+
+---
+
 ### GlueTransformStageProps <a name="GlueTransformStageProps" id="aws-ddk-core.GlueTransformStageProps"></a>
 
 Properties for `GlueTransformStage`.
@@ -10160,7 +10259,7 @@ const glueTransformStageProps: GlueTransformStageProps = { ... }
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.crawlerRole">crawlerRole</a></code> | <code>string</code> | The crawler execution role. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.databaseName">databaseName</a></code> | <code>string</code> | The name of the database in which the crawler's output is stored. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobName">jobName</a></code> | <code>string</code> | The name of a preexisting Glue job to run. |
-| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobProps">jobProps</a></code> | <code>@aws-cdk/aws-glue-alpha.JobProps</code> | Additional Glue job properties. |
+| <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobProps">jobProps</a></code> | <code><a href="#aws-ddk-core.GlueFactoryProps">GlueFactoryProps</a></code> | Additional Glue job properties. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.jobRunArgs">jobRunArgs</a></code> | <code>{[ key: string ]: any}</code> | The input arguments to the Glue job. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryBackoffRate">stateMachineRetryBackoffRate</a></code> | <code>number</code> | Multiplication for how much longer the wait interval gets on every retry. |
 | <code><a href="#aws-ddk-core.GlueTransformStageProps.property.stateMachineRetryInterval">stateMachineRetryInterval</a></code> | <code>aws-cdk-lib.Duration</code> | How many seconds to wait initially before retrying. |
@@ -10376,10 +10475,10 @@ If None, a Glue job is created.
 ##### `jobProps`<sup>Optional</sup> <a name="jobProps" id="aws-ddk-core.GlueTransformStageProps.property.jobProps"></a>
 
 ```typescript
-public readonly jobProps: JobProps;
+public readonly jobProps: GlueFactoryProps;
 ```
 
-- *Type:* @aws-cdk/aws-glue-alpha.JobProps
+- *Type:* <a href="#aws-ddk-core.GlueFactoryProps">GlueFactoryProps</a>
 
 Additional Glue job properties.
 
@@ -10475,7 +10574,9 @@ const mWAAEnvironmentProps: MWAAEnvironmentProps = { ... }
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the execution role in IAM that allows MWAA to access AWS resources in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.kmsKey">kmsKey</a></code> | <code>string</code> | The AWS Key Management Service (KMS) key to encrypt and decrypt the data in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_mwaa.CfnEnvironment.LoggingConfigurationProperty</code> | The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `SchedulerLogs` , `TaskLogs` , `WebserverLogs` , `WorkerLogs` . |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.maxWebservers">maxWebservers</a></code> | <code>number</code> | The maximum number of web servers that you want to run in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.maxWorkers">maxWorkers</a></code> | <code>number</code> | The maximum number of workers that you want to run in your environment. |
+| <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.minWebservers">minWebservers</a></code> | <code>number</code> | The minimum number of web servers that you want to run in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.minWorkers">minWorkers</a></code> | <code>number</code> | The minimum number of workers that you want to run in your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.networkConfiguration">networkConfiguration</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_mwaa.CfnEnvironment.NetworkConfigurationProperty</code> | The VPC networking components used to secure and enable network traffic between the AWS resources for your environment. |
 | <code><a href="#aws-ddk-core.MWAAEnvironmentProps.property.pluginsS3ObjectVersion">pluginsS3ObjectVersion</a></code> | <code>string</code> | The version of the plugins.zip file on your Amazon S3 bucket. To learn more, see [Installing custom plugins](https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-dag-import-plugins.html) . |
@@ -10548,7 +10649,7 @@ If no value is specified, defaults to the latest version.
 
 If you specify a newer version number for an existing environment, the version update requires some service interruption before taking effect.
 
-*Allowed Values* : `1.10.12` | `2.0.2` | `2.2.2` | `2.4.3` | `2.5.1` | `2.6.3` | `2.7.2` (latest)
+*Allowed Values* : `1.10.12` | `2.0.2` | `2.2.2` | `2.4.3` | `2.5.1` | `2.6.3` | `2.7.2` | `2.8.1` | `2.9.2` (latest)
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-airflowversion)
 
@@ -10648,6 +10749,24 @@ The Apache Airflow logs being sent to CloudWatch Logs: `DagProcessingLogs` , `Sc
 
 ---
 
+##### `maxWebservers`<sup>Optional</sup> <a name="maxWebservers" id="aws-ddk-core.MWAAEnvironmentProps.property.maxWebservers"></a>
+
+```typescript
+public readonly maxWebservers: number;
+```
+
+- *Type:* number
+
+The maximum number of web servers that you want to run in your environment.
+
+Amazon MWAA scales the number of Apache Airflow web servers up to the number you specify for `MaxWebservers` when you interact with your Apache Airflow environment using Apache Airflow REST API, or the Apache Airflow CLI. For example, in scenarios where your workload requires network calls to the Apache Airflow REST API with a high transaction-per-second (TPS) rate, Amazon MWAA will increase the number of web servers up to the number set in `MaxWebserers` . As TPS rates decrease Amazon MWAA disposes of the additional web servers, and scales down to the number set in `MinxWebserers` .
+
+Valid values: For environments larger than mw1.micro, accepts values from `2` to `5` . Defaults to `2` for all environment sizes except mw1.micro, which defaults to `1` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxwebservers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxwebservers)
+
+---
+
 ##### `maxWorkers`<sup>Optional</sup> <a name="maxWorkers" id="aws-ddk-core.MWAAEnvironmentProps.property.maxWorkers"></a>
 
 ```typescript
@@ -10661,6 +10780,24 @@ The maximum number of workers that you want to run in your environment.
 MWAA scales the number of Apache Airflow workers up to the number you specify in the `MaxWorkers` field. For example, `20` . When there are no more tasks running, and no more in the queue, MWAA disposes of the extra workers leaving the one worker that is included with your environment, or the number you specify in `MinWorkers` .
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxworkers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-maxworkers)
+
+---
+
+##### `minWebservers`<sup>Optional</sup> <a name="minWebservers" id="aws-ddk-core.MWAAEnvironmentProps.property.minWebservers"></a>
+
+```typescript
+public readonly minWebservers: number;
+```
+
+- *Type:* number
+
+The minimum number of web servers that you want to run in your environment.
+
+Amazon MWAA scales the number of Apache Airflow web servers up to the number you specify for `MaxWebservers` when you interact with your Apache Airflow environment using Apache Airflow REST API, or the Apache Airflow CLI. As the transaction-per-second rate, and the network load, decrease, Amazon MWAA disposes of the additional web servers, and scales down to the number set in `MinxWebserers` .
+
+Valid values: For environments larger than mw1.micro, accepts values from `2` to `5` . Defaults to `2` for all environment sizes except mw1.micro, which defaults to `1` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-minwebservers](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mwaa-environment.html#cfn-mwaa-environment-minwebservers)
 
 ---
 
@@ -11986,9 +12123,11 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.onSuccess">onSuccess</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The destination for successful invocations. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.retryAttempts">retryAttempts</a></code> | <code>number</code> | The maximum number of times to retry when the function returns an error. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.adotInstrumentation">adotInstrumentation</a></code> | <code>aws-cdk-lib.aws_lambda.AdotInstrumentationConfig</code> | Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation. |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllOutbound">allowAllOutbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all network traffic. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllIpv6Outbound">allowAllIpv6Outbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all ipv6 network traffic. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllOutbound">allowAllOutbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all network traffic (except ipv6). |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowPublicSubnet">allowPublicSubnet</a></code> | <code>boolean</code> | Lambda Functions in a public subnet can NOT access the internet. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.applicationLogLevel">applicationLogLevel</a></code> | <code>string</code> | Sets the application log level for the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.applicationLogLevelV2">applicationLogLevelV2</a></code> | <code>aws-cdk-lib.aws_lambda.ApplicationLogLevel</code> | Sets the application log level for the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.architecture">architecture</a></code> | <code>aws-cdk-lib.aws_lambda.Architecture</code> | The system architectures compatible with this lambda function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.codeSigningConfig">codeSigningConfig</a></code> | <code>aws-cdk-lib.aws_lambda.ICodeSigningConfig</code> | Code signing config associated with this function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.currentVersionOptions">currentVersionOptions</a></code> | <code>aws-cdk-lib.aws_lambda.VersionOptions</code> | Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method. |
@@ -12004,9 +12143,11 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.functionName">functionName</a></code> | <code>string</code> | A name for the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.initialPolicy">initialPolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Initial policy statements to add to the created Lambda Role. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.insightsVersion">insightsVersion</a></code> | <code>aws-cdk-lib.aws_lambda.LambdaInsightsVersion</code> | Specify the version of CloudWatch Lambda insights to use for monitoring. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.ipv6AllowedForDualStack">ipv6AllowedForDualStack</a></code> | <code>boolean</code> | Allows outbound IPv6 traffic on VPC functions that are connected to dual-stack subnets. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | A list of layers to add to the function's execution environment. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logFormat">logFormat</a></code> | <code>string</code> | Sets the logFormat for the function. |
-| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | Sets the log group name for the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.loggingFormat">loggingFormat</a></code> | <code>aws-cdk-lib.aws_lambda.LoggingFormat</code> | Sets the loggingFormat for the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | The log group the function sends logs to. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetention">logRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | The number of days log events are kept in CloudWatch Logs. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRetryOptions">logRetentionRetryOptions</a></code> | <code>aws-cdk-lib.aws_lambda.LogRetentionRetryOptions</code> | When log retention is specified, a custom resource attempts to create the CloudWatch log group. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRole">logRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role for the Lambda function associated with the custom resource that sets the retention policy. |
@@ -12014,12 +12155,14 @@ const sqsToLambdaStageFunctionProps: SqsToLambdaStageFunctionProps = { ... }
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.paramsAndSecrets">paramsAndSecrets</a></code> | <code>aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion</code> | Specify the configuration of Parameters and Secrets Extension. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profiling">profiling</a></code> | <code>boolean</code> | Enable profiling. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.profilingGroup">profilingGroup</a></code> | <code>aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup</code> | Profiling Group. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.recursiveLoop">recursiveLoop</a></code> | <code>aws-cdk-lib.aws_lambda.RecursiveLoop</code> | Sets the Recursive Loop Protection for Lambda Function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.reservedConcurrentExecutions">reservedConcurrentExecutions</a></code> | <code>number</code> | The maximum of concurrent executions you want to reserve for the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Lambda execution role. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.runtimeManagementMode">runtimeManagementMode</a></code> | <code>aws-cdk-lib.aws_lambda.RuntimeManagementMode</code> | Sets the runtime management configuration for a function's version. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The list of security groups to associate with the Lambda's network interfaces. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.snapStart">snapStart</a></code> | <code>aws-cdk-lib.aws_lambda.SnapStartConf</code> | Enable SnapStart for Lambda Function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.systemLogLevel">systemLogLevel</a></code> | <code>string</code> | Sets the system log level for the function. |
+| <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.systemLogLevelV2">systemLogLevelV2</a></code> | <code>aws-cdk-lib.aws_lambda.SystemLogLevel</code> | Sets the system log level for the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The function execution time (in seconds) after which Lambda terminates the function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.tracing">tracing</a></code> | <code>aws-cdk-lib.aws_lambda.Tracing</code> | Enable AWS X-Ray Tracing for Lambda Function. |
 | <code><a href="#aws-ddk-core.SqsToLambdaStageFunctionProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place Lambda network interfaces. |
@@ -12106,6 +12249,26 @@ Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation
 
 ---
 
+##### `allowAllIpv6Outbound`<sup>Optional</sup> <a name="allowAllIpv6Outbound" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllIpv6Outbound"></a>
+
+```typescript
+public readonly allowAllIpv6Outbound: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to allow the Lambda to send all ipv6 network traffic.
+
+If set to true, there will only be a single egress rule which allows all
+outbound ipv6 traffic. If set to false, you must individually add traffic rules to allow the
+Lambda to connect to network targets using ipv6.
+
+Do not specify this property if the `securityGroups` or `securityGroup` property is set.
+Instead, configure `allowAllIpv6Outbound` directly on the security group.
+
+---
+
 ##### `allowAllOutbound`<sup>Optional</sup> <a name="allowAllOutbound" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.allowAllOutbound"></a>
 
 ```typescript
@@ -12115,7 +12278,7 @@ public readonly allowAllOutbound: boolean;
 - *Type:* boolean
 - *Default:* true
 
-Whether to allow the Lambda to send all network traffic.
+Whether to allow the Lambda to send all network traffic (except ipv6).
 
 If set to false, you must individually add traffic rules to allow the
 Lambda to connect to network targets.
@@ -12142,14 +12305,29 @@ Use this property to acknowledge this limitation and still place the function in
 
 ---
 
-##### `applicationLogLevel`<sup>Optional</sup> <a name="applicationLogLevel" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.applicationLogLevel"></a>
+##### ~~`applicationLogLevel`~~<sup>Optional</sup> <a name="applicationLogLevel" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.applicationLogLevel"></a>
+
+- *Deprecated:* Use `applicationLogLevelV2` as a property instead.
 
 ```typescript
 public readonly applicationLogLevel: string;
 ```
 
 - *Type:* string
-- *Default:* INFO
+- *Default:* "INFO"
+
+Sets the application log level for the function.
+
+---
+
+##### `applicationLogLevelV2`<sup>Optional</sup> <a name="applicationLogLevelV2" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.applicationLogLevelV2"></a>
+
+```typescript
+public readonly applicationLogLevelV2: ApplicationLogLevel;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ApplicationLogLevel
+- *Default:* ApplicationLogLevel.INFO
 
 Sets the application log level for the function.
 
@@ -12368,6 +12546,21 @@ Specify the version of CloudWatch Lambda insights to use for monitoring.
 
 ---
 
+##### `ipv6AllowedForDualStack`<sup>Optional</sup> <a name="ipv6AllowedForDualStack" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.ipv6AllowedForDualStack"></a>
+
+```typescript
+public readonly ipv6AllowedForDualStack: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Allows outbound IPv6 traffic on VPC functions that are connected to dual-stack subnets.
+
+Only used if 'vpc' is supplied.
+
+---
+
 ##### `layers`<sup>Optional</sup> <a name="layers" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.layers"></a>
 
 ```typescript
@@ -12385,16 +12578,31 @@ that can be used by multiple functions.
 
 ---
 
-##### `logFormat`<sup>Optional</sup> <a name="logFormat" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logFormat"></a>
+##### ~~`logFormat`~~<sup>Optional</sup> <a name="logFormat" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logFormat"></a>
+
+- *Deprecated:* Use `loggingFormat` as a property instead.
 
 ```typescript
 public readonly logFormat: string;
 ```
 
 - *Type:* string
-- *Default:* Text format
+- *Default:* "Text"
 
 Sets the logFormat for the function.
+
+---
+
+##### `loggingFormat`<sup>Optional</sup> <a name="loggingFormat" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.loggingFormat"></a>
+
+```typescript
+public readonly loggingFormat: LoggingFormat;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.LoggingFormat
+- *Default:* LoggingFormat.TEXT
+
+Sets the loggingFormat for the function.
 
 ---
 
@@ -12405,9 +12613,17 @@ public readonly logGroup: ILogGroup;
 ```
 
 - *Type:* aws-cdk-lib.aws_logs.ILogGroup
-- *Default:* `/aws/lambda/${this.functionName}` default log group name created by Lambda
+- *Default:* `/aws/lambda/${this.functionName}` - default log group created by Lambda
 
-Sets the log group name for the function.
+The log group the function sends logs to.
+
+By default, Lambda functions send logs to an automatically created default log group named /aws/lambda/\<function name\>.
+However you cannot change the properties of this auto-created log group using the AWS CDK, e.g. you cannot set a different log retention.
+
+Use the `logGroup` property to create a fully customizable LogGroup ahead of time, and instruct the Lambda function to send logs to it.
+
+Providing a user-controlled log group was rolled out to commercial regions on 2023-11-16.
+If you are deploying to another type of region, please check regional availability first.
 
 ---
 
@@ -12426,6 +12642,20 @@ When updating
 this property, unsetting it doesn't remove the log retention policy. To
 remove the retention policy, set the value to `INFINITE`.
 
+This is a legacy API and we strongly recommend you move away from it if you can.
+Instead create a fully customizable log group with `logs.LogGroup` and use the `logGroup` property
+to instruct the Lambda function to send logs to it.
+Migrating from `logRetention` to `logGroup` will cause the name of the log group to change.
+Users and code and referencing the name verbatim will have to adjust.
+
+In AWS CDK code, you can access the log group name directly from the LogGroup construct:
+```ts
+import * as logs from 'aws-cdk-lib/aws-logs';
+
+declare const myLogGroup: logs.LogGroup;
+myLogGroup.logGroupName;
+```
+
 ---
 
 ##### `logRetentionRetryOptions`<sup>Optional</sup> <a name="logRetentionRetryOptions" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRetryOptions"></a>
@@ -12441,6 +12671,9 @@ When log retention is specified, a custom resource attempts to create the CloudW
 
 These options control the retry policy when interacting with CloudWatch APIs.
 
+This is a legacy API and we strongly recommend you migrate to `logGroup` if you can.
+`logGroup` allows you to create a fully customizable log group and instruct the Lambda function to send logs to it.
+
 ---
 
 ##### `logRetentionRole`<sup>Optional</sup> <a name="logRetentionRole" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.logRetentionRole"></a>
@@ -12453,6 +12686,9 @@ public readonly logRetentionRole: IRole;
 - *Default:* A new role is created.
 
 The IAM role for the Lambda function associated with the custom resource that sets the retention policy.
+
+This is a legacy API and we strongly recommend you migrate to `logGroup` if you can.
+`logGroup` allows you to create a fully customizable log group and instruct the Lambda function to send logs to it.
 
 ---
 
@@ -12515,6 +12751,21 @@ public readonly profilingGroup: IProfilingGroup;
 Profiling Group.
 
 > [https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html)
+
+---
+
+##### `recursiveLoop`<sup>Optional</sup> <a name="recursiveLoop" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.recursiveLoop"></a>
+
+```typescript
+public readonly recursiveLoop: RecursiveLoop;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.RecursiveLoop
+- *Default:* RecursiveLoop.Terminate
+
+Sets the Recursive Loop Protection for Lambda Function.
+
+It lets Lambda detect and terminate unintended recursive loops.
 
 ---
 
@@ -12595,18 +12846,33 @@ public readonly snapStart: SnapStartConf;
 
 Enable SnapStart for Lambda Function.
 
-SnapStart is currently supported only for Java 11, 17 runtime
+SnapStart is currently supported for Java 11, Java 17, Python 3.12, Python 3.13, and .NET 8 runtime
 
 ---
 
-##### `systemLogLevel`<sup>Optional</sup> <a name="systemLogLevel" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.systemLogLevel"></a>
+##### ~~`systemLogLevel`~~<sup>Optional</sup> <a name="systemLogLevel" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.systemLogLevel"></a>
+
+- *Deprecated:* Use `systemLogLevelV2` as a property instead.
 
 ```typescript
 public readonly systemLogLevel: string;
 ```
 
 - *Type:* string
-- *Default:* INFO
+- *Default:* "INFO"
+
+Sets the system log level for the function.
+
+---
+
+##### `systemLogLevelV2`<sup>Optional</sup> <a name="systemLogLevelV2" id="aws-ddk-core.SqsToLambdaStageFunctionProps.property.systemLogLevelV2"></a>
+
+```typescript
+public readonly systemLogLevelV2: SystemLogLevel;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.SystemLogLevel
+- *Default:* SystemLogLevel.INFO
 
 Sets the system log level for the function.
 
@@ -13697,7 +13963,7 @@ new GlueFactory()
 ```typescript
 import { GlueFactory } from 'aws-ddk-core'
 
-GlueFactory.job(scope: Construct, id: string, props: JobProps)
+GlueFactory.job(scope: Construct, id: string, props: GlueFactoryProps)
 ```
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="aws-ddk-core.GlueFactory.job.parameter.scope"></a>
@@ -13714,7 +13980,7 @@ GlueFactory.job(scope: Construct, id: string, props: JobProps)
 
 ###### `props`<sup>Required</sup> <a name="props" id="aws-ddk-core.GlueFactory.job.parameter.props"></a>
 
-- *Type:* @aws-cdk/aws-glue-alpha.JobProps
+- *Type:* <a href="#aws-ddk-core.GlueFactoryProps">GlueFactoryProps</a>
 
 ---
 
@@ -13864,4 +14130,56 @@ SnsFactory.secureSnsTopicPolicy(topic: ITopic)
 
 
 
+
+## Enums <a name="Enums" id="Enums"></a>
+
+### GlueJobType <a name="GlueJobType" id="aws-ddk-core.GlueJobType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#aws-ddk-core.GlueJobType.PY_SPARK_ETL_JOB">PY_SPARK_ETL_JOB</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueJobType.PYTHON_SHELL_JOB">PYTHON_SHELL_JOB</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueJobType.PY_SPARK_STREAMING_JOB">PY_SPARK_STREAMING_JOB</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueJobType.PY_SPARK_FLEX_ETL_JOB">PY_SPARK_FLEX_ETL_JOB</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueJobType.SCALA_SPARK_ETL_JOB">SCALA_SPARK_ETL_JOB</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueJobType.SCALA_SPARK_FLEX_ETL_JOB">SCALA_SPARK_FLEX_ETL_JOB</a></code> | *No description.* |
+| <code><a href="#aws-ddk-core.GlueJobType.SCALA_SPARK_STREAMING_JOB">SCALA_SPARK_STREAMING_JOB</a></code> | *No description.* |
+
+---
+
+##### `PY_SPARK_ETL_JOB` <a name="PY_SPARK_ETL_JOB" id="aws-ddk-core.GlueJobType.PY_SPARK_ETL_JOB"></a>
+
+---
+
+
+##### `PYTHON_SHELL_JOB` <a name="PYTHON_SHELL_JOB" id="aws-ddk-core.GlueJobType.PYTHON_SHELL_JOB"></a>
+
+---
+
+
+##### `PY_SPARK_STREAMING_JOB` <a name="PY_SPARK_STREAMING_JOB" id="aws-ddk-core.GlueJobType.PY_SPARK_STREAMING_JOB"></a>
+
+---
+
+
+##### `PY_SPARK_FLEX_ETL_JOB` <a name="PY_SPARK_FLEX_ETL_JOB" id="aws-ddk-core.GlueJobType.PY_SPARK_FLEX_ETL_JOB"></a>
+
+---
+
+
+##### `SCALA_SPARK_ETL_JOB` <a name="SCALA_SPARK_ETL_JOB" id="aws-ddk-core.GlueJobType.SCALA_SPARK_ETL_JOB"></a>
+
+---
+
+
+##### `SCALA_SPARK_FLEX_ETL_JOB` <a name="SCALA_SPARK_FLEX_ETL_JOB" id="aws-ddk-core.GlueJobType.SCALA_SPARK_FLEX_ETL_JOB"></a>
+
+---
+
+
+##### `SCALA_SPARK_STREAMING_JOB` <a name="SCALA_SPARK_STREAMING_JOB" id="aws-ddk-core.GlueJobType.SCALA_SPARK_STREAMING_JOB"></a>
+
+---
 
