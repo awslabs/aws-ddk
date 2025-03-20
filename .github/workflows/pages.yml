@@ -21,7 +21,7 @@ jobs:
             ${{ runner.os }}-gems-
       # Use GitHub Deploy Action to build and deploy to Github
       - name: DDK Docs Build
-        uses: jeffreytse/jekyll-deploy-action@0.6.0
+        uses: jeffreytse/jekyll-deploy-action@v0.6.0
         with:
           provider: 'github'
           token: ${{ secrets.DOCUMENTATION_UPDATE_TOKEN }} 
