@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Different methods to bootstrap DDK apps | AWS DataOps Development Kit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Different methods to bootstrap DDK apps" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<meta property="og:description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<link rel="canonical" href="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.0.0-beta.0/how-to/custom-bootstrap.html" />
+<meta property="og:url" content="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.0.0-beta.0/how-to/custom-bootstrap.html" />
+<meta property="og:site_name" content="AWS DataOps Development Kit" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Different methods to bootstrap DDK apps" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"An open source development framework to help you build data workflows and modern data architecture on AWS.","headline":"Different methods to bootstrap DDK apps","url":"https://github.com/awslabs/aws-ddk/aws-ddk/release/1.0.0-beta.0/how-to/custom-bootstrap.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/style.css?v=deabd3b4b64c389373e80f49cb2e31534d6725bd">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/custom.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <link rel="shortcut icon" type="/aws-ddk/image/png" href="/aws-ddk/favicon.ico">
+</head>
+<body>
+
+<section>
+    <div class="menu-background menu-background-berry">
+        <section class="menu-bar">
+            <div>
+                <nav role="navigation">
+                    <ul>
+                        <li><a class="nav-title" href="/aws-ddk/">AWS DDK</a></li>
+                        <li><a class="nav-item"  href="https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US" aria-haspopup="true">Getting Started</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to" aria-haspopup="true">How To</a>
+                        <li><a class="nav-item"  href="https://constructs.dev/packages/aws-ddk-core/" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">API Documentation</i></a>
+                        <li><a class="nav-item"  href="/aws-ddk/workshops" aria-haspopup="true">Workshops</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/releases" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">Releases</i></a>
+                            <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to/upgrade-guide.html" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">1.0.0 Upgrade Guide</i></a>
+                            
+                    </ul>
+                </nav>
+            </div>
+
+        </section>
+    </div>
+
+    
+    <div class="default-content default-content-margin-top" >
+        <div class="main-content">
+            <div>
+    <div>
+        <a href="../">← Index</a>
+    </div>
+        <h1 id="bootstrapping">Bootstrapping</h1>
+
+<p>The AWS CDK requires some resources to be provisioned before deploying stacks into an account (i.e. IAM Roles, S3 Bucket for Assets). This is referred to as <a href="https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html">bootstrapping</a>.</p>
+
+<h2 id="ddk-bootstrap-cases">DDK Bootstrap Cases</h2>
+<p>The following are possible ways of bootstrapping an AWS account for DDK apps.</p>
+
+<h3 id="default">Default</h3>
+<p>If no configuration is provided the DDK stacks will leverage the default resources provisioned by <code class="language-plaintext highlighter-rouge">cdk bootstrap</code>.</p>
+
+<h3 id="use-configurator">Use Configurator()</h3>
+<p>See <a href="">Configurator</a> for more details on the construct.</p>
+
+<h4 id="schema">Schema</h4>
+<p>Configurator supports the following schema, at both the global and environment level, for defining bootstrap resources for your CDK app.</p>
+
+<p><strong>All fields are optional</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bootstrap</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">prefix</code>: (The prefix of role names created to be used in a stack’s synthesizer)</li>
+      <li><code class="language-plaintext highlighter-rouge">qualifier</code>: (The qualifier used to bootstrap this stack)</li>
+      <li><code class="language-plaintext highlighter-rouge">file_assets_bucket_name</code>: (File assets bucket name)</li>
+      <li><code class="language-plaintext highlighter-rouge">stack_version_ssm_parameter</code>: (Default bootstrap stack version SSM parameter)</li>
+      <li><code class="language-plaintext highlighter-rouge">deploy_role</code>: (Default deploy role ARN)</li>
+      <li><code class="language-plaintext highlighter-rouge">file_publish_role</code>: (Default asset publishing role ARN for file (S3) assets)</li>
+      <li><code class="language-plaintext highlighter-rouge">cfn_execution_role</code>: (Default CloudFormation role ARN)</li>
+      <li><code class="language-plaintext highlighter-rouge">lookup_role</code>: (Default lookup role ARN for missing values)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Configurator uses the <a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.DefaultStackSynthesizer.html">DefaultStackSynthesizer</a> construct under the hood</strong></p>
+
+<h5 id="example">Example</h5>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"dev"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bootstrap"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"qualifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdefgh"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bucket_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ddk-abcdefgh-assets-000000000000-us-west-2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deploy_role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:iam::000000000000:role/ddk-abcdefgh--deploy-role-000000000000-us-west-2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cfn_execution_role"</span><span class="p">:</span><span class="w">
+        </span><span class="s2">"arn:aws:iam::000000000000:role/ddk-abcdefgh-cfn-exec-role-000000000000-us-west-2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"file_publish_role"</span><span class="p">:</span><span class="w">
+        </span><span class="s2">"arn:aws:iam::000000000000:role/ddk-abcdefgh-file-publishing-role-000000000000-us-west-2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lookup_role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:iam::000000000000:role/ddk-abcdefgh-lookup-role-000000000000-us-west-2"</span><span class="p">,</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The stack synthesizer will be created for your app using all values specified in <code class="language-plaintext highlighter-rouge">Configurator()</code> and resort to default <code class="language-plaintext highlighter-rouge">cdk bootstrap</code> values when not explicitly set.</p>
+
+<h3 id="using-legacy-ddk-bootstrap-roles">Using Legacy DDK Bootstrap Roles</h3>
+<p>If you are familiar with the <code class="language-plaintext highlighter-rouge">&lt;1.0.0</code> versions of the DDK there was a <a href="https://pypi.org/project/aws-ddk/">separate package</a> including a CLI with a <code class="language-plaintext highlighter-rouge">ddk bootstrap -e ${ENVIRONMENT_ID}</code> command. This builds a bootstrap stack with slightly modified resources as compared to CDK’s native bootstrap method. Let’s look at an example of using existing DDK bootstrap roles with newer versions of the DDK core library.</p>
+
+<ol>
+  <li>Assume we have deployed a DDK bootstrap stack for a <code class="language-plaintext highlighter-rouge">dev</code> environment in our account.
+<img src="/aws-ddk/img/ddk-bootstrap-stack.png" alt="Stack" /></li>
+  <li>Configure <code class="language-plaintext highlighter-rouge">ddk.json</code> with the prefix: <code class="language-plaintext highlighter-rouge">ddk</code> to indicate any stacks created within this environment should use ddk bootstrap roles.
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="nl">"dev"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"bootstrap"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ddk"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>Use <a href="https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/BaseStack?lang=typescript">BaseStack</a> with the <code class="language-plaintext highlighter-rouge">dev</code> environment passed as a property.</li>
+</ol>
+<ul class="tab" data-tab="97ef5eeb-7781-4e69-9f93-1beef006a318" data-name="language">
+  
+      <li class="active">
+          <a href="#">typescript </a>
+      </li>
+  
+      <li>
+          <a href="#">python </a>
+      </li>
+  
+</ul>
+<ul class="tab-content" id="97ef5eeb-7781-4e69-9f93-1beef006a318" data-name="language">
+  
+      <li class="active">
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">cdk</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BaseStack</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-ddk-core</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">cdk</span><span class="p">.</span><span class="nx">App</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BaseStack</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="dl">'</span><span class="s1">ExampleStack</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">environmentId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">dev</span><span class="dl">"</span><span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stack</span><span class="p">.</span><span class="nx">synthesizer</span><span class="p">)</span>
+</code></pre></div></div>
+</li>
+  
+      <li>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">aws_cdk</span> <span class="k">as</span> <span class="n">cdk</span>
+<span class="kn">from</span> <span class="nn">aws_ddk_core</span> <span class="kn">import</span> <span class="n">BaseStack</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">cdk</span><span class="p">.</span><span class="n">App</span><span class="p">()</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">BaseStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">"ExampleStack"</span><span class="p">,</span> <span class="n">environment_id</span><span class="p">:</span> <span class="s">"dev"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">stack</span><span class="p">.</span><span class="n">synthesizer</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">synth</span><span class="p">()</span>
+</code></pre></div></div>
+</li>
+  
+</ul>
+
+</div>
+
+        </div>
+    </div>
+    
+
+</section>
+<section class="main-content">
+    <hr>
+    <div class="footer-content">
+        <div>©2023 Amazon Web Services</div>
+        <div>An <a href="https://aws.amazon.com/professional-services/">AWS Professional Services</a> open source initiative | aws-proserve-opensource@amazon.com</div>
+
+    </div>
+</section>
+
+
+<script src="/aws-ddk/assets/js/tabs.js"></script>
+</body>
+</html>

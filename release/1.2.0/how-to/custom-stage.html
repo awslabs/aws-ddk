@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Create Your Own Data Pipeline Stage | AWS DataOps Development Kit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Create Your Own Data Pipeline Stage" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<meta property="og:description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<link rel="canonical" href="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.2.0/how-to/custom-stage.html" />
+<meta property="og:url" content="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.2.0/how-to/custom-stage.html" />
+<meta property="og:site_name" content="AWS DataOps Development Kit" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Create Your Own Data Pipeline Stage" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"An open source development framework to help you build data workflows and modern data architecture on AWS.","headline":"Create Your Own Data Pipeline Stage","url":"https://github.com/awslabs/aws-ddk/aws-ddk/release/1.2.0/how-to/custom-stage.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/style.css?v=deabd3b4b64c389373e80f49cb2e31534d6725bd">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/custom.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <link rel="shortcut icon" type="/aws-ddk/image/png" href="/aws-ddk/favicon.ico">
+</head>
+<body>
+
+<section>
+    <div class="menu-background menu-background-berry">
+        <section class="menu-bar">
+            <div>
+                <nav role="navigation">
+                    <ul>
+                        <li><a class="nav-title" href="/aws-ddk/">AWS DDK</a></li>
+                        <li><a class="nav-item"  href="https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US" aria-haspopup="true">Getting Started</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to" aria-haspopup="true">How To</a>
+                        <li><a class="nav-item"  href="https://constructs.dev/packages/aws-ddk-core/" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">API Documentation</i></a>
+                        <li><a class="nav-item"  href="/aws-ddk/workshops" aria-haspopup="true">Workshops</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/releases" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">Releases</i></a>
+                            <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to/upgrade-guide.html" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">1.0.0 Upgrade Guide</i></a>
+                            
+                    </ul>
+                </nav>
+            </div>
+
+        </section>
+    </div>
+
+    
+    <div class="default-content default-content-margin-top" >
+        <div class="main-content">
+            <div>
+    <div>
+        <a href="../">← Index</a>
+    </div>
+        <h2 id="the-datastage-class">The DataStage Class</h2>
+
+<p>The AWS DDK provides a construct: <a href="https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/DataStage?lang=typescript">DataStage()</a> that can be inherited to build your own custom stages.</p>
+
+<h2 id="building-your-own-data-stage">Building Your Own Data Stage</h2>
+<p>Let’s say we need to create a stage that publishes S3 events to an SNS Topic.</p>
+
+<p>We’ll first need to create a Stage for the topic.</p>
+
+<ul class="tab" data-tab="2258803a-b2b6-470f-b760-706ca4285314" data-name="class">
+  
+      <li class="active">
+          <a href="#">typescript </a>
+      </li>
+  
+      <li>
+          <a href="#">python </a>
+      </li>
+  
+</ul>
+<ul class="tab-content" id="2258803a-b2b6-470f-b760-706ca4285314" data-name="class">
+  
+      <li class="active">
+<p>I’ll write a file to my application stack package called <code class="language-plaintext highlighter-rouge">sns.ts</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">events</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib/aws-events</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">eventsTargets</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib/aws-events-targets</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">sns</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib/aws-sns</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">DataStage</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-ddk-core</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Construct</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">constructs</span><span class="dl">"</span><span class="p">;</span> 
+
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">SNSStage</span> <span class="kd">extends</span> <span class="nx">DataStage</span> <span class="p">{</span>
+  <span class="nx">readonly</span> <span class="nx">topic</span><span class="p">:</span> <span class="nx">sns</span><span class="p">.</span><span class="nx">ITopic</span><span class="p">;</span>
+  <span class="nx">readonly</span> <span class="nx">targets</span><span class="p">?:</span> <span class="nx">events</span><span class="p">.</span><span class="nx">IRuleTarget</span><span class="p">[];</span>
+  <span class="nx">readonly</span> <span class="nx">eventPattern</span><span class="p">?:</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventPattern</span><span class="p">;</span>
+  
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">scope</span><span class="p">:</span> <span class="nx">Construct</span><span class="p">,</span> <span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="p">{});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">topic</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">sns</span><span class="p">.</span><span class="nx">Topic</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">SNS Topic</span><span class="dl">"</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">eventPattern</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">detailType</span><span class="p">:</span> <span class="p">[</span><span class="s2">`</span><span class="p">${</span><span class="nx">id</span><span class="p">}</span><span class="s2">-event-type`</span><span class="p">],</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">targets</span> <span class="o">=</span> <span class="p">[</span><span class="k">new</span> <span class="nx">eventsTargets</span><span class="p">.</span><span class="nx">SnsTopic</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">topic</span><span class="p">)]</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Now that I have a new class defining my SNS stage, I can instantiate it and add to my Data Pipeline.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">cdk</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BaseStack</span><span class="p">,</span> <span class="nx">BaseStackProps</span><span class="p">,</span> <span class="nx">DataPipeline</span><span class="p">,</span> <span class="nx">S3EventStage</span><span class="p">,</span> <span class="nx">S3Factory</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-ddk-core</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Construct</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">constructs</span><span class="dl">"</span><span class="p">;</span> 
+<span class="k">import</span> <span class="p">{</span> <span class="nx">SNSStage</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../lib/sns</span><span class="dl">"</span><span class="p">;</span>
+
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">DDKApplicationStack</span> <span class="kd">extends</span> <span class="nx">BaseStack</span> <span class="p">{</span>
+  
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">scope</span><span class="p">:</span> <span class="nx">Construct</span><span class="p">,</span> <span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">props</span><span class="p">?:</span> <span class="nx">BaseStackProps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">props</span> <span class="p">??</span> <span class="p">{});</span>
+    <span class="kd">const</span> <span class="nx">ddkBucket</span> <span class="o">=</span> <span class="nx">S3Factory</span><span class="p">.</span><span class="nx">bucket</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Bucket</span><span class="dl">"</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="kd">const</span> <span class="nx">s3EventStage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">S3EventStage</span><span class="p">(</span>
+      <span class="k">this</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">S3 Event Stage</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">eventNames</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Object Created</span><span class="dl">"</span><span class="p">],</span>
+        <span class="na">bucket</span><span class="p">:</span> <span class="nx">ddkBucket</span><span class="p">,</span>
+        <span class="na">keyPrefix</span><span class="p">:</span> <span class="dl">"</span><span class="s2">raw</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="kd">const</span> <span class="nx">snsStage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SNSStage</span><span class="p">(</span>
+      <span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">SNS Stage</span><span class="dl">"</span>
+    <span class="p">)</span>
+    <span class="k">new</span> <span class="nx">DataPipeline</span><span class="p">(</span>
+      <span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">DDK Pipeline</span><span class="dl">"</span><span class="p">,</span> <span class="p">{}</span>
+    <span class="p">).</span><span class="nx">addStage</span><span class="p">({</span><span class="na">stage</span><span class="p">:</span> <span class="nx">s3EventStage</span><span class="p">}).</span><span class="nx">addStage</span><span class="p">({</span><span class="na">stage</span><span class="p">:</span> <span class="nx">snsStage</span><span class="p">})</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">cdk</span><span class="p">.</span><span class="nx">App</span><span class="p">();</span>
+<span class="k">new</span> <span class="nx">DDKApplicationStack</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="dl">"</span><span class="s2">CustomStageStack</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">synth</span><span class="p">();</span>
+
+</code></pre></div></div>
+
+</li>
+  
+      <li>
+<p>I’ll write a file to my application stack package called <code class="language-plaintext highlighter-rouge">sns.py</code>.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">aws_cdk.aws_events</span> <span class="kn">import</span> <span class="n">EventPattern</span><span class="p">,</span> <span class="n">IRuleTarget</span>
+<span class="kn">from</span> <span class="nn">aws_cdk.aws_events_targets</span> <span class="kn">import</span> <span class="n">SnsTopic</span>
+<span class="kn">from</span> <span class="nn">aws_cdk.aws_sns</span> <span class="kn">import</span> <span class="n">ITopic</span><span class="p">,</span> <span class="n">Topic</span>
+<span class="kn">from</span> <span class="nn">aws_ddk_core</span> <span class="kn">import</span> <span class="n">DataStage</span>  <span class="c1"># importing DataStage class for ddk core
+</span><span class="kn">from</span> <span class="nn">constructs</span> <span class="kn">import</span> <span class="n">Construct</span>
+
+
+<span class="k">class</span> <span class="nc">SNSStage</span><span class="p">(</span><span class="n">DataStage</span><span class="p">):</span>
+    <span class="s">"""
+    Class that represents a SNS DDK Stage.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">scope</span><span class="p">:</span> <span class="n">Construct</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""
+        DDK SNS stage.
+        """</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">_event_detail_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s">-event-type"</span>
+
+        <span class="c1"># create topic
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">_topic</span> <span class="o">=</span> <span class="n">Topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s">"SNS Topic"</span><span class="p">)</span>
+
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">topic</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ITopic</span><span class="p">:</span>
+        <span class="s">"""
+        Return: Topic
+            The SNS Topic
+        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_topic</span>
+
+    <span class="c1"># method to retrieve Event Pattern
+</span>    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">event_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EventPattern</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">EventPattern</span><span class="p">(</span>
+            <span class="n">detail_type</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">_event_detail_type</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="c1"># methord to retrieve Event Rule Target
+</span>    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">targets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">IRuleTarget</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">SnsTopic</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_topic</span><span class="p">)]</span>
+
+
+</code></pre></div></div>
+
+<p>Now that I have a new class defining my SNS stage, I can instantiate it and add to my Data Pipeline.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">aws_cdk</span> <span class="k">as</span> <span class="n">cdk</span>
+<span class="kn">from</span> <span class="nn">aws_ddk_core</span> <span class="kn">import</span> <span class="n">BaseStack</span><span class="p">,</span> <span class="n">DataPipeline</span><span class="p">,</span> <span class="n">S3EventStage</span><span class="p">,</span> <span class="n">S3Factory</span>
+<span class="kn">from</span> <span class="nn">constructs</span> <span class="kn">import</span> <span class="n">Construct</span>
+
+<span class="kn">from</span> <span class="nn">ddk_app.sns</span> <span class="kn">import</span> <span class="n">SNSStage</span>  <span class="c1"># import my class I built above
+</span>
+
+<span class="k">class</span> <span class="nc">DDKApplicationStack</span><span class="p">(</span><span class="n">BaseStack</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="n">Construct</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># create my bucket
+</span>        <span class="n">ddk_bucket</span> <span class="o">=</span> <span class="n">S3Factory</span><span class="p">.</span><span class="n">bucket</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s">"Bucket"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># create an S3 Event Stage based off the class available from `aws_ddk_core.stages`
+</span>        <span class="n">s3_event_stage</span> <span class="o">=</span> <span class="n">S3EventStage</span><span class="p">(</span>
+            <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s">"S3 Event Stage"</span><span class="p">,</span>
+            <span class="n">event_names</span><span class="o">=</span><span class="p">[</span><span class="s">"Object Created"</span><span class="p">],</span>
+            <span class="n">bucket</span><span class="o">=</span><span class="n">ddk_bucket</span><span class="p">,</span>
+            <span class="n">key_prefix</span><span class="o">=</span><span class="s">"raw"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># instantiate my sns stage class
+</span>        <span class="n">sns_stage</span> <span class="o">=</span> <span class="n">SNSStage</span><span class="p">(</span>
+            <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s">"SNS Stage"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># construct my DataPipeline
+</span>        <span class="p">(</span>
+            <span class="n">DataPipeline</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s">"DDK Pipeline"</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">add_stage</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="n">s3_event_stage</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">add_stage</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="n">sns_stage</span><span class="p">)</span>
+        <span class="p">)</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">cdk</span><span class="p">.</span><span class="n">App</span><span class="p">()</span>
+
+<span class="n">DDKApplicationStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">"CustomStageStack"</span><span class="p">)</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">synth</span><span class="p">()</span>
+
+</code></pre></div></div>
+</li>
+  
+</ul>
+
+<h2 id="build">Build</h2>
+<p>Use <code class="language-plaintext highlighter-rouge">cdk deploy</code> to build your infrastructure.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>You should now have a Bucket that routes events to a Topic.</p>
+
+<p><img src="/aws-ddk/img/s3-to-sns.png" alt="Result" /></p>
+
+
+</div>
+
+        </div>
+    </div>
+    
+
+</section>
+<section class="main-content">
+    <hr>
+    <div class="footer-content">
+        <div>©2023 Amazon Web Services</div>
+        <div>An <a href="https://aws.amazon.com/professional-services/">AWS Professional Services</a> open source initiative | aws-proserve-opensource@amazon.com</div>
+
+    </div>
+</section>
+
+
+<script src="/aws-ddk/assets/js/tabs.js"></script>
+</body>
+</html>

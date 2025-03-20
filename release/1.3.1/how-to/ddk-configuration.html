@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>DDK Configurator | AWS DataOps Development Kit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="DDK Configurator" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<meta property="og:description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<link rel="canonical" href="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.3.1/how-to/ddk-configuration.html" />
+<meta property="og:url" content="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.3.1/how-to/ddk-configuration.html" />
+<meta property="og:site_name" content="AWS DataOps Development Kit" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="DDK Configurator" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"An open source development framework to help you build data workflows and modern data architecture on AWS.","headline":"DDK Configurator","url":"https://github.com/awslabs/aws-ddk/aws-ddk/release/1.3.1/how-to/ddk-configuration.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/style.css?v=deabd3b4b64c389373e80f49cb2e31534d6725bd">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/custom.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <link rel="shortcut icon" type="/aws-ddk/image/png" href="/aws-ddk/favicon.ico">
+</head>
+<body>
+
+<section>
+    <div class="menu-background menu-background-berry">
+        <section class="menu-bar">
+            <div>
+                <nav role="navigation">
+                    <ul>
+                        <li><a class="nav-title" href="/aws-ddk/">AWS DDK</a></li>
+                        <li><a class="nav-item"  href="https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US" aria-haspopup="true">Getting Started</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to" aria-haspopup="true">How To</a>
+                        <li><a class="nav-item"  href="https://constructs.dev/packages/aws-ddk-core/" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">API Documentation</i></a>
+                        <li><a class="nav-item"  href="/aws-ddk/workshops" aria-haspopup="true">Workshops</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/releases" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">Releases</i></a>
+                            <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to/upgrade-guide.html" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">1.0.0 Upgrade Guide</i></a>
+                            
+                    </ul>
+                </nav>
+            </div>
+
+        </section>
+    </div>
+
+    
+    <div class="default-content default-content-margin-top" >
+        <div class="main-content">
+            <div>
+    <div>
+        <a href="../">← Index</a>
+    </div>
+        <h2 id="purpose">Purpose</h2>
+<p>DDK promotes a <a href="https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development">trunk based</a> development approach where small changes are frequently applied to the <code class="language-plaintext highlighter-rouge">main</code> branch.
+As a result, this core branch is the one source of truth and the same infrastructure as code is used across multiple environments. However, there is often a need to apply distinct configuration
+to different environments (i.e. <code class="language-plaintext highlighter-rouge">dev</code>, <code class="language-plaintext highlighter-rouge">qa</code>, <code class="language-plaintext highlighter-rouge">prd</code>…). This How-To guide describes how this can be achieved in the DDK.</p>
+
+<h2 id="configuration">Configuration</h2>
+<p>DDK Core offers a construct: <a href="https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/Configurator?lang=typescript">Configurator</a> which can be used to manage configuration across several DDK environments. <strong>Note: This is a completely optional construct and users should feel free to build their own configuration mechanisms when necessary.</strong></p>
+
+<h3 id="example">Example</h3>
+<p>In this example we will begin by creating a configuration file.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>ddk.json
+</code></pre></div></div>
+<p>And updating it to include the following JSON data.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Global:Tag:foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"111111111111"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dev"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"222222222222"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"AWS::Lambda::Function"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"MemorySize"</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Runtime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python3.9"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"devStage/Queue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"VisibilityTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"AWS::S3::Bucket"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"RemovalPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DESTROY"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"CostCenter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014"</span><span class="p">},</span><span class="w">
+      </span><span class="nl">"props"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"special_prop"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foobar"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"prod"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"222222222222"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"AWS::Lambda::Function"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"MemorySize"</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Runtime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python3.9"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"CostCenter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s breakdown what’s included in this configuration file.</p>
+
+<ul>
+  <li>A tag <code class="language-plaintext highlighter-rouge">"Global:Tag:foo": "bar"</code> is defined globally which will be applied to any scope Configurator is used on regardless of environment.</li>
+  <li><code class="language-plaintext highlighter-rouge">account</code> &amp; <code class="language-plaintext highlighter-rouge">region</code> are defined globally which can be accessed from <code class="language-plaintext highlighter-rouge">Configurator.getEnvironment()</code> to be used where a <a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.Environment.html"><code class="language-plaintext highlighter-rouge">cdk.Environment</code></a> is applicable.</li>
+  <li><code class="language-plaintext highlighter-rouge">environments</code> is an object that includes configuration for any environments we would like to use. In this case there is one for <code class="language-plaintext highlighter-rouge">dev</code> and one for <code class="language-plaintext highlighter-rouge">prod</code>.</li>
+  <li>We include <code class="language-plaintext highlighter-rouge">account</code> &amp; <code class="language-plaintext highlighter-rouge">region</code> in the environment which can be accessed to be used where a <a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.Environment.html"><code class="language-plaintext highlighter-rouge">cdk.Environment</code></a> is applicable.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">resources</code> block contains any property overrides you would like to set. In this case we are overriding <code class="language-plaintext highlighter-rouge">MemorySize</code> &amp; <code class="language-plaintext highlighter-rouge">Runtime</code> in our Lambda Functions, setting <code class="language-plaintext highlighter-rouge">VisibilityTimeout</code> for our SQS queue in <code class="language-plaintext highlighter-rouge">dev</code> and setting <code class="language-plaintext highlighter-rouge">DESTROY</code> removal policy for our S3 Bucket in <code class="language-plaintext highlighter-rouge">dev</code>. This will be explained in more detail <a href="#resource-specific-configuration">below</a>.</li>
+</ul>
+
+<p>Next let’s create a CDK file using Configurator to control resources in our stacks.</p>
+<ul class="tab" data-tab="69a735d9-e2dd-4df4-9921-0130bd3fb8b4" data-name="language">
+  
+      <li class="active">
+          <a href="#">typescript </a>
+      </li>
+  
+      <li>
+          <a href="#">python </a>
+      </li>
+  
+</ul>
+<ul class="tab-content" id="69a735d9-e2dd-4df4-9921-0130bd3fb8b4" data-name="language">
+  
+      <li class="active">
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">cdk</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">lambda</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib/aws-lambda</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">s3</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-cdk-lib/aws-s3</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span>
+  <span class="nx">BaseStack</span><span class="p">,</span>
+  <span class="nx">Configurator</span><span class="p">,</span>
+  <span class="nx">DataPipeline</span><span class="p">,</span>
+  <span class="nx">S3EventStage</span><span class="p">,</span>
+  <span class="nx">SqsToLambdaStage</span><span class="p">,</span>
+<span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">aws-ddk-core</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Construct</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">constructs</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">cdk</span><span class="p">.</span><span class="nx">App</span><span class="p">();</span>
+
+<span class="kd">class</span> <span class="nx">ExampleStack</span> <span class="kd">extends</span> <span class="nx">BaseStack</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">scope</span><span class="p">:</span> <span class="nx">Construct</span><span class="p">,</span> <span class="nx">environment</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="s2">`</span><span class="p">${</span><span class="nx">environment</span><span class="p">}</span><span class="s2">Resources`</span><span class="p">,</span> <span class="p">{});</span>
+    <span class="kd">const</span> <span class="nx">s3Stage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">S3EventStage</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">`MyEventBucket</span><span class="p">${</span><span class="nx">environment</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">bucket</span><span class="p">:</span> <span class="k">new</span> <span class="nx">s3</span><span class="p">.</span><span class="nx">Bucket</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">`MyBucket</span><span class="p">${</span><span class="nx">environment</span><span class="p">}</span><span class="s2">`</span><span class="p">),</span>
+      <span class="na">eventNames</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Object Created</span><span class="dl">"</span><span class="p">],</span>
+    <span class="p">});</span>
+    <span class="kd">const</span> <span class="nx">sqsToLambdaStage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SqsToLambdaStage</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">`</span><span class="p">${</span><span class="nx">environment</span><span class="p">}</span><span class="s2">Stage`</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">lambdaFunctionProps</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">code</span><span class="p">:</span> <span class="nx">lambda</span><span class="p">.</span><span class="nx">Code</span><span class="p">.</span><span class="nx">fromInline</span><span class="p">(</span>
+          <span class="dl">"</span><span class="s2">def lambda_handler(event, context): pass;</span><span class="dl">"</span>
+        <span class="p">),</span>
+        <span class="na">handler</span><span class="p">:</span> <span class="dl">"</span><span class="s2">lambda_function.lambda_handler</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">runtime</span><span class="p">:</span> <span class="nx">lambda</span><span class="p">.</span><span class="nx">Runtime</span><span class="p">.</span><span class="nx">PYTHON_3_8</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">});</span>
+    <span class="k">new</span> <span class="nx">DataPipeline</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">`</span><span class="p">${</span><span class="nx">environment</span><span class="p">}</span><span class="s2">DataPipeline`</span><span class="p">,</span> <span class="p">{})</span>
+      <span class="p">.</span><span class="nx">addStage</span><span class="p">({</span> <span class="na">stage</span><span class="p">:</span> <span class="nx">s3Stage</span> <span class="p">})</span>
+      <span class="p">.</span><span class="nx">addStage</span><span class="p">({</span> <span class="na">stage</span><span class="p">:</span> <span class="nx">sqsToLambdaStage</span> <span class="p">});</span>
+    <span class="k">new</span> <span class="nx">Configurator</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">./ddk.json</span><span class="dl">"</span><span class="p">,</span> <span class="nx">environment</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Dev Stack</span>
+<span class="k">new</span> <span class="nx">ExampleStack</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="dl">"</span><span class="s2">dev</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">// Prod Stack</span>
+<span class="k">new</span> <span class="nx">ExampleStack</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="dl">"</span><span class="s2">prod</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+</li>
+  
+      <li>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">aws_cdk</span> <span class="k">as</span> <span class="n">cdk</span>
+<span class="kn">import</span> <span class="nn">aws_cdk.aws_lambda</span> <span class="k">as</span> <span class="n">lmbda</span>
+<span class="kn">import</span> <span class="nn">aws_cdk.aws_s3</span> <span class="k">as</span> <span class="n">s3</span>
+<span class="kn">from</span> <span class="nn">aws_ddk_core</span> <span class="kn">import</span> <span class="n">BaseStack</span><span class="p">,</span> <span class="n">Configurator</span><span class="p">,</span> <span class="n">DataPipeline</span><span class="p">,</span><span class="n">S3EventStage</span><span class="p">,</span><span class="n">SqsToLambdaStage</span>
+<span class="kn">from</span> <span class="nn">constructs</span> <span class="kn">import</span> <span class="n">Construct</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">cdk</span><span class="p">.</span><span class="n">App</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">ExampleStack</span><span class="p">(</span><span class="n">BaseStack</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">scope</span><span class="p">:</span> <span class="n">Construct</span><span class="p">,</span>
+        <span class="n">environment</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">environment</span><span class="si">}</span><span class="s">Resources"</span><span class="p">)</span>
+        <span class="n">s3_stage</span> <span class="o">=</span> <span class="n">S3EventStage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s">"MyEventBucket</span><span class="si">{</span><span class="n">environment</span><span class="si">}</span><span class="s">"</span><span class="p">,</span> <span class="n">bucket</span><span class="o">=</span><span class="n">s3</span><span class="p">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s">"MyBucket</span><span class="si">{</span><span class="n">environment</span><span class="si">}</span><span class="s">"</span><span class="p">),</span> <span class="n">event_names</span><span class="o">=</span><span class="p">[</span><span class="s">"Object Created"</span><span class="p">])</span>
+        <span class="n">sqs_to_lambda_stage</span> <span class="o">=</span> <span class="n">SqsToLambdaStage</span><span class="p">(</span>
+          <span class="bp">self</span><span class="p">,</span> 
+          <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">environment</span><span class="si">}</span><span class="s">Stage"</span><span class="p">,</span> 
+          <span class="n">lambda_function_props</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">"code"</span><span class="p">:</span> <span class="n">lmbda</span><span class="p">.</span><span class="n">Code</span><span class="p">.</span><span class="n">from_inline</span><span class="p">(</span>
+              <span class="s">"def lambda_handler(event, context): pass;"</span>
+            <span class="p">),</span>
+            <span class="s">"handler"</span><span class="p">:</span> <span class="s">"lambda_function.lambda_handler"</span><span class="p">,</span>
+            <span class="s">"runtime"</span><span class="p">:</span> <span class="n">lmbda</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">PYTHON_3_8</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">DataPipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">environment</span><span class="si">}</span><span class="s">DataPipeline"</span><span class="p">).</span><span class="n">add_stage</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="n">s3_stage</span><span class="p">).</span><span class="n">add_stage</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="n">sqs_to_lambda_stage</span><span class="p">)</span>
+        <span class="n">Configurator</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="s">"./ddk.json"</span><span class="p">,</span> <span class="n">environment_id</span><span class="o">=</span><span class="n">environment</span><span class="p">)</span>
+
+<span class="c1"># Dev Stack
+</span><span class="n">ExampleStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">"dev"</span><span class="p">)</span>
+
+<span class="c1"># Prod Stack
+</span><span class="n">ExampleStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">"prod"</span><span class="p">)</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">synth</span><span class="p">()</span>
+
+</code></pre></div></div>
+</li>
+  
+</ul>
+
+<p>Now let’s synthesize our templates to examine <code class="language-plaintext highlighter-rouge">Configurator</code> in action.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cdk synth devResources
+cdk synth prodResources
+</code></pre></div></div>
+
+<p>If we take a look at the SQS Queue in <code class="language-plaintext highlighter-rouge">devResources</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">devStageQueue44060536</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">AWS::SQS::Queue</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="na">Tags</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">Key</span><span class="pi">:</span> <span class="s">CostCenter</span>
+          <span class="na">Value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2014"</span>
+        <span class="pi">-</span> <span class="na">Key</span><span class="pi">:</span> <span class="s">Global:Tag:foo</span>
+          <span class="na">Value</span><span class="pi">:</span> <span class="s">bar</span>
+      <span class="na">VisibilityTimeout</span><span class="pi">:</span> <span class="m">180</span>
+    <span class="na">UpdateReplacePolicy</span><span class="pi">:</span> <span class="s">Delete</span>
+    <span class="na">DeletionPolicy</span><span class="pi">:</span> <span class="s">Delete</span>
+    <span class="na">Metadata</span><span class="pi">:</span>
+      <span class="s">aws:cdk:path: devResources/devStage/Queue/Resource</span>
+</code></pre></div></div>
+
+<p>We can see that <code class="language-plaintext highlighter-rouge">VisibilityTimeout</code> has been updated as well as both the global tag and environment tag have been added to the resource. The same should follow for the other resources called out by the configuration.</p>
+
+<h2 id="resource-specific-configuration">Resource Specific Configuration</h2>
+<p>Resource specific configuration can be set in <code class="language-plaintext highlighter-rouge">Configurator</code> within the <code class="language-plaintext highlighter-rouge">resources</code> object of any given environment. For example given a configuration:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"444444444444"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ddk-glue-transform-job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="nl">"worker_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>Any underlying CDK resource matching the id: “<em>ddk-glue-transform-job</em>” would be passed the properties “<em>timeout</em>” and “<em>worker_count</em>” in the <code class="language-plaintext highlighter-rouge">test</code> environment.</p>
+
+<p>All resources of a given type e.g. <code class="language-plaintext highlighter-rouge">AWS::Lambda::Function</code> can be configured as well, but this will override properties for any resource matching that type within a following scope <strong>Configurator</strong> has been applied to. For example:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"environments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"444444444444"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"AWS::Lambda::Function"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"MemorySize"</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+</div>
+
+        </div>
+    </div>
+    
+
+</section>
+<section class="main-content">
+    <hr>
+    <div class="footer-content">
+        <div>©2023 Amazon Web Services</div>
+        <div>An <a href="https://aws.amazon.com/professional-services/">AWS Professional Services</a> open source initiative | aws-proserve-opensource@amazon.com</div>
+
+    </div>
+</section>
+
+
+<script src="/aws-ddk/assets/js/tabs.js"></script>
+</body>
+</html>

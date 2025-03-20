@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>1.0.0 Upgrade guide | AWS DataOps Development Kit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="1.0.0 Upgrade guide" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<meta property="og:description" content="An open source development framework to help you build data workflows and modern data architecture on AWS." />
+<link rel="canonical" href="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.0.0/how-to/upgrade-guide.html" />
+<meta property="og:url" content="https://github.com/awslabs/aws-ddk/aws-ddk/release/1.0.0/how-to/upgrade-guide.html" />
+<meta property="og:site_name" content="AWS DataOps Development Kit" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="1.0.0 Upgrade guide" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"An open source development framework to help you build data workflows and modern data architecture on AWS.","headline":"1.0.0 Upgrade guide","url":"https://github.com/awslabs/aws-ddk/aws-ddk/release/1.0.0/how-to/upgrade-guide.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/style.css?v=deabd3b4b64c389373e80f49cb2e31534d6725bd">
+    <link rel="stylesheet" href="/aws-ddk/assets/css/custom.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <link rel="shortcut icon" type="/aws-ddk/image/png" href="/aws-ddk/favicon.ico">
+</head>
+<body>
+
+<section>
+    <div class="menu-background menu-background-berry">
+        <section class="menu-bar">
+            <div>
+                <nav role="navigation">
+                    <ul>
+                        <li><a class="nav-title" href="/aws-ddk/">AWS DDK</a></li>
+                        <li><a class="nav-item"  href="https://catalog.us-east-1.prod.workshops.aws/workshops/3644b48b-1d7c-43ef-a353-6edcd96385af/en-US" aria-haspopup="true">Getting Started</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to" aria-haspopup="true">How To</a>
+                        <li><a class="nav-item"  href="https://constructs.dev/packages/aws-ddk-core/" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">API Documentation</i></a>
+                        <li><a class="nav-item"  href="/aws-ddk/workshops" aria-haspopup="true">Workshops</a></li>
+                        <li><a class="nav-item"  href="/aws-ddk/releases" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">Releases</i></a>
+                            <li><a class="nav-item"  href="/aws-ddk/release/latest/how-to/upgrade-guide.html" target=”_blank” rel="noreferrer noopener" aria-haspopup="true">1.0.0 Upgrade Guide</i></a>
+                            
+                    </ul>
+                </nav>
+            </div>
+
+        </section>
+    </div>
+
+    
+    <div class="default-content default-content-margin-top" >
+        <div class="main-content">
+            <div>
+    <div>
+        <a href="../">← Index</a>
+    </div>
+        <h1 id="100-major-version-release">1.0.0 Major Version Release</h1>
+<p>Version <code class="language-plaintext highlighter-rouge">1.0.0</code> of the AWS DDK includes the following high-level changes and updates.</p>
+<ul>
+  <li>Source code is now written in Typescript and uses <a href="https://aws.github.io/jsii"><strong>JSII</strong></a> to package both python and typescript versions of the library. In the near future we will add support for all AWS CDK supported programming languages.</li>
+  <li>A new <strong>optional</strong> config construct <code class="language-plaintext highlighter-rouge">Configurator()</code> has been implemented to replace the required <code class="language-plaintext highlighter-rouge">Config()</code> construct from earlier verisons.</li>
+  <li>The <a href="https://pypi.org/project/aws-ddk/">DDK CLI</a> has been deprectated. <strong>Projects that were bootstrapped using <code class="language-plaintext highlighter-rouge">ddk bootstrap</code> will still be supported.</strong></li>
+  <li>New stages have been added
+    <ul>
+      <li><a href="https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/RedshiftDataApiStage"><code class="language-plaintext highlighter-rouge">RedshiftDataApiStage()</code></a></li>
+      <li><a href="https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/SnsSqsToLambdaStage"><code class="language-plaintext highlighter-rouge">SnsSqsToLambdaStage()</code></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="config">Config</h2>
+<p><code class="language-plaintext highlighter-rouge">Configurator</code> is the new <strong>optional</strong> construct used to manage config across multiple environments. While this can handle a variety of use cases we encourage users to build their own config mechanisms when it <code class="language-plaintext highlighter-rouge">Configurator</code> is not the best option. See <a href="https://awslabs.github.io/aws-ddk/release/latest/how-to/ddk-configuration.html">this how-to guide</a>for more on using Configurator.</p>
+
+<h2 id="bootstrapping">Bootstrapping</h2>
+<p>Customers that have already bootstrapped accounts and regions using <code class="language-plaintext highlighter-rouge">ddk bootstrap</code> can easily use the same roles by following the <a href="https://awslabs.github.io/aws-ddk/release/latest/how-to/custom-bootstrap.html"><strong>Using Legacy DDK Bootstrap Roles</strong> section of this guide</a>.</p>
+
+<h2 id="stage-properties">Stage Properties</h2>
+<p>Because we have shifted to using typescript interfaces provided by the AWS CDK some properties may look slightly different in the new version. We will outline some common changes below, but always refer to the <a href="https://constructs.dev/packages/aws-ddk-core">API documentation</a> if you are unsure.</p>
+
+<ul>
+  <li><strong>Data Pipeline</strong>: Now requires positional arguments in the <code class="language-plaintext highlighter-rouge">add_stage()</code> method.</li>
+</ul>
+<ul class="tab" data-tab="1927b7b7-9ad5-40bf-b4da-1a68b09095f3" data-name="language">
+  
+      <li class="active">
+          <a href="#">typescript </a>
+      </li>
+  
+      <li>
+          <a href="#">python </a>
+      </li>
+  
+</ul>
+<ul class="tab-content" id="1927b7b7-9ad5-40bf-b4da-1a68b09095f3" data-name="language">
+  
+      <li class="active">
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">DataPipeline</span><span class="p">(</span>
+      <span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">DDK Pipeline</span><span class="dl">"</span><span class="p">,</span> <span class="p">{}</span>
+    <span class="p">).</span><span class="nx">addStage</span><span class="p">({</span><span class="na">stage</span><span class="p">:</span> <span class="nx">myFirstStage</span><span class="p">}).</span><span class="nx">addStage</span><span class="p">({</span><span class="na">stage</span><span class="p">:</span> <span class="nx">mySecondStage</span><span class="p">})</span>
+</code></pre></div></div>
+</li>
+  
+      <li>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span>
+  <span class="n">DataPipeline</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s">"DDK Pipeline"</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_stage</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="n">my_first_stage</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_stage</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="n">my_second_stage</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+</li>
+  
+</ul>
+<ul>
+  <li><strong>Changes to SqsToLambdaStage Properties</strong>: Function and queue properties now have their own dedicated positional argument.</li>
+</ul>
+<ul class="tab" data-tab="26f92461-7b5f-444a-b9b2-b75e6f1c5091" data-name="language">
+  
+      <li class="active">
+          <a href="#">typescript </a>
+      </li>
+  
+      <li>
+          <a href="#">python </a>
+      </li>
+  
+</ul>
+<ul class="tab-content" id="26f92461-7b5f-444a-b9b2-b75e6f1c5091" data-name="language">
+  
+      <li class="active">
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">SqsToLambdaStage</span><span class="p">(</span>
+  <span class="k">this</span><span class="p">,</span> 
+  <span class="dl">"</span><span class="s2">Lambda Stage</span><span class="dl">"</span><span class="p">,</span> 
+  <span class="p">{</span>
+    <span class="na">lambdaFunctionProps</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">functionName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">dummy-function</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">code</span><span class="p">:</span> <span class="nx">lambda</span><span class="p">.</span><span class="nx">Code</span><span class="p">.</span><span class="nx">fromAsset</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">"</span><span class="s2">/../src/</span><span class="dl">"</span><span class="p">)),</span>
+      <span class="na">handler</span><span class="p">:</span> <span class="dl">"</span><span class="s2">commons.handlers.lambda_handler</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">runtime</span><span class="p">:</span> <span class="nx">lambda</span><span class="p">.</span><span class="nx">Runtime</span><span class="p">.</span><span class="nx">PYTHON_3_8</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">sqsQueueProps</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">queueName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">dummy-queue.fifo</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">visibilityTimeout</span><span class="p">:</span> <span class="nx">cdk</span><span class="p">.</span><span class="nx">Duration</span><span class="p">.</span><span class="nx">minutes</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+    <span class="p">},</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div></div>
+</li>
+  
+      <li>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SqsToLambdaStage</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s">"lambda-stage"</span><span class="p">,</span>
+    <span class="n">lambda_function_props</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">"code"</span><span class="p">:</span> <span class="n">Code</span><span class="p">.</span><span class="n">from_asset</span><span class="p">(</span><span class="s">"./ddk_app/lambda_handlers"</span><span class="p">),</span>
+        <span class="s">"handler"</span><span class="p">:</span> <span class="s">"handler.lambda_handler"</span><span class="p">,</span>
+        <span class="s">"layers"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">LayerVersion</span><span class="p">.</span><span class="n">from_layer_version_arn</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="nb">id</span><span class="o">=</span><span class="s">"layer"</span><span class="p">,</span>
+                <span class="n">layer_version_arn</span><span class="o">=</span><span class="sa">f</span><span class="s">"arn:aws:lambda:</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">region</span><span class="si">}</span><span class="s">:336392948345:layer:AWSDataWrangler-Python39:1"</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">],</span>
+        <span class="s">"runtime"</span><span class="p">:</span> <span class="n">Runtime</span><span class="p">.</span><span class="n">PYTHON_3_9</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</code></pre></div></div>
+</li>
+  
+</ul>
+<ul>
+  <li><strong>BaseStack</strong>: No longer requires an environment id. See <a href="https://constructs.dev/packages/aws-ddk-core/v/1.0.0-beta.1/api/BaseStackProps"><code class="language-plaintext highlighter-rouge">BaseStackProps()</code></a> for more details.</li>
+</ul>
+<ul class="tab" data-tab="ccd50390-ac7b-47bf-aa2e-148f14f4e90e" data-name="language">
+  
+      <li class="active">
+          <a href="#">typescript </a>
+      </li>
+  
+      <li>
+          <a href="#">python </a>
+      </li>
+  
+</ul>
+<ul class="tab-content" id="ccd50390-ac7b-47bf-aa2e-148f14f4e90e" data-name="language">
+  
+      <li class="active">
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">BaseStack</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="dl">"</span><span class="s2">my-stack</span><span class="dl">"</span><span class="p">,</span> <span class="p">{});</span>
+</code></pre></div></div>
+</li>
+  
+      <li>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BaseStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">"my-stack"</span><span class="p">)</span>
+</code></pre></div></div>
+</li>
+  
+</ul>
+
+
+</div>
+
+        </div>
+    </div>
+    
+
+</section>
+<section class="main-content">
+    <hr>
+    <div class="footer-content">
+        <div>©2023 Amazon Web Services</div>
+        <div>An <a href="https://aws.amazon.com/professional-services/">AWS Professional Services</a> open source initiative | aws-proserve-opensource@amazon.com</div>
+
+    </div>
+</section>
+
+
+<script src="/aws-ddk/assets/js/tabs.js"></script>
+</body>
+</html>
