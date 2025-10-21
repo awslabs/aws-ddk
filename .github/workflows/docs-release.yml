@@ -9,6 +9,9 @@ on:
       version:
         description: 'Version of documentation to generate and release, x.y.z'     
         required: true
+permissions:
+  contents: write
+
 jobs:
   docs-release:
     runs-on: ubuntu-latest
