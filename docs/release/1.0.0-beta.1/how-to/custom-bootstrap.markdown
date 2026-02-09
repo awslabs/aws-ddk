@@ -41,14 +41,14 @@ __Configurator uses the [DefaultStackSynthesizer](https://docs.aws.amazon.com/cd
 "environments": {
   "dev": {
     "bootstrap": {
-      "qualifier": "abcdefgh",
-      "bucket_name": "ddk-abcdefgh-assets-000000000000-us-west-2",
-      "deploy_role": "arn:aws:iam::000000000000:role/ddk-abcdefgh--deploy-role-000000000000-us-west-2",
+      "qualifier": "<QUALIFIER>",
+      "bucket_name": "ddk-<QUALIFIER>-assets-<YOUR-ACCOUNT-ID>-<REGION>",
+      "deploy_role": "arn:aws:iam::<YOUR-ACCOUNT-ID>:role/ddk-<QUALIFIER>--deploy-role-<YOUR-ACCOUNT-ID>-<REGION>",
       "cfn_execution_role":
-        "arn:aws:iam::000000000000:role/ddk-abcdefgh-cfn-exec-role-000000000000-us-west-2",
+        "arn:aws:iam::<YOUR-ACCOUNT-ID>:role/ddk-<QUALIFIER>-cfn-exec-role-<YOUR-ACCOUNT-ID>-<REGION>",
       "file_publish_role":
-        "arn:aws:iam::000000000000:role/ddk-abcdefgh-file-publishing-role-000000000000-us-west-2",
-      "lookup_role": "arn:aws:iam::000000000000:role/ddk-abcdefgh-lookup-role-000000000000-us-west-2",
+        "arn:aws:iam::<YOUR-ACCOUNT-ID>:role/ddk-<QUALIFIER>-file-publishing-role-<YOUR-ACCOUNT-ID>-<REGION>",
+      "lookup_role": "arn:aws:iam::<YOUR-ACCOUNT-ID>:role/ddk-<QUALIFIER>-lookup-role-<YOUR-ACCOUNT-ID>-<REGION>",
     }
   }
 }

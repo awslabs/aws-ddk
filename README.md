@@ -1,4 +1,10 @@
 # AWS DataOps Development Kit (DDK)
+
+> [!WARNING]
+> **This repository has been archived and is no longer maintained.**
+> 
+> This project is no longer actively developed or supported. The repository has been made read-only for historical reference.
+
 ![Actions Status](https://github.com/awslabs/aws-ddk/actions/workflows/build.yml/badge.svg)
 [![npm version](https://badge.fury.io/js/aws-ddk-core.svg)](https://badge.fury.io/js/aws-ddk-core)
 [![PyPi version](https://badge.fury.io/py/aws-ddk-core.svg)](https://badge.fury.io/py/aws-ddk-core)

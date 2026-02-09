@@ -97,16 +97,15 @@ test("Base Stack Global Bootstrap Full Config", () => {
   const sampleConfig = {
     bootstrap: {
       qualifier: "abcdefgh",
-      bucket_name: "ddk-abcdefgh-assets-000000000000-us-west-2",
-      repositoryName: "ddk-abcdefgh--container-assets-000000000000-us-west-2",
-      _deployRoleArn: "arn:aws:iam::000000000000:role/ddk-abcdefgh--deploy-role-000000000000-us-west-2",
-      _cloudFormationExecutionRoleArn:
-        "arn:aws:iam::000000000000:role/ddk-abcdefgh-cfn-exec-role-000000000000-us-west-2",
+      bucket_name: "ddk-xxxxxx-assets-111111111111-us-east-1",
+      repositoryName: "ddk-xxxxxx-container-assets-111111111111-us-east-1",
+      _deployRoleArn: "arn:aws:iam::111111111111:role/ddk-xxxxxx-deploy-role-111111111111-us-east-1",
+      _cloudFormationExecutionRoleArn: "arn:aws:iam::111111111111:role/ddk-xxxxxx-cfn-exec-role-111111111111-us-east-1",
       fileAssetPublishingRoleArn:
-        "arn:aws:iam::000000000000:role/ddk-abcdefgh-file-publishing-role-000000000000-us-west-2",
+        "arn:aws:iam::111111111111:role/ddk-xxxxxx-file-publishing-role-111111111111-us-east-1",
       imageAssetPublishingRoleArn:
-        "arn:aws:iam::000000000000:role/ddk-abcdefgh-image-publishing-role-000000000000-us-west-2",
-      lookupRoleArn: "arn:aws:iam::000000000000:role/ddk-abcdefgh-lookup-role-000000000000-us-west-2",
+        "arn:aws:iam::111111111111:role/ddk-xxxxxx-image-publishing-role-111111111111-us-east-1",
+      lookupRoleArn: "arn:aws:iam::111111111111:role/ddk-xxxxxx-lookup-role-111111111111-us-east-1",
     },
     environments: {
       dev: {},
@@ -198,16 +197,16 @@ test("Base Stack Environment Bootstrap Full Config", () => {
       dev: {
         bootstrap: {
           qualifier: "abcdefgh",
-          bucket_name: "ddk-abcdefgh-assets-000000000000-us-west-2",
-          repositoryName: "ddk-abcdefgh--container-assets-000000000000-us-west-2",
-          _deployRoleArn: "arn:aws:iam::000000000000:role/ddk-abcdefgh--deploy-role-000000000000-us-west-2",
+          bucket_name: "ddk-xxxxxx-assets-111111111111-us-east-1",
+          repositoryName: "ddk-xxxxxx-container-assets-111111111111-us-east-1",
+          _deployRoleArn: "arn:aws:iam::111111111111:role/ddk-xxxxxx-deploy-role-111111111111-us-east-1",
           _cloudFormationExecutionRoleArn:
-            "arn:aws:iam::000000000000:role/ddk-abcdefgh-cfn-exec-role-000000000000-us-west-2",
+            "arn:aws:iam::111111111111:role/ddk-xxxxxx-cfn-exec-role-111111111111-us-east-1",
           fileAssetPublishingRoleArn:
-            "arn:aws:iam::000000000000:role/ddk-abcdefgh-file-publishing-role-000000000000-us-west-2",
+            "arn:aws:iam::111111111111:role/ddk-xxxxxx-file-publishing-role-111111111111-us-east-1",
           imageAssetPublishingRoleArn:
-            "arn:aws:iam::000000000000:role/ddk-abcdefgh-image-publishing-role-000000000000-us-west-2",
-          lookupRoleArn: "arn:aws:iam::000000000000:role/ddk-abcdefgh-lookup-role-000000000000-us-west-2",
+            "arn:aws:iam::111111111111:role/ddk-xxxxxx-image-publishing-role-111111111111-us-east-1",
+          lookupRoleArn: "arn:aws:iam::111111111111:role/ddk-xxxxxx-lookup-role-111111111111-us-east-1",
         },
       },
     },
